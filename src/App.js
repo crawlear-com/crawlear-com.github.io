@@ -18,6 +18,10 @@ function App() {
   const [state, setState] = React.useState(STATE_GAME);
   let stateComponent;
 
+  function onLinkClicked(link) {
+
+  }
+
   if(state === STATE_GAME) {
     stateComponent = <GameController />;
     
@@ -28,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Menu></Menu>
+        <Menu onLinkClicked={onLinkClicked}></Menu>
         <img src={logo} alt="logo" />
       </header>
 
