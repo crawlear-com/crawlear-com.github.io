@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlText from './ControlText';
+import ReactGA from 'react-ga';
 
 const MODE_SIMPLE = 0;
 const MODE_OFFICIAL = 1;
@@ -48,6 +49,10 @@ function PointsGame({mode, onGameEnd, players}) {
             };
         });
     }
+
+    React.useEffect(() => {
+        ReactGA.pageview('/pointsgame/');
+    },[]);
 
     if (state.players.length>0) {
         const currentPlayer = state.players[state.currentPlayer];

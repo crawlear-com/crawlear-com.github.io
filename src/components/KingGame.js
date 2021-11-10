@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlText from './ControlText';
+import ReactGA from 'react-ga';
 
 const MODE_SIMPLE = 0;
 const MODE_OFFICIAL = 1;
@@ -60,6 +61,10 @@ function KingGame({mode, onGameEnd, players}) {
         }
         onGameEnd(winner);
     }
+
+    React.useEffect(() => {
+        ReactGA.pageview('/kinggame/');
+    },[]);
 
     let result = [];
 

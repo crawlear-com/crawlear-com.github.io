@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ControlText from './ControlText';
 import TimerControl from './TimerControl';
 import Utils from '../Utils';
+import ReactGA from 'react-ga';
 
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
@@ -15,6 +16,10 @@ let timer = null;
 function TotalTimeGame({mode, onGameEnd, players}) {
     const [state, setState] = React.useState(initControlTestValues({ mode, players }));
     const { t, i18n } = useTranslation();
+    
+    React.useEffect(() => {
+        ReactGA.pageview('/totaltimegame/');
+    },[]);
 
     React.useEffect(()=> {
         const newState = {

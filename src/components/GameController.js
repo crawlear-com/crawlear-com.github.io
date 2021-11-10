@@ -6,6 +6,7 @@ import KingGame from './KingGame';
 import PointsGame from './PointsGame';
 import Utils from '../Utils';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga';
 
 const GAME_STATUS_MENU = 0;
 const GAME_STATUS_PLAY = 1;
@@ -30,6 +31,12 @@ function GameController(props) {
         gameSelected: GAME_TYPE_TIME,
         pointsTypeSelected: GAME_MODE_SIMPLE
     });
+
+    React.useEffect(() => {
+        if(state.gameStatus === GAME_STATUS_MENU) {
+            ReactGA.pageview('/kinggame/');
+        }
+    },[state.gameStatus]);
 
     elementsToRender.push(<div ref={alertBoxRef} className="hideAlert alertBox"></div>);
 

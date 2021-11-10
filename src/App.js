@@ -10,6 +10,7 @@ import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
 import React from 'react';
+import ReactGA from 'react-ga';
 
 const STATE_GAME = 0;
 const STATE_ABOUTUS = 1;
@@ -18,13 +19,17 @@ function App() {
   const [state, setState] = React.useState(STATE_GAME);
   let stateComponent;
 
+  React.useEffect(() => {
+    ReactGA.initialize('UA-000000-01');
+    ReactGA.pageview('/');
+  }, [])
+
   function onLinkClicked(link) {
 
   }
 
   if(state === STATE_GAME) {
     stateComponent = <GameController />;
-    
   } else if(state === STATE_ABOUTUS) {
     stateComponent = <AboutUs />;
   }
