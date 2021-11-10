@@ -21,6 +21,7 @@ function Menu(props) {
             <div className="burguerMenuBar"></div>
             <div className="linksContainer">
                 <a href="">About us</a>
+                <a href="">Privacy Policy</a>
             </div>
         </div>
     } else {
