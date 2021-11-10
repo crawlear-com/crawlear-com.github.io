@@ -20,7 +20,7 @@ function App() {
   let stateComponent;
 
   React.useEffect(() => {
-    ReactGA.initialize('UA-000000-01');
+    ReactGA.initialize('G-HS128GNXYK');
     ReactGA.pageview('/');
   }, [])
 
