@@ -1,0 +1,16 @@
+.menuContainer {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin: 2px;
+    border-radius: 7px;
+    height: 33px;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.menuContainer div {
+    width: 25px;
+    height: 4px;
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+}
