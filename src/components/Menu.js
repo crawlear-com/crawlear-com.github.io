@@ -3,11 +3,15 @@ import { isCompositeComponent } from 'react-dom/test-utils';
 import '../resources/css/Menu.css';
 import ReactGA from 'react-ga';
 
-function Menu(props) {
-    const [isOpen, setIsOpen, onLinkClicked] = React.useState(false);
+function Menu({onLinkClicked}) {
+    const [isOpen, setIsOpen] = React.useState(false);
 
     function onMenuClick() {
         setIsOpen(!isOpen);
+    }
+
+    function clickAction(event) {
+        onLinkClicked(event.target.dataset.link);
     }
 
     React.useEffect(() => {
@@ -21,7 +25,7 @@ function Menu(props) {
             <div className="burguerMenuBar"></div>
             <div className="linksContainer">
                 <ul>
-                    <li><a href="">About us</a></li>
+                    <li><a href="#void" data-link="aboutus" onClick={clickAction}>About us</a></li>
                     <li><a href="/privacy.html">Privacy Policy</a></li>
                 </ul>
             </div>

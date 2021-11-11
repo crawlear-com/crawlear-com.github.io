@@ -25,13 +25,18 @@ function App() {
   }, [])
 
   function onLinkClicked(link) {
+    setState(STATE_ABOUTUS);
+  }
 
+  function onLinkClickedAboutUs()
+  {
+    setState(STATE_GAME);
   }
 
   if(state === STATE_GAME) {
     stateComponent = <GameController />;
   } else if(state === STATE_ABOUTUS) {
-    stateComponent = <AboutUs />;
+    stateComponent = <AboutUs onLinkClicked={onLinkClickedAboutUs} />;
   }
 
   return (
