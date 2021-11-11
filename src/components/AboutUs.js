@@ -13,6 +13,8 @@ function AboutUs({onLinkClicked}) {
 
     return <div className="aboutUsContent">
         <b>crawlear.com</b> {t('content.aboutus')}
+        <p>{t('content.aboutus1')}</p>
+        <p>{t('content.aboutus2')}</p>
         <p><a onClick={onLinkClicked} href="#void">{'>'} Volver</a></p>
     </div>;
 }

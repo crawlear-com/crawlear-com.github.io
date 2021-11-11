@@ -24,11 +24,11 @@ function App() {
     ReactGA.pageview('/');
   }, [])
 
-  function onLinkClicked(link) {
+  function onLinkClickedMenu(link) {
     setState(STATE_ABOUTUS);
   }
 
-  function onLinkClickedAboutUs()
+  function onLinkClickedVolver()
   {
     setState(STATE_GAME);
   }
@@ -36,13 +36,13 @@ function App() {
   if(state === STATE_GAME) {
     stateComponent = <GameController />;
   } else if(state === STATE_ABOUTUS) {
-    stateComponent = <AboutUs onLinkClicked={onLinkClickedAboutUs} />;
+    stateComponent = <AboutUs onLinkClicked={onLinkClickedVolver} />;
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <Menu onLinkClicked={onLinkClicked}></Menu>
+        <Menu onLinkClicked={onLinkClickedMenu}></Menu>
         <img src={logo} alt="logo" />
       </header>
 

@@ -42,6 +42,10 @@ function GameController(props) {
 
     switch(state.gameStatus) {
         case GAME_STATUS_MENU:
+            elementsToRender.push(<div className="aboutUsContent">
+            <b>crawlear.com</b> {t('content.welcomeMessage')}
+            <p>{t('content.instructions')}</p>
+        </div>);
             elementsToRender.push(<PlayerController onPlayerNumerChange={(players)=>{
                 onPlayerNumerChange(players,state, setState, alertBoxRef)}
                 }/>);

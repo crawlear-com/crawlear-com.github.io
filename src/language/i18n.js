@@ -15,7 +15,11 @@ i18n
       en: {
         translation: {
           content: {
-            aboutus: 'is a page to help on your crawler "pachangas" (spanish name for a "friends organized game") with friends.'
+            aboutus: 'is a page to help on your crawler "pachangas" (spanish name for a "friends organized game") with friends. It arises from the hobby of a group of friends after discovering the world of the crawler, entering the 1/24 scale',
+            aboutus1: 'Instagram: @takezorc',
+            aboutus2: 'Barcelona (Spain) 2021',
+            welcomeMessage: 'is a score board for your crawler pachangas (spanish name for a "friends organized game").',
+            instructions: 'First add the players, select the game mode, the points type and push the Begin button.'
           },
           error: {
               nojugadores: 'First add the players and select the type of game and score'
@@ -67,7 +71,11 @@ i18n
       es: {
         translation: {
           content: {
-            aboutus: 'es una página para ayudar a puntuar las pachangas de crawler con los amigos.'
+            aboutus: 'es una página para ayudar a puntuar las pachangas de crawler con los amigos. Surge a partir de la afición de un grupo de amigos después de descubrir el mundo del crawler, entrando por la escala 1/24',
+            aboutus1: 'Instagram @takezorc',
+            aboutus2: 'Barcelona 2021',
+            welcomeMessage: 'es un tablero de puntuación para tus pachangas de crawler con los amigos.',
+            instructions: 'Primero añada los jugadores, seleccione el modo de juego, el tipo de puntuación y presione Empezar.'
           },
           error: {
               nojugadores: 'Primero añade los jugadores y selecciona el tipo de juego y puntuación'
