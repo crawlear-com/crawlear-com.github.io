@@ -12,7 +12,7 @@ function ControlText({
     function updateValue(step) {
         if (!isNegativeControl && (value+step >= 0)) {
                 onValueChange(step);
-        } else if (!isNegativeControl && (value+step <= 0)) {
+        } else if (isNegativeControl && (value+step <= 0)) {
                 onValueChange(step);
         }
     }
