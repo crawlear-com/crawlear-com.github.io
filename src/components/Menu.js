@@ -15,7 +15,7 @@ function Menu(props) {
     },[]);
 
     if (isOpen) {
-        return <div className="menuContainer open" onClick={onMenuClick}>
+        return <div className="rounded menuContainer open" onClick={onMenuClick}>
             <div className="burguerMenuBar"></div>
             <div className="burguerMenuBar"></div>
             <div className="burguerMenuBar"></div>
@@ -27,7 +27,7 @@ function Menu(props) {
             </div>
         </div>
     } else {
-        return <div className="menuContainer closed" onClick={onMenuClick}>
+        return <div className="rounded menuContainer closed" onClick={onMenuClick}>
             <div className="burguerMenuBar"></div>
             <div className="burguerMenuBar"></div>
             <div className="burguerMenuBar"></div>
