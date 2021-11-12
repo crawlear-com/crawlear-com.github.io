@@ -5,6 +5,7 @@ import TotalTimeGame from './TotalTimeGame';
 import KingGame from './KingGame';
 import PointsGame from './PointsGame';
 import Utils from '../Utils';
+import MainPageTextContent from './MainPageTextContent';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga';
 
@@ -34,7 +35,7 @@ function GameController(props) {
 
     React.useEffect(() => {
         if(state.gameStatus === GAME_STATUS_MENU) {
-            ReactGA.pageview('/kinggame/');
+            ReactGA.pageview('/menu/');
         }
     },[state.gameStatus]);
 
@@ -42,10 +43,7 @@ function GameController(props) {
 
     switch(state.gameStatus) {
         case GAME_STATUS_MENU:
-            elementsToRender.push(<div className="aboutUsContent">
-            <b>crawlear.com</b> {t('content.welcomeMessage')}
-            <p>{t('content.instructions')}</p>
-        </div>);
+            elementsToRender.push(<MainPageTextContent />);
             elementsToRender.push(<PlayerController onPlayerNumerChange={(players)=>{
                 onPlayerNumerChange(players,state, setState, alertBoxRef)}
                 }/>);

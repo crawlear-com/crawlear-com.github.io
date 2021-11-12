@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import ControlText from './ControlText';
 import TimerControl from './TimerControl';
+import ControlTextArray from './ControlTextArray';
 import Utils from '../Utils';
 import ReactGA from 'react-ga';
 
@@ -14,7 +14,7 @@ let tickTime = 0;
 let timer = null;
 
 function TotalTimeGame({mode, onGameEnd, players}) {
-    const [state, setState] = React.useState(initControlTestValues({ mode, players }));
+    const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players }) });
     const { t, i18n } = useTranslation();
     
     React.useEffect(() => {
@@ -42,16 +42,20 @@ function TotalTimeGame({mode, onGameEnd, players}) {
         }
     }, [state.state]);
 
-    function changeTimeOnScoreChange(value, pos) {
-        let newState = {...state};
+    function changeTimeOnScoreChange(value, player, control) {
+        const timeModifier = value * 1000 + state.timeModifier,
+            players = [...state.players];
     
-        newState.controlTextValues[pos] += value;
-        newState.players[state.currentPlayer].points += value;
-        newState.timeModifier = value * 1000 + state.timeModifier;
+        players[player].controlTextValues = [...players[player].controlTextValues];
+        players[player].controlTextValues[control] += value;
+        players[player].points += value;
     
-        setState(previousInputs => ({ ...previousInputs,...newState}));
+        setState(previousInputs => ({ ...previousInputs,
+            players: players,
+            timeModifier: timeModifier
+        }));
     }
-    
+
     function timerCount(state) {
         tickTime += 10;
         setState(previousInputs => ({ ...previousInputs,millis: tickTime}));
@@ -108,29 +112,15 @@ function TotalTimeGame({mode, onGameEnd, players}) {
     if (state.players.length>0) {
         const time = Utils.secondsToTime(state.millis + state.timeModifier),
             currentPlayer = state.players[state.currentPlayer];
-        //let controlTextArray = Utils.getControlTextArray(state.mode, state.controlTextValues, (value)=> {changeTimeOnScoreChange(value, 0)}z, t);
         let controlTextArray = [];
-        
-        if (state.mode === MODE_OFFICIAL) {
-            controlTextArray.push(<ControlText value={state.controlTextValues[0]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[1]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 1)}} initialValue={0} text={t('points.tocar')} step={3} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[2]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 2)}} initialValue={0} text={t('points.puerta')} step={2} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[3]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 3)}} initialValue={0} text={t('points.saltoobstaculo')} step={5} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[4]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 4)}} initialValue={0} text={t('points.reparacion')} step={5} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[5]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 5)}} initialValue={0} text={t('points.winch')} step={3} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[6]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 6)}} initialValue={0} text={t('points.puertaprogresion')} step={-1} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[7]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 7)}} initialValue={0} text={t('points.distancia')} step={1} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[8]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 8)}} initialValue={0} text={t('points.anclajeindebido')} step={5} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[9]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 9)}} initialValue={0} text={t('points.juez')} step={1} />);
-        } else {
-            controlTextArray.push(<ControlText value={state.controlTextValues[0]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[1]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 1)}} initialValue={0} text={t('points.tocar')} step={3} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[2]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 2)}} initialValue={0} text={t('points.puerta')} step={2} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[3]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 3)}} initialValue={0} text={t('points.saltoobstaculo')} step={5} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[4]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 4)}} initialValue={0} text={t('points.reparacion')} step={5} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[5]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 5)}} initialValue={0} text={t('points.winch')} step={3} />);
-            controlTextArray.push(<ControlText value={state.controlTextValues[6]} onValueChange={(value)=> {changeTimeOnScoreChange(value, 6)}} initialValue={0} text={t('points.puertaprogresion')} step={-1} />);
-        }
+
+        controlTextArray = ControlTextArray({
+            players: state.players,
+            player: state.currentPlayer,
+            pointsMode: state.mode,
+            onValueChange: (value, player, control)=> {
+                changeTimeOnScoreChange(value, player, control)
+            }});
 
         return <div className="gameContainer">
             <div className="playersList">
@@ -159,23 +149,27 @@ function TotalTimeGame({mode, onGameEnd, players}) {
     }
 }
 
-function initControlTestValues(props) {
-    const state = {
+function initControlTestValues({mode, players}) {
+    const newState = {
         millis: 0,
         timeModifier: 0,
         timeStart: 0,
-        players: props.players,
+        players: [...players],
         currentPlayer: 0,
-        mode: props.mode,
-        state: STATE_PAUSE,
-        controlTextValues: props.mode === MODE_OFFICIAL ? [10] : [7]
+        mode: mode,
+        state: STATE_PAUSE
     }
 
-    for(let i=0; i<10; i++){
-        state.controlTextValues[i] = 0;
+    for(let i=0; i<newState.players.length;i++) {
+        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(10) : new Array(7);
+
+        for(let j=0; j<newState.players[i].controlTextValues.length; j++) {
+            newState.players[i].controlTextValues[j] = 0;
+        }
     }
 
-    return state;
+
+    return newState;
 }
 
 function getWinner(state) {

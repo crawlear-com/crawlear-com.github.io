@@ -6,6 +6,7 @@
   width: 85%;
   margin: 0px auto;
   height: 100%;
+  max-width: 430px;
   min-width: 277px;
   padding-top: 85px;
 }
@@ -39,6 +40,17 @@
 .rounded {
   border-radius: 15px;
   box-shadow: 10px 5px 5px black;
+}
+
+figure, .contentImg {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 16px;
 }
 
 .rounded1 {

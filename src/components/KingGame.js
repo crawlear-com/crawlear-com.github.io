@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import ControlText from './ControlText';
+import ControlTextArray from './ControlTextArray';
 import ReactGA from 'react-ga';
 
 const MODE_SIMPLE = 0;
@@ -9,33 +9,6 @@ const MODE_OFFICIAL = 1;
 function KingGame({mode, onGameEnd, players}) {
     const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players }) });
     const { t, i18n } = useTranslation();
-
-    function getControlTextArrayPerGame(i) {
-        let controlTextArray = [];
-    
-        if (state.mode === MODE_OFFICIAL) {
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[0]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[1]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 1)}} initialValue={0} text={t('points.tocar')} step={3} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[2]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 2)}} initialValue={0} text={t('points.puerta')} step={2} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[3]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 3)}} initialValue={0} text={t('points.saltoobstaculo')} step={5} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[4]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 4)}} initialValue={0} text={t('points.reparacion')} step={5} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[5]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 5)}} initialValue={0} text={t('points.winch')} step={3} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[6]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 6)}} initialValue={0} text={t('points.puertaprogresion')} step={-1} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[7]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 7)}} initialValue={0} text={t('points.distancia')} step={1} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[8]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 8)}} initialValue={0} text={t('points.anclajeindebido')} step={5} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[9]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 9)}} initialValue={0} text={t('points.juez')} step={1} />);
-        } else {
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[0]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[1]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 1)}} initialValue={0} text={t('points.tocar')} step={3} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[2]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 2)}} initialValue={0} text={t('points.puerta')} step={2} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[3]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 3)}} initialValue={0} text={t('points.saltoobstaculo')} step={5} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[4]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 4)}} initialValue={0} text={t('points.reparacion')} step={5} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[5]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 5)}} initialValue={0} text={t('points.winch')} step={3} />);
-            controlTextArray.push(<ControlText value={state.players[i].controlTextValues[6]} onValueChange={(value)=> {changePointsOnScoreChange(value, i, 6)}} initialValue={0} text={t('points.puertaprogresion')} step={-1} />);
-        }
-    
-        return controlTextArray;
-    }
 
     function changePointsOnScoreChange(points, player, control) {
         const players = [...state.players]
@@ -88,7 +61,11 @@ function KingGame({mode, onGameEnd, players}) {
                     {t('description.total')}: { state.players[i].points}
                 </div>
                 <div className="controlTextContainer rounded rounded1">
-                    {getControlTextArrayPerGame(i)}
+                    {ControlTextArray({
+                        players: state.players, 
+                        player: i, 
+                        pointsMode: state.mode, 
+                        onValueChange: (value, player, control)=> {changePointsOnScoreChange(value, player, control)}})}
                 </div>
             </div>
         </>);
