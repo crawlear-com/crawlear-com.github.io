@@ -1,0 +1,27 @@
+.picker--arrowUp,
+.picker--arrowDown {
+    display: inline-block;
+}
+
+.picker--arrowUp img {
+    width: 15px;
+}
+
+.picker--arrowDown img {
+    width: 15px;
+}
+
+.picker--value {
+    background-color: white;
+    border: 1px solid black;
+    color: #333;
+    border-radius: 5px;
+    font-size: 19px;
+    padding: 5px;
+}
+
+.picker {
+    max-width: 40px;
+    width: 50%;
+    margin: 0 auto;
+}

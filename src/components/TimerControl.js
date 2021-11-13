@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Utils from '../Utils';
 
-function TimerControl ({state, time, onPlayPauseChange}) {
-    const timeValue = Utils.secondsToTime(time);
+function TimerControl ({time, onPlayPauseChange}) {
+    const timeValue = Utils.millisToTime(time);
     const { t, i18n } = useTranslation();
 
     return <div className="timerContainer rounded rounded2"> {t('description.tiempo')}:

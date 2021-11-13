@@ -5,6 +5,8 @@
 
 .headerText {
     padding: 10px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .App-link {
@@ -80,7 +82,7 @@
     width: 32px;
     vertical-align: middle;
     border-radius: 8px;
-    padding: 5px 10px;
+    padding: 5px 0px;
     float:left;
 }
 
@@ -131,4 +133,14 @@
     text-align: left;
     margin-bottom: 15px;
     text-align: justify;
+}
+
+.maxTimeSelectorForGame {
+    
+}
+
+.fiascoBox {
+    font-size: 17px;
+    margin: 10px;
+    padding: 10px;
 }

@@ -95,7 +95,7 @@ function GameController(props) {
         default:
             elementsToRender.push(<div className="winnerBox importantNote rounded">
                 {t('description.ganador')}: {state.players[state.winner].name} <br />
-                {t('description.tiempo')}: {Utils.printTime(Utils.secondsToTime(state.players[state.winner].time))} <br />
+                {t('description.tiempo')}: {Utils.printTime(Utils.millisToTime(state.players[state.winner].time))} <br />
                 {t('description.puntos')}: {state.players[state.winner].points} 
             </div>);
             elementsToRender.push(<div className="pointsTable rounded rounded1">
@@ -104,7 +104,7 @@ function GameController(props) {
                             <div className="headerPlayer rounded2 bold">
                                 {player.name}
                             </div>
-                            {t('description.tiempo')}: {Utils.printTime(Utils.secondsToTime(player.time))}<br />
+                            {t('description.tiempo')}: {Utils.printTime(Utils.millisToTime(player.time))}<br />
                             {t('description.puntos')}: {player.points}
                         </div>
                 })}

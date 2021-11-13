@@ -2,7 +2,7 @@ import * as React from 'react';
 import ControlText from './ControlText';
 import { useTranslation } from 'react-i18next';
 
-const MODE_OFFICIAL = 0;
+const MODE_OFFICIAL = 1;
 
 function ControlTextArray({players, player, pointsMode, onValueChange}) {
     const controlArray = [];

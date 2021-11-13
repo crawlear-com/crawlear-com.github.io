@@ -15,11 +15,14 @@ i18n
       en: {
         translation: {
           content: {
-            aboutus: 'is a page to help on your crawler "pachangas" (spanish name for a "friends organized game") with friends. It arises from the hobby of a group of friends after discovering the world of the crawler, entering the 1/24 scale',
-            aboutus1: 'Instagram: @takezorc',
-            aboutus2: 'Barcelona (Spain) 2021',
+            aboutus: 'arises from the hobby of a group of friends after discovering the world of the rc crawler, entering the 1/24 scale.',
+            aboutus1: 'After going out on the field a couple of times, we realized that it would be a good idea to have a scoreboard for the matches, where we can manage the points in the different game modes that we practice.',
+            aboutus2: 'If you have any questions, comments or suggestions, do not hesitate to contact us at crawlear.com@gmail.com',
+            aboutus3: 'Barcelona (Spain) 2021',
             welcomeMessage: 'is a score board for your crawler pachangas (spanish name for a "friends organized game").',
-            instructions: 'First add the players, select the game mode, the points type and push the Begin button.'
+            instructions: 'First add the players, select the game mode, the points type and push the Begin button.',
+            maxTimeText1: 'Select the maximum time (0 if you do not want to apply maximum time):',
+            maxTimeText2: 'Select the maximum points (0 if you do not want to apply a maximum score):'
           },
           error: {
               nojugadores: 'First add the players and select the type of game and score'
@@ -38,7 +41,11 @@ i18n
             total: 'TOTAL',
             ordenruta: 'Rute ORDER',
             fin: 'End',
-            reset: 'Reset'
+            reset: 'Reset',
+            continuar: 'Continue',
+            tiempomaximo: 'MAX TIME',
+            zonas: 'Zones',
+            puntosmaximo: 'MAX POINTS'
           },
           points: {
             vuelco: 'overturn',
@@ -71,11 +78,14 @@ i18n
       es: {
         translation: {
           content: {
-            aboutus: 'es una página para ayudar a puntuar las pachangas de crawler con los amigos. Surge a partir de la afición de un grupo de amigos después de descubrir el mundo del crawler, entrando por la escala 1/24',
-            aboutus1: 'Instagram @takezorc',
-            aboutus2: 'Barcelona 2021',
+            aboutus: 'surge a partir de la afición de un grupo de amigos después de descubrir el mundo del crawler rc, entrando por la escala 1/24.',
+            aboutus1: 'Después de salir al terreno de juego un par de veces nos dimos cuenta que sería una buena idea tener un marcador para las partidas, donde poder gestionar los puntos en los diferentes modos de juegos que practicamos.',
+            aboutus2: 'Si tienes alguna duda, comentario o sugerencia no dudes en contactar con nosotros en crawlear.com@gmail.com',
+            aboutus3: 'takezoRc, Barcelona 2021',
             welcomeMessage: 'es un tablero de puntuación para tus pachangas de crawler con los amigos.',
-            instructions: 'Primero añada los jugadores, seleccione el modo de juego, el tipo de puntuación y presione Empezar.'
+            instructions: 'Primero añade los jugadores, selecciona el modo de juego, el tipo de puntuación y pulsa Empezar.',
+            maxTimeText1: 'Selecciona el tiempo máximo (0 si no quieres aplicar tiempo máximo):',
+            maxTimeText2: 'Selecciona el máximo de puntos (0 si no quieres aplicar puntuación máxima):'
           },
           error: {
               nojugadores: 'Primero añade los jugadores y selecciona el tipo de juego y puntuación'
@@ -94,7 +104,11 @@ i18n
               total: 'TOTAL',
               ordenruta: 'ORDEN de Ruta',
               fin: 'Fin',
-              reset: 'Reiniciar'
+              reset: 'Reiniciar',
+              continuar: 'Continuar',
+              tiempomaximo: 'TIEMPO MAX',
+              zonas: 'Zonas',
+              puntosmaximo: 'MAX PUNTOS'
           },
           points: {
             vuelco: 'vuelco',
