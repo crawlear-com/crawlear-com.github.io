@@ -3,10 +3,10 @@
     top: 0px;
     left: 0px;
     margin: 2px;
+    padding: 5px;
     z-index: 10;
     border-radius: 7px;
     overflow: hidden;
-    background-color: #333;
     transition: width 0.2s, height 0.2s;
 }
 
@@ -28,12 +28,12 @@
 .open {
     width: 90%;
     height: 280px;
+    background-color: #333;
 }
 
 .closed {
     width: 35px;
     height: 40px;
-    margin: 5px;
     box-shadow: none;
 }
 

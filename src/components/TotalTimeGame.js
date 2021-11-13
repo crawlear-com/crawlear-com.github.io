@@ -124,8 +124,8 @@ function TotalTimeGame({mode, onGameEnd, players}) {
 
         if ((state.maxPoints <= state.players[state.currentPlayer].points && state.maxPoints > 0) || 
             (state.maxTime <= tickTime && state.maxTime > 0)) {
-            newState.players[state.currentPlayer].time = state.maxTime;
-            newState.players[state.currentPlayer].points = state.maxPoints;
+            newState.players[state.currentPlayer].time = (state.maxTime > 0 ? state.maxTime : tickTime);
+            newState.players[state.currentPlayer].points = (state.maxPoints > 0 ? state.maxPoints : newState.players[state.currentPlayer].points);
         } else {
             newState.players[state.currentPlayer].time = tickTime;
         }
