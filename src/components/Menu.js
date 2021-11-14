@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { isCompositeComponent } from 'react-dom/test-utils';
 import '../resources/css/Menu.css';
-import ReactGA from 'react-ga';
+import Analytics from '../Analytics';
 
 import pdf from '../resources/1 24 REGLAMENTO CRAWLER DEPORTIVO Y TECNICO 2021 V1 BORRADOR 19-1-2021.pdf'
 
@@ -17,7 +16,7 @@ function Menu({onLinkClicked}) {
     }
 
     React.useEffect(() => {
-        ReactGA.pageview('/menu/');
+        Analytics.pageview('/menu/');
     },[]);
 
     if (isOpen) {

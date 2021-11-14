@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlText from './ControlText';
 import ControlTextArray from './ControlTextArray';
-import ReactGA from 'react-ga';
+import Analytics from '../Analytics';
 
 const MODE_SIMPLE = 0;
 const MODE_OFFICIAL = 1;
@@ -50,7 +50,7 @@ function PointsGame({mode, onGameEnd, players}) {
     }
 
     React.useEffect(() => {
-        ReactGA.pageview('/pointsgame/');
+        Analytics.pageview('/pointsgame/');
     },[]);
 
     if (state.players.length>0) {

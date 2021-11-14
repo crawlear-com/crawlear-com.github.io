@@ -10,7 +10,7 @@ import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
 import React from 'react';
-import ReactGA from 'react-ga';
+import Analytics from './Analytics';
 
 const STATE_GAME = 0;
 const STATE_ABOUTUS = 1;
@@ -20,8 +20,8 @@ function App() {
   let stateComponent;
 
   React.useEffect(() => {
-    ReactGA.initialize('UA-156750890-2');
-    ReactGA.pageview('/');
+    Analytics.init('UA-156750890-2');
+    Analytics.pageview('/');
   }, [])
 
   function onLinkClickedMenu(link) {

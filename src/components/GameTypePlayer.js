@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import TotalTimeGame from './TotalTimeGame';
 import KingGame from './KingGame';
 import PointsGame from './PointsGame';
-import Utils from '../Utils';
 
 const GAME_TYPE_TIME = 0;
 const GAME_TYPE_POINTS = 1;

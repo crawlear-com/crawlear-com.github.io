@@ -5,7 +5,7 @@ import ControlTextArray from './ControlTextArray';
 import MaxTimePicker from './MaxTimePicker';
 import Picker from './Picker';
 import Utils from '../Utils';
-import ReactGA from 'react-ga';
+import Analytics from '../Analytics';
 
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
@@ -25,7 +25,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
     const { t, i18n } = useTranslation();
     
     React.useEffect(() => {
-        ReactGA.pageview('/totaltimegame/');
+        Analytics.pageview('/totaltimegame/');
     },[]);
 
     React.useEffect(()=> {

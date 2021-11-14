@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactGA from 'react-ga';
+import Analytics from '../Analytics';
 import { useTranslation } from 'react-i18next';
 import img01 from '../resources/img/img01.png';
 import img02 from '../resources/img/img02.png';
@@ -11,7 +11,7 @@ function AboutUs({onLinkClicked}) {
     const { t, i18n } = useTranslation();
 
     React.useEffect(() => {
-        ReactGA.pageview('/aboutus/');
+        Analytics.pageview('/aboutus/');
     },[]);
 
     return <div className="aboutUsContent">

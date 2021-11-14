@@ -7,12 +7,12 @@ function MainPageTextContent() {
 
     return <div className="aboutUsContent">
     <b>crawlear.com</b> {t('content.welcomeMessage')}
-    <p>
-        <figure>
-            <img className="contentImg" alt="crawlers in action" src={headLogo}></img>
-            <figcaption><a href="https://www.instagram.com/p/CT7FX_CMag7/">img @takezorc</a></figcaption>
-        </figure>
-    </p>
+
+    <figure>
+        <img className="contentImg" alt="crawlers in action" src={headLogo}></img>
+        <figcaption><a href="https://www.instagram.com/p/CT7FX_CMag7/">img @takezorc</a></figcaption>
+    </figure>
+
     <p>{t('content.instructions')}</p>
 
     </div>;
