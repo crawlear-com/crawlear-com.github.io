@@ -246,16 +246,19 @@ function initControlTestValues({zones, maxPoints, maxTime, mode, players, step})
 }
 
 function getWinner(state) {
-    let winner = -1, minTime=5*60*3600;
+    const players = [...state.players];
 
-    for (let i=0;i<state.players.length;i++) {
-        if (state.players[i].time < minTime) {
-            minTime = state.players[i].time;
-            winner = i;
+    players.sort(function(a, b) {
+        const bypoints = a.points - b.points;
+
+        if (bypoints === 0) {
+            return a.time - b.time;
         }
-    }
 
-    return winner;
+        return bypoints;
+      });
+
+    return players[0].id;
 }
 
 export default TotalTimeGame;
