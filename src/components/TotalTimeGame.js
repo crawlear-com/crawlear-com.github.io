@@ -220,7 +220,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
     }
 }
 
-function initControlTestValues({zones, maxPoints, maxTime, mode, players, step}) {
+function initControlTestValues({maxPoints, maxTime, mode, players, step}) {
     const newState = {
         millis: 0,
         timeStart: 0,
