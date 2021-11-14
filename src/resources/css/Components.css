@@ -114,6 +114,10 @@
     margin-bottom: 25px;
 }
 
+.winnerBox .headerPlayer {
+    margin-bottom: 15px;
+}
+
 .pointsTable {
     margin-bottom: 25px;
 }
@@ -143,4 +147,8 @@
     font-size: 17px;
     margin: 10px;
     padding: 10px;
+}
+
+.fiascoBox .importantNote {
+    margin-bottom: 15px;
 }

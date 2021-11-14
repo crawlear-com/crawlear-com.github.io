@@ -62,13 +62,13 @@ i18n
           gametype: {
             modojuego: 'Game mode',
             tipopuntuacion: 'Points type',
-            modojuegotiempo: 'A section is chosen and all participants will run it one by one and in the pre-established order. It runs on time and the points accumulate seconds to the total time. The winner will be the player with the shortest time.',
+            modojuegotiempo: 'A section is chosen and all participants will run it one by one and in the pre-established order. You run to points with time and maximum score and the possibility of making a fiasco. The winner will be the player with the shortest time with a time tiebreaker.',
             modojuegopuntos: 'A section is chosen and all participants will run it one by one and in the pre-established order. Points are run and the winner will be the player with the lowest score.',
             modojuegorey: 'There is no pre-established route and the first participant, the King, chooses the path when playing. All participants run at the same time in line following the same route as the King. If a player scores he goes to the end of the queue. The winner will be the player with the lowest score.',
             simple: 'Simple',
             completa: 'Complete',
-            descripcionPuntosSimple: 'Winch, touch, obstacle jump, repair, door, overturn and progression door',
-            descripcionPuntosCompleta: 'Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor and judge',
+            descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points.',
+            descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor and judge. Optional time and maximum points.',
             tiempo: 'Time',
             puntos: 'Points',
             rey: 'The King'
@@ -125,13 +125,13 @@ i18n
           gametype: {
             modojuego: 'Modo de juego',
             tipopuntuacion: 'Tipo de puntuacion',
-            modojuegotiempo: 'Se escoge un tramo y todos los participantes lo correrán uno por uno y en el orden preestablecido. Se corre a tiempo y los puntos acumulan segundos al tiempo total. El ganador será el jugador con menor tiempo.',
+            modojuegotiempo: 'Se escoge un tramo y todos los participantes lo correrán uno por uno y en el orden preestablecido. Se corre a puntos con tiempo y puntuación máxima y la posibilidad de hacer fiasco. El ganador será el jugador con menor tiempo con desempate de tiempo.',
             modojuegopuntos: 'Se escoge un tramo y todos los participantes lo correrán uno por uno y en el orden preestablecido. Se corre a puntos y el ganador será el jugador con menor puntuación.',
             modojuegorey: 'No hay ruta preestablecida y el primer participante, el Rey, escoge el camino al jugar. Todos los participantes corren a la vez en línea siguiendo la misma ruta que el Rey. Si un jugador puntúa pasa al final de la cola. El ganador será el jugador con menor puntuación.',
             simple: 'Simple',
             completa: 'Completa',
-            descripcionPuntosSimple: 'Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion',
-            descripcionPuntosCompleta: 'Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido y juez',
+            descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos.',
+            descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido y juez. Tiempo y puntos máximos opcionales.',
             tiempo: 'Tiempo',
             puntos: 'Puntos',
             rey: 'El Rey'
