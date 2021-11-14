@@ -117,7 +117,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
     }
 
     function onEndPlayer() {
-        const newState = initControlTestValues(state);;
+        const newState = initControlTestValues(state);
             
         window.scrollTo(0,0);
         newState.state = STATE_PAUSE;
@@ -213,7 +213,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
                 </div>
                 <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
                 <button className="importantNote" onClick={()=>{
-                    onEndPlayer(state, setState, onGameEnd)
+                    onEndPlayer(onGameEnd)
                     }}>{t('description.finjugador')} ({currentPlayer.name})</button><p />
             </div>
         }

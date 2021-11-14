@@ -1,7 +1,5 @@
 import * as React from 'react';
 import '../resources/css/Picker.css';
-import arrowUp from '../resources/img/arrowup.png';
-import arrowDown from '../resources/img/arrowdown.png';
 
 function Picker({callback, minValue, maxValue, initialValue}) {
     const elementRef = React.useRef();
@@ -19,9 +17,9 @@ function Picker({callback, minValue, maxValue, initialValue}) {
 
     }
     return <div className="picker">
-        <div className="picker--arrowUp" onClick={(event)=> {arrowClick(elementRef,+1)}}><img src={arrowUp} alt="arrowUp"></img></div>
+        <div className="picker--arrowUp" onClick={(event)=> {arrowClick(elementRef,+1)}}></div>
         <div className="picker--value" ref={elementRef}>{value}</div>
-        <div className="picker--arrowDown" onClick={(event)=> {arrowClick(elementRef,-1)}}><img src={arrowDown} alt="arrowDown"></img></div>
+        <div className="picker--arrowDown" onClick={(event)=> {arrowClick(elementRef,-1)}}></div>
     </div>;
 }
 
