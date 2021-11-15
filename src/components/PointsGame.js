@@ -1,16 +1,14 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import ControlText from './ControlText';
 import ControlTextArray from './ControlTextArray';
 import Analytics from '../Analytics';
 
-const MODE_SIMPLE = 0;
 const MODE_OFFICIAL = 1;
 const MAX_POINTS = 10000000;
 
 function PointsGame({mode, onGameEnd, players}) {
     const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players }) });
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     function changePointsOnScoreChange(value, player, control) {
         players[player].controlTextValues = [...players[player].controlTextValues];

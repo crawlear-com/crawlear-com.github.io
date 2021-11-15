@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Utils from '../Utils';
 import Picker from './Picker';
-import { useTranslation } from 'react-i18next';
 
 import '../resources/css/MaxTimePicker.css';
 
@@ -10,8 +9,6 @@ const MINUTES = 1;
 const SECS = 2;
 
 function MaxTimePicker({onMaxTimeChange, hours, minutes, seconds}) {
-    const { t, i18n } = useTranslation();
-
     const [time, setTime] = React.useState(0);
     const [values, setValues] = React.useState([]);
 

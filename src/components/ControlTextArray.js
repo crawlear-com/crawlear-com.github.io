@@ -6,7 +6,7 @@ const MODE_OFFICIAL = 1;
 
 function ControlTextArray({players, player, pointsMode, onValueChange}) {
     const controlArray = [];
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     if (pointsMode === MODE_OFFICIAL) {
         controlArray.push(<ControlText value={players[player].controlTextValues[0]} onValueChange={(value)=> {onValueChange(value, player, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);

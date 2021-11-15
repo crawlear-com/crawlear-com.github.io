@@ -2,8 +2,7 @@ import * as React from 'react';
 import GameMenu from './GameMenu';
 import WinnerTable from './WinnerTable';
 import GameTypePlayer from './GameTypePlayer';
-import { useTranslation } from 'react-i18next';
-import ReactGA from 'react-ga';
+import Analytics from '../Analytics';
 
 const GAME_STATUS_MENU = 0;
 const GAME_STATUS_PLAY = 1;
@@ -16,7 +15,6 @@ function GameController(props) {
     const alertBoxRef = React.useRef();
     const elementsToRender = [];
 
-    const { t, i18n } = useTranslation();
     const [state, setState] = React.useState({
         players: [], 
         winner: 0,
@@ -97,7 +95,7 @@ function GameController(props) {
 
     React.useEffect(() => {
         if(state.gameStatus === GAME_STATUS_MENU) {
-            ReactGA.pageview('/menu/');
+            Analytics.pageview('/menu/');
         }
     },[state.gameStatus]);
 

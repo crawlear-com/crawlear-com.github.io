@@ -9,7 +9,6 @@ import Analytics from '../Analytics';
 
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
-const MODE_SIMPLE = 0;
 const MODE_OFFICIAL = 1;
 const STEP_MAXTIMESELECT = 0;
 const STEP_PLAY = 1;
@@ -22,7 +21,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
         tickTime = 0;
         return initControlTestValues({ maxPoints: 0, maxTime: 0, mode, players, step: STEP_MAXTIMESELECT }) 
     });
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     
     React.useEffect(() => {
         Analytics.pageview('/totaltimegame/');

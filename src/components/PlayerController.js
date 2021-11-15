@@ -8,7 +8,7 @@ function PlayerController({onPlayerNumerChange}) {
     const [players, setPlayers] = useLocalStorageState('players');
     const inputRef = React.useRef(null);
     const inputId = Date.now();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
   React.useEffect(() => {
     onPlayerNumerChange && onPlayerNumerChange(players);

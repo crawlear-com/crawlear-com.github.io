@@ -9,7 +9,7 @@ const GAME_TYPE_POINTS = 1;
 const GAME_TYPE_KING = 2;
 
 function GameTypePlayer({onGameEnd, goToMenu, gameSelected, players, pointsTypeSelected}) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const elementsToRender = [];
 
     if (gameSelected === GAME_TYPE_TIME) {

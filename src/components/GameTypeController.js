@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameType=0, selectedPointsType=0}) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const labelsGameType = [t('gametype.tiempo'), 
             t('gametype.puntos'),
             t('gametype.rey')],

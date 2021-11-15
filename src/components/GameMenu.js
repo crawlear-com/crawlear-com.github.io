@@ -7,7 +7,7 @@ import MainPageTextContent from './MainPageTextContent';
 
 function GameMenu({onPlayerNumerChange, onGameTypeChange, onPointsTypeChange, beginGame,
     alertBoxRef, gameSelected, pointsTypeSelected}) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return <>
         <MainPageTextContent />

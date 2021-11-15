@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import headLogo from '../resources/img/img00.png';
 
 function MainPageTextContent() {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return <div className="aboutUsContent">
     <b>crawlear.com</b> {t('content.welcomeMessage')}

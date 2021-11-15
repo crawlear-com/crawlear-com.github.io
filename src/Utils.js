@@ -1,10 +1,3 @@
-import { findAllByTestId } from '@testing-library/dom';
-import ControlText from './components/ControlText';
-
-const MODE_SIMPLE = 0;
-const MODE_OFFICIAL = 1;
-
-
 const Utils = {
     millisToTime(millis) {
         const minutes = Math.floor(millis / 60000),

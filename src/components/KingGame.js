@@ -3,12 +3,11 @@ import { useTranslation } from 'react-i18next';
 import ControlTextArray from './ControlTextArray';
 import ReactGA from 'react-ga';
 
-const MODE_SIMPLE = 0;
 const MODE_OFFICIAL = 1;
 
 function KingGame({mode, onGameEnd, players}) {
     const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players }) });
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     function changePointsOnScoreChange(points, player, control) {
         const players = [...state.players]

@@ -4,7 +4,7 @@ import Utils from '../Utils';
 
 function WinnerTable({goToMenu, players, winner}) {
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     return <><div className="winnerBox importantNote rounded">
         {t('description.ganador')}: {players[winner].name} <br />

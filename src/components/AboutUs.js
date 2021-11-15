@@ -8,7 +8,7 @@ import img03 from '../resources/img/img03.png';
 import '../resources/css/AboutUs.css';
 
 function AboutUs({onLinkClicked}) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     React.useEffect(() => {
         Analytics.pageview('/aboutus/');
@@ -20,6 +20,7 @@ function AboutUs({onLinkClicked}) {
         <p>{t('content.aboutus1')}</p>
         <img src={img02} alt="crawler en accion2" />
         <p>{t('content.aboutus2')}</p>
+        <img src={img03} alt="crawler en accion3" />
         <p><a onClick={onLinkClicked} href="#void">{'>'} Volver</a></p>
     </div>;
 }
