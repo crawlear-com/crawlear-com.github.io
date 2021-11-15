@@ -15,10 +15,6 @@ function Menu({onLinkClicked}) {
         onLinkClicked(event.target.dataset.link);
     }
 
-    React.useEffect(() => {
-        Analytics.pageview('/menu/');
-    },[]);
-
     if (isOpen) {
         return <div className="rounded menuContainer open" onClick={onMenuClick}>
             <div className="burguerMenuBar"></div>

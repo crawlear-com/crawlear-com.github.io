@@ -21,7 +21,6 @@ function App() {
 
   React.useEffect(() => {
     Analytics.init('UA-156750890-2');
-    Analytics.pageview('/');
   }, [])
 
   function onLinkClickedMenu(link) {
