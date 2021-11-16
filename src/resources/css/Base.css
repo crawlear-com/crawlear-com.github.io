@@ -70,3 +70,15 @@ li {
   list-style-type: none;
   text-align: right; 
 }
+
+
+figure {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 16px;
+}

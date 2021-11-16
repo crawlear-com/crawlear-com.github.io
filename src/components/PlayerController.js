@@ -1,6 +1,9 @@
 import * as React from 'react';
 import Utils from '../Utils';
 import { useTranslation } from 'react-i18next';
+import Analytics from '../Analytics';
+
+import '../resources/css/PlayerController.css';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
@@ -27,16 +30,16 @@ function PlayerController({onPlayerNumerChange}) {
             time: 0,
             points: 0
         });
-
-        const input = document.getElementById(inputId);
-        input.value = '';
-
+        Analytics.event('menu', 'addPlayer', inputRef.current.value);
+        inputRef.current.value = '';
         setPlayers(newPlayers);
         onPlayerNumerChange && onPlayerNumerChange(newPlayers);
     }
 
     function removePlayer(event) {
       let newPlayers = [...players];
+
+      Analytics.event('menu', 'removePlayer', newPlayers[event.target.id].name);
 
       delete newPlayers[event.target.id];
       newPlayers = newPlayers.filter((a) => a)
@@ -47,6 +50,8 @@ function PlayerController({onPlayerNumerChange}) {
     function randomizePlayers() {
       const newPlayers = Utils.randomizeArray(players);
       
+      Analytics.event('menu', 'randomPlayerOrder', newPlayers.length);
+
       setPlayers(newPlayers);
       onPlayerNumerChange && onPlayerNumerChange(newPlayers);
     }
@@ -58,7 +63,7 @@ function PlayerController({onPlayerNumerChange}) {
         <div className="headerText bold">{playersTxt}</div>
         <ul className="playersList">
             {players.map((player, i) => { 
-                return <li className="importantNote rounded playerListItem" key={i} value={player.name}>
+                return <li key={i} className="importantNote rounded playerListItem" key={i} value={player.name}>
                   <div><img src={player.avatar} alt="avatar"/>
                     {player.name}
                     <button className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>

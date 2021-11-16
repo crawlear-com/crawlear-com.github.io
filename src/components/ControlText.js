@@ -1,4 +1,6 @@
 import * as React from 'react';
+import '../resources/css/ControlText.css';
+import Analytics from '../Analytics';
 
 function ControlText({
         text,
@@ -11,9 +13,11 @@ function ControlText({
 
     function updateValue(step) {
         if (!isNegativeControl && (value+step >= 0)) {
-                onValueChange(step);
+            Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
+            onValueChange(step);
         } else if (isNegativeControl && (value+step <= 0)) {
-                onValueChange(step);
+            Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
+            onValueChange(step);
         }
     }
 

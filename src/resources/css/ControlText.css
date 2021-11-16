@@ -1,0 +1,11 @@
+.controlText {
+    font-size: 14px;
+    display: flex;
+    line-height: 40px;
+}
+
+.buttonControlTextPlus, 
+.buttonControlTextMinus {
+    text-shadow: 2px 2px 4px #333;
+    font-size: 12px;
+}

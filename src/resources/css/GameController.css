@@ -1,0 +1,13 @@
+.hideAlert {
+    display: none;
+}
+  
+.alertBox {
+    margin-bottom: 25px;
+    padding: 5px;
+    color: red;
+    font-size: 19px;
+    border: 1px solid;
+    border-radius: 15px;
+    font-weight: bold;
+}

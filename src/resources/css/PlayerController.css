@@ -1,0 +1,16 @@
+.players {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+}
+
+.playersList {
+    margin: 10px;
+    padding: 0;
+}
+
+.playerListItem {
+    margin-bottom: 10px;
+    line-height: 42px;
+    text-align: right;
+    padding-right: 10px;
+}

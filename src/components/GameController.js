@@ -4,6 +4,8 @@ import WinnerTable from './WinnerTable';
 import GameTypePlayer from './GameTypePlayer';
 import Analytics from '../Analytics';
 
+import '../resources/css/GameController.css';
+
 const GAME_STATUS_MENU = 0;
 const GAME_STATUS_PLAY = 1;
 const GAME_STATUS_FINISH = 2;
@@ -24,6 +26,7 @@ function GameController(props) {
     });
 
     function onPointsTypeChange(selectedIndex) {
+        Analytics.event('menu', 'pointsModeChange',selectedIndex);
         setState({
             players: state.players, 
             winner: state.winner,
@@ -34,6 +37,7 @@ function GameController(props) {
     }
     
     function onGameTypeChange(selectedIndex) {
+        Analytics.event('menu', 'playModeChange', selectedIndex);
         setState({
             players: state.players, 
             winner: state.winner,
@@ -45,6 +49,7 @@ function GameController(props) {
     
     function onGameEnd(winnerPlayer) {
         window.scrollTo(0,0);
+        Analytics.event('menu','winner',winnerPlayer);
         setState({
             players: state.players, 
             winner: winnerPlayer,
@@ -55,7 +60,14 @@ function GameController(props) {
     }
     
     function onPlayerNumerChange(players, alertBoxRef) {
+        let action = 'addPlayer';
+
         cleanAlertBox(alertBoxRef);
+        if (state.players.length > players.length) {
+            action = 'removePlayer';
+        }
+        Analytics.event('menu', action, players.length);
+
         setState({
             players: players, 
             winner: state.winner,
@@ -70,6 +82,7 @@ function GameController(props) {
         if (state.players.length>0) {
             const newState = {...state};
     
+            Analytics.event('menu', 'beginGame', state.players.length);
             setState({
                 players: newState.players,
                 winner: newState.winner, 
@@ -78,6 +91,7 @@ function GameController(props) {
                 pointsTypeSelected: newState.pointsTypeSelected
             });
         } else {
+            Analytics.event('menu', 'beginGame', 0);
             showAlertBox(t('error.nojugadores'), alertBoxRef);
         }
     }

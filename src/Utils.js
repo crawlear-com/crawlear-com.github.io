@@ -1,5 +1,6 @@
-const Utils = {
-    millisToTime(millis) {
+
+class Utils {
+    static millisToTime(millis) {
         const minutes = Math.floor(millis / 60000),
             hours = Math.floor(minutes / 60), 
             seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -10,8 +11,9 @@ const Utils = {
             s: seconds,
             mm: millis % 1000
         }
-    },
-    timeToMillis(h,m,s) {
+    }
+    
+    static timeToMillis(h,m,s) {
         const date = new Date(),
             todayRef = new Date();
 
@@ -24,11 +26,13 @@ const Utils = {
         date.setSeconds(s);
 
         return date.getTime() - todayRef.getTime();
-    },
-    printTime(time) {
+    }
+    
+    static printTime(time) {
         return `${String(time.h).padStart(2, '0')}:${String(time.m).padStart(2, '0')}:${String(time.s).padStart(2, '0')}:${String(time.mm).padStart(3, '0')}`
-    },
-    randomizeArray(array) {
+    }
+
+    static randomizeArray(array) {
         let currentIndex = array.length,  randomIndex;
 
         while (currentIndex !== 0) {
@@ -41,6 +45,7 @@ const Utils = {
         return array;
     }
 }
+
 
 
 export default Utils;

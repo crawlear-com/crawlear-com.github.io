@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import '../resources/css/GameTypeController.css';
+
 function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameType=0, selectedPointsType=0}) {
     const { t } = useTranslation();
     const labelsGameType = [t('gametype.tiempo'), 

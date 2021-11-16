@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import TotalTimeGame from './TotalTimeGame';
-import KingGame from './KingGame';
-import PointsGame from './PointsGame';
+import TotalTimeGame from './games/TotalTimeGame';
+import KingGame from './games/KingGame';
+import PointsGame from './games/PointsGame';
 
 const GAME_TYPE_TIME = 0;
 const GAME_TYPE_POINTS = 1;

@@ -17,6 +17,12 @@ class Analytics {
             ReactGA.pageview(path);
         }
     }
+
+    static event(category, action, value) {
+        if (!isLocalhost()) {
+            ReactGA.event({ category, action, value });
+        }
+    }
 }
 
 export default Analytics;

@@ -1,0 +1,39 @@
+.timerContainer {
+    background-color: #ffa602;
+    margin: 10px;
+    padding: 10px;
+}
+
+.timer {
+    font-size: 26px;
+}
+
+.totalValue {
+    font-size: 26px;
+}
+
+.totalTimeContainer {
+    background-color: #ea7402;
+    margin: 10px;
+    padding: 10px;
+}
+
+.timerPlayButton,
+.timerStopButton {
+    /*margin: 5px;
+    padding: 6px;*/
+}
+
+.player {
+    padding-bottom: 10px;
+}
+
+.fiascoBox {
+    font-size: 17px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.fiascoBox .importantNote {
+    margin-bottom: 15px;
+}

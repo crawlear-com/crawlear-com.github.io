@@ -37,21 +37,24 @@
   margin: 11px 8px 10px 0;
 }
 
+.rounded button {
+  background-color: transparent;
+}
+
+.headerText {
+  padding: 10px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
 .rounded {
   border-radius: 15px;
   box-shadow: 10px 5px 5px black;
   padding: 10px;
-}
-
-figure, .contentImg {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-figcaption {
-  text-align: center;
-  font-size: 16px;
 }
 
 .rounded1 {
@@ -67,16 +70,40 @@ figcaption {
   background-image: linear-gradient(#112031, #345B63);
 }
 
-.hideAlert {
-  display: none;
+.headerPlayer {
+  padding: 10px;
 }
 
-.alertBox {
+.importantNote {
+  background-image: linear-gradient(#ffa602, #ea7402);
+}
+
+.importantNote img {
+  width: 32px;
+  vertical-align: middle;
+  border-radius: 8px;
+  padding: 5px 0px;
+  float:left;
+}
+
+.controlTextContainer {
+  margin: 10px;
+  padding: 10px;
+}
+
+.controlTextText {
+  margin: 0 5px;
+} 
+
+.winnerBox {
+  padding: 15px;
   margin-bottom: 25px;
-  padding: 5px;
-  color: red;
-  font-size: 19px;
-  border: 1px solid;
-  border-radius: 15px;
-  font-weight: bold;
+}
+
+.winnerBox .headerPlayer {
+  margin-bottom: 15px;
+}
+
+.pointsTable {
+  margin-bottom: 25px;
 }

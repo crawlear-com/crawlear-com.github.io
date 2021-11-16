@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Utils from '../Utils';
 import Picker from './Picker';
+import Analytics from '../Analytics';
 
 import '../resources/css/MaxTimePicker.css';
 
