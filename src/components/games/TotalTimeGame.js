@@ -193,6 +193,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
 
                 if ((state.maxPoints <= state.players[state.currentPlayer].points && state.maxPoints > 0) || 
                     (state.maxTime <= tickTime && state.maxTime > 0)) {
+                    Analytics.event('play', 'fiasco', state.players[state.currentPlayer].name); 
                     fiasco = <div className="rounded importantNote">FiASCO!</div>;
                 }
 
