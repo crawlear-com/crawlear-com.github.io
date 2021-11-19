@@ -1,0 +1,28 @@
+.playerListItem.closed {
+    width: auto;
+    height: 45px;
+    overflow: hidden;
+}
+
+.playerListItem .picker {
+    margin-top: 20px;
+}
+
+.playerBox {
+
+}
+
+.pickerContainer.handicapBox {
+    margin: 5px;
+    padding: 0px;
+}
+
+.handicapBox .picker {
+
+}
+
+.handicapBox .handicapLabel {
+    width: 50%;
+    text-align: center;
+    padding: 74px 0;
+}

@@ -15,7 +15,9 @@ function MainPageTextContent() {
             <figcaption><a href="https://www.instagram.com/p/CT7FX_CMag7/">img @takezorc</a></figcaption>
         </figure>
 
-        <p>{t('content.instructions')}</p>
+        <p><div className="inline bold">{t('description.instrucciones')}</div>: {t('content.instrucciones')}</p>
+
+        <p>{t('content.instrucciones1')}</p>
 
         </div>;
 }

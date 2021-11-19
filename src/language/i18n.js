@@ -20,7 +20,8 @@ i18n
             aboutus2: 'If you have any questions, comments or suggestions, do not hesitate to contact us at crawlear.com@gmail.com',
             aboutus3: 'Barcelona (Spain) 2021',
             welcomeMessage: 'is a score board for your crawler pachangas (spanish name for a "friends organized game").',
-            instructions: 'First add the players, select the game mode, the points type and push the Begin button.',
+            instrucciones: 'First add the players, select the game mode, the points type and push the Begin button.',
+            instrucciones1: 'By clicking on the player you can define a positive or negative handicap for the user. At the end of the game, the handicap will be added to the user\'s points to calculate the total points at the end of the game.',
             maxTimeText1: 'Select the maximum time (0 if you do not want to apply maximum time):',
             maxTimeText2: 'Select the maximum points (0 if you do not want to apply a maximum score):'
           },
@@ -45,7 +46,9 @@ i18n
             continuar: 'Continue',
             tiempomaximo: 'MAX TIME',
             zonas: 'Zones',
-            puntosmaximo: 'MAX POINTS'
+            puntosmaximo: 'MAX POINTS',
+            handicap: 'handicap',
+            instrucciones: 'Instructions'
           },
           points: {
             vuelco: 'overturn',
@@ -83,7 +86,8 @@ i18n
             aboutus2: 'Si tienes alguna duda, comentario o sugerencia no dudes en contactar con nosotros en crawlear.com@gmail.com',
             aboutus3: 'takezoRc, Barcelona 2021',
             welcomeMessage: 'es un tablero de puntuación para tus pachangas de crawler con los amigos.',
-            instructions: 'Primero añade los jugadores, selecciona el modo de juego, el tipo de puntuación y pulsa Empezar.',
+            instrucciones: 'Primero añade los jugadores, selecciona el modo de juego, el tipo de puntuación y pulsa Empezar.',
+            instrucciones1: 'Pulsando en el jugador podrás definir un handicap positivo o negativo para el usuario. A final de partida el handicap se sumará a los puntos del usuario para calcular el total de puntos al final de la partida.',
             maxTimeText1: 'Selecciona el tiempo máximo (0 si no quieres aplicar tiempo máximo):',
             maxTimeText2: 'Selecciona el máximo de puntos (0 si no quieres aplicar puntuación máxima):'
           },
@@ -108,7 +112,9 @@ i18n
               continuar: 'Continuar',
               tiempomaximo: 'TIEMPO MAX',
               zonas: 'Zonas',
-              puntosmaximo: 'MAX PUNTOS'
+              puntosmaximo: 'MAX PUNTOS',
+              handicap: 'handicap',
+              instrucciones: 'Instrucciones'
           },
           points: {
             vuelco: 'vuelco',

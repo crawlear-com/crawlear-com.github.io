@@ -203,6 +203,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
                     {t('description.puntosmaximo')}: {state.maxPoints}
                 </div>
             }
+
             return <div className="gameContainer">
                 <div className="playersList">
                     <div className="playerListItem importantNote rounded">
@@ -212,7 +213,10 @@ function TotalTimeGame({mode, onGameEnd, players}) {
                 </div>
                 {maxTimeControl}
                 <div className="totalTimeContainer rounded">
-                    {t('description.puntos')}: { currentPlayer.points}
+                    {`${t('description.handicap')} : ${currentPlayer.handicap}`}<br />
+                    {t('description.puntos')}: { currentPlayer.points}<br />
+                    ---<br />
+                    <div className="inline bold">{t('description.total')} :</div> {currentPlayer.points + currentPlayer.handicap}
                 </div>
                 <TimerControl 
                     state={state.state}
@@ -260,7 +264,7 @@ function getWinner(state) {
     const players = [...state.players];
 
     players.sort(function(a, b) {
-        const bypoints = a.points - b.points;
+        const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
 
         if (bypoints === 0) {
             return a.time - b.time;

@@ -1,4 +1,3 @@
-
 .picker--value {
     background-color: white;
     border: 1px solid black;
@@ -9,9 +8,10 @@
 }
 
 .picker {
-    max-width: 40px;
+    max-width: 34px;
     width: 50%;
     margin: 0 auto;
+    text-align: center;
 }
 
 .picker--arrowUp,
@@ -19,7 +19,7 @@
     display: inline-block;
     background-size: cover;
     width: 35px;
-    height: 35px;
+    height: 25px;
     background-repeat: no-repeat;
     background-position: center;
 }

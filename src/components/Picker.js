@@ -1,9 +1,10 @@
 import * as React from 'react';
 import '../resources/css/Picker.css';
 
-function Picker({callback, minValue, maxValue, initialValue}) {
+function Picker({callback, minValue, maxValue, initialValue, value}) {
     const elementRef = React.useRef();
-    const [value, setValue] = React.useState(initialValue);
+
+    !value && (value = initialValue);
 
     function arrowClick(elementRef, operation) {
         const value = Number(elementRef.current.innerText);
@@ -11,7 +12,6 @@ function Picker({callback, minValue, maxValue, initialValue}) {
 
         if (result >=minValue && result <=maxValue) {
             elementRef.current.innerText = result;
-            setValue(result);
             callback && callback(result);
         } 
 

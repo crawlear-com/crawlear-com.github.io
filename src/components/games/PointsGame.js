@@ -60,7 +60,7 @@ function PointsGame({mode, onGameEnd, players}) {
         controlTextArray = ControlTextArray({
             players: state.players, 
             player: state.currentPlayer, 
-            pointsMode: state.state, 
+            pointsMode: state.mode, 
             onValueChange: (value, player, control)=> {changePointsOnScoreChange(value, player, control)}});
 
         return <div className="gameContainer">
@@ -68,7 +68,8 @@ function PointsGame({mode, onGameEnd, players}) {
             <div className="playerInfo">
                 <div className="headerPlayer importantNote rounded2 rounded">
                     <div className="bold">{currentPlayer.name}</div>
-                    {`${t('description.total')} ${t('description.puntos')}`}: { currentPlayer.points}
+                    {`${t('description.handicap')} : ${currentPlayer.handicap}`}<br />
+                    {`${t('description.total')} ${t('description.puntos')}`}: {currentPlayer.points + currentPlayer.handicap}
                 </div>
             </div>
 
@@ -104,8 +105,10 @@ function getWinner(state) {
     let winner = -1, minPoints=MAX_POINTS;
 
     for (let i=0;i<state.players.length;i++) {
-        if (state.players[i].points < minPoints) {
-            minPoints = state.players[i].points;
+        const points = state.players[i].points + state.players[i].handicap;
+
+        if (points < minPoints) {
+            minPoints = points;
             winner = i;
         }
     }

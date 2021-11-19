@@ -29,7 +29,7 @@ function KingGame({mode, onGameEnd, players}) {
         let winner = 0;
 
         for(let i=0; i<state.players.length;i++) {
-            if (state.players[i].points < state.players[winner].points) {
+            if (state.players[i].points + state.players[i].handicap < state.players[winner].points + state.players[winner].handicap) {
                 winner = i;
             }
         }
@@ -47,7 +47,7 @@ function KingGame({mode, onGameEnd, players}) {
         result.push(<>
             <div>
                 <div className="controlTextContainerQueue rounded bold">
-                    {state.order[i].name}: {state.order[i].points} ptos
+                    {state.order[i].name}: {state.order[i].points + state.order[i].handicap} ptos
                 </div>
             </div>
         </>);
@@ -59,7 +59,8 @@ function KingGame({mode, onGameEnd, players}) {
             <div className="playerInfo">
                 <div className="headerPlayer importantNote rounded2 rounded">
                     <div className="bold">{state.players[i].name}</div>
-                    {t('description.total')}: { state.players[i].points}
+                    {`${t('description.handicap')} : ${state.players[i].handicap}`}<br />
+                    {t('description.total')}: { state.players[i].points + state.players[i].handicap}
                 </div>
                 <div className="controlTextContainer rounded rounded1">
                     {ControlTextArray({

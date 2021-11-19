@@ -136,8 +136,9 @@ function GameController(props) {
             break;
         default:
             elementsToRender.push(<WinnerTable 
+                mode={state.pointsTypeSelected}
                 players={state.players}
-                winner={state.winner}
+                winnerId={state.winner}
                 goToMenu={goToMenu} />);
     }
 
