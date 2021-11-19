@@ -53,7 +53,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
     function onChangeScore(value, player, control) {
         const players = [...state.players];
 
-        if (!(state.maxPoints <= state.players[state.currentPlayer].points && state.maxPoints > 0) && 
+        if (!(state.maxPoints <= (state.players[state.currentPlayer].points + state.players[state.currentPlayer].handicap) && state.maxPoints > 0) && 
         !(state.maxTime <= tickTime && state.maxTime > 0)) {
             players[player].controlTextValues = [...players[player].controlTextValues];
             players[player].controlTextValues[control] += value;
@@ -62,6 +62,19 @@ function TotalTimeGame({mode, onGameEnd, players}) {
             setState(previousInputs => ({ ...previousInputs,
                 players: players
             }));
+        } else {
+            if (state.maxPoints) {
+                players[player].points = Math.max(state.maxPoints, players[player].points);
+            }
+            if (state.maxTime) {
+                players[player].time = Math.max(state.maxPoints, players[player].time);
+            }
+
+            if (state.maxTime || state.maxPoints) {
+                setState(previousInputs => ({ ...previousInputs,
+                    players: players
+                }));
+            }
         }
     }
 
@@ -191,7 +204,7 @@ function TotalTimeGame({mode, onGameEnd, players}) {
             if (state.mode === MODE_OFFICIAL) {
                 let fiasco;
 
-                if ((state.maxPoints <= state.players[state.currentPlayer].points && state.maxPoints > 0) || 
+                if ((state.maxPoints <= (state.players[state.currentPlayer].points+state.players[state.currentPlayer].handicap) && state.maxPoints > 0) || 
                     (state.maxTime <= tickTime && state.maxTime > 0)) {
                     Analytics.event('play', 'fiasco', state.players[state.currentPlayer].name); 
                     fiasco = <div className="rounded importantNote">FiASCO!</div>;

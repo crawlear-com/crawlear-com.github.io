@@ -21,7 +21,7 @@ i18n
             aboutus3: 'Barcelona (Spain) 2021',
             welcomeMessage: 'is a score board for your crawler pachangas (spanish name for a "friends organized game").',
             instrucciones: 'First add the players, select the game mode, the points type and push the Begin button.',
-            instrucciones1: 'By clicking on the player you can define a positive or negative handicap for the user. At the end of the game, the handicap will be added to the user\'s points to calculate the total points at the end of the game.',
+            instrucciones1: 'By clicking on the player you can define a positive (initial advantage) or negative (initial disadvantage) handicap. At the end of the game, the handicap will be added to the player\'s points to calculate the total points.',
             maxTimeText1: 'Select the maximum time (0 if you do not want to apply maximum time):',
             maxTimeText2: 'Select the maximum points (0 if you do not want to apply a maximum score):'
           },
@@ -70,8 +70,8 @@ i18n
             modojuegorey: 'There is no pre-established route and the first participant, the King, chooses the path when playing. All participants run at the same time in line following the same route as the King. If a player scores he goes to the end of the queue. The winner will be the player with the lowest score.',
             simple: 'Simple',
             completa: 'Complete',
-            descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points.',
-            descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor and judge. Optional time and maximum points.',
+            descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points. There is no max time or max points',
+            descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor and judge. Optional time and maximum points. In this mode it is possible to apply maximum time and / or maximum score and make a fiasco in case of exceeding it. In the event of a fiasco, the player will score the maximum between the defined times / points and the current score.',
             tiempo: 'Time',
             puntos: 'Points',
             rey: 'The King'
@@ -87,7 +87,7 @@ i18n
             aboutus3: 'takezoRc, Barcelona 2021',
             welcomeMessage: 'es un tablero de puntuación para tus pachangas de crawler con los amigos.',
             instrucciones: 'Primero añade los jugadores, selecciona el modo de juego, el tipo de puntuación y pulsa Empezar.',
-            instrucciones1: 'Pulsando en el jugador podrás definir un handicap positivo o negativo para el usuario. A final de partida el handicap se sumará a los puntos del usuario para calcular el total de puntos al final de la partida.',
+            instrucciones1: 'Pulsando en el jugador podrás definir un handicap positivo (ventaja inicial) o negativo (desventaja inicial). A final de partida el handicap se sumará a los puntos del jugador para calcular el total de puntos.',
             maxTimeText1: 'Selecciona el tiempo máximo (0 si no quieres aplicar tiempo máximo):',
             maxTimeText2: 'Selecciona el máximo de puntos (0 si no quieres aplicar puntuación máxima):'
           },
@@ -136,8 +136,8 @@ i18n
             modojuegorey: 'No hay ruta preestablecida y el primer participante, el Rey, escoge el camino al jugar. Todos los participantes corren a la vez en línea siguiendo la misma ruta que el Rey. Si un jugador puntúa pasa al final de la cola. El ganador será el jugador con menor puntuación.',
             simple: 'Simple',
             completa: 'Completa',
-            descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos.',
-            descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido y juez. Tiempo y puntos máximos opcionales.',
+            descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos. No se aplica tiempo ni puntuación máxima.',
+            descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido y juez. Tiempo y puntos máximos opcionales. En éste modo es posible aplicar tiempo máximo y/o puntuación máxima y realizar un fiasco en caso de superarla. En caso de fiasco el jugador puntuará el máximo entre los tiempos / puntos definidos y la puntuación actual.',
             tiempo: 'Tiempo',
             puntos: 'Puntos',
             rey: 'El Rey'

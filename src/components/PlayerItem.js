@@ -20,11 +20,16 @@ function PlayerItem({player, i, onRemovePlayer, onHandicapChange}) {
         event.stopPropagation();
     }
 
+    function removePlayer(event) {
+        event.stopPropagation();
+        onRemovePlayer && onRemovePlayer(event);
+    }
+
     return <li ref={contasinerRef} key={i} className="closed importantNote rounded playerListItem" value={player.name}>
         <div className="playerBox" onClick={playerOnClick}>
             <img src={player.avatar} alt="avatar"/>
             {player.name} ({player.handicap})
-            <button className="buttonControlTextMinus" id={i} onClick={onRemovePlayer}>-</button>
+            <button className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>
         </div>
         <div onClick={avoidDefault} className="pickerContainer timerContainer rounded rounded2 handicapBox">
             <div className="handicapLabel">{t('description.handicap')}</div>
