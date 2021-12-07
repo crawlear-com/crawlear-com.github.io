@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.c4b68072.chunk.css",
-    "main.js": "/static/js/main.d3f61945.chunk.js",
-    "main.js.map": "/static/js/main.d3f61945.chunk.js.map",
+    "main.css": "/static/css/main.d52416ce.chunk.css",
+    "main.js": "/static/js/main.abc477b6.chunk.js",
+    "main.js.map": "/static/js/main.abc477b6.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a136ebca.js",
     "runtime-main.js.map": "/static/js/runtime-main.a136ebca.js.map",
-    "static/js/2.f2918007.chunk.js": "/static/js/2.f2918007.chunk.js",
-    "static/js/2.f2918007.chunk.js.map": "/static/js/2.f2918007.chunk.js.map",
+    "static/js/2.3508881f.chunk.js": "/static/js/2.3508881f.chunk.js",
+    "static/js/2.3508881f.chunk.js.map": "/static/js/2.3508881f.chunk.js.map",
     "static/js/3.2cae7035.chunk.js": "/static/js/3.2cae7035.chunk.js",
     "static/js/3.2cae7035.chunk.js.map": "/static/js/3.2cae7035.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.c4b68072.chunk.css.map": "/static/css/main.c4b68072.chunk.css.map",
-    "static/js/2.f2918007.chunk.js.LICENSE.txt": "/static/js/2.f2918007.chunk.js.LICENSE.txt",
+    "static/css/main.d52416ce.chunk.css.map": "/static/css/main.d52416ce.chunk.css.map",
+    "static/js/2.3508881f.chunk.js.LICENSE.txt": "/static/js/2.3508881f.chunk.js.LICENSE.txt",
     "static/media/1 24 REGLAMENTO CRAWLER DEPORTIVO Y TECNICO 2021 V1 BORRADOR 19-1-2021.70aee093.pdf": "/static/media/1 24 REGLAMENTO CRAWLER DEPORTIVO Y TECNICO 2021 V1 BORRADOR 19-1-2021.70aee093.pdf",
     "static/media/img00.612023be.png": "/static/media/img00.612023be.png",
     "static/media/img01.de805005.png": "/static/media/img01.de805005.png",
@@ -21,8 +21,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.a136ebca.js",
-    "static/js/2.f2918007.chunk.js",
-    "static/css/main.c4b68072.chunk.css",
-    "static/js/main.d3f61945.chunk.js"
+    "static/js/2.3508881f.chunk.js",
+    "static/css/main.d52416ce.chunk.css",
+    "static/js/main.abc477b6.chunk.js"
   ]
 }
