@@ -10,6 +10,7 @@ function ControlText({
     }) {
     const isNegativeControl = (step<0);
     let boldValue = isNegativeControl ? value<0 : value>0;
+    const valueRef = React.useRef();
 
     function updateValue(step) {
         if (!isNegativeControl && (value+step >= 0)) {
@@ -26,11 +27,17 @@ function ControlText({
     }
 
     return <div className="controlText">
-        <button className='buttonControlTextPlus' onClick={() => {updateValue(step)}}>+</button>
-        <button className='buttonControlTextMinus' onClick={() => {updateValue(-step)}}>-</button>
+        <button className='buttonControlTextPlus' onClick={() => {
+            valueRef.current.focus();
+            updateValue(step)
+        }}>+</button>
+        <button className='buttonControlTextMinus' onClick={() => {
+            valueRef.current.focus();
+            updateValue(-step)
+        }}>-</button>
 
         <div className={getControlClass("controlTextText")}>{text}: </div>
-        <div className={getControlClass("controlTextValue")}>{value}</div>        
+        <div ref={valueRef} className={getControlClass("controlTextValue")}>{value}</div>        
     </div>;
 }
 

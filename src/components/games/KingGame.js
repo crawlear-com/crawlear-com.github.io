@@ -33,7 +33,7 @@ function KingGame({mode, onGameEnd, players}) {
                 winner = i;
             }
         }
-        onGameEnd(winner);
+        onGameEnd && onGameEnd(state.players[winner].id);
     }
 
     React.useEffect(() => {

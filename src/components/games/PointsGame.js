@@ -4,7 +4,6 @@ import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
 
 const MODE_OFFICIAL = 1;
-const MAX_POINTS = 10000000;
 
 function PointsGame({mode, onGameEnd, players}) {
     const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players }) });
@@ -102,18 +101,19 @@ function initControlTestValues({mode, players}) {
 }
 
 function getWinner(state) {
-    let winner = -1, minPoints=MAX_POINTS;
+    const players = [...state.players];
 
-    for (let i=0;i<state.players.length;i++) {
-        const points = state.players[i].points + state.players[i].handicap;
+    players.sort(function(a, b) {
+        const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
 
-        if (points < minPoints) {
-            minPoints = points;
-            winner = i;
+        if (bypoints === 0) {
+            return a.id - b.id;
         }
-    }
 
-    return winner;
+        return bypoints;
+      });
+
+    return players[0].id;
 }
 
 export default PointsGame;
