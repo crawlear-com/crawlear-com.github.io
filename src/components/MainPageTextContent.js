@@ -19,7 +19,7 @@ function MainPageTextContent() {
 
         <p>{t('content.instrucciones1')}</p>
 
-        <YoutubeEmbed embedId="1MxKhbPxreI" />
+        <YoutubeEmbed embedId="vXCjXkd5P4w" />
         
         </div>;
 }
