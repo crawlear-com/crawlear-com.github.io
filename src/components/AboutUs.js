@@ -7,7 +7,7 @@ import img03 from '../resources/img/img03.png';
 
 import '../resources/css/AboutUs.css';
 
-function AboutUs({onLinkClicked}) {
+function AboutUs() {
     const { t } = useTranslation();
 
     React.useEffect(() => {
@@ -21,7 +21,7 @@ function AboutUs({onLinkClicked}) {
         <img src={img02} alt="crawler en accion2" />
         <p>{t('content.aboutus2')}</p>
         <img src={img03} alt="crawler en accion3" />
-        <p><a onClick={onLinkClicked} href="#void">{'>'} Volver</a></p>
+        <p><a href="/">{'>'} Volver</a></p>
     </div>;
 }
 

@@ -1,37 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Crawlear.com para tus pachangas de crawler"
-    />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+import * as React from 'react';
 
-    <title>crawlear.com</title>
-    <style>
-        body {
-            background-color: #333;
-            color: #fcf7ff;
-            font-family: Montserrat, Roboto, sans-serif;
-            font-size: 18px;
-        }
-        a {
-            color: white;
-            text-decoration: none;
-        }
-        #root {
-            margin: 26px;
+import '../resources/css/PrivacyPolicy.css';
 
-        }
-    </style>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
+function PrivacyPolicy() {
+    return <div className="privacyPolicy">
         <b>Privacy Policy</b>:
         <ul>
             <li>Advertising providers (google) use cookies to display relevant ads based on a user's previous visits to their website or other websites.</li>
@@ -44,11 +16,9 @@
             <li>You can visit the providers' websites to disable the use of cookies for personalized advertising (in case the provider or the ad network offers this option).</li>
             <li>You can also access www.aboutads.info to disable the use of cookies for personalized advertising by other providers.</li>
         </ul>
-            <a href="https://crawlear.com">> Back</a>
-    </div>
-  </body>
-</html>
+        <a href="/">> Back</a>
+    </div>;
+}
 
-
-
+export default PrivacyPolicy;
 
