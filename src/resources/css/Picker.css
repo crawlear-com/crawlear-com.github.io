@@ -12,6 +12,7 @@
     width: 50%;
     margin: 0 auto;
     text-align: center;
+    display: grid;
 }
 
 .picker--arrowUp,
@@ -22,6 +23,7 @@
     height: 25px;
     background-repeat: no-repeat;
     background-position: center;
+    margin: 0px 0 5px 0;
 }
 
 .picker--arrowUp {
