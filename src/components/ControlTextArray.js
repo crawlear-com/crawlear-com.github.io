@@ -16,9 +16,10 @@ function ControlTextArray({players, player, pointsMode, onValueChange}) {
         controlArray.push(<ControlText value={players[player].controlTextValues[4]} onValueChange={(value)=> {onValueChange(value, player, 4)}} initialValue={0} text={t('points.reparacion')} step={5} />);
         controlArray.push(<ControlText value={players[player].controlTextValues[5]} onValueChange={(value)=> {onValueChange(value, player, 5)}} initialValue={0} text={t('points.winch')} step={3} />);
         controlArray.push(<ControlText value={players[player].controlTextValues[6]} onValueChange={(value)=> {onValueChange(value, player, 6)}} initialValue={0} text={t('points.puertaprogresion')} step={-1} />);
-        controlArray.push(<ControlText value={players[player].controlTextValues[7]} onValueChange={(value)=> {onValueChange(value, player, 7)}} initialValue={0} text={t('points.distancia')} step={1} />);
-        controlArray.push(<ControlText value={players[player].controlTextValues[8]} onValueChange={(value)=> {onValueChange(value, player, 8)}} initialValue={0} text={t('points.anclajeindebido')} step={5} />);
-        controlArray.push(<ControlText value={players[player].controlTextValues[9]} onValueChange={(value)=> {onValueChange(value, player, 9)}} initialValue={0} text={t('points.juez')} step={1} />);
+        controlArray.push(<ControlText value={players[player].controlTextValues[7]} onValueChange={(value)=> {onValueChange(value, player, 7)}} initialValue={0} text={t('points.equipaje')} step={3} />);
+        controlArray.push(<ControlText value={players[player].controlTextValues[8]} onValueChange={(value)=> {onValueChange(value, player, 8)}} initialValue={0} text={t('points.distancia')} step={1} />);
+        controlArray.push(<ControlText value={players[player].controlTextValues[9]} onValueChange={(value)=> {onValueChange(value, player, 9)}} initialValue={0} text={t('points.anclajeindebido')} step={5} />);
+        controlArray.push(<ControlText value={players[player].controlTextValues[10]} onValueChange={(value)=> {onValueChange(value, player, 10)}} initialValue={0} text={t('points.juez')} step={1} />);
     } else {
         controlArray.push(<ControlText value={players[player].controlTextValues[0]} onValueChange={(value)=> {onValueChange(value, player, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);
         controlArray.push(<ControlText value={players[player].controlTextValues[1]} onValueChange={(value)=> {onValueChange(value, player, 1)}} initialValue={0} text={t('points.tocar')} step={3} />);

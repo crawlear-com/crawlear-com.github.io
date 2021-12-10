@@ -59,6 +59,7 @@ i18n
             winch: 'winch',
             puertaprogresion: 'progression gate',
             distancia: 'distance',
+            equipaje: 'baggage',
             anclajeindebido: 'improper anchor',
             juez: 'judge'
           },
@@ -71,7 +72,7 @@ i18n
             simple: 'Simple',
             completa: 'Complete',
             descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points. There is no max time or max points',
-            descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor and judge. Optional time and maximum points. In this mode it is possible to apply maximum time and / or maximum score and make a fiasco in case of exceeding it. In the event of a fiasco, the player will score the maximum between the defined times / points and the current score.',
+            descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor, baggage and judge. Optional time and maximum points. In this mode it is possible to apply maximum time and / or maximum score and make a fiasco in case of exceeding it. In the event of a fiasco, the player will score the maximum between the defined times / points and the current score.',
             tiempo: 'Time',
             puntos: 'Points',
             rey: 'The King'
@@ -125,6 +126,7 @@ i18n
             winch: 'winch',
             puertaprogresion: 'puerta progresion',
             distancia: 'distancia',
+            equipaje: 'equipaje',
             anclajeindebido: 'anclaje indebido',
             juez: 'juez'
           },
@@ -137,7 +139,7 @@ i18n
             simple: 'Simple',
             completa: 'Completa',
             descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos. No se aplica tiempo ni puntuación máxima.',
-            descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido y juez. Tiempo y puntos máximos opcionales. En éste modo es posible aplicar tiempo máximo y/o puntuación máxima y realizar un fiasco en caso de superarla. En caso de fiasco el jugador puntuará el máximo entre los tiempos / puntos definidos y la puntuación actual.',
+            descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido, equipaje y juez. Tiempo y puntos máximos opcionales. En éste modo es posible aplicar tiempo máximo y/o puntuación máxima y realizar un fiasco en caso de superarla. En caso de fiasco el jugador puntuará el máximo entre los tiempos / puntos definidos y la puntuación actual.',
             tiempo: 'Tiempo',
             puntos: 'Puntos',
             rey: 'El Rey'
