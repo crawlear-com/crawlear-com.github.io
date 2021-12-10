@@ -58,7 +58,7 @@ class Utils {
             return bypoints;
           });
     
-        return players[0].id;
+        return players;
     }
 
     static getWinnerByPointsAndTime(inPlayers) {
@@ -74,7 +74,7 @@ class Utils {
             return bypoints;
           });
     
-        return players[0].id;
+        return players;
     }
 }
 

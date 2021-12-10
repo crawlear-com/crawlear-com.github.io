@@ -19,7 +19,7 @@ function GameController(props) {
 
     const [state, setState] = React.useState({
         players: [], 
-        winner: 0,
+        orderedPlayers: [],
         gameStatus: GAME_STATUS_MENU,
         gameSelected: GAME_TYPE_TIME,
         pointsTypeSelected: GAME_MODE_SIMPLE
@@ -29,7 +29,7 @@ function GameController(props) {
         Analytics.event('menu', 'pointsModeChange',selectedIndex);
         setState({
             players: state.players, 
-            winner: state.winner,
+            orderedPlayers: state.orderedPlayers,
             gameStatus: state.gameStatus,
             gameSelected: state.gameSelected,
             pointsTypeSelected: selectedIndex
@@ -40,19 +40,19 @@ function GameController(props) {
         Analytics.event('menu', 'playModeChange', selectedIndex);
         setState({
             players: state.players, 
-            winner: state.winner,
+            orderedPlayers: state.orderedPlayers,
             gameStatus: state.gameStatus,
             gameSelected: selectedIndex,
             pointsTypeSelected: state.pointsTypeSelected
         });
     }
     
-    function onGameEnd(winnerPlayer) {
+    function onGameEnd(orderedPlayers) {
         window.scrollTo(0,0);
-        Analytics.event('menu','winner',winnerPlayer);
+        Analytics.event('menu','winner',orderedPlayers[0].name);
         setState({
             players: state.players, 
-            winner: winnerPlayer,
+            orderedPlayers: orderedPlayers,
             gameStatus: GAME_STATUS_FINISH,
             gameSelected: state.gameSelected,
             pointsTypeSelected: state.pointsTypeSelected
@@ -70,7 +70,7 @@ function GameController(props) {
 
         setState({
             players: players, 
-            winner: state.winner,
+            orderedPlayers: state.orderedPlayers,
             gameStatus: state.gameStatus,
             gameSelected: state.gameSelected,
             pointsTypeSelected: state.pointsTypeSelected
@@ -85,7 +85,7 @@ function GameController(props) {
             Analytics.event('menu', 'beginGame', state.players.length);
             setState({
                 players: newState.players,
-                winner: newState.winner, 
+                orderedPlayers: newState.orderedPlayers, 
                 gameStatus: GAME_STATUS_PLAY,
                 gameSelected: newState.gameSelected,
                 pointsTypeSelected: newState.pointsTypeSelected
@@ -100,7 +100,7 @@ function GameController(props) {
         window.scrollTo(0,0);
         setState({
             players: state.players, 
-            winner: state.winner,
+            orderedPlayers: state.orderedPlayers,
             gameStatus: GAME_STATUS_MENU,
             gameSelected: state.gameSelected,
             pointsTypeSelected: state.pointsTypeSelected
@@ -138,7 +138,7 @@ function GameController(props) {
             elementsToRender.push(<WinnerTable 
                 mode={state.pointsTypeSelected}
                 players={state.players}
-                winnerId={state.winner}
+                orderedPlayers={state.orderedPlayers}
                 goToMenu={goToMenu} />);
     }
 

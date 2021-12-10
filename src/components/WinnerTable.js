@@ -1,35 +1,32 @@
-import { findAllByTestId } from '@testing-library/dom';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Utils from '../Utils';
 
-function WinnerTable({mode, goToMenu, players, winnerId}) {
-    const { t } = useTranslation();
-    const finalWinner = findWinner();
+function WinnerTable({mode, goToMenu, orderedPlayers}) {
+    const { t } = useTranslation(),
+        finalWinner = 0;
+    let winnerOrTieBox = <></>;
 
-    function findWinner() {
-        let found = false, i=0;
-
-        while (!found) {
-            if (players[i].id === winnerId) found=true;
-            else i++;
-        }
-
-        return i;
+    if (orderedPlayers.length>1 && 
+        orderedPlayers[0].points + orderedPlayers[0].handicap === orderedPlayers[1].points + orderedPlayers[1].handicap &&
+        orderedPlayers[0].time === orderedPlayers[1].time) {
+            winnerOrTieBox = <div className="rounded rounded2 importantNote">{t('description.empate')}</div>;
+    } else {
+        winnerOrTieBox = <><p>{t('description.ganador')}: <b>{orderedPlayers[finalWinner].name}<b /></b> </p>
+            {t('description.tiempo')}: {Utils.printTime(Utils.millisToTime(orderedPlayers[finalWinner].time))} <br />
+            {t('description.puntos')}: {orderedPlayers[finalWinner].points}  <br />
+            {t('description.handicap')}: {orderedPlayers[finalWinner].handicap}  <br />
+            <b>{t('description.total')}: {orderedPlayers[finalWinner].points + orderedPlayers[finalWinner].handicap}</b></>;
     }
 
     return <><div className="winnerBox importantNote rounded">
-        {t('description.ganador')}: <b>{players[finalWinner].name}<b /></b> <br />
-        {t('description.tiempo')}: {Utils.printTime(Utils.millisToTime(players[finalWinner].time))} <br />
-        {t('description.puntos')}: {players[finalWinner].points}  <br />
-        {t('description.handicap')}: {players[finalWinner].handicap}  <br />
-        <b>{`${t('description.total')}: ${players[finalWinner].points + players[finalWinner].handicap}`}</b>
+        {winnerOrTieBox}
     </div>
     <div className="pointsTable rounded rounded1">
-        {players.map((player, i) => { 
+        {orderedPlayers.map((player, i) => { 
             return <div className="winnerBox" key={i} value={player.name}>
                     <div className="headerPlayer rounded2 rounded bold">
-                        {player.name}
+                        {i+1}. {player.name}
                     </div>
                     {t('description.tiempo')}: {Utils.printTime(Utils.millisToTime(player.time))}<br />
                     {t('description.puntos')}: {player.points} <br />
