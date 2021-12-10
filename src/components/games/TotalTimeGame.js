@@ -2,8 +2,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
 import ControlTextArray from '../ControlTextArray';
-import MaxTimePicker from '../MaxTimePicker';
-import Picker from '../Picker';
 import Utils from '../../Utils';
 import Analytics from '../../Analytics';
 
@@ -12,16 +10,14 @@ import '../../resources/css/games/TotalTimeGame.css'
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
 const MODE_OFFICIAL = 1;
-const STEP_MAXTIMESELECT = 0;
-const STEP_PLAY = 1;
 
 let tickTime = 0;
 let timer = null;
 
-function TotalTimeGame({mode, onGameEnd, players}) {
+function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
     const [state, setState] = React.useState(()=>{ 
         tickTime = 0;
-        return initControlTestValues({ maxPoints: 0, maxTime: 0, mode, players, step: STEP_MAXTIMESELECT }) 
+        return initControlTestValues({ maxPoints: maxPoints, maxTime: maxTime, mode, players }) 
     });
     const { t } = useTranslation();
     
@@ -51,10 +47,12 @@ function TotalTimeGame({mode, onGameEnd, players}) {
     }, [state.state]);
 
     function onChangeScore(value, player, control) {
-        const players = [...state.players];
+        const players = [...state.players],
+        points = state.players[state.currentPlayer].points,
+        handicap = state.players[state.currentPlayer].handicap;
 
-        if (!(state.maxPoints <= (state.players[state.currentPlayer].points + state.players[state.currentPlayer].handicap) && state.maxPoints > 0) && 
-        !(state.maxTime <= tickTime && state.maxTime > 0)) {
+        if ((!(state.maxPoints <= (points + handicap) && state.maxPoints > 0) && 
+        !(state.maxTime <= tickTime && state.maxTime > 0)) || (points + handicap + value < state.maxPoints)) {
             players[player].controlTextValues = [...players[player].controlTextValues];
             players[player].controlTextValues[control] += value;
             players[player].points += value;
@@ -104,22 +102,6 @@ function TotalTimeGame({mode, onGameEnd, players}) {
         }));
     }
 
-    function onMaxPointsChange(points) {
-        Analytics.event('menu', 'maxPointsSet', points);
-        setState(previousInputs=>({
-            ...previousInputs,
-            maxPoints: points
-        }));
-    }
-
-    function onMaxTimeChange(time) {
-        Analytics.event('menu', 'maxTimeSet', time);
-        setState(previousInputs=>({
-            ...previousInputs,
-            maxTime: time
-        }));
-    }
-
     function onReset() {
         let newState = {
             ...state, 
@@ -165,22 +147,10 @@ function TotalTimeGame({mode, onGameEnd, players}) {
         }
     }
 
-    function onCompleteGameMaxtimeSelected() {
-        setState(previousInputs => ({ 
-            ...previousInputs,
-            step: STEP_PLAY}));
-
-    }
-
     if (state.players.length>0) {
         const currentPlayer = state.players[state.currentPlayer];
         let controlTextArray = [],
-            maxTimeControl,
-            maxTimePicker = state.mode === MODE_OFFICIAL ? 
-                <MaxTimePicker onMaxTimeChange={onMaxTimeChange}
-                    hours={0}
-                    minutes={0}
-                    seconds={0} /> : <></>;
+            maxTimeControl = <></>;
 
         controlTextArray = ControlTextArray({
             players: state.players,
@@ -190,65 +160,53 @@ function TotalTimeGame({mode, onGameEnd, players}) {
                 onChangeScore(value, player, control)
             }});
 
-        if (state.mode === MODE_OFFICIAL && state.step === STEP_MAXTIMESELECT) {
-            return <div>
-                    <p>{t('content.maxTimeText1')}</p>
-                    {maxTimePicker}
-                    <p>{t('content.maxTimeText2')}</p>
-                    <div className="pickerContainer timerContainer rounded rounded2">
-                        <Picker minValue={0} maxValue={40} callback={(result) => {onMaxPointsChange(result)}} initialValue={0} />
-                    </div>
-                    <button onClick={onCompleteGameMaxtimeSelected} className="rounded rounded2 importantNote">{t('description.continuar')}</button>
-                </div>;
-        } else {
-            if (state.mode === MODE_OFFICIAL) {
-                let fiasco;
+        if (state.mode === MODE_OFFICIAL) {
+            let fiasco;
 
-                if ((state.maxPoints <= (state.players[state.currentPlayer].points+state.players[state.currentPlayer].handicap) && state.maxPoints > 0) || 
-                    (state.maxTime <= tickTime && state.maxTime > 0)) {
-                    Analytics.event('play', 'fiasco', state.players[state.currentPlayer].name); 
-                    fiasco = <div className="rounded importantNote">FiASCO!</div>;
-                }
-
-                maxTimeControl = <div className="fiascoBox rounded rounded2 bold">
-                    {fiasco}
-                    {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.maxTime))} <br />
-                    {t('description.puntosmaximo')}: {state.maxPoints}
-                </div>
+            if ((state.maxPoints <= (state.players[state.currentPlayer].points+state.players[state.currentPlayer].handicap) && state.maxPoints > 0) || 
+                (state.maxTime <= tickTime && state.maxTime > 0)) {
+                Analytics.event('play', 'fiasco', state.players[state.currentPlayer].name); 
+                fiasco = <div className="rounded importantNote">FiASCO!</div>;
             }
 
-            return <div className="gameContainer">
-                <div className="playersList">
-                    <div className="playerListItem importantNote rounded">
-                        <img src={currentPlayer.avatar} alt="avatar"/>
-                        {currentPlayer.name}
-                    </div>
-                </div>
-                {maxTimeControl}
-                <div className="totalTimeContainer rounded">
-                    {`${t('description.handicap')} : ${currentPlayer.handicap}`}<br />
-                    {t('description.puntos')}: { currentPlayer.points}<br />
-                    ---<br />
-                    <div className="inline bold">{t('description.total')} :</div> {currentPlayer.points + currentPlayer.handicap}
-                </div>
-                <TimerControl 
-                    state={state.state}
-                    time={state.millis} 
-                    onPlayPauseChange={changePlayPauseTimeControl}
-                />
-                <div className="controlTextContainer rounded rounded1">
-                    {controlTextArray}
-                </div>
-                <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
-                <button className="importantNote" onClick={()=>{
-                    onEndPlayer(onGameEnd)
-                    }}>{t('description.finjugador')} ({currentPlayer.name})</button><p />
+            maxTimeControl = <div className="fiascoBox rounded rounded2 bold">
+                {fiasco}
+                {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.maxTime))} <br />
+                {t('description.puntosmaximo')}: {state.maxPoints}
             </div>
         }
+
+        return <div className="gameContainer">
+            <div className="playersList">
+                <div className="playerListItem importantNote rounded">
+                    <img src={currentPlayer.avatar} alt="avatar"/>
+                    {currentPlayer.name}
+                </div>
+            </div>
+            {maxTimeControl}
+            <div className="totalTimeContainer rounded">
+                {`${t('description.handicap')} : ${currentPlayer.handicap}`}<br />
+                {t('description.puntos')}: { currentPlayer.points}<br />
+                ---<br />
+                <div className="inline bold">{t('description.total')} :</div> {currentPlayer.points + currentPlayer.handicap}
+            </div>
+            <TimerControl 
+                state={state.state}
+                time={state.millis} 
+                onPlayPauseChange={changePlayPauseTimeControl}
+            />
+            <div className="controlTextContainer rounded rounded1">
+                {controlTextArray}
+            </div>
+            <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
+            <button className="importantNote" onClick={()=>{
+                onEndPlayer(onGameEnd)
+                }}>{t('description.finjugador')} ({currentPlayer.name})</button><p />
+        </div>
     }
 }
 
-function initControlTestValues({maxPoints, maxTime, mode, players, step}) {
+function initControlTestValues({maxPoints, maxTime, mode, players}) {
     const newState = {
         millis: 0,
         timeStart: 0,
@@ -257,8 +215,7 @@ function initControlTestValues({maxPoints, maxTime, mode, players, step}) {
         mode: mode,
         maxTime: maxTime,
         maxPoints: maxPoints,
-        state: STATE_PAUSE,
-        step: step
+        state: STATE_PAUSE
     }
 
     for(let i=0; i<newState.players.length;i++) {

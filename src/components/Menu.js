@@ -18,8 +18,8 @@ function Menu() {
             <div className="linksContainer">
                 <ul>
                     <li><a href="/">Main page</a></li>
-                    <li><a href="/aboutus">About us</a></li>
                     <li><a href="/privacypolicy">Privacy Policy</a></li>
+                    <li><a href="/aboutus">About us</a></li>
                     <li>-</li>
                     <li><a href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR Crawler</a></li>
                     <li><a href={pdf}>1/24 Reglamento Deportivo oficial 2021</a></li>

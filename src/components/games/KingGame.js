@@ -1,24 +1,27 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlTextArray from '../ControlTextArray';
-import ReactGA from 'react-ga';
+import Analytics from '../../Analytics';
 
 import '../../resources/css/games/KingGame.css';
 
 const MODE_OFFICIAL = 1;
 
-function KingGame({mode, onGameEnd, players}) {
-    const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players }) });
+function KingGame({mode, onGameEnd, players, maxTime, maxPoints}) {
+    const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players, maxTime, maxPoints }) });
     const { t } = useTranslation();
 
-    function changePointsOnScoreChange(points, player, control) {
-        const players = [...state.players]
-        const order = getPlayersOrder(state.order.findIndex(item => item.id===state.players[player].id), state.order);
+    function changePointsOnScoreChange(value, player, control) {
+        const players = [...state.players],
+            points = players[player].points,
+            handicap = players[player].handicap,
+            order = getPlayersOrder(state.order.findIndex(item => item.id===players[player].id), state.order);
 
-        players[player].points += points;
-        players[player].controlTextValues = [...players[player].controlTextValues];
-        players[player].controlTextValues[control] += points;
-                
+        if (!(state.maxPoints <= (points + handicap) && state.maxPoints > 0) || (points + handicap + value < state.maxPoints)) {
+            players[player].points += value;
+            players[player].controlTextValues = [...players[player].controlTextValues];
+            players[player].controlTextValues[control] += value;
+        }                
         setState(previousInputs => ({ ...previousInputs,
             players: players,
             order: order
@@ -37,7 +40,7 @@ function KingGame({mode, onGameEnd, players}) {
     }
 
     React.useEffect(() => {
-        ReactGA.pageview('/kinggame/');
+        Analytics.pageview('/kinggame/');
     },[]);
 
     let result = [];
@@ -55,6 +58,20 @@ function KingGame({mode, onGameEnd, players}) {
 
     result.push(<p>{t('description.puntos').toUpperCase()}:</p>);
     for(let i=0;i<state.players.length;i++) {
+        if (state.mode === MODE_OFFICIAL) {
+            let fiasco;
+
+            if (state.maxPoints <= (state.players[i].points+state.players[i].handicap) && state.maxPoints > 0) {
+                Analytics.event('play', 'fiasco', state.players[i].name); 
+                fiasco = <div className="rounded importantNote">FiASCO!</div>;
+            }
+
+            result.push(<div className="fiascoBox rounded rounded2 bold">
+                {fiasco}
+                {t('description.puntosmaximo')}: {state.maxPoints}
+            </div>);
+        }
+
         result.push(<>
             <div className="playerInfo">
                 <div className="headerPlayer importantNote rounded2 rounded">
@@ -67,7 +84,7 @@ function KingGame({mode, onGameEnd, players}) {
                         players: state.players, 
                         player: i, 
                         pointsMode: state.mode, 
-                        onValueChange: (value, player, control)=> {changePointsOnScoreChange(value, player, control)}})}
+                        onValueChange: (value, player, control) => {changePointsOnScoreChange(value, player, control)}})}
                 </div>
             </div>
         </>);
@@ -78,11 +95,13 @@ function KingGame({mode, onGameEnd, players}) {
     return result;
 }
 
-function initControlTestValues({mode, players}) {
+function initControlTestValues({mode, players, maxTime, maxPoints}) {
     const newState = {
         players: [...players],
         mode: mode,
-        order: [...players]
+        order: [...players],
+        maxTime: maxTime,
+        maxPoints: maxPoints
     }
 
     for(let i=0; i<newState.players.length;i++) {
