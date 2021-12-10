@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.e22c7ff7.chunk.css",
-    "main.js": "/static/js/main.d700eda8.chunk.js",
-    "main.js.map": "/static/js/main.d700eda8.chunk.js.map",
+    "main.css": "/static/css/main.8df775cb.chunk.css",
+    "main.js": "/static/js/main.622a0e48.chunk.js",
+    "main.js.map": "/static/js/main.622a0e48.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.cf6f7601.js",
     "runtime-main.js.map": "/static/js/runtime-main.cf6f7601.js.map",
     "static/js/2.2a5a0e66.chunk.js": "/static/js/2.2a5a0e66.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.04edd3c4.chunk.js": "/static/js/3.04edd3c4.chunk.js",
     "static/js/3.04edd3c4.chunk.js.map": "/static/js/3.04edd3c4.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.e22c7ff7.chunk.css.map": "/static/css/main.e22c7ff7.chunk.css.map",
+    "static/css/main.8df775cb.chunk.css.map": "/static/css/main.8df775cb.chunk.css.map",
     "static/js/2.2a5a0e66.chunk.js.LICENSE.txt": "/static/js/2.2a5a0e66.chunk.js.LICENSE.txt",
     "static/media/1 24 REGLAMENTO CRAWLER DEPORTIVO Y TECNICO 2021 V1 BORRADOR 19-1-2021.70aee093.pdf": "/static/media/1 24 REGLAMENTO CRAWLER DEPORTIVO Y TECNICO 2021 V1 BORRADOR 19-1-2021.70aee093.pdf",
     "static/media/img00.612023be.png": "/static/media/img00.612023be.png",
@@ -22,7 +22,7 @@
   "entrypoints": [
     "static/js/runtime-main.cf6f7601.js",
     "static/js/2.2a5a0e66.chunk.js",
-    "static/css/main.e22c7ff7.chunk.css",
-    "static/js/main.d700eda8.chunk.js"
+    "static/css/main.8df775cb.chunk.css",
+    "static/js/main.622a0e48.chunk.js"
   ]
 }
