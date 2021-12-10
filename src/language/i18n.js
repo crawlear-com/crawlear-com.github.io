@@ -49,7 +49,10 @@ i18n
             zonas: 'Zones',
             puntosmaximo: 'MAX POINTS',
             handicap: 'handicap',
-            instrucciones: 'Instructions'
+            instrucciones: 'Instructions',
+            paginaprincipal: 'Main page',
+            aboutus: 'About us',
+            politicaprivacidad: 'Privacy policy'
           },
           points: {
             vuelco: 'overturn',
@@ -117,7 +120,10 @@ i18n
               zonas: 'Zonas',
               puntosmaximo: 'MAX PUNTOS',
               handicap: 'handicap',
-              instrucciones: 'Instrucciones'
+              instrucciones: 'Instrucciones',
+              paginaprincipal: 'Página principal',
+              aboutus: 'Sobre nosotros',
+              politicaprivacidad: 'Política de privacidad'
           },
           points: {
             vuelco: 'vuelco',
