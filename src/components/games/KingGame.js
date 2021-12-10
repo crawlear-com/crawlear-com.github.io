@@ -21,7 +21,9 @@ function KingGame({mode, onGameEnd, players, maxTime, maxPoints}) {
             players[player].points += value;
             players[player].controlTextValues = [...players[player].controlTextValues];
             players[player].controlTextValues[control] += value;
-        }                
+        }  else if (state.maxPoints) {
+            players[player].points = Math.max(state.maxPoints, players[player].points);
+        }              
         setState(previousInputs => ({ ...previousInputs,
             players: players,
             order: order
@@ -57,19 +59,16 @@ function KingGame({mode, onGameEnd, players, maxTime, maxPoints}) {
     }
 
     result.push(<p>{t('description.puntos').toUpperCase()}:</p>);
-    for(let i=0;i<state.players.length;i++) {
-        if (state.mode === MODE_OFFICIAL) {
-            let fiasco;
+    state.mode === MODE_OFFICIAL && result.push(<p>{`${t('description.puntosmaximo')}: ${state.maxPoints}`.toLowerCase()}</p>);
 
+    for(let i=0;i<state.players.length;i++) {
+        let fiasco;
+
+        if (state.mode === MODE_OFFICIAL) {
             if (state.maxPoints <= (state.players[i].points+state.players[i].handicap) && state.maxPoints > 0) {
                 Analytics.event('play', 'fiasco', state.players[i].name); 
-                fiasco = <div className="rounded importantNote">FiASCO!</div>;
-            }
-
-            result.push(<div className="fiascoBox rounded rounded2 bold">
-                {fiasco}
-                {t('description.puntosmaximo')}: {state.maxPoints}
-            </div>);
+                fiasco = <div className="fiascoBox rounded rounded2 bold">FiASCO!</div>;
+            }            
         }
 
         result.push(<>
@@ -78,6 +77,7 @@ function KingGame({mode, onGameEnd, players, maxTime, maxPoints}) {
                     <div className="bold">{state.players[i].name}</div>
                     {`${t('description.handicap')} : ${state.players[i].handicap}`}<br />
                     {t('description.total')}: { state.players[i].points + state.players[i].handicap}
+                    {fiasco}
                 </div>
                 <div className="controlTextContainer rounded rounded1">
                     {ControlTextArray({
@@ -105,7 +105,7 @@ function initControlTestValues({mode, players, maxTime, maxPoints}) {
     }
 
     for(let i=0; i<newState.players.length;i++) {
-        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(10) : new Array(7);
+        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(11) : new Array(7);
 
         for(let j=0; j<newState.players[i].controlTextValues.length; j++) {
             newState.players[i].controlTextValues[j] = 0;

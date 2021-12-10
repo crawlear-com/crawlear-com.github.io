@@ -18,17 +18,13 @@ function PointsGame({mode, onGameEnd, players, maxTime, maxPoints}) {
             players[player].controlTextValues = [...players[player].controlTextValues];
             players[player].controlTextValues[control] += value;
             players[player].points += value;    
-            setState(previousInputs => ({ ...previousInputs,
-                players: players
-            }));
-        } else {
-            if (state.maxPoints) {
-                players[player].points = Math.max(state.maxPoints, players[player].points);
-                setState(previousInputs => ({ ...previousInputs,
-                    players: players
-                }));
-            }
+        } else if (state.maxPoints) {
+            players[player].points = Math.max(state.maxPoints, players[player].points);
         }
+
+        setState(previousInputs => ({ ...previousInputs,
+            players: players
+        }));
     }
 
     function onEndPlayer() {
@@ -120,7 +116,7 @@ function initControlTestValues({mode, players, maxTime, maxPoints}) {
     };
 
     for(let i=0; i<newState.players.length;i++) {
-        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(10) : new Array(7);
+        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(11) : new Array(7);
 
         for(let j=0; j<newState.players[i].controlTextValues.length; j++) {
             newState.players[i].controlTextValues[j] = 0;

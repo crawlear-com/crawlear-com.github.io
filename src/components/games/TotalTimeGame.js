@@ -52,14 +52,10 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
         handicap = state.players[state.currentPlayer].handicap;
 
         if ((!(state.maxPoints <= (points + handicap) && state.maxPoints > 0) && 
-        !(state.maxTime <= tickTime && state.maxTime > 0)) || (points + handicap + value < state.maxPoints)) {
-            players[player].controlTextValues = [...players[player].controlTextValues];
-            players[player].controlTextValues[control] += value;
-            players[player].points += value;
-        
-            setState(previousInputs => ({ ...previousInputs,
-                players: players
-            }));
+            !(state.maxTime <= tickTime && state.maxTime > 0)) || (points + handicap + value < state.maxPoints)) {
+                players[player].controlTextValues = [...players[player].controlTextValues];
+                players[player].controlTextValues[control] += value;
+                players[player].points += value;
         } else {
             if (state.maxPoints) {
                 players[player].points = Math.max(state.maxPoints, players[player].points);
@@ -67,13 +63,11 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
             if (state.maxTime) {
                 players[player].time = Math.max(state.maxPoints, players[player].time);
             }
-
-            if (state.maxTime || state.maxPoints) {
-                setState(previousInputs => ({ ...previousInputs,
-                    players: players
-                }));
-            }
         }
+
+        setState(previousInputs => ({ ...previousInputs,
+            players: players
+        }));
     }
 
     function timerCount(state) {
@@ -219,7 +213,7 @@ function initControlTestValues({maxPoints, maxTime, mode, players}) {
     }
 
     for(let i=0; i<newState.players.length;i++) {
-        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(10) : new Array(7);
+        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(11) : new Array(7);
 
         for(let j=0; j<newState.players[i].controlTextValues.length; j++) {
             newState.players[i].controlTextValues[j] = 0;
