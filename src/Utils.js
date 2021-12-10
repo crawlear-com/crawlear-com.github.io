@@ -44,6 +44,38 @@ class Utils {
       
         return array;
     }
+
+    static getWinnerByPoints(inPlayers) {
+        const players = [...inPlayers];
+        
+        players.sort(function(a, b) {
+            const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
+    
+            if (bypoints === 0) {
+                return a.id - b.id;
+            }
+    
+            return bypoints;
+          });
+    
+        return players[0].id;
+    }
+
+    static getWinnerByPointsAndTime(inPlayers) {
+        const players = [...inPlayers];
+    
+        players.sort(function(a, b) {
+            const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
+    
+            if (bypoints === 0) {
+                return a.time - b.time;
+            }
+    
+            return bypoints;
+          });
+    
+        return players[0].id;
+    }
 }
 
 

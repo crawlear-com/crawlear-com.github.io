@@ -1,8 +1,14 @@
 import * as React from 'react';
+import Analytics from '../../Analytics';
 
-import '../resources/css/PrivacyPolicy.css';
+import '../../resources/css/PrivacyPolicy.css';
 
 function PrivacyPolicy() {
+    
+    React.useEffect(() => {
+        Analytics.pageview('/privacypolicy/');
+    },[]);
+
     return <div className="privacyPolicy">
         <b>Privacy Policy</b>:
         <ul>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
+import Utils from '../../Utils';
 
 import '../../resources/css/games/KingGame.css';
 
@@ -31,14 +32,7 @@ function KingGame({mode, onGameEnd, players, maxTime, maxPoints}) {
     }
 
     function gameEnd() {
-        let winner = 0;
-
-        for(let i=0; i<state.players.length;i++) {
-            if (state.players[i].points + state.players[i].handicap < state.players[winner].points + state.players[winner].handicap) {
-                winner = i;
-            }
-        }
-        onGameEnd && onGameEnd(state.players[winner].id);
+        onGameEnd && onGameEnd(Utils.getWinnerByPoints(state.players));
     }
 
     React.useEffect(() => {

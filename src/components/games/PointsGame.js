@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
+import Utils from '../../Utils';
 
 const MODE_OFFICIAL = 1;
 
@@ -39,7 +40,7 @@ function PointsGame({mode, onGameEnd, players, maxTime, maxPoints}) {
                 };
             });
         } else {
-            onGameEnd && onGameEnd(getWinner(state));
+            onGameEnd && onGameEnd(Utils.getWinnerByPoints(state.players));
         }
     }
 
@@ -124,22 +125,6 @@ function initControlTestValues({mode, players, maxTime, maxPoints}) {
     }
 
     return newState;
-}
-
-function getWinner(state) {
-    const players = [...state.players];
-
-    players.sort(function(a, b) {
-        const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
-
-        if (bypoints === 0) {
-            return a.id - b.id;
-        }
-
-        return bypoints;
-      });
-
-    return players[0].id;
 }
 
 export default PointsGame;

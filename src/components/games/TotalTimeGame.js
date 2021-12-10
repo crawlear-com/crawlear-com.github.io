@@ -137,7 +137,7 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
                 ...previousInputs,
                 ...newState}));
         } else {
-            onGameEnd && onGameEnd(getWinner(state));
+            onGameEnd && onGameEnd(Utils.getWinnerByPointsAndTime(state.players));
         }
     }
 
@@ -220,24 +220,7 @@ function initControlTestValues({maxPoints, maxTime, mode, players}) {
         }
     }
 
-
     return newState;
-}
-
-function getWinner(state) {
-    const players = [...state.players];
-
-    players.sort(function(a, b) {
-        const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
-
-        if (bypoints === 0) {
-            return a.time - b.time;
-        }
-
-        return bypoints;
-      });
-
-    return players[0].id;
 }
 
 export default TotalTimeGame;

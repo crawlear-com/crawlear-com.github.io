@@ -9,10 +9,11 @@ import logo from './resources/img/logo.png';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GameController from './components/GameController';
-import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
-import PrivacyPolicy from './components/PrivacyPolicy';
+
+import AboutUs from './components/routes/AboutUs';
+import PrivacyPolicy from './components/routes/PrivacyPolicy';
 
 import Analytics from './Analytics';
 

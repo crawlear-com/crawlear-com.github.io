@@ -1,11 +1,11 @@
 import * as React from 'react';
-import Analytics from '../Analytics';
+import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
-import img01 from '../resources/img/img01.png';
-import img02 from '../resources/img/img02.png';
-import img03 from '../resources/img/img03.png';
+import img01 from '../../resources/img/img01.png';
+import img02 from '../../resources/img/img02.png';
+import img03 from '../../resources/img/img03.png';
 
-import '../resources/css/AboutUs.css';
+import '../../resources/css/AboutUs.css';
 
 function AboutUs() {
     const { t } = useTranslation();
