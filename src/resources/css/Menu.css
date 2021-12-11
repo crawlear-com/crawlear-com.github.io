@@ -1,13 +1,13 @@
 .menuContainer {
     position: fixed;
-    top: 0px;
+    top: 8px;
     left: 0px;
     margin: 2px;
     padding: 5px;
     z-index: 10;
     border-radius: 7px;
     overflow: hidden;
-    transition: width 0.2s, height 0.2s;
+    transition: width 0.2s;
 }
 
 .burguerMenuBar:first-of-type {
@@ -33,7 +33,6 @@
 
 .closed {
     width: 35px;
-    height: 40px;
     box-shadow: none;
 }
 

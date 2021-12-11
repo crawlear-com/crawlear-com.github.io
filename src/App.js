@@ -4,7 +4,7 @@ import './resources/css/App.css';
 import './resources/css/Components.css';
 import './resources/css/Footer.css';
 
-import logo from './resources/img/logo.png';
+import logo from './resources/img/logo2.png';
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
