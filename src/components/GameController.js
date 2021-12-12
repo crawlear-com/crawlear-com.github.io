@@ -18,7 +18,7 @@ function GameController(props) {
     const elementsToRender = [];
 
     const [state, setState] = React.useState({
-        players: [], 
+        players: [], 
         orderedPlayers: [],
         gameStatus: GAME_STATUS_MENU,
         gameSelected: GAME_TYPE_TIME,
@@ -59,7 +59,7 @@ function GameController(props) {
         });
     }
     
-    function onPlayerNumerChange(players, alertBoxRef) {
+    function onPlayerNumerChange(players, alertBoxRef) {
         let action = 'addPlayer';
 
         cleanAlertBox(alertBoxRef);

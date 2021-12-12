@@ -163,7 +163,7 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
                 fiasco = <div className="rounded importantNote">FiASCO!</div>;
             }
 
-            maxTimeControl = <div className="fiascoBox rounded rounded2 bold">
+            maxTimeControl = <div className="fiascoBox bold">
                 {fiasco}
                 {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.maxTime))} <br />
                 {t('description.puntosmaximo')}: {state.maxPoints}
@@ -178,7 +178,7 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
                 </div>
             </div>
             {maxTimeControl}
-            <div className="totalTimeContainer rounded">
+            <div className="totalTimeContainer rounded rounded2">
                 {`${t('description.handicap')} : ${currentPlayer.handicap}`}<br />
                 {t('description.puntos')}: { currentPlayer.points}<br />
                 ---<br />
