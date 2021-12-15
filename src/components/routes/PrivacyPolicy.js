@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Analytics from '../../Analytics';
 
-import '../../resources/css/PrivacyPolicy.css';
+import '../../resources/css/PrivacyPolicy.scss';
 
 function PrivacyPolicy() {
     

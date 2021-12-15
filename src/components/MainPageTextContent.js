@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import headLogo from '../resources/img/img00.png';
 import YoutubeEmbed from './YoutubeEmbed';
 
-import '../resources/css/MainPageTextContent.css';
+import '../resources/css/MainPageTextContent.scss';
 
 function MainPageTextContent() {
     const { t } = useTranslation();

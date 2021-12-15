@@ -4,7 +4,7 @@ import PlayerItem from './PlayerItem';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 
-import '../resources/css/PlayerController.css';
+import '../resources/css/PlayerController.scss';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 

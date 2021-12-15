@@ -5,7 +5,7 @@ import ControlTextArray from '../ControlTextArray';
 import Utils from '../../Utils';
 import Analytics from '../../Analytics';
 
-import '../../resources/css/games/TotalTimeGame.css'
+import '../../resources/css/games/TotalTimeGame.scss'
 
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';

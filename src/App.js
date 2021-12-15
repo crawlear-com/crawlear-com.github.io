@@ -1,8 +1,7 @@
 
-import './resources/css/Base.css';
-import './resources/css/App.css';
-import './resources/css/Components.css';
-import './resources/css/Footer.css';
+import './resources/css/Base.scss';
+import './resources/css/App.scss';
+import './resources/css/Footer.scss';
 
 import logo from './resources/img/logo2.png';
 

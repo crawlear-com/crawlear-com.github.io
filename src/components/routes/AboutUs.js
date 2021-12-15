@@ -5,7 +5,7 @@ import img01 from '../../resources/img/img01.png';
 import img02 from '../../resources/img/img02.png';
 import img03 from '../../resources/img/img03.png';
 
-import '../../resources/css/AboutUs.css';
+import '../../resources/css/AboutUs.scss';
 
 function AboutUs() {
     const { t } = useTranslation();

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import '../resources/css/GameTypeController.css';
+import '../resources/css/GameTypeController.scss';
 
 function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameType=0, selectedPointsType=0}) {
     const { t } = useTranslation();

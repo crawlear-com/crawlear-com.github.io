@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../resources/css/ControlText.css';
+import '../resources/css/ControlText.scss';
 import Analytics from '../Analytics';
 
 function ControlText({

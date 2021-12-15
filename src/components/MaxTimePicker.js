@@ -2,7 +2,7 @@ import * as React from 'react';
 import Utils from '../Utils';
 import Picker from './Picker';
 
-import '../resources/css/MaxTimePicker.css';
+import '../resources/css/MaxTimePicker.scss';
 
 const HOURS = 0;
 const MINUTES = 1;

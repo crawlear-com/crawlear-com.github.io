@@ -4,7 +4,7 @@ import WinnerTable from './WinnerTable';
 import GameTypePlayer from './GameTypePlayer';
 import Analytics from '../Analytics';
 
-import '../resources/css/GameController.css';
+import '../resources/css/GameController.scss';
 
 const GAME_STATUS_MENU = 0;
 const GAME_STATUS_PLAY = 1;
