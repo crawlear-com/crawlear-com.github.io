@@ -27,18 +27,14 @@
   font-size: calc(10px + 2vmin);
   color: white;
   margin-bottom: 10px;
-}
 
-.App-header img {
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  width: 300px;
-  margin: 11px 8px 10px 0;
-}
-
-.rounded button {
-  background-color: transparent;
+  img {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 300px;
+    margin: 11px 8px 10px 0;
+  }  
 }
 
 .headerText {
@@ -55,6 +51,10 @@
   border-radius: 15px;
   box-shadow: 5px 5px 5px #222;
   padding: 10px;
+
+  button {
+    background-color: transparent;
+  }
 }
 
 .rounded1 {
@@ -75,14 +75,14 @@
 
 .importantNote {
   background-image: linear-gradient(#ffa602, #ea7402);
-}
-
-.importantNote img {
-  width: 32px;
-  vertical-align: middle;
-  border-radius: 8px;
-  padding: 5px 0px;
-  float:left;
+  
+  img {
+    width: 32px;
+    vertical-align: middle;
+    border-radius: 8px;
+    padding: 5px 0px;
+    float:left;
+  }
 }
 
 .controlTextContainer {
@@ -97,10 +97,10 @@
 .winnerBox {
   padding: 15px;
   margin-bottom: 25px;
-}
 
-.winnerBox .headerPlayer {
-  margin-bottom: 15px;
+  .headerPlayer {
+    margin-bottom: 15px;
+  }
 }
 
 .pointsTable {

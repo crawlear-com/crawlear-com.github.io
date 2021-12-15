@@ -4,7 +4,7 @@ import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 
-import '../../resources/css/games/KingGame.css';
+import '../../resources/css/games/KingGame.scss';
 
 const MODE_OFFICIAL = 1;
 

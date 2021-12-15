@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import MaxTimePicker from './MaxTimePicker';
 import Picker from './Picker';
 
-import '../resources/css/MaxTimePicker.css';
+import '../resources/css/MaxTimePicker.scss';
 
 const MODE_OFFICIAL = 1;
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Picker from './Picker';
 import { useTranslation } from 'react-i18next';
 
-import '../resources/css/PlayerItem.css';
+import '../resources/css/PlayerItem.scss';
 
 function PlayerItem({player, i, onRemovePlayer, onHandicapChange}) {
     const { t } = useTranslation();

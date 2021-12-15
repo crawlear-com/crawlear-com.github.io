@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../resources/css/Picker.css';
+import '../resources/css/Picker.scss';
 
 function Picker({callback, minValue, maxValue, initialValue, value}) {
     const elementRef = React.useRef();
