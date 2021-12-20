@@ -31,19 +31,20 @@ jest.mock('react-i18next', () => ({
 test('renders PlayerController', () => {
     const onPlayerNumerChangeMock = jest.fn(),
         { container } = render(<PlayerController onPlayerNumerChange={onPlayerNumerChangeMock} />, div),
-        listItems = container.querySelectorAll(".playersList > li"),
-        playerBox = listItems[3].querySelector(".playerBox");
+        listItems = container.querySelectorAll(".playersList > li");
 
     expect(listItems.length).toBe(4);
-    expect(playerBox.textContent).toBe("Jose (0)-");
+    expect(listItems[0].querySelector(".playerBox").textContent).toBe("Álvaro (0)-");
+    expect(listItems[1].querySelector(".playerBox").textContent).toBe("Joan (0)-");
+    expect(listItems[2].querySelector(".playerBox").textContent).toBe("K (0)-");
+    expect(listItems[3].querySelector(".playerBox").textContent).toBe("Jose (0)-");
 });
 
-test('onPlayerNumerChange callback', () => {
+test('randomizes on demand', () => {
     const onPlayerNumerChangeMock = jest.fn(),
         { container } = render(<PlayerController onPlayerNumerChange={onPlayerNumerChangeMock} />, div),
         randomButton = container.querySelector(".buttonRandomOrder");
 
     randomButton.click();
     expect(onPlayerNumerChangeMock).toHaveBeenCalled();
-    
 });
