@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Utils from '../Utils';
 import PlayerItem from './PlayerItem';
+import useLocalStorageState from './UseLocalStorageState';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 
@@ -74,56 +75,18 @@ function PlayerController({onPlayerNumerChange}) {
       <ul className="playersList">
           {players.map((player, i) => { 
               return <PlayerItem 
+                key={i}
                 player={player} 
                 i={i} 
                 onHandicapChange={onHandicapChange}
                 onRemovePlayer={removePlayer} />
           })}
       </ul>
-      {players.length>1 ? <button onClick={randomizePlayers}>{t('description.ordenaleatorio')}</button> : <></>}
+      {players.length>1 ? <button className="buttonRandomOrder" onClick={randomizePlayers}>{t('description.ordenaleatorio')}</button> : <></>}
       <div className="headerText">{t('description.nuevojugador')}</div>
       <input id={inputId} ref={inputRef}></input>
       <button className="buttonControlTextPlus" onClick={addPlayer}>+</button>
     </div></>;
-}
-
-function updatePlayerAfterVersionChange(players) {
-  if (players.length) {
-    if (typeof players[0].handicap === 'undefined') {
-      for (let i=0; i<players.length; i++) {
-        players[i].handicap = 0;
-      }
-    }
-  }
-
-  return players;
-}
-
-function useLocalStorageState(key, defaultValue = [], {
-    serialize = JSON.stringify,
-    deserialize = JSON.parse
-  } = {}) {
-  const [state, setState] = React.useState(
-    () => {
-      const valueLocalStorage = window.localStorage.getItem(key);
-
-      if (valueLocalStorage) {
-        return updatePlayerAfterVersionChange(deserialize(valueLocalStorage));
-    }
-
-    return typeof defaultValue === 'function' ? defaultValue() : defaultValue;
-  });
-
-  const prevKeyRef = React.useRef(key);
-
-  React.useEffect(() => {
-    if (prevKeyRef !== key) {
-      window.localStorage.removeItem(prevKeyRef);
-    }
-    window.localStorage.setItem(key, serialize(state));
-  }, [key, serialize, state]);
-
-  return [state, setState];
 }
 
 export default PlayerController;

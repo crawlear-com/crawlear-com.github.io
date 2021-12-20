@@ -1,17 +1,18 @@
 import * as React from 'react';
 import '../resources/css/Picker.scss';
 
-function Picker({callback, minValue, maxValue, initialValue, value}) {
+function Picker({callback, minValue = 0, maxValue = 40, initialValue = 0, value = 0}) {
     const elementRef = React.useRef();
 
     !value && (value = initialValue);
 
     function arrowClick(elementRef, operation) {
-        const value = Number(elementRef.current.innerText);
+        const value = Number(elementRef.current.textContent);
         let result = value + operation;
 
         if (result >=minValue && result <=maxValue) {
-            elementRef.current.innerText = result;
+            elementRef.current.textContent = result;
+
             callback && callback(result);
         } 
 

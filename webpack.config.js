@@ -49,6 +49,7 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
+        { from: "src/static/sitemap.xml", to: "" },
         { from: "src/static/manifest.json", to: "" },
         { from: "src/static/robots.txt", to: "" },
         { from: "src/static/favicon.ico", to: "static/" },
