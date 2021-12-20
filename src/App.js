@@ -35,7 +35,7 @@ function App() {
           <Route path="/" element={<GameController />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="/sitemap.txt" element={<TxtRoute filePath="/sitemap.txt"/>} />
+          <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
         </Routes>
         </div>
 
