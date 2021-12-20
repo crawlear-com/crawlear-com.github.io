@@ -8,6 +8,7 @@ import logo from './resources/img/logo2.png';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GameController from './components/GameController';
+import TxtRoute from './components/routes/TxtRoute';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/" element={<GameController />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="/sitemap.txt" element={<TxtRoute filePath="/sitemap.txt"/>} />
         </Routes>
         </div>
 
