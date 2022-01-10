@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-import { call } from 'file-loader';
 import Picker from '../../components/Picker.js';
 
 const div = document.createElement('div');
