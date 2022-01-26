@@ -1,5 +1,18 @@
 
 class Utils {
+
+    static isMobile() {
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+            return true;
+        }
+
+        return false;
+    }
+
+    static isUserLogged() {
+        return window.crawlear.user && window.crawlear.user.uid;
+    }
+
     static millisToTime(millis) {
         const minutes = Math.floor(millis / 60000),
             hours = Math.floor(minutes / 60), 
@@ -75,6 +88,10 @@ class Utils {
           });
     
         return players;
+    }
+
+    static getMapsURL(latitude, longitude) {
+        return `https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}`
     }
 }
 

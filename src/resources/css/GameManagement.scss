@@ -1,0 +1,24 @@
+.newGameContainer {
+    margin-top: 25px;
+    width: 95%;
+
+    .newGame {
+        margin-bottom: 25px;
+        text-align: left;
+        padding: 15px 26px;
+
+        a {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+    }
+
+    .newGameRow {
+        padding: 5px;
+        font-size: 0.9em;
+    }
+
+    .newGameNameInput {
+        max-width: 164px;
+    }
+}

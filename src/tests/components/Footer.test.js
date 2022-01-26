@@ -3,15 +3,41 @@ import Footer from '../../components/Footer.js';
 
 const div = document.createElement('div');
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+      return {
+          t: (str) => str,
+          i18n: {
+              changeLanguage: () => new Promise(() => {}),
+          }
+      };
+  }
+}));
+
 beforeEach(()=>{  
   document.body.innerHTML = '';
   document.body.append(div);
+
+  window.crawlear = window.crawlear || {};
+  window.crawlear.user = {
+    displayName: "Crawlear",
+    uid: 'uid'
+  }
 });
 
-test('renders Footer embed', () => {
+test('renders Footer embed logged', () => {
   const { container } = render(<Footer />, div),
     footer = container.querySelector('.Footer'),
     currentYear = new Date().getFullYear();
 
-  expect(footer.textContent).toBe(`©crawlear.com ${currentYear}`);
+  expect(footer.textContent).toBe(`[©crawlear.com ${currentYear}]`);
+});
+
+test('renders Footer embed not logged', () => {
+  window.crawlear = {};
+  const { container } = render(<Footer />, div),
+    footer = container.querySelector('.Footer'),
+    currentYear = new Date().getFullYear();
+
+  expect(footer.textContent).toBe(`[©crawlear.com ${currentYear}- description.aboutus - description.politicaprivacidad]`);
 });

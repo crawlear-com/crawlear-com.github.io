@@ -2,64 +2,77 @@ import * as React from 'react';
 import GameMenu from './GameMenu';
 import WinnerTable from './WinnerTable';
 import GameTypePlayer from './GameTypePlayer';
+import Menu from './Menu';
+import Game from '../model/Game';
 import Analytics from '../Analytics';
 
 import '../resources/css/GameController.scss';
+import Utils from '../Utils';
 
 const GAME_STATUS_MENU = 0;
 const GAME_STATUS_PLAY = 1;
 const GAME_STATUS_FINISH = 2;
 
-const GAME_TYPE_TIME = 0;
-const GAME_MODE_SIMPLE = 0;
-
-function GameController(props) {
+function GameController({game, onGameEnd}) {
     const alertBoxRef = React.useRef();
     const elementsToRender = [];
+    const firebase = window.crawlear.fb;
+    const [state, setState] = React.useState(game || new Game("", new Date().toLocaleDateString(), false, [], GAME_STATUS_MENU, 0, 0, [], 0, 0));
 
-    const [state, setState] = React.useState({
-        players: [], 
-        orderedPlayers: [],
-        gameStatus: GAME_STATUS_MENU,
-        gameSelected: GAME_TYPE_TIME,
-        pointsTypeSelected: GAME_MODE_SIMPLE
-    });
+    function createGameObjectWithCurrentStatus() {
+        return new Game(state.name, 
+            state.date, 
+            state.isPublic, 
+            state.location, 
+            state.players, 
+            state.gameStatus, 
+            state.gameType, 
+            state.pointsType, 
+            state.uids,
+            state.maxTime,
+            state.maxPoints);
+    }
 
     function onPointsTypeChange(selectedIndex) {
+        const newGame = createGameObjectWithCurrentStatus();
+
         Analytics.event('menu', 'pointsModeChange',selectedIndex);
-        setState({
-            players: state.players, 
-            orderedPlayers: state.orderedPlayers,
-            gameStatus: state.gameStatus,
-            gameSelected: state.gameSelected,
-            pointsTypeSelected: selectedIndex
-        });
+        newGame.pointsType = selectedIndex;
+        setState(newGame);
     }
     
     function onGameTypeChange(selectedIndex) {
+        const newGame = createGameObjectWithCurrentStatus();
+        
         Analytics.event('menu', 'playModeChange', selectedIndex);
-        setState({
-            players: state.players, 
-            orderedPlayers: state.orderedPlayers,
-            gameStatus: state.gameStatus,
-            gameSelected: selectedIndex,
-            pointsTypeSelected: state.pointsTypeSelected
-        });
+        newGame.gameType = selectedIndex;
+        setState(newGame);
     }
     
-    function onGameEnd(orderedPlayers) {
+    function onGameEndFromGamePlayer(game) {
+        const newGame = {...game};
+
         window.scrollTo(0,0);
-        Analytics.event('menu','winner',orderedPlayers[0].name);
-        setState({
-            players: state.players, 
-            orderedPlayers: orderedPlayers,
-            gameStatus: GAME_STATUS_FINISH,
-            gameSelected: state.gameSelected,
-            pointsTypeSelected: state.pointsTypeSelected
-        });
+        Analytics.event('menu','winner',newGame.players[0].name);
+        newGame.gameStatus = GAME_STATUS_FINISH;        
+        setState(newGame);
+        onGameEnd && onGameEnd(newGame);
     }
     
-    function onPlayerNumerChange(players, alertBoxRef) {
+    function setUidsFromPlayers(players) {
+        const uids = [];
+
+        players.forEach((player)=>{
+            if (player.uid) {
+                uids.push(player.uid);
+            } 
+        });
+
+        return uids;
+    }
+
+    function onPlayerNumerChange(players) {
+        const newGame = createGameObjectWithCurrentStatus();
         let action = 'addPlayer';
 
         cleanAlertBox(alertBoxRef);
@@ -67,79 +80,56 @@ function GameController(props) {
             action = 'removePlayer';
         }
         Analytics.event('menu', action, players.length);
-
-        setState({
-            players: players, 
-            orderedPlayers: state.orderedPlayers,
-            gameStatus: state.gameStatus,
-            gameSelected: state.gameSelected,
-            pointsTypeSelected: state.pointsTypeSelected
-        });
+        newGame.players = players;
+        setState(newGame);
     }
     
-    function beginGame(alertBoxRef, t) {
+    function onBeginGame(t) {
         window.scrollTo(0,0);
         if (state.players.length>0) {
-            const newState = {...state};
+            const newGame = createGameObjectWithCurrentStatus();
     
-            Analytics.event('menu', 'beginGame', state.players.length);
-            setState({
-                players: newState.players,
-                orderedPlayers: newState.orderedPlayers, 
-                gameStatus: GAME_STATUS_PLAY,
-                gameSelected: newState.gameSelected,
-                pointsTypeSelected: newState.pointsTypeSelected
-            });
+            Analytics.event('menu', 'beginGame', newGame.players.length);
+            newGame.uids = setUidsFromPlayers(newGame.players);
+            newGame.gameStatus = GAME_STATUS_PLAY;
+            setState(newGame);
         } else {
             Analytics.event('menu', 'beginGame', 0);
             showAlertBox(t('error.nojugadores'), alertBoxRef);
         }
     }
 
-    function goToMenu() {
-        window.scrollTo(0,0);
-        setState({
-            players: state.players, 
-            orderedPlayers: state.orderedPlayers,
-            gameStatus: GAME_STATUS_MENU,
-            gameSelected: state.gameSelected,
-            pointsTypeSelected: state.pointsTypeSelected
-        });
-    }
 
     React.useEffect(() => {
         if(state.gameStatus === GAME_STATUS_MENU) {
             Analytics.pageview('/menu/');
+        } else if (state.gameStatus === GAME_STATUS_FINISH) {
+            firebase.setGame(state,()=>{},()=>{});
         }
     },[state.gameStatus]);
 
-    elementsToRender.push(<div ref={alertBoxRef} className="hideAlert alertBox"></div>);
+    if (!Utils.isUserLogged()) {
+        elementsToRender.push(<Menu key={1} />);
+    }
+    elementsToRender.push(<div key={2} ref={alertBoxRef} className="hideAlert alertBox"></div>);
 
     switch(state.gameStatus) {
         case GAME_STATUS_MENU:
-            elementsToRender.push(<GameMenu onPlayerNumerChange={onPlayerNumerChange}  
+            elementsToRender.push(<GameMenu key={3} onPlayerNumerChange={onPlayerNumerChange}  
                 onGameTypeChange={onGameTypeChange}
                 onPointsTypeChange={onPointsTypeChange}
-                beginGame={beginGame}
-                alertBoxRef={alertBoxRef}
-                gameSelected={state.gameSelected}
-                pointsTypeSelected={state.pointsTypeSelected}
+                beginGame={onBeginGame}
+                game={state}
             />);
                 break;
         case GAME_STATUS_PLAY:
-            elementsToRender.push(<GameTypePlayer 
-                goToMenu={goToMenu}
-                onGameEnd={onGameEnd} 
-                gameSelected={state.gameSelected}
-                players={state.players} 
-                pointsTypeSelected={state.pointsTypeSelected} />);
+            elementsToRender.push(<GameTypePlayer key={3} 
+                onGameEnd={onGameEndFromGamePlayer}
+                game={state} />);
             break;
         default:
-            elementsToRender.push(<WinnerTable 
-                mode={state.pointsTypeSelected}
-                players={state.players}
-                orderedPlayers={state.orderedPlayers}
-                goToMenu={goToMenu} />);
+            elementsToRender.push(<WinnerTable key={3}
+                game={state} />);
     }
 
     return elementsToRender;

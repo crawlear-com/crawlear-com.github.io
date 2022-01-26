@@ -27,8 +27,8 @@ function PlayerItem({player, i, onRemovePlayer, onHandicapChange}) {
 
     return <li ref={contasinerRef} key={i} className="closed importantNote rounded playerListItem" value={player.name}>
         <div className="playerBox" onClick={playerOnClick}>
-            <img src={player.avatar} alt="avatar"/>
-            {player.name} ({player.handicap})
+            <img referrerPolicy="no-referrer" src={player.avatar} alt="avatar"/>
+            <div className="textOverflow">{player.name} ({player.handicap})</div>
             <button className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>
         </div>
         <div onClick={avoidDefault} className="pickerContainer timerContainer rounded rounded2 handicapBox">

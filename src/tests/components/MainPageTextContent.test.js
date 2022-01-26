@@ -21,12 +21,9 @@ beforeEach(()=>{
 
 test('renders MainPageTextContent', () => {
     const { container } = render(<MainPageTextContent />, div),
-        content = container.querySelector('.aboutUsContent'),
-        ytVideo = content.querySelector(`iframe[src="https://www.youtube.com/embed/vXCjXkd5P4w"]`);
-  
-    expect(screen.getByText('img @takezorc').closest('a').getAttribute('href')).toBe('https://www.instagram.com/p/CT7FX_CMag7/');
-    expect(content.querySelector('.video-responsive')).not.toBeNull();
-    expect(content.querySelector('.video-responsive')).not.toBeUndefined();
-    expect(ytVideo).not.toBeNull();
-    expect(ytVideo).not.toBeUndefined();
+        content = container.querySelector('.aboutUsContent');
+
+        expect(content).not.toBeNull();
+        expect(content).not.toBeUndefined();
+    
 });

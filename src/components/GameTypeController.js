@@ -13,7 +13,7 @@ function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameT
                 <div>{t('gametype.modojuegorey')}</div>
             ];
 
-        const labelsPointsType = [t('gametype.simple'), t('gametype.completa')],
+    const labelsPointsType = [t('gametype.simple'), t('gametype.completa')],
       textsPointsType = [<div>{t('gametype.descripcionPuntosSimple')}</div>,
             <div>{t('gametype.descripcionPuntosCompleta')}</div>
             ];
@@ -45,22 +45,22 @@ function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameT
 
     return <>
         <div className="gameType rounded1 rounded">
-            <div className="headerText bold">{t('gametype.modojuego')}:</div>
-            <select defaultValue={state.gameType} onChange={onSelectGameTypeChange}>
-                <option value="0">{labelsGameType[0]}</option>
-                <option value="1">{labelsGameType[1]}</option>
-                <option value="2">{labelsGameType[2]}</option>
-            </select>
-            <div className="gameSelectText">{textsGameType[state.gameType]}</div>
+            <label htmlFor="gameTypeSelect" className="headerText bold">{t('gametype.modojuego')}
+            <select id="gameTypeSelect" defaultValue={0} onChange={onSelectGameTypeChange}>
+                <option value={0}>{labelsGameType[0]}</option>
+                <option value={1}>{labelsGameType[1]}</option>
+                <option value={2}>{labelsGameType[2]}</option>
+            </select></label>
+            <div className="gameSelectText smallText">{textsGameType[state.gameType]}</div>
         </div>
 
         <div className="gameType rounded1 rounded">
-            <div className="headerText bold">{t('gametype.tipopuntuacion')}:</div>
-            <select defaultValue={state.pointsType} onChange={onSelectPointsTypeChange}>
-                <option value="0">{labelsPointsType[0]}</option>
-                <option value="1">{labelsPointsType[1]}</option>
-            </select>
-            <div className="gameSelectText">{textsPointsType[state.pointsType]}</div>
+            <label htmlFor="pointsTypeSelect" className="headerText bold">{t('gametype.tipopuntuacion')}
+            <select id="pointsTypeSelect" defaultValue={0} onChange={onSelectPointsTypeChange}>
+                <option value={0}>{labelsPointsType[0]}</option>
+                <option value={1}>{labelsPointsType[1]}</option>
+            </select></label>
+            <div className="gameSelectText smallText">{textsPointsType[state.pointsType]}</div>
         </div>
     </>;
 }

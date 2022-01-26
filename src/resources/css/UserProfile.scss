@@ -1,0 +1,31 @@
+.userProfileContainer {
+    text-align: right;
+    display: inline-block;
+    margin-bottom: 25px;
+    width: 94%;
+
+    .headerText {
+        text-align: center;
+    }
+
+    .userProfileInlineContainer {
+        float: right;
+        width: 65%;
+        margin-top: 15px;
+    }
+
+    .name {
+        max-width: 218px;
+    }
+
+    .photo {
+        float: left;
+        margin: 15px;
+        width: 25%;
+    }
+
+    .description {
+        float: left;
+        width: 100%;
+    }
+}

@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import TotalTimeGame from '../../components/games/TotalTimeGame.js';
+import { render } from '@testing-library/react';
 import GameTypePlayer from '../../components/GameTypePlayer.js';
+import Game from '../../model/Game.js';
 
+let game;
 const div = document.createElement('div'),
     players = [{"id":1,"name":"Álvaro","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Álvaro","time":0,"points":0,"handicap":0},
         {"id":2,"name":"Joan","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Joan","time":0,"points":0,"handicap":0},
@@ -22,56 +23,49 @@ jest.mock('react-i18next', () => ({
 beforeEach(()=>{  
   document.body.innerHTML = '';
   document.body.append(div);
+
+  game = new Game("game test", new Date(), true, {
+        longitude: 0,
+        latitude: 0
+    }, [{
+        name: "Player1",
+        points: 100,
+        time: 5,
+        handicap: 0,
+        controlTextValues: [5,3,2,5,5,3,-1]
+    },{
+        name: "Player2",
+        points: 10,
+        time: 10,
+        handicap: 0,
+        controlTextValues: [5,3,2,5,5,3,-1]
+    }], 0, 0, 0, [], 0, 0);
+
 });
 
 test('renders GameTypePlayer: 0', () => {
-    const onGameEndMock = jest.fn(), goToMenuMock = jest.fn(),
+    const onGameEndMock = jest.fn(), 
         { container } = render(<GameTypePlayer 
             onGameEnd={onGameEndMock}
-            goToMenu={goToMenuMock}
-            gameSelected={0}
-            pointsTypeSelected={0}
-            players={players} />, div);
+            game={game} />, div);
     expect(container.querySelector('.gameContainer')).not.toBeNull();
     expect(container.querySelector('.gameContainer')).not.toBeUndefined();
 });
 
 test('renders GameTypePlayer: 1', () => {
-    const onGameEndMock = jest.fn(), goToMenuMock = jest.fn(),
+    const onGameEndMock = jest.fn(),
         { container } = render(<GameTypePlayer 
             onGameEnd={onGameEndMock}
-            goToMenu={goToMenuMock}
-            gameSelected={1}
-            pointsTypeSelected={0}
-            players={players} />, div);
+            game={game} />, div);
     expect(container.querySelector('.gameContainer')).not.toBeNull();
     expect(container.querySelector('.gameContainer')).not.toBeUndefined();
 });
 
 test('renders GameTypePlayer: 2', () => {
     const onGameEndMock = jest.fn(), 
-        goToMenuMock = jest.fn(),
         { container } = render(<GameTypePlayer 
             onGameEnd={onGameEndMock}
-            goToMenu={goToMenuMock}
-            gameSelected={2}
-            pointsTypeSelected={0}
-            players={players} />, div);
+            game={game} />, div);
     expect(container.querySelector('.gameContainer')).not.toBeNull();
     expect(container.querySelector('.gameContainer')).not.toBeUndefined();
-});
-
-test('render back button', () => {
-    const onGameEndMock = jest.fn(), 
-        goToMenuMock = jest.fn(),
-        { container } = render(<GameTypePlayer 
-            onGameEnd={onGameEndMock}
-            goToMenu={goToMenuMock}
-            gameSelected={2}
-            pointsTypeSelected={0}
-            players={players} />, div),
-        button = container.querySelector(".backButton");
-
-    button.click();
-    expect(goToMenuMock).toHaveBeenCalled();
 });

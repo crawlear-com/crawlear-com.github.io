@@ -1,0 +1,92 @@
+.gameList {
+    margin-bottom: 15px;
+    width: 95%;
+    text-align: right;
+
+    .gameContainer {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+        text-align: right;
+        padding-top: 0px;
+        overflow: hidden;
+    }
+
+    .gameName {
+        width: 80%;
+        display: inline-block;
+        padding-top: 7px;
+    }
+
+    .gameDate {
+        padding-top: 15px;
+        padding-bottom: 20px;
+    }
+
+    .removeButton {
+        width: 25px;
+        height: 25px;
+        display: inline-block;
+        position: relative;
+        top: -6px;
+    }
+
+    .gameParticipants {
+        padding-top: 15px;
+    }
+
+    .gameListPosition {
+        overflow:hidden;
+        width: 25px;
+        display: inline-block;
+        background-color: #345C62;
+        border: 1px solid #333;
+    }
+
+    .gameListPlayerName {
+        overflow:hidden;
+        display: inline-block;
+        width: 200px;
+        padding: 0 5px;
+        border: 1px solid #333;
+    }
+
+    .resultTitle {
+        padding-bottom: 5px;
+    }
+
+    .gameListPlayerName.withTime {
+        width: 28%;
+    }
+
+    .gameListPoints {
+        overflow:hidden;
+        min-width: 25px;
+        display: inline-block;
+        background-color: #345C62;
+        border: 1px solid #333;
+    }
+
+    .gameListTime {
+        overflow:hidden;
+        min-width: 45px;
+        padding: 0 5px;
+        display: inline-block;
+        background-color: #345C62;
+        border: 1px solid #333;
+    }
+
+    .gameListTextArray {
+        margin-top: 15px;
+    }
+
+    .winnerBox .headerPlayer img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+    }
+}
+
+.pointsTable {
+    margin-bottom: 25px;
+    text-align: right;
+  }    

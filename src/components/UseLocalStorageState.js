@@ -22,7 +22,7 @@ function useLocalStorageState(key, defaultValue = [], {
 
       if (valueLocalStorage) {
         return updatePlayerAfterVersionChange(deserialize(valueLocalStorage));
-    }
+      }
 
     return typeof defaultValue === 'function' ? defaultValue() : defaultValue;
   });
