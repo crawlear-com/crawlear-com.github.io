@@ -3,7 +3,7 @@
 }
 
 .AppMainContainer {
-  width: 85%;
+  width: 95%;
   margin: 0px auto;
   height: 100%;
   max-width: 430px;
@@ -11,36 +11,18 @@
   padding-top: 85px;
 }
 
-.App-header {
-  position: fixed;
-  top: 0px;
-  width: 100%;
-  z-index: 10;
-  height: 70px;
-  font-weight: bold;
-  background-color: #241e1f;
-  min-height: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  margin-bottom: 10px;
-
-  img {
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    width: 300px;
-    margin: 11px 8px 10px 0;
-  }  
+.smallText {
+  line-height: 1.5;
+  font-size: 16px;
+  text-align: left;
+  text-align: justify;
 }
 
 .headerText {
   padding: 10px;
   height: 40px;
   line-height: 40px;
+  text-align: center;
 }
 
 .App-link {
@@ -103,6 +85,7 @@
   }
 }
 
-.pointsTable {
-  margin-bottom: 25px;
+.closed {
+  height: 25px;
+  box-shadow: none;
 }

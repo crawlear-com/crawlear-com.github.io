@@ -1,0 +1,22 @@
+.aboutUsContent {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.aboutUsContent .googleSignInButton {
+    margin: auto;
+    padding: 15px;
+    width: 50%;
+
+    button {
+        width: 100%;
+    }
+}
+
+img.crawlerImageSignIn {
+    width: 50%;
+    margin: 0px auto;
+    display: block;
+    cursor: pointer;
+    padding: 15px;
+}

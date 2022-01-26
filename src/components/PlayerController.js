@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Utils from '../Utils';
 import PlayerItem from './PlayerItem';
-import useLocalStorageState from './UseLocalStorageState';
+import UserSearch from './UserSearch';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 
@@ -9,71 +9,67 @@ import '../resources/css/PlayerController.scss';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
-function PlayerController({onPlayerNumerChange}) {
-    const [players, setPlayers] = useLocalStorageState('players');
-    const inputRef = React.useRef(null);
-    const inputId = Date.now();
+function PlayerController({onPlayerNumerChange, gameName}) {
+    const playersRef = React.useRef([]);
     const { t } = useTranslation();
 
   React.useEffect(() => {
-    onPlayerNumerChange && onPlayerNumerChange(players);
-  }, [players]);
+    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
+  }, [playersRef.current]);
 
-  function addPlayer() {
-    const value = inputRef.current.value;
+  function addPlayer(displayName, uid, photoURL) {
+    const value = displayName;
+
     if (!value || value.trim().length===0) return;
 
-      const newPlayers = [...players];
-
-      newPlayers.push({
-          id: players.length,
-          name: inputRef.current.value,
-          avatar: `${AVATAR_API}${inputRef.current.value}`,
+    playersRef.current.push({
+          id: playersRef.current.length,
+          uid: uid || "",
+          name: value,
+          avatar: photoURL || `${AVATAR_API}${value}`,
           handicap: 0,
           time: 0,
           points: 0
       });
-      Analytics.event('menu', 'addPlayer', inputRef.current.value);
-      inputRef.current.value = '';
-      setPlayers(newPlayers);
-      onPlayerNumerChange && onPlayerNumerChange(newPlayers);
+      Analytics.event('menu', 'addPlayer', value);
+      onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
   }
 
   function removePlayer(event) {
-    let newPlayers = [...players];
 
-    Analytics.event('menu', 'removePlayer', newPlayers[event.target.id].name);
+    Analytics.event('menu', 'removePlayer', playersRef.current[event.target.id].name);
 
-    delete newPlayers[event.target.id];
-    newPlayers = newPlayers.filter((a) => a)
-    setPlayers(newPlayers);
-    onPlayerNumerChange && onPlayerNumerChange(newPlayers);
+    delete playersRef.current[event.target.id];
+    playersRef.current = playersRef.current.filter((a) => a)
+    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
   }
 
   function onHandicapChange(value, item) {
-    const newPlayers = [...players];
-
-    newPlayers[item].handicap = value;
-    setPlayers(newPlayers);
-    onPlayerNumerChange && onPlayerNumerChange(newPlayers);
+    playersRef.current[item].handicap = value;
+    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
   }
 
   function randomizePlayers() {
-    const newPlayers = Utils.randomizeArray(players);
+    playersRef.current = Utils.randomizeArray(playersRef.current);
     
-    Analytics.event('menu', 'randomPlayerOrder', newPlayers.length);
-
-    setPlayers(newPlayers);
-    onPlayerNumerChange && onPlayerNumerChange(newPlayers);
+    Analytics.event('menu', 'randomPlayerOrder', playersRef.current.length);
+    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
   }
 
-  const playersTxt = !players.length? t('description.nojugadores') : t('description.jugadores');
+  function onUserSeachPlayerAdd({uid, displayName, photoURL}) {
+    addPlayer(displayName, uid, photoURL);
+  }
+
+  const playersTxt = !playersRef.current.length? t('description.nojugadores') : t('description.jugadores');
 
   return <>
     <div className="players rounded rounded1">
-      <div className="headerText bold">{playersTxt}</div>
+      <div className="headerText bold">{t('description.jugadores')}</div>
+      
+      <UserSearch onUserSeachPlayerAdd={onUserSeachPlayerAdd} gameName={gameName} />
+      <div className="headerText">{t('description.usuariosenpartida')}</div>
       <ul className="playersList">
-          {players.map((player, i) => { 
+          {playersRef.current.length === 0 ? playersTxt : playersRef.current.map((player, i) => { 
               return <PlayerItem 
                 key={i}
                 player={player} 
@@ -82,10 +78,7 @@ function PlayerController({onPlayerNumerChange}) {
                 onRemovePlayer={removePlayer} />
           })}
       </ul>
-      {players.length>1 ? <button className="buttonRandomOrder" onClick={randomizePlayers}>{t('description.ordenaleatorio')}</button> : <></>}
-      <div className="headerText">{t('description.nuevojugador')}</div>
-      <input id={inputId} ref={inputRef}></input>
-      <button className="buttonControlTextPlus" onClick={addPlayer}>+</button>
+      {playersRef.current.length>1 ? <button className="buttonRandomOrder" onClick={randomizePlayers}>{t('description.ordenaleatorio')}</button> : <></>}
     </div></>;
 }
 

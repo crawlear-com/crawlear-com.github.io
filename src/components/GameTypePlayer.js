@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
 import TotalTimeGame from './games/TotalTimeGame';
 import KingGame from './games/KingGame';
@@ -13,24 +12,29 @@ const STEP_MAXTIMESELECT = 0;
 const STEP_PLAY = 1;
 const MODE_OFFICIAL = 1;
 
-function GameTypePlayer({onGameEnd, goToMenu, gameSelected, players, pointsTypeSelected}) {
-    const { t } = useTranslation();
+function GameTypePlayer({game, onGameEnd}) {
     const elementsToRender = [];
-    const [state, setState] = React.useState({step: pointsTypeSelected === MODE_OFFICIAL ? STEP_MAXTIMESELECT : STEP_PLAY, maxPoints: 0, maxTime: 0});
+    const [state, setState] = React.useState({step: game.pointsType === MODE_OFFICIAL ? STEP_MAXTIMESELECT : STEP_PLAY, game: game});
 
     function onMaxPointsChange(points) {
+        const newGame = {...state.game}
+        
+        newGame.maxPoints = points;
         Analytics.event('menu', 'maxPointsSet', points);
         setState(previousInputs=>({
             ...previousInputs,
-            maxPoints: points
+            game: newGame
         }));
     }
 
     function onMaxTimeChange(time) {
+        const newGame = {...state.game}
+
+        newGame.maxTime = time;
         Analytics.event('menu', 'maxTimeSet', time);
         setState(previousInputs=>({
             ...previousInputs,
-            maxTime: time
+            game: newGame
         }));
     }
     
@@ -42,50 +46,42 @@ function GameTypePlayer({onGameEnd, goToMenu, gameSelected, players, pointsTypeS
     }
 
     if(state.step === STEP_MAXTIMESELECT) {
-        if (pointsTypeSelected === MODE_OFFICIAL) {
-            elementsToRender.push(<MaxTimeAndPointsPicker mode={pointsTypeSelected} 
+        if (state.game.pointsType === MODE_OFFICIAL) {
+            elementsToRender.push(<MaxTimeAndPointsPicker key={0} mode={state.game.pointsType} 
                         onCompleteGameMaxtimeSelected={onCompleteGameMaxtimeSelected}
                         onMaxPointsChange={onMaxPointsChange}
                         onMaxTimeChange={onMaxTimeChange}
-                        maxTime={state.maxTime}
-                        maxPoints={state.maxPoints}
-                        showTimePicker={gameSelected === GAME_TYPE_TIME} />);
+                        maxTime={state.game.maxTime}
+                        maxPoints={state.game.maxPoints}
+                        showTimePicker={state.game.gameType === GAME_TYPE_TIME} />);
         }
     } else {
-        if (gameSelected === GAME_TYPE_TIME) {
+        if (state.game.gameType === GAME_TYPE_TIME) {
             elementsToRender.push(<TotalTimeGame 
-                mode={pointsTypeSelected}
-                maxTime={state.maxTime}
-                maxPoints={state.maxPoints}
-                onGameEnd={(winnerPlayer)=> {
-                    onGameEnd(winnerPlayer)
+                key={0}
+                game={state.game}
+                onGameEnd={(game)=> {
+                    onGameEnd(game)
                 }}
-                players={players}
             />);
-        } else if (gameSelected === GAME_TYPE_KING) {
+        } else if (state.game.gameType === GAME_TYPE_KING) {
             elementsToRender.push(<KingGame 
-                maxTime={state.maxTime}
-                maxPoints={state.maxPoints}
-                onGameEnd={(winnerPlayer)=> {
-                    onGameEnd(winnerPlayer)
+                key={0}
+                game={state.game}
+                onGameEnd={(game)=> {
+                    onGameEnd(game)
                 }}
-                players={players} 
-                mode={pointsTypeSelected}
                 />);
-        } else if (gameSelected === GAME_TYPE_POINTS) {
+        } else if (state.game.gameType === GAME_TYPE_POINTS) {
             elementsToRender.push(<PointsGame 
-                maxTime={state.maxTime}
-                maxPoints={state.maxPoints}
-                mode={pointsTypeSelected}
-                onGameEnd={(winnerPlayer)=> {
-                    onGameEnd(winnerPlayer)
+                key={0}
+                game={state.game}
+                onGameEnd={(game)=> {
+                    onGameEnd(game)
                 }}
-                players={players}
             />);
         }
     }
-
-    elementsToRender.push(<button onClick={() => { goToMenu() }}>{t('description.atras')}</button>);
 
     return elementsToRender;
 }

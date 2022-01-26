@@ -9,8 +9,26 @@
     padding: 25px;
 }
 
+.playerBox {
+    div {
+        max-width: 190px;
+        display: inline-block;
+    }    
+}
+
 .handicapBox .handicapLabel {
     width: 50%;
     text-align: center;
     line-height: 6;
+}
+
+.textOverflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.playersList .buttonControlTextMinus {
+    position: relative;
+    top: -15px;
 }

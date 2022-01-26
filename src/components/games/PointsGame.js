@@ -6,52 +6,52 @@ import Utils from '../../Utils';
 
 const MODE_OFFICIAL = 1;
 
-function PointsGame({mode, onGameEnd, players, maxTime, maxPoints}) {
-    const [state, setState] = React.useState(()=>{ return initControlTestValues({ mode, players, maxTime, maxPoints }) });
+function PointsGame({game, onGameEnd}) {
+    const [state, setState] = React.useState(()=>{ return initControlTestValues(game) });
     const { t } = useTranslation();
 
     function changePointsOnScoreChange(value, player, control) {
-        const players = [...state.players],
-            points = state.players[state.currentPlayer].points,
-            handicap = state.players[state.currentPlayer].handicap;
+        const newState = {...state};
 
-        if (!(state.maxPoints <= (points + handicap) && state.maxPoints > 0) || (points + handicap + value < state.maxPoints)) {
+        const players = newState.game.players,
+            points = state.game.players[state.currentPlayer].points,
+            handicap = state.game.players[state.currentPlayer].handicap;
+
+        if (!(state.game.maxPoints <= (points + handicap) && state.game.maxPoints > 0) || (points + handicap + value < state.game.maxPoints)) {
             players[player].controlTextValues = [...players[player].controlTextValues];
             players[player].controlTextValues[control] += value;
             players[player].points += value;    
-        } else if (state.maxPoints) {
-            players[player].points = Math.max(state.maxPoints, players[player].points);
+        } else if (state.game.maxPoints) {
+            players[player].points = Math.max(state.game.maxPoints, players[player].points);
         }
 
-        setState(previousInputs => ({ ...previousInputs,
-            players: players
-        }));
+        setState(newState);
     }
 
     function onEndPlayer() {
-        Analytics.event('play', 'endPlayer', state.players[state.currentPlayer].name);
+        Analytics.event('play', 'endPlayer', state.game.players[state.currentPlayer].name);
 
-        if (state.currentPlayer+1 < state.players.length) {
+        if (state.currentPlayer+1 < state.game.players.length) {
             setState((state, props)=> {
                 return {
-                    ...initControlTestValues(state),
+                    ...initControlTestValues(state.game),
                     points: 0,
                     currentPlayer: state.currentPlayer+1
                 };
             });
         } else {
-            onGameEnd && onGameEnd(Utils.getWinnerByPoints(state.players));
+            state.game.players = Utils.getWinnerByPointsAndTime(state.game.players);
+            onGameEnd && onGameEnd(state.game);
         }
     }
 
     function onReset() {
         window.scrollTo(0,0);
-        state.players[state.currentPlayer].points = 0;
-        Analytics.event('play', 'reset', state.players[state.currentPlayer].name);
+        state.game.players[state.currentPlayer].points = 0;
+        Analytics.event('play', 'reset', state.game.players[state.currentPlayer].name);
         setState((state, props)=> {
             return {
-                ...initControlTestValues(state),
-                players: [...state.players],
+                ...initControlTestValues(state.game),
                 currentPlayer: state.currentPlayer
             };
         });
@@ -61,28 +61,29 @@ function PointsGame({mode, onGameEnd, players, maxTime, maxPoints}) {
         Analytics.pageview('/pointsgame/');
     },[]);
 
-    if (state.players.length>0) {
-        const currentPlayer = state.players[state.currentPlayer];
+    if (state.game.players.length>0) {
+        const currentPlayer = state.game.players[state.currentPlayer];
         let controlTextArray = [],
             maxTimeControl = <></>;
 
         controlTextArray = ControlTextArray({
-            players: state.players, 
+            controlTextValues: state.game.players[state.currentPlayer].controlTextValues, 
             player: state.currentPlayer, 
-            pointsMode: state.mode, 
-            onValueChange: (value, player, control)=> {changePointsOnScoreChange(value, player, control)}});
+            pointsMode: state.pointsType, 
+            onValueChange: changePointsOnScoreChange
+        });
 
-        if (state.mode === MODE_OFFICIAL) {
+        if (state.pointsType === MODE_OFFICIAL) {
             let fiasco;
 
-            if (state.maxPoints <= (state.players[state.currentPlayer].points+state.players[state.currentPlayer].handicap) && state.maxPoints > 0) {
-                Analytics.event('play', 'fiasco', state.players[state.currentPlayer].name); 
+            if (state.game.maxPoints <= (state.game.players[state.currentPlayer].points+state.game.players[state.currentPlayer].handicap) && state.game.maxPoints > 0) {
+                Analytics.event('play', 'fiasco', state.game.players[state.currentPlayer].name); 
                 fiasco = <div className="rounded importantNote">FiASCO!</div>;
             }
 
             maxTimeControl = <div className="fiascoBox rounded rounded2 bold">
                 {fiasco}
-                {t('description.puntosmaximo')}: {state.maxPoints}
+                {t('description.puntosmaximo')}: {state.game.maxPoints}
             </div>
         }
 
@@ -106,21 +107,18 @@ function PointsGame({mode, onGameEnd, players, maxTime, maxPoints}) {
     }
 }
 
-function initControlTestValues({mode, players, maxTime, maxPoints}) {
+function initControlTestValues(game) {
     const newState = {
         currentPlayer: 0,
-        players: [...players],
-        mode: mode,
         points: 0,
-        maxTime: maxTime,
-        maxPoints: maxPoints
+        game: game
     };
 
-    for(let i=0; i<newState.players.length;i++) {
-        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(11) : new Array(7);
+    for(let i=0; i<newState.game.players.length;i++) {
+        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(11) : new Array(7);
 
-        for(let j=0; j<newState.players[i].controlTextValues.length; j++) {
-            newState.players[i].controlTextValues[j] = 0;
+        for(let j=0; j<newState.game.players[i].controlTextValues.length; j++) {
+            newState.game.players[i].controlTextValues[j] = 0;
         }
     }
 

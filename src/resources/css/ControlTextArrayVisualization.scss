@@ -1,0 +1,13 @@
+.controlTextValues {
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.controlTextValues:first-of-type {
+    margin-top: 15px;
+}
+
+.controlTextValues:nth-of-type(odd) {
+    background-color: #345C62;
+}
+

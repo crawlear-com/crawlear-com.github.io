@@ -14,12 +14,12 @@ const MODE_OFFICIAL = 1;
 let tickTime = 0;
 let timer = null;
 
-function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
+function TotalTimeGame({game, onGameEnd}) {
+    const { t } = useTranslation();
     const [state, setState] = React.useState(()=>{ 
         tickTime = 0;
-        return initControlTestValues({ maxPoints: maxPoints, maxTime: maxTime, mode, players }) 
+        return initControlTestValues(game)
     });
-    const { t } = useTranslation();
     
     React.useEffect(() => {
         Analytics.pageview('/totaltimegame/');
@@ -47,32 +47,33 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
     }, [state.state]);
 
     function onChangeScore(value, player, control) {
-        const players = [...state.players],
-        points = state.players[state.currentPlayer].points,
-        handicap = state.players[state.currentPlayer].handicap;
+        const newState = {...state};
 
-        if ((!(state.maxPoints <= (points + handicap) && state.maxPoints > 0) && 
-            !(state.maxTime <= tickTime && state.maxTime > 0)) || (points + handicap + value < state.maxPoints)) {
+        const players = newState.game.players,
+            game = newState.game,
+            points = game.players[newState.currentPlayer].points,
+            handicap = game.players[newState.currentPlayer].handicap;
+
+        if ((!(game.maxPoints <= (points + handicap) && game.maxPoints > 0) && 
+            !(game.maxTime <= tickTime && game.maxTime > 0)) || (points + handicap + value < game.maxPoints)) {
                 players[player].controlTextValues = [...players[player].controlTextValues];
                 players[player].controlTextValues[control] += value;
                 players[player].points += value;
         } else {
-            if (state.maxPoints) {
-                players[player].points = Math.max(state.maxPoints, players[player].points);
+            if (game.maxPoints) {
+                players[player].points = Math.max(game.maxPoints, players[player].points);
             }
-            if (state.maxTime) {
-                players[player].time = Math.max(state.maxPoints, players[player].time);
+            if (game.maxTime) {
+                players[player].time = Math.max(game.maxPoints, players[player].time);
             }
         }
 
-        setState(previousInputs => ({ ...previousInputs,
-            players: players
-        }));
+        setState(newState);
     }
 
     function timerCount(state) {
-        if (!(state.maxPoints <= state.players[state.currentPlayer].points && state.maxPoints > 0) && 
-        !(state.maxTime <= tickTime && state.maxTime > 0)) {
+        if (!(state.game.maxPoints <= state.game.players[state.currentPlayer].points && state.game.maxPoints > 0) && 
+        !(state.game.maxTime <= tickTime && state.game.maxTime > 0)) {
             tickTime += 10;  
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime
@@ -105,68 +106,73 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
         Analytics.event('play', 'reset', newState.players[state.currentPlayer].name);
 
         tickTime = 0;
-        newState = initControlTestValues(newState);
-        newState.players[state.currentPlayer].time = 0;
-        newState.players[state.currentPlayer].points = 0;  
+        newState = initControlTestValues(newState.game);
+        newState.game.players[state.currentPlayer].time = 0;
+        newState.game.players[state.currentPlayer].points = 0;  
         newState.currentPlayer = state.currentPlayer;
         newState.state = STATE_PAUSE;
         setState(previousInputs => ({ ...previousInputs,...newState}));
     }
 
     function onEndPlayer() {
-        const newState = initControlTestValues(state);
+        const newState = {...state},
+            game = newState.game,
+            players = game.players;
             
         window.scrollTo(0,0);
         newState.state = STATE_PAUSE;
 
-        if ((state.maxPoints <= state.players[state.currentPlayer].points && state.maxPoints > 0) || 
-            (state.maxTime <= tickTime && state.maxTime > 0)) {
-            newState.players[state.currentPlayer].time = (state.maxTime > 0 ? state.maxTime : tickTime);
-            newState.players[state.currentPlayer].points = (state.maxPoints > 0 ? state.maxPoints : newState.players[state.currentPlayer].points);
+        if ((game.maxPoints <= players[newState.currentPlayer].points && game.maxPoints > 0) || 
+            (game.maxTime <= tickTime && game.maxTime > 0)) {
+            players[newState.currentPlayer].time = (game.maxTime > 0 ? game.maxTime : tickTime);
+            players[newState.currentPlayer].points = (game.maxPoints > 0 ? game.maxPoints : newState.players[newState.currentPlayer].points);
         } else {
-            newState.players[state.currentPlayer].time = tickTime;
+            players[newState.currentPlayer].time = tickTime;
         }
 
-        Analytics.event('play', 'endPlayer', newState.players[newState.currentPlayer].name);
+        Analytics.event('play', 'endPlayer', players[newState.currentPlayer].name);
 
-        if (state.currentPlayer+1 < state.players.length) {
+        if (newState.currentPlayer+1 < game.players.length) {
             tickTime = 0;
             newState.millis = 0;
-            newState.currentPlayer = state.currentPlayer+1;
+            newState.currentPlayer = newState.currentPlayer+1;
             setState(previousInputs => ({ 
                 ...previousInputs,
                 ...newState}));
         } else {
-            onGameEnd && onGameEnd(Utils.getWinnerByPointsAndTime(state.players));
+            if (onGameEnd) {
+                game.players = Utils.getWinnerByPointsAndTime(game.players);
+                onGameEnd && onGameEnd(game);
+            }
         }
     }
 
-    if (state.players.length>0) {
-        const currentPlayer = state.players[state.currentPlayer];
+
+    if (state.game.players.length>0) {
+        const currentPlayer = state.game.players[state.currentPlayer];
         let controlTextArray = [],
             maxTimeControl = <></>;
 
         controlTextArray = ControlTextArray({
-            players: state.players,
+            controlTextValues: state.game.players[state.currentPlayer].controlTextValues,
             player: state.currentPlayer,
-            pointsMode: state.mode,
-            onValueChange: (value, player, control)=> {
-                onChangeScore(value, player, control)
-            }});
+            pointsMode: state.game.pointsType,
+            onValueChange: onChangeScore
+        });
 
-        if (state.mode === MODE_OFFICIAL) {
+        if (state.game.pointsType === MODE_OFFICIAL) {
             let fiasco;
 
-            if ((state.maxPoints <= (state.players[state.currentPlayer].points+state.players[state.currentPlayer].handicap) && state.maxPoints > 0) || 
-                (state.maxTime <= tickTime && state.maxTime > 0)) {
-                Analytics.event('play', 'fiasco', state.players[state.currentPlayer].name); 
+            if ((state.game.maxPoints <= (state.game.players[state.currentPlayer].points+state.game.players[state.currentPlayer].handicap) && state.game.maxPoints > 0) || 
+                (state.game.maxTime <= tickTime && state.game.maxTime > 0)) {
+                Analytics.event('play', 'fiasco', state.game.players[state.currentPlayer].name); 
                 fiasco = <div className="rounded importantNote">FiASCO!</div>;
             }
 
             maxTimeControl = <div className="fiascoBox bold">
                 {fiasco}
-                {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.maxTime))} <br />
-                {t('description.puntosmaximo')}: {state.maxPoints}
+                {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.game.maxTime))} <br />
+                {t('description.puntosmaximo')}: {state.game.maxPoints}
             </div>
         }
 
@@ -194,29 +200,26 @@ function TotalTimeGame({mode, onGameEnd, players, maxPoints, maxTime}) {
             </div>
             <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
             <button className="importantNote" onClick={()=>{
-                onEndPlayer(onGameEnd)
+                onEndPlayer()
                 }}>{t('description.finjugador')} ({currentPlayer.name})</button><p />
         </div>
     }
 }
 
-function initControlTestValues({maxPoints, maxTime, mode, players}) {
+function initControlTestValues(game) {
     const newState = {
         millis: 0,
         timeStart: 0,
-        players: [...players],
         currentPlayer: 0,
-        mode: mode,
-        maxTime: maxTime,
-        maxPoints: maxPoints,
+        game: game,
         state: STATE_PAUSE
     }
 
-    for(let i=0; i<newState.players.length;i++) {
-        newState.players[i].controlTextValues = mode === MODE_OFFICIAL ? new Array(11) : new Array(7);
+    for(let i=0; i<newState.game.players.length;i++) {
+        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(11) : new Array(7);
 
-        for(let j=0; j<newState.players[i].controlTextValues.length; j++) {
-            newState.players[i].controlTextValues[j] = 0;
+        for(let j=0; j<newState.game.players[i].controlTextValues.length; j++) {
+            newState.game.players[i].controlTextValues[j] = 0;
         }
     }
 
