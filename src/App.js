@@ -10,7 +10,6 @@ import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Analytics from './Analytics';
 import Landing from './components/routes/Landing';
-import Utils from './Utils';
 
 import './resources/css/Base.scss';
 import './resources/css/App.scss';
@@ -22,6 +21,21 @@ function App() {
   window.crawlear = window.crawlear || {};
   window.crawlear.fb = fb;
   const [stateLogged, setStateLogged] = React.useState(false);
+
+  fb.checkIfRedirect(onLoggin);
+  fb.auth.onAuthStateChanged((user) => {
+      if (user) {
+        fb.getUser(user.uid, (data)=>{
+          fb.setUserInContext(data, user.uid);
+            onLoggin();
+          }, ()=> {
+              user.handicap = 0;
+              fb.setUserInContext(fb.setUser(user, ()=> {
+                onLoggin();
+              }), ()=>{}, user.uid);
+        });
+      }
+    });
 
   React.useEffect(() => {
     Analytics.init('UA-156750890-2');

@@ -33,7 +33,7 @@ function Landing({onLoggin}) {
     }
 
     React.useEffect(() => {
-        Analytics.pageview('/aboutus/');
+        Analytics.pageview('/landing/');
     },[]);
 
     return <>
