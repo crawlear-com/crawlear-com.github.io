@@ -40,11 +40,11 @@ function Landing({onLoggin}) {
         <MainPageTextContent />
 
         <div className="aboutUsContent">
-            <p>Para obtener funcionalidades avanzadas puedes ingresar con tu cuenta de google.com.</p>
+            <p>{t('content.landingMainText')}:</p>
             <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                     firebase.signInWithGoogle(signInCallback);
                 }} />
-            <p>O si lo prefieres, puedes jugar simplemente una:</p>
+            <p>{t('content.landingSecondText')}:</p>
             <p className="googleSignInButton">
                 <button className="importantNote" onClick={() => {
                     navigate("/simplegame");

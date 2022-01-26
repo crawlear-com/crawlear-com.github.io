@@ -30,7 +30,9 @@ i18n
             enviorequest2: 'The player must accept the request to be added to the game',
             peticionjuegoconfirmacion: 'Do you want to send a game request?',
             seguroborrarjuego: 'Do you want to delete the game?',
-            nogeolocation: 'Your browser does not support geolocation'
+            nogeolocation: 'Your browser does not support geolocation',
+            landingMainText: 'To get advanced functionality you can log in using your google.com account',
+            landingSecondText: 'Or just play a'
           },
           error: {
               nojugadores: 'First add the players and select the type of game and score',
@@ -133,7 +135,9 @@ i18n
             enviorequest2: 'El usuario deberá aceptar la petición para poder ser agregado a la partida',
             peticionjuegoconfirmacion: '¿Quieres enviar una petición de juego?',
             seguroborrarjuego: '¿Quieres ELIMINAR el juego?',
-            nogeolocation: 'Tu navegador no soporta geolocalizacíon'
+            nogeolocation: 'Tu navegador no soporta geolocalizacíon',
+            landingMainText: 'Para obtener funcionalidades avanzadas puedes ingresar con tu cuenta de google.com',
+            landingSecondText: 'O si lo prefieres, puedes jugar simplemente una'
           },
           error: {
               nojugadores: 'Primero añade los jugadores y selecciona el tipo de juego y puntuación',

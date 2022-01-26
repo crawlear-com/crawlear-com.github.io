@@ -49,17 +49,6 @@ class FirebaseController {
     this.app = initializeApp(firebaseConfig);
     this.provider = new GoogleAuthProvider();
     this.auth = getAuth();
-    this.app = initializeApp({
-      apiKey: "AIzaSyATlKKGw99gurKNwHL7BU1-_Llj0hwJy60",
-      authDomain: "crawlear-com.firebaseapp.com",
-      databaseURL: "https://crawlear-com-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "crawlear-com",
-      storageBucket: "crawlear-com.appspot.com",
-      messagingSenderId: "879856500816",
-      appId: "1:879856500816:web:4287599cc229d5f4c3d155",
-      measurementId: "G-YD7VLXPTM2" 
-    });
-
     this.db = getFirestore();
     this.rdb = getDatabase();
   }
@@ -169,8 +158,6 @@ class FirebaseController {
         koCallback && koCallback();
     }
   }
-
-  storeGame
 
   setGame(game, okCallback, koCallback) {
     let playersUid = [];
