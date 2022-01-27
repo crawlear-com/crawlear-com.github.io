@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import i18n from './language/i18n';
+import Analytics from './Analytics';
 import { BrowserRouter } from 'react-router-dom';
+
+Analytics.init('UA-156750890-2');
 
 ReactDOM.render(
   <React.StrictMode>

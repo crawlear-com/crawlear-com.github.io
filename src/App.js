@@ -8,7 +8,6 @@ import FirebaseController from './FirebaseController';
 import GameManagement from './components/routes/GameManagement';
 import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
-import Analytics from './Analytics';
 import Landing from './components/routes/Landing';
 
 import './resources/css/Base.scss';
@@ -23,8 +22,7 @@ function App() {
   const [stateLogged, setStateLogged] = React.useState(false);
   const navigate = useNavigate();
 
-    React.useEffect(() => {
-    Analytics.init('UA-156750890-2');
+  React.useEffect(() => {
     fb.checkIfLogged(onLoggin);
   }, [])
 
