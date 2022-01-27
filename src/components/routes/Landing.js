@@ -12,21 +12,6 @@ function Landing({onLoggin}) {
     const navigate = useNavigate();
     const firebase = window.crawlear.fb;
     
-    firebase.checkIfRedirect(signInCallback);
-    firebase.auth.onAuthStateChanged((user) => {
-        if (user) {
-            firebase.getUser(user.uid, (data)=>{
-                firebase.setUserInContext(data, user.uid);
-                signInCallback();
-            }, ()=> {
-                user.handicap = 0;
-                firebase.setUserInContext(firebase.setUser(user, ()=> {
-                    signInCallback();
-                }), ()=>{}, user.uid);
-          });
-        }
-      });
-  
     function signInCallback() {
         onLoggin();
         navigate("/completegame");

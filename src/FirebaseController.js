@@ -203,6 +203,23 @@ class FirebaseController {
     }
   }
 
+  checkIfLogged(onLoggin) {
+    this.checkIfRedirect(onLoggin);
+    this.auth.onAuthStateChanged((user) => {
+        if (user) {
+          this.getUser(user.uid, (data)=>{
+            this.setUserInContext(data, user.uid);
+              onLoggin();
+            }, ()=> {
+                user.handicap = 0;
+                this.setUserInContext(this.setUser(user, ()=> {
+                  onLoggin();
+                }), ()=>{}, user.uid);
+          });
+        }
+    });
+  }
+
   checkIfRedirect(callback) {
     getRedirectResult(this.auth)
     .then((result) => {
