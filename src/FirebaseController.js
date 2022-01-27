@@ -102,8 +102,6 @@ class FirebaseController {
     } catch (e) {
       koCallback && koCallback();
     }
-
-    return data;
   }
 
   transformGamesIntoData(game) {
@@ -216,9 +214,10 @@ class FirebaseController {
               onLoggin();
             }, ()=> {
                 user.handicap = 0;
-                this.setUserInContext(this.setUser(user, ()=> {
+                this.setUser(user, (data)=> {
+                  this.setUserInContext(data, user.uid);
                   onLoggin();
-                }), ()=>{}, user.uid);
+                }, ()=>{});
           });
         }
     });
@@ -231,7 +230,9 @@ class FirebaseController {
         this.setUserInContext(data, result.user.uid);
         callback && callback(data);
       }, ()=> {
-        this.setUserInContext(this.setUser(result.user, callback, ()=>{}), result.user.uid);
+        this.setUser(result.user, callback, (data)=>{
+          this.setUserInContext(data, result.user.uid);
+        })
       });
     }).catch((error) => { });
   }
@@ -258,7 +259,10 @@ class FirebaseController {
               this.setUserInContext(data, result.user.uid);
               callback && callback(data);
             }, ()=> {
-              this.setUserInContext(this.setUser(result.user, callback, ()=>{}), result.user.uid);
+              this.setUser(result.user, callback, (data)=>{
+                this.setUserInContext(data, result.user.uid);
+              })
+      
             });
         }).catch((error) => { });  
       }
