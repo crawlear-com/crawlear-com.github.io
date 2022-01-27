@@ -39,8 +39,8 @@ function GameManagement({onLogout}) {
     let locationElement;
 
     if (!window.crawlear.user || !window.crawlear.user.uid) {
-        navigate("/");
         setState(STATE_NEWGAME_NOTLOGGED);
+        navigate("/");
     }
 
     React.useEffect(() => {
