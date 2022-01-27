@@ -125,7 +125,7 @@ function GameManagement({onLogout}) {
         <div className="">{t('content.nogeolocation')}</div>
     }
 
-    if (firebase.isUserLogged()) {
+    if (!firebase.isUserLogged()) {
         return <Navigate to={{ pathname: "/", state: { from: "/completegame" } }} />
     }
 
