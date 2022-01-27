@@ -96,7 +96,7 @@ class FirebaseController {
     };
 
     try {
-      setDoc(doc(this.db, "users", uid), data);
+      await setDoc(doc(this.db, "users", uid), data);
       okCallback && okCallback(data);
 
     } catch (e) {
