@@ -12,12 +12,14 @@ beforeEach(()=>{
   document.body.append(div);
 
   window.crawlear = window.crawlear || {} ;
-  window.crawlear.fb = {};
+  window.crawlear.fb = {
+    isUserLogged: jest.fn()
+  };
 });
 
 afterEach(()=> {
     delete window.crawlear;
-})
+});
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {

@@ -108,7 +108,7 @@ function GameController({game, onGameEnd}) {
         }
     },[state.gameStatus]);
 
-    if (!Utils.isUserLogged()) {
+    if (!firebase.isUserLogged()) {
         elementsToRender.push(<Menu key={1} />);
     }
     elementsToRender.push(<div key={2} ref={alertBoxRef} className="hideAlert alertBox"></div>);

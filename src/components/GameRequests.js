@@ -5,7 +5,7 @@ import '../resources/css/gameRequests.scss';
 import iconLike from '../resources/img/iconLike.png';
 import iconDislike from '../resources/img/iconDislike.png';
 
-function GameRequests({uid}) {
+function GameRequests({user}) {
     const { t } = useTranslation();
     const [gameRequests, setGameRequests] = React.useState({});
     const fb = window.crawlear.fb;
@@ -27,7 +27,7 @@ function GameRequests({uid}) {
     }
 
     React.useEffect(()=>{
-        fb.getUserGameRequests(window.crawlear.user.uid, 
+        fb.getUserGameRequests(user.uid, 
                 getUserGameRequestsOk, 
                 ()=>{},
                 onRequestAdded,
@@ -40,10 +40,10 @@ function GameRequests({uid}) {
             <div className="gameRequestGameName">{t('description.parajuego')}: <span className="bold">{gameRequests[key].gameName}</span></div>
 
             <span className="acceptButton" onClick={()=>{
-                fb.acceptGameRequest(window.crawlear.user.uid, key)
+                fb.acceptGameRequest(user.uid, key)
             }}><img src={iconLike} alt="like icon"></img></span>
             <span className="rejectButton" onClick={()=>{
-                fb.rejectGameRequest(window.crawlear.user.uid, key)
+                fb.rejectGameRequest(user.uid, key)
             }}><img src={iconDislike} alt="dislike icon"></img></span>
         </div>);
     });

@@ -11,7 +11,7 @@ import GameRequests from '../GameRequests.js';
 
 import '../../resources/css/GameManagement.scss';
 import Game from '../../model/Game.js';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
@@ -19,14 +19,12 @@ const STATE_LOCATION_LOCATING=2;
 
 const GAME_STATUS_FINISHED = 2;
 
-const STATE_NEWGAME_NOTLOGGED = -1;
 const STATE_NEWGAME_MENU = 0;
 const STATE_NEWGAME_PLAYING = 1;
 
 function GameManagement({onLogout}) {
     const firebase = window.crawlear.fb;
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);
     const [games, setGames] = React.useState([]);
     const [state, setState] = React.useState(STATE_NEWGAME_MENU);
@@ -39,13 +37,8 @@ function GameManagement({onLogout}) {
     let locationElement;
 
     React.useEffect(() => {
-        if (!window.crawlear.user || !window.crawlear.user.uid) {
-            setState(STATE_NEWGAME_NOTLOGGED);
-            navigate("/");
-        } else {
             Analytics.pageview('/completegame/');
             refreshGames();    
-        }
     },[]);
 
     function refreshGames() {
@@ -132,58 +125,61 @@ function GameManagement({onLogout}) {
         <div className="">{t('content.nogeolocation')}</div>
     }
 
-    if(state === STATE_NEWGAME_NOTLOGGED) {
-        return <></>;
-    } else {
-        return <>
-        {state === STATE_NEWGAME_MENU ? 
-        <>
-            <UserProfile user={window.crawlear.user} onLogout={onLogout} />
-            <GameRequests uid={window.crawlear.user?window.crawlear.user.uid?window.crawlear.user.uid:"":""} />
-            <GameList games={games} onRemoveGame={onRemoveGame}/>
-
-            <ErrorBox message={errorMessage} />
-            <div className="newGameContainer rounded rounded1">
-                <div className="newGame">
-                    <div className="headerText bold">{t('description.nuevaPartida')}</div>
-                    <div className="newGameRow">
-                        <span className="">{t('description.nombre')}</span>: <input className="newGameNameInput" type="text" onChange={(element)=>{
-                            const newGame = createGameObjectWithCurrentStatus();
-
-                            newGame.name = element.target.value;
-                            setGame(newGame);
-                            setErrorMessage("");
-                        }}></input>
-                    </div>
-                    <div className="newGameRow">
-                        <span className="">{t('description.fecha')}</span>: {new Date().toLocaleDateString()}
-                    </div>
-                    <div className="newGameRow">
-                        <span className="">{t('description.esPublica')}</span>: <input type="checkbox" value="true" onChange={(element)=>{
-                            const newGame = createGameObjectWithCurrentStatus();
-
-                            newGame.isPublic = element.target.value;
-                            setGame(newGame);
-                        }}></input>
-                    </div>
-                    <div className="newGameRow">
-                        <span className="">{t('description.localizacion')}</span>: 
-                        {locationElement}
-                    </div>
-                </div>
-            </div>
-            <p>
-                <button className="importantNote" onClick={onBeginButtonClick}>{t('description.nuevaPartida')}</button>
-            </p>
-        </> : state === STATE_NEWGAME_PLAYING ? 
-            <>
-                <GameController game={game} onGameEnd={(game)=>{
-                    setGame(game);
-                }}/>
-                <button className="backButton" onClick={goBackToMenuStatus}>{t('description.atras')}</button>
-            </> : <></>}
-    </>;
+    if (firebase.isUserLogged()) {
+        return <Navigate to={{ pathname: "/", state: { from: "/completegame" } }} />
     }
+
+    return <>
+            {state === STATE_NEWGAME_MENU ? 
+                <>
+                    <UserProfile user={window.crawlear.user} onLogout={onLogout} />
+                    <GameRequests user={window.crawlear.user} />
+                    <GameList games={games} onRemoveGame={onRemoveGame}/>
+
+                    <ErrorBox message={errorMessage} />
+                    <div className="newGameContainer rounded rounded1">
+                        <div className="newGame">
+                            <div className="headerText bold">{t('description.nuevaPartida')}</div>
+                            <div className="newGameRow">
+                                <span className="">{t('description.nombre')}</span>: <input className="newGameNameInput" type="text" onChange={(element)=>{
+                                    const newGame = createGameObjectWithCurrentStatus();
+
+                                    newGame.name = element.target.value;
+                                    setGame(newGame);
+                                    setErrorMessage("");
+                                }}></input>
+                            </div>
+                            <div className="newGameRow">
+                                <span className="">{t('description.fecha')}</span>: {new Date().toLocaleDateString()}
+                            </div>
+                            <div className="newGameRow">
+                                <span className="">{t('description.esPublica')}</span>: <input type="checkbox" value="true" onChange={(element)=>{
+                                    const newGame = createGameObjectWithCurrentStatus();
+
+                                    newGame.isPublic = element.target.value;
+                                    setGame(newGame);
+                                }}></input>
+                            </div>
+                            <div className="newGameRow">
+                                <span className="">{t('description.localizacion')}</span>: 
+                                {locationElement}
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        <button className="importantNote" onClick={onBeginButtonClick}>{t('description.nuevaPartida')}</button>
+                    </p>
+                </> : 
+                
+                state === STATE_NEWGAME_PLAYING ? 
+                    <>
+                        <GameController game={game} onGameEnd={(game)=>{
+                            setGame(game);
+                        }}/>
+                        <button className="backButton" onClick={goBackToMenuStatus}>{t('description.atras')}</button>
+                    </> : 
+            <></>}
+        </>;
 }
 
 export default GameManagement;

@@ -9,10 +9,6 @@ class Utils {
         return false;
     }
 
-    static isUserLogged() {
-        return window.crawlear.user && window.crawlear.user.uid;
-    }
-
     static millisToTime(millis) {
         const minutes = Math.floor(millis / 60000),
             hours = Math.floor(minutes / 60), 

@@ -162,7 +162,7 @@ class FirebaseController {
   setGame(game, okCallback, koCallback) {
     let playersUid = [];
     
-    if(Utils.isUserLogged()) {
+    if(this.isUserLogged()) {
       game.players.forEach(element => { 
         element.uid && playersUid.push(element.uid); 
       });
@@ -201,6 +201,10 @@ class FirebaseController {
     } else {
       this.removeGame(game.gid);
     }
+  }
+
+  isUserLogged() {
+    return this.auth.isLoggedIn();
   }
 
   checkIfLogged(onLoggin) {

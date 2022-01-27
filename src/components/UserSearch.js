@@ -106,7 +106,7 @@ function UserSearch({onUserSeachPlayerAdd, gameName}) {
 
     return <div className="userSearchContainer rounded rounded3">
             <div className="userSearchText smallText">{
-                Utils.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')
+                firebase.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')
             }</div>
             <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
             <button className="buttonControlTextPlus" onClick={()=>{

@@ -18,11 +18,20 @@ beforeEach(()=>{
   document.body.innerHTML = '';
   document.body.append(div);
 
-  window.crawlear = window.crawlear || {};
+  window.crawlear = {};
   window.crawlear.user = {
     displayName: "Crawlear",
     uid: 'uid'
-  }
+  };
+  window.crawlear.fb = {
+    isUserLogged: jest.fn(()=>{
+      return true;
+    })
+  };
+});
+
+afterEach(()=> {
+  delete window.crawlear;
 });
 
 test('renders Footer embed logged', () => {
@@ -34,7 +43,12 @@ test('renders Footer embed logged', () => {
 });
 
 test('renders Footer embed not logged', () => {
-  window.crawlear = {};
+  window.crawlear.fb = {
+    isUserLogged: jest.fn(()=>{
+      return false;
+    })
+  };
+
   const { container } = render(<Footer />, div),
     footer = container.querySelector('.Footer'),
     currentYear = new Date().getFullYear();
