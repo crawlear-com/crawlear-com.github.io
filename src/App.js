@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import GameController from './components/GameController';
 import TxtRoute from './components/routes/TxtRoute';
 import Footer from './components/Footer';
@@ -21,28 +21,16 @@ function App() {
   window.crawlear = window.crawlear || {};
   window.crawlear.fb = fb;
   const [stateLogged, setStateLogged] = React.useState(false);
+  const navigate = useNavigate();
 
-  fb.checkIfRedirect(onLoggin);
-  fb.auth.onAuthStateChanged((user) => {
-      if (user) {
-        fb.getUser(user.uid, (data)=>{
-          fb.setUserInContext(data, user.uid);
-            onLoggin();
-          }, ()=> {
-              user.handicap = 0;
-              fb.setUserInContext(fb.setUser(user, ()=> {
-                onLoggin();
-              }), ()=>{}, user.uid);
-        });
-      }
-    });
-
-  React.useEffect(() => {
+    React.useEffect(() => {
     Analytics.init('UA-156750890-2');
+    fb.checkIfLogged(onLoggin);
   }, [])
 
   function onLoggin() {
     setStateLogged(true);
+    navigate("/completegame");
   }
 
   function onLogout() {
@@ -50,7 +38,6 @@ function App() {
   }
 
   return (<>
-    <BrowserRouter>
       <div className="App">
         {stateLogged ? <Menu /> : <></>}
         <div className="AppMainContainer">
@@ -67,7 +54,6 @@ function App() {
         <div className="adsContainer"></div>
         <Footer></Footer>
       </div>
-    </BrowserRouter>
     </>
   );
 }

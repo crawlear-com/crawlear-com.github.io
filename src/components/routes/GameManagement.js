@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
 import GameController from '../GameController.js';
@@ -25,7 +24,6 @@ const STATE_NEWGAME_PLAYING = 1;
 function GameManagement({onLogout}) {
     const firebase = window.crawlear.fb;
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);
     const [games, setGames] = React.useState([]);
     const [state, setState] = React.useState(STATE_NEWGAME_MENU);
@@ -36,8 +34,6 @@ function GameManagement({onLogout}) {
         { latitude: 0, longitude: 0 },
         [], 0, 0, 0, [], 0, 0));
     let locationElement;
-
-    if(!Utils.isUserLogged()) navigate("/");
 
     React.useEffect(() => {
         Analytics.pageview('/completegame/');
@@ -168,13 +164,13 @@ function GameManagement({onLogout}) {
             <p>
                 <button className="importantNote" onClick={onBeginButtonClick}>{t('description.nuevaPartida')}</button>
             </p>
-        </> : 
-        <>
-            <GameController game={game} onGameEnd={(game)=>{
-                setGame(game);
-            }}/>
-            <button className="backButton" onClick={goBackToMenuStatus}>{t('description.atras')}</button>
-        </>}
+        </> : state === STATE_NEWGAME_PLAYING ? 
+            <>
+                <GameController game={game} onGameEnd={(game)=>{
+                    setGame(game);
+                }}/>
+                <button className="backButton" onClick={goBackToMenuStatus}>{t('description.atras')}</button>
+            </> : <></>}
     </>;
 }
 
