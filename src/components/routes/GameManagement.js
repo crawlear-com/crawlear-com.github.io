@@ -11,6 +11,7 @@ import GameRequests from '../GameRequests.js';
 
 import '../../resources/css/GameManagement.scss';
 import Game from '../../model/Game.js';
+import { useNavigate } from 'react-router-dom';
 
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
@@ -24,6 +25,7 @@ const STATE_NEWGAME_PLAYING = 1;
 function GameManagement({onLogout}) {
     const firebase = window.crawlear.fb;
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);
     const [games, setGames] = React.useState([]);
     const [state, setState] = React.useState(STATE_NEWGAME_MENU);
@@ -34,6 +36,10 @@ function GameManagement({onLogout}) {
         { latitude: 0, longitude: 0 },
         [], 0, 0, 0, [], 0, 0));
     let locationElement;
+
+    if (!window.crawlear.user || !window.crawlear.user.uid) {
+        navigate("/");
+    }
 
     React.useEffect(() => {
         Analytics.pageview('/completegame/');
