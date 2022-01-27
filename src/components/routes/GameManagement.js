@@ -19,6 +19,7 @@ const STATE_LOCATION_LOCATING=2;
 
 const GAME_STATUS_FINISHED = 2;
 
+const STATE_NEWGAME_NOTLOGGED = -1;
 const STATE_NEWGAME_MENU = 0;
 const STATE_NEWGAME_PLAYING = 1;
 
@@ -39,6 +40,7 @@ function GameManagement({onLogout}) {
 
     if (!window.crawlear.user || !window.crawlear.user.uid) {
         navigate("/");
+        setState(STATE_NEWGAME_NOTLOGGED);
     }
 
     React.useEffect(() => {
@@ -130,7 +132,10 @@ function GameManagement({onLogout}) {
         <div className="">{t('content.nogeolocation')}</div>
     }
 
-    return <>
+    if(state === STATE_NEWGAME_NOTLOGGED) {
+        return <></>;
+    } else {
+        return <>
         {state === STATE_NEWGAME_MENU ? 
         <>
             <UserProfile user={window.crawlear.user} onLogout={onLogout} />
@@ -178,6 +183,7 @@ function GameManagement({onLogout}) {
                 <button className="backButton" onClick={goBackToMenuStatus}>{t('description.atras')}</button>
             </> : <></>}
     </>;
+    }
 }
 
 export default GameManagement;
