@@ -38,14 +38,14 @@ function GameManagement({onLogout}) {
         [], 0, 0, 0, [], 0, 0));
     let locationElement;
 
-    if (!window.crawlear.user || !window.crawlear.user.uid) {
-        setState(STATE_NEWGAME_NOTLOGGED);
-        navigate("/");
-    }
-
     React.useEffect(() => {
-        Analytics.pageview('/completegame/');
-        refreshGames();
+        if (!window.crawlear.user || !window.crawlear.user.uid) {
+            setState(STATE_NEWGAME_NOTLOGGED);
+            navigate("/");
+        } else {
+            Analytics.pageview('/completegame/');
+            refreshGames();    
+        }
     },[]);
 
     function refreshGames() {
