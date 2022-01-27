@@ -204,7 +204,7 @@ class FirebaseController {
   }
 
   isUserLogged() {
-    return this.auth.isLoggedIn();
+    return this.auth.currentUser != null;
   }
 
   checkIfLogged(onLoggin) {
