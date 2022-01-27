@@ -139,7 +139,7 @@ function GameManagement({onLogout}) {
         {state === STATE_NEWGAME_MENU ? 
         <>
             <UserProfile user={window.crawlear.user} onLogout={onLogout} />
-            <GameRequests uid={window.crawlear.user.uid} />
+            <GameRequests uid={window.crawlear.user?window.crawlear.user.uid?window.crawlear.user.uid:"":""} />
             <GameList games={games} onRemoveGame={onRemoveGame}/>
 
             <ErrorBox message={errorMessage} />
