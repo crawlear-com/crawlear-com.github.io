@@ -34,7 +34,7 @@ function GameList({games, onRemoveGame}) {
     })
 
     if(!games || games.length === 0) {
-        gameList.push(t('description.nopartidas'));
+        gameList.push(<div className="centerText smallText">{t('description.nopartidas')}</div>);
     }
 
     return <div className="gameList rounded rounded3">

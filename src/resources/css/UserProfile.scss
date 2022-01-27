@@ -3,6 +3,7 @@
     display: inline-block;
     margin-bottom: 25px;
     width: 94%;
+    font-size: 0.8em;
 
     .headerText {
         text-align: center;
@@ -11,7 +12,6 @@
     .userProfileInlineContainer {
         float: right;
         width: 65%;
-        margin-top: 15px;
     }
 
     .name {
@@ -20,7 +20,6 @@
 
     .photo {
         float: left;
-        margin: 15px;
         width: 25%;
     }
 

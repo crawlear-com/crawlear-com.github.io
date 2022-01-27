@@ -41,6 +41,7 @@ i18n
           description: {
             nojugadores: 'No players',
             nopartidas: 'No previous games',
+            norequests: 'No current game requests',
             jugadores: 'Players',
             nuevojugador: 'New player',
             ordenaleatorio: 'Random order',
@@ -146,6 +147,7 @@ i18n
           description: {
               nojugadores: 'No hay jugadores',
               nopartidas: 'No hay partidas guardadas',
+              norequests: 'No hay peticiones de juego en curso',
               jugadores: 'Jugadores',
               nuevojugador: 'Nuevo jugador',
               ordenaleatorio: 'Orden aleatorio',
