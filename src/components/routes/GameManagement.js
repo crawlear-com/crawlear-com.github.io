@@ -38,7 +38,7 @@ function GameManagement({onLogout}) {
 
     React.useEffect(() => {
             Analytics.pageview('/completegame/');
-            refreshGames();    
+            firebase.isUserLogged() && refreshGames();    
     },[]);
 
     function refreshGames() {
