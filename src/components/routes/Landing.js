@@ -12,8 +12,6 @@ function Landing({onLoggin}) {
     const navigate = useNavigate();
     const firebase = window.crawlear.fb;
     
-    firebase.checkIfLogged(signInCallback);
-
     function signInCallback() {
         onLoggin();
         navigate("/completegame");
