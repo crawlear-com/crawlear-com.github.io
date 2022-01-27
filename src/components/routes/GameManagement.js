@@ -84,8 +84,13 @@ function GameManagement({onLogout}) {
                     longitude: position.coords.longitude
                 };
                 setGame(newGame);
+            }, ()=>{
+                setStateLocation(STATE_LOCATION_UNKNOWN);
+                setErrorMessage(t('error.nogeolocation'));
             });
-        } 
+        } else {
+            setStateLocation(STATE_LOCATION_UNKNOWN);
+        }
     }
 
     function onBeginButtonClick(event) {

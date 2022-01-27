@@ -36,7 +36,8 @@ i18n
           },
           error: {
               nojugadores: 'First add the players and select the type of game and score',
-              nonombre: 'Fill in at least the name of the game to continue'
+              nonombre: 'Fill in at least the name of the game to continue',
+              nogeolocation: 'Cant get geolocation or there is a permission error'
           },
           description: {
             nojugadores: 'No players',
@@ -142,7 +143,8 @@ i18n
           },
           error: {
               nojugadores: 'Primero añade los jugadores y selecciona el tipo de juego y puntuación',
-              nonombre: 'Rellena al menos el nombre de la partida para continuar'
+              nonombre: 'Rellena al menos el nombre de la partida para continuar',
+              nogeolocation: 'No se puede obtener la geolocalización o no hay permisos'
           },
           description: {
               nojugadores: 'No hay jugadores',
