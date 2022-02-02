@@ -63,12 +63,14 @@ function UserSearch({onUserSeachPlayerAdd, gameName}) {
         const textValue = event.target.value;
 
         setUsername(textValue);
-        if (textValue.length > 0) {
-            firebase.userSearch(textValue, (users)=>{
-                setUsers(users);
-            }, ()=>{});
-        } else {
-            setUsers([]);
+        if(firebase.isUserLogged()) {
+            if (textValue.length > 0) {
+                firebase.userSearch(textValue, (users)=>{
+                    setUsers(users);
+                }, ()=>{});
+            } else {
+                setUsers([]);
+            }    
         }
     }
 
