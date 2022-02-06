@@ -52,5 +52,5 @@ test('opens Menu', () => {
     expect(links[2].querySelector("a").getAttribute("href")).toBe("/aboutus");
     expect(links[3].textContent).toBe("-");
     expect(links[4].querySelector("a").getAttribute("href")).toBe("https://www.aecar.org/modalidades.php?tipo=crawler");
-    expect(links[5].querySelector("a").getAttribute("href")).toBe("1 24 REGLAMENTO CRAWLER DEPORTIVO Y TECNICO 2021 V1 BORRADOR 19-1-2021.pdf");
+    expect(links[5].querySelector("a").getAttribute("href")).toBe("Reglamento Campeonato Nacional de Crawler 2022.pdf");
   });
