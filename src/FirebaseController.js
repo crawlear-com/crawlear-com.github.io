@@ -157,6 +157,17 @@ class FirebaseController {
     }
   }
 
+  async getPublicGames(okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "games"), where("isPublic", "==", true));
+      const querySnapshot = await getDocs(q);
+
+      okCallback && okCallback(querySnapshot.docs);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
   setGame(game, okCallback, koCallback) {
     let playersUid = [];
     
