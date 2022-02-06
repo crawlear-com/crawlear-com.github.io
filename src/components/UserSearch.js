@@ -79,13 +79,10 @@ function UserSearch({onUserSeachPlayerAdd, gameName}) {
     let i=0;
     
     if(users.length>0) {
-        usersResult.push(<>
-            <div key={i} className="userSearchResultsText smallText">{t('content.enviorequest')}. {t('content.enviorequest2')}</div>
-        </>);
+        usersResult.push(<div key={i} className="userSearchResultsText smallText">{t('content.enviorequest')}. {t('content.enviorequest2')}</div>);
         i++;
     }
 
-    i=0;
     users.forEach((user)=>{
         let actionIcon = iconSend;
         if (user.uid === window.crawlear.user.uid) {
@@ -103,7 +100,7 @@ function UserSearch({onUserSeachPlayerAdd, gameName}) {
     });
 
     if (gameRequestsRef.current > 0) {
-        gameRequestsList.push(<div className="">{gameRequestsRef.current} {t('description.peticionespendientes')}</div>);
+        gameRequestsList.push(<div key={i}>{gameRequestsRef.current} {t('description.peticionespendientes')}</div>);
     }
 
     return <div className="userSearchContainer rounded rounded3">
