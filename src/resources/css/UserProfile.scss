@@ -9,22 +9,40 @@
         text-align: center;
     }
 
-    .userProfileInlineContainer {
-        float: right;
-        width: 65%;
-    }
-
-    .name {
-        max-width: 218px;
-    }
-
-    .photo {
+    .userProfilePhotoContainer {
         float: left;
         width: 25%;
+
+        img {
+            max-width: 80px;
+        }
+    }
+
+    .userProfileInlineContainer {
+        float: right;
+        width: 75%;
+        .name {
+            margin: 5px 0;
+        }
+
+        input, textarea {
+            text-align: right;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            resize: none;
+        }
     }
 
     .description {
         float: left;
         width: 100%;
+    }
+
+    .hidenInput {
+        font-family: Montserrat, Roboto, sans-serif;
+        color: #fcf7ff;
+        background-color: transparent;
+        border: none;
     }
 }
