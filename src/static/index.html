@@ -46,5 +46,33 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <footer>
+      <!-- Quantcast Tag -->
+      <script type="text/javascript">
+        window._qevents = window._qevents || [];
+        
+        (function() {
+          var elem = document.createElement('script');
+          elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+          elem.async = true;
+          elem.type = "text/javascript";
+          var scpt = document.getElementsByTagName('script')[0];
+          scpt.parentNode.insertBefore(elem, scpt);
+        })();
+        
+        window._qevents.push({
+          qacct:"p-P91AnfJXAcd44",
+          uid:"jaanguita@gmail.com"
+        });
+      </script>
+        
+      <noscript>
+        <div style="display:none;">
+          <img src="//pixel.quantserve.com/pixel/p-P91AnfJXAcd44.gif" border="0" height="1" width="1" alt="Quantcast"/>
+        </div>
+      </noscript>
+      <!-- End Quantcast tag -->
+    </footer>
   </body>
 </html>
