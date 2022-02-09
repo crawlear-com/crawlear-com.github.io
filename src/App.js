@@ -14,6 +14,8 @@ import './resources/css/Base.scss';
 import './resources/css/App.scss';
 import './resources/css/Footer.scss';
 
+import backLogo from './resources/img/img06.png';
+
 function App() {
   const fb = new FirebaseController();
 

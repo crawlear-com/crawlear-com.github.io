@@ -47,33 +47,37 @@ function TotalTimeGame({game, onGameEnd}) {
     }, [state.state]);
 
     function onChangeScore(value, player, control) {
-        const newState = {...state};
-
-        const players = newState.game.players,
+        const newState = {...state},
             game = newState.game,
-            points = game.players[newState.currentPlayer].points,
-            handicap = game.players[newState.currentPlayer].handicap;
+            players = newState.game.players,
+            points = players[player].points,
+            handicap = players[player].handicap;
 
-        if ((!(game.maxPoints <= (points + handicap) && game.maxPoints > 0) && 
-            !(game.maxTime <= tickTime && game.maxTime > 0)) || (points + handicap + value < game.maxPoints)) {
+        if ((((game.maxPoints > (points + handicap) || game.maxPoints <= 0) && 
+            (game.maxTime > tickTime || game.maxTime <= 0)) || (points + handicap + value < game.maxPoints)) &&
+            !players[player].battery) {
                 players[player].controlTextValues = [...players[player].controlTextValues];
                 players[player].controlTextValues[control] += value;
                 players[player].points += value;
-        } else {
-            if (game.maxPoints) {
-                players[player].points = Math.max(game.maxPoints, players[player].points);
-            }
-            if (game.maxTime) {
-                players[player].time = Math.max(game.maxPoints, players[player].time);
-            }
         }
 
         setState(newState);
     }
 
+    function onBatteryDirectFiasco(player, value) {
+        const newState = {...state},
+            players = newState.game.players;
+
+        players[player].battery = value;
+        setState(newState);
+    }
+
     function timerCount(state) {
-        if (!(state.game.maxPoints <= state.game.players[state.currentPlayer].points && state.game.maxPoints > 0) && 
-        !(state.game.maxTime <= tickTime && state.game.maxTime > 0)) {
+        const game = state.game;
+
+        if ((game.maxPoints > game.players[state.currentPlayer].points || game.maxPoints <= 0) && 
+            (game.maxTime > tickTime || game.maxTime <= 0) && 
+            (!game.players[state.currentPlayer].battery)) {
             tickTime += 10;  
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime
@@ -98,17 +102,15 @@ function TotalTimeGame({game, onGameEnd}) {
     }
 
     function onReset() {
-        let newState = {
-            ...state, 
-        };
-        window.scrollTo(0,0);
-
-        Analytics.event('play', 'reset', newState.players[state.currentPlayer].name);
+        let newState = {...state };
 
         tickTime = 0;
+        window.scrollTo(0,0);
+        Analytics.event('play', 'reset', newState.game.players[state.currentPlayer].name);
         newState = initControlTestValues(newState.game);
         newState.game.players[state.currentPlayer].time = 0;
-        newState.game.players[state.currentPlayer].points = 0;  
+        newState.game.players[state.currentPlayer].points = 0;
+        newState.game.players[state.currentPlayer].battery = false;
         newState.currentPlayer = state.currentPlayer;
         newState.state = STATE_PAUSE;
         setState(previousInputs => ({ ...previousInputs,...newState}));
@@ -123,7 +125,7 @@ function TotalTimeGame({game, onGameEnd}) {
         newState.state = STATE_PAUSE;
 
         if ((game.maxPoints <= players[newState.currentPlayer].points && game.maxPoints > 0) || 
-            (game.maxTime <= tickTime && game.maxTime > 0)) {
+            (game.maxTime <= tickTime && game.maxTime > 0) || players[newState.currentPlayer].battery) {
             players[newState.currentPlayer].time = (game.maxTime > 0 ? game.maxTime : tickTime);
             players[newState.currentPlayer].points = (game.maxPoints > 0 ? game.maxPoints : newState.players[newState.currentPlayer].points);
         } else {
@@ -147,33 +149,27 @@ function TotalTimeGame({game, onGameEnd}) {
         }
     }
 
-
     if (state.game.players.length>0) {
-        const currentPlayer = state.game.players[state.currentPlayer];
-        let controlTextArray = [],
-            maxTimeControl = <></>;
-
-        controlTextArray = ControlTextArray({
-            controlTextValues: state.game.players[state.currentPlayer].controlTextValues,
-            player: state.currentPlayer,
-            pointsMode: state.game.pointsType,
-            onValueChange: onChangeScore
-        });
+        let fiasco = <></>;
+        const currentPlayer = state.game.players[state.currentPlayer],
+            controlTextArray = ControlTextArray({
+                controlTextValues: state.game.players[state.currentPlayer].controlTextValues,
+                player: state.currentPlayer,
+                onDirectFiasco: onBatteryDirectFiasco,
+                onValueChange: onChangeScore,
+                booleanValue: state.game.players[state.currentPlayer].battery
+            });
 
         if (state.game.pointsType === MODE_OFFICIAL) {
-            let fiasco;
+            const game = state.game, maxPoints = game.maxPoints, maxTime = game.maxTime,
+                currentPlayer = state.currentPlayer, players = game.players;
 
-            if ((state.game.maxPoints <= (state.game.players[state.currentPlayer].points+state.game.players[state.currentPlayer].handicap) && state.game.maxPoints > 0) || 
-                (state.game.maxTime <= tickTime && state.game.maxTime > 0)) {
-                Analytics.event('play', 'fiasco', state.game.players[state.currentPlayer].name); 
-                fiasco = <div className="rounded importantNote">FiASCO!</div>;
+            if ((maxPoints <= (players[currentPlayer].points+players[currentPlayer].handicap) && maxPoints > 0) || 
+                (maxTime <= tickTime && maxTime > 0) ||
+                players[currentPlayer].battery) {
+                Analytics.event('play', 'fiasco', players[currentPlayer].name); 
+                fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
             }
-
-            maxTimeControl = <div className="fiascoBox bold">
-                {fiasco}
-                {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.game.maxTime))} <br />
-                {t('description.puntosmaximo')}: {state.game.maxPoints}
-            </div>
         }
 
         return <div className="gameContainer">
@@ -183,18 +179,20 @@ function TotalTimeGame({game, onGameEnd}) {
                     {currentPlayer.name}
                 </div>
             </div>
-            {maxTimeControl}
             <div className="totalTimeContainer rounded rounded2">
                 {`${t('description.handicap')} : ${currentPlayer.handicap}`}<br />
                 {t('description.puntos')}: { currentPlayer.points}<br />
                 ---<br />
-                <div className="inline bold">{t('description.total')} :</div> {currentPlayer.points + currentPlayer.handicap}
+                <div className="inline bold">{t('description.total')} :</div> {currentPlayer.points + currentPlayer.handicap}<br />
+                {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.game.maxTime))} <br />
+                {t('description.puntosmaximo')}: {state.game.maxPoints}
             </div>
             <TimerControl 
                 state={state.state}
                 time={state.millis} 
                 onPlayPauseChange={changePlayPauseTimeControl}
             />
+            {fiasco}
             <div className="controlTextContainer rounded rounded1">
                 {controlTextArray}
             </div>
@@ -216,7 +214,7 @@ function initControlTestValues(game) {
     }
 
     for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(11) : new Array(7);
+        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7);
 
         for(let j=0; j<newState.game.players[i].controlTextValues.length; j++) {
             newState.game.players[i].controlTextValues[j] = 0;

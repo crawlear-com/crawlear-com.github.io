@@ -3,8 +3,12 @@ import { useTranslation } from 'react-i18next';
 import GameResultTable from './GameResultTable';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import Utils from '../Utils';
+
+import '../resources/css/WinnerTable.scss';
+
 import icoWinner from '../resources/img/iconWinner.png';
 import icoFiasco from '../resources/img/iconFiasco.png';
+import icoBattery from '../resources/img/iconBattery.png';
 
 function WinnerTable({ game }) {
     const { t } = useTranslation(),
@@ -33,9 +37,11 @@ function WinnerTable({ game }) {
                 let fiasco = <></>;
 
                 if ((game.maxPoints <= (player.points+player.handicap) && game.maxPoints > 0) || 
-                    (game.maxTime <= player.time && game.maxTime > 0)) {
-                        fiasco = <div className="importantNote rounded">
-                            <img src={icoFiasco} alt="fiasco icon" />FiASCO!</div>
+                    (game.maxTime <= player.time && game.maxTime > 0) || (player.battery)) {
+                        const batteryIcon = player.battery ? <img src={icoBattery} alt="battery icon" /> : <></>
+
+                        fiasco = <div className="importantNote rounded fiasco">
+                            <img src={icoFiasco} alt="fiasco icon" />{batteryIcon} FiASCO!</div>
                 }
 
                 return <div className="winnerBox" key={i} value={player.name}>
@@ -48,7 +54,7 @@ function WinnerTable({ game }) {
                         {t('description.handicap')}: {player.handicap}  <br />
                         <b>{`${t('description.total')}: ${player.points + player.handicap}`}</b>
                         <div> 
-                            <ControlTextArrayVisualization controlTextValues={player.controlTextValues} pointsMode={game.pointsType} />
+                            <ControlTextArrayVisualization controlTextValues={player.controlTextValues} />
                         </div>
                     </div>
             })}

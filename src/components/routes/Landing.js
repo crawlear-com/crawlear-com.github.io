@@ -5,6 +5,7 @@ import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
 
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
+
 import '../../resources/css/Landing.scss';
 
 function Landing({onLoggin}) {

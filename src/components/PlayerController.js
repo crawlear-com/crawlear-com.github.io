@@ -29,7 +29,8 @@ function PlayerController({onPlayerNumerChange, gameName}) {
           avatar: photoURL || `${AVATAR_API}${value}`,
           handicap: 0,
           time: 0,
-          points: 0
+          points: 0,
+          battery: false
       });
       Analytics.event('menu', 'addPlayer', value);
       onPlayerNumerChange && onPlayerNumerChange(playersRef.current);

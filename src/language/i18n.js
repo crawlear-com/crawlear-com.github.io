@@ -87,7 +87,10 @@ i18n
             peticionespendientes: 'pending requests',
             enviar: 'send',
             resumen: 'Brief',
-            detalle: 'Detail'
+            detalle: 'Detail',
+            penalizaciones: 'Penalties',
+            penalizacionesadicionales: 'Additional penalties'
+
           },
           points: {
             vuelco: 'overturn',
@@ -100,7 +103,18 @@ i18n
             distancia: 'distance',
             equipaje: 'baggage',
             anclajeindebido: 'improper anchor',
-            juez: 'judge'
+            juez: 'judge',
+            saltopelota: 'ball jump',
+            nocomunicarcambio: 'change not comunicated',
+            bateria: 'battery load',
+            conductaincivica: 'unsportsmanlike conduct',
+            perdidacarnet: 'loss of road license',
+            modificarpista: 'modify track conditions',
+            perdidadorsal: 'loss of bib',
+            modificarcoche: 'car manipulation',
+            sacarcoche: 'take the car out of the compound',
+            nodorsal: 'no dorsal',
+            incumplimientotecnico: 'Non-compliance with Technical Regulations'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -194,7 +208,9 @@ i18n
               peticionespendientes: 'peticiones pendientes',
               enviar: 'enviar',
               resumen: 'Resumen',
-              detalle: 'Detalle'
+              detalle: 'Detalle',
+              penalizaciones: 'Penalizaciones',
+              penalizacionesadicionales: 'Penalizaciones adicionales'
           },
           points: {
             vuelco: 'vuelco',
@@ -207,7 +223,18 @@ i18n
             distancia: 'distancia',
             equipaje: 'equipaje',
             anclajeindebido: 'anclaje indebido',
-            juez: 'juez'
+            juez: 'juez',
+            saltopelota: 'salto de pelota',
+            nocomunicarcambio: 'cambio no comunicado',
+            bateria: 'carga de bateria',
+            conductaincivica: 'conducta incívica',
+            perdidacarnet: 'pérdida de carnet',
+            modificarpista: 'modificar condición de pista',
+            perdidadorsal: 'perdida de dorsal',
+            modificarcoche: 'manipulación del coche',
+            sacarcoche: 'coche fuera del recinto',
+            nodorsal: 'no dorsal',
+            incumplimientotecnico: 'no cumplir reglamento técnico'
           },
           gametype: {
             partidarapida: 'Partida rápida',

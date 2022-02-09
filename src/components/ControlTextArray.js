@@ -2,33 +2,84 @@ import * as React from 'react';
 import ControlText from './ControlText';
 import { useTranslation } from 'react-i18next';
 
-const MODE_OFFICIAL = 1;
-
-function ControlTextArray({controlTextValues, player, pointsMode, onValueChange}) {
+function ControlTextArray({controlTextValues, player, onValueChange, onDirectFiasco, booleanValue}) {
+    let i=0;
+    const isFullScore = controlTextValues.length>14;
     const controlArray = [];
     const { t } = useTranslation();
+    const steps = [5,3,2,5,5,3,-1,3,1,5,1,2,3,  1,5,5,3,3,5,5,5];
+    const maxValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,  0,1,0,1,0,0,1,0];
+    const texts = [t('points.vuelco'),
+        t('points.tocar'),
+        t('points.puerta'),
+        t('points.saltoobstaculo'),
+        t('points.reparacion'),
+        t('points.winch'),
+        t('points.puertaprogresion'),
+        t('points.equipaje'),
+        t('points.distancia'),
+        t('points.anclajeindebido'),
+        t('points.juez'),
+        t('points.saltopelota'),
+        t('points.nocomunicarcambio'),
+        
+        t('points.conductaincivica'),
+        t('points.perdidacarnet'),
+        t('points.modificarpista'),
+        t('points.perdidadorsal'),
+        t('points.modificarcoche'),
+        t('points.sacarcoche'),
+        t('points.nodorsal'),
+        t('incumplimientotecnico')
+    ];
 
-    if (pointsMode === MODE_OFFICIAL) {
-        controlArray.push(<ControlText key={0} value={controlTextValues[0]} onValueChange={(value)=> {onValueChange(value, player, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);
-        controlArray.push(<ControlText key={1} value={controlTextValues[1]} onValueChange={(value)=> {onValueChange(value, player, 1)}} initialValue={0} text={t('points.tocar')} step={3} />);
-        controlArray.push(<ControlText key={2} value={controlTextValues[2]} onValueChange={(value)=> {onValueChange(value, player, 2)}} initialValue={0} text={t('points.puerta')} step={2} />);
-        controlArray.push(<ControlText key={3} value={controlTextValues[3]} onValueChange={(value)=> {onValueChange(value, player, 3)}} initialValue={0} text={t('points.saltoobstaculo')} step={5} />);
-        controlArray.push(<ControlText key={4} value={controlTextValues[4]} onValueChange={(value)=> {onValueChange(value, player, 4)}} initialValue={0} text={t('points.reparacion')} step={5} />);
-        controlArray.push(<ControlText key={5} value={controlTextValues[5]} onValueChange={(value)=> {onValueChange(value, player, 5)}} initialValue={0} text={t('points.winch')} step={3} />);
-        controlArray.push(<ControlText key={6} value={controlTextValues[6]} onValueChange={(value)=> {onValueChange(value, player, 6)}} initialValue={0} text={t('points.puertaprogresion')} step={-1} />);
-        controlArray.push(<ControlText key={7} value={controlTextValues[7]} onValueChange={(value)=> {onValueChange(value, player, 7)}} initialValue={0} text={t('points.equipaje')} step={3} />);
-        controlArray.push(<ControlText key={8} value={controlTextValues[8]} onValueChange={(value)=> {onValueChange(value, player, 8)}} initialValue={0} text={t('points.distancia')} step={1} />);
-        controlArray.push(<ControlText key={9} value={controlTextValues[9]} onValueChange={(value)=> {onValueChange(value, player, 9)}} initialValue={0} text={t('points.anclajeindebido')} step={5} />);
-        controlArray.push(<ControlText key={10} value={controlTextValues[10]} onValueChange={(value)=> {onValueChange(value, player, 10)}} initialValue={0} text={t('points.juez')} step={1} />);
-    } else {
-        controlArray.push(<ControlText key={0} value={controlTextValues[0]} onValueChange={(value)=> {onValueChange(value, player, 0)}} initialValue={0} text={t('points.vuelco')} step={5} />);
-        controlArray.push(<ControlText key={1} value={controlTextValues[1]} onValueChange={(value)=> {onValueChange(value, player, 1)}} initialValue={0} text={t('points.tocar')} step={3} />);
-        controlArray.push(<ControlText key={2} value={controlTextValues[2]} onValueChange={(value)=> {onValueChange(value, player, 2)}} initialValue={0} text={t('points.puerta')} step={2} />);
-        controlArray.push(<ControlText key={3} value={controlTextValues[3]} onValueChange={(value)=> {onValueChange(value, player, 3)}} initialValue={0} text={t('points.saltoobstaculo')} step={5} />);
-        controlArray.push(<ControlText key={4} value={controlTextValues[4]} onValueChange={(value)=> {onValueChange(value, player, 4)}} initialValue={0} text={t('points.reparacion')} step={5} />);
-        controlArray.push(<ControlText key={5} value={controlTextValues[5]} onValueChange={(value)=> {onValueChange(value, player, 5)}} initialValue={0} text={t('points.winch')} step={3} />);
-        controlArray.push(<ControlText key={6} value={controlTextValues[6]} onValueChange={(value)=> {onValueChange(value, player, 6)}} initialValue={0} text={t('points.puertaprogresion')} step={-1} />);
+    function onBooleanValueChange() {
+        onDirectFiasco(player, !booleanValue);
     }
+
+    controlArray.push(<div key="mainTitle" className="rounded rounded2">{t('description.penalizaciones')}:</div>);
+
+    if (controlTextValues.length > 7) {
+        controlArray.push(<div key="booleanValue" className="controlText controlTextBoolean">
+            <span className="bold controlTextText">{t('points.bateria')}</span>
+            <span className="controlTextValue" onClick={onBooleanValueChange}>{
+                booleanValue ? "0% (FiASCO)": "100%"
+            }</span>
+        </div>);
+    }
+
+    while (i<14 && i<controlTextValues.length) {
+        const j = i;
+
+        controlArray.push(<ControlText key={i} 
+            value={controlTextValues[i]} 
+            onValueChange={(value)=> {
+                onValueChange(value, player, j);
+            }} 
+            initialValue={0} 
+            text={texts[i]} 
+            step={steps[i]} />);
+        i++;
+    }
+
+    if (isFullScore) {
+        controlArray.push(<p key="additialTitle" className="rounded rounded2">{t('description.penalizacionesadicionales')}:</p>);
+        while (i<controlTextValues.length) {
+            const j = i;
+
+            controlArray.push(<ControlText key={i} 
+                value={controlTextValues[i]}
+                maxValue={maxValues[i]}
+                onValueChange={(value)=> {
+                    onValueChange(value, player, j);
+                }} 
+                initialValue={0} 
+                text={texts[i]} 
+                step={steps[i]} />);
+            i++;
+        }
+    }
+
     return controlArray;
 }
 
