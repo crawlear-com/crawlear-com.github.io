@@ -10,25 +10,45 @@ function PointsGame({game, onGameEnd}) {
     const [state, setState] = React.useState(()=>{ return initControlTestValues(game) });
     const { t } = useTranslation();
 
-    function changePointsOnScoreChange(value, player, control) {
+    React.useEffect(() => {
+        Analytics.pageview('/pointsgame/');
+    },[]);
+
+    function onBatteryDirectFiasco(player, value) {
+        const newState = {...state},
+            players = newState.game.players;
+
+        players[player].battery = value;
+        setState(newState);
+    }
+
+    function onChangeScore(value, player, control) {
         const newState = {...state};
 
         const players = newState.game.players,
-            points = state.game.players[state.currentPlayer].points,
-            handicap = state.game.players[state.currentPlayer].handicap;
+            points = state.game.players[player].points,
+            handicap = state.game.players[player].handicap,
+            finalValue = points + handicap + value;
 
-        if (!(state.game.maxPoints <= (points + handicap) && state.game.maxPoints > 0) || (points + handicap + value < state.game.maxPoints)) {
-            players[player].controlTextValues = [...players[player].controlTextValues];
-            players[player].controlTextValues[control] += value;
-            players[player].points += value;    
-        } else if (state.game.maxPoints) {
-            players[player].points = Math.max(state.game.maxPoints, players[player].points);
+        if (!players[player].battery && ((game.maxPoints > (points + handicap) || game.maxPoints <= 0) || 
+            (finalValue < state.game.maxPoints))) {
+                players[player].controlTextValues = [...players[player].controlTextValues];
+                players[player].controlTextValues[control] += value;
+                players[player].points += value;    
         }
 
         setState(newState);
     }
 
     function onEndPlayer() {
+        const game = state.game,
+            currentPlayer = state.currentPlayer,
+            players = game.players;
+
+        if ((game.maxPoints <= players[currentPlayer].points && game.maxPoints > 0) || players[currentPlayer].battery) {
+                players[currentPlayer].points = (game.maxPoints > 0 ? game.maxPoints : players[currentPlayer].points);
+        }
+
         Analytics.event('play', 'endPlayer', state.game.players[state.currentPlayer].name);
 
         if (state.currentPlayer+1 < state.game.players.length) {
@@ -48,6 +68,7 @@ function PointsGame({game, onGameEnd}) {
     function onReset() {
         window.scrollTo(0,0);
         state.game.players[state.currentPlayer].points = 0;
+        state.game.players[state.currentPlayer].battery = false;
         Analytics.event('play', 'reset', state.game.players[state.currentPlayer].name);
         setState((state, props)=> {
             return {
@@ -57,10 +78,6 @@ function PointsGame({game, onGameEnd}) {
         });
     }
 
-    React.useEffect(() => {
-        Analytics.pageview('/pointsgame/');
-    },[]);
-
     if (state.game.players.length>0) {
         const currentPlayer = state.game.players[state.currentPlayer];
         let controlTextArray = [],
@@ -68,15 +85,20 @@ function PointsGame({game, onGameEnd}) {
 
         controlTextArray = ControlTextArray({
             controlTextValues: state.game.players[state.currentPlayer].controlTextValues, 
-            player: state.currentPlayer, 
-            pointsMode: state.pointsType, 
-            onValueChange: changePointsOnScoreChange
+            player: state.currentPlayer,
+            onDirectFiasco: onBatteryDirectFiasco,
+            booleanValue: state.game.players[state.currentPlayer].battery,
+            onValueChange: onChangeScore
         });
 
-        if (state.pointsType === MODE_OFFICIAL) {
-            let fiasco;
+        if (state.game.pointsType === MODE_OFFICIAL) {
+            let fiasco,
+                currentPlayer = state.currentPlayer,
+                maxPoints = state.game.maxPoints,
+                players = state.game.players;
 
-            if (state.game.maxPoints <= (state.game.players[state.currentPlayer].points+state.game.players[state.currentPlayer].handicap) && state.game.maxPoints > 0) {
+            if ((maxPoints <= (players[currentPlayer].points + players[currentPlayer].handicap) && 
+                maxPoints > 0) || players[currentPlayer].battery) {
                 Analytics.event('play', 'fiasco', state.game.players[state.currentPlayer].name); 
                 fiasco = <div className="rounded importantNote">FiASCO!</div>;
             }
@@ -104,8 +126,10 @@ function PointsGame({game, onGameEnd}) {
             <button onClick={onReset}>{t('description.reset')}</button>
             <button className="importantNote" onClick={onEndPlayer}>{t('description.finjugador')} ({currentPlayer.name})</button><p />
         </div>;
+    } else {
+        return <></>;
     }
-}
+} 
 
 function initControlTestValues(game) {
     const newState = {
@@ -115,7 +139,7 @@ function initControlTestValues(game) {
     };
 
     for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(11) : new Array(7);
+        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7);
 
         for(let j=0; j<newState.game.players[i].controlTextValues.length; j++) {
             newState.game.players[i].controlTextValues[j] = 0;

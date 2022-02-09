@@ -1,6 +1,5 @@
 
 class Utils {
-
     static isMobile() {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
             return true;
@@ -54,6 +53,23 @@ class Utils {
         return array;
     }
 
+    static getNotmalizedMaxValues(inPlayers, maxPoints, maxTime) {
+        const players = [...inPlayers];
+
+        if (maxTime || maxPoints) {
+            players.forEach((player)=>{
+                if ((maxPoints <= player.points && maxPoints > 0) || player.battery) {
+                    player.points = maxPoints
+                }
+                if ((maxTime <= player.time && maxTime > 0) || player.battery) {
+                    player.time = maxTime;
+                }
+            })
+        }
+
+        return players;
+    }
+
     static getWinnerByPoints(inPlayers) {
         const players = [...inPlayers];
         
@@ -90,7 +106,5 @@ class Utils {
         return `https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}`
     }
 }
-
-
 
 export default Utils;

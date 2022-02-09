@@ -6,6 +6,7 @@ function ControlText({
         text,
         step,
         value,
+        maxValue,
         onValueChange
     }) {
     const isNegativeControl = (step<0);
@@ -13,7 +14,7 @@ function ControlText({
     const valueRef = React.useRef();
 
     function updateValue(step) {
-        if (!isNegativeControl && (value+step >= 0)) {
+        if (!isNegativeControl && (value+step >= 0) && (!maxValue || value+step <= Math.abs(maxValue*step))) {
             Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
             onValueChange(step);
         } else if (isNegativeControl && (value+step <= 0)) {

@@ -30,10 +30,7 @@ module.exports = {
     },
     {
         test: /\.(jpe?g|png|pdf|gif|svg)$/i, 
-        loader: 'file-loader',
-        options: {
-          name: '/static/[name].[ext]'
-        }
+        type: 'asset/resource'
     }]
   },
   plugins: [
