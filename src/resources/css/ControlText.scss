@@ -4,8 +4,17 @@
     line-height: 40px;
 }
 
-.controlTextBoolean {
+.controlTextContainer {
+    overflow: hidden;
 
+    .dropdown {
+        width: 20px;
+        margin: 0;
+        float: right;
+    }
+    .closed {
+        height: 75px;
+    }
 }
 
 .buttonControlTextPlus, 
