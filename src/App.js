@@ -9,6 +9,7 @@ import GameManagement from './components/routes/GameManagement';
 import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
+import Analytics from './Analytics';
 
 import './resources/css/Base.scss';
 import './resources/css/App.scss';
@@ -26,6 +27,7 @@ function App() {
 
   React.useEffect(() => {
     fb.checkIfLogged(onLoggin);
+    Analytics.event('App','init',`${navigator.userAgent}`);
   }, [])
 
   function onLoggin() {
