@@ -26,13 +26,9 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    fb.checkIfLogged(onPreviousLogin);
+    fb.checkIfLogged(onLoggin);
     Analytics.event('App','init',`${navigator.userAgent}`);
   }, [])
-
-  function onPreviousLogin() {
-    setStateLogged(true);
-  }
 
   function onLoggin() {
     setStateLogged(true);
