@@ -18,9 +18,9 @@ class Analytics {
         }
     }
 
-    static event(category, action, value) {
+    static event(category, action, label) {
         if (!isLocalhost()) {
-            ReactGA.event({ category, action, value });
+            ReactGA.event({ category, action, label });
         }
     }
 }
