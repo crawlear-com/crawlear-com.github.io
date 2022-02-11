@@ -32,7 +32,9 @@ i18n
             seguroborrarjuego: 'Do you want to delete the game?',
             nogeolocation: 'Your browser does not support geolocation',
             landingMainText: 'To get advanced functionality you can log in using your google.com account',
-            landingSecondText: 'Or just play a'
+            landingSecondText: 'Or just play a',
+            seleccionZonas: 'Select the number of zones',
+            seleccionPuertas: 'Select the number of progression gates'
           },
           error: {
               nojugadores: 'First add the players and select the type of game and score',
@@ -60,6 +62,7 @@ i18n
             continuar: 'Continue',
             tiempomaximo: 'MAX TIME',
             zonas: 'Zones',
+            zona: 'Zone',
             puntosmaximo: 'MAX POINTS',
             handicap: 'handicap',
             instrucciones: 'Instructions',
@@ -89,7 +92,8 @@ i18n
             resumen: 'Brief',
             detalle: 'Detail',
             penalizaciones: 'Penalties',
-            penalizacionesadicionales: 'Additional penalties'
+            penalizacionesadicionales: 'Additional penalties',
+            avancepuerta: 'gate progression'
 
           },
           points: {
@@ -153,7 +157,9 @@ i18n
             seguroborrarjuego: '¿Quieres ELIMINAR el juego?',
             nogeolocation: 'Tu navegador no soporta geolocalizacíon',
             landingMainText: 'Para obtener funcionalidades avanzadas puedes ingresar con tu cuenta de google.com',
-            landingSecondText: 'O si lo prefieres, puedes jugar simplemente una'
+            landingSecondText: 'O si lo prefieres, puedes jugar simplemente una',
+            seleccionZonas: 'Selecciona el número de zonas o sectores',
+            seleccionPuertas: 'Selecciona el número de puertas de progresión'
           },
           error: {
               nojugadores: 'Primero añade los jugadores y selecciona el tipo de juego y puntuación',
@@ -181,6 +187,7 @@ i18n
               continuar: 'Continuar',
               tiempomaximo: 'TIEMPO MAX',
               zonas: 'Zonas',
+              zona: 'Zona',
               puntosmaximo: 'MAX PUNTOS',
               handicap: 'handicap',
               instrucciones: 'Instrucciones',
@@ -210,7 +217,8 @@ i18n
               resumen: 'Resumen',
               detalle: 'Detalle',
               penalizaciones: 'Penalizaciones',
-              penalizacionesadicionales: 'Penalizaciones adicionales'
+              penalizacionesadicionales: 'Penalizaciones adicionales',
+              avancepuerta: 'avance de puertas'
           },
           points: {
             vuelco: 'vuelco',
@@ -219,7 +227,7 @@ i18n
             saltoobstaculo: 'salto obstaculo',
             reparacion: 'reparacion',
             winch: 'winch',
-            puertaprogresion: 'puerta progresion',
+            puertaprogresion: 'puerta de progresion',
             distancia: 'distancia',
             equipaje: 'equipaje',
             anclajeindebido: 'anclaje indebido',

@@ -3,11 +3,9 @@ import GameMenu from './GameMenu';
 import WinnerTable from './WinnerTable';
 import GameTypePlayer from './GameTypePlayer';
 import Menu from './Menu';
-import Game from '../model/Game';
 import Analytics from '../Analytics';
 
 import '../resources/css/GameController.scss';
-import Utils from '../Utils';
 
 const GAME_STATUS_MENU = 0;
 const GAME_STATUS_PLAY = 1;
@@ -17,36 +15,22 @@ function GameController({game, onGameEnd}) {
     const alertBoxRef = React.useRef();
     const elementsToRender = [];
     const firebase = window.crawlear.fb;
-    const [state, setState] = React.useState(game || new Game("", new Date().toLocaleDateString(), false, [], GAME_STATUS_MENU, 0, 0, [], 0, 0));
-
-    function createGameObjectWithCurrentStatus() {
-        return new Game(state.name, 
-            state.date, 
-            state.isPublic, 
-            state.location, 
-            state.players, 
-            state.gameStatus, 
-            state.gameType, 
-            state.pointsType, 
-            state.uids,
-            state.maxTime,
-            state.maxPoints);
-    }
+    const [state, setState] = React.useState(game);
 
     function onPointsTypeChange(selectedIndex) {
-        const newGame = createGameObjectWithCurrentStatus();
+        const newState = {...state};
 
         Analytics.event('menu', 'pointsModeChange',selectedIndex);
-        newGame.pointsType = selectedIndex;
-        setState(newGame);
+        newState.pointsType = selectedIndex;
+        setState(newState);
     }
     
     function onGameTypeChange(selectedIndex) {
-        const newGame = createGameObjectWithCurrentStatus();
+        const newState = {...state};
         
         Analytics.event('menu', 'playModeChange', selectedIndex);
-        newGame.gameType = selectedIndex;
-        setState(newGame);
+        newState.gameType = selectedIndex;
+        setState(newState);
     }
     
     function onGameEndFromGamePlayer(game) {
@@ -72,7 +56,7 @@ function GameController({game, onGameEnd}) {
     }
 
     function onPlayerNumerChange(players) {
-        const newGame = createGameObjectWithCurrentStatus();
+        const newGame = {...state};
         let action = 'addPlayer';
 
         cleanAlertBox(alertBoxRef);
@@ -87,7 +71,7 @@ function GameController({game, onGameEnd}) {
     function onBeginGame(t) {
         window.scrollTo(0,0);
         if (state.players.length>0) {
-            const newGame = createGameObjectWithCurrentStatus();
+            const newGame = {...state};
     
             Analytics.event('menu', 'beginGame', newGame.players.length);
             newGame.uids = setUidsFromPlayers(newGame.players);

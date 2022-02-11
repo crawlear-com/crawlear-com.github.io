@@ -4,7 +4,9 @@ import TimerControl from '../TimerControl';
 import ControlTextArray from '../ControlTextArray';
 import Utils from '../../Utils';
 import Analytics from '../../Analytics';
+import Slider, { createSliderWithTooltip } from 'rc-slider';
 
+import "rc-slider/assets/index.css";
 import '../../resources/css/games/TotalTimeGame.scss'
 
 const STATE_PLAY = 'play';
@@ -16,6 +18,7 @@ let timer = null;
 
 function TotalTimeGame({game, onGameEnd}) {
     const { t } = useTranslation();
+    const SliderWithTooltip = createSliderWithTooltip(Slider);
     const [state, setState] = React.useState(()=>{ 
         tickTime = 0;
         return initControlTestValues(game)
@@ -50,15 +53,15 @@ function TotalTimeGame({game, onGameEnd}) {
         const newState = {...state},
             game = newState.game,
             players = newState.game.players,
-            points = players[player].points,
-            handicap = players[player].handicap;
+            playerZone = players[player].zones[game.currentZone],
+            points = players[player].points;
 
-        if ((((game.maxPoints > (points + handicap) || game.maxPoints <= 0) && 
-            (game.maxTime > tickTime || game.maxTime <= 0)) || (points + handicap + value < game.maxPoints)) &&
-            !players[player].battery) {
-                players[player].controlTextValues = [...players[player].controlTextValues];
-                players[player].controlTextValues[control] += value;
-                players[player].points += value;
+        if ((((game.maxPoints > points || game.maxPoints <= 0) && 
+            (game.maxTime > tickTime || game.maxTime <= 0)) || (points + value < game.maxPoints)) &&
+            !playerZone.battery) {
+                playerZone.controlTextValues = [...playerZone.controlTextValues];
+                playerZone.controlTextValues[control] += value;
+                playerZone.points += value;
         }
 
         setState(newState);
@@ -68,16 +71,17 @@ function TotalTimeGame({game, onGameEnd}) {
         const newState = {...state},
             players = newState.game.players;
 
-        players[player].battery = value;
+        players[player].zones[game.currentZone].battery = value;
         setState(newState);
     }
 
     function timerCount(state) {
-        const game = state.game;
+        const game = state.game,
+            playerZone = game.players[game.currentPlayer].zones[game.currentZone];
 
-        if ((game.maxPoints > game.players[state.currentPlayer].points || game.maxPoints <= 0) && 
+        if ((game.maxPoints > playerZone.points || game.maxPoints <= 0) && 
             (game.maxTime > tickTime || game.maxTime <= 0) && 
-            (!game.players[state.currentPlayer].battery)) {
+            (!playerZone.battery)) {
             tickTime += 10;  
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime
@@ -102,16 +106,17 @@ function TotalTimeGame({game, onGameEnd}) {
     }
 
     function onReset() {
-        let newState = {...state };
+        let newState = {...state },
+            currentPlayer = game.currentPlayer,
+            playerZone = game.players[currentPlayer].zones[game.currentZone];
 
         tickTime = 0;
         window.scrollTo(0,0);
-        Analytics.event('play', 'reset', newState.game.players[state.currentPlayer].name);
+        Analytics.event('play', 'reset', newState.game.players[currentPlayer].name);
         newState = initControlTestValues(newState.game);
-        newState.game.players[state.currentPlayer].time = 0;
-        newState.game.players[state.currentPlayer].points = 0;
-        newState.game.players[state.currentPlayer].battery = false;
-        newState.currentPlayer = state.currentPlayer;
+        playerZone.time = 0;
+        playerZone.points = 0;
+        playerZone.battery = false;
         newState.state = STATE_PAUSE;
         setState(previousInputs => ({ ...previousInputs,...newState}));
     }
@@ -119,55 +124,73 @@ function TotalTimeGame({game, onGameEnd}) {
     function onEndPlayer() {
         const newState = {...state},
             game = newState.game,
-            players = game.players;
+            players = game.players,
+            currentPlayer = game.currentPlayer,
+            playerZone = game.players[currentPlayer].zones[game.currentZone];
             
         window.scrollTo(0,0);
         newState.state = STATE_PAUSE;
 
-        if ((game.maxPoints <= players[newState.currentPlayer].points && game.maxPoints > 0) || 
-            (game.maxTime <= tickTime && game.maxTime > 0) || players[newState.currentPlayer].battery) {
-            players[newState.currentPlayer].time = (game.maxTime > 0 ? game.maxTime : tickTime);
-            players[newState.currentPlayer].points = (game.maxPoints > 0 ? game.maxPoints : newState.players[newState.currentPlayer].points);
+        if ((game.maxPoints <= playerZone.points && game.maxPoints > 0) || 
+            (game.maxTime <= tickTime && game.maxTime > 0) || playerZone.battery) {
+                playerZone.time = (game.maxTime > 0 ? game.maxTime : tickTime);
+                playerZone.points = (game.maxPoints > 0 ? game.maxPoints : playerZone.points);
         } else {
-            players[newState.currentPlayer].time = tickTime;
+            playerZone.time = tickTime;
         }
 
-        Analytics.event('play', 'endPlayer', players[newState.currentPlayer].name);
-
-        if (newState.currentPlayer+1 < game.players.length) {
+        Analytics.event('play', 'endPlayer', players[currentPlayer].name);
+        if (currentPlayer+1 < game.players.length) {
             tickTime = 0;
             newState.millis = 0;
-            newState.currentPlayer = newState.currentPlayer+1;
+            newState.game.currentPlayer = currentPlayer+1;
             setState(previousInputs => ({ 
                 ...previousInputs,
                 ...newState}));
         } else {
-            if (onGameEnd) {
-                game.players = Utils.getWinnerByPointsAndTime(game.players);
-                onGameEnd && onGameEnd(game);
+            if (game.currentZone+1 < game.zones) {
+                tickTime = 0;
+                newState.millis = 0;
+                game.currentPlayer = 0;
+                game.currentZone++;
+                setState(previousInputs => ({ 
+                    ...previousInputs,
+                    ...newState}));
+            } else if (onGameEnd) {
+                onGameEnd && onGameEnd(Utils.calulateFinalGameResult(game));
             }
         }
     }
 
+    function onGateProgressionChange(value) {
+        const newState = {...state},
+            zones = newState.game.players[newState.game.currentPlayer].zones;
+
+        zones[newState.game.currentZone].gateProgression = value;
+        setState(newState);
+    }
+
     if (state.game.players.length>0) {
         let fiasco = <></>;
-        const currentPlayer = state.game.players[state.currentPlayer],
+        const game = state.game,
+            player = game.players[game.currentPlayer],
+            playerZone = player.zones[game.currentZone],
             controlTextArray = ControlTextArray({
-                controlTextValues: state.game.players[state.currentPlayer].controlTextValues,
-                player: state.currentPlayer,
+                controlTextValues: playerZone.controlTextValues,
+                player: game.currentPlayer,
                 onDirectFiasco: onBatteryDirectFiasco,
                 onValueChange: onChangeScore,
-                booleanValue: state.game.players[state.currentPlayer].battery
+                booleanValue: playerZone.battery
             });
 
-        if (state.game.pointsType === MODE_OFFICIAL) {
-            const game = state.game, maxPoints = game.maxPoints, maxTime = game.maxTime,
-                currentPlayer = state.currentPlayer, players = game.players;
+        if (game.pointsType === MODE_OFFICIAL) {
+            const maxPoints = game.maxPoints, 
+                maxTime = game.maxTime;
 
-            if ((maxPoints <= (players[currentPlayer].points+players[currentPlayer].handicap) && maxPoints > 0) || 
+            if ((maxPoints <= playerZone.points && maxPoints > 0) || 
                 (maxTime <= tickTime && maxTime > 0) ||
-                players[currentPlayer].battery) {
-                Analytics.event('play', 'fiasco', players[currentPlayer].name); 
+                playerZone.battery) {
+                Analytics.event('play', 'fiasco', player.name); 
                 fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
             }
         }
@@ -175,31 +198,43 @@ function TotalTimeGame({game, onGameEnd}) {
         return <div className="gameContainer">
             <div className="playersList">
                 <div className="playerListItem importantNote rounded">
-                    <img src={currentPlayer.avatar} alt="avatar"/>
-                    {currentPlayer.name}
+                    <img src={player.avatar} alt="avatar"/>
+                    {player.name}
                 </div>
             </div>
             <div className="totalTimeContainer rounded rounded2">
-                {`${t('description.handicap')} : ${currentPlayer.handicap}`}<br />
-                {t('description.puntos')}: { currentPlayer.points}<br />
-                ---<br />
-                <div className="inline bold">{t('description.total')} :</div> {currentPlayer.points + currentPlayer.handicap}<br />
-                {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(state.game.maxTime))} <br />
-                {t('description.puntosmaximo')}: {state.game.maxPoints}
+            {game.pointsType === MODE_OFFICIAL ? <>{t('description.zonas')}: {game.zones}<br />
+                {t('points.puertaprogresion')}: {game.gates}<br /></> : <></>}
+                {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(game.maxTime))} <br />
+                {t('description.puntosmaximo')}: {game.maxPoints}<br />
             </div>
-            <TimerControl 
-                state={state.state}
-                time={state.millis} 
-                onPlayPauseChange={changePlayPauseTimeControl}
-            />
+            <div className="gatainer rounded rounded2">
+                {game.pointsType === MODE_OFFICIAL ? <>
+                {t('description.zona')}: {game.currentZone + 1}<br />
+                {t('description.avancepuerta')}: {playerZone.gateProgression}<br />
+                <SliderWithTooltip
+                    step={1}
+                    min={0}
+                    max={game.gates}
+                    dots={true}
+                    value={playerZone.gateProgression}
+                    onChange={onGateProgressionChange}
+                    tipFormatter={(value)=>{ return value; }}
+                /></> : <></>}
+                <TimerControl 
+                    state={state.state}
+                    time={state.millis} 
+                    onPlayPauseChange={changePlayPauseTimeControl} />
+            </div>
             {fiasco}
             <div className="controlTextContainer rounded rounded1">
+                {t('description.puntos')}: { playerZone.points}<br />
                 {controlTextArray}
             </div>
             <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
             <button className="importantNote" onClick={()=>{
                 onEndPlayer()
-                }}>{t('description.finjugador')} ({currentPlayer.name})</button><p />
+                }}>{t('description.finjugador')} ({player.name})</button><p />
         </div>
     }
 }
@@ -208,18 +243,28 @@ function initControlTestValues(game) {
     const newState = {
         millis: 0,
         timeStart: 0,
-        currentPlayer: 0,
         game: game,
         state: STATE_PAUSE
     }
 
-    for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7);
+    newState.game.players.forEach((player)=>{
+        player.zones = [];
 
-        for(let j=0; j<newState.game.players[i].controlTextValues.length; j++) {
-            newState.game.players[i].controlTextValues[j] = 0;
+        for (let k=0; k<game.zones;k++) {
+            const zone = {
+                battery: false,
+                points: 0,
+                time: 0,
+                controlTextValues: game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7)
+            };
+
+            for(let j=0; j<zone.controlTextValues.length; j++) {
+                zone.controlTextValues[j] = 0;
+            }
+
+            player.zones.push(zone);
         }
-    }
+    });
 
     return newState;
 }

@@ -86,11 +86,10 @@ class FirebaseController {
     }
   }
 
-  async setUser({uid, displayName, photoURL, handicap, description}, okCallback, koCallback) {
+  async setUser({uid, displayName, photoURL, description}, okCallback, koCallback) {
     const data = {
       displayName: displayName,
       photoURL: photoURL,
-      handicap: handicap,
       registrationDate: new Date().toString(),
       description: description || ""
     };
@@ -119,7 +118,10 @@ class FirebaseController {
       players: game.players,
       isPublic: game.isPublic,
       maxTime: game.maxTime,
-      maxPoints: game.maxPoints
+      maxPoints: game.maxPoints,
+      zones: game.zones,
+      gates: game.gates,
+      currentZone: game.currentZone
     };
   }
 
@@ -138,7 +140,10 @@ class FirebaseController {
           data.pointsType, 
           data.uids,
           data.maxPoints,
-          data.maxTime);
+          data.maxTime,
+          data.zones,
+          data.gates,
+          data.currentZone);
 
       game.setGid(element.id);
       result.push(game);
@@ -184,18 +189,7 @@ class FirebaseController {
     game.uids.splice(position, 1);
 
     if(game.uids.length>0) {
-      setDoc(doc(this.db, "games", game.gid), {
-        name: game.name,
-        uids: game.uids,
-        date: game.date,
-        location: game.location,
-        gameType: game.gameType,
-        pointsType: game.pointsType, 
-        players: game.players,
-        isPublic: game.isPublic,
-        maxTime: game.maxTime,
-        maxPoints: game.maxPoints
-      });
+      setDoc(doc(this.db, "games", game.gid), game);
     } else {
       this.removeGame(game.gid);
     }
@@ -213,7 +207,6 @@ class FirebaseController {
             this.setUserInContext(data, user.uid);
               onLoggin();
             }, ()=> {
-                user.handicap = 0;
                 this.setUser(user, (data)=> {
                   this.setUserInContext(data, user.uid);
                   onLoggin();

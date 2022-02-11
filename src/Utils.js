@@ -58,12 +58,14 @@ class Utils {
 
         if (maxTime || maxPoints) {
             players.forEach((player)=>{
-                if ((maxPoints <= player.points && maxPoints > 0) || player.battery) {
-                    player.points = maxPoints
-                }
-                if ((maxTime <= player.time && maxTime > 0) || player.battery) {
-                    player.time = maxTime;
-                }
+                player.zones.forEach((zone)=>{
+                    if ((maxPoints <= zone.points && maxPoints > 0) || zone.battery) {
+                        zone.points = maxPoints
+                    }
+                    if ((maxTime <= zone.time && maxTime > 0) || zone.battery) {
+                        zone.time = maxTime;
+                    }
+                });
             })
         }
 
@@ -74,7 +76,7 @@ class Utils {
         const players = [...inPlayers];
         
         players.sort(function(a, b) {
-            const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
+            const bypoints = (a.points - b.points);
     
             if (bypoints === 0) {
                 return a.id - b.id;
@@ -90,7 +92,7 @@ class Utils {
         const players = [...inPlayers];
     
         players.sort(function(a, b) {
-            const bypoints = (a.points + a.handicap) - (b.points + b.handicap);
+            const bypoints = (a.points - b.points);
     
             if (bypoints === 0) {
                 return a.time - b.time;
@@ -100,6 +102,35 @@ class Utils {
           });
     
         return players;
+    }
+
+    static calulateFinalGameResult(oldGame) {
+        const game = {...oldGame};
+
+        game.players.forEach((player)=>{
+            let totalPoints = 0,
+                totalTime = 0;
+
+            player.zones.forEach((zone)=>{
+                totalPoints += zone.points;
+                totalTime += zone.time;
+            });
+
+            player.totalPoints = totalPoints;
+            player.totalTime = totalTime;
+        });
+
+        game.players.sort((a, b)=>{
+            const bypoints = (a.totalPoints - b.totalPoints);
+    
+            if (bypoints === 0) {
+                return a.totalTime - b.totalTime;
+            }
+    
+            return bypoints;
+        });
+
+        return game;
     }
 
     static getMapsURL(latitude, longitude) {

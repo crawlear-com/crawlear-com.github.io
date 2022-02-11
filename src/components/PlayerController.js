@@ -27,7 +27,6 @@ function PlayerController({onPlayerNumerChange, gameName}) {
           uid: uid || "",
           name: value,
           avatar: photoURL || `${AVATAR_API}${value}`,
-          handicap: 0,
           time: 0,
           points: 0,
           battery: false
@@ -42,11 +41,6 @@ function PlayerController({onPlayerNumerChange, gameName}) {
 
     delete playersRef.current[event.target.id];
     playersRef.current = playersRef.current.filter((a) => a)
-    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
-  }
-
-  function onHandicapChange(value, item) {
-    playersRef.current[item].handicap = value;
     onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
   }
 
@@ -75,7 +69,6 @@ function PlayerController({onPlayerNumerChange, gameName}) {
                 key={i}
                 player={player} 
                 i={i} 
-                onHandicapChange={onHandicapChange}
                 onRemovePlayer={removePlayer} />
           })}
       </ul>

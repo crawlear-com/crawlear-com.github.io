@@ -1,5 +1,4 @@
 .timerContainer {
-    background-color: #ffa602;
     margin: 10px;
     padding: 10px;
     font-size: 0.8em;
@@ -19,6 +18,12 @@
     font-size: 0.8em;
 }
 
+.gatesContainer {
+    margin: 10px;
+    padding: 10px;
+    font-size: 0.8em;
+}
+
 .player {
     padding-bottom: 10px;
 }
@@ -32,4 +37,9 @@
 
 .fiascoBox .importantNote {
     margin-bottom: 15px;
+}
+
+.rc-slider {
+    width: 80%;
+    margin: 15px auto;
 }

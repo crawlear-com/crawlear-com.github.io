@@ -20,7 +20,7 @@ jest.mock('react-i18next', () => ({
 beforeEach(()=>{  
   document.body.innerHTML = '';
   document.body.append(div);
-    //{"id":0,"uid":"","name":"1","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=1","handicap":0,"time":0,"points":22,"controlTextValues":[5,3,2,5,5,3,-1]}
+    //{"id":0,"uid":"","name":"1","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=1","time":0,"points":22,"controlTextValues":[5,3,2,5,5,3,-1]}
   game = new Game("game test", new Date(), true, {
         longitude: 0,
         latitude: 0
@@ -32,7 +32,6 @@ test("renders the basic winner table", () => {
         name: "Player1",
         points: 0,
         time: 0,
-        handicap: 0,
         controlTextValues: [5,3,2,5,5,3,-1]
     }];
 
@@ -47,13 +46,11 @@ test("renders the winner table", () => {
         name: "Player1",
         points: 100,
         time: 5,
-        handicap: 0,
         controlTextValues: [5,3,2,5,5,3,-1]
     },{
         name: "Player2",
         points: 10,
         time: 10,
-        handicap: 0,
         controlTextValues: [5,3,2,5,5,3,-1]
     }];
     const { container } = render(<WinnerTable game={game} />, div);

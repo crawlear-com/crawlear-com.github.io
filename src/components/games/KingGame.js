@@ -20,7 +20,7 @@ function KingGame({game, onGameEnd}) {
         const newState = {...state},
             players = newState.game.players;
 
-        players[player].battery = value;
+        players[player].zones[0].battery = value;
         setState(newState);
     }
 
@@ -28,25 +28,22 @@ function KingGame({game, onGameEnd}) {
         const newState = {...state};
 
         const players = newState.game.players,
-            points = state.game.players[player].points,
-            handicap = state.game.players[player].handicap,
-            finalValue = points + handicap + value;
+            points = state.game.players[player].zones[0].points,
+            finalValue = points + value,
+            zone = players[player].zones[0];
 
-        if (!players[player].battery && ((game.maxPoints > (points + handicap) || game.maxPoints <= 0) || 
+        if (!zone.battery && ((game.maxPoints > points || game.maxPoints <= 0) || 
             (finalValue < state.game.maxPoints))) {
-                players[player].controlTextValues = [...players[player].controlTextValues];
-                players[player].controlTextValues[control] += value;
-                players[player].points += value;    
+                zone.controlTextValues = [...zone.controlTextValues];
+                zone.controlTextValues[control] += value;
+                zone.points += value;    
         }
         newState.order = getPlayersOrder(newState.order.findIndex(item => item.id===players[player].id), newState.order);
         setState(newState);
     }
 
     function gameEnd() {
-        state.game.players = Utils.getWinnerByPointsAndTime(state.game.players);
-        state.game.players = Utils.getNotmalizedMaxValues(state.game.players, 
-            state.game.maxPoints, state.game.maxTime);
-        onGameEnd && onGameEnd(state.game);
+        onGameEnd && onGameEnd(Utils.calulateFinalGameResult(game));
     }
 
     let result = [];
@@ -55,7 +52,7 @@ function KingGame({game, onGameEnd}) {
     for(let i=0;i<state.game.players.length;i++) {
         result.push(<div key={i+1}>
                 <div className="controlTextContainerQueue rounded bold">
-                    {state.order[i].name}: {state.order[i].points + state.order[i].handicap} ptos
+                    {state.order[i].name}: {state.order[i].points} ptos
                 </div>
             </div>);
     }
@@ -66,10 +63,11 @@ function KingGame({game, onGameEnd}) {
     for(let i=0;i<state.game.players.length;i++) {
         let fiasco,
             player = state.game.players[i],
+            zone = player.zones[0],
             maxPoints = state.game.maxPoints;
 
         if (state.game.pointsType === MODE_OFFICIAL) {
-            if ((maxPoints <= (player.points + player.handicap) &&  maxPoints > 0) || player.battery) {
+            if ((maxPoints <= zone.points &&  maxPoints > 0) || player.battery) {
                     Analytics.event('play', 'fiasco', state.game.players[i].name); 
                     fiasco = <div className="fiascoBox rounded rounded2 bold">FiASCO!</div>;
             }            
@@ -78,16 +76,15 @@ function KingGame({game, onGameEnd}) {
         result.push(<div key={state.game.players.length+i+2} className="playerInfo">
                 <div className="headerPlayer importantNote rounded2 rounded">
                     <div className="bold">{player.name}</div>
-                    {`${t('description.handicap')} : ${player.handicap}`}<br />
-                    {t('description.total')}: { player.points + player.handicap}
+                    {t('description.total')}: { zone.totalPoints }
                     {fiasco}
                 </div>
                 <div className="controlTextContainer rounded rounded1">
                     {ControlTextArray({
-                        controlTextValues: player.controlTextValues, 
+                        controlTextValues: zone.controlTextValues, 
                         player: i,
                         onDirectFiasco: onBatteryDirectFiasco,
-                        booleanValue: player.battery,
+                        booleanValue: zone.battery,
                         onValueChange: onChangeScore
                     })}
                 </div>
@@ -108,10 +105,14 @@ function initControlTestValues(game) {
     }
 
     for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7);
-
-        for(let j=0; j<newState.game.players[i].controlTextValues.length; j++) {
-            newState.game.players[i].controlTextValues[j] = 0;
+        newState.game.players[i].zones = [{
+            battery: false,
+            points: 0,
+            time: 0,
+            controlTextValues: game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7)
+        }];
+        for(let j=0; j<newState.game.players[i].zones[0].controlTextValues.length; j++) {
+            newState.game.players[i].zones[0].controlTextValues[j] = 0;
         }
     }
 
