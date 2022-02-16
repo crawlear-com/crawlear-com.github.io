@@ -19,7 +19,7 @@ function WinnerTable({ game }) {
     } else {
         winnerOrTieBox = <><p>{t('description.ganador')}: <b>{game.players[finalWinner].name}<b /></b> </p></>;
     }
-    //<ControlTextArrayVisualization controlTextValues={player.controlTextValues} />
+
     return <div className='gameContainer'>
         <div className="winnerBox importantNote rounded">
             {winnerOrTieBox}
