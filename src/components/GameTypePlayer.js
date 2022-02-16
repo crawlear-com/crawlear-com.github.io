@@ -3,14 +3,12 @@ import { useTranslation } from 'react-i18next';
 import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
 import TotalTimeGame from './games/TotalTimeGame';
 import KingGame from './games/KingGame';
-import PointsGame from './games/PointsGame';
 import ZonesPicker from './ZonesPicker';
 import GateProgressionPicker from './GateProgressionPicker';
 import Analytics from '../Analytics';
 
 const GAME_TYPE_TIME = 0;
-const GAME_TYPE_POINTS = 1;
-const GAME_TYPE_KING = 2;
+const GAME_TYPE_KING = 1;
 const STEP_CONFIG = 0;
 const STEP_PLAY = 1;
 const MODE_OFFICIAL = 1;
@@ -76,7 +74,6 @@ function GameTypePlayer({game, onGameEnd}) {
             elementsToRender.push(<MaxTimeAndPointsPicker key={0} mode={state.game.pointsType} 
                         onMaxPointsChange={onMaxPointsChange}
                         onMaxTimeChange={onMaxTimeChange}
-                        onZonesChange={onZonesChange}
                         maxTime={state.game.maxTime}
                         maxPoints={state.game.maxPoints}
                         showTimePicker={state.game.gameType === GAME_TYPE_TIME} />);
@@ -103,14 +100,6 @@ function GameTypePlayer({game, onGameEnd}) {
                     onGameEnd(game)
                 }}
                 />);
-        } else if (state.game.gameType === GAME_TYPE_POINTS) {
-            elementsToRender.push(<PointsGame 
-                key={0}
-                game={state.game}
-                onGameEnd={(game)=> {
-                    onGameEnd(game)
-                }}
-            />);
         }
     }
 

@@ -109,22 +109,30 @@ class Utils {
 
         game.players.forEach((player)=>{
             let totalPoints = 0,
-                totalTime = 0;
+                totalTime = 0,
+                totalGateProgression = 0;
 
             player.zones.forEach((zone)=>{
                 totalPoints += zone.points;
                 totalTime += zone.time;
+                totalGateProgression += zone.gateProgression;
             });
 
             player.totalPoints = totalPoints;
             player.totalTime = totalTime;
+            player.totalGateProgression = totalGateProgression;
         });
 
         game.players.sort((a, b)=>{
             const bypoints = (a.totalPoints - b.totalPoints);
     
             if (bypoints === 0) {
-                return a.totalTime - b.totalTime;
+                const bytime = a.totalTime - b.totalTime
+                
+                if (bytime === 0) {
+                    return b.totalGateProgression - a.totalGateProgression;
+                }
+                return bytime;
             }
     
             return bypoints;

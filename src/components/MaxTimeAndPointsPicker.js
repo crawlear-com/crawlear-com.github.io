@@ -8,7 +8,6 @@ import '../resources/css/MaxTimePicker.scss';
 function MaxTimeAndPointsPicker({ 
         onMaxTimeChange, 
         onMaxPointsChange, 
-        onZonesChange,
         showTimePicker
     }) {
     
@@ -17,7 +16,9 @@ function MaxTimeAndPointsPicker({
 
     if (showTimePicker) {
         maxTimePicker = <><p>{t('content.maxTimeText1')}</p>
-            <MaxTimePicker onMaxTimeChange={onMaxTimeChange}
+            <MaxTimePicker 
+                onMaxTimeChange={onMaxTimeChange}
+                onMaxPointsChange={onMaxPointsChange}
                 hours={0}
                 minutes={0}
                 seconds={0} />
@@ -28,7 +29,7 @@ function MaxTimeAndPointsPicker({
         {maxTimePicker}
         <p>{t('content.maxTimeText2')}</p>
         <div className="pickerContainer timerContainer rounded rounded2">
-            <Picker minValue={0} maxValue={40} callback={(result) => {onZonesChange(result)}} initialValue={0} />
+            <Picker minValue={0} maxValue={40} callback={(result) => {onMaxPointsChange(result)}} initialValue={0} />
         </div>
     </div>;
 }

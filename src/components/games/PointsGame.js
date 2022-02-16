@@ -137,7 +137,7 @@ function initControlTestValues(game) {
     };
 
     for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7);
+        newState.game.players[i].controlTextValues = game.pointsType === MODE_OFFICIAL ? new Array(22) : new Array(7);
 
         for(let j=0; j<newState.game.players[i].controlTextValues.length; j++) {
             newState.game.players[i].controlTextValues[j] = 0;

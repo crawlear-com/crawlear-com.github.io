@@ -10,8 +10,7 @@ import { getDatabase,
          push,
          set,
          remove,
-         ref, 
-         endAt} from "firebase/database";
+         ref } from "firebase/database";
 import { addDoc, getFirestore } from "firebase/firestore"
 import { setDoc, 
          doc,
@@ -25,7 +24,7 @@ import { setDoc,
          getDocs,
          deleteDoc } from "firebase/firestore";
 
-import {  getAuth, 
+import { getAuth, 
   getRedirectResult,
   signInWithRedirect, 
   signInWithPopup, 
@@ -104,10 +103,6 @@ class FirebaseController {
   }
 
   transformGamesIntoData(game) {
-    if (game.uids.indexOf(window.crawlear.user.uid)<0) {
-      game.uids.push(window.crawlear.user.uid);
-    }
-
     return {
       name: game.name,
       uids: game.uids,
@@ -129,23 +124,41 @@ class FirebaseController {
     let result = [];
 
     data.forEach(element => {
-      const data = element.data();
-      const game = new Game(data.name, 
-          data.date, 
-          data.isPublic, 
-          data.location, 
-          data.players, 
-          data.gameStatus, 
-          data.gameType, 
-          data.pointsType, 
-          data.uids,
-          data.maxPoints,
-          data.maxTime,
-          data.zones,
-          data.gates,
-          data.currentZone);
+      let game;
+      const data = element.data(),
+        zones = data.zones;
 
+      if (!zones) {
+        data.players.forEach((player)=>{
+          player.zones = [{
+            controlTextValues: player.controlTextValues,
+            battery: false,
+            gateProgression: 1,
+            points: player.points,
+            time: player.time
+          }];
+          player.totalTime = player.time;
+          player.totalPoints = player.points;
+        });
+        data.gates = 1;
+        data.zones = 1;
+      }
+      game = new Game(data.name, 
+        data.date, 
+        data.isPublic, 
+        data.location, 
+        data.players, 
+        data.gameStatus, 
+        data.gameType, 
+        data.pointsType, 
+        data.uids,
+        data.maxPoints,
+        data.maxTime,
+        data.zones,
+        data.gates,
+        data.currentZone);
       game.setGid(element.id);
+
       result.push(game);
     });
 
@@ -171,6 +184,9 @@ class FirebaseController {
       });
 
       try {
+        if (game.uids.length<=0) {
+          game.uids.push(window.crawlear.user.uid);
+        }
         addDoc(collection(this.db, "games"), this.transformGamesIntoData(game));
         okCallback && okCallback();
       } catch (e) {
@@ -189,7 +205,9 @@ class FirebaseController {
     game.uids.splice(position, 1);
 
     if(game.uids.length>0) {
-      setDoc(doc(this.db, "games", game.gid), game);
+      setDoc(doc(this.db, "games", game.gid), this.transformGamesIntoData(game)).catch((e)=>{
+        console.log("Error");
+      });
     } else {
       this.removeGame(game.gid);
     }

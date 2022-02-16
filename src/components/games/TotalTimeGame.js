@@ -255,7 +255,7 @@ function initControlTestValues(game) {
                 battery: false,
                 points: 0,
                 time: 0,
-                controlTextValues: game.pointsType === MODE_OFFICIAL ? new Array(20) : new Array(7)
+                controlTextValues: game.pointsType === MODE_OFFICIAL ? new Array(22) : new Array(7)
             };
 
             for(let j=0; j<zone.controlTextValues.length; j++) {

@@ -18,12 +18,15 @@ function PlayerController({onPlayerNumerChange, gameName}) {
   }, [playersRef.current]);
 
   function addPlayer(displayName, uid, photoURL) {
-    const value = displayName;
+    const value = displayName,
+      players = playersRef.current;
 
-    if (!value || value.trim().length===0) return;
+    if (!value || 
+        value.trim().length===0 || 
+        players.find(x=>x.uid===uid && uid.length>0)) return;
 
-    playersRef.current.push({
-          id: playersRef.current.length,
+    players.push({
+          id: players.length,
           uid: uid || "",
           name: value,
           avatar: photoURL || `${AVATAR_API}${value}`,
@@ -32,7 +35,7 @@ function PlayerController({onPlayerNumerChange, gameName}) {
           battery: false
       });
       Analytics.event('menu', 'addPlayer', value);
-      onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
+      onPlayerNumerChange && onPlayerNumerChange(players);
   }
 
   function removePlayer(event) {

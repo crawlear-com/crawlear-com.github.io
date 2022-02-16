@@ -118,7 +118,10 @@ i18n
             modificarcoche: 'car manipulation',
             sacarcoche: 'take the car out of the compound',
             nodorsal: 'no dorsal',
-            incumplimientotecnico: 'Non-compliance with Technical Regulations'
+            incumplimientotecnico: 'Non-compliance with Technical Regulations',
+            recolocacionbateria: 'car body/battery relocation',
+            puertamarchaatras: 'reverse gate'
+    
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -130,7 +133,7 @@ i18n
             simple: 'Simple',
             completa: 'Complete',
             descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points. There is no max time or max points',
-            descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor, baggage and judge. Optional time and maximum points. In this mode it is possible to apply maximum time and / or maximum score and make a fiasco in case of exceeding it. In the event of a fiasco, the player will score the maximum between the defined times / points and the current score.',
+            descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor, baggage, judge, ball jump, change not comunicated, battery load, unsportsmanlike conduct,loss of road license,modify track conditions, loss of bib, car manipulation, car out of the compound,no dorsal,non-compliance with Technical Regulations,car body/battery relocation, reverse gate. Variable number of zones, progression gates, optional time and maximum points. In this mode it is possible to apply maximum time and / or maximum score and make a fiasco in case of exceeding it. In the event of a fiasco, the player will score the maximum between the defined times / points and the current score.',
             tiempo: 'Time',
             puntos: 'Points',
             rey: 'The King'
@@ -242,7 +245,9 @@ i18n
             modificarcoche: 'manipulación del coche',
             sacarcoche: 'coche fuera del recinto',
             nodorsal: 'no dorsal',
-            incumplimientotecnico: 'no cumplir reglamento técnico'
+            incumplimientotecnico: 'no cumplir reglamento técnico',
+            recolocacionbateria: 'recolocación bateria/carrocería',
+            puertamarchaatras: 'puerta marcha atrás'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -254,7 +259,7 @@ i18n
             simple: 'Simple',
             completa: 'Completa',
             descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos. No se aplica tiempo ni puntuación máxima.',
-            descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido, equipaje y juez. Tiempo y puntos máximos opcionales. En éste modo es posible aplicar tiempo máximo y/o puntuación máxima y realizar un fiasco en caso de superarla. En caso de fiasco el jugador puntuará el máximo entre los tiempos / puntos definidos y la puntuación actual.',
+            descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido, equipaje, juez, salto de pelota ,cambio no comunicado, carga de bateria, conducta incívica, pérdida de carnet, modificar condición de pista, perdida de dorsal, manipulación del coche, coche fuera del recinto, no dorsal, no cumplir reglamento técnico, recolocación bateria/carrocería y puerta marcha atrás. Número de zonas variables, puertas de progresión, Tiempo y puntos máximos opcionales. En éste modo es posible aplicar tiempo máximo y/o puntuación máxima y realizar un fiasco en caso de superarla. En caso de fiasco el jugador puntuará el máximo entre los tiempos / puntos definidos y la puntuación actual.',
             tiempo: 'Tiempo',
             puntos: 'Puntos',
             rey: 'El Rey'

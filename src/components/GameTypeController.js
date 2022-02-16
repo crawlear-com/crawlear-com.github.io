@@ -5,11 +5,9 @@ import '../resources/css/GameTypeController.scss';
 
 function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameType=0, selectedPointsType=0}) {
     const { t } = useTranslation();
-    const labelsGameType = [t('gametype.tiempo'), 
-            t('gametype.puntos'),
+    const labelsGameType = [`${t('gametype.puntos')}/${t('gametype.tiempo')}`, 
             t('gametype.rey')],
         textsGameType = [<div>{t('gametype.modojuegotiempo')}</div>,
-                <div>{t('gametype.modojuegopuntos')}</div>,
                 <div>{t('gametype.modojuegorey')}</div>
             ];
 
@@ -49,7 +47,6 @@ function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameT
             <select id="gameTypeSelect" defaultValue={0} onChange={onSelectGameTypeChange}>
                 <option value={0}>{labelsGameType[0]}</option>
                 <option value={1}>{labelsGameType[1]}</option>
-                <option value={2}>{labelsGameType[2]}</option>
             </select></label>
             <div className="gameSelectText smallText">{textsGameType[state.gameType]}</div>
         </div>
@@ -58,7 +55,7 @@ function GameTypeController({onGameTypeChange, onPointsTypeChange, selectedGameT
             <label htmlFor="pointsTypeSelect" className="headerText bold">{t('gametype.tipopuntuacion')}
             <select id="pointsTypeSelect" defaultValue={0} onChange={onSelectPointsTypeChange}>
                 <option value={0}>{labelsPointsType[0]}</option>
-                <option value={1}>{labelsPointsType[1]}</option>
+                {state.gameType===0?<option value={1}>{labelsPointsType[1]}</option>:<></>}
             </select></label>
             <div className="gameSelectText smallText">{textsPointsType[state.pointsType]}</div>
         </div>

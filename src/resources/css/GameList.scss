@@ -32,8 +32,28 @@
         max-width: 305px;
         margin: 0 auto;
 
+        .closed {
+            display: none;
+        }
+
+        .iconArrowDown {
+            height: 10px;
+            margin-left: 3px;
+        }
+
+        img {
+            max-height: 15px;
+        }
+
         table {
             margin: auto;
+        }
+
+        .controlTextValues {
+            background-color: transparent;
+        }
+        .controlTextValues:first-of-type {
+            margin-top: 0;
         }
     }
 
@@ -60,6 +80,7 @@
         overflow:hidden;
         min-width: 25px;
         background-color: #345C62;
+        max-width: 108px;
     }
 
     .gameListTime {

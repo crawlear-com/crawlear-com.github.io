@@ -9,8 +9,8 @@ function ControlTextArray({controlTextValues, player, onValueChange, onDirectFia
     const isFullScore = controlTextValues.length>14;
     const controlArray1 = [], controlArray2 = [];
     const { t } = useTranslation();
-    const steps = [5,3,2,5,5,3,-1,3,1,5,1,2,3,  1,5,5,3,3,5,5,5];
-    const maxValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,  0,1,0,1,0,0,1,0];
+    const steps = [5,3,2,5,5,3,-1,3,1,5,1,2,3,  1,5,5,3,3,5,5,5,3,3];
+    const maxValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,  0,1,0,1,0,0,1,0,0,0];
     const texts = [t('points.vuelco'),
         t('points.tocar'),
         t('points.puerta'),
@@ -23,8 +23,10 @@ function ControlTextArray({controlTextValues, player, onValueChange, onDirectFia
         t('points.anclajeindebido'),
         t('points.juez'),
         t('points.saltopelota'),
-        t('points.nocomunicarcambio'),
-        
+        t('points.recolocacionbateria'),
+        t('points.puertamarchaatras'),
+
+        t('points.nocomunicarcambio'),        
         t('points.conductaincivica'),
         t('points.perdidacarnet'),
         t('points.modificarpista'),
