@@ -205,9 +205,7 @@ class FirebaseController {
     game.uids.splice(position, 1);
 
     if(game.uids.length>0) {
-      setDoc(doc(this.db, "games", game.gid), this.transformGamesIntoData(game)).catch((e)=>{
-        console.log("Error");
-      });
+      setDoc(doc(this.db, "games", game.gid), this.transformGamesIntoData(game));
     } else {
       this.removeGame(game.gid);
     }
