@@ -66,8 +66,6 @@ function UserProfile({user, onLogout}) {
             <div className='registrationDate'>
                 <span className='bold'>{t('description.registro')}</span>: {user.registrationDate}
             </div>
-            <div className="handicap">
-                <span className='bold'>{t('description.handicap')}</span>: {user.handicap}</div>
             <p className='description'>
                 <span className='bold'>{t('description.descripcion')}</span>: 
                 <textarea type="text" className="hidenInput textOverflow" 

@@ -5,13 +5,9 @@ import Picker from './Picker';
 
 import '../resources/css/MaxTimePicker.scss';
 
-const MODE_OFFICIAL = 1;
-
 function MaxTimeAndPointsPicker({ 
-        mode, 
         onMaxTimeChange, 
         onMaxPointsChange, 
-        onCompleteGameMaxtimeSelected,
         showTimePicker
     }) {
     
@@ -20,7 +16,9 @@ function MaxTimeAndPointsPicker({
 
     if (showTimePicker) {
         maxTimePicker = <><p>{t('content.maxTimeText1')}</p>
-            <MaxTimePicker onMaxTimeChange={onMaxTimeChange}
+            <MaxTimePicker 
+                onMaxTimeChange={onMaxTimeChange}
+                onMaxPointsChange={onMaxPointsChange}
                 hours={0}
                 minutes={0}
                 seconds={0} />
@@ -33,7 +31,6 @@ function MaxTimeAndPointsPicker({
         <div className="pickerContainer timerContainer rounded rounded2">
             <Picker minValue={0} maxValue={40} callback={(result) => {onMaxPointsChange(result)}} initialValue={0} />
         </div>
-        <button onClick={onCompleteGameMaxtimeSelected} className="rounded rounded2 importantNote">{t('description.continuar')}</button>
     </div>;
 }
 

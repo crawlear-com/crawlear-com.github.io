@@ -33,7 +33,7 @@ function GameManagement({onLogout}) {
         new Date().toLocaleDateString(),
         false,
         { latitude: 0, longitude: 0 },
-        [], 0, 0, 0, [], 0, 0));
+        [], 0, 0, 0, [], 0, 0, 1, 1));
     let locationElement;
 
     React.useEffect(() => {
@@ -56,27 +56,13 @@ function GameManagement({onLogout}) {
         setGames(newGames);
     }
 
-    function createGameObjectWithCurrentStatus() {
-        return new Game(game.name, 
-            game.date, 
-            game.isPublic, 
-            game.location, 
-            game.players, 
-            game.gameStatus, 
-            game.gameType, 
-            game.pointsType, 
-            game.uids,
-            game.maxTime,
-            game.maxTime);
-    }
-
     function getLocation(event) {
         event.preventDefault();
     
         if(navigator.geolocation) {
             setStateLocation(STATE_LOCATION_LOCATING);
             navigator.geolocation.getCurrentPosition((position) => {
-                const newGame = createGameObjectWithCurrentStatus();
+                const newGame = {...game};
     
                 setStateLocation(STATE_LOCATION_LOCATED);
                 newGame.location = {
@@ -112,7 +98,7 @@ function GameManagement({onLogout}) {
             new Date().toLocaleDateString(),
             false,
             { latitude: 0, longitude: 0 },
-            [], 0, 0, 0, [], 0, 0));
+            [], 0, 0, 0, [], 0, 0, 1, 1));
     }
 
     if(navigator.geolocation) {
@@ -147,7 +133,7 @@ function GameManagement({onLogout}) {
                             <div className="headerText bold">{t('description.nuevaPartida')}</div>
                             <div className="newGameRow">
                                 <span className="">{t('description.nombre')}</span>: <input className="newGameNameInput" type="text" onChange={(element)=>{
-                                    const newGame = createGameObjectWithCurrentStatus();
+                                    const newGame = {...game};
 
                                     newGame.name = element.target.value;
                                     setGame(newGame);
@@ -159,7 +145,7 @@ function GameManagement({onLogout}) {
                             </div>
                             <div className="newGameRow">
                                 <span className="">{t('description.esPublica')}</span>: <input type="checkbox" value="true" onChange={(element)=>{
-                                    const newGame = createGameObjectWithCurrentStatus();
+                                    const newGame = {...game};
 
                                     newGame.isPublic = element.target.value;
                                     setGame(newGame);

@@ -4,10 +4,10 @@ import Game from '../../model/Game.js';
 
 let game;
 const div = document.createElement('div'),
-    players = [{"id":1,"name":"Álvaro","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Álvaro","time":0,"points":0,"handicap":0},
-        {"id":2,"name":"Joan","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Joan","time":0,"points":0,"handicap":0},
-        {"id":3,"name":"K","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=K","time":0,"points":0,"handicap":0},
-        {"id":0,"name":"Jose","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Jose","time":0,"points":0,"handicap":0}];
+    players = [{"id":1,"name":"Álvaro","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Álvaro","time":0,"points":0,},
+        {"id":2,"name":"Joan","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Joan","time":0,"points":0},
+        {"id":3,"name":"K","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=K","time":0,"points":0},
+        {"id":0,"name":"Jose","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Jose","time":0,"points":0}];
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {
@@ -31,13 +31,11 @@ beforeEach(()=>{
         name: "Player1",
         points: 100,
         time: 5,
-        handicap: 0,
         controlTextValues: [5,3,2,5,5,3,-1]
     },{
         name: "Player2",
         points: 10,
         time: 10,
-        handicap: 0,
         controlTextValues: [5,3,2,5,5,3,-1]
     }], 0, 0, 0, [], 0, 0);
 

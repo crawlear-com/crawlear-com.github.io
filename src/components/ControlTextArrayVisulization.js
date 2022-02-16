@@ -32,7 +32,9 @@ function ControlTextArrayVisualization({controlTextValues}) {
     ];
 
     controlTextValues.forEach((controltextValue)=>{
-        controlArray.push(<div key={i} className="controlTextValues">{texts[i]}: {controltextValue}</div>);
+        if (controltextValue !== 0) {
+            controlArray.push(<div key={i} className="controlTextValues">{texts[i]}: {controltextValue}</div>);
+        }
         i++;
     });
 

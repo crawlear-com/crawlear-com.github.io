@@ -28,22 +28,44 @@
 
     .gameParticipants {
         padding-top: 15px;
+        font-size: 0.8em;
+        max-width: 305px;
+        margin: 0 auto;
+
+        .closed {
+            display: none;
+        }
+
+        .iconArrowDown {
+            height: 10px;
+            margin-left: 3px;
+        }
+
+        img {
+            max-height: 15px;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        .controlTextValues {
+            background-color: transparent;
+        }
+        .controlTextValues:first-of-type {
+            margin-top: 0;
+        }
     }
 
     .gameListPosition {
         overflow:hidden;
-        width: 25px;
-        display: inline-block;
         background-color: #345C62;
-        border: 1px solid #333;
     }
 
     .gameListPlayerName {
-        overflow:hidden;
-        display: inline-block;
-        width: 200px;
+        display: block;
+        width: 120px;
         padding: 0 5px;
-        border: 1px solid #333;
     }
 
     .resultTitle {
@@ -51,24 +73,20 @@
     }
 
     .gameListPlayerName.withTime {
-        width: 28%;
+
     }
 
     .gameListPoints {
         overflow:hidden;
         min-width: 25px;
-        display: inline-block;
         background-color: #345C62;
-        border: 1px solid #333;
+        max-width: 108px;
     }
 
     .gameListTime {
         overflow:hidden;
         min-width: 45px;
         padding: 0 5px;
-        display: inline-block;
-        background-color: #345C62;
-        border: 1px solid #333;
     }
 
     .gameListTextArray {

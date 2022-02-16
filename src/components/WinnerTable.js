@@ -1,14 +1,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameResultTable from './GameResultTable';
-import ControlTextArrayVisualization from './ControlTextArrayVisulization';
-import Utils from '../Utils';
 
 import '../resources/css/WinnerTable.scss';
-
-import icoWinner from '../resources/img/iconWinner.png';
-import icoFiasco from '../resources/img/iconFiasco.png';
-import icoBattery from '../resources/img/iconBattery.png';
 
 function WinnerTable({ game }) {
     const { t } = useTranslation(),
@@ -17,10 +11,11 @@ function WinnerTable({ game }) {
         winnerOrTieBox = <></>;
 
     if (game.players.length>1 && 
-        game.players[0].points + game.players[0].handicap === game.players[1].points + game.players[1].handicap &&
-        game.players[0].time === game.players[1].time) {
+        game.players[0].totalPoints === game.players[1].totalPoints &&
+        game.players[0].totalTime === game.players[1].totalTime && 
+        (!game.players[0].totalGateProgression || game.players[0].totalGateProgression === game.players[1].totalGateProgression)) {
             draw = true;
-            winnerOrTieBox = <div className="rounded rounded2 importantNote">{t('description.empate')}</div>;
+            winnerOrTieBox = <div className="">{t('description.empate')}</div>;
     } else {
         winnerOrTieBox = <><p>{t('description.ganador')}: <b>{game.players[finalWinner].name}<b /></b> </p></>;
     }
@@ -31,35 +26,7 @@ function WinnerTable({ game }) {
         </div>
 
         <GameResultTable game={game} isDraw={draw} />
-        
-        <div className="pointsTable rounded rounded1">
-            {game.players.map((player, i) => { 
-                let fiasco = <></>;
-
-                if ((game.maxPoints <= (player.points+player.handicap) && game.maxPoints > 0) || 
-                    (game.maxTime <= player.time && game.maxTime > 0) || (player.battery)) {
-                        const batteryIcon = player.battery ? <img src={icoBattery} alt="battery icon" /> : <></>
-
-                        fiasco = <div className="importantNote rounded fiasco">
-                            <img src={icoFiasco} alt="fiasco icon" />{batteryIcon} FiASCO!</div>
-                }
-
-                return <div className="winnerBox" key={i} value={player.name}>
-                        <div className="headerPlayer rounded2 rounded bold">
-                            {!draw && i===0 ? <><img src={icoWinner} alt="winner icon" /> {i+1}.</>: (!draw ? i+1 + "." : <></>)} {player.name}
-                        </div>
-                        {fiasco}
-                        {t('description.tiempo')}: {Utils.printTime(Utils.millisToTime(player.time))}<br />
-                        {t('description.puntos')}: {player.points} <br />
-                        {t('description.handicap')}: {player.handicap}  <br />
-                        <b>{`${t('description.total')}: ${player.points + player.handicap}`}</b>
-                        <div> 
-                            <ControlTextArrayVisualization controlTextValues={player.controlTextValues} />
-                        </div>
-                    </div>
-            })}
-        </div>
-    </div>;
+    </div>        
 }
 
 export default WinnerTable;

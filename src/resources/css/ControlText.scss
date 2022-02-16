@@ -4,6 +4,11 @@
     line-height: 40px;
 }
 
+.controlTextTitle {
+    margin: 0px;
+    font-size: 0.8em;
+}
+
 .controlTextContainer {
     overflow: hidden;
 
@@ -13,7 +18,7 @@
         float: right;
     }
     .closed {
-        height: 75px;
+        height: 35px;
     }
 }
 

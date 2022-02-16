@@ -18,48 +18,55 @@ jest.mock('react-i18next', () => ({
 }));
 
 beforeEach(()=>{  
-  document.body.innerHTML = '';
-  document.body.append(div);
-    //{"id":0,"uid":"","name":"1","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=1","handicap":0,"time":0,"points":22,"controlTextValues":[5,3,2,5,5,3,-1]}
-  game = new Game("game test", new Date(), true, {
-        longitude: 0,
-        latitude: 0
-    }, [], 0, 0, 0, [], 0, 0);
-});
+    document.body.innerHTML = '';
+    document.body.append(div);
+    game = new Game("game test", new Date(), true, {
+            longitude: 0,
+            latitude: 0
+        }, [], 0, 0, 0, [], 0, 0, 1, 1);
 
-test("renders the basic winner table", () => {
     game.players = [{
+        photoURL: "avatar1",
+        battery: false,
+        id: 0,
         name: "Player1",
         points: 0,
         time: 0,
-        handicap: 0,
-        controlTextValues: [5,3,2,5,5,3,-1]
+        uid: "uid1",
+        zones: [{
+            battery: false,
+            controlTextValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            points: 10,
+            time: 0 
+        }]
+    },{
+        photoURL: "avatar2",
+        battery: true,
+        id: 0,
+        name: "Player2",
+        points: 0,
+        time: 0,
+        uid: "uid2",
+        zones: [{
+            battery: false,
+            controlTextValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            points: 5,
+            time: 0 
+        }]
     }];
+});
 
+test("renders the basic winner table", () => {
   const { container } = render(<WinnerTable game={game} />, div);
-  const elem  = container.querySelector(".winnerBox");
+  const elem  = container.querySelector(".gameList");
 
   expect(elem.textContent.indexOf("Player1")).toBeGreaterThan(0);
 });
 
 test("renders the winner table", () => {
-    game.players = [{
-        name: "Player1",
-        points: 100,
-        time: 5,
-        handicap: 0,
-        controlTextValues: [5,3,2,5,5,3,-1]
-    },{
-        name: "Player2",
-        points: 10,
-        time: 10,
-        handicap: 0,
-        controlTextValues: [5,3,2,5,5,3,-1]
-    }];
-    const { container } = render(<WinnerTable game={game} />, div);
+    const { container } = render(<WinnerTable game={game} />, div);  
+    const elem  = container.querySelector(".gameList");
   
-    const elem  = container.querySelector(".winnerBox");
-  
-    expect(elem.textContent.indexOf("Player1")).toBe(21);
-    expect(elem.textContent.indexOf("Player2")).toBe(-1);
+    expect(elem.textContent.indexOf("Player1")).toBe(202);
+    expect(elem.textContent.indexOf("Player2")).toBe(257);
   });
