@@ -10,12 +10,11 @@ import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
 import Analytics from './Analytics';
+import Game from './model/Game';
 
 import './resources/css/Base.scss';
 import './resources/css/App.scss';
 import './resources/css/Footer.scss';
-
-import backLogo from './resources/img/img06.png';
 
 function App() {
   const fb = new FirebaseController();
@@ -45,7 +44,11 @@ function App() {
         <div className="AppMainContainer">
         <Routes>
           <Route path="/" element={<Landing onLoggin={onLoggin} />} />
-          <Route path="/simplegame" element={<GameController />} />
+          <Route path="/simplegame" element={<GameController game={new Game("",
+            new Date().toLocaleDateString(),
+            false,
+            { latitude: 0, longitude: 0 },
+            [], 0, 0, 0, [], 0, 0, 1, 1)} />} />
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
