@@ -25,7 +25,6 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    fb.checkIfLogged(onLoggin);
     Analytics.event('App','init',`${navigator.userAgent}`);
   }, [])
 
@@ -38,17 +37,21 @@ function App() {
     setStateLogged(false);
   }
 
+  function getNewGame() {
+    return new Game("",
+      new Date().toLocaleDateString(),
+      false,
+      { latitude: 0, longitude: 0 },
+      [], 0, 0, 0, [], 0, 0, 1, 1);
+  }
+
   return (<>
       <div className="App">
         {stateLogged ? <Menu /> : <></>}
         <div className="AppMainContainer">
         <Routes>
           <Route path="/" element={<Landing onLoggin={onLoggin} />} />
-          <Route path="/simplegame" element={<GameController game={new Game("",
-            new Date().toLocaleDateString(),
-            false,
-            { latitude: 0, longitude: 0 },
-            [], 0, 0, 0, [], 0, 0, 1, 1)} />} />
+          <Route path="/simplegame" element={<GameController game={getNewGame} />} />
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />

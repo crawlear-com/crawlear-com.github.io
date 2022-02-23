@@ -19,6 +19,7 @@ function Landing({onLoggin}) {
     }
 
     React.useEffect(() => {
+        firebase.checkIfLogged(onLoggin);
         Analytics.pageview('/landing/');
     },[]);
 
