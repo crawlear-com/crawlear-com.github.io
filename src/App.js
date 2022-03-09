@@ -42,7 +42,7 @@ function App() {
       new Date().toLocaleDateString(),
       false,
       { latitude: 0, longitude: 0 },
-      [], 0, 0, 0, [], 0, 0, 1, 1);
+      [], 0, 0, 1, [], 40, 600000, 1, 10);
   }
 
   return (<>
