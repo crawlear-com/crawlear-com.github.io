@@ -42,10 +42,8 @@ test('renders GameTypeController', () => {
         selectedPointsType={0} />, div);
 
     const selects = container.querySelectorAll('select'),
-        selectGameType = selects[0],
-        selectGameMode = selects[1];
+        selectGameType = selects[0];
 
-    expect(selects.length).toBe(2);
-    expect(selectGameType.querySelectorAll('option').length).toBe(2);
-    expect(selectGameMode.querySelectorAll('option').length).toBe(2);
+    expect(selects.length).toBe(1);
+    expect(selectGameType.querySelectorAll('option').length).toBe(3);
 });
