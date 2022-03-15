@@ -10,6 +10,7 @@ function ControlTextArray({
     steps,
     maxValues,
     texts,
+    player,
     onValueChange}) {
     let i=0;
     const isFullScore = controlTextValues.length>14;
@@ -31,7 +32,7 @@ function ControlTextArray({
         controlArray1.push(<ControlText key={i} 
             value={controlTextValues[i]} 
             onValueChange={(value)=> {
-                onValueChange(value, j);
+                onValueChange(value, j, player);
             }}
             maxValue={maxValues[i]}
             initialValue={0} 
@@ -48,7 +49,7 @@ function ControlTextArray({
                 value={controlTextValues[i]}
                 maxValue={maxValues[i]}
                 onValueChange={(value)=> {
-                    onValueChange(value, j);
+                    onValueChange(value, j, player);
                 }} 
                 initialValue={0} 
                 text={texts[i]} 

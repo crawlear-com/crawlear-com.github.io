@@ -1,9 +1,38 @@
 .timerContainer {
-    margin: 10px;
+    font-size: 0.8em;;
     padding: 10px;
     font-size: 0.8em;
+    width: 43%;
+    float: left;
+
+    button {
+        width: 36px;
+        height: 48px;
+        background-repeat: no-repeat;
+        background-size: 25px;
+        background-position: center;
+        margin: 5px 11px;
+    }
+
+    .timer {
+        border: 1px solid;
+        border-radius: 15px;
+        max-width: 163px;
+        margin: 0 auto;
+    }
+    
+    .timerPlayButton {
+        background-image: url(../img/iconPlay.png);
+    }
+    
+    .resetButton {
+        background-image: url(../img/iconStop.png);
+    }
 }
 
-.timer {
-    font-size: 26px;
+.timerContainer.play {
+    .timerPlayButton {
+        background-image: url(../img/iconPause.png);
+    }
 }
+

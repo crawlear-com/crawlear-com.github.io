@@ -93,8 +93,9 @@ i18n
             detalle: 'Detail',
             penalizaciones: 'Penalties',
             penalizacionesadicionales: 'Additional penalties',
-            avancepuerta: 'gate progression'
-
+            avancepuerta: 'gate progression',
+            fallospuerta: 'gate fails',
+            bonificacion: 'bonification'
           },
           points: {
             vuelco: 'overturn',
@@ -231,7 +232,9 @@ i18n
               detalle: 'Detalle',
               penalizaciones: 'Penalizaciones',
               penalizacionesadicionales: 'Penalizaciones adicionales',
-              avancepuerta: 'avance de puertas'
+              avancepuerta: 'avance de puertas',
+              fallospuerta: 'puertas fallidas',
+              bonificacion: 'bonificación'
           },
           points: {
             vuelco: 'vuelco',

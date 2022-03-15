@@ -22,6 +22,11 @@ function GameController({game, onGameEnd}) {
         
         Analytics.event('menu', 'playModeChange', selectedIndex);
         newState.gameType = selectedIndex;
+        if(newState.gameType === 1) {
+            newState.pointsType = 0; 
+        } else {
+            newState.pointsType = 1; 
+        }
         setState(newState);
     }
     

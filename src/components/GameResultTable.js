@@ -13,12 +13,12 @@ import openIcon from '../resources/img/arrowDown.png';
 
 
 function GameResultTable({game, isDraw}) {
-    const { t } = useTranslation();
-    const players = [];
-    let j=0, i=0, 
-        gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts);
+    const { t } = useTranslation(),
+        players = [];
+    let gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts),
+        j=0, i=0;
 
-    if(game.gameType !== 2) {
+    if(game.gameType === 2) {
         gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
     }
 
@@ -46,8 +46,10 @@ function GameResultTable({game, isDraw}) {
         <td></td>
         <td className="">{t("description.nombre")}</td>
         <td>pts</td>
-        <td>{t("gametype.tiempo")}</td>
-        <td>pg</td>
+        <td>t</td>
+        <td>g</td>
+        <td>gf</td>
+        <td>b</td>
     </tr>);
     
     game.players.forEach((player)=>{
@@ -59,6 +61,8 @@ function GameResultTable({game, isDraw}) {
                     <td className="bold gameListPlayerName gameListPoints bold withTime textOverflow">{player.name}</td> }
                 <td className="bold gameListPoints">{player.totalPoints}</td>
                 {game.gameType !== 1 ? <td className="bold gameListPoints gameListTime">{Utils.printTime(Utils.millisToTime(player.totalTime))}</td> : <></>}
+                <td className="gameListPoints">.</td>
+                <td className="gameListPoints">.</td>
                 <td className="gameListPoints">.</td>
             </tr>);
         
@@ -94,19 +98,24 @@ function GameResultTable({game, isDraw}) {
                     <td className="gameListPoints">{zone.points}</td>
                     {game.gameType !== 1 ? <td className="gameListTime">{Utils.printTime(Utils.millisToTime(zone.time))}</td> : <></>}
                     <td className="gameListPoints">{zone.gateProgression}</td>
+                    <td className="gameListPoints">{zone.gatesWithFail ? zone.gatesWithFail : "0"}
+                    </td>
+                    <td className="gameListPoints">{zone.gatesWithBonification ? zone.gatesWithBonification * -2 : '0'}
+                    </td>
                 </tr>
                 <tr key={i+j+2} className="closed">
-                    <td colSpan={5}>
+                    <td colSpan={7}>
                         <ControlTextArrayVisualization 
                             controlTextValues={zone.controlTextValues} 
                             texts={gameTypeTexts} />
                         {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
-                        <>
-                            <div className="left bold">{t('points.fiascos')}:</div>
-                            <ControlTextArrayVisualization 
-                                controlTextValues={zone.fiascoControlTextValues} 
-                                texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
-                        </> : <></>}
+                            <>
+                                <div className="left bold">{t('points.fiascos')}:</div>
+                                <ControlTextArrayVisualization 
+                                    controlTextValues={zone.fiascoControlTextValues} 
+                                    texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
+                            </> : 
+                            <></>}
                     </td>
                 </tr>
             </>);

@@ -1,6 +1,10 @@
 import { t } from "i18next";
 
 class Utils {
+    static PLAYER_STATE_STOP = 'stop';
+    static PLAYER_STATE_START = 'start';
+    static PLAYER_STATE_PAUSE = 'pause';
+
     static isMobile() {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
             return true;
@@ -42,7 +46,7 @@ class Utils {
     }
     
     static printTime(time) {
-        return `${String(time.m).padStart(2, '0')}:${String(time.s).padStart(2, '0')}`
+        return `${String(time.m).padStart(2, '0')}:${String(time.s).padStart(2, '0')}:${String(time.mm).padStart(3, '0')}`
     }
 
     static randomizeArray(array) {

@@ -21,15 +21,7 @@ function KingGame({game, onGameEnd}) {
         Analytics.pageview('/kinggame/');
     },[]);
 
-    function onBatteryDirectFiasco(player, value) {
-        const newState = {...state},
-            players = newState.game.players;
-
-        players[player].zones[0].battery = value;
-        setState(newState);
-    }
-
-    function onChangeScore(value, player, control) {
+    function onChangeScore(value, control, player) {
         const newState = {...state};
 
         const players = newState.game.players,
@@ -52,7 +44,7 @@ function KingGame({game, onGameEnd}) {
     for(let i=0;i<state.game.players.length;i++) {
         result.push(<div key={i+1}>
                 <div className="controlTextContainerQueue rounded bold">
-                    {state.order[i].name}: {state.order[i].points} ptos
+                    {state.order[i].name}: {state.order[i].zones[0].points} ptos
                 </div>
             </div>);
     }
@@ -71,14 +63,12 @@ function KingGame({game, onGameEnd}) {
                 </div>
                 <div className="controlTextContainer rounded rounded1">
                     {ControlTextArray({
-                        controlTextValues: zone.controlTextValues, 
-                        player: i,
+                        controlTextValues: zone.controlTextValues,
                         steps: KingGameScores.steps,
                         maxValues: KingGameScores.maxValues,
                         texts: KingGameScores.texts,
-                        onDirectFiasco: onBatteryDirectFiasco,
-                        booleanValue: zone.battery,
-                        onValueChange: onChangeScore
+                        player: i,
+                        onValueChange: onChangeScore,
                     })}
                 </div>
             </div>);
@@ -99,7 +89,6 @@ function initControlTestValues(game) {
 
     for(let i=0; i<newState.game.players.length;i++) {
         newState.game.players[i].zones = [{
-            battery: false,
             points: 0,
             time: 0,
             controlTextValues: new Array(7)

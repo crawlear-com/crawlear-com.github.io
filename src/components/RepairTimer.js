@@ -4,13 +4,14 @@ import TimerControl from './TimerControl';
 
 import '../resources/css/RepairTimer.scss';
 
-function RepairTimer({onTimeFiasco}) {
+function RepairTimer({onTimeFiasco, onRepairTimerChange}) {
     const { t } = useTranslation();
 //1800000
     return <div className="repairTimeContainer">
-            {t('points.reparacion').toUpperCase()}:
             <TimerControl 
+                label={t('points.reparacion')}
                 onTimeFiasco={onTimeFiasco}
+                onTimerChange={onRepairTimerChange}
                 maxTime={3000} />
         </div>;
 }
