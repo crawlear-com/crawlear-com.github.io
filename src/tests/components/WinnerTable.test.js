@@ -67,6 +67,6 @@ test("renders the winner table", () => {
     const { container } = render(<WinnerTable game={game} />, div);  
     const elem  = container.querySelector(".gameList");
   
-    expect(elem.textContent.indexOf("Player1")).toBe(202);
-    expect(elem.textContent.indexOf("Player2")).toBe(257);
+    expect(elem.textContent.indexOf("Player1")).toBe(149);
+    expect(elem.textContent.indexOf("Player2")).toBe(201);
   });

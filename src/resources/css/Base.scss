@@ -20,8 +20,22 @@ body {
   background-size: cover;
 }
 
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 .bold {
   font-weight: bold;
+}
+
+.left {
+  text-align: left;
 }
 
 .inline {

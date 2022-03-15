@@ -93,8 +93,9 @@ i18n
             detalle: 'Detail',
             penalizaciones: 'Penalties',
             penalizacionesadicionales: 'Additional penalties',
-            avancepuerta: 'gate progression'
-
+            avancepuerta: 'gate progression',
+            fallospuerta: 'gate fails',
+            bonificacion: 'bonification'
           },
           points: {
             vuelco: 'overturn',
@@ -120,8 +121,14 @@ i18n
             nodorsal: 'no dorsal',
             incumplimientotecnico: 'Non-compliance with Technical Regulations',
             recolocacionbateria: 'car body/battery relocation',
-            puertamarchaatras: 'reverse gate'
-    
+            puertamarchaatras: 'reverse gate',
+            retroceso: 'backward',
+            direcciondelcurso: 'direction way',
+            limite: 'límite',
+            fueraespecificacion: 'out of specification',
+            usodispositivo: 'device used',
+            noempezado: 'not started',
+            fiascos: 'Fiascos'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -130,13 +137,17 @@ i18n
             modojuegotiempo: 'A section is chosen and all participants will run it one by one and in the pre-established order. You run to points with time and maximum score and the possibility of making a fiasco. The winner will be the player with less points with a time tiebreaker.',
             modojuegopuntos: 'A section is chosen and all participants will run it one by one and in the pre-established order. Points are run and the winner will be the player with the lowest score.',
             modojuegorey: 'There is no pre-established route and the first participant, the King, chooses the path when playing. All participants run at the same time in line following the same route as the King. If a player scores he goes to the end of the queue. The winner will be the player with the lowest score.',
+            modojuegoarcar: 'By points game using the AECAR rules and scores',
+            modojuegoisrcc: 'By points game using the ISRCC rules and scores',
             simple: 'Simple',
             completa: 'Complete',
             descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points. There is no max time or max points',
             descripcionPuntosCompleta: 'Score: Winch, touch, distance, obstacle jump, repair, door, overturn, progression door, improper anchor, baggage, judge, ball jump, change not comunicated, battery load, unsportsmanlike conduct,loss of road license,modify track conditions, loss of bib, car manipulation, car out of the compound,no dorsal,non-compliance with Technical Regulations,car body/battery relocation, reverse gate. Variable number of zones, progression gates, optional time and maximum points. In this mode it is possible to apply maximum time and / or maximum score and make a fiasco in case of exceeding it. In the event of a fiasco, the player will score the maximum between the defined times / points and the current score.',
             tiempo: 'Time',
             puntos: 'Points',
-            rey: 'The King'
+            rey: 'The King',
+            isrcc: 'ISRCC Rules',
+            aecar: 'AECAR Rules'
           }
         }
       },
@@ -221,7 +232,9 @@ i18n
               detalle: 'Detalle',
               penalizaciones: 'Penalizaciones',
               penalizacionesadicionales: 'Penalizaciones adicionales',
-              avancepuerta: 'avance de puertas'
+              avancepuerta: 'avance de puertas',
+              fallospuerta: 'puertas fallidas',
+              bonificacion: 'bonificación'
           },
           points: {
             vuelco: 'vuelco',
@@ -247,7 +260,14 @@ i18n
             nodorsal: 'no dorsal',
             incumplimientotecnico: 'no cumplir reglamento técnico',
             recolocacionbateria: 'recolocación bateria/carrocería',
-            puertamarchaatras: 'puerta marcha atrás'
+            puertamarchaatras: 'puerta marcha atrás',
+            retroceso: 'retroceso',
+            direcciondelcurso: 'dirección del curso',
+            limite: 'límite',
+            fueraespecificacion: 'fuera especificación',
+            usodispositivo: 'uso de dispositivo',
+            noempezado: 'no empezado',
+            fiascos: 'Fiascos'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -256,13 +276,17 @@ i18n
             modojuegotiempo: 'Se escoge un tramo y todos los participantes lo correrán uno por uno y en el orden preestablecido. Se corre a puntos con tiempo y puntuación máxima y la posibilidad de hacer fiasco. El ganador será el jugador con menor puntos con desempate de tiempo.',
             modojuegopuntos: 'Se escoge un tramo y todos los participantes lo correrán uno por uno y en el orden preestablecido. Se corre a puntos y el ganador será el jugador con menor puntuación.',
             modojuegorey: 'No hay ruta preestablecida y el primer participante, el Rey, escoge el camino al jugar. Todos los participantes corren a la vez en línea siguiendo la misma ruta que el Rey. Si un jugador puntúa pasa al final de la cola. El ganador será el jugador con menor puntuación.',
+            modojuegoarcar: 'Por puntos usando el reglamento y puntuaciones del reglamento ARCAR',
+            modojuegoisrcc: 'Por puntos usando el reglamento y puntuaciones del reglamento ISRCC',
             simple: 'Simple',
             completa: 'Completa',
             descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos. No se aplica tiempo ni puntuación máxima.',
             descripcionPuntosCompleta: 'Puntuación: Winch, tocar, distancia, salto obstaculo, reparacion, puerta, vuelco, puerta progresion, anclaje indebido, equipaje, juez, salto de pelota ,cambio no comunicado, carga de bateria, conducta incívica, pérdida de carnet, modificar condición de pista, perdida de dorsal, manipulación del coche, coche fuera del recinto, no dorsal, no cumplir reglamento técnico, recolocación bateria/carrocería y puerta marcha atrás. Número de zonas variables, puertas de progresión, Tiempo y puntos máximos opcionales. En éste modo es posible aplicar tiempo máximo y/o puntuación máxima y realizar un fiasco en caso de superarla. En caso de fiasco el jugador puntuará el máximo entre los tiempos / puntos definidos y la puntuación actual.',
             tiempo: 'Tiempo',
             puntos: 'Puntos',
-            rey: 'El Rey'
+            rey: 'El Rey',
+            isrcc: 'Reglas ISRCC',
+            aecar: 'Reglas AECAR'
           }
         }
       }

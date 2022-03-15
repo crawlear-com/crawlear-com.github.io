@@ -17,19 +17,16 @@ function GameController({game, onGameEnd}) {
     const firebase = window.crawlear.fb;
     const [state, setState] = React.useState(game);
 
-    function onPointsTypeChange(selectedIndex) {
-        const newState = {...state};
-
-        Analytics.event('menu', 'pointsModeChange',selectedIndex);
-        newState.pointsType = selectedIndex;
-        setState(newState);
-    }
-    
     function onGameTypeChange(selectedIndex) {
         const newState = {...state};
         
         Analytics.event('menu', 'playModeChange', selectedIndex);
         newState.gameType = selectedIndex;
+        if(newState.gameType === 1) {
+            newState.pointsType = 0; 
+        } else {
+            newState.pointsType = 1; 
+        }
         setState(newState);
     }
     
@@ -83,7 +80,6 @@ function GameController({game, onGameEnd}) {
         }
     }
 
-
     React.useEffect(() => {
         if(state.gameStatus === GAME_STATUS_MENU) {
             Analytics.pageview('/menu/');
@@ -99,9 +95,9 @@ function GameController({game, onGameEnd}) {
 
     switch(state.gameStatus) {
         case GAME_STATUS_MENU:
-            elementsToRender.push(<GameMenu key={3} onPlayerNumerChange={onPlayerNumerChange}  
+            elementsToRender.push(<GameMenu key={3} 
+                onPlayerNumerChange={onPlayerNumerChange}  
                 onGameTypeChange={onGameTypeChange}
-                onPointsTypeChange={onPointsTypeChange}
                 beginGame={onBeginGame}
                 game={state}
             />);

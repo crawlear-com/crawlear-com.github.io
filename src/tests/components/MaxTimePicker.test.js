@@ -8,7 +8,7 @@ beforeEach(()=>{
   document.body.append(div);
 });
 
-test('renders MaxTimePicker with 3 pickers', () => {
+test('renders MaxTimePicker with 2 pickers', () => {
   const onMaxTimeChange = jest.fn(),
     { container } = render(<MaxTimePicker 
       hours={0}
@@ -17,7 +17,7 @@ test('renders MaxTimePicker with 3 pickers', () => {
       onMaxTimeChange={onMaxTimeChange}
   />, div);
 
-    expect(container.querySelectorAll('.pickerContainer .picker').length).toBe(3);
+    expect(container.querySelectorAll('.pickerContainer .picker').length).toBe(2);
 });
 
 test('calls the onMaxTimeChange callback on time change with correct time', () => {
@@ -31,5 +31,5 @@ test('calls the onMaxTimeChange callback on time change with correct time', () =
         arrow = container.querySelector(".picker--arrowUp");
   
     arrow.click();
-    expect(onMaxTimeChange).toHaveBeenCalledWith(3600000);
+    expect(onMaxTimeChange).toHaveBeenCalledWith(60000);
   });

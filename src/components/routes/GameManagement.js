@@ -33,7 +33,7 @@ function GameManagement({onLogout}) {
         new Date().toLocaleDateString(),
         false,
         { latitude: 0, longitude: 0 },
-        [], 0, 0, 0, [], 0, 0, 1, 1));
+        [], 0, 0, 1, [], 40, 600000, 1, 10));
     let locationElement;
 
     React.useEffect(() => {
@@ -98,7 +98,7 @@ function GameManagement({onLogout}) {
             new Date().toLocaleDateString(),
             false,
             { latitude: 0, longitude: 0 },
-            [], 0, 0, 0, [], 0, 0, 1, 1));
+            [], 0, 0, 1, [], 40, 600000, 1, 10));
     }
 
     if(navigator.geolocation) {

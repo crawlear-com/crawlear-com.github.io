@@ -2,6 +2,8 @@ import * as React from 'react';
 import Utils from '../Utils';
 import GoogleMapsUrl from './GoogleMapsUrl';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
+import IsrccGameScores from './games/IsrccGameScores';
+import TotalTimeGameScores from './games/TotalTimeGameScores';
 import { useTranslation } from 'react-i18next';
 
 import fiascoIcon from '../resources/img/iconFiasco.png';
@@ -11,29 +13,23 @@ import openIcon from '../resources/img/arrowDown.png';
 
 
 function GameResultTable({game, isDraw}) {
-    const { t } = useTranslation();
-    const players = [];
-    let j=0, i=0;
+    const { t } = useTranslation(),
+        players = [];
+    let gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts),
+        j=0, i=0;
 
-    function resolvePointsType(pointsType) {
-        switch(pointsType) {
-            case 0:
-                return t('gametype.simple');
-            case 1:
-                return t('gametype.completa');
-            default:
-                return t('gametype.simple');
-        }
+    if(game.gameType === 2) {
+        gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
     }
 
     function resolveGameType(gameType) {
         switch(gameType) {
             case 0:
-                return t('gametype.tiempo');
+                return t('gametype.aecar');
             case 1:
                 return t('gametype.rey');
             default:
-                return t('gametype.tiempo');
+                return t('gametype.isrcc');
         }
     }
 
@@ -50,31 +46,48 @@ function GameResultTable({game, isDraw}) {
         <td></td>
         <td className="">{t("description.nombre")}</td>
         <td>pts</td>
-        <td>{t("gametype.tiempo")}</td>
-        <td>pg</td>
+        <td>t</td>
+        <td>g</td>
+        <td>gf</td>
+        <td>b</td>
     </tr>);
     
     game.players.forEach((player)=>{
         i=0;
         players.push(<tr key={i+j}>
                 {isDraw ? <td></td> : <td className="bold gameListPosition">{j===0?<img src={winnerIcon} alt="winner" />:j+1}</td>}
-                {game.gameType !== 0 ? 
+                {game.gameType === 1 ? 
                     <td className="bold gameListPlayerName gameListPoints bold textOverflow">{player.name}</td> :
                     <td className="bold gameListPlayerName gameListPoints bold withTime textOverflow">{player.name}</td> }
                 <td className="bold gameListPoints">{player.totalPoints}</td>
-                {game.gameType === 0 ? <td className="bold gameListPoints gameListTime">{Utils.printTime(Utils.millisToTime(player.totalTime))}</td> : <></>}
+                {game.gameType !== 1 ? <td className="bold gameListPoints gameListTime">{Utils.printTime(Utils.millisToTime(player.totalTime))}</td> : <></>}
+                <td className="gameListPoints">.</td>
+                <td className="gameListPoints">.</td>
                 <td className="gameListPoints">.</td>
             </tr>);
         
         player.zones.forEach((zone)=>{
             let icon;
 
-            if (zone.battery) {
-                icon = <img src={batteryIcon} alt="fiasco" />;
-            } else if ((game.maxTime && zone.time === game.maxTime) || (game.maxPoints && zone.points === game.maxPoints)){
-                icon = <img src={fiascoIcon} alt="battery" />;
+            if (zone.fiascoControlTextValues) {
+                if (zone.fiascoControlTextValues[4]) {
+                    icon = <img src={batteryIcon} alt="battery" />;
+                } else if ((game.maxTime && zone.time === game.maxTime) || 
+                    (game.maxPoints && zone.points === game.maxPoints) || 
+                    (zone.fiascoControlTextValues.filter(x=>x>0).length > 0)){
+                    icon = <img src={fiascoIcon} alt="fiasco" />;
+                } else {
+                    icon = <></>;
+                }
+
             } else {
-                icon = <></>;
+                if (zone.battery) {
+                    icon = <img src={batteryIcon} alt="fiasco" />;
+                } else if ((game.maxTime && zone.time === game.maxTime) || (game.maxPoints && zone.points === game.maxPoints)){
+                    icon = <img src={fiascoIcon} alt="battery" />;
+                } else {
+                    icon = <></>;
+                }
             }
 
             players.push(<>
@@ -83,12 +96,26 @@ function GameResultTable({game, isDraw}) {
                     <td onClick={onClickZone}>{`${t('description.zona')} ${i+1}`}
                         <img className="iconArrowDown" src={openIcon} alt="click open" /></td>
                     <td className="gameListPoints">{zone.points}</td>
-                    {game.gameType === 0 ? <td className="gameListTime">{Utils.printTime(Utils.millisToTime(zone.time))}</td> : <></>}
+                    {game.gameType !== 1 ? <td className="gameListTime">{Utils.printTime(Utils.millisToTime(zone.time))}</td> : <></>}
                     <td className="gameListPoints">{zone.gateProgression}</td>
+                    <td className="gameListPoints">{zone.gatesWithFail ? zone.gatesWithFail : "0"}
+                    </td>
+                    <td className="gameListPoints">{zone.gatesWithBonification ? zone.gatesWithBonification * -2 : '0'}
+                    </td>
                 </tr>
                 <tr key={i+j+2} className="closed">
-                    <td colSpan={5}>
-                        <div><ControlTextArrayVisualization controlTextValues={zone.controlTextValues} /></div>
+                    <td colSpan={7}>
+                        <ControlTextArrayVisualization 
+                            controlTextValues={zone.controlTextValues} 
+                            texts={gameTypeTexts} />
+                        {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
+                            <>
+                                <div className="left bold">{t('points.fiascos')}:</div>
+                                <ControlTextArrayVisualization 
+                                    controlTextValues={zone.fiascoControlTextValues} 
+                                    texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
+                            </> : 
+                            <></>}
                     </td>
                 </tr>
             </>);
@@ -100,7 +127,6 @@ function GameResultTable({game, isDraw}) {
 
     return <div className="gameList rounded rounded2">
             <div className="gameGameType">{t('gametype.modojuego')}: <span className="bold">{resolveGameType(game.gameType)}</span></div>
-            <div className="gamePointsType">{t('gametype.tipopuntuacion')}: <span className="bold">{resolvePointsType(game.pointsType)}</span></div> 
             <div className="gamePointsType">{t('description.zonas')}: <span className="bold">{game.zones}</span></div> 
             <div className="gamePointsType">{t('points.puertaprogresion')}: <span className="bold">{game.gates}</span></div> 
             <div className="gameIsPublic"><span className="bold">{game.isPublic ? t('description.esPublica') : ""}</span></div>

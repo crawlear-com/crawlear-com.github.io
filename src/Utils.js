@@ -1,11 +1,20 @@
+import { t } from "i18next";
 
 class Utils {
+    static PLAYER_STATE_STOP = 'stop';
+    static PLAYER_STATE_START = 'start';
+    static PLAYER_STATE_PAUSE = 'pause';
+
     static isMobile() {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
             return true;
         }
 
         return false;
+    }
+
+    static tokenToTexts(tokens) {
+        return tokens.map((x)=>{return t(x);});
     }
 
     static millisToTime(millis) {
@@ -21,23 +30,23 @@ class Utils {
         }
     }
     
-    static timeToMillis(h,m,s) {
+    static timeToMillis(m,s, mm) {
         const date = new Date(),
             todayRef = new Date();
 
-        todayRef.setHours(0);
         todayRef.setMinutes(0);
         todayRef.setSeconds(0);
+        todayRef.setMilliseconds(0);
 
-        date.setHours(h);
         date.setMinutes(m);
         date.setSeconds(s);
+        date.setMilliseconds(mm);
 
         return date.getTime() - todayRef.getTime();
     }
     
     static printTime(time) {
-        return `${String(time.h).padStart(2, '0')}:${String(time.m).padStart(2, '0')}:${String(time.s).padStart(2, '0')}:${String(time.mm).padStart(3, '0')}`
+        return `${String(time.m).padStart(2, '0')}:${String(time.s).padStart(2, '0')}:${String(time.mm).padStart(3, '0')}`
     }
 
     static randomizeArray(array) {
@@ -51,25 +60,6 @@ class Utils {
         }
       
         return array;
-    }
-
-    static getNotmalizedMaxValues(inPlayers, maxPoints, maxTime) {
-        const players = [...inPlayers];
-
-        if (maxTime || maxPoints) {
-            players.forEach((player)=>{
-                player.zones.forEach((zone)=>{
-                    if ((maxPoints <= zone.points && maxPoints > 0) || zone.battery) {
-                        zone.points = maxPoints
-                    }
-                    if ((maxTime <= zone.time && maxTime > 0) || zone.battery) {
-                        zone.time = maxTime;
-                    }
-                });
-            })
-        }
-
-        return players;
     }
 
     static getWinnerByPoints(inPlayers) {

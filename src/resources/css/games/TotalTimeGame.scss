@@ -1,11 +1,6 @@
 .timerContainer {
-    margin: 10px;
-    padding: 10px;
-    font-size: 0.8em;
-}
-
-.timer {
-    font-size: 26px;
+    width: auto;
+    float: none;
 }
 
 .totalValue {
@@ -28,11 +23,18 @@
     padding-bottom: 10px;
 }
 
+.pointsText {
+    height: 36px;
+    padding: 17px;
+    display: inline-block;
+}
+
 .fiascoBox {
     font-size: 17px;
-    margin: 0 auto;
-    width: 66%;
+    width: 65px;
     padding: 10px;
+    float: left;
+    margin: 10px;
 }
 
 .fiascoBox .importantNote {

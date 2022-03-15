@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
-import TotalTimeGame from './games/TotalTimeGame';
-import KingGame from './games/KingGame';
 import ZonesPicker from './ZonesPicker';
 import GateProgressionPicker from './GateProgressionPicker';
 import Analytics from '../Analytics';
+
+import TotalTimeGame from './games/TotalTimeGame';
+import KingGame from './games/KingGame';
+import IsrccGame from './games/IsrccGame';
+
 
 const GAME_TYPE_TIME = 0;
 const GAME_TYPE_KING = 1;
@@ -48,9 +51,9 @@ function GameTypePlayer({game, onGameEnd}) {
     }
 
     function onZonesChange(zones) {
-        const newGame = {...state.game}
+        const newGame = {...state.game};
 
-        newGame.zones = zones;
+        newGame.zones = zones;   
         Analytics.event('menu', 'zonesSet', zones);
         setState(previousInputs=>({
             ...previousInputs,
@@ -71,15 +74,23 @@ function GameTypePlayer({game, onGameEnd}) {
 
     if(state.step === STEP_CONFIG) {
         if (state.game.pointsType === MODE_OFFICIAL) {
-            elementsToRender.push(<MaxTimeAndPointsPicker key={0} mode={state.game.pointsType} 
-                        onMaxPointsChange={onMaxPointsChange}
-                        onMaxTimeChange={onMaxTimeChange}
-                        maxTime={state.game.maxTime}
-                        maxPoints={state.game.maxPoints}
-                        showTimePicker={state.game.gameType === GAME_TYPE_TIME} />);
-            if (state.game.gameType === GAME_TYPE_TIME) {
-                elementsToRender.push(<ZonesPicker key={1} onZonesChange={onZonesChange} />);
-                elementsToRender.push(<GateProgressionPicker key={2} onGatesChange={onGatesChange} />);
+            elementsToRender.push(<MaxTimeAndPointsPicker key={0} 
+                mode={state.game.pointsType} 
+                onMaxPointsChange={onMaxPointsChange}
+                onMaxTimeChange={onMaxTimeChange}
+                maxTime={state.game.maxTime}
+                maxPoints={state.game.maxPoints}
+                showTimePicker={state.game.gameType !== GAME_TYPE_KING} />);
+            if (state.game.gameType !== GAME_TYPE_KING) {
+                elementsToRender.push(<ZonesPicker key={1} 
+                    game={state.game}
+                    onZonesChange={onZonesChange}
+                    onGatesChange={onGatesChange}
+                    onMaxPointsChange={onMaxPointsChange}
+                    onMaxTimeChange={onMaxTimeChange} />);
+                elementsToRender.push(<GateProgressionPicker key={2}
+                    value={10}
+                    onGatesChange={onGatesChange} />);
             }
             elementsToRender.push(<button key={3} onClick={onCompleteGameMaxtimeSelected} className="rounded rounded2 importantNote">{t('description.continuar')}</button>);
         }
@@ -100,6 +111,14 @@ function GameTypePlayer({game, onGameEnd}) {
                     onGameEnd(game)
                 }}
                 />);
+        } else {
+            elementsToRender.push(<IsrccGame game={state.game} 
+                key={0}
+                onGameEnd={(game)=> {
+                    onGameEnd(game)
+                }}
+            />);
+
         }
     }
 
