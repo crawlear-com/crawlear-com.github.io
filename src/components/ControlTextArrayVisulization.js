@@ -6,7 +6,7 @@ function ControlTextArrayVisualization({controlTextValues, texts}) {
     let i=0;
     const controlArray = [];
 
-    controlTextValues.forEach((controltextValue)=>{
+    controlTextValues && controlTextValues.forEach((controltextValue)=>{
         if (controltextValue !== 0) {
             controlArray.push(<div key={i} className="controlTextValues">{texts[i]}: {controltextValue}</div>);
         }

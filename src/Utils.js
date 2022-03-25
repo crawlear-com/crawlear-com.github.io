@@ -17,6 +17,18 @@ class Utils {
         return tokens.map((x)=>{return t(x);});
     }
 
+    static getUidsFromUsers(users) {
+        const uids = [];
+
+        users.forEach((user)=>{
+            if (user.uid) {
+                uids.push(user.uid);
+            } 
+        });
+
+        return uids;
+    }
+
     static millisToTime(millis) {
         const minutes = Math.floor(millis / 60000),
             hours = Math.floor(minutes / 60), 

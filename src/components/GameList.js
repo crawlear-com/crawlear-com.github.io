@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import '../resources/css/GameList.scss';
 import WinnerTable from './WinnerTable';
 
-function GameList({games, onRemoveGame}) {
+function GameList({games, onRemoveGame, title, onGamePlay}) {
     const { t } = useTranslation();
     let i=0,
         gameList = [];
@@ -24,11 +24,13 @@ function GameList({games, onRemoveGame}) {
     }
 
     games && games.forEach((doc)=>{
+        const info = doc.gameStatus === 0 ? 
+            <button data-gameposition={i} onClick={onGamePlay}>play!</button>: <WinnerTable game={doc} />;
+
         gameList.push(<div key={i} className="gameContainer rounded rounded1 closed">
                 <span onClick={openCloseGame} className="textOverflow gameName bold">{doc.name} - {doc.date}</span>
                 <button data-position={i} className="removeButton" onClick={removeGame}>-</button>
-
-                <WinnerTable game={doc} />
+                {info}
             </div>);
         i++;
     })
@@ -38,7 +40,7 @@ function GameList({games, onRemoveGame}) {
     }
 
     return <div className="gameList rounded rounded3">
-            <div className="headerText bold">{t('description.partidasprevias')}</div>
+            <div className="headerText bold">{title}</div>
             {gameList}
         </div>;
 }

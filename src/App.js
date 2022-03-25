@@ -5,16 +5,19 @@ import TxtRoute from './components/routes/TxtRoute';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
 import FirebaseController from './FirebaseController';
+
 import GameManagement from './components/routes/GameManagement';
+
 import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
 import Analytics from './Analytics';
-import Game from './model/Game';
+import { Game } from './model/Game';
 
 import './resources/css/Base.scss';
 import './resources/css/App.scss';
 import './resources/css/Footer.scss';
+import GameConfigurator from './components/GameConfigurator';
 
 function App() {
   const fb = new FirebaseController();
@@ -40,9 +43,9 @@ function App() {
   function getNewGame() {
     return new Game("",
       new Date().toLocaleDateString(),
-      false,
       { latitude: 0, longitude: 0 },
-      [], 0, 0, 1, [], 40, 600000, 1, 10);
+      false, 2,
+      [], [], 600000, 40, 10, 4, 0, [], []);
   }
 
   return (<>
@@ -52,6 +55,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing onLoggin={onLoggin} />} />
           <Route path="/simplegame" element={<GameController game={getNewGame} />} />
+          <Route path="/gameconfigurator" element={<GameConfigurator />} />
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
