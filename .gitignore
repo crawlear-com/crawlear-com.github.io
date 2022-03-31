@@ -6,6 +6,10 @@ bin-release/
 
 # Other files and folders
 .settings/
+dist/
+etc/
+todo.txt
+uploadPi
 
 # Executables
 *.swf
