@@ -7,6 +7,7 @@ import '../resources/css/WinnerTable.scss';
 function WinnerTablePartial({ game }) {
     const { t } = useTranslation();
     let draw = false, 
+        finalWinner = 0,
         winnerOrTieBox = <></>;
 
     if (game.players.length>1 && 
