@@ -214,7 +214,6 @@ function initControlTestValues(game) {
         game: game
     }
 
-    
     newState.game.players.forEach((player)=>{
         player.zones = [];
 
@@ -238,4 +237,3 @@ function initControlTestValues(game) {
 }
 
 export default TotalTimeGame;
-

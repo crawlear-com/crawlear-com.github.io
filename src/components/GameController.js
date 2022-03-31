@@ -3,6 +3,7 @@ import GameMenu from './GameMenu';
 import WinnerTable from './WinnerTable';
 import GameTypePlayer from './GameTypePlayer';
 import Menu from './Menu';
+import Utils from '../Utils';
 import Analytics from '../Analytics';
 
 import '../resources/css/GameController.scss';
@@ -22,11 +23,6 @@ function GameController({game, onGameEnd}) {
         
         Analytics.event('menu', 'playModeChange', selectedIndex);
         newState.gameType = selectedIndex;
-        if(newState.gameType === 1) {
-            newState.pointsType = 0; 
-        } else {
-            newState.pointsType = 1; 
-        }
         setState(newState);
     }
     
@@ -38,18 +34,6 @@ function GameController({game, onGameEnd}) {
         newGame.gameStatus = GAME_STATUS_FINISH;        
         setState(newGame);
         onGameEnd && onGameEnd(newGame);
-    }
-    
-    function setUidsFromPlayers(players) {
-        const uids = [];
-
-        players.forEach((player)=>{
-            if (player.uid) {
-                uids.push(player.uid);
-            } 
-        });
-
-        return uids;
     }
 
     function onPlayerNumerChange(players) {
@@ -71,7 +55,7 @@ function GameController({game, onGameEnd}) {
             const newGame = {...state};
     
             Analytics.event('menu', 'beginGame', newGame.players.length);
-            newGame.uids = setUidsFromPlayers(newGame.players);
+            newGame.uids = Utils.getUidsFromUsers(newGame.players);
             newGame.gameStatus = GAME_STATUS_PLAY;
             setState(newGame);
         } else {

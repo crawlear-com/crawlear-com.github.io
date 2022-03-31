@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Picker from './Picker';
 import { useTranslation } from 'react-i18next';
 
 import '../resources/css/PlayerItem.scss';
 
-function PlayerItem({player, i, onRemovePlayer}) {
+function PlayerItem({player, i, onRemovePlayer, onClickPlayer}) {
     const { t } = useTranslation();
     const contasinerRef = React.useRef();
 
@@ -13,7 +12,11 @@ function PlayerItem({player, i, onRemovePlayer}) {
         onRemovePlayer && onRemovePlayer(event);
     }
 
-    return <li ref={contasinerRef} key={i} className="closed importantNote rounded playerListItem" value={player.name}>
+    function onClickPlayerItem() {
+        onClickPlayer && onClickPlayer(player.id);
+    }
+
+    return <li ref={contasinerRef} key={i} onClick={onClickPlayerItem} className="closed importantNote rounded playerListItem" value={player.name}>
         <div className="playerBox">
             <img referrerPolicy="no-referrer" src={player.avatar} alt="avatar"/>
             <div className="textOverflow">{player.name}</div>

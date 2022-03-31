@@ -10,7 +10,8 @@ import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
 import Analytics from './Analytics';
-import Game from './model/Game';
+import { Game } from './model/Game';
+import GameConfigurator from './components/GameConfigurator';
 
 import './resources/css/Base.scss';
 import './resources/css/App.scss';
@@ -40,9 +41,9 @@ function App() {
   function getNewGame() {
     return new Game("",
       new Date().toLocaleDateString(),
-      false,
       { latitude: 0, longitude: 0 },
-      [], 0, 0, 1, [], 40, 600000, 1, 10);
+      false, 2,
+      [], [], 600000, 40, 10, 4, 0, [], []);
   }
 
   return (<>
@@ -53,6 +54,7 @@ function App() {
           <Route path="/" element={<Landing onLoggin={onLoggin} />} />
           <Route path="/simplegame" element={<GameController game={getNewGame} />} />
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
+          <Route path="/gameconfigurator" element={<GameConfigurator />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />

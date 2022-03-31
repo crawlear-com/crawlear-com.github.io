@@ -34,21 +34,26 @@ i18n
             landingMainText: 'To get advanced functionality you can log in using your google.com account',
             landingSecondText: 'Or just play a',
             seleccionZonas: 'Select the number of zones',
-            seleccionPuertas: 'Select the number of progression gates'
+            seleccionPuertas: 'Select the number of progression gates',
+            seleccionapilotoyzona: 'Select a player and a zone to continue'
           },
           error: {
-              nojugadores: 'First add the players and select the type of game and score',
+              nojugadores: 'Add the players',
+              nojueces: 'Add the judges',
               nonombre: 'Fill in at least the name of the game to continue',
               nogeolocation: 'Cant get geolocation or there is a permission error'
           },
           description: {
             nojugadores: 'No players',
+            nojueces: 'No judges',
             nopartidas: 'No previous games',
             norequests: 'No current game requests',
             jugadores: 'Players',
+            jueces: 'Judges',
             nuevojugador: 'New player',
             ordenaleatorio: 'Random order',
             empezar: 'Begin',
+            crear: 'New game',
             atras: 'Back',
             ganador: 'WINNER',
             empate: 'TIE GAME',
@@ -71,7 +76,9 @@ i18n
             politicaprivacidad: 'Privacy policy',
             registro: 'Registration',
             descripcion: 'Description',
-            partidasprevias: 'Previous Games',
+            partidasprevias: 'Pilot games',
+            partidasenjuego: 'Current Games',
+            partidasdejuez: 'Judge Games',
             jugador: 'Player',
             nuevaPartida: 'New Game',
             nombre: 'Name',
@@ -84,6 +91,7 @@ i18n
             resultado: 'Result',
             vergooglemaps: 'View in Google Maps',
             usuariosenpartida: 'Players in game',
+            juecesenpartida: 'Judges in game',
             peticionesdejuego: 'Game requests',
             peticionde: 'Request from',
             parajuego: 'para el juego',
@@ -95,7 +103,10 @@ i18n
             penalizacionesadicionales: 'Additional penalties',
             avancepuerta: 'gate progression',
             fallospuerta: 'gate fails',
-            bonificacion: 'bonification'
+            bonificacion: 'bonification',
+            jugadorseleccionado: 'Selected player',
+            zonaseleccionada: 'Selected zone'
+
           },
           points: {
             vuelco: 'overturn',
@@ -173,21 +184,26 @@ i18n
             landingMainText: 'Para obtener funcionalidades avanzadas puedes ingresar con tu cuenta de google.com',
             landingSecondText: 'O si lo prefieres, puedes jugar simplemente una',
             seleccionZonas: 'Selecciona el número de zonas o sectores',
-            seleccionPuertas: 'Selecciona el número de puertas de progresión'
+            seleccionPuertas: 'Selecciona el número de puertas de progresión',
+            seleccionapilotoyzona: 'Selecciona un piloto y una zona para continuar'
           },
           error: {
-              nojugadores: 'Primero añade los jugadores y selecciona el tipo de juego y puntuación',
+              nojugadores: 'Añade a los jugadores',
+              nojueces: 'Añade a los jueces',
               nonombre: 'Rellena al menos el nombre de la partida para continuar',
               nogeolocation: 'No se puede obtener la geolocalización o no hay permisos'
           },
           description: {
               nojugadores: 'No hay jugadores',
+              nojueces: 'No hay jueces',
               nopartidas: 'No hay partidas guardadas',
               norequests: 'No hay peticiones de juego en curso',
               jugadores: 'Jugadores',
+              jueces: 'Jueces',
               nuevojugador: 'Nuevo jugador',
               ordenaleatorio: 'Orden aleatorio',
               empezar: 'Empezar',
+              crear: 'Crear juego',
               atras: 'Atrás',
               ganador: 'GANADOR',
               empate: 'EMPATE',
@@ -210,7 +226,9 @@ i18n
               politicaprivacidad: 'Política de privacidad',
               registro: 'Registro',
               descripcion: 'Descripción',
-              partidasprevias: 'Partidas Previas',
+              partidasprevias: 'Partidas como Piloto',
+              partidasenjuego: 'Partidas en proceso',
+              partidasdejuez: 'Partidas como Juez',
               jugador: 'Jugador',
               nuevaPartida: 'Nuevo juego',
               nombre: 'Nombre',
@@ -223,6 +241,7 @@ i18n
               resultado: 'Resultado',
               vergooglemaps: 'Ver en Google Maps',
               usuariosenpartida: 'Jugadores en partida',
+              juecesenpartida: 'Jueces en partida',
               peticionesdejuego: 'Peticiones de Juego',
               peticionde: 'Petición de',
               parajuego: 'para el juego',
@@ -234,7 +253,9 @@ i18n
               penalizacionesadicionales: 'Penalizaciones adicionales',
               avancepuerta: 'avance de puertas',
               fallospuerta: 'puertas fallidas',
-              bonificacion: 'bonificación'
+              bonificacion: 'bonificación',
+              jugadorseleccionado: 'Piloto seleccionado',
+              zonaseleccionada: 'Zona seleccionada'
           },
           points: {
             vuelco: 'vuelco',

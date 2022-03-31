@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import GameProgressionInfo from './GameProgressionInfo';
 import '../resources/css/GameList.scss';
 import WinnerTable from './WinnerTable';
 
-function GameList({games, onRemoveGame}) {
+function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGamePlay}) {
     const { t } = useTranslation();
     let i=0,
         gameList = [];
@@ -23,22 +23,38 @@ function GameList({games, onRemoveGame}) {
         }
     }
 
-    games && games.forEach((doc)=>{
-        gameList.push(<div key={i} className="gameContainer rounded rounded1 closed">
-                <span onClick={openCloseGame} className="textOverflow gameName bold">{doc.name} - {doc.date}</span>
-                <button data-position={i} className="removeButton" onClick={removeGame}>-</button>
+    games && games.forEach((game) => {
+        let info;
 
-                <WinnerTable game={doc} />
+        if(game.gameStatus === 0 || game.gameStatus === 1) {
+            if(gameProgressions && gameProgressions[game.gid]) {
+                info = <GameProgressionInfo
+                    game={game}
+                    gameProgression={gameProgressions[game.gid]} 
+                />
+            }
+
+            if (game.jids.find(element=>window.crawlear.user.uid===element)) {
+                info = <><button className="importantNote playGameButton" data-gameposition={i} onClick={onGamePlay}></button>{info}</>;
+            }
+        } else {
+            info = <WinnerTable game={game} />;
+        }
+
+        gameList.push(<div key={i} className="gameContainer rounded rounded1 closed">
+                <span onClick={openCloseGame} className="textOverflow gameName bold">{game.name} - {game.date}</span>
+                <button data-position={i} className="removeButton" onClick={removeGame}>-</button>
+                {info}
             </div>);
         i++;
-    })
+      });
 
     if(!games || games.length === 0) {
         gameList.push(<div key={i} className="centerText smallText">{t('description.nopartidas')}</div>);
     }
 
     return <div className="gameList rounded rounded3">
-            <div className="headerText bold">{t('description.partidasprevias')}</div>
+            <div className="headerText bold">{title}</div>
             {gameList}
         </div>;
 }
