@@ -1,20 +1,26 @@
-.zoneItem{
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.rounded.colorGreen {
-    background-image: none;
-    background-color: Green;
-    margin: 0 8px;
-}
-
-.rounded.colorGrey {
-    background-image: none;
-    background-color: #333;
-    margin: 0 8px;
-}
-
 .gameProgressionItem {
     padding: 15px;
+    font-size: 0.8em;
+    display: flex;
+    margin-bottom: 10px;
+
+    img {
+        width: 32px;
+    }
+    .rounded {
+        background-image: none;
+        margin: 8px;
+        line-height: 2.9;
+        box-shadow: none;
+    }
+    
+    .rounded.colorGreen {
+        background-color: Green;
+    }
+    .rounded.colorGrey {
+        background-color: #333;
+    }
+    .rounded.colorClearGrey {
+        background-color: #666;
+    }    
 }

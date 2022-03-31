@@ -1,10 +1,9 @@
-import { t } from 'i18next';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 import Utils from '../Utils';
 import ErrorBox from '../components/ErrorBox';
-import PlayerItem from '../components/PlayerItem';
+import GameProgression from './GameProgression';
 import GameTypePlayer from '../components/GameTypePlayer';
 
 import '../resources/css/GamePlayer.scss';
@@ -23,11 +22,7 @@ function GamePlayer({game}) {
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
     const { t } = useTranslation();
-    let i=0,
-        view,
-        players = [],
-        playersDone = [],
-        zones = [];
+    let view;
 
     React.useEffect(()=>{
         fb.getGameProgression(game.gid, ()=>{}, ()=>{}, (uid, progression)=>{
@@ -45,13 +40,8 @@ function GamePlayer({game}) {
         });
     },[]);
 
-    function onClickZone(event) {
-        const element = event.target;
-        setZone(Number(element.getAttribute("data-zone")));
-        setError("");
-    }
-
-    function onClickPlayer(player) {
+    function onZoneClick(player, zone) {
+        setZone(zone);
         setPlayer(player);
         setError("");
     }
@@ -60,7 +50,7 @@ function GamePlayer({game}) {
         if(player===-1 || zone === -1) {
             setError("Selecciona una zona y un jugador");
         } else {
-            const pid = game.players[player].uid || game.players[player].name;
+            const pid = player.id;
             const value = gameProgression[pid][zone];
 
             if(value === 'waiting') {
@@ -90,13 +80,13 @@ function GamePlayer({game}) {
     }
 
     function onGameEnd() {
-        const pid = game.players[player].uid || game.players[player].name;
+        const pid = player.id;
 
         gameProgression[pid][zone] = 'done';
         setGameProgression(gameProgression);
 
         fb.setGameResultForPlayerZone(game, player, zone);
-        fb.setGameProgression(game.gid, pid, zone, game.players[player].zones[zone]);
+        fb.setGameProgression(game.gid, pid, zone, player.zones[zone]);
 
         if(isGameNotFinished()) {
             setState(GAME_STATUS_CREATED);
@@ -117,56 +107,22 @@ function GamePlayer({game}) {
         return (<></>);
     }
 
-    for(let i=0;i<game.zones;i++) {
-        zones.push(<div data-zone={i} className="zoneItem rounded rounded2" onClick={onClickZone}>{t("description.zona")} {i+1}</div>);
-    }
-
-    game.players.forEach((player)=>{
-        let zones=[], 
-            j=0,
-            className = 'rounded importantNote';
-
-        players.push(<PlayerItem onClickPlayer={onClickPlayer} key={i} player={player} />);
-        player.zones.forEach((zone)=>{
-            if(gameProgression && gameProgression[player.uid || player.name]) {
-                if (gameProgression[player.uid || player.name][j] !== "waiting") {
-                    if (gameProgression[player.uid || player.name][j] === "playing") {
-                        className += " colorGreen";
-                    } else {
-                        className += " colorGrey";
-                    }
-                    zones.push(<span className={className}>{j+1}</span>);
-                }
-            }
-            j++;
-        });
-        playersDone.push(<div className='gameProgressionItem'>
-            <span className='rounded rounded2' key={i+j}>{player.name}:</span>{zones}
-        </div>);
-        i++;
-    })
-
     if (state === GAME_STATUS_CREATED) {
         view = <>
         <p>
-            Progreso de partida:<br />
-            {playersDone}
+            <GameProgression onZoneClick={onZoneClick} 
+                players={game.players}
+                gameProgression={gameProgression} />
         </p>
-        Selecciona un piloto y una zona para continuar.
         <p>
             <ErrorBox message={error} />
-            Selected player: {player !==-1 ? game.players[player].name : ""} <br />
-            Selected zone: {zone !==-1 ? zone+1 : ""}<br />
-        </p>
-
-        <p>
-            {players}
-            {zones}
+            {t('description.jugadorseleccionado')}: {player !==-1 ? player.name : ""} <br />
+            {t('description.zonaseleccionada')}: {zone !==-1 ? zone+1 : ""}<br />
         </p>
         <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>
         </>;
     } else if (state === GAME_STATUS_PLAYING) {
-        view = <GameTypePlayer player={player} zone={zone} game={game} onGameEnd={onGameEnd} />;
+        view = <GameTypePlayer player={player.id} zone={zone} game={game} onGameEnd={onGameEnd} />;
     } else if (state === GAME_STATUS_FINISHED) { 
         view = <WinnerTable game={game} />
     }

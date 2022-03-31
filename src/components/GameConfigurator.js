@@ -19,11 +19,11 @@ const STATE_LOCATION_LOCATING=2;
 
 function GameConfigurator() {
     const [game, setGame] = React.useState(()=>{
-        return new Game(("",
+        return new Game("",
         new Date().toLocaleDateString(),
         { latitude: 0, longitude: 0 },
         false, 2,
-        [], [], 600000, 40, 10, 4, 0, [], []));
+        [], [], 600000, 40, 10, 4, 0, [], []);
     });
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
@@ -31,6 +31,10 @@ function GameConfigurator() {
     const { t } = useTranslation();
     const fb = window.crawlear.fb;
     let locationElement;
+
+    React.useEffect(()=>{
+        window.scrollTo(0,0);
+    }, []);
 
     function onGameTypeChange(selectedIndex) {
         const newGame = {...game};
@@ -141,7 +145,9 @@ function GameConfigurator() {
 
     function beginGame() {
         window.scrollTo(0,0);
-        if (game.name && game.players.length && game.judges.length) {
+        if (!game.name || !game.name.length) {
+            setErrorMessage(t('error.nonombre'));
+        } else if (game.name && game.players.length && game.judges.length) {
             const newGame = {...game};
 
             newGame.uids = Utils.getUidsFromUsers(newGame.players);
@@ -153,8 +159,6 @@ function GameConfigurator() {
                 setGame(newGame);
             }, ()=>{});
             navigate("/completegame");            
-        } else if (!game.name || !game.name.length) {
-            setErrorMessage(t('error.nonombre'));
         } else if (!game.judges.length) {
             setErrorMessage(t('error.nojueces'));
         } else if (!game.players.length) {

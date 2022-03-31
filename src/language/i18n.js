@@ -34,7 +34,8 @@ i18n
             landingMainText: 'To get advanced functionality you can log in using your google.com account',
             landingSecondText: 'Or just play a',
             seleccionZonas: 'Select the number of zones',
-            seleccionPuertas: 'Select the number of progression gates'
+            seleccionPuertas: 'Select the number of progression gates',
+            seleccionapilotoyzona: 'Select a player and a zone to continue'
           },
           error: {
               nojugadores: 'Add the players',
@@ -75,7 +76,7 @@ i18n
             politicaprivacidad: 'Privacy policy',
             registro: 'Registration',
             descripcion: 'Description',
-            partidasprevias: 'Owner games',
+            partidasprevias: 'Pilot games',
             partidasenjuego: 'Current Games',
             partidasdejuez: 'Judge Games',
             jugador: 'Player',
@@ -102,7 +103,10 @@ i18n
             penalizacionesadicionales: 'Additional penalties',
             avancepuerta: 'gate progression',
             fallospuerta: 'gate fails',
-            bonificacion: 'bonification'
+            bonificacion: 'bonification',
+            jugadorseleccionado: 'Selected player',
+            zonaseleccionada: 'Selected zone'
+
           },
           points: {
             vuelco: 'overturn',
@@ -180,7 +184,8 @@ i18n
             landingMainText: 'Para obtener funcionalidades avanzadas puedes ingresar con tu cuenta de google.com',
             landingSecondText: 'O si lo prefieres, puedes jugar simplemente una',
             seleccionZonas: 'Selecciona el número de zonas o sectores',
-            seleccionPuertas: 'Selecciona el número de puertas de progresión'
+            seleccionPuertas: 'Selecciona el número de puertas de progresión',
+            seleccionapilotoyzona: 'Selecciona un piloto y una zona para continuar'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -221,7 +226,7 @@ i18n
               politicaprivacidad: 'Política de privacidad',
               registro: 'Registro',
               descripcion: 'Descripción',
-              partidasprevias: 'Partidas gestionadas / piloto',
+              partidasprevias: 'Partidas como Piloto',
               partidasenjuego: 'Partidas en proceso',
               partidasdejuez: 'Partidas como Juez',
               jugador: 'Jugador',
@@ -248,7 +253,9 @@ i18n
               penalizacionesadicionales: 'Penalizaciones adicionales',
               avancepuerta: 'avance de puertas',
               fallospuerta: 'puertas fallidas',
-              bonificacion: 'bonificación'
+              bonificacion: 'bonificación',
+              jugadorseleccionado: 'Piloto seleccionado',
+              zonaseleccionada: 'Zona seleccionada'
           },
           points: {
             vuelco: 'vuelco',

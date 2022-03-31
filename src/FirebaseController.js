@@ -170,13 +170,30 @@ class FirebaseController {
   }
 
   async getGamesFromUser(uid, okCallback, koCallback) {
+    const currentGames = [];
+    const userGames = [];
+
     try {
       const q = query(collection(this.db, "games"), 
-        where("uids", "array-contains", uid), 
-        where("gameStatus", "==", 2));
+        where("uids", "array-contains", uid));
       const querySnapshot = await getDocs(q);
 
-      okCallback && okCallback(this.transformGamesIntoModel(querySnapshot.docs));
+      querySnapshot.docs.forEach((game)=>{
+        const data = game.data();
+        
+        if(!data.jids || data.jids.indexOf(window.crawlear.user.uid)<0) {
+          if (typeof data.gameStatus === 'undefined' || data.gameStatus === 2) {
+            userGames.push(game);
+          } else if(data.gameStatus === 0 || data.gameStatus === 1){
+            currentGames.push(game);
+          } else {
+            userGames.push(game);
+          }
+        }
+      });
+
+      okCallback && okCallback(this.transformGamesIntoModel(userGames), 
+        this.transformGamesIntoModel(currentGames));
       } catch(e) {
         koCallback && koCallback();
     }
@@ -184,21 +201,20 @@ class FirebaseController {
 
   async getGamesFromJudge(jid, okCallback, koCallback) {
     try {
+      const q = query(collection(this.db, "games"), 
+        where("jids", "array-contains", jid));
       const judgeGames = [];
       const currentGames = [];
-      const q = query(collection(this.db, "games"), where("jids", "array-contains", jid));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.docs.forEach((game)=>{
         const data = game.data();
         
-        if(data.uids.indexOf(window.crawlear.user.uid)<0) {
-          if(data.gameStatus !== 2) {
-              currentGames.push(game);
-            } else {
-              judgeGames.push(game);
-            }
-          }
+        if(data.gameStatus !== 2) {
+          currentGames.push(game);
+        } else {
+          judgeGames.push(game);
+        }
       });
 
       okCallback && okCallback(this.transformGamesIntoModel(judgeGames),
@@ -209,13 +225,7 @@ class FirebaseController {
   }
 
   async setGame(game, okCallback, koCallback) {
-    //let playersUid = [];
-    
     if(this.isUserLogged()) {
-      /*game.players.forEach(element => { 
-        element.uid && playersUid.push(element.uid); 
-      });*/
-
       try {
         if (game.uids.length<=0) {
           game.uids.push(window.crawlear.user.uid);
@@ -398,7 +408,7 @@ class FirebaseController {
     for(let i=0; i<game.players.length;i++) {
       for(let j=0; j<game.zones; j++) {
         this.setGameProgression(game.gid, 
-            game.players[i].uid || game.players[i].name,
+            game.players[i].id,
             j,
             'waiting');
       }
