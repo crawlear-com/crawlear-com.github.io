@@ -85,7 +85,7 @@ function GamePlayer({game}) {
         gameProgression[pid][zone] = 'done';
         setGameProgression(gameProgression);
 
-        fb.setGameResultForPlayerZone(game, player, zone);
+        fb.setGameResultForPlayerZone(game, pid, zone);
         fb.setGameProgression(game.gid, pid, zone, player.zones[zone]);
 
         if(isGameNotFinished()) {

@@ -15,9 +15,11 @@ const STATE_PLAYING = 1;
 function GameManagement({onLogout}) {
     const firebase = window.crawlear.fb;
     const { t } = useTranslation();
+    
     const [games, setGames] = React.useState([]);
     const [judgeGames, setJudgeGames] = React.useState([]);
     const [currentGames, setCurrentGames] = React.useState([]);
+
     const [currentGameProgressions, setCurrentGameProgressions] = React.useState([]);
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
@@ -37,31 +39,23 @@ function GameManagement({onLogout}) {
     }
 
     function getGameProgressionsForCurrentGames(games) {
-        Object.entries(games).forEach(entry => {
-            const [key, game] = entry;
-        
+        games.forEach(game => {
             firebase.getGameProgression(game.gid, ()=>{}, ()=>{}, (uid, progression)=>{
-                const res = {};
+                const res = [...currentGameProgressions];
     
-                res[game.gid] = {};
+                if(!res[game.gid]) {
+                    res[game.gid] = [];
+                }
                 res[game.gid][uid] = progression;
-                setCurrentGameProgressions((previousInputs) => {
-                    previousInputs[game.gid] = previousInputs[game.gid] ? 
-                        { ...previousInputs[game.gid],...res[game.gid] }
-                        : res[game.gid];
-                    return { ...previousInputs};
-                });
+                setCurrentGameProgressions(res);
             }, (uid, progression)=>{
-                const res = {};
+                const res = [...currentGameProgressions];
     
-                res[game.gid] = {};
+                if(!res[game.gid]) {
+                    res[game.gid] = [];
+                }
                 res[game.gid][uid] = progression;
-                setCurrentGameProgressions((previousInputs) => {
-                    previousInputs[game.gid] = previousInputs[game.gid] ? 
-                        { ...previousInputs[game.gid],...res[game.gid] }
-                        : res[game.gid];
-                    return { ...previousInputs};
-                });
+                setCurrentGameProgressions(res);
             });    
         });
     }
@@ -78,13 +72,13 @@ function GameManagement({onLogout}) {
         });
     }
 
-    function onRemoveGame(gamePosition) {
-        const game = games[gamePosition];
-        const newGames = [...games];
+    function onRemoveGame(gameData, setMethod, gamePosition) {
+        const game = gameData[gamePosition];
+        const newGames = [...gameData];
 
         newGames.splice(gamePosition,1);
         window.crawlear.fb.removeUidFromGame(game, window.crawlear.user.uid);
-        setGames(newGames);
+        setMethod(newGames);
     }
 
     function onGamePlay(event) {
@@ -108,23 +102,25 @@ function GameManagement({onLogout}) {
             {state === STATE_MENU ? 
                 <>
                     <UserProfile user={window.crawlear.user} onLogout={onLogout} />
+                    
                     <GameRequests user={window.crawlear.user} />
+
                     <GameList title={t('description.partidasenjuego')} 
                         games={currentGames}
                         gameProgressions={currentGameProgressions}
                         onGamePlay={onGamePlay}
                         readOnly={false}
-                        onRemoveGame={onRemoveGame} />
+                        onRemoveGame={(gamePosition)=>{onRemoveGame(currentGames, setCurrentGames, gamePosition)}} />
 
                     <GameList title={t('description.partidasprevias')} 
                         games={games}
                         readOnly={true}
-                        onRemoveGame={onRemoveGame}/>
+                        onRemoveGame={(gamePosition)=>{onRemoveGame(games, setGames, gamePosition)}} />
                     <GameList title={t('description.partidasdejuez')} 
                         games={judgeGames} 
                         readOnly={false}
                         onGamePlay={onGamePlay}
-                        onRemoveGame={onRemoveGame} />
+                        onRemoveGame={(gamePosition)=>{onRemoveGame(judgeGames, setJudgeGames, gamePosition)}} />
 
                     <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crear')}</button>
                 </> : 

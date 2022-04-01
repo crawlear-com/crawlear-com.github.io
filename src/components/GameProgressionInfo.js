@@ -11,10 +11,10 @@ function GameProgressionInfo({game, gameProgression}) {
     game.players.forEach((player)=>{
         let zones=[], 
             j=0,
-            className;
+            className = 'rounded';
 
         player.zones.forEach(()=>{
-            if(gameProgression && typeof(gameProgression[player.id]) === 'string') {
+            if(gameProgression && gameProgression[player.id] && typeof(gameProgression[player.id][j]) === 'string') {
                 if (gameProgression[player.id][j] !== "waiting") {
                     if (gameProgression[player.id][j] === "playing") {
                         className += " colorGreen";
