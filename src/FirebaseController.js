@@ -246,6 +246,7 @@ class FirebaseController {
 
   async removeGame(gid) {
     await deleteDoc(doc(this.db, "games", gid));
+    remove(ref(this.rdb, `gameProgression/${gid}/`));
   }
 
   async removeUidFromGame(game, uid) {

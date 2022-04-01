@@ -9,22 +9,12 @@ function GameProgressionInfo({game, gameProgression}) {
 
     playersDone.push(<GameHeaderInfo game={game}/>);
     game.players.forEach((player)=>{
-        let zones=[], 
-            j=0,
-            className = 'rounded';
+        let zones=[], j=0;
 
         player.zones.forEach(()=>{
-            if(gameProgression && gameProgression[player.id] && typeof(gameProgression[player.id][j]) === 'string') {
-                if (gameProgression[player.id][j] !== "waiting") {
-                    if (gameProgression[player.id][j] === "playing") {
-                        className += " colorGreen";
-                    } else {
-                        className += " colorClearGrey";
-                    }
-                }
-                zones.push(<span data-zone={j} key={j+1} className={className}>{j+1}</span>);
-            } else if(gameProgression && 
+            if(gameProgression && 
                     gameProgression[player.id] && 
+                    gameProgression[player.id][j] &&
                     gameProgression[player.id][j].controlTextValues) {
                 const points = gameProgression[player.id][j].points,
                     time = gameProgression[player.id][j].time,

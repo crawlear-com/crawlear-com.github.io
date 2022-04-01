@@ -104,22 +104,6 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
         newState.forceAction = 'stop';
 
         Analytics.event('play', 'endPlayer', players[playerIndex].name);
-        /*if (currentPlayer+1 < game.players.length) {
-            newState.game.currentPlayer = currentPlayer+1;
-            setState(previousInputs => ({ 
-                ...previousInputs,
-                ...newState}));
-        } else {
-            if (game.currentZone+1 < game.zones) {
-                game.currentPlayer = 0;
-                game.currentZone++;
-                setState(previousInputs => ({ 
-                    ...previousInputs,
-                    ...newState}));
-            } else if (onGameEnd) {
-                onGameEnd(Utils.calulateFinalGameResult(game));
-            }
-        }*/
         onGameEnd(game);
     }
 
@@ -129,6 +113,7 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
             currentZone = zones[zoneIndex];
 
         if (Math.abs(value - currentZone.gateProgression) > 1) return;
+
         if (value < currentZone.gateProgression) {
             for(let i=value;i<newState.game.gates;i++) {
                 currentZone.gatePoints[i]=0;

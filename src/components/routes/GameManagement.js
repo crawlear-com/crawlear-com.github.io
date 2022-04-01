@@ -20,7 +20,9 @@ function GameManagement({onLogout}) {
     const [judgeGames, setJudgeGames] = React.useState([]);
     const [currentGames, setCurrentGames] = React.useState([]);
 
-    const [currentGameProgressions, setCurrentGameProgressions] = React.useState([]);
+    const [currentGameProgressions, setCurrentGameProgressions] = React.useState();
+    const gameProgressionsRef = React.useRef({});
+
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
     const navigate = useNavigate();
@@ -41,22 +43,19 @@ function GameManagement({onLogout}) {
     function getGameProgressionsForCurrentGames(games) {
         games.forEach(game => {
             firebase.getGameProgression(game.gid, ()=>{}, ()=>{}, (uid, progression)=>{
-                const res = [...currentGameProgressions];
+                const res = {};
     
-                if(!res[game.gid]) {
-                    res[game.gid] = [];
-                }
+                res[game.gid] = {};
                 res[game.gid][uid] = progression;
-                setCurrentGameProgressions(res);
+                gameProgressionsRef.current[game.gid] = {...gameProgressionsRef.current[game.gid], ...res[game.gid]};
+                setCurrentGameProgressions({...gameProgressionsRef.current});
             }, (uid, progression)=>{
-                const res = [...currentGameProgressions];
+                const res = {};
     
-                if(!res[game.gid]) {
-                    res[game.gid] = [];
-                }
+                res[game.gid] = {};
                 res[game.gid][uid] = progression;
-                setCurrentGameProgressions(res);
-            });    
+                gameProgressionsRef.current = {...gameProgressionsRef.current, ...res};
+                setCurrentGameProgressions({...gameProgressionsRef.current, ...res});            });
         });
     }
 
@@ -117,7 +116,7 @@ function GameManagement({onLogout}) {
                         readOnly={true}
                         onRemoveGame={(gamePosition)=>{onRemoveGame(games, setGames, gamePosition)}} />
                     <GameList title={t('description.partidasdejuez')} 
-                        games={judgeGames} 
+                        games={judgeGames}
                         readOnly={false}
                         onGamePlay={onGamePlay}
                         onRemoveGame={(gamePosition)=>{onRemoveGame(judgeGames, setJudgeGames, gamePosition)}} />
@@ -127,8 +126,8 @@ function GameManagement({onLogout}) {
 
                 state === STATE_PLAYING ? 
                     <>
-                        <GamePlayer game={game} />
-                        <button className="backButton" onClick={goBackToMenuStatus}>{t('description.atras')}</button>
+                        <GamePlayer game={game}
+                            onBackButtonClick={goBackToMenuStatus} />
                     </> : 
 
             <></>}

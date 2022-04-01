@@ -5,6 +5,7 @@ import Utils from '../Utils';
 import ErrorBox from '../components/ErrorBox';
 import GameProgression from './GameProgression';
 import GameTypePlayer from '../components/GameTypePlayer';
+import { useNavigate } from 'react-router-dom';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';
@@ -13,7 +14,7 @@ const GAME_STATUS_CREATED = 0;
 const GAME_STATUS_PLAYING = 1;
 const GAME_STATUS_FINISHED = 2;
 
-function GamePlayer({game}) {
+function GamePlayer({game, onBackButtonClick}) {
     const fb = window.crawlear.fb;
     const [state, setState] = React.useState(GAME_STATUS_CREATED);
     const [error,setError] = React.useState("");
@@ -21,6 +22,7 @@ function GamePlayer({game}) {
     const [zone, setZone] = React.useState(-1);
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
+    const navigate = useNavigate();
     const { t } = useTranslation();
     let view;
 
@@ -100,6 +102,11 @@ function GamePlayer({game}) {
         }
     }
 
+    function backFromWinnerTableNavigation() {
+        navigate("/completegame");
+    }
+
+
     if(!game.jids.find((elem)=>{
             return elem === window.crawlear.user.uid;
         })) {
@@ -120,11 +127,13 @@ function GamePlayer({game}) {
             {t('description.zonaseleccionada')}: {zone !==-1 ? zone+1 : ""}<br />
         </p>
         <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>
+        <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
         </>;
     } else if (state === GAME_STATUS_PLAYING) {
         view = <GameTypePlayer player={player.id} zone={zone} game={game} onGameEnd={onGameEnd} />;
     } else if (state === GAME_STATUS_FINISHED) { 
-        view = <WinnerTable game={game} />
+        view = <div class="gameList"><WinnerTable game={game} />
+        <button className="backButton" onClick={backFromWinnerTableNavigation}>{t('description.atras')}</button></div>
     }
 
     return view;
