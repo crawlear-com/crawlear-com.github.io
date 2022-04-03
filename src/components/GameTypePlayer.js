@@ -13,6 +13,8 @@ function GameTypePlayer({game, player, zone, onGameEnd}) {
         elementsToRender.push(<TotalTimeGame 
             key={0}
             game={game}
+            playerIndex={player}
+            zoneIndex={zone}
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}
@@ -21,6 +23,8 @@ function GameTypePlayer({game, player, zone, onGameEnd}) {
         elementsToRender.push(<KingGame 
             key={0}
             game={game}
+            playerIndex={player}
+            zoneIndex={zone}
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}

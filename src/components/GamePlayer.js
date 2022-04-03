@@ -102,11 +102,6 @@ function GamePlayer({game, onBackButtonClick}) {
         }
     }
 
-    function backFromWinnerTableNavigation() {
-        navigate("/completegame");
-    }
-
-
     if(!game.jids.find((elem)=>{
             return elem === window.crawlear.user.uid;
         })) {
@@ -133,7 +128,7 @@ function GamePlayer({game, onBackButtonClick}) {
         view = <GameTypePlayer player={player.id} zone={zone} game={game} onGameEnd={onGameEnd} />;
     } else if (state === GAME_STATUS_FINISHED) { 
         view = <div class="gameList"><WinnerTable game={game} />
-        <button className="backButton" onClick={backFromWinnerTableNavigation}>{t('description.atras')}</button></div>
+        <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
     }
 
     return view;

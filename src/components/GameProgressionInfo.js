@@ -26,8 +26,10 @@ function GameProgressionInfo({game, gameProgression}) {
                         <ul>
                             <li>{t('description.puntos')}: <span className="bold">{points}</span></li>
                             <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>
-                            <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
-                            <li>{t('description.bonificacion')}: <span className="bold">{bonitification}</span></li>
+                            {game.gameType === 2 ? <>
+                                <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
+                                <li>{t('description.bonificacion')}: <span className="bold">{bonitification}</span></li></>
+                            :<></>}
                         </ul>
                     </div>);
                     

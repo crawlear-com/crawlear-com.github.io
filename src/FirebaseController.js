@@ -356,6 +356,14 @@ class FirebaseController {
     });
   }
 
+  getGameProgressionOnce(gid, okCallback, koCallback) {
+    const dataSnapshot = get(ref(this.rdb, `gameProgression/${gid}`));
+    
+    dataSnapshot.then((snapshot)=>{
+      okCallback && okCallback(snapshot.key, snapshot.val());
+    }, koCallback);
+  }
+  
   getGameProgression(gid, okCallback, koCallback, onRequestAdded, onRequestChanged) {
     const gameProgressionRef = ref(this.rdb, `gameProgression/${gid}`);
 
