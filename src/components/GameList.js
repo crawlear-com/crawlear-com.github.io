@@ -34,7 +34,7 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGam
                 />
             }
 
-            if (game.jids.find(element=>window.crawlear.user.uid===element)) {
+            if (game.jids.find(element=>window.crawlear.user.uid===element && !readOnly)) {
                 info = <><button className="importantNote playGameButton" data-gameposition={i} onClick={onGamePlay}></button>{info}</>;
             }
         } else {

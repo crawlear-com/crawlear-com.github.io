@@ -22,7 +22,6 @@ function GamePlayer({game, onBackButtonClick}) {
     const [zone, setZone] = React.useState(-1);
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
-    const navigate = useNavigate();
     const { t } = useTranslation();
     let view;
 
@@ -82,53 +81,70 @@ function GamePlayer({game, onBackButtonClick}) {
     }
 
     function onGameEnd() {
-        const pid = player.id;
-
-        gameProgression[pid][zone] = 'done';
-        setGameProgression(gameProgression);
-
-        fb.setGameResultForPlayerZone(game, pid, zone);
-        fb.setGameProgression(game.gid, pid, zone, player.zones[zone]);
-
-        if(isGameNotFinished()) {
-            setState(GAME_STATUS_CREATED);
+        if (player === -1 && zone === -1) {
+            game = Utils.calulateFinalGameResult(game)
+            game.gameStatus = 2;
+            fb.updateGame(game);
+            fb.removeGameProgression(game.gid);
+            setState(GAME_STATUS_FINISHED);
         } else {
-            fb.getGameResult(Utils.calulateFinalGameResult(game), (game)=>{
-                game.gameStatus = 2;
-                fb.updateGame(game);
-                fb.removeGameProgression(game.gid);
-                setState(GAME_STATUS_FINISHED);
-            }, ()=>{});
+            const pid = player.id;
+
+            gameProgression[pid][zone] = 'done';
+            setGameProgression(gameProgression);
+    
+            fb.setGameResultForPlayerZone(game, pid, zone);
+            fb.setGameProgression(game.gid, pid, zone, player.zones[zone]);
+    
+            if(isGameNotFinished()) {
+                setState(GAME_STATUS_CREATED);
+            } else {
+                fb.getGameResult(Utils.calulateFinalGameResult(game), (game)=>{
+                    game.gameStatus = 2;
+                    fb.updateGame(game);
+                    fb.removeGameProgression(game.gid);
+                    setState(GAME_STATUS_FINISHED);
+                }, ()=>{});
+            }
         }
     }
 
-    if(!game.jids.find((elem)=>{
+    /*if(!game.jids.find((elem)=>{
             return elem === window.crawlear.user.uid;
         })) {
 
         return (<></>);
-    }
+    }*/
 
-    if (state === GAME_STATUS_CREATED) {
-        view = <>
-        <p>
-            <GameProgression onZoneClick={onZoneClick} 
-                players={game.players}
-                gameProgression={gameProgression} />
-        </p>
-        <p>
-            <ErrorBox message={error} />
-            {t('description.jugadorseleccionado')}: {player !==-1 ? player.name : ""} <br />
-            {t('description.zonaseleccionada')}: {zone !==-1 ? zone+1 : ""}<br />
-        </p>
-        <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>
-        <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
-        </>;
-    } else if (state === GAME_STATUS_PLAYING) {
-        view = <GameTypePlayer player={player.id} zone={zone} game={game} onGameEnd={onGameEnd} />;
-    } else if (state === GAME_STATUS_FINISHED) { 
-        view = <div class="gameList"><WinnerTable game={game} />
-        <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
+    if (game.gameType !== 1) {
+        if (state === GAME_STATUS_CREATED) {
+            view = <>
+            <p>
+                <GameProgression onZoneClick={onZoneClick} 
+                    players={game.players}
+                    gameProgression={gameProgression} />
+            </p>
+            <p>
+                <ErrorBox message={error} />
+                {t('description.jugadorseleccionado')}: {player !==-1 ? player.name : ""} <br />
+                {t('description.zonaseleccionada')}: {zone !==-1 ? zone+1 : ""}<br />
+            </p>
+            <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>
+            <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
+            </>;
+        } else if (state === GAME_STATUS_PLAYING) {
+            view = <GameTypePlayer player={player.id} zone={zone} game={game} onGameEnd={onGameEnd} />;
+        } else if (state === GAME_STATUS_FINISHED) { 
+            view = <div class="gameList"><WinnerTable game={game} />
+            <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
+        }
+    } else {
+        if (state === GAME_STATUS_CREATED || view === GAME_STATUS_PLAYING) { 
+            view = <GameTypePlayer game={game} onGameEnd={onGameEnd} />;
+        } else {
+            view = <div class="gameList"><WinnerTable game={game} />
+            <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
+        }        
     }
 
     return view;

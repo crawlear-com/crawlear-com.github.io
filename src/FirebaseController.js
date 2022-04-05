@@ -170,30 +170,21 @@ class FirebaseController {
   }
 
   async getGamesFromUser(uid, okCallback, koCallback) {
-    const currentGames = [];
-    const userGames = [];
-
     try {
+      const games = [];
       const q = query(collection(this.db, "games"), 
         where("uids", "array-contains", uid));
       const querySnapshot = await getDocs(q);
 
-      querySnapshot.docs.forEach((game)=>{
-        const data = game.data();
-        
-        if(!data.jids || data.jids.indexOf(window.crawlear.user.uid)<0) {
-          if (typeof data.gameStatus === 'undefined' || data.gameStatus === 2) {
-            userGames.push(game);
-          } else if(data.gameStatus === 0 || data.gameStatus === 1){
-            currentGames.push(game);
-          } else {
-            userGames.push(game);
-          }
+      querySnapshot.docs.forEach((gameData)=>{
+        const game = gameData.data();
+
+        if(game.jids.indexOf(uid)<0) {
+          games.push(gameData);
         }
       });
 
-      okCallback && okCallback(this.transformGamesIntoModel(userGames), 
-        this.transformGamesIntoModel(currentGames));
+      okCallback && okCallback(this.transformGamesIntoModel(games));
       } catch(e) {
         koCallback && koCallback();
     }
@@ -203,22 +194,9 @@ class FirebaseController {
     try {
       const q = query(collection(this.db, "games"), 
         where("jids", "array-contains", jid));
-      const judgeGames = [];
-      const currentGames = [];
       const querySnapshot = await getDocs(q);
 
-      querySnapshot.docs.forEach((game)=>{
-        const data = game.data();
-        
-        if(data.gameStatus !== 2) {
-          currentGames.push(game);
-        } else {
-          judgeGames.push(game);
-        }
-      });
-
-      okCallback && okCallback(this.transformGamesIntoModel(judgeGames),
-        this.transformGamesIntoModel(currentGames));
+      okCallback && okCallback(this.transformGamesIntoModel(querySnapshot.docs));
       } catch(e) {
         koCallback && koCallback();
     }
@@ -227,8 +205,8 @@ class FirebaseController {
   async setGame(game, okCallback, koCallback) {
     if(this.isUserLogged()) {
       try {
-        if (game.uids.length<=0) {
-          game.uids.push(window.crawlear.user.uid);
+        if (game.jids.length <= 0) {
+          game.jids.push(window.crawlear.user.uid);
         }
 
         const gameRef = await addDoc(collection(this.db, "games"), this.transformGamesIntoData(game));
@@ -253,15 +231,10 @@ class FirebaseController {
     const position = game.uids.indexOf(uid);
 
     game.uids.splice(position, 1);
-
-    if(game.uids.length>0) {
-      updateDoc(doc(this.db, "games", game.gid), this.transformGamesIntoData(game));
-    } else {
-      this.removeGame(game.gid);
-    }
+    updateDoc(doc(this.db, "games", game.gid), this.transformGamesIntoData(game));
   }
 
-  async removeUidFromJudgeGame(game, jid) {
+  async removeJidFromGame(game, jid) {
     const position = game.jids.indexOf(jid);
 
     game.jids.splice(position, 1);

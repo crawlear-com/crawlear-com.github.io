@@ -5,7 +5,11 @@
     margin-bottom: 10px;
 
     img {
-        width: 32px;
+        display: block;
+        max-width: 90px;
+        max-height: 45px;
+        width: auto;
+        height: auto;
     }
     .rounded {
         background-image: none;

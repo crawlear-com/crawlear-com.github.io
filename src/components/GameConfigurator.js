@@ -29,6 +29,7 @@ function GameConfigurator() {
     const [errorMessage, setErrorMessage] = React.useState("");
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);
     const { t } = useTranslation();
+    const extraConfigurationComponents = [];
     const fb = window.crawlear.fb;
     let locationElement;
 
@@ -147,22 +148,32 @@ function GameConfigurator() {
         window.scrollTo(0,0);
         if (!game.name || !game.name.length) {
             setErrorMessage(t('error.nonombre'));
-        } else if (game.name && game.players.length && game.judges.length) {
-            const newGame = {...game};
-
-            newGame.uids = Utils.getUidsFromUsers(newGame.players);
-            newGame.jids = Utils.getUidsFromUsers(newGame.judges);
-            GameUtils.init(newGame);
-            fb.setGame(newGame, (game)=>{
-                newGame.gid = game.gid;
-                fb.createGameProgression(newGame);
-                setGame(newGame);
-            }, ()=>{});
-            navigate("/completegame");            
-        } else if (!game.judges.length) {
+        } else if ((game.gameType !== 1 && game.name && game.players.length && game.judges.length) || 
+            (game.gameType === 1 && game.name && game.players.length)) {
+                const newGame = {...game};
+    
+                if (game.gameType === 1) {
+                    newGame.judges.push({...window.crawlear.user});
+                }
+                newGame.uids = Utils.getUidsFromUsers(newGame.players);
+                newGame.jids = Utils.getUidsFromUsers(newGame.judges);
+                GameUtils.init(newGame);
+                fb.setGame(newGame, (game)=>{
+                    newGame.gid = game.gid;
+                    fb.createGameProgression(newGame);
+                    setGame(newGame);
+                }, ()=>{});
+                navigate("/completegame");            
+        } else if (!game.judges.length && game.gameType !== 1) {
             setErrorMessage(t('error.nojueces'));
         } else if (!game.players.length) {
             setErrorMessage(t('error.nojugadores'));
+        } else {
+            if (!game.judges.length && game.gameType !== 1) {
+                setErrorMessage(t('error.nojueces'));
+            } else if (!game.players.length) {
+                setErrorMessage(t('error.nojugadores'));
+            }
         }
     }
 
@@ -179,6 +190,30 @@ function GameConfigurator() {
         }
     } else {
         locationElement = <div className="">{t('content.nogeolocation')}</div>;
+    }
+
+    if (game.gameType !== 1) {
+        extraConfigurationComponents.push(<MaxTimeAndPointsPicker
+            mode={game.pointsType} 
+            onMaxPointsChange={onMaxPointsChange}
+            onMaxTimeChange={onMaxTimeChange}
+            maxTime={game.maxTime}
+            maxPoints={game.maxPoints}
+            showTimePicker={true} />);
+        extraConfigurationComponents.push(<ZonesPicker
+            game={game}
+            value={game.zones}
+            onZonesChange={onZonesChange}
+            onGatesChange={onGatesChange}
+            onMaxPointsChange={onMaxPointsChange}
+            onMaxTimeChange={onMaxTimeChange} />);
+        extraConfigurationComponents.push(<GateProgressionPicker
+            value={10}
+            onGatesChange={onGatesChange} />);
+        extraConfigurationComponents.push(<PlayerController 
+                isForJudge={true}
+                gameName={game.name}
+                onPlayerNumerChange={onJudgeNumerChange} />);
     }
 
     return (<>
@@ -202,27 +237,8 @@ function GameConfigurator() {
             </div>
         </div>
 
-        <MaxTimeAndPointsPicker
-            mode={game.pointsType} 
-            onMaxPointsChange={onMaxPointsChange}
-            onMaxTimeChange={onMaxTimeChange}
-            maxTime={game.maxTime}
-            maxPoints={game.maxPoints}
-            showTimePicker={true} />
-        <ZonesPicker
-            game={game}
-            value={game.zones}
-            onZonesChange={onZonesChange}
-            onGatesChange={onGatesChange}
-            onMaxPointsChange={onMaxPointsChange}
-            onMaxTimeChange={onMaxTimeChange} />
-        <GateProgressionPicker
-            value={10}
-            onGatesChange={onGatesChange} />
-        <PlayerController 
-            isForJudge={true}
-            gameName={game.name}
-            onPlayerNumerChange={onJudgeNumerChange} />
+        {extraConfigurationComponents}
+
         <PlayerController gameName={game.name} 
             isForJudge={false}
             onPlayerNumerChange={(players)=>{

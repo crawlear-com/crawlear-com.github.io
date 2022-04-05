@@ -23,8 +23,6 @@ function GameTypePlayer({game, player, zone, onGameEnd}) {
         elementsToRender.push(<KingGame 
             key={0}
             game={game}
-            playerIndex={player}
-            zoneIndex={zone}
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}
