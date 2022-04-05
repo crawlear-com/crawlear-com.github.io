@@ -89,6 +89,11 @@
 }
 
 .closed {
-  height: 25px;
+  height: 30px;
   box-shadow: none;
+}
+
+.horizontalScrollContainer {
+  overflow-x: scroll;
+  overflow-y: hidden;
 }

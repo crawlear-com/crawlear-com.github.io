@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import WinnerTable from '../../components/WinnerTable.js';
-import Game from '../../model/Game.js';
+import { Game } from '../../model/Game.js';
 
 const div = document.createElement('div'),
     goToMenuMock = jest.fn();
@@ -58,15 +58,15 @@ beforeEach(()=>{
 
 test("renders the basic winner table", () => {
   const { container } = render(<WinnerTable game={game} />, div);
-  const elem  = container.querySelector(".gameList");
+  const elem  = container.querySelector(".gameParticipants");
 
   expect(elem.textContent.indexOf("Player1")).toBeGreaterThan(0);
 });
 
 test("renders the winner table", () => {
     const { container } = render(<WinnerTable game={game} />, div);  
-    const elem  = container.querySelector(".gameList");
+    const elem  = container.querySelector(".gameParticipants");
   
-    expect(elem.textContent.indexOf("Player1")).toBe(149);
-    expect(elem.textContent.indexOf("Player2")).toBe(201);
+    expect(elem.textContent.indexOf("Player1")).toBe(48);
+    expect(elem.textContent.indexOf("Player2")).toBe(98);
   });

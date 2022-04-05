@@ -10,7 +10,7 @@ import TotalTimeGameScores from './TotalTimeGameScores';
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/TotalTimeGame.scss'
 
-function TotalTimeGame({game, onGameEnd}) {
+function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
     const { t } = useTranslation();
     const SliderWithTooltip = createSliderWithTooltip(Slider);
     const [state, setState] = React.useState(()=>{ 
@@ -37,9 +37,9 @@ function TotalTimeGame({game, onGameEnd}) {
         const newState = {...state},
             game = newState.game,
             players = newState.game.players,
-            playerZone = players[player].zones[game.currentZone];
+            playerZone = players[player].zones[zoneIndex];
 
-        if (!isFiasco(state, player) || (playerZone.points + value <= game.maxPoints)) {
+        if (!isFiasco(state, player, zoneIndex) || (playerZone.points + value <= game.maxPoints)) {
             playerZone.controlTextValues = [...playerZone.controlTextValues];
             playerZone.controlTextValues[control] += value;
             playerZone.points += value;
@@ -48,17 +48,6 @@ function TotalTimeGame({game, onGameEnd}) {
         if (playerZone.points >= game.maxPoints) { 
             newState.forceAction = 'pause';
         }
-
-/*        if ((((game.maxPoints > playerZone.points || game.maxPoints <= 0) && 
-            (game.maxTime > state.tickTime || game.maxTime <= 0)) || (playerZone.points + value < game.maxPoints)) &&
-            !playerZone.battery) {
-                playerZone.controlTextValues = [...playerZone.controlTextValues];
-                playerZone.controlTextValues[control] += value;
-                playerZone.points += value;
-        } else {
-            newState.forceAction = 'pause';
-        }
-*/
         setState(newState);
     }
 
@@ -66,17 +55,16 @@ function TotalTimeGame({game, onGameEnd}) {
         const newState = {...state},
             players = newState.game.players;
 
-        players[player].zones[game.currentZone].battery = value;
+        players[player].zones[zoneIndex].battery = value;
         setState(newState);
     }
 
     function onReset() {
         let newState = {...state },
-            currentPlayer = game.currentPlayer,
-            playerZone = game.players[currentPlayer].zones[game.currentZone];
+            playerZone = game.players[playerIndex].zones[zoneIndex];
 
         window.scrollTo(0,0);
-        Analytics.event('play', 'reset', newState.game.players[currentPlayer].name);
+        Analytics.event('play', 'reset', newState.game.players[playerIndex].name);
         newState = initControlTestValues(newState.game);
         playerZone.time = 0;
         playerZone.points = 0;
@@ -88,12 +76,11 @@ function TotalTimeGame({game, onGameEnd}) {
         const newState = {...state},
             game = newState.game,
             players = game.players,
-            currentPlayer = game.currentPlayer,
-            playerZone = game.players[currentPlayer].zones[game.currentZone];
+            playerZone = game.players[playerIndex].zones[zoneIndex];
             
         window.scrollTo(0,0);
 
-        if (isFiasco(state, currentPlayer)) {
+        if (isFiasco(state, playerIndex, zoneIndex)) {
                 playerZone.time = (game.maxTime > 0 ? game.maxTime : state.tickTime);
                 playerZone.points = (game.maxPoints > 0 ? game.maxPoints : playerZone.points);
         } else {
@@ -102,32 +89,15 @@ function TotalTimeGame({game, onGameEnd}) {
 
         newState.forceAction = 'stop';
 
-        Analytics.event('play', 'endPlayer', players[currentPlayer].name);
-        if (currentPlayer+1 < game.players.length) {
-            newState.millis = 0;
-            newState.game.currentPlayer = currentPlayer+1;
-            setState(previousInputs => ({ 
-                ...previousInputs,
-                ...newState}));
-        } else {
-            if (game.currentZone+1 < game.zones) {
-                newState.millis = 0;
-                game.currentPlayer = 0;
-                game.currentZone++;
-                setState(previousInputs => ({ 
-                    ...previousInputs,
-                    ...newState}));
-            } else if (onGameEnd) {
-                onGameEnd && onGameEnd(Utils.calulateFinalGameResult(game));
-            }
-        }
+        Analytics.event('play', 'endPlayer', players[playerIndex].name);
+        onGameEnd(game);
     }
 
     function onGateProgressionChange(value) {
         const newState = {...state},
-            zones = newState.game.players[newState.game.currentPlayer].zones;
+            zones = newState.game.players[playerIndex].zones;
 
-        zones[newState.game.currentZone].gateProgression = value;
+        zones[zoneIndex].gateProgression = value;
         if(value === game.gates) {
             newState.forceAction = 'pause';
         }
@@ -137,11 +107,11 @@ function TotalTimeGame({game, onGameEnd}) {
     if (state.game.players.length>0) {
         let fiasco = <></>;
         const game = state.game,
-            player = game.players[game.currentPlayer],
-            playerZone = player.zones[game.currentZone],
+            player = game.players[playerIndex],
+            playerZone = player.zones[zoneIndex],
             controlTextArray = ControlTextArray({
                 controlTextValues: playerZone.controlTextValues,
-                player: game.currentPlayer,
+                player: playerIndex,
                 steps: TotalTimeGameScores.steps,
                 maxValues: TotalTimeGameScores.maxValues,
                 texts: TotalTimeGameScores.texts,
@@ -150,7 +120,7 @@ function TotalTimeGame({game, onGameEnd}) {
                 booleanValue: playerZone.battery
             });
 
-        if (isFiasco(state, game.currentPlayer)) {
+        if (isFiasco(state, playerIndex, zoneIndex)) {
             fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
         }
 
@@ -169,7 +139,7 @@ function TotalTimeGame({game, onGameEnd}) {
             </div>
             <div className="rounded rounded2">
                 
-                {t('description.zona')}: {game.currentZone + 1}<br />
+                {t('description.zona')}: {zoneIndex + 1}<br />
                 {t('description.avancepuerta')}: {playerZone.gateProgression}<br />
                 <SliderWithTooltip
                     step={1}
@@ -199,9 +169,9 @@ function TotalTimeGame({game, onGameEnd}) {
     }
 }
 
-function isFiasco(state, player) {
+function isFiasco(state, player, zone) {
     const game = state.game;
-    const playerZone = game.players[player].zones[game.currentZone];
+    const playerZone = game.players[player].zones[zone];
 
     return ((game.maxPoints <= playerZone.points && game.maxPoints > 0) || 
         (game.maxTime <= state.tickTime && game.maxTime > 0) || playerZone.battery);
@@ -214,7 +184,6 @@ function initControlTestValues(game) {
         game: game
     }
 
-    
     newState.game.players.forEach((player)=>{
         player.zones = [];
 
@@ -238,4 +207,3 @@ function initControlTestValues(game) {
 }
 
 export default TotalTimeGame;
-

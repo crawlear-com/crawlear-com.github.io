@@ -6,7 +6,7 @@ import '../resources/css/UserSearch.scss';
 import iconSend from '../resources/img/iconSend.png';
 import iconAdd from '../resources/img/iconAdd.png';
 
-function UserSearch({onUserSeachPlayerAdd, gameName}) {
+function UserSearch({onUserSeachPlayerAdd, gameName, isForJudge}) {
     const firebase = window.crawlear.fb;
     const { t } = useTranslation();
     const [username, setUsername] = React.useState("");
@@ -76,7 +76,7 @@ function UserSearch({onUserSeachPlayerAdd, gameName}) {
 
     const usersResult = [];
     const gameRequestsList = [];
-    let i=0;
+    let addButton, i=0;
     
     if(users.length>0) {
         usersResult.push(<div key={i} className="userSearchResultsText smallText">{t('content.enviorequest')}. {t('content.enviorequest2')}</div>);
@@ -103,21 +103,24 @@ function UserSearch({onUserSeachPlayerAdd, gameName}) {
         gameRequestsList.push(<div key={i}>{gameRequestsRef.current} {t('description.peticionespendientes')}</div>);
     }
 
+    if (!isForJudge) {
+        addButton = <button className="buttonControlTextPlus" onClick={()=>{
+            setUsers([]);
+            setUsername("");
+
+            inputRef.current.value && onUserSeachPlayerAdd({
+                uid: "",
+                displayName: inputRef.current.value
+            });
+        }}>+</button>;
+    }
+
     return <div className="userSearchContainer rounded rounded3">
             <div className="userSearchText smallText">{
                 firebase.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')
             }</div>
             <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
-            <button className="buttonControlTextPlus" onClick={()=>{
-                setUsers([]);
-                setUsername("");
-
-                inputRef.current.value && onUserSeachPlayerAdd({
-                    uid: "",
-                    displayName: inputRef.current.value
-                });
-            }}>+</button>
-
+            {addButton} 
             {gameRequestsList}
 
             <div ref={resultRef} className="resultsContainer">

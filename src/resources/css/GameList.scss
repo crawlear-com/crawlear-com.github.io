@@ -9,11 +9,26 @@
         text-align: right;
         padding-top: 0px;
         overflow: hidden;
+
+        .playGameButton {
+            background-image: url(../img/iconPlay.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-y: 1px;
+            margin-bottom: 0px;
+        }
+
+        button {
+            height: 27px;
+            margin-left: 15px;
+        }
     }
 
     .gameName {
-        width: 80%;
+        display: inline-block;
+        width: 70%;
         padding-top: 6px;
+        vertical-align: top;
     }
 
     .gameDate {
@@ -27,7 +42,6 @@
     }
 
     .gameParticipants {
-        padding-top: 15px;
         font-size: 0.8em;
         max-width: 305px;
         margin: 0 auto;
@@ -97,5 +111,23 @@
         position: relative;
         top: 5px;
         margin-right: 5px;
+    }
+
+    .gameProgressionInfoItem {
+        margin-left: 10px;
+        text-align: left;
+    }
+
+    .gameProgressionItem {
+        img {
+            margin-right: 10px;
+        }
+        ul {
+            padding-left: 0px;
+        }
+        li {
+            list-style-type: circle;
+            text-align: left;
+        }
     }
 }

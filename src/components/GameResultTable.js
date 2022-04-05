@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Utils from '../Utils';
-import GoogleMapsUrl from './GoogleMapsUrl';
+import GameHeaderInfo from './GameHeaderInfo';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import IsrccGameScores from './games/IsrccGameScores';
 import TotalTimeGameScores from './games/TotalTimeGameScores';
@@ -20,17 +20,6 @@ function GameResultTable({game, isDraw}) {
 
     if(game.gameType === 2) {
         gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
-    }
-
-    function resolveGameType(gameType) {
-        switch(gameType) {
-            case 0:
-                return t('gametype.aecar');
-            case 1:
-                return t('gametype.rey');
-            default:
-                return t('gametype.isrcc');
-        }
     }
 
     function onClickZone(event) {
@@ -60,7 +49,9 @@ function GameResultTable({game, isDraw}) {
                     <td className="bold gameListPlayerName gameListPoints bold textOverflow">{player.name}</td> :
                     <td className="bold gameListPlayerName gameListPoints bold withTime textOverflow">{player.name}</td> }
                 <td className="bold gameListPoints">{player.totalPoints}</td>
-                {game.gameType !== 1 ? <td className="bold gameListPoints gameListTime">{Utils.printTime(Utils.millisToTime(player.totalTime))}</td> : <></>}
+                {game.gameType !== 1 ? <td className="bold gameListPoints gameListTime">
+                    {player.totalTime ? Utils.printTime(Utils.millisToTime(player.totalTime)) : <>00:00:000</>}
+                </td> : <></>}
                 <td className="gameListPoints">.</td>
                 <td className="gameListPoints">.</td>
                 <td className="gameListPoints">.</td>
@@ -125,18 +116,8 @@ function GameResultTable({game, isDraw}) {
         j++;
     })
 
-    return <div className="gameList rounded rounded2">
-            <div className="gameGameType">{t('gametype.modojuego')}: <span className="bold">{resolveGameType(game.gameType)}</span></div>
-            <div className="gamePointsType">{t('description.zonas')}: <span className="bold">{game.zones}</span></div> 
-            <div className="gamePointsType">{t('points.puertaprogresion')}: <span className="bold">{game.gates}</span></div> 
-            <div className="gameIsPublic"><span className="bold">{game.isPublic ? t('description.esPublica') : ""}</span></div>
-            {game.location.latitude && game.location.longitude ? 
-                <div className="gameLocation">
-                    {t('description.localizacion')}: <span className="bold">({game.location.latitude},{game.location.longitude})</span>
-                    <GoogleMapsUrl latitude={game.location.latitude} longitude={game.location.longitude} /></div> :
-                <></>}
-            <div className="gamePointsType">{game.maxPoints>0 ? `${t('description.puntosmaximo')}: ${game.maxPoints}` : ''}</div>
-            <div className="gamePointsType">{game.maxTime>0 ? `${t('description.tiempomaximo')}: ${Utils.printTime(Utils.millisToTime(game.maxTime))}` : ''}</div>
+    return <div className="rounded rounded2">
+            <GameHeaderInfo game={game} />
             <div className="gameParticipants">
                 <div className="resultTitle">{t('description.resultado')}:</div>
                 <table>

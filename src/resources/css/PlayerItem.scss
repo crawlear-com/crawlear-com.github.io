@@ -14,6 +14,10 @@
         max-width: 190px;
         display: inline-block;
     }    
+
+    button {
+        float: right;
+    }
 }
 
 .handicapBox .handicapLabel {
@@ -29,6 +33,4 @@
 }
 
 .playersList .buttonControlTextMinus {
-    position: relative;
-    top: -15px;
 }

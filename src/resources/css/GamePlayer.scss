@@ -1,0 +1,30 @@
+.gameProgressionItem {
+    padding: 15px;
+    font-size: 0.8em;
+    display: flex;
+    margin-bottom: 10px;
+
+    img {
+        display: block;
+        max-width: 90px;
+        max-height: 45px;
+        width: auto;
+        height: auto;
+    }
+    .rounded {
+        background-image: none;
+        margin: 8px;
+        line-height: 2.9;
+        box-shadow: none;
+    }
+
+    .rounded.colorGreen {
+        background-color: Green;
+    }
+    .rounded.colorGrey {
+        background-color: #333;
+    }
+    .rounded.colorClearGrey {
+        background-color: #666;
+    }    
+} 

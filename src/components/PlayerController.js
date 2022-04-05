@@ -9,7 +9,7 @@ import '../resources/css/PlayerController.scss';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
-function PlayerController({onPlayerNumerChange, gameName}) {
+function PlayerController({onPlayerNumerChange, gameName, isForJudge}) {
     const playersRef = React.useRef([]);
     const { t } = useTranslation();
 
@@ -23,7 +23,9 @@ function PlayerController({onPlayerNumerChange, gameName}) {
 
     if (!value || 
         value.trim().length===0 || 
-        players.find(x=>x.uid===uid && uid.length>0)) return;
+        players.find(x=>x.uid===uid && uid.length>0) || (
+          isForJudge && !uid 
+        )) return;
 
     players.push({
           id: players.length,
@@ -47,25 +49,25 @@ function PlayerController({onPlayerNumerChange, gameName}) {
     onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
   }
 
-  function randomizePlayers() {
-    playersRef.current = Utils.randomizeArray(playersRef.current);
-    
-    Analytics.event('menu', 'randomPlayerOrder', playersRef.current.length);
-    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
-  }
-
   function onUserSeachPlayerAdd({uid, displayName, photoURL}) {
     addPlayer(displayName, uid, photoURL);
   }
 
-  const playersTxt = !playersRef.current.length? t('description.nojugadores') : t('description.jugadores');
+  let playersTxt = !playersRef.current.length? t('description.nojugadores') : t('description.jugadores');
+
+  if(isForJudge) {
+    playersTxt = !playersRef.current.length? t('description.nojueces') : t('description.jueces');
+  }
 
   return <>
     <div className="players rounded rounded1">
-      <div className="headerText bold">{t('description.jugadores')}</div>
-      
-      <UserSearch onUserSeachPlayerAdd={onUserSeachPlayerAdd} gameName={gameName} />
-      <div className="headerText">{t('description.usuariosenpartida')}</div>
+      <div className="headerText bold">{isForJudge ? t('description.jueces') : t('description.jugadores') }</div>
+
+      <UserSearch 
+        isForJudge={isForJudge}
+        onUserSeachPlayerAdd={onUserSeachPlayerAdd} 
+        gameName={gameName} />
+      <div className="headerText">{isForJudge ? t('description.juecesenpartida') : t('description.usuariosenpartida')}</div>
       <ul className="playersList">
           {playersRef.current.length === 0 ? playersTxt : playersRef.current.map((player, i) => { 
               return <PlayerItem 
@@ -75,7 +77,6 @@ function PlayerController({onPlayerNumerChange, gameName}) {
                 onRemovePlayer={removePlayer} />
           })}
       </ul>
-      {playersRef.current.length>1 ? <button className="buttonRandomOrder" onClick={randomizePlayers}>{t('description.ordenaleatorio')}</button> : <></>}
     </div></>;
 }
 

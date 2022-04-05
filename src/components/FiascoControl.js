@@ -21,4 +21,4 @@ function FiascoControl({values, onChangeScore}) {
 ;
 }
 
-export default FiascoControl;
+export default FiascoControl; 

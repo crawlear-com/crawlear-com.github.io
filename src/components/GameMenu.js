@@ -7,8 +7,10 @@ function GameMenu({game, onPlayerNumerChange, onGameTypeChange, beginGame}) {
     const { t } = useTranslation();
 
     return <>
-        <PlayerController gameName={game.name} onPlayerNumerChange={(players)=>{
-            onPlayerNumerChange(players)}
+        <PlayerController gameName={game.name} 
+            isForJudge={false}
+            onPlayerNumerChange={(players)=>{
+                onPlayerNumerChange && onPlayerNumerChange(players)}
         }/>
         <GameTypeController 
             selectedGameType={game.gameType}
