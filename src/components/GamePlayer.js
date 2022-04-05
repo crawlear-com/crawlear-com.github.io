@@ -5,7 +5,6 @@ import Utils from '../Utils';
 import ErrorBox from '../components/ErrorBox';
 import GameProgression from './GameProgression';
 import GameTypePlayer from '../components/GameTypePlayer';
-import { useNavigate } from 'react-router-dom';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';
@@ -13,6 +12,12 @@ import WinnerTable from '../components/WinnerTable';
 const GAME_STATUS_CREATED = 0;
 const GAME_STATUS_PLAYING = 1;
 const GAME_STATUS_FINISHED = 2;
+
+const STATUS_WAITING = 'waiting';
+const STATUS_PLAYING = 'playing';
+const STATUS_DONE = 'done';
+
+const GAME_KING = 1;
 
 function GamePlayer({game, onBackButtonClick}) {
     const fb = window.crawlear.fb;
@@ -49,19 +54,19 @@ function GamePlayer({game, onBackButtonClick}) {
 
     function onBeginGame() {
         if(player===-1 || zone === -1) {
-            setError("Selecciona una zona y un jugador");
+            setError('content.seleccionapilotoyzona');
         } else {
             const pid = player.id;
             const value = gameProgression[pid][zone];
 
-            if(value === 'waiting') {
+            if(value === STATUS_WAITING) {
                 setError("");
                 setState(GAME_STATUS_PLAYING);
-                gameProgression[pid][zone] = 'playing';
+                gameProgression[pid][zone] = STATUS_PLAYING;
                 setGameProgression(gameProgression);
-                fb.setGameProgression(game.gid, pid, zone, 'playing');
+                fb.setGameProgression(game.gid, pid, zone, STATUS_PLAYING);
             } else {
-                setError("this game is PLAYING!!!");
+                setError(t('error.juegoencurso'));
             }
         }
     }
@@ -71,7 +76,7 @@ function GamePlayer({game, onBackButtonClick}) {
 
         Object.entries(gameProgression).forEach((player)=>{ 
             player[1].forEach((zone)=>{
-                if(zone === 'waiting' || zone === 'playing') {
+                if(zone === STATUS_WAITING || zone === STATUS_PLAYING) {
                     result = true;
                 }
             })
@@ -90,7 +95,7 @@ function GamePlayer({game, onBackButtonClick}) {
         } else {
             const pid = player.id;
 
-            gameProgression[pid][zone] = 'done';
+            gameProgression[pid][zone] = STATUS_DONE;
             setGameProgression(gameProgression);
     
             fb.setGameResultForPlayerZone(game, pid, zone);
@@ -109,14 +114,7 @@ function GamePlayer({game, onBackButtonClick}) {
         }
     }
 
-    /*if(!game.jids.find((elem)=>{
-            return elem === window.crawlear.user.uid;
-        })) {
-
-        return (<></>);
-    }*/
-
-    if (game.gameType !== 1) {
+    if (game.gameType !== GAME_KING) {
         if (state === GAME_STATUS_CREATED) {
             view = <>
             <p>

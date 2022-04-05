@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
+const STATUS_WAITING = 'waiting';
+const STATUS_PLAYING = 'playing';
+
 function GameProgression({gameProgression, players, onZoneClick}) {
     const { t } = useTranslation();
     const [selectedZone, setSelectedZone] = React.useState(-1);
@@ -11,7 +14,7 @@ function GameProgression({gameProgression, players, onZoneClick}) {
     function prepareOnClick(event, player) {
         const zone = Number(event.target.getAttribute("data-zone"));
 
-        if(gameProgression[player.id][zone] === 'waiting') {
+        if(gameProgression[player.id][zone] === STATUS_WAITING) {
             setSelectedPlayer(player.id);
             setSelectedZone(zone);
             onZoneClick(player, zone);
@@ -32,8 +35,8 @@ function GameProgression({gameProgression, players, onZoneClick}) {
         player.zones.forEach((zone)=>{
             className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
             if(gameProgression && gameProgression[player.id]) {
-                if (gameProgression[player.id][j] !== "waiting") {
-                    if (gameProgression[player.id][j] === "playing") {
+                if (gameProgression[player.id][j] !== STATUS_WAITING) {
+                    if (gameProgression[player.id][j] === STATUS_PLAYING) {
                         className += " colorGreen";
                     } else {
                         className += " colorClearGrey";

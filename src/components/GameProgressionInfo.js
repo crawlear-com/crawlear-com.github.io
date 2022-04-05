@@ -3,6 +3,8 @@ import * as React from 'react';
 import Utils from '../Utils';
 import GameHeaderInfo from './GameHeaderInfo';
 
+const ISRCC_GAME = 2;
+
 function GameProgressionInfo({game, gameProgression}) {
     const playersDone = [];
     let i=0;
@@ -26,7 +28,7 @@ function GameProgressionInfo({game, gameProgression}) {
                         <ul>
                             <li>{t('description.puntos')}: <span className="bold">{points}</span></li>
                             <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>
-                            {game.gameType === 2 ? <>
+                            {game.gameType === ISRCC_GAME ? <>
                                 <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
                                 <li>{t('description.bonificacion')}: <span className="bold">{bonitification}</span></li></>
                             :<></>}

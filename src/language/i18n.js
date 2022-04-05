@@ -41,7 +41,8 @@ i18n
               nojugadores: 'Add the players',
               nojueces: 'Add the judges',
               nonombre: 'Fill in at least the name of the game to continue',
-              nogeolocation: 'Cant get geolocation or there is a permission error'
+              nogeolocation: 'Cant get geolocation or there is a permission error',
+              juegoencurso: 'Player is already playing the zone'
           },
           description: {
             nojugadores: 'No players',
@@ -191,7 +192,8 @@ i18n
               nojugadores: 'Añade a los jugadores',
               nojueces: 'Añade a los jueces',
               nonombre: 'Rellena al menos el nombre de la partida para continuar',
-              nogeolocation: 'No se puede obtener la geolocalización o no hay permisos'
+              nogeolocation: 'No se puede obtener la geolocalización o no hay permisos',
+              juegoencurso: 'El jugador y la zona ya se está en juego'
           },
           description: {
               nojugadores: 'No hay jugadores',
