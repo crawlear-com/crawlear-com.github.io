@@ -38,7 +38,7 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGam
                 info = <><button className="importantNote playGameButton" data-gameposition={i} onClick={onGamePlay}></button>{info}</>;
             }
         } else {
-            info = <WinnerTable game={game} />;
+            info =<WinnerTable game={game} />;
         }
 
         gameList.push(<div key={i} className="gameContainer rounded rounded1 closed">
