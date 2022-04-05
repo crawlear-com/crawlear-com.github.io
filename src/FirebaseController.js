@@ -179,7 +179,7 @@ class FirebaseController {
       querySnapshot.docs.forEach((gameData)=>{
         const game = gameData.data();
 
-        if(game.jids.indexOf(uid)<0) {
+        if(!game.jids || game.jids.indexOf(uid)<0) {
           games.push(gameData);
         }
       });

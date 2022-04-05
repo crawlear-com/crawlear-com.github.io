@@ -16,6 +16,7 @@ import Analytics from '../Analytics';
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
 const STATE_LOCATION_LOCATING=2;
+const KING_GAME = 1;
 
 function GameConfigurator() {
     const [game, setGame] = React.useState(()=>{
@@ -144,15 +145,15 @@ function GameConfigurator() {
         }
     }
 
-    function beginGame() {
+    function createGame() {
         window.scrollTo(0,0);
         if (!game.name || !game.name.length) {
             setErrorMessage(t('error.nonombre'));
-        } else if ((game.gameType !== 1 && game.name && game.players.length && game.judges.length) || 
-            (game.gameType === 1 && game.name && game.players.length)) {
+        } else if ((game.gameType !== KING_GAME && game.name && game.players.length && game.judges.length) || 
+            (game.gameType === KING_GAME && game.name && game.players.length)) {
                 const newGame = {...game};
     
-                if (game.gameType === 1) {
+                if (game.gameType === KING_GAME) {
                     newGame.judges.push({...window.crawlear.user});
                 }
                 newGame.uids = Utils.getUidsFromUsers(newGame.players);
@@ -163,13 +164,13 @@ function GameConfigurator() {
                     fb.createGameProgression(newGame);
                     setGame(newGame);
                 }, ()=>{});
-                navigate("/completegame");            
+                navigate("/completegame");
         } else if (!game.judges.length && game.gameType !== 1) {
             setErrorMessage(t('error.nojueces'));
         } else if (!game.players.length) {
             setErrorMessage(t('error.nojugadores'));
         } else {
-            if (!game.judges.length && game.gameType !== 1) {
+            if (!game.judges.length && game.gameType !== KING_GAME) {
                 setErrorMessage(t('error.nojueces'));
             } else if (!game.players.length) {
                 setErrorMessage(t('error.nojugadores'));
@@ -192,7 +193,7 @@ function GameConfigurator() {
         locationElement = <div className="">{t('content.nogeolocation')}</div>;
     }
 
-    if (game.gameType !== 1) {
+    if (game.gameType !== KING_GAME) {
         extraConfigurationComponents.push(<MaxTimeAndPointsPicker
             mode={game.pointsType} 
             onMaxPointsChange={onMaxPointsChange}
@@ -242,18 +243,28 @@ function GameConfigurator() {
         <PlayerController gameName={game.name} 
             isForJudge={false}
             onPlayerNumerChange={(players)=>{
-                onPlayerNumerChange && onPlayerNumerChange(players)}
+                onPlayerNumerChange && onPlayerNumerChange(players);
+            }
         }/>
         <GameTypeController 
             selectedGameType={game.gameType}
             selectedPointsType={game.pointsType}
             onGameTypeChange={(selectedIndex) => {
                 onGameTypeChange(selectedIndex);
-        }} />
+            }
+        } />
         <p>
-            <button className="importantNote" onClick={() => {
-                beginGame(t)
-            }}>{t('description.crear')}</button>
+            <button className="importantNote" 
+                onClick={() => {
+                    createGame(t);
+                }
+            }>{t('description.crear')}</button>
+            <button
+                onClick={() => {
+                    navigate("/completegame");
+                }
+            }>{t('description.atras')}</button>
+
         </p>
 
     </>);
