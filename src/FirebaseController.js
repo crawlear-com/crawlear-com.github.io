@@ -203,19 +203,13 @@ class FirebaseController {
   }
 
   async setGame(game, okCallback, koCallback) {
-    if(this.isUserLogged()) {
-      try {
-        if (game.jids.length <= 0) {
-          game.jids.push(window.crawlear.user.uid);
-        }
-
-        const gameRef = await addDoc(collection(this.db, "games"), this.transformGamesIntoData(game));
-        game.gid = gameRef.id;
-        okCallback && okCallback(game);
-      } catch (e) {
-        koCallback && koCallback();
-      }  
-    }
+    try {
+      const gameRef = await addDoc(collection(this.db, "games"), this.transformGamesIntoData(game));
+      game.gid = gameRef.id;
+      okCallback && okCallback(game);
+    } catch (e) {
+      koCallback && koCallback();
+    }  
   }
 
   updateGame(game) {
