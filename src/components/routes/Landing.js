@@ -23,6 +23,14 @@ function Landing({onLoggin}) {
         Analytics.pageview('/landing/');
     },[]);
 
+/*
+            <p>{t('content.landingSecondText')}:</p>
+            <p className="googleSignInButton">
+                <button className="importantNote" onClick={() => {
+                    navigate("/simplegame");
+                    }}>{t('gametype.partidarapida')}</button>
+            </p>
+*/
     return <>
         <MainPageTextContent />
 
@@ -31,12 +39,6 @@ function Landing({onLoggin}) {
             <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                     firebase.signInWithGoogle(signInCallback);
                 }} />
-            <p>{t('content.landingSecondText')}:</p>
-            <p className="googleSignInButton">
-                <button className="importantNote" onClick={() => {
-                    navigate("/simplegame");
-                    }}>{t('gametype.partidarapida')}</button>
-            </p>
         </div>
         </>
 }

@@ -12,32 +12,32 @@ const GAME_STATUS_MENU = 0;
 const GAME_STATUS_PLAY = 1;
 const GAME_STATUS_FINISH = 2;
 
-function GameController({game, onGameEnd}) {
+function GameController({ game, onGameEnd }) {
     const alertBoxRef = React.useRef();
     const elementsToRender = [];
     const firebase = window.crawlear.fb;
     const [state, setState] = React.useState(game);
 
     function onGameTypeChange(selectedIndex) {
-        const newState = {...state};
-        
+        const newState = { ...state };
+
         Analytics.event('menu', 'playModeChange', selectedIndex);
         newState.gameType = selectedIndex;
         setState(newState);
     }
-    
-    function onGameEndFromGamePlayer(game) {
-        const newGame = {...game};
 
-        window.scrollTo(0,0);
-        Analytics.event('menu','winner',newGame.players[0].name);
-        newGame.gameStatus = GAME_STATUS_FINISH;        
+    function onGameEndFromGamePlayer(game) {
+        const newGame = { ...game };
+
+        window.scrollTo(0, 0);
+        Analytics.event('menu', 'winner', newGame.players[0].name);
+        newGame.gameStatus = GAME_STATUS_FINISH;
         setState(newGame);
         onGameEnd && onGameEnd(newGame);
     }
 
     function onPlayerNumerChange(players) {
-        const newGame = {...state};
+        const newGame = { ...state };
         let action = 'addPlayer';
 
         cleanAlertBox(alertBoxRef);
@@ -48,12 +48,12 @@ function GameController({game, onGameEnd}) {
         newGame.players = players;
         setState(newGame);
     }
-    
+
     function onBeginGame(t) {
-        window.scrollTo(0,0);
-        if (state.players.length>0) {
-            const newGame = {...state};
-    
+        window.scrollTo(0, 0);
+        if (state.players.length > 0) {
+            const newGame = { ...state };
+
             Analytics.event('menu', 'beginGame', newGame.players.length);
             newGame.uids = Utils.getUidsFromUsers(newGame.players);
             newGame.gameStatus = GAME_STATUS_PLAY;
@@ -65,29 +65,29 @@ function GameController({game, onGameEnd}) {
     }
 
     React.useEffect(() => {
-        if(state.gameStatus === GAME_STATUS_MENU) {
+        if (state.gameStatus === GAME_STATUS_MENU) {
             Analytics.pageview('/menu/');
         } else if (state.gameStatus === GAME_STATUS_FINISH) {
-            firebase.setGame(state,()=>{},()=>{});
+            firebase.setGame(state, () => { }, () => { });
         }
-    },[state.gameStatus]);
+    }, [state.gameStatus]);
 
     if (!firebase.isUserLogged()) {
         elementsToRender.push(<Menu key={1} />);
     }
     elementsToRender.push(<div key={2} ref={alertBoxRef} className="hideAlert alertBox"></div>);
 
-    switch(state.gameStatus) {
+    switch (state.gameStatus) {
         case GAME_STATUS_MENU:
-            elementsToRender.push(<GameMenu key={3} 
-                onPlayerNumerChange={onPlayerNumerChange}  
+            elementsToRender.push(<GameMenu key={3}
+                onPlayerNumerChange={onPlayerNumerChange}
                 onGameTypeChange={onGameTypeChange}
                 beginGame={onBeginGame}
                 game={state}
             />);
-                break;
+            break;
         case GAME_STATUS_PLAY:
-            elementsToRender.push(<GameTypePlayer key={3} 
+            elementsToRender.push(<GameTypePlayer key={3}
                 onGameEnd={onGameEndFromGamePlayer}
                 game={state} />);
             break;
