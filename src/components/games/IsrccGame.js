@@ -102,9 +102,10 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
             playerZone.points += gateProgressionValue;
         }
         newState.forceAction = 'stop';
+        setState(newState);
 
         Analytics.event('play', 'endPlayer', players[playerIndex].name);
-        onGameEnd(game);
+        onGameEnd(newState.game);
     }
 
     function onGateProgressionChange(value) {
