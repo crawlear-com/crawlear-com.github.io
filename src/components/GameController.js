@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import GameMenu from './GameMenu';
 import WinnerTable from './WinnerTable';
 import GameTypePlayer from './GameTypePlayer';
@@ -17,42 +18,41 @@ function GameController({ game, onGameEnd }) {
     const elementsToRender = [];
     const firebase = window.crawlear.fb;
     const [state, setState] = React.useState(game);
-
-    function onGameTypeChange(selectedIndex) {
-        const newState = { ...state };
-
-        Analytics.event('menu', 'playModeChange', selectedIndex);
-        newState.gameType = selectedIndex;
-        setState(newState);
-    }
+    const [player, setPlayer] = React.useState(0);
+    const [zone, setZone] = React.useState(0);
+    const { t } = useTranslation();
 
     function onGameEndFromGamePlayer(game) {
-        const newGame = { ...game };
+        let finishedGame = false;
 
-        window.scrollTo(0, 0);
-        Analytics.event('menu', 'winner', newGame.players[0].name);
-        newGame.gameStatus = GAME_STATUS_FINISH;
-        setState(newGame);
-        onGameEnd && onGameEnd(newGame);
-    }
-
-    function onPlayerNumerChange(players) {
-        const newGame = { ...state };
-        let action = 'addPlayer';
-
-        cleanAlertBox(alertBoxRef);
-        if (state.players.length > players.length) {
-            action = 'removePlayer';
+        if(zone === game.zones-1) {
+            setZone(0);
+            if (player+1<game.players.length) {
+                setPlayer(player+1);
+            } else {
+                finishedGame = true;
+            }
+        } else {
+            setZone(zone+1);
         }
-        Analytics.event('menu', action, players.length);
-        newGame.players = players;
-        setState(newGame);
+
+        if(finishedGame) {
+            const newGame = { ...game };
+
+            window.scrollTo(0, 0);
+            Analytics.event('menu', 'winner', newGame.players[0].name);
+            newGame.gameStatus = GAME_STATUS_FINISH;
+            setState(newGame);
+            onGameEnd && onGameEnd(newGame);
+        } else {
+
+        }
     }
 
-    function onBeginGame(t) {
+    function onBeginGame(configuredGame) {
         window.scrollTo(0, 0);
-        if (state.players.length > 0) {
-            const newGame = { ...state };
+        if (configuredGame.players.length > 0) {
+            const newGame = { ...configuredGame };
 
             Analytics.event('menu', 'beginGame', newGame.players.length);
             newGame.uids = Utils.getUidsFromUsers(newGame.players);
@@ -80,14 +80,14 @@ function GameController({ game, onGameEnd }) {
     switch (state.gameStatus) {
         case GAME_STATUS_MENU:
             elementsToRender.push(<GameMenu key={3}
-                onPlayerNumerChange={onPlayerNumerChange}
-                onGameTypeChange={onGameTypeChange}
                 beginGame={onBeginGame}
                 game={state}
             />);
             break;
         case GAME_STATUS_PLAY:
             elementsToRender.push(<GameTypePlayer key={3}
+                zone={zone}
+                player={player}
                 onGameEnd={onGameEndFromGamePlayer}
                 game={state} />);
             break;

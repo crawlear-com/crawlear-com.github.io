@@ -116,7 +116,7 @@ function GameResultTable({game, isDraw}) {
         j++;
     })
 
-    return <div className="rounded rounded2">
+    return <div className="gameList rounded rounded2">
             <GameHeaderInfo game={game} />
             <div className="gameParticipants">
                 <div className="resultTitle">{t('description.resultado')}:</div>

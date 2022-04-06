@@ -23,14 +23,6 @@ function Landing({onLoggin}) {
         Analytics.pageview('/landing/');
     },[]);
 
-/*
-            <p>{t('content.landingSecondText')}:</p>
-            <p className="googleSignInButton">
-                <button className="importantNote" onClick={() => {
-                    navigate("/simplegame");
-                    }}>{t('gametype.partidarapida')}</button>
-            </p>
-*/
     return <>
         <MainPageTextContent />
 
@@ -40,6 +32,13 @@ function Landing({onLoggin}) {
                     firebase.signInWithGoogle(signInCallback);
                 }} />
         </div>
+
+        <div className="aboutUsContent">{t('content.landingSecondText')}:</div>
+        <p className="googleSignInButton">
+            <button className="importantNote" onClick={() => {
+                navigate("/simplegame");
+                }}>{t('gametype.partidarapida')}</button>
+        </p>
         </>
 }
 
