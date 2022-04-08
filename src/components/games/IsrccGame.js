@@ -152,7 +152,6 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
         setState(newState);
     }
 
-    //if (state.game.players.length>0) {
     let fiasco = <></>;
     const currentGame = state.game,
         maxTime = currentGame.maxTime,
