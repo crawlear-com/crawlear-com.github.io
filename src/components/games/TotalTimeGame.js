@@ -88,6 +88,7 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
         }
 
         newState.forceAction = 'stop';
+        setState(newState);
 
         Analytics.event('play', 'endPlayer', players[playerIndex].name);
         onGameEnd(game);

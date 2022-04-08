@@ -7,7 +7,7 @@ import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
 import ZonesPicker from './ZonesPicker';
 import GateProgressionPicker from './GateProgressionPicker';
 
-function GameMenu({game, beginGame}) {
+function GameMenu({game, beginGame, onPlayerChange}) {
     const { t } = useTranslation();
     const [currentGame, setGame] = React.useState(game);
 
@@ -38,6 +38,7 @@ function GameMenu({game, beginGame}) {
         Analytics.event('menu', action, players.length);
         newGame.players = players;
         setGame(newGame);
+        onPlayerChange && onPlayerChange();
     }
 
     function onMaxTimeChange(time) {

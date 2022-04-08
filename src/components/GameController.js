@@ -22,8 +22,13 @@ function GameController({ game, onGameEnd }) {
     const [zone, setZone] = React.useState(0);
     const { t } = useTranslation();
 
+    function onPlayerChange() {
+        cleanAlertBox(alertBoxRef);
+    }
+
     function onGameEndFromGamePlayer(game) {
         let finishedGame = false;
+        const newState = { ...state };
 
         if(zone === game.zones-1) {
             setZone(0);
@@ -53,7 +58,7 @@ function GameController({ game, onGameEnd }) {
         window.scrollTo(0, 0);
         if (configuredGame.players.length > 0) {
             const newGame = { ...configuredGame };
-
+            cleanAlertBox(alertBoxRef);
             Analytics.event('menu', 'beginGame', newGame.players.length);
             newGame.uids = Utils.getUidsFromUsers(newGame.players);
             newGame.gameStatus = GAME_STATUS_PLAY;
@@ -80,6 +85,7 @@ function GameController({ game, onGameEnd }) {
     switch (state.gameStatus) {
         case GAME_STATUS_MENU:
             elementsToRender.push(<GameMenu key={3}
+                onPlayerChange={onPlayerChange}
                 beginGame={onBeginGame}
                 game={state}
             />);
