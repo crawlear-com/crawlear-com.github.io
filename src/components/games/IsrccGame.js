@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
 import IsrccGameScores from './IsrccGameScores';
 import ControlTextArray from '../ControlTextArray';
-import RepairTimer from '../RepairTimer';
 import FiascoControl from '../FiascoControl.js';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
@@ -12,7 +11,11 @@ import "rc-slider/assets/index.css";
 import '../../resources/css/games/TotalTimeGame.scss'
 import '../../resources/css/games/Isrcc.scss'
 
-function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
+function IsrccGame({game, 
+    onGameEnd,
+    onRepair,
+    playerIndex, 
+    zoneIndex}) {
     const { t } = useTranslation();
     const SliderWithTooltip = createSliderWithTooltip(Slider);
     const [state, setState] = React.useState(()=>{
@@ -32,14 +35,6 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
             ...state,
             tickTime: millis,
             forceAction: 'play'
-        });
-    }
-
-    function onRepairTimerChange(millis) {
-        setState({
-            ...state,
-            tickTime: millis,
-            forceAction: 'pause'
         });
     }
 
@@ -129,18 +124,8 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
         setState(newState);
     }
 
-    function onRepairTimeFiasco() {
-        const newState = {...state},
-            zones = newState.game.players[playerIndex].zones;
-
-        zones[zoneIndex].fiascoControlTextValues[1] = 1;
-        newState.forceAction = 'pause';
-        setState(newState);
-    }
-
     function onFiascoChangeScore(value, control) {
         const newState = {...state},
-            currentGame = newState.game,
             players = newState.game.players,
             playerZone = players[playerIndex].zones[zoneIndex];
 
@@ -150,6 +135,17 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
         control === 0 && (playerZone.points += value);
         playerZone.fiascoControlTextValues[control] > 0 && (newState.forceAction = 'pause');
         setState(newState);
+    }
+
+    function setRepairStatus() {
+        const newState = {...state},
+            players = newState.game.players,
+            playerZone = players[playerIndex].zones[zoneIndex];
+
+        playerZone.time = state.tickTime;
+        setState(newState);
+
+        onRepair && onRepair(playerIndex, zoneIndex);
     }
 
     let fiasco = <></>;
@@ -178,6 +174,17 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
                 {player.name}
             </div>
         </div>
+        <div className="controlTextContainer rounded rounded2">
+            {fiasco}
+            <TimerControl
+                startTime={playerZone.time}
+                label={t('description.tiempo')}
+                forceAction={state.forceAction}
+                onTimerChange={onTimerChange}
+                maxTime={maxTime} />
+            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
+            <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
+        </div>
         <div className="controlTextContainer info rounded rounded2">
             {t('description.zona')}: {zoneIndex + 1} / {t('description.avancepuerta')}: {playerZone.gateProgression}<br/>
             puertas+ {playerZone.gatesWithBonification}<br/>
@@ -194,19 +201,6 @@ function IsrccGame({game, onGameEnd, playerIndex, zoneIndex}) {
                     marks={['-'].concat(playerZone.gatePoints)}
                     tipFormatter={(value)=>{ return value; }}
                 />
-        </div>
-
-
-        <div className="controlTextContainer rounded rounded2">
-            {fiasco}
-            <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
-            <TimerControl
-                label={t('description.tiempo')}
-                forceAction={state.forceAction}
-                onTimerChange={onTimerChange}
-                maxTime={maxTime} />
-            <RepairTimer onRepairTimerChange={onRepairTimerChange}
-                onTimeFiasco={onRepairTimeFiasco} />
         </div>
         
         <div className="controlTextContainer rounded rounded2">

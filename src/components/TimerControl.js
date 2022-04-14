@@ -11,6 +11,7 @@ const STATE_PAUSE = 'pause';
 const STATE_STOP = 'stop';
 
 function TimerControl ({
+    startTime,
     forceAction,
     label,
     onTimerChange, 
@@ -18,12 +19,12 @@ function TimerControl ({
     onTimeFiasco}) {
     const { t } = useTranslation();
     const containerRef = React.useRef(null);
-    const tickTime = React.useRef(0);
+    const tickTime = React.useRef(startTime || 0);
     const [state, setState] = React.useState(()=>{ 
-        tickTime.current = 0;
+        //tickTime.current = 0;
         
         return { 
-            millis: 0,
+            millis: startTime || 0,
             timer: null,
             maxTime: maxTime,
             state: STATE_PAUSE
@@ -110,7 +111,8 @@ function TimerControl ({
         }));
     }
 
-    return <div ref={containerRef} className="timerContainer"> {(label || t('description.tiempo')).toUpperCase()}:
+    return <div ref={containerRef} className="timerContainer"> 
+        <div className='timerLabel'>{(label || t('description.tiempo')).toUpperCase()}:</div>
         <div className="timer">{Utils.printTime(timeValue)}</div>
         <button className="timerPlayButton" onClick={onPlayPauseChange}></button>
         <button onClick={onReset} className="resetButton"></button>

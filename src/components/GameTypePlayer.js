@@ -6,7 +6,7 @@ import IsrccGame from './games/IsrccGame';
 const GAME_TYPE_TIME = 0;
 const GAME_TYPE_KING = 1;
 
-function GameTypePlayer({game, player, zone, onGameEnd}) {
+function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     const elementsToRender = [];
 
     if (game.gameType === GAME_TYPE_TIME) {
@@ -35,6 +35,7 @@ function GameTypePlayer({game, player, zone, onGameEnd}) {
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}
+            onRepair={onRepair}
         />);
     }
 

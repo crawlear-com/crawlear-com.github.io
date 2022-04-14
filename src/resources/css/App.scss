@@ -97,3 +97,24 @@
   overflow-x: scroll;
   overflow-y: hidden;
 }
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 14px;
+    border: solid 1px #444;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: transparent; 
+}
+
+::-webkit-scrollbar {
+  background: transparent; 
+}

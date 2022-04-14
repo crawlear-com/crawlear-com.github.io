@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import logo from '../resources/img/logo5.png'
 import '../resources/css/Menu.scss';
-import pdf from '../resources/pdf/Reglamento Campeonato Nacional de Crawler 2022.pdf'
+import pdfAECAR from '../resources/pdf/Reglamento Campeonato Nacional de Crawler 2022.pdf'
+import pdfISRCC from '../resources/pdf/Reglamento ISRCC.pdf'
 
 function Menu() {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -26,7 +27,9 @@ function Menu() {
                         <li><a href="/aboutus">{t("description.aboutus")}</a></li>
                         <li>-</li>
                         <li><a href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR Crawler</a></li>
-                        <li><a href={pdf}>Reglamento Campeonato Nacional de Crawler 2022</a></li>
+                        <li><a href={pdfAECAR}>Reglamento Campeonato Nacional de Crawler 2022</a></li>
+                        <li><a href="https://isrcc.eu/">ISRCC International Scale Rock Crawler Championship</a></li>
+                        <li><a href={pdfISRCC}>Reglamento ISRCC 2022</a></li>
                     </ul>
                 </div>
             </div>

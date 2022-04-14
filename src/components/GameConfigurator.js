@@ -194,24 +194,24 @@ function GameConfigurator() {
     }
 
     if (game.gameType !== KING_GAME) {
-        extraConfigurationComponents.push(<MaxTimeAndPointsPicker
+        extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
             mode={game.pointsType} 
             onMaxPointsChange={onMaxPointsChange}
             onMaxTimeChange={onMaxTimeChange}
             maxTime={game.maxTime}
             maxPoints={game.maxPoints}
             showTimePicker={true} />);
-        extraConfigurationComponents.push(<ZonesPicker
+        extraConfigurationComponents.push(<ZonesPicker key={1}
             game={game}
             value={game.zones}
             onZonesChange={onZonesChange}
             onGatesChange={onGatesChange}
             onMaxPointsChange={onMaxPointsChange}
             onMaxTimeChange={onMaxTimeChange} />);
-        extraConfigurationComponents.push(<GateProgressionPicker
+        extraConfigurationComponents.push(<GateProgressionPicker key={2}
             value={10}
             onGatesChange={onGatesChange} />);
-        extraConfigurationComponents.push(<PlayerController 
+        extraConfigurationComponents.push(<PlayerController key={3}
                 isForJudge={true}
                 gameName={game.name}
                 onPlayerNumerChange={onJudgeNumerChange} />);
@@ -238,6 +238,14 @@ function GameConfigurator() {
             </div>
         </div>
 
+        <GameTypeController 
+            selectedGameType={game.gameType}
+            selectedPointsType={game.pointsType}
+            onGameTypeChange={(selectedIndex) => {
+                onGameTypeChange(selectedIndex);
+            }
+        } />
+
         {extraConfigurationComponents}
 
         <PlayerController gameName={game.name} 
@@ -246,13 +254,7 @@ function GameConfigurator() {
                 onPlayerNumerChange && onPlayerNumerChange(players);
             }
         }/>
-        <GameTypeController 
-            selectedGameType={game.gameType}
-            selectedPointsType={game.pointsType}
-            onGameTypeChange={(selectedIndex) => {
-                onGameTypeChange(selectedIndex);
-            }
-        } />
+
         <p>
             <button className="importantNote" 
                 onClick={() => {

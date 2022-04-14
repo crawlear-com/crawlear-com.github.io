@@ -220,18 +220,27 @@ class FirebaseController {
     remove(ref(this.rdb, `gameProgression/${gid}/`));
   }
 
-  async removeUidFromGame(game, uid) {
-    const position = game.uids.indexOf(uid);
+  async removeIdFromGame(game, id, where) {
+    const docRef = doc(this.db, "games", game.gid);
+    const docSnap = await getDoc(docRef);
 
-    game.uids.splice(position, 1);
-    updateDoc(doc(this.db, "games", game.gid), this.transformGamesIntoData(game));
-  }
+    if (docSnap.exists()) {
+      const updatedGame = docSnap.data();
+      const position = updatedGame[where].indexOf(id);
 
-  async removeJidFromGame(game, jid) {
-    const position = game.jids.indexOf(jid);
+      updatedGame.gid = docSnap.id;
+      updatedGame[where].splice(position, 1);
+      const currentGameData = this.transformGamesIntoData(updatedGame),
+        updateData = {};
+        updateData[where] = currentGameData[where];
+      
+      currentGameData[where] = updateData[where];
+      updateDoc(doc(this.db, "games", game.gid), updateData);
 
-    game.jids.splice(position, 1);
-    setDoc(doc(this.db, "games", game.gid), this.transformGamesIntoData(game));
+      return updatedGame;
+    }
+
+    return game;
   }
 
   isUserLogged() {
@@ -358,7 +367,7 @@ class FirebaseController {
 
       Object.entries(gameProgression).forEach((player, playerPos)=>{
         player[1].forEach((zone, zonePos)=>{
-          game.players[playerPos].zones[zonePos] = zone;
+          zone.data && (game.players[playerPos].zones[zonePos] = zone.data);
         });
       });
 
@@ -374,7 +383,7 @@ class FirebaseController {
     if (docSnap.exists()) {
       const data = docSnap.data();
 
-      data.players[player].zones[zone] = playerZone;
+      data.players[player].zones[zone].data = playerZone;
       setDoc(docRef, data);
     }
   }
@@ -385,7 +394,10 @@ class FirebaseController {
         this.setGameProgression(game.gid, 
             game.players[i].id,
             j,
-            'waiting');
+            {
+              status: 'waiting',
+              data: {}
+            });
       }
     }
   }
