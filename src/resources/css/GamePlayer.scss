@@ -10,6 +10,7 @@
         max-height: 45px;
         width: auto;
         height: auto;
+        border-radius: 15px;
     }
     .rounded {
         background-image: none;
@@ -27,4 +28,22 @@
     .rounded.colorClearGrey {
         background-color: #666;
     }    
-} 
+    .rounded.colorRed {
+        background-color: Red;
+    }   
+    .rounded.colorOrange {
+        background-color: Orange;
+    }
+}
+
+.repairButton {
+    margin-top: 10px;
+}
+
+.tendJudgeContainer {
+    margin-top: 15px;
+}
+
+.trackJudgeContainer {
+    
+}

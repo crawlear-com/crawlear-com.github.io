@@ -50,6 +50,10 @@ i18n
             nopartidas: 'No previous games',
             norequests: 'No current game requests',
             jugadores: 'Players',
+            juezdepista: 'Track Judge',
+            juezdecarpa: 'Tent Judge',
+            iniciarreparacion: 'Start repair',
+            enreparaciondesde: 'Since:',
             jueces: 'Judges',
             nuevojugador: 'New player',
             ordenaleatorio: 'Random order',
@@ -106,7 +110,8 @@ i18n
             fallospuerta: 'gate fails',
             bonificacion: 'bonification',
             jugadorseleccionado: 'Selected player',
-            zonaseleccionada: 'Selected zone'
+            zonaseleccionada: 'Selected zone',
+            nohayreparaciones: 'There is no repairs'
 
           },
           points: {
@@ -202,6 +207,10 @@ i18n
               norequests: 'No hay peticiones de juego en curso',
               jugadores: 'Jugadores',
               jueces: 'Jueces',
+              enreparaciondesde: 'Desde:',
+              iniciarreparacion: 'Iniciar reparación',
+              juezdepista: 'Juez de Pista',
+              juezdecarpa: 'Juez de Carpa',
               nuevojugador: 'Nuevo jugador',
               ordenaleatorio: 'Orden aleatorio',
               empezar: 'Empezar',
@@ -257,7 +266,8 @@ i18n
               fallospuerta: 'puertas fallidas',
               bonificacion: 'bonificación',
               jugadorseleccionado: 'Piloto seleccionado',
-              zonaseleccionada: 'Zona seleccionada'
+              zonaseleccionada: 'Zona seleccionada',
+              nohayreparaciones: 'No hay reparaciones'
           },
           points: {
             vuelco: 'vuelco',

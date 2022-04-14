@@ -9,7 +9,7 @@ function GameProgressionInfo({game, gameProgression}) {
     const playersDone = [];
     let i=0;
 
-    playersDone.push(<GameHeaderInfo game={game}/>);
+    playersDone.push(<GameHeaderInfo key="header" game={game}/>);
     game.players.forEach((player)=>{
         let zones=[], j=0;
 
@@ -17,13 +17,14 @@ function GameProgressionInfo({game, gameProgression}) {
             if(gameProgression && 
                     gameProgression[player.id] && 
                     gameProgression[player.id][j] &&
-                    gameProgression[player.id][j].controlTextValues) {
-                const points = gameProgression[player.id][j].points,
-                    time = gameProgression[player.id][j].time,
-                    gateFails = gameProgression[player.id][j].gatesWithFail,
-                    bonitification = gameProgression[player.id][j].gatesWithBonification;
+                    gameProgression[player.id][j].data &&
+                    gameProgression[player.id][j].data.controlTextValues) {
+                const points = gameProgression[player.id][j].data.points,
+                    time = gameProgression[player.id][j].data.time,
+                    gateFails = gameProgression[player.id][j].data.gatesWithFail,
+                    bonitification = gameProgression[player.id][j].data.gatesWithBonification;
 
-                zones.push(<div className="gameProgressionInfoItem">
+                zones.push(<div key={j} className="gameProgressionInfoItem">
                         <div className="bold">{t('description.zona')} {j+1}</div>
                         <ul>
                             <li>{t('description.puntos')}: <span className="bold">{points}</span></li>

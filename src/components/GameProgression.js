@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 const STATUS_WAITING = 'waiting';
 const STATUS_PLAYING = 'playing';
+const STATUS_REPAIR = 'repair';
+const STATUS_DONE = 'done';
 
 function GameProgression({gameProgression, players, onZoneClick}) {
     const { t } = useTranslation();
@@ -14,7 +16,7 @@ function GameProgression({gameProgression, players, onZoneClick}) {
     function prepareOnClick(event, player) {
         const zone = Number(event.target.getAttribute("data-zone"));
 
-        if(gameProgression[player.id][zone] === STATUS_WAITING) {
+        if(gameProgression[player.id][zone].status === STATUS_WAITING) {
             setSelectedPlayer(player.id);
             setSelectedZone(zone);
             onZoneClick(player, zone);
@@ -35,12 +37,16 @@ function GameProgression({gameProgression, players, onZoneClick}) {
         player.zones.forEach((zone)=>{
             className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
             if(gameProgression && gameProgression[player.id]) {
-                if (gameProgression[player.id][j] !== STATUS_WAITING) {
-                    if (gameProgression[player.id][j] === STATUS_PLAYING) {
+                if (gameProgression[player.id][j].status !== STATUS_WAITING) {
+                    if (gameProgression[player.id][j].status === STATUS_PLAYING) {
                         className += " colorGreen";
-                    } else {
+                    } else if (gameProgression[player.id][j].status === STATUS_REPAIR) {
+                        className += " colorRed";
+                    } else if (gameProgression[player.id][j].status === STATUS_DONE) { 
                         className += " colorClearGrey";
                     }
+                } else if (gameProgression[player.id][j].data) {
+                    className += " colorOrange";
                 }
                 zones.push(<span data-zone={j} onClick={(event)=>{                    
                     prepareOnClick(event, player, zone);
@@ -48,7 +54,7 @@ function GameProgression({gameProgression, players, onZoneClick}) {
             }
             j++;
         });
-        playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded2'>
+        playersDone.push(<div key={i+j} className='gameProgressionItem'>
                 <img src={player.avatar} alt="player avatar" />
                 <div className="horizontalScrollContainer">{zones}</div>
         </div>);

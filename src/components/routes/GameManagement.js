@@ -69,33 +69,34 @@ function GameManagement({onLogout}) {
     }
 
     function onRemovePlayerGames(gamePosition) {
-        const game = games[gamePosition];
+        let game = games[gamePosition];
         const newGames = [...games];
 
         newGames.splice(gamePosition, 1);
-        firebase.removeUidFromGame(game, window.crawlear.user.uid);
-        setGames(newGames);
+        game = firebase.removeUidFromGame(game, window.crawlear.user.uid);
 
         if (game.uids.length === 0 && game.jids.length === 0) {
             firebase.removeGame(game.gid);
-        }  
+        }
+
+        setGames(newGames);
     }
 
     function onRemoveJudgeGame(gamePosition) {
-        const game = judgeGames[gamePosition];
+        let game = judgeGames[gamePosition];
         const newGames = [...judgeGames];
 
         newGames.splice(gamePosition, 1);
-        if (game.jids.indexOf(window.crawlear.user.uid)>=0) {
-            firebase.removeUidFromGame(game, window.crawlear.user.uid);    
+        if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
+            game = firebase.removeUidFromGame(game, window.crawlear.user.uid);    
         }
-        firebase.removeJidFromGame(game, window.crawlear.user.uid);
-
-        if (game.uids.length === 0 && game.jids.length === 0) {
-            firebase.removeGame(game.gid);
-        }  
-
-        setJudgeGames(newGames);
+        firebase.removeJidFromGame(game, window.crawlear.user.uid).then((game)=>{
+            if (game.uids.length === 0 && game.jids.length === 0) {
+                firebase.removeGame(game.gid);
+            }
+    
+            setJudgeGames(newGames);
+        });
     }
 
     function onGamePlay(games, gamePosition) {

@@ -1,0 +1,33 @@
+.repairProgressionContainer {
+    margin: 25px;
+}
+
+.repairProgressionItem {
+    margin: 10px;
+
+    .repairProgressionItemHead {
+        font-size: 0.8em;
+    }
+    .repairProgressionItemZone {
+
+    }
+    .repairProgressionItemHead {
+        text-align: left;
+    }
+
+    img {
+        border-radius: 15px;
+        margin-right: 15px;
+        display: inline-block;
+        max-width: 40px;
+    }
+
+    .timerContainer {
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+.gameProgressionItemHour {
+    margin: 0 10px;
+}
