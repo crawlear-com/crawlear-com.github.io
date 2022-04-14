@@ -33,7 +33,6 @@ function RepairProgression({gameProgression, game, onTimeFiasco}) {
     gameProgression && Object.entries(gameProgression).forEach(entry => {
         const [key, player] = entry;
 
-        //onTimeFiasco={()=>{onTimeFiasco(game.players[key].id, index)}}
         player.forEach((zone, index) => {
             if (zone.status === STATUS_REPAIR) {
                 const date = new Date(zone.repairData.setTime).toLocaleTimeString(navigator.language, {

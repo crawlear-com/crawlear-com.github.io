@@ -21,8 +21,6 @@ function TimerControl ({
     const containerRef = React.useRef(null);
     const tickTime = React.useRef(startTime || 0);
     const [state, setState] = React.useState(()=>{ 
-        //tickTime.current = 0;
-        
         return { 
             millis: startTime || 0,
             timer: null,
