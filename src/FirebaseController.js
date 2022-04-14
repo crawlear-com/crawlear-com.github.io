@@ -220,46 +220,21 @@ class FirebaseController {
     remove(ref(this.rdb, `gameProgression/${gid}/`));
   }
 
-  async removeUidFromGame(game, uid) {
+  async removeIdFromGame(game, id, where) {
     const docRef = doc(this.db, "games", game.gid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       const updatedGame = docSnap.data();
-      const position = updatedGame.uids.indexOf(uid);
+      const position = updatedGame[where].indexOf(id);
 
       updatedGame.gid = docSnap.id;
-      updatedGame.uids.splice(position, 1);
+      updatedGame[where].splice(position, 1);
       const currentGameData = this.transformGamesIntoData(updatedGame),
-        updateData = {
-          uids: currentGameData.uids
-        };
+        updateData = {};
+        updateData[where] = currentGameData[where];
       
-      currentGameData.uids = updateData.uids;
-      updateDoc(doc(this.db, "games", game.gid), updateData);
-
-      return updatedGame;
-    }
-
-    return game;
-  }
-
-  async removeJidFromGame(game, jid) {
-    const docRef = doc(this.db, "games", game.gid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const updatedGame = docSnap.data();
-      const position = updatedGame.jids.indexOf(jid);
-
-      updatedGame.gid = docSnap.id;
-      updatedGame.jids.splice(position, 1);
-      const currentGameData = this.transformGamesIntoData(updatedGame),
-        updateData = {
-          jids: currentGameData.jids
-        };
-      
-      currentGameData.jids = updateData.jids;
+      currentGameData[where] = updateData[where];
       updateDoc(doc(this.db, "games", game.gid), updateData);
 
       return updatedGame;

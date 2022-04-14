@@ -73,13 +73,13 @@ function GameManagement({onLogout}) {
         const newGames = [...games];
 
         newGames.splice(gamePosition, 1);
-        game = firebase.removeUidFromGame(game, window.crawlear.user.uid);
-
-        if (game.uids.length === 0 && game.jids.length === 0) {
-            firebase.removeGame(game.gid);
-        }
-
-        setGames(newGames);
+        firebase.removeIdFromGame(game, window.crawlear.user.uid, "uids").then((game)=>{
+            if (game.uids.length === 0 && game.jids.length === 0) {
+                firebase.removeGame(game.gid);
+            }
+    
+            setGames(newGames);
+        });
     }
 
     function onRemoveJudgeGame(gamePosition) {
@@ -88,15 +88,24 @@ function GameManagement({onLogout}) {
 
         newGames.splice(gamePosition, 1);
         if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
-            game = firebase.removeUidFromGame(game, window.crawlear.user.uid);    
+            firebase.removeIdFromGame(game, window.crawlear.user.uid, "uids").then((game)=>{
+                firebase.removeIdFromGame(game, window.crawlear.user.uid, "jids").then((game)=>{
+                    if (game.uids.length === 0 && game.jids.length === 0) {
+                        firebase.removeGame(game.gid);
+                    }
+            
+                    setJudgeGames(newGames);
+                });
+            });
+        } else {
+            firebase.removeIdFromGame(game, window.crawlear.user.uid, "jids").then((game)=>{
+                if (game.uids.length === 0 && game.jids.length === 0) {
+                    firebase.removeGame(game.gid);
+                }
+        
+                setJudgeGames(newGames);
+            });
         }
-        firebase.removeJidFromGame(game, window.crawlear.user.uid).then((game)=>{
-            if (game.uids.length === 0 && game.jids.length === 0) {
-                firebase.removeGame(game.gid);
-            }
-    
-            setJudgeGames(newGames);
-        });
     }
 
     function onGamePlay(games, gamePosition) {
