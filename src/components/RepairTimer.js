@@ -12,7 +12,7 @@ function RepairTimer({onTimeFiasco, onRepairTimerChange}) {
                 label={t('points.reparacion')}
                 onTimeFiasco={onTimeFiasco}
                 onTimerChange={onRepairTimerChange}
-                maxTime={3000} />
+                maxTime={1800000} />
         </div>;
 }
 
