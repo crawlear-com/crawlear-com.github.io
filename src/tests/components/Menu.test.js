@@ -46,7 +46,7 @@ test('opens Menu', () => {
     menu.click();
     const links = menu.querySelectorAll(".linksContainer li");
 
-    expect(links.length).toBe(6);
+    expect(links.length).toBe(8);
     expect(links[0].querySelector("a").getAttribute("href")).toBe("/");
     expect(links[1].querySelector("a").getAttribute("href")).toBe("/privacypolicy");
     expect(links[2].querySelector("a").getAttribute("href")).toBe("/aboutus");
