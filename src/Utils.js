@@ -30,9 +30,14 @@ class Utils {
     }
 
     static millisToTime(millis) {
-        const minutes = Math.floor(millis / 60000),
-            hours = Math.floor(minutes / 60), 
-            seconds = ((millis % 60000) / 1000).toFixed(0);
+        let seconds = Math.floor(millis / 1000);
+        let minutes = Math.floor(seconds / 60);
+        let hours = Math.floor(minutes / 60);
+      
+        seconds = seconds % 60;
+        minutes = seconds >= 30 ? minutes + 1 : minutes;
+        minutes = minutes % 60;
+        hours = hours % 24;
 
         return { 
             h: hours,
