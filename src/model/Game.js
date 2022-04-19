@@ -31,7 +31,7 @@ class GameUtils {
                     gatesWithFail: 0,
                     controlTextValues: new Array(6),
                     fiascoControlTextValues: new Array(5),
-                    gatePoints: new Array(game.gates)
+                    gatePoints: new Array(game.gates[k])
                 };
     
                 for(let j=0; j<zone.controlTextValues.length; j++) {

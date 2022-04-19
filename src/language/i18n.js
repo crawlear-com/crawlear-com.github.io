@@ -34,7 +34,7 @@ i18n
             landingMainText: 'Sign In with your Google.com account to get all the functionality',
             landingSecondText: 'Or just play a',
             seleccionZonas: 'Select the number of zones',
-            seleccionPuertas: 'Select the number of progression gates',
+            seleccionPuertas: 'Select the number of progression gates for each zone',
             seleccionapilotoyzona: 'Select a player and a zone to continue'
           },
           error: {
@@ -190,7 +190,7 @@ i18n
             landingMainText: 'Ingresa con tu cuenta de Google.com para acceder a las funcionalidades completas',
             landingSecondText: 'O si lo prefieres, puedes jugar simplemente una',
             seleccionZonas: 'Selecciona el número de zonas o sectores',
-            seleccionPuertas: 'Selecciona el número de puertas de progresión',
+            seleccionPuertas: 'Selecciona el número de puertas de progresión por cada zona',
             seleccionapilotoyzona: 'Selecciona un piloto y una zona para continuar'
           },
           error: {

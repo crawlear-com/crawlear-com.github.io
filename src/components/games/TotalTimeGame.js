@@ -99,7 +99,7 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
             zones = newState.game.players[playerIndex].zones;
 
         zones[zoneIndex].gateProgression = value;
-        if(value === game.gates) {
+        if(value === game.gates[zoneIndex]) {
             newState.forceAction = 'pause';
         }
         setState(newState);
@@ -134,7 +134,7 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
             </div>
             <div className="totalTimeContainer rounded rounded2">
                 {t('description.zonas')}: {game.zones}<br />
-                {t('points.puertaprogresion')}: {game.gates}<br />
+                {t('points.puertaprogresion')}: {game.gates[zoneIndex]}<br />
                 {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(game.maxTime))} <br />
                 {t('description.puntosmaximo')}: {game.maxPoints}<br />
             </div>
@@ -145,7 +145,7 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
                 <SliderWithTooltip
                     step={1}
                     min={0}
-                    max={game.gates}
+                    max={game.gates[zoneIndex]}
                     dots={true}
                     value={playerZone.gateProgression}
                     onChange={onGateProgressionChange}

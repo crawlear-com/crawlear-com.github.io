@@ -21,7 +21,6 @@ function GameHeaderInfo({game}) {
 
     return <div className="gameHeaderInfo rounded rounded2"><div className="gameGameType">{t('gametype.modojuego')}: <span className="bold">{resolveGameType(game.gameType)}</span></div>
         <div className="gamePointsType">{t('description.zonas')}: <span className="bold">{game.zones}</span></div> 
-        <div className="gamePointsType">{t('points.puertaprogresion')}: <span className="bold">{game.gates}</span></div> 
         <div className="gameIsPublic"><span className="bold">{game.isPublic ? t('description.esPublica') : ""}</span></div>
         {game.location.latitude && game.location.longitude ? 
             <div className="gameLocation">

@@ -13,6 +13,8 @@ import Utils from '../Utils';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 
+import '../resources/css/GameConfigurator.scss';
+
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
 const STATE_LOCATION_LOCATING=2;
@@ -24,7 +26,7 @@ function GameConfigurator() {
         new Date().toLocaleDateString(),
         { latitude: 0, longitude: 0 },
         false, 2,
-        [], [], 600000, 40, 10, 4, 0, [], []);
+        [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], []);
     });
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
@@ -91,15 +93,20 @@ function GameConfigurator() {
     function onZonesChange(zones) {
         const newGame = {...game};
 
-        newGame.zones = zones;   
+        if(game.zones < zones) {
+            newGame.gates.push(10);
+        } else {
+            newGame.gates.pop();
+        }
+        newGame.zones = zones;
         Analytics.event('menu', 'zonesSet', zones);
         setGame(newGame);
     }
 
-    function onGatesChange(gates) {
+    function onGatesChange(gates, i) {
         const newGame = {...game}
 
-        newGame.gates = gates;
+        newGame.gates[i] = gates;
         Analytics.event('menu', 'gateSet', gates);
         setGame(newGame);
     }
@@ -209,6 +216,7 @@ function GameConfigurator() {
             onMaxPointsChange={onMaxPointsChange}
             onMaxTimeChange={onMaxTimeChange} />);
         extraConfigurationComponents.push(<GateProgressionPicker key={2}
+            zones={game.zones}
             value={10}
             onGatesChange={onGatesChange} />);
         extraConfigurationComponents.push(<PlayerController key={3}
