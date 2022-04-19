@@ -52,16 +52,22 @@ function GameMenu({game, beginGame, onPlayerChange}) {
     function onZonesChange(zones) {
         const newGame = {...currentGame};
 
+        if(newGame.zones < zones) {
+            newGame.gates.push(10);
+        } else {
+            newGame.gates.pop();
+        }
+
         newGame.zones = zones;   
         Analytics.event('menu', 'zonesSet', zones);
         setGame(newGame);
     }
     
 
-    function onGatesChange(gates) {
+    function onGatesChange(gates, i) {
         const newGame = {...currentGame}
 
-        newGame.gates = gates;
+        newGame.gates[i] = gates;
         Analytics.event('menu', 'gateSet', gates);
         setGame(newGame);
     }
@@ -84,7 +90,8 @@ function GameMenu({game, beginGame, onPlayerChange}) {
             onMaxTimeChange={onMaxTimeChange} />
         
         <GateProgressionPicker
-            value={currentGame.gates}
+            zones={currentGame.zones}
+            value={10}
             onGatesChange={onGatesChange} />
 
         <PlayerController gameName={currentGame.name} 
