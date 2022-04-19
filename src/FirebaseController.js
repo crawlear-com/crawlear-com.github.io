@@ -143,7 +143,7 @@ class FirebaseController {
           player.totalPoints = player.points;
           player.totalGateProgression = 1;
         });
-        data.gates = 1;
+        data.gates = [1];
         data.zones = 1;
       }
       game = new Game(data.name, 

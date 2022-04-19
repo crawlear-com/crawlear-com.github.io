@@ -111,14 +111,14 @@ function IsrccGame({game,
         if (Math.abs(value - currentZone.gateProgression) > 1) return;
 
         if (value < currentZone.gateProgression) {
-            for(let i=value;i<newState.game.gates;i++) {
+            for(let i=value;i<newState.game.gates[zoneIndex];i++) {
                 currentZone.gatePoints[i]=0;
             }
         }
         currentZone.gateProgression = value;
         currentZone.gatesWithFail = currentZone.gatePoints ? currentZone.gatePoints.filter(x => x >= 20).length : 0;
         currentZone.gatesWithBonification = currentZone.gatePoints ? currentZone.gatePoints.filter((x,i) => (x < 20 && i<currentZone.gateProgression)).length : 0;
-        if (value === newState.game.gates) {
+        if (value === newState.game.gates[zoneIndex]) {
             newState.forceAction = 'pause';
         }
         setState(newState);
@@ -194,7 +194,7 @@ function IsrccGame({game,
             <SliderWithTooltip
                     step={1}
                     min={0}
-                    max={currentGame.gates}
+                    max={currentGame.gates[zoneIndex]}
                     dots={true}
                     value={playerZone.gateProgression}
                     onChange={onGateProgressionChange}
@@ -245,7 +245,7 @@ function initControlTestValues(game) {
                     gatesWithFail: 0,
                     controlTextValues: new Array(6),
                     fiascoControlTextValues: new Array(5),
-                    gatePoints: new Array(game.gates)
+                    gatePoints: new Array(game.gates[k])
                 };
     
                 for(let j=0; j<zone.controlTextValues.length; j++) {
