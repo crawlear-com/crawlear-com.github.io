@@ -153,21 +153,24 @@ function IsrccGame({game,
         const result = {};
 
     for (let i=0; i<gatePoints.length; i++) {
-            let classname = 'gatePoints ';
+            let classname = 'gatePoints ',
+                content;
 
             if (i<gateProgression) {
                 if (gatePoints[i] < 20) {
                     classname += 'colorGreen';
+                    content = '-2';
                 } else {
                     classname += 'colorRed';
+                    content = '0';
                 }
             } else {
                 classname += 'colorGrey';
+                content = '-';
             }
 
             result[i] = <div className={classname}>
-                {gatePoints[i]}<br />
-                {i+1}
+                {content}
             </div>;
 
         }
