@@ -10,6 +10,7 @@ import Slider, { createSliderWithTooltip } from 'rc-slider';
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/TotalTimeGame.scss'
 import '../../resources/css/games/Isrcc.scss'
+import '../../resources/css/rcSlider.scss'
 
 function IsrccGame({game, 
     onGameEnd,
