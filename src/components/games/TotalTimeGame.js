@@ -9,6 +9,7 @@ import TotalTimeGameScores from './TotalTimeGameScores';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/TotalTimeGame.scss'
+import '../../resources/css/rcSlider.scss'
 
 function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
     const { t } = useTranslation();
