@@ -148,11 +148,27 @@ function IsrccGame({game,
         onRepair && onRepair(playerIndex, zoneIndex);
     }
 
-    function generateSliderMarksFromGates(gatePoints) {
+    function generateSliderMarksFromGates(gatePoints, gateProgression) {
         const result = {};
 
-        for (let i=0; i<gatePoints.length; i++) {
-            result[i] = <div>{gatePoints[i]}</div>
+    for (let i=0; i<gatePoints.length; i++) {
+            let classname = 'gatePoints ';
+
+            if (i<gateProgression) {
+                if (gatePoints[i] < 20) {
+                    classname += 'colorGreen';
+                } else {
+                    classname += 'colorRed';
+                }
+            } else {
+                classname += 'colorGrey';
+            }
+
+            result[i] = <div className={classname}>
+                {gatePoints[i]}<br />
+                {i+1}
+            </div>;
+
         }
 
         return result;
@@ -196,9 +212,8 @@ function IsrccGame({game,
             <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
         </div>
         <div className="controlTextContainer info rounded rounded2">
-            {t('description.zona')}: {zoneIndex + 1} / {t('description.avancepuerta')}: {playerZone.gateProgression}<br/>
-            puertas+ {playerZone.gatesWithBonification}<br/>
-            puertas- {playerZone.gatesWithFail}<br />
+            {t('description.zona')}: {zoneIndex + 1}<br/>
+            {t('description.puertas')}: {currentGame.gates[zoneIndex]}<br/>
             {t('description.bonificacion')}: {playerZone.gatesWithBonification * -2}<br />
             
             <SliderWithTooltip
@@ -208,7 +223,7 @@ function IsrccGame({game,
                     dots={true}
                     value={playerZone.gateProgression}
                     onChange={onGateProgressionChange}
-                    marks={generateSliderMarksFromGates(playerZone.gatePoints)}
+                    marks={generateSliderMarksFromGates(playerZone.gatePoints, playerZone.gateProgression)}
                     tipFormatter={(value)=>{
                         return String(value).concat('-').concat(playerZone.gatePoints[playerZone.gateProgression]); 
                     }}

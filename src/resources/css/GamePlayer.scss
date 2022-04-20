@@ -18,22 +18,6 @@
         line-height: 2.9;
         box-shadow: none;
     }
-
-    .rounded.colorGreen {
-        background-color: Green;
-    }
-    .rounded.colorGrey {
-        background-color: #333;
-    }
-    .rounded.colorClearGrey {
-        background-color: #666;
-    }    
-    .rounded.colorRed {
-        background-color: Red;
-    }   
-    .rounded.colorOrange {
-        background-color: Orange;
-    }
 }
 
 .repairButton {
@@ -46,4 +30,42 @@
 
 .trackJudgeContainer {
     
+}
+
+.gatePoints {
+    padding: 5px;
+    border-radius: 15px;
+    color: white;
+}
+
+.rc-slider {
+    height: 61px;
+}
+.rc-slider-rail {
+    background-color: #333;
+}
+
+.rc-slider-track {
+    background-color: #aaa;
+}
+
+.rc-slider-dot {
+    border-color: #666;
+}
+
+.rc-slider-handle, 
+.rc-slider-dot.rc-slider-dot-active {
+    border-color: #fff;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 75px;
+    border-bottom-right-radius: 75px;
+}
+
+.rc-slider-handle {
+
+}
+
+.rc-slider-mark-text {
+    color: black;
 }
