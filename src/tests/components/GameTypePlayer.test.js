@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import GameTypePlayer from '../../components/GameTypePlayer.js';
-import { Game } from '../../model/Game.js';
+import { Game, GameUtils } from '../../model/Game.js';
 
 let game;
 const div = document.createElement('div'),
@@ -66,6 +66,7 @@ beforeEach(()=>{
                 time: 16480
             }]
         }], [], 600000, 40, 10, 1, 0, [], []);
+        GameUtils.init(game);
 });
 
 test('renders GameTypePlayer: 0', () => {
