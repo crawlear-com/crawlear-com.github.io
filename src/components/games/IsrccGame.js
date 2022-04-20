@@ -52,7 +52,7 @@ function IsrccGame({game,
             playerZone.controlTextValues[control] += value;
             playerZone.points += value;
 
-            if (playerZone.gateProgression<currentGame.gates && playerZone.gatePoints[playerZone.gateProgression]+value >=0) {
+            if (playerZone.gateProgression<currentGame.gates[zoneIndex] && playerZone.gatePoints[playerZone.gateProgression]+value >=0) {
                 playerZone.gatePoints[playerZone.gateProgression] += value;
             }
             setState(newState);
@@ -148,6 +148,16 @@ function IsrccGame({game,
         onRepair && onRepair(playerIndex, zoneIndex);
     }
 
+    function generateSliderMarksFromGates(gatePoints) {
+        const result = {};
+
+        for (let i=0; i<gatePoints.length; i++) {
+            result[i] = <div>{gatePoints[i]}</div>
+        }
+
+        return result;
+    }
+
     let fiasco = <></>;
     const currentGame = state.game,
         maxTime = currentGame.maxTime,
@@ -198,8 +208,10 @@ function IsrccGame({game,
                     dots={true}
                     value={playerZone.gateProgression}
                     onChange={onGateProgressionChange}
-                    marks={['-'].concat(playerZone.gatePoints)}
-                    tipFormatter={(value)=>{ return value; }}
+                    marks={generateSliderMarksFromGates(playerZone.gatePoints)}
+                    tipFormatter={(value)=>{
+                        return String(value).concat('-').concat(playerZone.gatePoints[playerZone.gateProgression]); 
+                    }}
                 />
         </div>
         
