@@ -103,7 +103,7 @@ function GameResultTable({game, isDraw}) {
                             <>
                                 <div className="left bold">{t('points.fiascos')}:</div>
                                 <ControlTextArrayVisualization 
-                                    controlTextValues={zone.gateProgressionData ? GameUtils.sumFiascoControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
+                                    controlTextValues={zone.controlTextValues} 
                                     texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
                             </> : 
                             <></>}

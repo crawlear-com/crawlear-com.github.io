@@ -52,7 +52,7 @@ function IsrccGame({game,
 
         if ((!pointsFiasco() && !timeFiasco()) || 
            (playerZone.points + value <= currentGame.maxPoints && 
-            playerCurrentGate.fiascoControlTextValues.filter(x => x > 0).length === 0)) {
+            playerZone.fiascoControlTextValues.filter(x => x > 0).length === 0)) {
 
                 playerCurrentGate.controlTextValues = [...playerCurrentGate.controlTextValues];
                 playerCurrentGate.controlTextValues[control] += value;
@@ -64,7 +64,7 @@ function IsrccGame({game,
 
                 setState(newState);
 
-                if (playerCurrentGate.fiascoControlTextValues.filter(x => x > 0).length >= 1 ||
+                if (playerZone.fiascoControlTextValues.filter(x => x > 0).length >= 1 ||
                 (currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0) ||
                 (currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0)) { 
                     setState({
@@ -147,14 +147,13 @@ function IsrccGame({game,
     function onFiascoChangeScore(value, control) {
         const newState = {...state},
             players = newState.game.players,
-            playerZone = players[playerIndex].zones[zoneIndex],
-            playerCurrentGate = playerZone.gateProgressionData[playerZone.gateProgression];
+            playerZone = players[playerIndex].zones[zoneIndex];
 
-        playerCurrentGate.fiascoControlTextValues = [...playerCurrentGate.fiascoControlTextValues];
-        playerCurrentGate.fiascoControlTextValues[control] += value;
+        playerZone.fiascoControlTextValues = [...playerZone.fiascoControlTextValues];
+        playerZone.fiascoControlTextValues[control] += value;
 
         control === 0 && (playerZone.points += value);
-        playerCurrentGate.fiascoControlTextValues[control] > 0 && (newState.forceAction = 'pause');
+        playerZone.fiascoControlTextValues[control] > 0 && (newState.forceAction = 'pause');
         setState(newState);
     }
 
@@ -204,6 +203,7 @@ function IsrccGame({game,
         maxTime = currentGame.maxTime,
         player = currentGame.players[playerIndex],
         playerZone = player.zones[zoneIndex],
+        currentBonification = getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression),
         controlTextArray = playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
             <ControlTextArray
                 controlTextValues={playerZone.gateProgressionData[playerZone.gateProgression].controlTextValues}
@@ -211,10 +211,11 @@ function IsrccGame({game,
                 maxValues={IsrccGameScores.maxValues}
                 texts={IsrccGameScores.texts}
                 player={playerIndex}
+                isClosed={false}
                 onValueChange={onChangeScore}
             /> : <></>,
         fiascoControlTextArray = playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
-            <FiascoControl values={playerZone.gateProgressionData[playerZone.gateProgression].fiascoControlTextValues} onChangeScore={onFiascoChangeScore}
+            <FiascoControl values={playerZone.fiascoControlTextValues} onChangeScore={onFiascoChangeScore}
             /> : <>{t('content.pulsafinjugador')}</>;
 
     if (isFiasco(state, playerIndex, zoneIndex)) {
@@ -237,12 +238,14 @@ function IsrccGame({game,
                 forceAction={state.forceAction}
                 onTimerChange={onTimerChange}
                 maxTime={maxTime} />
-            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
             <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
+            <div className="pointsText">{t('description.total')}: {playerZone.points + currentBonification }</div>
+            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="controlTextContainer info rounded rounded2">
             {t('description.zona')}: {zoneIndex + 1}<br/>
             {t('description.puertas')}: {currentGame.gates[zoneIndex]}<br/>
+            {t('description.bonificacion')}: { currentBonification}<br/>
             
             <SliderWithTooltip
                     step={1}
@@ -258,10 +261,10 @@ function IsrccGame({game,
                             '-'; 
                     }}
                 />
+            {controlTextArray}
         </div>
         
         <div className="controlTextContainer rounded rounded2">
-            {controlTextArray}
             {fiascoControlTextArray}
         </div>
 
@@ -277,11 +280,10 @@ function isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
     let fiasco = false, gate = 0;
 
     while(!fiasco && gate<game.gates[zoneIndex]) {
-        const gateData = playerZone.gateProgressionData[gate];
         let control = 0;
 
-        while (!fiasco && control<gateData.fiascoControlTextValues.length) {
-            if (gateData.fiascoControlTextValues[control]>0) {
+        while (!fiasco && control<playerZone.fiascoControlTextValues.length) {
+            if (playerZone.fiascoControlTextValues[control]>0) {
                 fiasco = true;
             } else {
                 control++;

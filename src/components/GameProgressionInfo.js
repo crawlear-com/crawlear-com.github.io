@@ -43,7 +43,7 @@ function GameProgressionInfo({game, gameProgression}) {
                         <>
                             <div className="left bold">{t('points.fiascos')}:</div>
                             <ControlTextArrayVisualization 
-                                controlTextValues={GameUtils.sumFiascoControlTextValues(gameProgression[player.id][j].data.gateProgressionData)} 
+                                controlTextValues={zone.fiascoControlTextValues} 
                                 texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
                         </> : 
                         <></>}
