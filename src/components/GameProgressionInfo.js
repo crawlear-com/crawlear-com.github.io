@@ -22,7 +22,7 @@ function GameProgressionInfo({game, gameProgression}) {
     game.players.forEach((player)=>{
         let zones=[], j=0;
 
-        player.zones.forEach((zone)=>{
+        player.zones.forEach((zone, index)=>{
             if(gameProgression && 
                     gameProgression[player.id] && 
                     gameProgression[player.id][j] &&
@@ -36,13 +36,13 @@ function GameProgressionInfo({game, gameProgression}) {
 
                 if (gameProgression[player.id][j].status==="done") { 
                     controlTextValues.push(<>
-                        <ControlTextArrayVisualization 
+                        <ControlTextArrayVisualization key={`zone${index}`}
                             controlTextValues={GameUtils.sumControlTextValues(gameProgression[player.id][j].data.gateProgressionData)} 
                             texts={gameTypeTexts} />
                         {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
                         <>
-                            <div className="left bold">{t('points.fiascos')}:</div>
-                            <ControlTextArrayVisualization 
+                            <div className="left bold" key={`zoneDiv${index}`}>{t('points.fiascos')}:</div>
+                            <ControlTextArrayVisualization key={`zoneFiasco${index}`} 
                                 controlTextValues={zone.fiascoControlTextValues} 
                                 texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
                         </> : 
