@@ -30,14 +30,14 @@ class GameUtils {
                         gateProgression: 0,
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
-                        gateProgressionData: new Array(game.gates[k])
+                        gateProgressionData: new Array(game.gates[k]),
+                        fiascoControlTextValues: new Array(5)
                     };
 
                     for (let j=0; j<game.gates[k]; j++) {
                         zone.gateProgressionData[j] = {
                             gatePoints: 0,
-                            controlTextValues: new Array(6),
-                            fiascoControlTextValues: new Array(5)    
+                            controlTextValues: new Array(6)
                         }
 
                         for(let l=0; l<zone.gateProgressionData[j].controlTextValues.length; l++) {
@@ -48,8 +48,8 @@ class GameUtils {
                             zone.gateProgressionData[j].controlTextValues[l] = 0;
                         }
                         
-                        for(let l=0; l<zone.gateProgressionData[j].fiascoControlTextValues.length; l++) {
-                            zone.gateProgressionData[j].fiascoControlTextValues[l] = 0;
+                        for(let l=0; l<zone.fiascoControlTextValues.length; l++) {
+                            zone.fiascoControlTextValues[l] = 0;
                         }
             
                         for(let l=0; l<zone.gateProgressionData[j].gatePoints.length; l++) {
@@ -64,18 +64,6 @@ class GameUtils {
         });
     }
 
-    static sumFiascoControlTextValues(gateProgresionData) {
-        const controlTextValues = new Array(gateProgresionData[0].fiascoControlTextValues.length).fill(0);
-    
-        gateProgresionData.forEach((data)=>{
-            data.fiascoControlTextValues.forEach((control, index)=>{
-                controlTextValues[index] += control;
-            })
-        })
-    
-        return controlTextValues;
-    }
-    
     static sumControlTextValues(gateProgresionData) {
         const controlTextValues = new Array(gateProgresionData[0].controlTextValues.length).fill(0);
     

@@ -11,6 +11,7 @@ function ControlTextArray({
     maxValues,
     texts,
     player,
+    isClosed=true,
     onValueChange}) {
     let i=0;
     const isFullScore = controlTextValues.length>14;
@@ -59,7 +60,7 @@ function ControlTextArray({
     }
 
     return <>
-        <div className="controlTextContainer closed" onClick={titleOnClick}>
+        <div className={isClosed ? "controlTextContainer closed" : "controlTextContainer"} onClick={titleOnClick}>
             <p key="mainTitle" className="controlTextTitle rounded rounded2">{t(textToken)}
                 <img src={dropDownImage} className="dropdown" alt="dropdown icon"></img>
             </p>
