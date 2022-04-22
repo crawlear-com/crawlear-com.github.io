@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Utils from '../Utils';
-import GameHeaderInfo from './GameHeaderInfo';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import IsrccGameScores from './games/IsrccGameScores';
 import TotalTimeGameScores from './games/TotalTimeGameScores';
 import { useTranslation } from 'react-i18next';
+import { GameUtils } from '../model/Game';
 
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import winnerIcon from '../resources/img/iconWinner.png';
@@ -97,13 +97,13 @@ function GameResultTable({game, isDraw}) {
                 <tr key={i+j+2} className="closed">
                     <td colSpan={7}>
                         <ControlTextArrayVisualization 
-                            controlTextValues={zone.controlTextValues} 
+                            controlTextValues={zone.gateProgressionData ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
                             texts={gameTypeTexts} />
                         {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
                             <>
                                 <div className="left bold">{t('points.fiascos')}:</div>
                                 <ControlTextArrayVisualization 
-                                    controlTextValues={zone.fiascoControlTextValues} 
+                                    controlTextValues={zone.gateProgressionData ? GameUtils.sumFiascoControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
                                     texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
                             </> : 
                             <></>}
@@ -116,17 +116,14 @@ function GameResultTable({game, isDraw}) {
         j++;
     })
 
-    return <div className="gameList rounded rounded2">
-            <GameHeaderInfo game={game} />
-            <div className="gameParticipants">
+    return <div className="gameParticipants">
                 <div className="resultTitle">{t('description.resultado')}:</div>
                 <table>
                     <tbody>
                         {players}
                     </tbody>
                 </table>
-            </div>
-    </div>;
+            </div>;
 }
 
 export default GameResultTable;

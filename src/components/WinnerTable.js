@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameResultTable from './GameResultTable';
+import GameHeaderInfo from './GameHeaderInfo';
 
 import '../resources/css/WinnerTable.scss';
 
@@ -25,7 +26,10 @@ function WinnerTable({ game }) {
             {winnerOrTieBox}
         </div>
 
-        <GameResultTable game={game} isDraw={draw} />
+        <div className="gameList rounded rounded2">
+            <GameHeaderInfo game={game} />
+            <GameResultTable game={game} isDraw={draw} />
+            </div>
     </div>        
 }
 
