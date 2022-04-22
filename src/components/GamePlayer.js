@@ -95,8 +95,9 @@ function GamePlayer({game, onBackButtonClick}) {
 
     function checkGameIsFinished() {
         if(isGameFinished()) {
-            fb.getGameResult(Utils.calulateFinalGameResult(game), (game)=>{
+            fb.getGameResult(game, (game)=>{
                 game.gameStatus = 2;
+                game = Utils.getOrderedGameResult(game);
                 fb.updateGame(game);
                 fb.removeGameProgression(game.gid);
                 setState(GAME_STATUS_FINISHED);

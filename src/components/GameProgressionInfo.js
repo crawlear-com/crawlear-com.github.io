@@ -2,27 +2,53 @@ import { t } from 'i18next';
 import * as React from 'react';
 import Utils from '../Utils';
 import GameHeaderInfo from './GameHeaderInfo';
+import ControlTextArrayVisualization from './ControlTextArrayVisulization';
+import IsrccGameScores from './games/IsrccGameScores';
+import TotalTimeGameScores from './games/TotalTimeGameScores';
+
+import { GameUtils } from '../model/Game';
 
 const ISRCC_GAME = 2;
 
 function GameProgressionInfo({game, gameProgression}) {
     const playersDone = [];
-    let i=0;
+    let i=0, gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts);
+
+    if(game.gameType === 2) {
+        gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
+    }
 
     playersDone.push(<GameHeaderInfo key="header" game={game}/>);
     game.players.forEach((player)=>{
         let zones=[], j=0;
 
-        player.zones.forEach(()=>{
+        player.zones.forEach((zone)=>{
             if(gameProgression && 
                     gameProgression[player.id] && 
                     gameProgression[player.id][j] &&
-                    gameProgression[player.id][j].data &&
-                    gameProgression[player.id][j].data.controlTextValues) {
+                    gameProgression[player.id][j].data) {
+
+                let controlTextValues = [];
                 const points = gameProgression[player.id][j].data.points,
                     time = gameProgression[player.id][j].data.time,
                     gateFails = gameProgression[player.id][j].data.gatesWithFail,
                     bonitification = gameProgression[player.id][j].data.gatesWithBonification;
+
+                if (gameProgression[player.id][j].status==="done") { 
+                    controlTextValues.push(<>
+                        <ControlTextArrayVisualization 
+                            controlTextValues={GameUtils.sumControlTextValues(gameProgression[player.id][j].data.gateProgressionData)} 
+                            texts={gameTypeTexts} />
+                        {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
+                        <>
+                            <div className="left bold">{t('points.fiascos')}:</div>
+                            <ControlTextArrayVisualization 
+                                controlTextValues={GameUtils.sumFiascoControlTextValues(gameProgression[player.id][j].data.gateProgressionData)} 
+                                texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
+                        </> : 
+                        <></>}
+                    </>);
+                }
 
                 zones.push(<div key={j} className="gameProgressionInfoItem">
                         <div className="bold">{t('description.zona')} {j+1}</div>
@@ -34,6 +60,7 @@ function GameProgressionInfo({game, gameProgression}) {
                                 <li>{t('description.bonificacion')}: <span className="bold">{bonitification}</span></li></>
                             :<></>}
                         </ul>
+                        {controlTextValues}
                     </div>);
                     
             }

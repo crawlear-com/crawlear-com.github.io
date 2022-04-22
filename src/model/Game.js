@@ -18,37 +18,74 @@ class Game {
 }
 
 class GameUtils {
-    static init(game) {
+    static init(game, forceInitZones) {
         game.players.forEach((player)=>{
-            player.zones = [];
-    
-            for (let k=0; k<game.zones;k++) {
-                const zone = {
-                    points: 0,
-                    time: 0,
-                    gateProgression: 0,
-                    gatesWithBonification: 0,
-                    gatesWithFail: 0,
-                    controlTextValues: new Array(6),
-                    fiascoControlTextValues: new Array(5),
-                    gatePoints: new Array(game.gates[k])
-                };
-    
-                for(let j=0; j<zone.controlTextValues.length; j++) {
-                    zone.controlTextValues[j] = 0;
+            if (!player.zones || player.zones.length===0 || forceInitZones) {
+                player.zones = [];
+        
+                for (let k=0; k<game.zones;k++) {
+                    const zone = {
+                        points: 0,
+                        time: 0,
+                        gateProgression: 0,
+                        gatesWithBonification: 0,
+                        gatesWithFail: 0,
+                        gateProgressionData: new Array(game.gates[k])
+                    };
+
+                    for (let j=0; j<game.gates[k]; j++) {
+                        zone.gateProgressionData[j] = {
+                            gatePoints: 0,
+                            controlTextValues: new Array(6),
+                            fiascoControlTextValues: new Array(5)    
+                        }
+
+                        for(let l=0; l<zone.gateProgressionData[j].controlTextValues.length; l++) {
+                            zone.gateProgressionData[j].controlTextValues[l] = 0;
+                        }
+        
+                        for(let l=0; l<zone.gateProgressionData[j].controlTextValues.length; l++) {
+                            zone.gateProgressionData[j].controlTextValues[l] = 0;
+                        }
+                        
+                        for(let l=0; l<zone.gateProgressionData[j].fiascoControlTextValues.length; l++) {
+                            zone.gateProgressionData[j].fiascoControlTextValues[l] = 0;
+                        }
+            
+                        for(let l=0; l<zone.gateProgressionData[j].gatePoints.length; l++) {
+                            game.gateProgressionData[j].gatePoints[l] = 0;
+                        }
+                    }
+        
+        
+                    player.zones.push(zone);
                 }
-                
-                for(let j=0; j<zone.fiascoControlTextValues.length; j++) {
-                    zone.fiascoControlTextValues[j] = 0;
-                }
-    
-                for(let j=0; j<zone.gatePoints.length; j++) {
-                    zone.gatePoints[j] = 0;
-                }
-    
-                player.zones.push(zone);
             }
         });
+    }
+
+    static sumFiascoControlTextValues(gateProgresionData) {
+        const controlTextValues = new Array(gateProgresionData[0].fiascoControlTextValues.length).fill(0);
+    
+        gateProgresionData.forEach((data)=>{
+            data.fiascoControlTextValues.forEach((control, index)=>{
+                controlTextValues[index] += control;
+            })
+        })
+    
+        return controlTextValues;
+    }
+    
+    static sumControlTextValues(gateProgresionData) {
+        const controlTextValues = new Array(gateProgresionData[0].controlTextValues.length).fill(0);
+    
+        gateProgresionData.forEach((data)=>{
+            data.controlTextValues.forEach((control, index)=>{
+                controlTextValues[index] += control;
+            })
+        })
+    
+        return controlTextValues;
     }
 }
 

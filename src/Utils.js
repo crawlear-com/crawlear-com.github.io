@@ -111,6 +111,26 @@ class Utils {
         return players;
     }
 
+    static getOrderedGameResult(game) {
+        game = this.calulateFinalGameResult(game);
+        game.players = game.players.sort((a, b)=>{
+            const bypoints = (a.totalPoints - b.totalPoints);
+    
+            if (bypoints === 0) {
+                const bytime = a.totalTime - b.totalTime
+                
+                if (bytime === 0) {
+                    return b.totalGateProgression - a.totalGateProgression;
+                }
+                return bytime;
+            }
+    
+            return bypoints;
+        });
+
+        return game;
+    }
+
     static calulateFinalGameResult(oldGame) {
         const game = {...oldGame};
 
@@ -128,21 +148,6 @@ class Utils {
             player.totalPoints = totalPoints;
             player.totalTime = totalTime;
             player.totalGateProgression = totalGateProgression;
-        });
-
-        game.players.sort((a, b)=>{
-            const bypoints = (a.totalPoints - b.totalPoints);
-    
-            if (bypoints === 0) {
-                const bytime = a.totalTime - b.totalTime
-                
-                if (bytime === 0) {
-                    return b.totalGateProgression - a.totalGateProgression;
-                }
-                return bytime;
-            }
-    
-            return bypoints;
         });
 
         return game;

@@ -35,7 +35,8 @@ i18n
             landingSecondText: 'Or just play a',
             seleccionZonas: 'Select the number of zones',
             seleccionPuertas: 'Select the number of progression gates for each zone',
-            seleccionapilotoyzona: 'Select a player and a zone to continue'
+            seleccionapilotoyzona: 'Select a player and a zone to continue',
+            pulsafinjugador: 'Push End Player to finish the zone'
           },
           error: {
               nojugadores: 'Add the players',
@@ -192,7 +193,8 @@ i18n
             landingSecondText: 'O si lo prefieres, puedes jugar simplemente una',
             seleccionZonas: 'Selecciona el número de zonas o sectores',
             seleccionPuertas: 'Selecciona el número de puertas de progresión por cada zona',
-            seleccionapilotoyzona: 'Selecciona un piloto y una zona para continuar'
+            seleccionapilotoyzona: 'Selecciona un piloto y una zona para continuar',
+            pulsafinjugador: 'Pulsa Fin Jugador para acabar la zona'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
