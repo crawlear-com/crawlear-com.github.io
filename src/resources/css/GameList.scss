@@ -114,8 +114,12 @@
     }
 
     .gameProgressionInfoItem {
-        margin-left: 10px;
+        margin: 10px;
         text-align: left;
+        
+        .fiascosText {
+            margin-top: 10px;
+        }
     }
 
     .gameProgressionItem {

@@ -278,7 +278,7 @@ i18n
             tocar: 'tocar',
             puerta: 'puerta',
             saltoobstaculo: 'salto obstaculo',
-            reparacion: 'reparacion',
+            reparacion: 'reparación',
             winch: 'winch',
             puertaprogresion: 'puerta de progresion',
             distancia: 'distancia',

@@ -29,26 +29,31 @@ function GameProgressionInfo({game, gameProgression}) {
                     gameProgression[player.id][j].data) {
 
                 let controlTextValues = [];
-                const points = gameProgression[player.id][j].data.points,
-                    time = gameProgression[player.id][j].data.time,
-                    gateFails = gameProgression[player.id][j].data.gatesWithFail,
-                    bonitification = gameProgression[player.id][j].data.gatesWithBonification;
+                const currentGameProgression = gameProgression[player.id][j],
+                    points = currentGameProgression.data.points,
+                    time = currentGameProgression.data.time,
+                    gateFails = currentGameProgression.data.gatesWithFail,
+                    bonitification = currentGameProgression.data.gatesWithBonification;
 
-                if (gameProgression[player.id][j].status==="done") { 
+                if (currentGameProgression.status==="done") { 
                     controlTextValues.push(<>
                         <ControlTextArrayVisualization key={`zone${index}`}
-                            controlTextValues={GameUtils.sumControlTextValues(gameProgression[player.id][j].data.gateProgressionData)} 
+                            controlTextValues={GameUtils.sumControlTextValues(currentGameProgression.data.gateProgressionData)} 
                             texts={gameTypeTexts} />
-                        {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
+
+                        {currentGameProgression.data.fiascoControlTextValues && currentGameProgression.data.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
                         <>
-                            <div className="left bold" key={`zoneDiv${index}`}>{t('points.fiascos')}:</div>
+                            <div className="fiascosText left bold" key={`zoneDiv${index}`}>{t('points.fiascos')}:</div>
                             <ControlTextArrayVisualization key={`zoneFiasco${index}`} 
-                                controlTextValues={zone.fiascoControlTextValues} 
+                                controlTextValues={currentGameProgression.data.fiascoControlTextValues} 
                                 texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
                         </> : 
                         <></>}
                     </>);
+                } else if (currentGameProgression.status==="repair") {  
+                    controlTextValues.push(t('points.reparacion').toUpperCase());
                 }
+
 
                 zones.push(<div key={j} className="gameProgressionInfoItem">
                         <div className="bold">{t('description.zona')} {j+1}</div>
