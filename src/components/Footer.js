@@ -15,9 +15,9 @@ function Footer() {
             - <a href="https://crawlear.com/aboutus">{t('description.aboutus')}</a> - <a href="https://crawlear.com/privacypolicy">{t('description.politicaprivacidad')}</a>]</>}
 
     <p>
-        <a href="https://www.youtube.com/channel/UCNwhl3Mflf-hpTSI1Xo8dSg"><img className='youtubeLogo' src={youtubeLogo} alt="youtube logo" /></a>
-        <a href="https://www.instagram.com/crawlearcom/"><img className='instagramLogo' src={instagramLogo} alt="instagram logo" /></a>
-        <a href="https://www.facebook.com/Crawlearcom-106005795418134"><img className='facebookLogo' src={facebookLogo} alt="facebook logo" /></a>
+        <a href="https://www.youtube.com/channel/UCNwhl3Mflf-hpTSI1Xo8dSg" target="_blank"><img className='youtubeLogo' src={youtubeLogo} alt="youtube logo" /></a>
+        <a href="https://www.instagram.com/crawlearcom/" target="_blank"><img className='instagramLogo' src={instagramLogo} alt="instagram logo" /></a>
+        <a href="https://www.facebook.com/Crawlearcom-106005795418134" target="_blank"><img className='facebookLogo' src={facebookLogo} alt="facebook logo" /></a>
     </p>
 
     </div>;
