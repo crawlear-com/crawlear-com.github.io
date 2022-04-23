@@ -29,7 +29,14 @@ function IsrccGame({game,
     });
     
     React.useEffect(() => {
+        const playerZone = state.game.players[playerIndex].zones[zoneIndex];
+
         Analytics.pageview('/isrcc/');
+        setState({
+            ...state,
+            tickTime: playerZone.time,
+            forceAction: 'play'
+        });
     },[]);
 
     function onTimerChange(millis) {
@@ -163,6 +170,7 @@ function IsrccGame({game,
             playerZone = players[playerIndex].zones[zoneIndex];
 
         playerZone.time = state.tickTime;
+        newState.forceAction = 'stop';
         setState(newState);
 
         onRepair && onRepair(playerIndex, zoneIndex);
