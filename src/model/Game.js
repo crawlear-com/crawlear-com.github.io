@@ -75,6 +75,51 @@ class GameUtils {
     
         return controlTextValues;
     }
+
+    static isFiasco(game, tickTime, playerIndex, zoneIndex) {
+        const playerZone = game.players[playerIndex].zones[zoneIndex];
+    
+        return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
+            (game.maxPoints <= playerZone.points && game.maxPoints > 0) ||
+            (game.maxTime <= tickTime && game.maxTime > 0));
+    }
+
+    static isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
+        const playerZone = game.players[playerIndex].zones[zoneIndex];
+        let fiasco = false, gate = 0;
+    
+        while(!fiasco && gate<game.gates[zoneIndex]) {
+            let control = 0;
+    
+            while (!fiasco && control<playerZone.fiascoControlTextValues.length) {
+                if (playerZone.fiascoControlTextValues[control]>0) {
+                    fiasco = true;
+                } else {
+                    control++;
+                }
+            }
+    
+            gate++;
+        }
+    
+        return fiasco;
+    }
+
+    static isNonPresentedFiasco(game, playerIndex, zoneIndex) {
+        const playerZone = game.players[playerIndex].zones[zoneIndex];
+        let fiasco = false, gate = 0;
+    
+        while(!fiasco && gate<game.gates[zoneIndex]) {
+            if (playerZone.fiascoControlTextValues[0]>0) {
+                fiasco = true;
+            } else {
+                gate++;
+            } 
+        }
+    
+        return fiasco;
+    }
+    
 }
 
 export { Game, GameUtils };

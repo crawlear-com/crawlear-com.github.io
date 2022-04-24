@@ -125,9 +125,14 @@ function IsrccGame({game,
 
             window.scrollTo(0,0);
         if ((currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0) || 
-            (currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0) || isFiasco(newState, playerIndex, zoneIndex)) {
+            (currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0) || 
+             GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
                 playerZone.time = (currentGame.maxTime > 0 ? currentGame.maxTime : state.tickTime);
-                playerZone.points = gateProgressionPoints + (currentGame.maxPoints > 0 ? currentGame.maxPoints : playerZone.points);
+                if(GameUtils.isNonPresentedFiasco(currentGame, playerIndex, zoneIndex)) {
+                    playerZone.points = 50;
+                } else {
+                    playerZone.points = gateProgressionPoints + (currentGame.maxPoints > 0 ? currentGame.maxPoints : playerZone.points);
+                }
         } else {
             playerZone.time = state.tickTime;
             playerZone.points += gateProgressionPoints;
@@ -226,7 +231,7 @@ function IsrccGame({game,
             <FiascoControl values={playerZone.fiascoControlTextValues} onChangeScore={onFiascoChangeScore}
             /> : <>{t('content.pulsafinjugador')}</>;
 
-    if (isFiasco(state, playerIndex, zoneIndex)) {
+    if (GameUtils.isFiasco(state.game, state.tickTime, playerIndex, zoneIndex)) {
         Analytics.event('play', 'fiasco', player.name);
         fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
     }
@@ -281,36 +286,6 @@ function IsrccGame({game,
             onEndPlayer()
             }}>{t('description.finjugador')} ({player.name})</button><p />
     </div>
-}
-
-function isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
-    const playerZone = game.players[playerIndex].zones[zoneIndex];
-    let fiasco = false, gate = 0;
-
-    while(!fiasco && gate<game.gates[zoneIndex]) {
-        let control = 0;
-
-        while (!fiasco && control<playerZone.fiascoControlTextValues.length) {
-            if (playerZone.fiascoControlTextValues[control]>0) {
-                fiasco = true;
-            } else {
-                control++;
-            }
-        }
-
-        gate++;
-    }
-
-    return fiasco;
-}
-
-function isFiasco(state, playerIndex, zoneIndex) {
-    const currentGame = state.game,
-        playerZone = currentGame.players[playerIndex].zones[zoneIndex];
-
-    return (isFiascoFromFiascoControlTextValues(currentGame, playerIndex, zoneIndex) ||
-        (currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0) ||
-        (currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0));
 }
 
 function initControlTestValues(game, reset) {

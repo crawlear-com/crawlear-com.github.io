@@ -31,7 +31,7 @@ function GameResultTable({game, isDraw}) {
         zoneTr.classList.toggle("closed");
     }
 
-    players.push(<tr key="gameType">
+    players.push(<tr key={`${game.id}`}>
         <td></td>
         <td className="">{t("description.nombre")}</td>
         <td>pts</td>
@@ -103,7 +103,7 @@ function GameResultTable({game, isDraw}) {
                             <>
                                 <div className="left bold">{t('points.fiascos')}:</div>
                                 <ControlTextArrayVisualization 
-                                    controlTextValues={zone.controlTextValues} 
+                                    controlTextValues={zone.fiascoControlTextValues} 
                                     texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
                             </> : 
                             <></>}
