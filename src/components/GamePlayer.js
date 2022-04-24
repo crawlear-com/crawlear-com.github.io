@@ -170,7 +170,7 @@ function GamePlayer({game, onBackButtonClick}) {
                 onRepair={onRepair}
                 />;
         } else if (state === GAME_STATUS_FINISHED) { 
-            view = <div class="gameList"><WinnerTable game={game} />
+            view = <div className="gameList"><WinnerTable game={game} />
             <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
         }
     } else {

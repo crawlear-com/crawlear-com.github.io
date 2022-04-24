@@ -38,7 +38,9 @@ function GameProgressionInfo({game, gameProgression}) {
                 if (currentGameProgression.status==="done") { 
                     controlTextValues.push(<>
                         <ControlTextArrayVisualization key={`zone${index}`}
-                            controlTextValues={GameUtils.sumControlTextValues(currentGameProgression.data.gateProgressionData)} 
+                            controlTextValues={currentGameProgression.data.gateProgressionData ? 
+                                GameUtils.sumControlTextValues(currentGameProgression.data.gateProgressionData)
+                                : currentGameProgression.data.controlTextValues} 
                             texts={gameTypeTexts} />
 
                         {currentGameProgression.data.fiascoControlTextValues && currentGameProgression.data.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
