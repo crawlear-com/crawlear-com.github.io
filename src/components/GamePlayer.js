@@ -105,11 +105,6 @@ function GamePlayer({game, onBackButtonClick}) {
         return game.gameType === 1;
     }
 
-    function checkGameIsFinished() {
-        
-    }
-
-
     function onClosePlayButtonClick() {
         if (window.confirm(t('content.cerrarpartida')) && isGameFinished()) {
             fb.getGameResult(game, (game)=>{
@@ -136,8 +131,6 @@ function GamePlayer({game, onBackButtonClick}) {
             fb.setGameProgression(game.gid, pid, zone, newGameProgression[pid][zone]);
             setState(GAME_STATUS_CREATED); 
         }
-
-        //checkGameIsFinished();
     }
 
     function onRepair(playerIndex, zoneIndex) {
@@ -172,7 +165,6 @@ function GamePlayer({game, onBackButtonClick}) {
                 <div className="tendJudgeContainer rounded rounded3">
                     <div className="bold">{t('description.juezdecarpa')}</div>
                     <RepairProgression gameProgression={gameProgression}
-                        onTimeFiasco={checkGameIsFinished}
                         game={game}
                     />
                 </div>
