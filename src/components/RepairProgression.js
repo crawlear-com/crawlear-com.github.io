@@ -14,20 +14,24 @@ function RepairProgression({gameProgression, game, onTimeFiasco}) {
     const repairs = [];
 
     function onRepairTimeFiasco(uid, zoneIndex, zone) {
-        const progressionData = zone.data;
+        if (window.confirm(t('content.marcarfiascoreparacion'))) {
+            const progressionData = zone.data;
 
-        progressionData.fiascoControlTextValues[1] = 1;
-        zone.status = STATUS_DONE;
-        delete zone.repairData;
-        fb.setGameProgression(game.gid, uid, zoneIndex, zone);
-        
-        onTimeFiasco && onTimeFiasco();
+            progressionData.fiascoControlTextValues[1] = 1;
+            zone.status = STATUS_DONE;
+            delete zone.repairData;
+            fb.setGameProgression(game.gid, uid, zoneIndex, zone);
+            
+            onTimeFiasco && onTimeFiasco();
+        }
     }
 
     function onRepairEnd(uid, zoneIndex, zone) {
-        zone.status = STATUS_WAITING;
-        delete zone.repairData;
-        fb.setGameProgression(game.gid, uid, zoneIndex, zone);
+        if (window.confirm(t('content.finalizarreparacion'))) {
+            zone.status = STATUS_WAITING;
+            delete zone.repairData;
+            fb.setGameProgression(game.gid, uid, zoneIndex, zone);    
+        }
     }
 
     gameProgression && Object.entries(gameProgression).forEach(entry => {

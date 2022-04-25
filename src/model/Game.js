@@ -27,6 +27,7 @@ class GameUtils {
                     const zone = {
                         points: 0,
                         time: 0,
+                        judgedBy: [],
                         gateProgression: 0,
                         gatesWithBonification: 0,
                         gatesWithFail: 0,

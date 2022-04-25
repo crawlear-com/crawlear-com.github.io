@@ -30,7 +30,7 @@ function GamePlayer({game, onBackButtonClick}) {
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
     const { t } = useTranslation();
-    let view;
+    let view = <></>;
 
     React.useEffect(()=>{
         fb.getGameProgression(game.gid, ()=>{}, ()=>{}, (uid, progression)=>{
@@ -48,6 +48,17 @@ function GamePlayer({game, onBackButtonClick}) {
         });
     },[]);
 
+    React.useEffect(()=>{
+        Object.entries(gameProgressionRef.current).forEach((player, playerIndex)=>{
+            
+            player[1].forEach((zone, zoneIndex)=>{
+                if (zone.status === 'done' || zone.status === 'repair') {
+                    game.players[playerIndex].zones[zoneIndex] = zone.data;
+                }
+            });
+        });
+    },[gameProgressionRef.current]);
+
     function onZoneClick(player, zone) {
         setZone(zone);
         setPlayer(player);
@@ -61,7 +72,8 @@ function GamePlayer({game, onBackButtonClick}) {
             const pid = player.id;
             const value = gameProgression[pid][zone];
 
-            if(value.status === STATUS_WAITING) {
+            if(value.status === STATUS_WAITING || 
+              (value.status === STATUS_DONE && window.confirm(t('content.quiereseditarpartida')))) {
                 setError("");
                 setState(GAME_STATUS_PLAYING);
                 gameProgression[pid][zone].status = STATUS_PLAYING;
@@ -94,16 +106,19 @@ function GamePlayer({game, onBackButtonClick}) {
     }
 
     function checkGameIsFinished() {
-        if(isGameFinished()) {
+        
+    }
+
+
+    function onClosePlayButtonClick() {
+        if (window.confirm(t('content.cerrarpartida')) && isGameFinished()) {
             fb.getGameResult(game, (game)=>{
                 game.gameStatus = 2;
                 game = Utils.getOrderedGameResult(game);
                 fb.updateGame(game);
                 fb.removeGameProgression(game.gid);
-                setState(GAME_STATUS_FINISHED);
+                setState(GAME_STATUS_FINISHED);    
             }, ()=>{});
-        } else {
-            setState(GAME_STATUS_CREATED);
         }
     }
 
@@ -114,13 +129,15 @@ function GamePlayer({game, onBackButtonClick}) {
     
             newGameProgression[pid][zone].status = STATUS_DONE;
             newGameProgression[pid][zone].data = player.zones[zone];
+            newGameProgression[pid][zone].data.judgedBy.push(window.crawlear.user.uid);
             setGameProgression(newGameProgression);
     
             fb.setGameResultForPlayerZone(game, pid, zone);
             fb.setGameProgression(game.gid, pid, zone, newGameProgression[pid][zone]);
+            setState(GAME_STATUS_CREATED); 
         }
 
-        checkGameIsFinished();
+        //checkGameIsFinished();
     }
 
     function onRepair(playerIndex, zoneIndex) {
@@ -160,6 +177,7 @@ function GamePlayer({game, onBackButtonClick}) {
                     />
                 </div>
                 <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
+                <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button>
                 </>;
         } else if (state === GAME_STATUS_PLAYING) {
             view = <GameTypePlayer 
