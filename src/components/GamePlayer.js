@@ -169,8 +169,8 @@ function GamePlayer({game, onBackButtonClick}) {
                     />
                 </div>
                 <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
-                <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button>
-                </>;
+                {isGameFinished() ? <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button> : <></>}
+            </>;
         } else if (state === GAME_STATUS_PLAYING) {
             view = <GameTypePlayer 
                 player={player.id} 
