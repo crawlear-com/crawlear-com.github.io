@@ -51,7 +51,10 @@ function GameProgression({gameProgression, players, onZoneClick}) {
                 }
                 zones.push(<span data-zone={j} onClick={(event)=>{                    
                     prepareOnClick(event, player, zone);
-                }} key={j+1} className={className}>{j+1}</span>);
+                }} key={j+1} className={className}>
+                    <div>{t('description.zona')} {j+1}</div><br />
+                    <div>{gameProgression[player.id][j].status.toUpperCase()}</div>
+                </span>);
             }
             j++;
         });
