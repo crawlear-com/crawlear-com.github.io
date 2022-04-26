@@ -65,6 +65,13 @@ class GameUtils {
         });
     }
 
+    static redoPlayersIds(game) {
+        game.players.forEach((player, index)=>{
+            player.uid = index;
+        });
+
+    }
+
     static sumControlTextValues(gateProgresionData) {
         const controlTextValues = new Array(gateProgresionData[0].controlTextValues.length).fill(0);
     

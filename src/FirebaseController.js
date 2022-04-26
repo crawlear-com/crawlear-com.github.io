@@ -134,8 +134,13 @@ class FirebaseController {
       if (!zones) {
         data.players.forEach((player)=>{
           player.zones = [{
+            fiascoControlTextValues: [],
             controlTextValues: player.controlTextValues,
             gateProgression: 1,
+            gateProgressionData: [],
+            gatesWithBonification: 0,
+            gatesWithFail: 0,
+            judgedBy: [],
             points: player.points,
             time: player.time
           }];

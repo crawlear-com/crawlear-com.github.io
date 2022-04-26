@@ -165,7 +165,8 @@ function GameConfigurator() {
                 }
                 newGame.uids = Utils.getUidsFromUsers(newGame.players);
                 newGame.jids = Utils.getUidsFromUsers(newGame.judges);
-                GameUtils.init(newGame);
+                GameUtils.redoPlayersIds(game);
+                GameUtils.init(newGame, true);
                 fb.setGame(newGame, (game)=>{
                     newGame.gid = game.gid;
                     fb.createGameProgression(newGame);
