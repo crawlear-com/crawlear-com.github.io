@@ -36,7 +36,11 @@ i18n
             seleccionZonas: 'Select the number of zones',
             seleccionPuertas: 'Select the number of progression gates for each zone',
             seleccionapilotoyzona: 'Select a player and a zone to continue',
-            pulsafinjugador: 'Push End Player to finish the zone'
+            pulsafinjugador: 'Push End Player to finish the zone',
+            quiereseditarpartida: 'Do you want to edit the previous saved play?',
+            cerrarpartida: 'Do you want to close the play? you will not be abe to edit it again',
+            finalizarreparacion: 'Do you wanna finish the repair status?',
+            marcarfiascoreparacion: 'Do you want to set the repair fiasco?'
           },
           error: {
               nojugadores: 'Add the players',
@@ -113,7 +117,8 @@ i18n
             bonificacion: 'bonification',
             jugadorseleccionado: 'Selected player',
             zonaseleccionada: 'Selected zone',
-            nohayreparaciones: 'There is no repairs'
+            nohayreparaciones: 'There is no repairs',
+            cerrarpartida: 'Cerrar partida'
 
           },
           points: {
@@ -176,7 +181,7 @@ i18n
             aboutus: 'surge a partir de la afición de un grupo de amigos después de descubrir el mundo del crawler rc, entrando por la escala 1/24.',
             aboutus1: 'Después de salir al terreno de juego un par de veces nos dimos cuenta que sería una buena idea tener un marcador para las partidas, donde poder gestionar los puntos en los diferentes modos de juegos que practicamos.',
             aboutus2: 'Si tienes alguna duda, comentario o sugerencia no dudes en contactar con nosotros en crawlear.com@gmail.com',
-            aboutus3: 'takezoRc, Barcelona 2021',
+            aboutus3: 'takezoRc, Barcelona 2022',
             welcomeMessage: 'es un tablero profesional de puntuación para tus eventos o competiciones de Crawler 1/10 o 1/24 compatible con las reglas de AECAR y ISRCC.',
             instrucciones: 'Primero añade los jugadores, selecciona el modo de juego, el tipo de puntuación y pulsa Empezar.',
             instrucciones1: 'Pulsando en el jugador podrás definir un handicap positivo (ventaja inicial) o negativo (desventaja inicial). A final de partida el handicap se sumará a los puntos del jugador para calcular el total de puntos.',
@@ -194,7 +199,11 @@ i18n
             seleccionZonas: 'Selecciona el número de zonas o sectores',
             seleccionPuertas: 'Selecciona el número de puertas de progresión por cada zona',
             seleccionapilotoyzona: 'Selecciona un piloto y una zona para continuar',
-            pulsafinjugador: 'Pulsa Fin Jugador para acabar la zona'
+            pulsafinjugador: 'Pulsa Fin Jugador para acabar la zona',
+            quiereseditarpartida: '¿Quieres editar las puntuaciones previamente guardadas?',
+            cerrarpartida: '¿Quieres cerrar la partida? No será posible volver a editar las puntuaciones',
+            finalizarreparacion: '¿Quieres finalizar la reparación?',
+            marcarfiascoreparacion: '¿Quieres marcar fiasco de reparación?'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -271,7 +280,8 @@ i18n
               bonificacion: 'bonificación',
               jugadorseleccionado: 'Piloto seleccionado',
               zonaseleccionada: 'Zona seleccionada',
-              nohayreparaciones: 'No hay reparaciones'
+              nohayreparaciones: 'No hay reparaciones',
+              cerrarpartida: 'Cerrar partida'
           },
           points: {
             vuelco: 'vuelco',

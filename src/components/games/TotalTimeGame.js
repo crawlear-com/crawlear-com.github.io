@@ -194,6 +194,7 @@ function initControlTestValues(game) {
                 battery: false,
                 points: 0,
                 time: 0,
+                judgedBy: [],
                 controlTextValues: new Array(22)
             };
 

@@ -27,6 +27,7 @@ class GameUtils {
                     const zone = {
                         points: 0,
                         time: 0,
+                        judgedBy: [],
                         gateProgression: 0,
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
@@ -62,6 +63,13 @@ class GameUtils {
                 }
             }
         });
+    }
+
+    static redoPlayersIds(game) {
+        game.players.forEach((player, index)=>{
+            player.uid = index;
+        });
+
     }
 
     static sumControlTextValues(gateProgresionData) {

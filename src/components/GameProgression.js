@@ -15,8 +15,9 @@ function GameProgression({gameProgression, players, onZoneClick}) {
 
     function prepareOnClick(event, player) {
         const zone = Number(event.target.getAttribute("data-zone"));
+        const gameStatus = gameProgression[player.id][zone].status;
 
-        if(gameProgression[player.id][zone].status === STATUS_WAITING) {
+        if(gameStatus === STATUS_WAITING || gameStatus === STATUS_DONE) {
             setSelectedPlayer(player.id);
             setSelectedZone(zone);
             onZoneClick(player, zone);
