@@ -133,6 +133,12 @@ function GamePlayer({game, onBackButtonClick}) {
             fb.setGameResultForPlayerZone(game, pid, zone);
             fb.setGameProgression(game.gid, pid, zone, newGameProgression[pid][zone]);
             setState(GAME_STATUS_CREATED); 
+        } else {
+            game = Utils.calulateFinalGameResult(game)
+            game.gameStatus = 2;
+            fb.updateGame(game);
+            fb.removeGameProgression(game.gid);
+            setState(GAME_STATUS_FINISHED);
         }
     }
 
