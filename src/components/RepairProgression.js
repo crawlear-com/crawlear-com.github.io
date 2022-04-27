@@ -10,12 +10,6 @@ function RepairProgression({gameProgression, game, onRepairTimeFiasco, onRepairE
     const { t } = useTranslation();
     const repairs = [];
 
-    function prepareOnRepairTimeFiasco(uid, zoneIndex, zone) {
-        if (window.confirm(t('content.marcarfiascoreparacion'))) {
-            onRepairTimeFiasco && onRepairTimeFiasco(uid, zoneIndex, zone);
-        }
-    }
-
     function prepareOnRepairEnd(uid, zoneIndex, zone) {
         if (window.confirm(t('content.finalizarreparacion'))) {
             onRepairEnd && onRepairEnd(uid, zoneIndex, zone);
@@ -44,9 +38,6 @@ function RepairProgression({gameProgression, game, onRepairTimeFiasco, onRepairE
                     <button onClick={()=>{
                         prepareOnRepairEnd(game.players[key].id, index, zone);
                     }} className="importantNote">Finalizar</button>
-                    <button onClick={()=>{
-                        prepareOnRepairTimeFiasco(game.players[key].id, index, zone);
-                    }} className="importantNote">Fiasco</button>
                 </div>);
             }
         });
@@ -56,4 +47,4 @@ function RepairProgression({gameProgression, game, onRepairTimeFiasco, onRepairE
         </div>;
 }
 
-export default RepairProgression; 
+export default RepairProgression;

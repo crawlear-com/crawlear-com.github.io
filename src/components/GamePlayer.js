@@ -169,7 +169,7 @@ function GamePlayer({game, onBackButtonClick}) {
         const progressionData = zone.data;
 
         progressionData.fiascoControlTextValues[1] = 1;
-        zone.status = STATUS_DONE;
+        zone.status = STATUS_WAITING;
         delete zone.repairData;
         fb.setGameProgression(game.gid, uid, zoneIndex, zone);
         fb.setGameResultForPlayerZone(game, uid, zoneIndex);
