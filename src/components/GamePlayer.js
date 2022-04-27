@@ -126,6 +126,7 @@ function GamePlayer({game, onBackButtonClick}) {
     
             newGameProgression[pid][zone].status = STATUS_DONE;
             newGameProgression[pid][zone].data = player.zones[zone];
+            !newGameProgression[pid][zone].data.judgedBy && (newGameProgression[pid][zone].data.judgedBy = []);
             newGameProgression[pid][zone].data.judgedBy.push(window.crawlear.user.uid);
             setGameProgression(newGameProgression);
     
@@ -137,15 +138,17 @@ function GamePlayer({game, onBackButtonClick}) {
 
     function onRepair(playerIndex, zoneIndex) {
         const newGameProgression = {...gameProgression},
-            pid = game.players[playerIndex].id;
+            player = game.players[playerIndex],
+            pid = player.id;
 
         newGameProgression[playerIndex][zoneIndex].status = STATUS_REPAIR;
         newGameProgression[playerIndex][zoneIndex].repairData = {
             setTime: new Date().getTime()
         };
-        newGameProgression[playerIndex][zoneIndex].data = player.zones[zone];
+        newGameProgression[playerIndex][zoneIndex].data = player.zones[zoneIndex];
         setGameProgression(newGameProgression);
-        fb.setGameProgression(game.gid, pid, zone, newGameProgression[pid][zone]);
+        fb.setGameProgression(game.gid, pid, zoneIndex, newGameProgression[pid][zoneIndex]);
+        fb.setGameResultForPlayerZone(game, pid, zoneIndex);
         setState(GAME_STATUS_CREATED);
     }
 
@@ -153,7 +156,7 @@ function GamePlayer({game, onBackButtonClick}) {
         zone.status = STATUS_WAITING;
         delete zone.repairData;
         fb.setGameProgression(game.gid, uid, zoneIndex, zone);
-        fb.setGameResultForPlayerZone(game, uid, zoneIndex);  
+        fb.setGameResultForPlayerZone(game, uid, zoneIndex);
     }
 
     function onRepairTimeFiasco(uid, zoneIndex, zone) {
@@ -172,6 +175,7 @@ function GamePlayer({game, onBackButtonClick}) {
                 <div className="trackJudgeContainer rounded rounded3">
                         <div className="bold">{t('description.juezdepista')}</div>
                         <GameProgression onZoneClick={onZoneClick} 
+                            game={game}
                             players={game.players}
                             gameProgression={gameProgression} />
                     <p>
