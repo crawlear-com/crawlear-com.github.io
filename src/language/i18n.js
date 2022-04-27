@@ -40,14 +40,16 @@ i18n
             quiereseditarpartida: 'Do you want to edit the previous saved play?',
             cerrarpartida: 'Do you want to close the play? you will not be abe to edit it again',
             finalizarreparacion: 'Do you wanna finish the repair status?',
-            marcarfiascoreparacion: 'Do you want to set the repair fiasco?'
+            marcarfiascoreparacion: 'Do you want to set the repair fiasco?',
+            quieresempezarzona: 'Do you want to begin the play?'
           },
           error: {
               nojugadores: 'Add the players',
               nojueces: 'Add the judges',
               nonombre: 'Fill in at least the name of the game to continue',
               nogeolocation: 'Cant get geolocation or there is a permission error',
-              juegoencurso: 'Player is already playing the zone'
+              juegoencurso: 'Player is already playing the zone',
+              reparacionencurso: 'Player is currently repairing'
           },
           description: {
             nojugadores: 'No players',
@@ -118,8 +120,13 @@ i18n
             jugadorseleccionado: 'Selected player',
             zonaseleccionada: 'Selected zone',
             nohayreparaciones: 'There is no repairs',
-            cerrarpartida: 'Cerrar partida'
-
+            cerrarpartida: 'Cerrar partida',
+            waiting: 'waiting',
+            repair: 'repair',
+            done: 'done',
+            playing: 'playing',
+            estado: 'Status',
+            reparacionfinalizada: 'repair end'
           },
           points: {
             vuelco: 'overturn',
@@ -203,14 +210,16 @@ i18n
             quiereseditarpartida: '¿Quieres editar las puntuaciones previamente guardadas?',
             cerrarpartida: '¿Quieres cerrar la partida? No será posible volver a editar las puntuaciones',
             finalizarreparacion: '¿Quieres finalizar la reparación?',
-            marcarfiascoreparacion: '¿Quieres marcar fiasco de reparación?'
+            marcarfiascoreparacion: '¿Quieres marcar fiasco de reparación?',
+            quieresempezarzona: '¿Quieres empezar el juego?'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
               nojueces: 'Añade a los jueces',
               nonombre: 'Rellena al menos el nombre de la partida para continuar',
               nogeolocation: 'No se puede obtener la geolocalización o no hay permisos',
-              juegoencurso: 'El jugador y la zona ya se está en juego'
+              juegoencurso: 'El jugador y la zona ya está en juego',
+              reparacionencurso: 'El jugador está en estado de reparación'
           },
           description: {
               nojugadores: 'No hay jugadores',
@@ -281,7 +290,13 @@ i18n
               jugadorseleccionado: 'Piloto seleccionado',
               zonaseleccionada: 'Zona seleccionada',
               nohayreparaciones: 'No hay reparaciones',
-              cerrarpartida: 'Cerrar partida'
+              cerrarpartida: 'Cerrar partida',
+              waiting: 'espera',
+              repair: 'reparación',
+              done: 'hecho',
+              playing: 'en juego',
+              estado: 'Estado',
+              reparacionfinalizada: 'reparación finalizada'
           },
           points: {
             vuelco: 'vuelco',

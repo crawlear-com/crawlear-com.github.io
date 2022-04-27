@@ -72,15 +72,17 @@ function GamePlayer({game, onBackButtonClick}) {
             const pid = player.id;
             const value = gameProgression[pid][zone];
 
-            if(value.status === STATUS_WAITING || 
+            if((value.status === STATUS_WAITING && window.confirm(t('content.quieresempezarzona'))) || 
               (value.status === STATUS_DONE && window.confirm(t('content.quiereseditarpartida')))) {
                 setError("");
                 setState(GAME_STATUS_PLAYING);
                 gameProgression[pid][zone].status = STATUS_PLAYING;
                 setGameProgression(gameProgression);
                 fb.setGameProgression(game.gid, pid, zone, gameProgression[pid][zone]);
-            } else {
+            } else if (value.status === STATUS_PLAYING) {
                 setError(t('error.juegoencurso'));
+            } else if (value.status === STATUS_REPAIR) { 
+                setError(t('error.reparacionencurso'));
             }
         }
     }
@@ -147,6 +149,23 @@ function GamePlayer({game, onBackButtonClick}) {
         setState(GAME_STATUS_CREATED);
     }
 
+    function onRepairEnd(uid, zoneIndex, zone) {
+        zone.status = STATUS_WAITING;
+        delete zone.repairData;
+        fb.setGameProgression(game.gid, uid, zoneIndex, zone);
+        fb.setGameResultForPlayerZone(game, uid, zoneIndex);  
+    }
+
+    function onRepairTimeFiasco(uid, zoneIndex, zone) {
+        const progressionData = zone.data;
+
+        progressionData.fiascoControlTextValues[1] = 1;
+        zone.status = STATUS_DONE;
+        delete zone.repairData;
+        fb.setGameProgression(game.gid, uid, zoneIndex, zone);
+        fb.setGameResultForPlayerZone(game, uid, zoneIndex);
+    }
+
     if (game.gameType !== GAME_KING) {
         if (state === GAME_STATUS_CREATED) {
             view = <>
@@ -164,8 +183,11 @@ function GamePlayer({game, onBackButtonClick}) {
                 </div>
                 <div className="tendJudgeContainer rounded rounded3">
                     <div className="bold">{t('description.juezdecarpa')}</div>
-                    <RepairProgression gameProgression={gameProgression}
+                    <RepairProgression 
+                        gameProgression={gameProgression}
                         game={game}
+                        onRepairEnd={onRepairEnd}
+                        onRepairTimeFiasco={onRepairTimeFiasco}
                     />
                 </div>
                 <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
