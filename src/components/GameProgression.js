@@ -1,29 +1,54 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import GameProgressionInfoRow from './GameProgressionInfoRow';
+import TotalTimeGameScores from './games/TotalTimeGameScores';
+import IsrccGameScores from './games/IsrccGameScores';
+import Utils from '../Utils';
 
 const STATUS_WAITING = 'waiting';
 const STATUS_PLAYING = 'playing';
 const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
 
-function GameProgression({gameProgression, players, onZoneClick}) {
+function GameProgression({game, gameProgression, players, onZoneClick}) {
     const { t } = useTranslation();
     const [selectedZone, setSelectedZone] = React.useState(-1);
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
     const playersDone = [];
-    let i=0;
+    const gameProgressionInfoRef = React.useRef();
+    let i=0, gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts);
+
+    if(game.gameType === 2) {
+        gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
+    }
 
     function prepareOnClick(event, player) {
         const zone = Number(event.target.closest('[data-zone]').getAttribute("data-zone"));
         const gameStatus = gameProgression[player.id][zone].status;
+        const gameData = gameProgression[player.id][zone].data;
 
-        if(gameStatus === STATUS_WAITING || gameStatus === STATUS_DONE) {
-            setSelectedPlayer(player.id);
-            setSelectedZone(zone);
-            onZoneClick(player, zone);
+        if (selectedZone === zone && selectedPlayer === player.id) {
+            deselectPlayerAndZone();
         } else {
-            onZoneClick(-1, -1);
+            if(gameStatus === STATUS_WAITING || gameStatus === STATUS_DONE) {
+                setSelectedPlayer(player.id);
+                setSelectedZone(zone);
+                onZoneClick(player, zone);
+                gameData && showGameProgression();
+            } else {
+                deselectPlayerAndZone();
+            }
         }
+    }
+
+    function deselectPlayerAndZone() {
+        onZoneClick(-1, -1);
+        setSelectedPlayer(-1);
+        setSelectedZone(-1);
+    }
+
+    function showGameProgression() {
+        
     }
 
     playersDone.push(<p key="header">
@@ -64,6 +89,15 @@ function GameProgression({gameProgression, players, onZoneClick}) {
                 <img src={player.avatar} alt="player avatar" />
                 <div className="horizontalScrollContainer">{zones}</div>
         </div>);
+
+        if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[selectedPlayer][selectedZone].data) {
+            playersDone.push(<div className='gameProgressionInfoItem smallText rounded rounded2'>
+                <GameProgressionInfoRow innerRef={gameProgressionInfoRef} 
+                    gameTypeTexts={gameTypeTexts}
+                    key={`${i+j}Info`} 
+                    gameProgression={gameProgression[selectedPlayer][selectedZone]} />
+            </div>);
+        }
         i++;
     });
 
