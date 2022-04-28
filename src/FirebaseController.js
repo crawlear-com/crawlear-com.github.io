@@ -142,6 +142,7 @@ class FirebaseController {
             gatesWithFail: 0,
             judgedBy: [],
             points: player.points,
+            totalPoints: player.points,
             time: player.time
           }];
           player.totalTime = player.time;
