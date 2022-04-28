@@ -148,6 +148,11 @@ class GameUtils {
         return playerZone.gateProgressionData.filter((x,i) => (x.gatePoints < 20 && i<playerZone.gateProgression)).length;
     }
 
+    static getGatesPointExtras(playerZone) {
+        playerZone.gatesWithFail = this.getGatesWithFail(playerZone);
+        playerZone.gatesWithBonification = this.getGatesWithBonification(playerZone);
+}
+
     
 }
 
