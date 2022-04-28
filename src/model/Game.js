@@ -127,6 +127,27 @@ class GameUtils {
     
         return fiasco;
     }
+
+    static  getZoneTotalBonification(gateProgresionData, gateProgresion) {
+        let bonification = 0;
+
+        for (let i=0; i<gateProgresion; i++) {
+            if (gateProgresionData[i].gatePoints < 20) {
+                bonification++;
+            }
+        }
+
+        return bonification*-2;
+    }
+
+    static getGatesWithFail(playerZone) {
+        return playerZone.gateProgressionData.filter(x => x.gatePoints >= 20).length;
+    }
+
+    static getGatesWithBonification(playerZone) {
+        return playerZone.gateProgressionData.filter((x,i) => (x.gatePoints < 20 && i<playerZone.gateProgression)).length;
+    }
+
     
 }
 
