@@ -140,7 +140,7 @@ class Utils {
                 totalGateProgression = 0;
 
             player.zones.forEach((zone)=>{
-                totalPoints += zone.points;
+                totalPoints += zone.totalPoints;
                 totalTime += zone.time;
                 totalGateProgression += zone.gateProgression;
             });

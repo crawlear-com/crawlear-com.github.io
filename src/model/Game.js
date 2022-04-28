@@ -26,6 +26,7 @@ class GameUtils {
                 for (let k=0; k<game.zones;k++) {
                     const zone = {
                         points: 0,
+                        totalPoints: 0,
                         time: 0,
                         judgedBy: [],
                         gateProgression: 0,
@@ -151,9 +152,8 @@ class GameUtils {
     static getGatesPointExtras(playerZone) {
         playerZone.gatesWithFail = this.getGatesWithFail(playerZone);
         playerZone.gatesWithBonification = this.getGatesWithBonification(playerZone);
-}
-
-    
+        playerZone.totalPoints = playerZone.points + (playerZone.gatesWithBonification * -2);
+    }
 }
 
 export { Game, GameUtils };

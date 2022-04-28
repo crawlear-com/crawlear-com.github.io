@@ -60,7 +60,6 @@ function IsrccGame({game,
         if ((!pointsFiasco() && !timeFiasco()) || 
            (playerZone.points + value <= currentGame.maxPoints &&
             playerZone.fiascoControlTextValues.filter(x => x > 0).length === 0)) {
-
                 playerCurrentGate.controlTextValues = [...playerCurrentGate.controlTextValues];
                 playerCurrentGate.controlTextValues[control] += value;
                 playerZone.points += value;
@@ -69,6 +68,7 @@ function IsrccGame({game,
                     playerCurrentGate.gatePoints += value;
                 }
 
+                GameUtils.getGatesPointExtras(playerZone);
                 setState(newState);
 
                 if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
@@ -95,21 +95,16 @@ function IsrccGame({game,
         const newState = {...state},
             currentGame = newState.game,
             players = currentGame.players,
-            playerZone = currentGame.players[playerIndex].zones[zoneIndex],
-            gateProgressionPoints = GameUtils.getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression);
+            playerZone = currentGame.players[playerIndex].zones[zoneIndex];
             
         window.scrollTo(0,0);
-        GameUtils.getGatesPointExtras(playerZone);
         if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
-                playerZone.time = (currentGame.maxTime > 0 ? currentGame.maxTime : state.tickTime);
-                if(GameUtils.isNonPresentedFiasco(currentGame, playerIndex, zoneIndex)) {
-                    playerZone.points = 50;
-                } else {
-                    playerZone.points = gateProgressionPoints + (currentGame.maxPoints > 0 ? currentGame.maxPoints : playerZone.points);
-                }
+            playerZone.time = (currentGame.maxTime > 0 ? currentGame.maxTime : state.tickTime);
+            if(GameUtils.isNonPresentedFiasco(currentGame, playerIndex, zoneIndex)) {
+                playerZone.totalPoints = 50;
+            }
         } else {
             playerZone.time = state.tickTime;
-            playerZone.points += gateProgressionPoints;
         }
         newState.forceAction = 'stop';
         setState(newState);
@@ -227,6 +222,7 @@ function IsrccGame({game,
                 onTimerChange={onTimerChange}
                 maxTime={maxTime} />
             <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
+            <div className="pointsText">{t('description.total')}: { playerZone.totalPoints}</div>
             <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="controlTextContainer info rounded rounded2">

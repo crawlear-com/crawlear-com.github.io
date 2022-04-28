@@ -8,21 +8,22 @@ import Utils from '../Utils';
 function GameProgressionInfoRow({gameProgression, gameTypeTexts}) {
     if (gameProgression.data) {
         const points = gameProgression.data.points,
-        time = gameProgression.data.time,
-        gateFails = gameProgression.data.gatesWithFail,
-        gateProgression = gameProgression.data.gateProgression,
-        bonitification = gameProgression.data.gatesWithBonification;
+            totalPoints = gameProgression.data.totalPoints,
+            time = gameProgression.data.time,
+            gateFails = gameProgression.data.gatesWithFail,
+            gateProgression = gameProgression.data.gateProgression,
+            bonitification = gameProgression.data.gatesWithBonification;
 
         return <>
             <ul>
                 <li>{t('description.puntos')}: <span className="bold">{points}</span></li>
-                <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>
                 {gateProgression ? <li>{t('description.avancepuerta')}: <span className="bold">{gateProgression}</span></li> : <></>}
-                {gateFails && bonitification ? <>
+                {typeof(gateFails) !== undefined && typeof(bonitification) !== undefined ? <>
                     <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
                     <li>{t('description.bonificacion')}: <span className="bold">{bonitification*-2}</span></li></>
                 :<></>}
-                
+                <li>{t('description.total')}: <span className="bold">{totalPoints}</span></li>
+                <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>
             </ul>
 
             <ControlTextArrayVisualization
