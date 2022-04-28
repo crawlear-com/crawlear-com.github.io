@@ -58,7 +58,7 @@ function IsrccGame({game,
         const timeFiasco = ()=>{return currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0};
 
         if ((!pointsFiasco() && !timeFiasco()) || 
-           (playerZone.points + value <= currentGame.maxPoints && 
+           (playerZone.points + value <= currentGame.maxPoints &&
             playerZone.fiascoControlTextValues.filter(x => x > 0).length === 0)) {
 
                 playerCurrentGate.controlTextValues = [...playerCurrentGate.controlTextValues];
@@ -71,9 +71,7 @@ function IsrccGame({game,
 
                 setState(newState);
 
-                if (playerZone.fiascoControlTextValues.filter(x => x > 0).length >= 1 ||
-                (currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0) ||
-                (currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0)) { 
+                if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
                     setState({
                         ...state,
                         forceAction: 'pause'
@@ -99,14 +97,10 @@ function IsrccGame({game,
             players = currentGame.players,
             playerZone = currentGame.players[playerIndex].zones[zoneIndex],
             gateProgressionPoints = GameUtils.getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression);
-
-            playerZone.gatesWithFail = GameUtils.getGatesWithFail(playerZone);
-            playerZone.gatesWithBonification = GameUtils.getGatesWithBonification(playerZone);
-
-            window.scrollTo(0,0);
-        if ((currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0) || 
-            (currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0) || 
-             GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
+            
+        window.scrollTo(0,0);
+        GameUtils.getGatesPointExtras(playerZone);
+        if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
                 playerZone.time = (currentGame.maxTime > 0 ? currentGame.maxTime : state.tickTime);
                 if(GameUtils.isNonPresentedFiasco(currentGame, playerIndex, zoneIndex)) {
                     playerZone.points = 50;
@@ -133,6 +127,7 @@ function IsrccGame({game,
         if (value === newState.game.gates[zoneIndex]) {
             newState.forceAction = 'pause';
         }
+        GameUtils.getGatesPointExtras(currentZone);
         setState(newState);
     }
 
@@ -232,7 +227,6 @@ function IsrccGame({game,
                 onTimerChange={onTimerChange}
                 maxTime={maxTime} />
             <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
-            <div className="pointsText">{t('description.total')}: {playerZone.points + currentBonification }</div>
             <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="controlTextContainer info rounded rounded2">

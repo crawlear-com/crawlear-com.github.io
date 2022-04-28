@@ -20,7 +20,7 @@ function GameProgressionInfoRow({gameProgression, gameTypeTexts}) {
                 {gateProgression ? <li>{t('description.avancepuerta')}: <span className="bold">{gateProgression}</span></li> : <></>}
                 {gateFails && bonitification ? <>
                     <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
-                    <li>{t('description.bonificacion')}: <span className="bold">{bonitification}</span></li></>
+                    <li>{t('description.bonificacion')}: <span className="bold">{bonitification*-2}</span></li></>
                 :<></>}
                 
             </ul>
