@@ -93,35 +93,15 @@ function IsrccGame({game,
         setState(previousInputs => ({ ...previousInputs,...newState}));
     }
 
-    function getZoneTotalBonification(gateProgresionData, gateProgresion) {
-        let bonification = 0;
-
-        for (let i=0; i<gateProgresion; i++) {
-            if (gateProgresionData[i].gatePoints < 20) {
-                bonification++;
-            }
-        }
-
-        return bonification*-2;
-    }
-
-    function getGatesWithFail(playerZone) {
-        return playerZone.gateProgressionData.filter(x => x.gatePoints >= 20).length;
-    }
-
-    function getGatesWithBonification(playerZone) {
-        return playerZone.gateProgressionData.filter((x,i) => (x.gatePoints < 20 && i<playerZone.gateProgression)).length;
-    }
-
     function onEndPlayer() {
         const newState = {...state},
             currentGame = newState.game,
             players = currentGame.players,
             playerZone = currentGame.players[playerIndex].zones[zoneIndex],
-            gateProgressionPoints = getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression);
+            gateProgressionPoints = GameUtils.getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression);
 
-            playerZone.gatesWithFail = getGatesWithFail(playerZone);
-            playerZone.gatesWithBonification = getGatesWithBonification(playerZone);
+            playerZone.gatesWithFail = GameUtils.getGatesWithFail(playerZone);
+            playerZone.gatesWithBonification = GameUtils.getGatesWithBonification(playerZone);
 
             window.scrollTo(0,0);
         if ((currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0) || 
@@ -184,7 +164,7 @@ function IsrccGame({game,
     function generateSliderMarksFromGates(gateData, gateProgression) {
         const result = {};
 
-    for (let i=0; i<gateData.length; i++) {
+        for (let i=0; i<gateData.length; i++) {
             let classname = 'gatePoints ',
                 content;
 
@@ -216,7 +196,7 @@ function IsrccGame({game,
         maxTime = currentGame.maxTime,
         player = currentGame.players[playerIndex],
         playerZone = player.zones[zoneIndex],
-        currentBonification = getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression),
+        currentBonification = GameUtils.getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression),
         controlTextArray = playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
             <ControlTextArray
                 controlTextValues={playerZone.gateProgressionData[playerZone.gateProgression].controlTextValues}

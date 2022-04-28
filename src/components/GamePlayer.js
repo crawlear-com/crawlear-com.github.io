@@ -20,6 +20,7 @@ const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
 
 const GAME_KING = 1;
+const GAME_ISRCC = 2;
 
 function GamePlayer({game, onBackButtonClick}) {
     const fb = window.crawlear.fb;
