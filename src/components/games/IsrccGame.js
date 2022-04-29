@@ -111,7 +111,7 @@ function IsrccGame({game,
             
         window.scrollTo(0,0);
         if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
-            playerZone.time = (currentGame.maxTime > 0 ? currentGame.maxTime : state.tickTime);
+            playerZone.time = (currentGame.maxTime > 0 ? (currentGame.maxTime + 60000) : state.tickTime);
             if(GameUtils.isNonPresentedFiasco(currentGame, playerIndex, zoneIndex)) {
                 playerZone.totalPoints = 50;
             }
