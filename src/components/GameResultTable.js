@@ -35,10 +35,10 @@ function GameResultTable({game, isDraw}) {
         <td></td>
         <td className="">{t("description.nombre")}</td>
         <td>pts</td>
-        <td>t</td>
         <td>g</td>
         <td>b</td>
-        <td>time</td>
+        <td>tp</td>
+        <td>t</td>
     </tr>);
     
     game.players.forEach((player)=>{
@@ -49,12 +49,12 @@ function GameResultTable({game, isDraw}) {
                     <td className="bold gameListPlayerName gameListPoints bold textOverflow">{player.name}</td> :
                     <td className="bold gameListPlayerName gameListPoints bold withTime textOverflow">{player.name}</td> }
                 <td className="bold gameListPoints">{player.totalPoints}</td>
+                <td className="gameListPoints">.</td>
+                <td className="gameListPoints">.</td>
+                <td className="gameListPoints">.</td>
                 {game.gameType !== 1 ? <td className="bold gameListPoints gameListTime">
                     {player.totalTime ? Utils.printTime(Utils.millisToTime(player.totalTime)) : <>00:00:000</>}
                 </td> : <></>}
-                <td className="gameListPoints">.</td>
-                <td className="gameListPoints">.</td>
-                <td className="gameListPoints">.</td>
             </tr>);
         
         player.zones.forEach((zone)=>{
@@ -88,12 +88,12 @@ function GameResultTable({game, isDraw}) {
                     <td onClick={onClickZone}>{`${t('description.zona')} ${i+1}`}
                         <img className="iconArrowDown" src={openIcon} alt="click open" /></td>
                     <td className="gameListPoints">{zone.totalPoints}</td>
-                    {game.gameType !== 1 ? <td className="gameListTime">{Utils.printTime(Utils.millisToTime(zone.time))}</td> : <></>}
                     <td className="gameListPoints">{zone.gateProgression}</td>
                     <td className="gameListPoints">{zone.gatesWithBonification ? zone.gatesWithBonification * -2 : '0'}
                     </td>
                     <td className="gameListPoints">{zone.simpathyPoints ? zone.simpathyPoints : "0"}
                     </td>
+                    {game.gameType !== 1 ? <td className="gameListTime">{Utils.printTime(Utils.millisToTime(zone.time))}</td> : <></>}
                 </tr>
                 <tr key={i+j+2} className="closed">
                     <td colSpan={7}>
