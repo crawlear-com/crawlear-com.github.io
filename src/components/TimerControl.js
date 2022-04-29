@@ -2,9 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 import Utils from '../Utils';
-
 import '../resources/css/TimerControl.scss';
-import iconTimer from '../resources/img/iconTimer.png';
 
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
@@ -15,7 +13,8 @@ function TimerControl ({
     forceAction,
     label,
     onTimerChange, 
-    maxTime, 
+    maxTime,
+    onPointBecauseLastMinute,
     onTimeFiasco}) {
     const { t } = useTranslation();
     const containerRef = React.useRef(null);
@@ -70,8 +69,21 @@ function TimerControl ({
                 setState(previousInputs => ({ ...previousInputs,
                     millis: tickTime.current
             }));
+        } else if (onPointBecauseLastMinute && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + 60000)) {
+            tickTime.current += 10;
+            onTimerChange && onTimerChange(tickTime.current);
+            setState(previousInputs => ({ ...previousInputs,
+                millis: tickTime.current
+            }));
+            if (!containerRef.current.classList.contains('blink')) {
+                containerRef.current.classList.add('blink');
+            }
+            if ((state.maxTime + tickTime.current) % 10000 === 0) {
+                onPointBecauseLastMinute();
+            }
         } else {
             containerRef.current.classList.toggle('blink');
+            containerRef.current.classList.toggle('foreColorRed');
             onPlayPauseChange();
             onTimeFiasco && onTimeFiasco();
         }

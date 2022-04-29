@@ -6,6 +6,7 @@ import Utils from '../../Utils';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import TotalTimeGameScores from './TotalTimeGameScores';
+import { GameUtils } from '../../model/Game';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/TotalTimeGame.scss'
@@ -49,6 +50,7 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
         if (playerZone.points >= game.maxPoints) { 
             newState.forceAction = 'pause';
         }
+        //GameUtils.getGatesPointExtras(playerZone);
         setState(newState);
     }
 
@@ -106,11 +108,20 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
         setState(newState);
     }
 
+    function onTimeFiasco() {
+
+    }
+
+    function onPointBecauseLastMinute() {
+
+    }
+
     if (state.game.players.length>0) {
         let fiasco = <></>;
         const game = state.game,
             player = game.players[playerIndex],
             playerZone = player.zones[zoneIndex],
+
             controlTextArray = ControlTextArray({
                 controlTextValues: playerZone.controlTextValues,
                 player: playerIndex,
@@ -119,7 +130,7 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
                 texts: TotalTimeGameScores.texts,
                 onDirectFiasco: onBatteryDirectFiasco,
                 onValueChange: onChangeScore,
-                booleanValue: playerZone.battery
+                isClosed: false
             });
 
         if (isFiasco(state, playerIndex, zoneIndex)) {
@@ -152,7 +163,11 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
                     onChange={onGateProgressionChange}
                     tipFormatter={(value)=>{ return value; }}
                 />
+                                
                 <TimerControl 
+                    startTime={playerZone.time}
+                    onTimeFiasco={onTimeFiasco}
+                    onPointBecauseLastMinute={onPointBecauseLastMinute}
                     label={t('description.tiempo')}
                     onTimerChange={onTimerChange}
                     forceAction={state.forceAction}
@@ -179,7 +194,7 @@ function isFiasco(state, player, zone) {
         (game.maxTime <= state.tickTime && game.maxTime > 0) || playerZone.battery);
 }
 
-function initControlTestValues(game) {
+function initControlTestValues(game, reset) {
     const newState = {
         tickTime: 0,
         forceAction: '',
@@ -195,12 +210,8 @@ function initControlTestValues(game) {
                 points: 0,
                 time: 0,
                 judgedBy: [],
-                controlTextValues: new Array(22)
+                controlTextValues: new Array(22).fill(0)
             };
-
-            for(let j=0; j<zone.controlTextValues.length; j++) {
-                zone.controlTextValues[j] = 0;
-            }
 
             player.zones.push(zone);
         }

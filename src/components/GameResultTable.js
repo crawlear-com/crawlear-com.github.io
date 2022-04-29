@@ -37,8 +37,8 @@ function GameResultTable({game, isDraw}) {
         <td>pts</td>
         <td>t</td>
         <td>g</td>
-        <td>gf</td>
         <td>b</td>
+        <td>time</td>
     </tr>);
     
     game.players.forEach((player)=>{
@@ -63,7 +63,7 @@ function GameResultTable({game, isDraw}) {
             if (zone.fiascoControlTextValues) {
                 if (zone.fiascoControlTextValues[4]) {
                     icon = <img src={batteryIcon} alt="battery" />;
-                } else if ((game.maxTime && zone.time === game.maxTime) || 
+                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + 60000) : game.maxTime)) || 
                     (game.maxPoints && zone.totalPoints === game.maxPoints) || 
                     (zone.fiascoControlTextValues.filter(x=>x>0).length > 0)){
                     icon = <img src={fiascoIcon} alt="fiasco" />;
@@ -74,7 +74,8 @@ function GameResultTable({game, isDraw}) {
             } else {
                 if (zone.battery) {
                     icon = <img src={batteryIcon} alt="fiasco" />;
-                } else if ((game.maxTime && zone.time === game.maxTime) || (game.maxPoints && zone.totalPoints === game.maxPoints)){
+                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + 60000) : game.maxTime)) || 
+                           (game.maxPoints && zone.totalPoints === game.maxPoints)){
                     icon = <img src={fiascoIcon} alt="battery" />;
                 } else {
                     icon = <></>;
@@ -89,9 +90,9 @@ function GameResultTable({game, isDraw}) {
                     <td className="gameListPoints">{zone.totalPoints}</td>
                     {game.gameType !== 1 ? <td className="gameListTime">{Utils.printTime(Utils.millisToTime(zone.time))}</td> : <></>}
                     <td className="gameListPoints">{zone.gateProgression}</td>
-                    <td className="gameListPoints">{zone.gatesWithFail ? zone.gatesWithFail : "0"}
-                    </td>
                     <td className="gameListPoints">{zone.gatesWithBonification ? zone.gatesWithBonification * -2 : '0'}
+                    </td>
+                    <td className="gameListPoints">{zone.simpathyPoints ? zone.simpathyPoints : "0"}
                     </td>
                 </tr>
                 <tr key={i+j+2} className="closed">

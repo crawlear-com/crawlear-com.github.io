@@ -12,6 +12,7 @@ function GameProgressionInfoRow({gameProgression, gameTypeTexts}) {
             time = gameProgression.data.time,
             gateFails = gameProgression.data.gatesWithFail,
             gateProgression = gameProgression.data.gateProgression,
+            simpathyPoints = gameProgression.data.simpathyPoints,
             bonitification = gameProgression.data.gatesWithBonification;
 
         return <>
@@ -21,6 +22,9 @@ function GameProgressionInfoRow({gameProgression, gameTypeTexts}) {
                 {typeof(gateFails) !== undefined && typeof(bonitification) !== undefined ? <>
                     <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
                     <li>{t('description.bonificacion')}: <span className="bold">{bonitification*-2}</span></li></>
+                :<></>}
+                {typeof(simpathyPoints) !== undefined ? 
+                    <li>{t('description.portiempo')}: <span className="bold">{simpathyPoints}</span></li> 
                 :<></>}
                 <li>{t('description.total')}: <span className="bold">{totalPoints}</span></li>
                 <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>

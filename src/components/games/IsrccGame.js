@@ -7,6 +7,7 @@ import FiascoControl from '../FiascoControl.js';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { GameUtils } from '../../model/Game';
+import Utils from '../../Utils';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/TotalTimeGame.scss'
@@ -40,8 +41,19 @@ function IsrccGame({game,
     },[]);
 
     function onTimerChange(millis) {
+        const newState = {...state};
+
+        if (!millis) {
+            const currentGame = newState.game,
+                players = currentGame.players,
+                playerZone = players[playerIndex].zones[zoneIndex];
+
+            playerZone.simpathyPoints = 0;
+            GameUtils.getGatesPointExtras(playerZone);
+        }
+
         setState({
-            ...state,
+            ...newState,
             tickTime: millis,
             forceAction: 'play'
         });
@@ -139,6 +151,26 @@ function IsrccGame({game,
         setState(newState);
     }
 
+    function onPointBecauseLastMinute() {
+        const newState = {...state},
+            players = newState.game.players,
+            playerZone = players[playerIndex].zones[zoneIndex];
+
+        playerZone.simpathyPoints++;
+        GameUtils.getGatesPointExtras(playerZone);
+        setState(newState);
+    }
+
+    function onTimeFiasco() {
+        const newState = {...state};
+
+        setState({
+            ...newState,
+            tickTime: game.maxTime + 60000,
+            forceAction: 'pause'
+        });
+    }
+
     function setRepairStatus() {
         const newState = {...state},
             players = newState.game.players,
@@ -214,21 +246,29 @@ function IsrccGame({game,
             </div>
         </div>
         <div className="controlTextContainer rounded rounded2">
+            <div className="smallText">{t('description.zona')}: {zoneIndex + 1}</div>
+            <div className="smallText">{t('description.puertas')}: {currentGame.gates[zoneIndex]}</div>
+            <div className="smallText">max {t('description.tiempo')}: {Utils.printTime(Utils.millisToTime(game.maxTime))}</div>
+            <div className="smallText">max {t('description.puntos')}: {game.maxPoints}</div>
+            <div className="bold pointsText">{t('description.total')}: { playerZone.totalPoints}</div>
             {fiasco}
+        </div>
+        <div className="controlTextContainer rounded rounded2">
             <TimerControl
                 startTime={playerZone.time}
                 label={t('description.tiempo')}
                 forceAction={state.forceAction}
                 onTimerChange={onTimerChange}
+                onTimeFiasco={onTimeFiasco}
+                onPointBecauseLastMinute={onPointBecauseLastMinute}
                 maxTime={maxTime} />
-            <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
-            <div className="pointsText">{t('description.total')}: { playerZone.totalPoints}</div>
+                <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div>
             <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="controlTextContainer info rounded rounded2">
-            {t('description.zona')}: {zoneIndex + 1}<br/>
-            {t('description.puertas')}: {currentGame.gates[zoneIndex]}<br/>
-            {t('description.bonificacion')}: { currentBonification}<br/>
+            <div className="pointsText">{t('description.bonificacion')}: { currentBonification}</div>
+
+            <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
             
             <SliderWithTooltip
                     step={1}

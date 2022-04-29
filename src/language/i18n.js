@@ -126,7 +126,8 @@ i18n
             done: 'done',
             playing: 'playing',
             estado: 'Status',
-            reparacionfinalizada: 'repair end'
+            reparacionfinalizada: 'repair end',
+            portiempo: 'by time'
           },
           points: {
             vuelco: 'overturn',
@@ -296,7 +297,8 @@ i18n
               done: 'hecho',
               playing: 'en juego',
               estado: 'Estado',
-              reparacionfinalizada: 'reparación finalizada'
+              reparacionfinalizada: 'reparación finalizada',
+              portiempo: 'por tiempo'
           },
           points: {
             vuelco: 'vuelco',
