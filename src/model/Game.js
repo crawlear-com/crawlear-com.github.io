@@ -27,39 +27,29 @@ class GameUtils {
                     const zone = {
                         points: 0,
                         totalPoints: 0,
+                        simpathyPoints: 0,
                         time: 0,
                         judgedBy: [],
                         gateProgression: 0,
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
                         gateProgressionData: new Array(game.gates[k]),
-                        fiascoControlTextValues: new Array(5)
+                        fiascoControlTextValues: new Array(5).fill(0)
                     };
 
-                    for (let j=0; j<game.gates[k]; j++) {
-                        zone.gateProgressionData[j] = {
-                            gatePoints: 0,
-                            controlTextValues: new Array(6)
-                        }
-
-                        for(let l=0; l<zone.gateProgressionData[j].controlTextValues.length; l++) {
-                            zone.gateProgressionData[j].controlTextValues[l] = 0;
-                        }
-        
-                        for(let l=0; l<zone.gateProgressionData[j].controlTextValues.length; l++) {
-                            zone.gateProgressionData[j].controlTextValues[l] = 0;
-                        }
-                        
-                        for(let l=0; l<zone.fiascoControlTextValues.length; l++) {
-                            zone.fiascoControlTextValues[l] = 0;
-                        }
-            
-                        for(let l=0; l<zone.gateProgressionData[j].gatePoints.length; l++) {
-                            game.gateProgressionData[j].gatePoints[l] = 0;
+                    if (game.gameType === 0) {
+                        zone.controlTextValues = new Array(13).fill(0);
+                        zone.fiascoControlTextValues = new Array(10).fill(0);
+                        zone.gateProgressionData = [];
+                    } else if (game.gameType === 2) {
+                        for (let j=0; j<game.gates[k]; j++) {
+                            zone.gateProgressionData[j] = {
+                                gatePoints: 0,
+                                controlTextValues: new Array(6).fill(0)
+                            }
                         }
                     }
-        
-        
+
                     player.zones.push(zone);
                 }
             }
@@ -90,7 +80,8 @@ class GameUtils {
     
         return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
             (game.maxPoints <= playerZone.points && game.maxPoints > 0) ||
-            (game.maxTime <= tickTime && game.maxTime > 0));
+            ((game.gameType===2 ? (game.maxTime + 60000) : game.maxTime) <= tickTime && 
+                game.maxTime > 0));
     }
 
     static isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
@@ -152,7 +143,7 @@ class GameUtils {
     static getGatesPointExtras(playerZone) {
         playerZone.gatesWithFail = this.getGatesWithFail(playerZone);
         playerZone.gatesWithBonification = this.getGatesWithBonification(playerZone);
-        playerZone.totalPoints = playerZone.points + (playerZone.gatesWithBonification * -2);
+        playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints + (playerZone.gatesWithBonification * -2);
     }
 }
 

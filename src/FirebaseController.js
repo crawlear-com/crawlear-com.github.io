@@ -135,7 +135,7 @@ class FirebaseController {
         data.players.forEach((player)=>{
           player.zones = [{
             fiascoControlTextValues: [],
-            controlTextValues: player.controlTextValues,
+            controlTextValues: [],
             gateProgression: 1,
             gateProgressionData: [],
             gatesWithBonification: 0,
@@ -143,6 +143,7 @@ class FirebaseController {
             judgedBy: [],
             points: player.points,
             totalPoints: player.points,
+            simpathyPoints: 0,
             time: player.time
           }];
           player.totalTime = player.time;
