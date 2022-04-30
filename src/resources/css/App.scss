@@ -43,9 +43,8 @@
 }
 
 body.lightMode {
-  color: black;
 
-  input.hidenInput, textarea.hidenInput {
+  input.hidenInput, textarea.hidenInput, .bold, select {
     color: black;
   }
 
@@ -60,7 +59,7 @@ body.lightMode {
     background-size: 1.1em;
   }
 
-  .colorGrey {
+  .rounded.colorGrey {
     color: white;
   }
 
@@ -69,6 +68,9 @@ body.lightMode {
     background-color: #A0BCC2;
   }
 
+  .rounded {
+    color: black;
+  }
   .rounded.controlTextTitle {
     background-image: linear-gradient(#FEFBE7, #405662);
   }
