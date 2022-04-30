@@ -120,11 +120,12 @@ class GameUtils {
         return fiasco;
     }
 
+
     static  getZoneTotalBonification(gateProgresionData, gateProgresion) {
         let bonification = 0;
 
         for (let i=0; i<gateProgresion; i++) {
-            if (gateProgresionData[i].gatePoints < 20) {
+            if (gateProgresionData[i].gatePoints < 20 && gateProgresionData[i].controlTextValues[2]<1) {
                 bonification++;
             }
         }
