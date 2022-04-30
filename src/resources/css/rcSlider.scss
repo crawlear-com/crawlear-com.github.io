@@ -30,3 +30,21 @@
 .rc-slider-mark-text {
     color: black;
 }
+
+body.lightMode { 
+
+    .rc-slider-handle {
+        background-color: #333;
+    }
+    .rc-slider-rail {
+        background-color: #333;
+    }
+    
+    .rc-slider-track {
+        background-color: #aaa;
+    }
+    
+    .rc-slider-dot {
+        border-color: #666;
+    }
+}
