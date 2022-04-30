@@ -41,7 +41,8 @@ i18n
             cerrarpartida: 'Do you want to close the play? you will not be abe to edit it again',
             finalizarreparacion: 'Do you wanna finish the repair status?',
             marcarfiascoreparacion: 'Do you want to set the repair fiasco?',
-            quieresempezarzona: 'Do you want to begin the play?'
+            quieresempezarzona: 'Do you want to begin the play?',
+            seguroeditarpartidaenjuego: 'If you edit a zone and player and they are still going on, you can lose play data. ¿Are you sure that you want to edit the game?'
           },
           error: {
               nojugadores: 'Add the players',
@@ -212,7 +213,8 @@ i18n
             cerrarpartida: '¿Quieres cerrar la partida? No será posible volver a editar las puntuaciones',
             finalizarreparacion: '¿Quieres finalizar la reparación?',
             marcarfiascoreparacion: '¿Quieres marcar fiasco de reparación?',
-            quieresempezarzona: '¿Quieres empezar el juego?'
+            quieresempezarzona: '¿Quieres empezar el juego?',
+            seguroeditarpartidaenjuego: 'Si editas un juego en marcha podrás perder datos de la partida. ¿Estás seguro que quieres editar una zona en curso?'
           },
           error: {
               nojugadores: 'Añade a los jugadores',

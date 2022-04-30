@@ -30,7 +30,7 @@ function GameProgression({game, gameProgression, players, onZoneClick}) {
         if (selectedZone === zone && selectedPlayer === player.id) {
             deselectPlayerAndZone();
         } else {
-            if(gameStatus === STATUS_WAITING || gameStatus === STATUS_DONE) {
+            if(gameStatus === STATUS_WAITING || gameStatus === STATUS_DONE || gameStatus === STATUS_PLAYING) {
                 setSelectedPlayer(player.id);
                 setSelectedZone(zone);
                 onZoneClick(player, zone);

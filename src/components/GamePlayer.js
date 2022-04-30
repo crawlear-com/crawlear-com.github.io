@@ -74,7 +74,8 @@ function GamePlayer({game, onBackButtonClick}) {
             const value = gameProgression[pid][zone];
 
             if((value.status === STATUS_WAITING && window.confirm(t('content.quieresempezarzona'))) || 
-              (value.status === STATUS_DONE && window.confirm(t('content.quiereseditarpartida')))) {
+              (value.status === STATUS_DONE && window.confirm(t('content.quiereseditarpartida'))) || 
+              (value.status === STATUS_PLAYING && window.confirm(t('content.seguroeditarpartidaenjuego')))) {
                 setError("");
                 setState(GAME_STATUS_PLAYING);
                 gameProgression[pid][zone].status = STATUS_PLAYING;
