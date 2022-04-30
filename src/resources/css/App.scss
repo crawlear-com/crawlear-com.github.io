@@ -42,6 +42,54 @@
   }
 }
 
+body.lightMode {
+  color: black;
+
+  input.hidenInput, textarea.hidenInput {
+    color: black;
+  }
+
+  .controlTextValues:nth-of-type(odd) {
+    background-color: #A0BCC2;
+  }
+
+  .gameList .gameContainer .playGameButton {
+    background-position-y: 3px;
+    position: relative;
+    top: -3px;
+    background-size: 1.1em;
+  }
+
+  .colorGrey {
+    color: white;
+  }
+
+  .gameList .gameListPoints,
+  .gameList .gameListPosition {
+    background-color: #A0BCC2;
+  }
+
+  .rounded.controlTextTitle {
+    background-image: linear-gradient(#FEFBE7, #405662);
+  }
+  .rounded1 {
+    background-color: #ffa602;
+    background-image: linear-gradient(#F9EBC8, #FEFBE7);
+  }
+  .rounded2 {
+    background-image: linear-gradient(#FEFBE7, #FEFBE7);
+  }
+  
+  .rounded3 {
+    background-image: linear-gradient(#FEFBE7, #A0BCC2);
+  }
+
+  .rounded button {
+    background-color: #405662;
+  }
+  
+}
+
 .rounded1 {
   background-color: #ffa602;
   background-image: linear-gradient(#112031, #152D35);

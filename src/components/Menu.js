@@ -6,12 +6,25 @@ import '../resources/css/Menu.scss';
 import pdfAECAR from '../resources/pdf/Reglamento Campeonato Nacional de Crawler 2022.pdf'
 import pdfISRCC from '../resources/pdf/Reglamento ISRCC.pdf'
 
+const LIGHTMODE_CLASS = 'lightMode';
+
 function Menu() {
     const [isOpen, setIsOpen] = React.useState(false);
     const { t } = useTranslation();
+    const [lightMode, setLightMode] = React.useState(false);
 
     function onMenuClick() {
         setIsOpen(!isOpen);
+    }
+
+    function switchLightMode() {
+        if (lightMode) {
+            setLightMode(false);
+            document.body.classList.remove(LIGHTMODE_CLASS);
+        } else {
+            setLightMode(true);
+            document.body.classList.add(LIGHTMODE_CLASS);
+        }
     }
 
     if (isOpen) {
@@ -41,7 +54,7 @@ function Menu() {
                 <div className="burguerMenuBar"></div>
                 <div className="burguerMenuBar"></div>
             </div>
-            <img src={logo} alt="web logo"></img>
+            <img src={logo} onClick={switchLightMode} alt="web logo"></img>
         </header>;
     }
 
