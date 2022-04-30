@@ -193,7 +193,7 @@ function IsrccGame({game,
                 content;
 
             if (i<gateProgression) {
-                if (gateData[i].gatePoints < 20) {
+                if (gateData[i].gatePoints < 20 && gateData[i].controlTextValues[2]<1) {
                     classname += 'colorGreen';
                     content = '-2';
                 } else {
