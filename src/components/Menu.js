@@ -17,7 +17,10 @@ function Menu() {
         setIsOpen(!isOpen);
     }
 
-    function switchLightMode() {
+    function switchLightMode(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
         if (lightMode) {
             setLightMode(false);
             document.body.classList.remove(LIGHTMODE_CLASS);
@@ -44,6 +47,7 @@ function Menu() {
                         <li><a href="https://isrcc.eu/">ISRCC International Scale Rock Crawler Championship</a></li>
                         <li><a href={pdfISRCC}>Reglamento ISRCC 2022</a></li>
                     </ul>
+                    <a className="lightModeSwitch" href="#clear" onClick={switchLightMode}>Modo claro / oscuro</a>
                 </div>
             </div>
         </header>;
@@ -54,7 +58,7 @@ function Menu() {
                 <div className="burguerMenuBar"></div>
                 <div className="burguerMenuBar"></div>
             </div>
-            <img src={logo} onClick={switchLightMode} alt="web logo"></img>
+            <a href="/"><img src={logo} alt="web logo"></img></a>
         </header>;
     }
 
