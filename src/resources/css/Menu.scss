@@ -35,6 +35,7 @@
     border-radius: 7px;
     overflow: hidden;
     transition: width 0.2s;
+    min-height: 320px;
 }
 
 .burguerMenuBar:first-of-type {
@@ -89,3 +90,10 @@
         }
     }
 }
+
+.lightModeSwitch {
+    position: absolute;
+    bottom: 15px;
+    right: 32px;
+  }
+  
