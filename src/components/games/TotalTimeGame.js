@@ -68,7 +68,7 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
 
         window.scrollTo(0,0);
         Analytics.event('play', 'reset', newState.game.players[playerIndex].name);
-        newState = initControlTestValues(newState.game);
+        newState = initControlTestValues(newState.game, true);
         playerZone.time = 0;
         playerZone.points = 0;
         playerZone.battery = false;
@@ -202,18 +202,20 @@ function initControlTestValues(game, reset) {
     }
 
     newState.game.players.forEach((player)=>{
-        player.zones = [];
+        if (!player.zones || player.zones.length===0 || reset) {
+            player.zones = [];
 
-        for (let k=0; k<game.zones;k++) {
-            const zone = {
-                battery: false,
-                points: 0,
-                time: 0,
-                judgedBy: [],
-                controlTextValues: new Array(22).fill(0)
-            };
+            for (let k=0; k<game.zones;k++) {
+                const zone = {
+                    battery: false,
+                    points: 0,
+                    time: 0,
+                    judgedBy: [],
+                    controlTextValues: new Array(22).fill(0)
+                };
 
-            player.zones.push(zone);
+                player.zones.push(zone);
+            }
         }
     });
 
