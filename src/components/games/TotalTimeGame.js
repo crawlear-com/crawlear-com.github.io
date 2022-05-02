@@ -201,6 +201,8 @@ function initControlTestValues(game, reset) {
         game: game
     }
 
+    GameUtils.init(newState.game, reset);
+/*
     newState.game.players.forEach((player)=>{
         if (!player.zones || player.zones.length===0 || reset) {
             player.zones = [];
@@ -217,7 +219,7 @@ function initControlTestValues(game, reset) {
                 player.zones.push(zone);
             }
         }
-    });
+    });*/
 
     return newState;
 }

@@ -1,3 +1,7 @@
+const GAME_TYPE_AECAR = 0;
+const GAME_TYPE_KING = 1;
+const GAME_TYPE_ISRCC = 2;
+
 class Game {
     constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids) {
         this.name = name;
@@ -37,11 +41,12 @@ class GameUtils {
                         fiascoControlTextValues: new Array(5).fill(0)
                     };
 
-                    if (game.gameType === 0) {
+                    if (game.gameType === GAME_TYPE_AECAR) {
                         zone.controlTextValues = new Array(13).fill(0);
                         zone.fiascoControlTextValues = new Array(10).fill(0);
                         zone.gateProgressionData = [];
-                    } else if (game.gameType === 2) {
+                    } else if (game.gameType === GAME_TYPE_KING || 
+                              game.gameType === GAME_TYPE_ISRCC) {
                         for (let j=0; j<game.gates[k]; j++) {
                             zone.gateProgressionData[j] = {
                                 gatePoints: 0,

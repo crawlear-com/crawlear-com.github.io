@@ -4,6 +4,7 @@ import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import KingGameScores from './KingGameScores';
+import { GameUtils } from '../../model/Game';
 
 import '../../resources/css/games/KingGame.scss';
 
@@ -29,7 +30,7 @@ function KingGame({game, onGameEnd}) {
 
         zone.controlTextValues = [...zone.controlTextValues];
         zone.controlTextValues[control] += value;
-        zone.points += value;    
+        zone.totalPoints += value;
         newState.order = getPlayersOrder(newState.order.findIndex(item => item.id===players[player].id), newState.order);
         setState(newState);
     }
@@ -44,7 +45,7 @@ function KingGame({game, onGameEnd}) {
     for(let i=0;i<state.game.players.length;i++) {
         result.push(<div key={i+1}>
                 <div className="controlTextContainerQueue rounded bold">
-                    {state.order[i].name}: {state.order[i].zones[0].points} ptos
+                    {state.order[i].name}: {state.order[i].zones[0].totalPoints} ptos
                 </div>
             </div>);
     }
@@ -58,7 +59,7 @@ function KingGame({game, onGameEnd}) {
         result.push(<div key={state.game.players.length+i+2} className="playerInfo">
                 <div className="headerPlayer importantNote rounded2 rounded">
                     <div className="bold">{player.name}</div>
-                    {t('description.total')}: { zone.points }
+                    {t('description.total')}: { zone.totalPoints }
                     {fiasco}
                 </div>
                 <div className="controlTextContainer rounded rounded1">
@@ -87,15 +88,9 @@ function initControlTestValues(game) {
         order: [...game.players]
     }
 
+    GameUtils.init(newState.game, false);
     for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].zones = [{
-            points: 0,
-            time: 0,
-            controlTextValues: new Array(7)
-        }];
-        for(let j=0; j<newState.game.players[i].zones[0].controlTextValues.length; j++) {
-            newState.game.players[i].zones[0].controlTextValues[j] = 0;
-        }
+        newState.game.players[i].zones[0].controlTextValues = new Array(7).fill(0);
     }
 
     return newState;
