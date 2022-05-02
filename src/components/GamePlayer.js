@@ -132,7 +132,6 @@ function GamePlayer({game, onBackButtonClick}) {
             newGameProgression[pid][zone].data.judgedBy.push(window.crawlear.user.uid);
             setGameProgression(newGameProgression);
     
-            fb.setGameResultForPlayerZone(game, pid, zone);
             fb.setGameProgression(game.gid, pid, zone, newGameProgression[pid][zone]);
             setState(GAME_STATUS_CREATED); 
         } else {
@@ -156,7 +155,6 @@ function GamePlayer({game, onBackButtonClick}) {
         newGameProgression[playerIndex][zoneIndex].data = player.zones[zoneIndex];
         setGameProgression(newGameProgression);
         fb.setGameProgression(game.gid, pid, zoneIndex, newGameProgression[pid][zoneIndex]);
-        fb.setGameResultForPlayerZone(game, pid, zoneIndex);
         setState(GAME_STATUS_CREATED);
     }
 
@@ -164,7 +162,6 @@ function GamePlayer({game, onBackButtonClick}) {
         zone.status = STATUS_WAITING;
         delete zone.repairData;
         fb.setGameProgression(game.gid, uid, zoneIndex, zone);
-        fb.setGameResultForPlayerZone(game, uid, zoneIndex);
     }
 
     function onRepairTimeFiasco(uid, zoneIndex, zone) {
@@ -174,7 +171,6 @@ function GamePlayer({game, onBackButtonClick}) {
         zone.status = STATUS_WAITING;
         delete zone.repairData;
         fb.setGameProgression(game.gid, uid, zoneIndex, zone);
-        fb.setGameResultForPlayerZone(game, uid, zoneIndex);
     }
 
     if (game.gameType !== GAME_KING) {

@@ -22,14 +22,7 @@ function Landing({onLoggin}) {
         firebase.checkIfLogged(onLoggin);
         Analytics.pageview('/landing/');
     },[]);
-
-/*<div className="aboutUsContent">{t('content.landingSecondText')}:</div>
-<p className="googleSignInButton">
-<button className="importantNote" onClick={() => {
-    navigate("/simplegame");
-    }}>{t('gametype.partidarapida')}</button>
-</p>*/
-
+//<p>{t('content.licenseText')}</p>
     return <>
         <MainPageTextContent />
 
