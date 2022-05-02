@@ -382,19 +382,6 @@ class FirebaseController {
     }, koCallback);
   }
 
-  async setGameResultForPlayerZone(game, player, zone) {
-    const playerZone = game.players[player].zones[zone];
-    const docRef = doc(collection(doc(this.db, "games", game.gid), "players"), `${player}`);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-
-      data.players[player].zones[zone].data = playerZone;
-      setDoc(docRef, data);
-    }
-  }
-
   createGameProgression(game) {
     for(let i=0; i<game.players.length;i++) {
       for(let j=0; j<game.zones; j++) {
