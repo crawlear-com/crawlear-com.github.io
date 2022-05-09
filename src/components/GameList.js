@@ -43,7 +43,7 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGam
         }
 
         if(game.owner === window.crawlear.user.uid) {
-            director = "(D)"
+            director = "(D) "
         }
 
         gameList.push(<div key={i} className="gameContainer rounded rounded1 closed">

@@ -27,7 +27,9 @@ function PresenceButton({game, playerName, fromName, zone, onPresenceRequestStat
     }
 
     function createDirectorPresenceRequest() {
-        firebase.setDirectorPresenceRequest(gid, zone, playerName, fromName, onRequestPreStatusChange);
+        if (window.confirm()) {
+            firebase.setDirectorPresenceRequest(gid, zone, playerName, fromName, onRequestPreStatusChange);
+        }
     }
 
     if(gid && playerName && fromName && zone>=0 && game.owner !== window.crawlear.user.uid) {

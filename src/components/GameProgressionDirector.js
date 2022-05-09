@@ -68,16 +68,16 @@ function GameProgressionDirector({game, gameProgression}) {
         </div>);
     }
 
-    res.push(<p className='bold'>Peticiones de presencia:</p>);
+    res.push(<p className='bold'>{t('description.peticionesdepresencia')}:</p>);
     if (!requestsRef.current) {
-        res.push(<p className=''>Sin peticiones de presencia</p>);
+        res.push(<p className=''>{t('description.nopeticionespresencia')}</p>);
     }
 
     requestsRef.current && Object.keys(requestsRef.current).forEach((request, index)=>{
         const element = requestsRef.current[request];
 
         res.push(<div className='directorRequestContainer blink'>
-        <div>From: {element.fromName} Zone: {index+1} Player: {element.playerName} Status: {element.status}</div>
+        <div>{t('description.de')} {element.fromName} {t('description.zona')}: {index+1} {t('description.jugador')}: {element.playerName} {t('description.estado')}: {element.status}</div>
         <div>
             <button onClick={()=>{
                 presenceRequestAccept(request);

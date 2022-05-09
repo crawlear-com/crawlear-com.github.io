@@ -45,7 +45,8 @@ i18n
             seguroeditarpartidaenjuego: 'If you edit a zone and player and they are still going on, you can lose play data. ¿Are you sure that you want to edit the game?',
             licenseText: 'Contact us if you are interested in license the crawlear tool for an official event or competition at crawlear.com@gmail.com',
             zonascompletadas: 'Completed zones by group:',
-            estadozona: 'Zone status:'
+            estadozona: 'Zone status:',
+            quieresenviarpeticiondepresencia: 'Do you want to send a presence request?'
           },
           error: {
               nojugadores: 'Add the players',
@@ -135,7 +136,10 @@ i18n
             grupo: 'Group',
             directordepartida: 'Game director',
             ocupado: 'Busy',
-            libre: 'Free'
+            libre: 'Free',
+            peticionesdepresencia: 'Presence requests',
+            nopeticionespresencia: 'No presence requests',
+            de: 'De:'
           },
           points: {
             vuelco: 'overturn',
@@ -224,7 +228,8 @@ i18n
             seguroeditarpartidaenjuego: 'Si editas un juego en marcha podrás perder datos de la partida. ¿Estás seguro que quieres editar una zona en curso?',
             licenseText: 'Contacta con nosotros en crawlear.com@gmail.com si estás interesado en licenciar la herramienta crawlear para un evento o competición oficial',
             zonascompletadas: 'Zonas completadas por grupo:',
-            estadozona: 'Estado de zonas:'
+            estadozona: 'Estado de zonas:',
+            quieresenviarpeticiondepresencia: '¿Quieres enviar una petición de presencia al director del juego?'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -314,7 +319,10 @@ i18n
               grupo: 'Grupo',
               directordepartida: 'Director de juego',
               ocupado: 'Ocupado',
-              libre: 'Libre'
+              libre: 'Libre',
+              peticionesdepresencia: 'Peticiones de presencia',
+              nopeticionespresencia: 'Sin peticiones de presencia',
+              de: 'de:'
           },
           points: {
             vuelco: 'vuelco',
