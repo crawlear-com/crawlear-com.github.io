@@ -139,7 +139,8 @@ i18n
             libre: 'Free',
             peticionesdepresencia: 'Presence requests',
             nopeticionespresencia: 'No presence requests',
-            de: 'De:'
+            de: 'De:',
+            aceptar: 'Accept'
           },
           points: {
             vuelco: 'overturn',
@@ -322,7 +323,8 @@ i18n
               libre: 'Libre',
               peticionesdepresencia: 'Peticiones de presencia',
               nopeticionespresencia: 'Sin peticiones de presencia',
-              de: 'de:'
+              de: 'de:',
+              aceptar: 'Aceptar'
           },
           points: {
             vuelco: 'vuelco',
