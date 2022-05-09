@@ -43,7 +43,9 @@ i18n
             marcarfiascoreparacion: 'Do you want to set the repair fiasco?',
             quieresempezarzona: 'Do you want to begin the play?',
             seguroeditarpartidaenjuego: 'If you edit a zone and player and they are still going on, you can lose play data. ¿Are you sure that you want to edit the game?',
-            licenseText: 'Contact us if you are interested in license the crawlear tool for an official event or competition at crawlear.com@gmail.com'
+            licenseText: 'Contact us if you are interested in license the crawlear tool for an official event or competition at crawlear.com@gmail.com',
+            zonascompletadas: 'Completed zones by group:',
+            estadozona: 'Zone status:'
           },
           error: {
               nojugadores: 'Add the players',
@@ -129,7 +131,11 @@ i18n
             playing: 'playing',
             estado: 'Status',
             reparacionfinalizada: 'repair end',
-            portiempo: 'by time'
+            portiempo: 'by time',
+            grupo: 'Group',
+            directordepartida: 'Game director',
+            ocupado: 'Busy',
+            libre: 'Free'
           },
           points: {
             vuelco: 'overturn',
@@ -216,7 +222,9 @@ i18n
             marcarfiascoreparacion: '¿Quieres marcar fiasco de reparación?',
             quieresempezarzona: '¿Quieres empezar el juego?',
             seguroeditarpartidaenjuego: 'Si editas un juego en marcha podrás perder datos de la partida. ¿Estás seguro que quieres editar una zona en curso?',
-            licenseText: 'Contacta con nosotros en crawlear.com@gmail.com si estás interesado en licenciar la herramienta crawlear para un evento o competición oficial'
+            licenseText: 'Contacta con nosotros en crawlear.com@gmail.com si estás interesado en licenciar la herramienta crawlear para un evento o competición oficial',
+            zonascompletadas: 'Zonas completadas por grupo:',
+            estadozona: 'Estado de zonas:'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -302,7 +310,11 @@ i18n
               playing: 'en juego',
               estado: 'Estado',
               reparacionfinalizada: 'reparación finalizada',
-              portiempo: 'por tiempo'
+              portiempo: 'por tiempo',
+              grupo: 'Grupo',
+              directordepartida: 'Director de juego',
+              ocupado: 'Ocupado',
+              libre: 'Libre'
           },
           points: {
             vuelco: 'vuelco',

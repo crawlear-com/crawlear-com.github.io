@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import Utils from '../Utils';
 
 import '../resources/css/UserSearch.scss';
 import iconSend from '../resources/img/iconSend.png';
@@ -36,26 +35,32 @@ function UserSearch({onUserSeachPlayerAdd, gameName, isForJudge}) {
             onUserSeachPlayerAdd({
                 uid: user.uid,
                 displayName: user.displayName,
-                photoURL: user.photoURL
+                photoURL: user.photoURL,
+                group: 0
             });
         } else {
-            firebase.setUserGameRequest(window.crawlear.user.uid, window.crawlear.user.displayName, uid, gameName, (requestData, requestStatus)=>{
-                if (requestStatus === 'pending') {
-                    gameRequestsRef.current += 1;
-                    setGameRequests(gameRequests+1);
-                } else if (requestStatus === 'accepted') {
-                    onUserSeachPlayerAdd({
-                        uid: uid,
-                        displayName: displayName,
-                        photoURL: photoURL
-                    });
-                    gameRequestsRef.current -= 1;
-                    setGameRequests(gameRequests-1);
-                } else {
-                    gameRequestsRef.current -= 1;
-                    setGameRequests(gameRequests-1);
-                }
-            });
+            firebase.setUserGameRequest(window.crawlear.user.uid, 
+                window.crawlear.user.displayName, 
+                uid, 
+                gameName, 
+                (requestData, requestStatus)=>{
+                    if (requestStatus === 'pending') {
+                        gameRequestsRef.current += 1;
+                        setGameRequests(gameRequests+1);
+                    } else if (requestStatus === 'accepted') {
+                        onUserSeachPlayerAdd({
+                            uid: uid,
+                            displayName: displayName,
+                            photoURL: photoURL,
+                            group: 0
+                        });
+                        gameRequestsRef.current -= 1;
+                        setGameRequests(gameRequests-1);
+                    } else {
+                        gameRequestsRef.current -= 1;
+                        setGameRequests(gameRequests-1);
+                    }
+                });
         }
     }
 

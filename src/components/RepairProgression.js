@@ -6,7 +6,7 @@ import '../resources/css/RepairProgression.scss';
 
 const STATUS_REPAIR = 'repair';
 
-function RepairProgression({gameProgression, game, onRepairTimeFiasco, onRepairEnd}) {
+function RepairProgression({gameProgression, game, jidGroup, onRepairTimeFiasco, onRepairEnd}) {
     const { t } = useTranslation();
     const repairs = [];
 
@@ -16,31 +16,33 @@ function RepairProgression({gameProgression, game, onRepairTimeFiasco, onRepairE
         }
     }
 
-    gameProgression && Object.entries(gameProgression).forEach(entry => {
-        const [key, player] = entry;
-
-        player.forEach((zone, index) => {
-            if (zone.status === STATUS_REPAIR) {
-                const date = new Date(zone.repairData.setTime).toLocaleTimeString(navigator.language, {
-                        hour: '2-digit', 
-                        minute:'2-digit'
-                    });
-
-                repairs.push(<div key={index+key} className='repairProgressionItem rounded rounded2'>
-                    <div className='repairProgressionItemHead'>
-                        <img src={game.players[key].avatar} alt="player avatar" />
-                        <span className='repairProgressionItemZone'>{t('description.zona')}: {index+1}</span>
-                        <span className="gameProgressionItemHour">
-                            {t('description.enreparaciondesde')} {date}
-                        </span>
-                    </div>
-                    <RepairTimer  />
-                    <button onClick={()=>{
-                        prepareOnRepairEnd(game.players[key].id, index, zone);
-                    }} className="importantNote">Finalizar</button>
-                </div>);
-            }
-        });
+    gameProgression && Object.entries(gameProgression).forEach((group, gIndex) => {
+        if (jidGroup === Number(gIndex)) {
+            group[1].forEach((player, pIndex) => {
+                player.forEach((zone, index) => {
+                    if (zone.status === STATUS_REPAIR) {
+                        const date = new Date(zone.repairData.setTime).toLocaleTimeString(navigator.language, {
+                                hour: '2-digit', 
+                                minute:'2-digit'
+                            });
+        
+                        repairs.push(<div key={index+gIndex} className='repairProgressionItem rounded rounded2'>
+                            <div className='repairProgressionItemHead'>
+                                <img src={game.players[pIndex].avatar} alt="player avatar" />
+                                <span className='repairProgressionItemZone'>{t('description.zona')}: {index+1}</span>
+                                <span className="gameProgressionItemHour">
+                                    {t('description.enreparaciondesde')} {date}
+                                </span>
+                            </div>
+                            <RepairTimer  />
+                            <button onClick={()=>{
+                                prepareOnRepairEnd(game.players[pIndex].id, index, zone);
+                            }} className="importantNote">Finalizar</button>
+                        </div>);
+                    }
+                });    
+            });
+        }
     });
     return <div className="repairProgressionContainer">
             {repairs.length ? repairs : t('description.nohayreparaciones')}

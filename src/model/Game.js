@@ -3,7 +3,7 @@ const GAME_TYPE_KING = 1;
 const GAME_TYPE_ISRCC = 2;
 
 class Game {
-    constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids) {
+    constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
         this.name = name;
         this.date = date;
         this.location = location;
@@ -18,6 +18,7 @@ class Game {
         this.jids = jids || [];
         this.zones = zones;
         this.gameStatus = gameStatus;
+        this.owner = owner;
     }
 }
 
@@ -63,7 +64,7 @@ class GameUtils {
 
     static redoPlayersIds(game) {
         game.players.forEach((player, index)=>{
-            player.uid = index;
+            player.id = index;
         });
 
     }

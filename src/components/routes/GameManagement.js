@@ -66,6 +66,10 @@ function GameManagement({onLogout}) {
         firebase.getGamesFromJudge(window.crawlear.user.uid, (jGames)=> {
             setJudgeGames(previousInputs => ([...previousInputs,...jGames]));
         });
+
+        firebase.getGamesFromDirector(window.crawlear.user.uid, (dGames)=> {
+            setJudgeGames(previousInputs => ([...previousInputs,...dGames]));
+        });
     }
 
     function onRemovePlayerGames(gamePosition) {
@@ -151,7 +155,7 @@ function GameManagement({onLogout}) {
                     <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crear')}</button>
                 </> : 
                 state === STATE_PLAYING ? 
-                    <GamePlayer game={game}
+                    <GamePlayer inGame={game}
                         onBackButtonClick={goBackToMenuStatus} />
                 : <></>}
         </>;

@@ -24,7 +24,8 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGam
     }
 
     games && games.forEach((game) => {
-        let info;
+        let info, 
+            director = <></>;
 
         if(game.gameStatus === 0 || game.gameStatus === 1) {
             if(gameProgressions && gameProgressions[game.gid]) {
@@ -34,15 +35,19 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGam
                 />
             }
 
-            if (game.jids.find(element=>window.crawlear.user.uid===element && !readOnly)) {
+            if ((game.jids.find(element=>window.crawlear.user.uid===element) || game.owner===window.crawlear.user.uid) && !readOnly) {
                 info = <><button className="importantNote playGameButton" data-gameposition={i} onClick={onGamePlay}></button>{info}</>;
             }
         } else {
             info =<WinnerTable game={game} />;
         }
 
+        if(game.owner === window.crawlear.user.uid) {
+            director = "(D)"
+        }
+
         gameList.push(<div key={i} className="gameContainer rounded rounded1 closed">
-                <span onClick={openCloseGame} className="textOverflow gameName bold">{game.name} - {game.date}</span>
+                <span onClick={openCloseGame} className="textOverflow gameName bold">{director}{game.name} - {game.date}</span>
                 <button data-position={i} className="removeButton" onClick={removeGame}>-</button>
                 {info}
             </div>);

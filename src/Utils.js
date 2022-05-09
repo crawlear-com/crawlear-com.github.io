@@ -155,6 +155,12 @@ class Utils {
     static getMapsURL(latitude, longitude) {
         return `https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}`
     }
+
+    static getGroupFromJid(game, jid) {
+        const judge = game.judges.find(element => element.uid === jid);
+
+        return (judge ? judge.group : 0);
+    }
 }
 
 export default Utils;

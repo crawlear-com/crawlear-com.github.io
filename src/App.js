@@ -21,7 +21,7 @@ function App() {
   const fb = new FirebaseController();
 
   window.crawlear = window.crawlear || {};
-  window.crawlear.fb = fb;
+  window.crawlear.fb = window.crawlear.fb || fb;
   const [stateLogged, setStateLogged] = React.useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ function App() {
       new Date().toLocaleDateString(),
       { latitude: 0, longitude: 0 },
       false, 2,
-      [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], []);
+      [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], window.crawlear.user.uid);
   }
 
   return (<>
