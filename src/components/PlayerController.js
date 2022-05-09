@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Utils from '../Utils';
 import PlayerItem from './PlayerItem';
 import UserSearch from './UserSearch';
 import { useTranslation } from 'react-i18next';
@@ -10,53 +9,56 @@ import '../resources/css/PlayerController.scss';
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
 function PlayerController({onPlayerNumerChange, gameName, isForJudge}) {
-    const playersRef = React.useRef([]);
+    const [players, setPlayers] = React.useState([]);
     const { t } = useTranslation();
 
   React.useEffect(() => {
-    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
-  }, [playersRef.current]);
+    onPlayerNumerChange && onPlayerNumerChange(players);
+  }, [players]);
 
-  function addPlayer(displayName, uid, photoURL) {
-    const value = displayName,
-      players = playersRef.current;
+  function removePlayer(event) {
+    Analytics.event('menu', 'removePlayer', players[event.target.id].name);
+
+    delete players[event.target.id];
+    const statusPlayers = players.filter((a) => a);
+    setPlayers(statusPlayers);
+    onPlayerNumerChange && onPlayerNumerChange(statusPlayers);
+  }
+
+  function onUserSeachPlayerAdd(player) {
+    const value = player.displayName;
 
     if (!value || 
         value.trim().length===0 || 
-        players.find(x=>x.uid===uid && uid.length>0) || (
-          isForJudge && !uid 
+        players.find(x=>x.uid===player.uid && player.uid.length>0) || (
+          isForJudge && !player.uid 
         )) return;
 
     players.push({
           id: players.length,
-          uid: uid || "",
+          uid: player.uid || "",
           name: value,
-          avatar: photoURL || `${AVATAR_API}${value}`,
+          avatar: player.photoURL || `${AVATAR_API}${value}`,
+          group: 0,
           time: 0,
           points: 0,
           battery: false
       });
-      Analytics.event('menu', 'addPlayer', value);
-      onPlayerNumerChange && onPlayerNumerChange(players);
+    Analytics.event('menu', 'addPlayer', value);
+    onPlayerNumerChange && onPlayerNumerChange(players);
   }
 
-  function removePlayer(event) {
+  function onGroupChange(playerId, group) {
+    const newPlayers = [...players];
 
-    Analytics.event('menu', 'removePlayer', playersRef.current[event.target.id].name);
-
-    delete playersRef.current[event.target.id];
-    playersRef.current = playersRef.current.filter((a) => a)
-    onPlayerNumerChange && onPlayerNumerChange(playersRef.current);
+    newPlayers[playerId].group = group;
+    setPlayers(newPlayers);
   }
 
-  function onUserSeachPlayerAdd({uid, displayName, photoURL}) {
-    addPlayer(displayName, uid, photoURL);
-  }
-
-  let playersTxt = !playersRef.current.length? t('description.nojugadores') : t('description.jugadores');
+  let playersTxt = !players.length? t('description.nojugadores') : t('description.jugadores');
 
   if(isForJudge) {
-    playersTxt = !playersRef.current.length? t('description.nojueces') : t('description.jueces');
+    playersTxt = !players.length? t('description.nojueces') : t('description.jueces');
   }
 
   return <>
@@ -69,11 +71,13 @@ function PlayerController({onPlayerNumerChange, gameName, isForJudge}) {
         gameName={gameName} />
       <div className="headerText">{isForJudge ? t('description.juecesenpartida') : t('description.usuariosenpartida')}</div>
       <ul className="playersList">
-          {playersRef.current.length === 0 ? playersTxt : playersRef.current.map((player, i) => { 
+          {players.length === 0 ? playersTxt : players.map((player, i) => { 
               return <PlayerItem 
                 key={i}
                 player={player} 
-                i={i} 
+                i={i}
+                onGroupChange={onGroupChange}
+                editMode={true}
                 onRemovePlayer={removePlayer} />
           })}
       </ul>

@@ -114,12 +114,14 @@ class FirebaseController {
       location: game.location,
       gameType: game.gameType,
       players: game.players,
+      judges: game.judges || [],
       isPublic: game.isPublic,
       maxTime: game.maxTime,
       maxPoints: game.maxPoints,
       zones: game.zones,
       gates: game.gates,
-      gameStatus: game.gameStatus
+      gameStatus: game.gameStatus,
+      owner: game.owner
     };
   }
 
@@ -159,14 +161,15 @@ class FirebaseController {
         data.isPublic, 
         data.gameType, 
         data.players, 
-        [],
+        data.judges || [],
         data.maxTime,
         data.maxPoints,
         data.gates,
         data.zones,
         data.gameStatus,
         data.uids,
-        data.jids);
+        data.jids,
+        data.owner);
       game.gid = element.id;
 
       result.push(game);
@@ -205,6 +208,27 @@ class FirebaseController {
       okCallback && okCallback(this.transformGamesIntoModel(querySnapshot.docs));
       } catch(e) {
         koCallback && koCallback();
+    }
+  }
+
+  async getGamesFromDirector(jid, okCallback, koCallback) {
+    try {
+      const games = [];
+      const q = query(collection(this.db, "games"), 
+        where("owner", "==", jid));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.docs.forEach((gameData)=>{
+        const game = gameData.data();
+
+        if(!game.jids || game.jids.indexOf(jid)<0) {
+          games.push(gameData);
+        }
+      });
+
+      okCallback && okCallback(this.transformGamesIntoModel(games));
+    } catch(e) {
+      koCallback && koCallback();
     }
   }
 
@@ -358,8 +382,8 @@ class FirebaseController {
     });
   }
 
-  setGameProgression(gid, uid, zone, data) {
-    set(ref(this.rdb, `gameProgression/${gid}/${uid}/${zone}`), data);
+  setGameProgression(gid, uid, group, zone, data) {
+    set(ref(this.rdb, `gameProgression/${gid}/${group}/${uid}/${zone}`), data);
   }
 
   removeGameProgression(gid) {
@@ -387,6 +411,7 @@ class FirebaseController {
       for(let j=0; j<game.zones; j++) {
         this.setGameProgression(game.gid, 
             game.players[i].id,
+            game.players[i].group,
             j,
             {
               status: 'waiting',
@@ -422,6 +447,40 @@ class FirebaseController {
     });
   }
 
+  setDirectorPresenceRequest(gid, zone, playerName, fromName, onPresenceRequestStatusChange) {
+    const gameRequestRef = push(ref(this.rdb, `presenceRequests/${gid}/`), {
+      zone: zone,
+      playerName: playerName,
+      fromName: fromName,
+      date: new Date().toLocaleDateString(),
+      status : 'pending'
+    });
+
+    onValue(gameRequestRef, (snapshot) => {
+      const data = snapshot.val();
+      data && onPresenceRequestStatusChange(data, snapshot.key);
+    });
+  }
+
+  getDirectorPresenceRequest(gid, onPresenceRequestAdded, onPresenceRequestChanged) {
+    const gameProgressionRef = ref(this.rdb, `presenceRequests/${gid}`);
+
+    onChildAdded(gameProgressionRef, (snapshot) => {
+      onPresenceRequestAdded(snapshot.key, snapshot.val());
+    });
+
+    onChildChanged(gameProgressionRef, (snapshot) => {
+      onPresenceRequestChanged(snapshot.key, snapshot.val());
+    });
+  }
+
+  acceptDirectorPresenceRequest(gid, requestKey) {
+    set(ref(this.rdb, `presenceRequests/${gid}/${requestKey}/status/`), "accepted");
+  }
+
+  removeDirectorPresenceRequest(gid) {
+    remove(ref(this.rdb, `presenceRequests/${gid}`));
+  }
 }
 
 export default FirebaseController;

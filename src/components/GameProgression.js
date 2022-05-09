@@ -10,7 +10,7 @@ const STATUS_PLAYING = 'playing';
 const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
 
-function GameProgression({game, gameProgression, players, onZoneClick}) {
+function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}) {
     const { t } = useTranslation();
     const [selectedZone, setSelectedZone] = React.useState(-1);
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
@@ -24,8 +24,8 @@ function GameProgression({game, gameProgression, players, onZoneClick}) {
 
     function prepareOnClick(event, player) {
         const zone = Number(event.target.closest('[data-zone]').getAttribute("data-zone"));
-        const gameStatus = gameProgression[player.id][zone].status;
-        const gameData = gameProgression[player.id][zone].data;
+        const gameStatus = gameProgression[player.group][player.id][zone].status;
+        const gameData = gameProgression[player.group][player.id][zone].data;
 
         if (selectedZone === zone && selectedPlayer === player.id) {
             deselectPlayerAndZone();
@@ -47,10 +47,48 @@ function GameProgression({game, gameProgression, players, onZoneClick}) {
         setSelectedZone(-1);
     }
 
+    function renderOccupiedZones(zones) {
+        const result = [];
+
+        zones.forEach((zone, zIndex)=>{
+            const row = [];
+            
+            row.push(<>{t('description.zona')} {zIndex+1}: </>);
+            if (zone) {
+                row.push(<span className='directorGroup colorRed'>{t('description.ocupado')}</span>);
+            } else {
+                row.push(<><span className='directorGroup'>{t('description.libre')}</span><br /></>);
+            }
+            result.push(<div className='directorZone'>{row}</div>);
+        });
+
+        return <div className=''>
+            {result}
+            </div>;
+    }
+
+    function getNotAvailableZones() {
+        const zones = new Array(game.zones).fill(false);
+
+        Object.entries(gameProgression).forEach((group, gIndex)=> {
+            Object.entries(group[1]).forEach((player, pIndex)=>{
+                Object.entries(player[1]).forEach((zone, zIndex)=>{
+                    if(zone[1].status === 'playing') {
+                        !zones[zIndex] && (zones[zIndex] = true);
+                    }
+                });
+            });
+        });
+
+        return renderOccupiedZones(zones);
+    }
+
     function showGameProgression() {
         
     }
 
+    playersDone.push(<div className=''>{t('content.estadozona')}</div>);
+    playersDone.push(<div>{getNotAvailableZones()}</div>);
     playersDone.push(<p key="header">
         {t('content.seleccionapilotoyzona')}:
     </p>);
@@ -60,45 +98,49 @@ function GameProgression({game, gameProgression, players, onZoneClick}) {
             j=0,
             className;
 
-        player.zones.forEach((zone)=>{
-            className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
-            if(gameProgression && gameProgression[player.id]) {
-                if (gameProgression[player.id][j].status !== STATUS_WAITING) {
-                    if (gameProgression[player.id][j].status === STATUS_PLAYING) {
-                        className += " colorOrange";
-                    } else if (gameProgression[player.id][j].status === STATUS_REPAIR) {
-                        className += " colorRed";
-                    } else if (gameProgression[player.id][j].status === STATUS_DONE) { 
-                        className += " colorGreen";
+        if(player.group === jidGroup || window.crawlear.user.uid === game.owner) {
+            player.zones.forEach((zone)=>{
+                className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
+                if(gameProgression && gameProgression[player.group] && gameProgression[player.group][player.id]) {
+                    if (gameProgression[player.group][player.id][j].status !== STATUS_WAITING) {
+                        if (gameProgression[player.group][player.id][j].status === STATUS_PLAYING) {
+                            className += " colorOrange";
+                        } else if (gameProgression[player.group][player.id][j].status === STATUS_REPAIR) {
+                            className += " colorRed";
+                        } else if (gameProgression[player.group][player.id][j].status === STATUS_DONE) { 
+                            className += " colorGreen";
+                        }
+                    } else if (gameProgression[player.group][player.id][j].data) {
+                        className += " colorClearGrey";
                     }
-                } else if (gameProgression[player.id][j].data) {
-                    className += " colorClearGrey";
+                    zones.push(<span data-zone={j} onClick={(event)=>{                    
+                        prepareOnClick(event, player, zone);
+                    }} key={j+1} className={className}>
+                        <div>{t('description.zona')} {j+1}</div>
+                        <br />
+                        <div>{t('description.estado')}:</div>
+                        <div>{resolveGameStatus(t, gameProgression[player.group][player.id][j].status, gameProgression[player.group][player.id][j].data)}</div>
+                    </span>);
                 }
-                zones.push(<span data-zone={j} onClick={(event)=>{                    
-                    prepareOnClick(event, player, zone);
-                }} key={j+1} className={className}>
-                    <div>{t('description.zona')} {j+1}</div>
-                    <br />
-                    <div>{t('description.estado')}:</div>
-                    <div>{resolveGameStatus(t, gameProgression[player.id][j].status, gameProgression[player.id][j].data)}</div>
-                </span>);
-            }
-            j++;
-        });
-        playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded3'>
-                <img src={player.avatar} alt="player avatar" />
-                <div className="horizontalScrollContainer">{zones}</div>
-        </div>);
+                j++;
+            });
 
-        if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[selectedPlayer][selectedZone].data) {
-            playersDone.push(<div className='gameProgressionInfoItem smallText rounded rounded2'>
-                <GameProgressionInfoRow innerRef={gameProgressionInfoRef} 
-                    gameTypeTexts={gameTypeTexts}
-                    key={`${i+j}Info`} 
-                    gameProgression={gameProgression[selectedPlayer][selectedZone]} />
+            playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded3'>
+                    <div><img src={player.avatar} alt="player avatar" />
+                    {t('description.grupo')} {player.group+1}</div>
+                    <div className="horizontalScrollContainer">{zones}</div>
             </div>);
+
+            if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[player.group][selectedPlayer][selectedZone].data) {
+                playersDone.push(<div className='gameProgressionInfoItem smallText rounded rounded2'>
+                    <GameProgressionInfoRow innerRef={gameProgressionInfoRef} 
+                        gameTypeTexts={gameTypeTexts}
+                        key={`${i+j}Info`} 
+                        gameProgression={gameProgression[player.group][selectedPlayer][selectedZone]} />
+                </div>);
+            }
+            i++;
         }
-        i++;
     });
 
     return playersDone;

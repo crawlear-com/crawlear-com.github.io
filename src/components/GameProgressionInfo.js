@@ -23,14 +23,16 @@ function GameProgressionInfo({game, gameProgression}) {
             let zones=[], j=0;
             let fiasco;
     
-            player.zones.forEach((zone, index)=>{        
-                if(gameProgression && 
-                        gameProgression[player.id] && 
-                        gameProgression[player.id][j] &&
-                        gameProgression[player.id][j].data) {
+            player.zones.forEach((zone, index)=>{  
+                const group = player.group;
+
+                if(gameProgression && gameProgression[group] &&
+                        gameProgression[group][player.id] && 
+                        gameProgression[group][player.id][j] &&
+                        gameProgression[group][player.id][j].data) {
     
                     let controlTextValues = [];
-                    const currentGameProgression = gameProgression[player.id][j];
+                    const currentGameProgression = gameProgression[group][player.id][j];
         
                     if (currentGameProgression.status==="done") { 
                         controlTextValues.push(<GameProgressionInfoRow gameProgression={currentGameProgression} gameTypeTexts={gameTypeTexts}/>);
