@@ -93,6 +93,8 @@ function GamePlayer({inGame, onBackButtonClick}) {
     function onBeginGame() {
         if(player===-1 || zone === -1) {
             setError(t('content.seleccionapilotoyzona'));
+        } else if (player.group !== jidGroup) {
+            
         } else {
             const pid = player.id;
             const value = gameProgression[jidGroup][pid][zone];
@@ -226,10 +228,15 @@ function GamePlayer({inGame, onBackButtonClick}) {
             }
 
             if (game.jids.find(elem=>elem===window.crawlear.user.uid)) {
+                let buton = <></>;
+
+                if (player.group === jidGroup) {
+                    buton = <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>;
+                }
                 judgeProgression = <>
                     {t('description.jugadorseleccionado')}: {player !==-1 ? player.name : ""} <br />
                     {t('description.zonaseleccionada')}: {zone !==-1 ? zone+1 : ""}<br />
-                    <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>
+                    {buton}
                     <PresenceButton fromUid={window.crawlear.user.uid} 
                         game={game} 
                         zone={zone}
