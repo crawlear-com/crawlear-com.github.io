@@ -27,13 +27,13 @@ function PresenceButton({game, playerName, fromName, zone, onPresenceRequestStat
     }
 
     function createDirectorPresenceRequest() {
-        if (window.confirm()) {
+        if (window.confirm(t('content.quieresenviarpeticiondepresencia'))) {
             firebase.setDirectorPresenceRequest(gid, zone, playerName, fromName, onRequestPreStatusChange);
         }
     }
 
     if(gid && playerName && fromName && zone>=0 && game.owner !== window.crawlear.user.uid) {
-        content.push(<button onClick={createDirectorPresenceRequest}>Reclamar presencia</button>);
+        content.push(<button onClick={createDirectorPresenceRequest}>{t('description.reclamarpresencia')}</button>);
     }
 
     Object.keys(requests).forEach((request, index)=>{

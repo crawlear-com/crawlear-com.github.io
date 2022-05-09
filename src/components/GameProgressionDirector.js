@@ -33,12 +33,14 @@ function GameProgressionDirector({game, gameProgression}) {
     }
 
     function presenceRequestAccept(requestKey) {
-        const newRequests = {...requestsRef.current};
+        if (window.confirm(t('content.aceptarpresencia'))) {
+            const newRequests = {...requestsRef.current};
 
-        delete newRequests[requestKey];
-        setRequests(newRequests);
-        requestsRef.current = newRequests;
-        firebase.acceptDirectorPresenceRequest(game.gid, requestKey);
+            delete newRequests[requestKey];
+            setRequests(newRequests);
+            requestsRef.current = newRequests;
+            firebase.acceptDirectorPresenceRequest(game.gid, requestKey);    
+        }
     }
 
     React.useEffect(()=>{
@@ -51,13 +53,13 @@ function GameProgressionDirector({game, gameProgression}) {
         Object.entries(gameProgression).forEach((group, gIndex)=>{
             let playersIngroupDone = 0;
 
-            group[1].forEach((player, pIndex)=>{
-                if (player && player[i] && player[i].status === 'done' && player[i].data) {
+            Object.entries(group[1]).forEach((player, pIndex)=>{
+                if (player[1] && player[1][i] && player[1][i].status === 'done' && player[1][i].data) {
                     playersIngroupDone++;
                 }    
             });
 
-            if(playersIngroupDone === group[1].filter((eme)=>{return eme;}).length) {
+            if(playersIngroupDone === group[1].length) {
                 groupDone.push(<span className='directorGroup'>{t('description.grupo')} {gIndex +1}</span>);
             }
         });
@@ -77,11 +79,16 @@ function GameProgressionDirector({game, gameProgression}) {
         const element = requestsRef.current[request];
 
         res.push(<div className='directorRequestContainer blink'>
-        <div>{t('description.de')} {element.fromName} {t('description.zona')}: {index+1} {t('description.jugador')}: {element.playerName} {t('description.estado')}: {element.status}</div>
+        <div>
+            <div>{t('description.de')} {element.fromName}</div>
+            <div>{t('description.zona')}: {index+1}</div>
+            <div>{t('description.jugador')}: {element.playerName}</div>
+            <div>{t('description.estado')}: {element.status}</div>
+        </div>
         <div>
             <button onClick={()=>{
                 presenceRequestAccept(request);
-            }}>Aceptar</button>
+            }}>{t('description.aceptar')}</button>
         </div></div>);
     });
 

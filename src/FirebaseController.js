@@ -450,7 +450,7 @@ class FirebaseController {
   setDirectorPresenceRequest(gid, zone, playerName, fromName, onPresenceRequestStatusChange) {
     const gameRequestRef = push(ref(this.rdb, `presenceRequests/${gid}/`), {
       zone: zone,
-      player: playerName,
+      playerName: playerName,
       fromName: fromName,
       date: new Date().toLocaleDateString(),
       status : 'pending'

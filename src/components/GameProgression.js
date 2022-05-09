@@ -55,7 +55,7 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
             
             row.push(<>{t('description.zona')} {zIndex+1}: </>);
             if (zone) {
-                row.push(<span className='directorGroup'>{t('description.ocupado')}</span>);
+                row.push(<span className='directorGroup colorRed'>{t('description.ocupado')}</span>);
             } else {
                 row.push(<><span className='directorGroup'>{t('description.libre')}</span><br /></>);
             }
@@ -71,10 +71,10 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
         const zones = new Array(game.zones).fill(false);
 
         Object.entries(gameProgression).forEach((group, gIndex)=> {
-            group[1].forEach((player, pIndex)=>{
-                player.forEach((zone, zIndex)=>{
-                    if(zone.status === 'playing') {
-                        zones[zIndex] = true;
+            Object.entries(group[1]).forEach((player, pIndex)=>{
+                Object.entries(player[1]).forEach((zone, zIndex)=>{
+                    if(zone[1].status === 'playing') {
+                        !zones[zIndex] && (zones[zIndex] = true);
                     }
                 });
             });

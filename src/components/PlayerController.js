@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Player, PlayerInPlay} from '../model/Player';
 import PlayerItem from './PlayerItem';
 import UserSearch from './UserSearch';
 import { useTranslation } from 'react-i18next';

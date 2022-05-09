@@ -42,14 +42,14 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
 
     function updateGameFromProgression(progression) {
-            progression.forEach((user, uIndex)=>{
-                user.forEach((zone, zIndex)=>{
-                    if(user.data) {
-                        game.players[uIndex].zones[zIndex] = zone.data;
-                    }
-                });
-    
+        Object.keys(progression).forEach((user, uIndex)=>{
+            Object.keys(user).forEach((zone, zIndex)=>{
+                if(user.data) {
+                    game.players[uIndex].zones[zIndex] = zone.data;
+                }
             });
+
+        });
     }
 
     React.useEffect(()=>{
@@ -72,10 +72,10 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
     React.useEffect(()=>{
         Object.entries(gameProgressionRef.current).forEach((group, gIndex)=>{
-            group[1].forEach((player, playerIndex)=>{
-                player.forEach((zone, zoneIndex)=>{
-                    if (zone.status === 'done' || zone.status === 'repair') {
-                        game.players[playerIndex].zones[zoneIndex] = zone.data;
+            Object.entries(group[1]).forEach((player, playerIndex)=>{
+                Object.entries(player[1]).forEach((zone, zoneIndex)=>{
+                    if (zone[1].status === 'done' || zone[1].status === 'repair') {
+                        game.players[playerIndex].zones[zoneIndex] = zone[1].data;
                     }
                 });    
             });

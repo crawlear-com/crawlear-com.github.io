@@ -18,10 +18,10 @@ function RepairProgression({gameProgression, game, jidGroup, onRepairTimeFiasco,
 
     gameProgression && Object.entries(gameProgression).forEach((group, gIndex) => {
         if (jidGroup === Number(gIndex)) {
-            group[1].forEach((player, pIndex) => {
-                player.forEach((zone, index) => {
-                    if (zone.status === STATUS_REPAIR) {
-                        const date = new Date(zone.repairData.setTime).toLocaleTimeString(navigator.language, {
+            Object.entries(group[1]).forEach((player, pIndex) => {
+                Object.entries(player[1]).forEach((zone, index) => {
+                    if (zone[1].status === STATUS_REPAIR) {
+                        const date = new Date(zone[1].repairData.setTime).toLocaleTimeString(navigator.language, {
                                 hour: '2-digit', 
                                 minute:'2-digit'
                             });
@@ -36,8 +36,8 @@ function RepairProgression({gameProgression, game, jidGroup, onRepairTimeFiasco,
                             </div>
                             <RepairTimer  />
                             <button onClick={()=>{
-                                prepareOnRepairEnd(game.players[pIndex].id, index, zone);
-                            }} className="importantNote">Finalizar</button>
+                                prepareOnRepairEnd(game.players[pIndex].id, index, zone[1]);
+                            }} className="importantNote">{t('description.fin')}</button>
                         </div>);
                     }
                 });    

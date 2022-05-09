@@ -46,7 +46,8 @@ i18n
             licenseText: 'Contact us if you are interested in license the crawlear tool for an official event or competition at crawlear.com@gmail.com',
             zonascompletadas: 'Completed zones by group:',
             estadozona: 'Zone status:',
-            quieresenviarpeticiondepresencia: 'Do you want to send a presence request?'
+            quieresenviarpeticiondepresencia: 'Do you want to send a presence request?',
+            aceptarpresencia: 'Do you want to clean the presence request?'
           },
           error: {
               nojugadores: 'Add the players',
@@ -140,7 +141,8 @@ i18n
             peticionesdepresencia: 'Presence requests',
             nopeticionespresencia: 'No presence requests',
             de: 'De:',
-            aceptar: 'Accept'
+            aceptar: 'Accept',
+            reclamarpresencia: 'Claim presence'
           },
           points: {
             vuelco: 'overturn',
@@ -230,7 +232,8 @@ i18n
             licenseText: 'Contacta con nosotros en crawlear.com@gmail.com si estás interesado en licenciar la herramienta crawlear para un evento o competición oficial',
             zonascompletadas: 'Zonas completadas por grupo:',
             estadozona: 'Estado de zonas:',
-            quieresenviarpeticiondepresencia: '¿Quieres enviar una petición de presencia al director del juego?'
+            quieresenviarpeticiondepresencia: '¿Quieres enviar una petición de presencia al director del juego?',
+            aceptarpresencia: '¿Quieres limpiar la petición de presencia?'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -324,7 +327,8 @@ i18n
               peticionesdepresencia: 'Peticiones de presencia',
               nopeticionespresencia: 'Sin peticiones de presencia',
               de: 'de:',
-              aceptar: 'Aceptar'
+              aceptar: 'Aceptar',
+              reclamarpresencia: 'Reclamar presencia'
           },
           points: {
             vuelco: 'vuelco',
