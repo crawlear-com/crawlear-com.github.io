@@ -4,13 +4,13 @@ import Utils from '../Utils';
 import GameHeaderInfo from './GameHeaderInfo';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
 import IsrccGameScores from './games/IsrccGameScores';
-import TotalTimeGameScores from './games/TotalTimeGameScores';
+import AecarGameScores from './games/AecarGameScores';
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import { GameUtils } from '../model/Game';
 
 function GameProgressionInfo({game, gameProgression}) {
     const playersDone = [];
-    let i=0, gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts);
+    let i=0, gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts);
 
     if (game) {
         if(game.gameType === 2) {

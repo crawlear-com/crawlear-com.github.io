@@ -43,7 +43,7 @@ class GameUtils {
                     };
 
                     if (game.gameType === GAME_TYPE_AECAR) {
-                        zone.controlTextValues = new Array(13).fill(0);
+                        zone.controlTextValues = new Array(23).fill(0);
                         zone.fiascoControlTextValues = new Array(10).fill(0);
                         zone.gateProgressionData = [];
                     } else if (game.gameType === GAME_TYPE_KING || 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Utils from '../Utils';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import IsrccGameScores from './games/IsrccGameScores';
-import TotalTimeGameScores from './games/TotalTimeGameScores';
+import AecarGameScores from './games/AecarGameScores';
 import { useTranslation } from 'react-i18next';
 import { GameUtils } from '../model/Game';
 
@@ -15,7 +15,7 @@ import openIcon from '../resources/img/arrowDown.png';
 function GameResultTable({game, isDraw}) {
     const { t } = useTranslation(),
         players = [];
-    let gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts),
+    let gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts),
         j=0, i=0;
 
     if(game.gameType === 2) {

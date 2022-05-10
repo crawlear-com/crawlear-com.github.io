@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TotalTimeGame from './games/TotalTimeGame';
+import AecarGame from './games/AecarGame';
 import KingGame from './games/KingGame';
 import IsrccGame from './games/IsrccGame';
 
@@ -10,7 +10,7 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     const elementsToRender = [];
 
     if (game.gameType === GAME_TYPE_TIME) {
-        elementsToRender.push(<TotalTimeGame 
+        elementsToRender.push(<AecarGame 
             key={0}
             game={game}
             playerIndex={player}
