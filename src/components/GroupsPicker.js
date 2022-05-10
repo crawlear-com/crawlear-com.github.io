@@ -10,9 +10,8 @@ function GroupsPicker({onGroupsChange,
 
 
     return <div>
-        <p>{t('content.seleccionPuertas')}:</p>
-        <div className="gatesPickerContainer pickerContainer horizontalScrollContainer rounded rounded2">
-            <div className='zoneName'>{t('description.grupos')}:</div><br />
+        <p>{t('content.selecciongrupos')}:</p>
+        <div className="pickerContainer horizontalScrollContainer rounded rounded2">
             <Picker minValue={minValue || 1} 
                 maxValue={maxValue || 10}
                 value={value}

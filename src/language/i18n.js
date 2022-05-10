@@ -47,7 +47,8 @@ i18n
             zonascompletadas: 'Completed zones by group:',
             estadozona: 'Zone status:',
             quieresenviarpeticiondepresencia: 'Do you want to send a presence request?',
-            aceptarpresencia: 'Do you want to clean the presence request?'
+            aceptarpresencia: 'Do you want to clean the presence request?',
+            selecciongrupos: 'Select the number of groups'
           },
           error: {
               nojugadores: 'Add the players',
@@ -234,7 +235,8 @@ i18n
             zonascompletadas: 'Zonas completadas por grupo:',
             estadozona: 'Estado de zonas:',
             quieresenviarpeticiondepresencia: '¿Quieres enviar una petición de presencia al director del juego?',
-            aceptarpresencia: '¿Quieres limpiar la petición de presencia?'
+            aceptarpresencia: '¿Quieres limpiar la petición de presencia?',
+            selecciongrupos: 'Selecciona el número de grupos en la partida'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
