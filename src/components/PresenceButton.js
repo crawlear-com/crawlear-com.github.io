@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
-function PresenceButton({game, playerName, fromName, zone, onPresenceRequestStatusChange}) {
+function PresenceButton({game, playerName, fromName, zone}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const content = [],
@@ -15,8 +15,6 @@ function PresenceButton({game, playerName, fromName, zone, onPresenceRequestStat
 
             newRequests[key] = data;
             setRequests(newRequests);
-
-            onPresenceRequestStatusChange && onPresenceRequestStatusChange();
         } else if (data.status === 'accepted') { 
             const newRequests = {...requests};
 
@@ -32,7 +30,7 @@ function PresenceButton({game, playerName, fromName, zone, onPresenceRequestStat
         }
     }
 
-    if(gid && playerName && fromName && zone>=0 && game.owner !== window.crawlear.user.uid) {
+    if(gid && playerName && fromName && zone>=0 && game.owner !== window.crawlear.user.uid && Object.entries(requests).length===0) {
         content.push(<button onClick={createDirectorPresenceRequest}>{t('description.reclamarpresencia')}</button>);
     }
 

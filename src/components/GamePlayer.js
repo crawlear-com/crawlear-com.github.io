@@ -42,14 +42,17 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
 
     function updateGameFromProgression(progression) {
-        Object.keys(progression).forEach((user, uIndex)=>{
-            Object.keys(user).forEach((zone, zIndex)=>{
-                if(user.data) {
-                    game.players[uIndex].zones[zIndex] = zone.data;
+        const newGame = {...game};
+
+        Object.entries(progression).forEach((user, uIndex)=>{
+            Object.entries(user[1]).forEach((zone, zIndex)=>{
+                if(zone[1].data) {
+                    newGame.players[user[0]].zones[zone[0]] = zone[1].data;
                 }
             });
-
         });
+
+        setGame(newGame);
     }
 
     React.useEffect(()=>{
@@ -70,7 +73,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
         });
     },[]);
 
-    React.useEffect(()=>{
+    /*React.useEffect(()=>{
         Object.entries(gameProgressionRef.current).forEach((group, gIndex)=>{
             Object.entries(group[1]).forEach((player, playerIndex)=>{
                 Object.entries(player[1]).forEach((zone, zoneIndex)=>{
@@ -82,7 +85,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
             setGame(game);
         });
-    },[gameProgressionRef.current]);
+    },[gameProgressionRef.current]);*/
 
     function onZoneClick(player, zone) {
         setZone(zone);
@@ -93,20 +96,19 @@ function GamePlayer({inGame, onBackButtonClick}) {
     function onBeginGame() {
         if(player===-1 || zone === -1) {
             setError(t('content.seleccionapilotoyzona'));
-        } else if (player.group !== jidGroup) {
-            
         } else {
             const pid = player.id;
-            const value = gameProgression[jidGroup][pid][zone];
+            const group = player.group;
+            const value = gameProgression[group][pid][zone];
 
             if((value.status === STATUS_WAITING && window.confirm(t('content.quieresempezarzona'))) || 
               (value.status === STATUS_DONE && window.confirm(t('content.quiereseditarpartida'))) || 
               (value.status === STATUS_PLAYING && window.confirm(t('content.seguroeditarpartidaenjuego')))) {
                 setError("");
                 setState(GAME_STATUS_PLAYING);
-                gameProgression[jidGroup][pid][zone].status = STATUS_PLAYING;
+                gameProgression[group][pid][zone].status = STATUS_PLAYING;
                 setGameProgression(gameProgression);
-                fb.setGameProgression(game.gid, pid, jidGroup, zone, gameProgression[jidGroup][pid][zone]);
+                fb.setGameProgression(game.gid, pid, group, zone, gameProgression[group][pid][zone]);
             } else if (value.status === STATUS_PLAYING) {
                 setError(t('error.juegoencurso'));
             } else if (value.status === STATUS_REPAIR) { 
@@ -155,21 +157,23 @@ function GamePlayer({inGame, onBackButtonClick}) {
         }
     }
 
-    function onGameEnd(game) {
+    function onGameEnd(updatedGame) {
         if(!isIndividualGame()) {
             const pid = player.id;
+            const group = player.group;
             const newGameProgression = {...gameProgression};
+            const newGame = {...game};
     
-            newGameProgression[jidGroup][pid][zone].status = STATUS_DONE;
-            newGameProgression[jidGroup][pid][zone].data = player.zones[zone];
-            !newGameProgression[jidGroup][pid][zone].data.judgedBy && (newGameProgression[jidGroup][pid][zone].data.judgedBy = []);
-            newGameProgression[jidGroup][pid][zone].data.judgedBy.push(window.crawlear.user.uid);
+            newGameProgression[group][pid][zone].status = STATUS_DONE;
+            newGameProgression[group][pid][zone].data = updatedGame.players[pid].zones[zone];
+            !newGameProgression[group][pid][zone].data.judgedBy && (newGameProgression[group][pid][zone].data.judgedBy = []);
+            newGameProgression[group][pid][zone].data.judgedBy.push(window.crawlear.user.uid);
             setGameProgression(newGameProgression);
     
-            game.players[pid][zone] = newGameProgression[jidGroup][pid][zone].data;
-            fb.setGameProgression(game.gid, pid, jidGroup, zone, newGameProgression[jidGroup][pid][zone]);
+            newGame.players[pid].zones[zone] = newGameProgression[group][pid][zone].data;
+            fb.setGameProgression(newGame.gid, pid, group, zone, newGameProgression[group][pid][zone]);
             setState(GAME_STATUS_CREATED); 
-            setGame(game);
+            setGame(newGame);
         } else {
             const newGame = Utils.calulateFinalGameResult(game)
             newGame.gameStatus = 2;
@@ -184,35 +188,32 @@ function GamePlayer({inGame, onBackButtonClick}) {
     function onRepair(playerIndex, zoneIndex) {
         const newGameProgression = {...gameProgression},
             player = game.players[playerIndex],
+            group = player.group,
             pid = player.id;
 
-        newGameProgression[jidGroup][playerIndex][zoneIndex].status = STATUS_REPAIR;
-        newGameProgression[jidGroup][playerIndex][zoneIndex].repairData = {
+        newGameProgression[group][playerIndex][zoneIndex].status = STATUS_REPAIR;
+        newGameProgression[group][playerIndex][zoneIndex].repairData = {
             setTime: new Date().getTime()
         };
-        newGameProgression[jidGroup][playerIndex][zoneIndex].data = player.zones[zoneIndex];
+        newGameProgression[group][playerIndex][zoneIndex].data = player.zones[zoneIndex];
         setGameProgression(newGameProgression);
-        fb.setGameProgression(game.gid, pid, jidGroup, zoneIndex, newGameProgression[jidGroup][pid][zoneIndex]);
+        fb.setGameProgression(game.gid, pid, group, zoneIndex, newGameProgression[group][pid][zoneIndex]);
         setState(GAME_STATUS_CREATED);
     }
 
-    function onRepairEnd(uid, zoneIndex, zone) {
+    function onRepairEnd(id, group, zoneIndex, zone) {
         zone.status = STATUS_WAITING;
         delete zone.repairData;
-        fb.setGameProgression(game.gid, uid, jidGroup, zoneIndex, zone);
+        fb.setGameProgression(game.gid, id, group, zoneIndex, zone);
     }
 
     function onRepairTimeFiasco(uid, zoneIndex, zone) {
-        const progressionData = zone.data;
+        /*const progressionData = zone.data;
 
         progressionData.fiascoControlTextValues[1] = 1;
         zone.status = STATUS_WAITING;
         delete zone.repairData;
-        fb.setGameProgression(game.gid, uid, jidGroup, zoneIndex, zone);
-    }
-
-    function onPresenceRequestStatusChange() {
-
+        fb.setGameProgression(game.gid, uid, jidGroup, zoneIndex, zone);*/
     }
 
     if (game.gameType !== GAME_KING) {
@@ -241,8 +242,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
                         game={game} 
                         zone={zone}
                         playerName={player.name}
-                        fromName={window.crawlear.user.displayName}
-                        onPresenceRequestStatusChange={onPresenceRequestStatusChange} />
+                        fromName={window.crawlear.user.displayName} />
                 </>;
             }
 
@@ -265,7 +265,6 @@ function GamePlayer({inGame, onBackButtonClick}) {
                     <RepairProgression 
                         gameProgression={gameProgression}
                         game={game}
-                        jidGroup={jidGroup}
                         onRepairEnd={onRepairEnd}
                         onRepairTimeFiasco={onRepairTimeFiasco}
                     />

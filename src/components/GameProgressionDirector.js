@@ -85,7 +85,7 @@ function GameProgressionDirector({game, gameProgression}) {
         res.push(<div className='directorRequestContainer blink'>
         <div>
             <div>{t('description.de')} {element.fromName}</div>
-            <div>{t('description.zona')}: {index+1}</div>
+            <div>{t('description.zona')}: {element.zone+1}</div>
             <div>{t('description.jugador')}: {element.playerName}</div>
             <div>{t('description.estado')}: {element.status}</div>
         </div>

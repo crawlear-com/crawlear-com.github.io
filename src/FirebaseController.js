@@ -382,8 +382,8 @@ class FirebaseController {
     });
   }
 
-  setGameProgression(gid, uid, group, zone, data) {
-    set(ref(this.rdb, `gameProgression/${gid}/${group}/${uid}/${zone}`), data);
+  setGameProgression(gid, playerId, group, zone, data) {
+    set(ref(this.rdb, `gameProgression/${gid}/${group}/${playerId}/${zone}`), data);
   }
 
   removeGameProgression(gid) {
