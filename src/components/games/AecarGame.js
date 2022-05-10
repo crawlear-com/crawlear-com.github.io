@@ -213,7 +213,7 @@ function initControlTestValues(game, reset) {
                     points: 0,
                     time: 0,
                     judgedBy: [],
-                    controlTextValues: new Array(22).fill(0)
+                    controlTextValues: new Array(23).fill(0)
                 };
                 player.zones.push(zone);
             }

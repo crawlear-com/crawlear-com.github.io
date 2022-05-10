@@ -24,7 +24,7 @@ const AecarGameScores = {
         'points.modificarcoche',
         'points.sacarcoche',
         'points.nodorsal',
-        'incumplimientotecnico'
+        'points.incumplimientotecnico'
     ]
 };
 
