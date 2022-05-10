@@ -1,3 +1,3 @@
-import TotalTimeGameScores from "./TotalTimeGameScores";
+import AecarGameScores from "./AecarGameScores";
 
-export default TotalTimeGameScores;
+export default AecarGameScores;

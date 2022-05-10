@@ -5,18 +5,18 @@ import ControlTextArray from '../ControlTextArray';
 import Utils from '../../Utils';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-import TotalTimeGameScores from './TotalTimeGameScores';
+import AecarGameScores from './AecarGameScores';
 import { GameUtils } from '../../model/Game';
 
 import "rc-slider/assets/index.css";
-import '../../resources/css/games/TotalTimeGame.scss'
+import '../../resources/css/games/AecarGame.scss'
 import '../../resources/css/rcSlider.scss'
 
-function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
+function AecarGame({game, onGameEnd, playerIndex, zoneIndex}) {
     const { t } = useTranslation();
     const SliderWithTooltip = createSliderWithTooltip(Slider);
     const [state, setState] = React.useState(()=>{ 
-        TotalTimeGameScores.texts = TotalTimeGameScores.texts.map(function(text) {
+        AecarGameScores.texts = AecarGameScores.texts.map(function(text) {
             return t(text);
         });        
          
@@ -85,9 +85,10 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
 
         if (isFiasco(state, playerIndex, zoneIndex)) {
                 playerZone.time = (game.maxTime > 0 ? game.maxTime : state.tickTime);
-                playerZone.points = (game.maxPoints > 0 ? game.maxPoints : playerZone.points);
+                playerZone.totalPoints = (game.maxPoints > 0 ? game.maxPoints : playerZone.points);
         } else {
             playerZone.time = state.tickTime;
+            playerZone.totalPoints = playerZone.points;
         }
 
         newState.forceAction = 'stop';
@@ -125,9 +126,9 @@ function TotalTimeGame({game, onGameEnd, playerIndex, zoneIndex}) {
             controlTextArray = ControlTextArray({
                 controlTextValues: playerZone.controlTextValues,
                 player: playerIndex,
-                steps: TotalTimeGameScores.steps,
-                maxValues: TotalTimeGameScores.maxValues,
-                texts: TotalTimeGameScores.texts,
+                steps: AecarGameScores.steps,
+                maxValues: AecarGameScores.maxValues,
+                texts: AecarGameScores.texts,
                 onDirectFiasco: onBatteryDirectFiasco,
                 onValueChange: onChangeScore,
                 isClosed: false
@@ -201,8 +202,7 @@ function initControlTestValues(game, reset) {
         game: game
     }
 
-    GameUtils.init(newState.game, reset);
-/*
+    //GameUtils.init(newState.game, reset);
     newState.game.players.forEach((player)=>{
         if (!player.zones || player.zones.length===0 || reset) {
             player.zones = [];
@@ -215,13 +215,12 @@ function initControlTestValues(game, reset) {
                     judgedBy: [],
                     controlTextValues: new Array(22).fill(0)
                 };
-
                 player.zones.push(zone);
             }
         }
-    });*/
+    });
 
     return newState;
 }
 
-export default TotalTimeGame;
+export default AecarGame;

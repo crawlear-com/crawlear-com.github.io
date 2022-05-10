@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
-import TotalTimeGameScores from './games/TotalTimeGameScores';
+import AecarGameScores from './games/AecarGameScores';
 import IsrccGameScores from './games/IsrccGameScores';
 import Utils from '../Utils';
 
@@ -16,7 +16,7 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
     const playersDone = [];
     const gameProgressionInfoRef = React.useRef();
-    let i=0, gameTypeTexts = Utils.tokenToTexts(TotalTimeGameScores.texts);
+    let i=0, gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts);
 
     if(game.gameType === 2) {
         gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   

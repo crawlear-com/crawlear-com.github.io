@@ -10,7 +10,7 @@ import { GameUtils } from '../../model/Game';
 import Utils from '../../Utils';
 
 import "rc-slider/assets/index.css";
-import '../../resources/css/games/TotalTimeGame.scss'
+import '../../resources/css/games/AecarGame.scss'
 import '../../resources/css/games/Isrcc.scss'
 import '../../resources/css/rcSlider.scss'
 
