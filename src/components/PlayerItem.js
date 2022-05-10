@@ -5,7 +5,7 @@ import '../resources/css/PlayerItem.scss';
 
 const MAX_GROUPS = 10;
 
-function PlayerItem({player, i, onRemovePlayer, onClickPlayer, onGroupChange, editMode}) {
+function PlayerItem({player, i, onRemovePlayer, onClickPlayer, onGroupChange, maxGroups, editMode}) {
     const { t } = useTranslation();
     const editControls = [];
 
@@ -27,12 +27,12 @@ function PlayerItem({player, i, onRemovePlayer, onClickPlayer, onGroupChange, ed
     if (editMode) {
         const options = [];
 
-        for (let i=0; i<MAX_GROUPS;i++) {
+        for (let i=0; i<maxGroups;i++) {
             options.push(<option value={i}>{t('description.grupo')} {i+1}</option>);
         }
 
         editControls.push(<button className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>);
-        editControls.push(<div><span>Grupo:</span>
+        editControls.push(<div>
             <select value={player.group} onChange={onGroupSelectChange}>
                 {options}
             </select></div>);

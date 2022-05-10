@@ -8,7 +8,7 @@ import '../resources/css/PlayerController.scss';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
-function PlayerController({onPlayerNumerChange, gameName, isForJudge}) {
+function PlayerController({onPlayerNumerChange, gameName, isForJudge, maxGroups}) {
     const [players, setPlayers] = React.useState([]);
     const { t } = useTranslation();
 
@@ -76,6 +76,7 @@ function PlayerController({onPlayerNumerChange, gameName, isForJudge}) {
                 key={i}
                 player={player} 
                 i={i}
+                maxGroups={maxGroups}
                 onGroupChange={onGroupChange}
                 editMode={true}
                 onRemovePlayer={removePlayer} />
