@@ -5,6 +5,7 @@ import GameTypeController from './GameTypeController';
 import PlayerController from './PlayerController';
 import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
 import ZonesPicker from './ZonesPicker';
+import GroupsPicker from './GroupsPicker';
 import GateProgressionPicker from './GateProgressionPicker';
 import Spinner from './Spinner';
 import ErrorBox from './ErrorBox';
@@ -31,6 +32,7 @@ function GameConfigurator() {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);
+    const [groups, setGroups] = React.useState(1);
     const { t } = useTranslation();
     const extraConfigurationComponents = [];
     const fb = window.crawlear.fb;
@@ -122,6 +124,10 @@ function GameConfigurator() {
         }
     }
 
+    function onGroupsChange(result) {
+        setGroups(result);
+    }
+
     function onIsPublicChange(event) {
         const newGame = {...game};
 
@@ -162,6 +168,8 @@ function GameConfigurator() {
     
                 if (game.gameType === KING_GAME) {
                     newGame.judges.push({...window.crawlear.user});
+                    newGame.zones = 1;
+                    newGame.gates = new Array(1).fill(1);
                 }
                 newGame.uids = Utils.getUidsFromUsers(newGame.players);
                 newGame.jids = Utils.getUidsFromUsers(newGame.judges);
@@ -220,8 +228,15 @@ function GameConfigurator() {
             zones={game.zones}
             value={10}
             onGatesChange={onGatesChange} />);
-        extraConfigurationComponents.push(<PlayerController key={3}
+        extraConfigurationComponents.push(<GroupsPicker key={3} 
+            onGroupsChange={onGroupsChange} 
+            value={1}
+            minValue={1}
+            maxValue={10}
+            />)
+        extraConfigurationComponents.push(<PlayerController key={4}
                 isForJudge={true}
+                maxGroups={groups}
                 gameName={game.name}
                 onPlayerNumerChange={onJudgeNumerChange} />);
     }
@@ -259,6 +274,7 @@ function GameConfigurator() {
 
         <PlayerController gameName={game.name} 
             isForJudge={false}
+            maxGroups={groups}
             onPlayerNumerChange={(players)=>{
                 onPlayerNumerChange && onPlayerNumerChange(players);
             }
