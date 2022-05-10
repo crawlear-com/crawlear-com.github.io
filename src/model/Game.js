@@ -140,11 +140,15 @@ class GameUtils {
     }
 
     static getGatesWithFail(playerZone) {
-        return playerZone.gateProgressionData.filter(x => x.gatePoints >= 20).length;
+        return playerZone.gateProgressionData.filter((x, i) => {
+            return (x.gatePoints >= 20 && i<playerZone.gateProgression && x.controlTextValues[2]>0)
+        }).length;
     }
 
     static getGatesWithBonification(playerZone) {
-        return playerZone.gateProgressionData.filter((x,i) => (x.gatePoints < 20 && i<playerZone.gateProgression)).length;
+        return playerZone.gateProgressionData.filter((x,i) => {
+            return (x.gatePoints < 20 && i<playerZone.gateProgression && x.controlTextValues[2]<1)
+        }).length;
     }
 
     static getGatesPointExtras(playerZone) {
