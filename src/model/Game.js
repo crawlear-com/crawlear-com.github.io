@@ -158,7 +158,7 @@ class GameUtils {
     }
 
     static isCurrentUserIsOwner(owners) {
-        return owners.find((elem)=>{
+        return owners && owners.find((elem)=>{
             return elem === window.crawlear.user.uid;
         });
     }
