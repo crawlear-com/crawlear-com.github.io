@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { GameUtils } from '../model/Game';
 
 function PresenceButton({game, playerName, fromName, zone}) {
     const { t } = useTranslation();
@@ -30,7 +31,7 @@ function PresenceButton({game, playerName, fromName, zone}) {
         }
     }
 
-    if(gid && playerName && fromName && zone>=0 && game.owner !== window.crawlear.user.uid && Object.entries(requests).length===0) {
+    if(gid && playerName && fromName && zone>=0 && !GameUtils.isCurrentUserIsOwner(game.owner) && Object.entries(requests).length===0) {
         content.push(<button onClick={createDirectorPresenceRequest}>{t('description.reclamarpresencia')}</button>);
     }
 

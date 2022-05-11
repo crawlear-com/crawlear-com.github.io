@@ -59,11 +59,7 @@ function GameProgressionDirector({game, gameProgression}) {
                 }    
             });
 
-            //LENGHT!!!
-            //if(playersIngroupDone === group[1].length) {
-            if (playersIngroupDone === group[1].filter((element)=>{
-                return element;
-            }).length) {
+            if (playersIngroupDone === Object.entries(group[1]).length) {
                 groupDone.push(<span className='directorGroup'>{t('description.grupo')} {gIndex +1}</span>);
             }
         });

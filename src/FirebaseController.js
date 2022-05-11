@@ -215,7 +215,7 @@ class FirebaseController {
     try {
       const games = [];
       const q = query(collection(this.db, "games"), 
-        where("owner", "==", jid));
+        where("owner", "array-contains", jid));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.docs.forEach((gameData)=>{

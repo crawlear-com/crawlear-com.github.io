@@ -8,7 +8,7 @@ import '../resources/css/PlayerController.scss';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
-function PlayerController({onPlayerNumerChange, gameName, isForJudge, maxGroups}) {
+function PlayerController({onPlayerNumerChange, onGameDirectorChange, gameName, isForJudge, maxGroups}) {
     const [players, setPlayers] = React.useState([]);
     const { t } = useTranslation();
 
@@ -55,6 +55,10 @@ function PlayerController({onPlayerNumerChange, gameName, isForJudge, maxGroups}
     setPlayers(newPlayers);
   }
 
+  function onGameDirectorChangeEvent(playerId, value) {
+    onGameDirectorChange && onGameDirectorChange(playerId, value);
+  }
+
   let playersTxt = !players.length? t('description.nojugadores') : t('description.jugadores');
 
   if(isForJudge) {
@@ -76,9 +80,11 @@ function PlayerController({onPlayerNumerChange, gameName, isForJudge, maxGroups}
                 key={i}
                 player={player} 
                 i={i}
+                onGameDirectorChange={onGameDirectorChangeEvent}
                 maxGroups={maxGroups}
                 onGroupChange={onGroupChange}
                 editMode={true}
+                isForJudge={isForJudge}
                 onRemovePlayer={removePlayer} />
           })}
       </ul>

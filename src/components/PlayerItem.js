@@ -3,9 +3,14 @@ import { useTranslation } from 'react-i18next';
 
 import '../resources/css/PlayerItem.scss';
 
-const MAX_GROUPS = 10;
-
-function PlayerItem({player, i, onRemovePlayer, onClickPlayer, onGroupChange, maxGroups, editMode}) {
+function PlayerItem({player, i, 
+    onRemovePlayer, 
+    onClickPlayer, 
+    onGroupChange, 
+    maxGroups, 
+    editMode, 
+    isForJudge,
+    onGameDirectorChange}) {
     const { t } = useTranslation();
     const editControls = [];
 
@@ -24,6 +29,10 @@ function PlayerItem({player, i, onRemovePlayer, onClickPlayer, onGroupChange, ma
         onGroupChange && onGroupChange(player.id, group);
     }
 
+    function onGameDirectorCheckboxChange(event) {
+        onGameDirectorChange && onGameDirectorChange(player.id, event.target.checked);
+    }
+
     if (editMode) {
         const options = [];
 
@@ -36,6 +45,12 @@ function PlayerItem({player, i, onRemovePlayer, onClickPlayer, onGroupChange, ma
             <select value={player.group} onChange={onGroupSelectChange}>
                 {options}
             </select></div>);
+        if (isForJudge) {
+            editControls.push(<>
+                <input type="checkbox" onChange={onGameDirectorCheckboxChange}></input>
+                <span className='PlayerItemGameDirector'>{t('description.directordepartida')}</span>
+            </>);    
+        }
     }
 
     return <li key={i} onClick={onClickPlayerItem} className="closed importantNote rounded playerListItem" value={player.name}>
