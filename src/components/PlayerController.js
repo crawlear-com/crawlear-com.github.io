@@ -84,6 +84,7 @@ function PlayerController({onPlayerNumerChange, onGameDirectorChange, gameName, 
                 maxGroups={maxGroups}
                 onGroupChange={onGroupChange}
                 editMode={true}
+                isForJudge={isForJudge}
                 onRemovePlayer={removePlayer} />
           })}
       </ul>

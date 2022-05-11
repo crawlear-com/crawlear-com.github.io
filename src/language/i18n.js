@@ -57,7 +57,8 @@ i18n
               nogeolocation: 'Cant get geolocation or there is a permission error',
               juegoencurso: 'Player is already playing the zone',
               reparacionencurso: 'Player is currently repairing',
-              rellenargrupos: 'Check the configuration, there is a group with no pilots'
+              rellenargrupos: 'Check the configuration, there is a group with no pilots',
+              nodirectordepartida: 'Check at least one judge as Game director'
           },
           description: {
             nojugadores: 'No players',
@@ -246,7 +247,8 @@ i18n
               nogeolocation: 'No se puede obtener la geolocalización o no hay permisos',
               juegoencurso: 'El jugador y la zona ya está en juego',
               reparacionencurso: 'El jugador está en estado de reparación',
-              rellenargrupos: 'Repasa la configuración, existe algun grupo sin pilotos'
+              rellenargrupos: 'Repasa la configuración, existe algun grupo sin pilotos',
+              nodirectordepartida: 'Marca al menos un juez como director de partida'
           },
           description: {
               nojugadores: 'No hay jugadores',

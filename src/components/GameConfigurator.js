@@ -27,7 +27,7 @@ function GameConfigurator() {
         new Date().toLocaleDateString(),
         { latitude: 0, longitude: 0 },
         false, 2,
-        [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], [window.crawlear.user.uid]);
+        [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], []);
     });
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
@@ -180,12 +180,6 @@ function GameConfigurator() {
         } else if(!value && newGame.owner.find((elem)=>{return elem === jUid})) {
             const indexOf = newGame.owner.indexOf(jUid);
             newGame.owner.splice(indexOf, 1);
-
-console.log(jUid);
-console.log(indexOf);
-console.log(newGame.owner);
-
-
             setGame(newGame);
         }
 
@@ -198,7 +192,7 @@ console.log(newGame.owner);
 
         if (!game.name || !game.name.length) {
             setErrorMessage(t('error.nonombre'));
-        } else if ((game.gameType !== KING_GAME && allGroupsFilled && game.name && game.players.length && game.judges.length) || 
+        } else if ((game.gameType !== KING_GAME && allGroupsFilled && game.name && game.players.length && game.judges.length && game.owner.length) || 
             (game.gameType === KING_GAME && game.name && game.players.length)) {
                 const newGame = {...game};
     
@@ -223,6 +217,8 @@ console.log(newGame.owner);
             setErrorMessage(t('error.nojueces'));
         } else if (!game.players.length) {
             setErrorMessage(t('error.nojugadores'));
+        } else if (!game.owner.length) {
+            setErrorMessage(t('error.nodirectordepartida'));
         } else {
             if (!game.judges.length && game.gameType !== KING_GAME) {
                 setErrorMessage(t('error.nojueces'));
