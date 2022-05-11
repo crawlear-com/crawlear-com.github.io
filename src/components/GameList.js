@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import GameProgressionInfo from './GameProgressionInfo';
 import '../resources/css/GameList.scss';
 import WinnerTable from './WinnerTable';
+import { GameUtils } from '../model/Game';
 
 function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGamePlay}) {
     const { t } = useTranslation();
@@ -35,14 +36,14 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGam
                 />
             }
 
-            if ((game.jids.find(element=>window.crawlear.user.uid===element) || game.owner===window.crawlear.user.uid) && !readOnly) {
+            if ((game.jids.find(element=>window.crawlear.user.uid===element) || GameUtils.isCurrentUserIsOwner(game.owner)) && !readOnly) {
                 info = <><button className="importantNote playGameButton" data-gameposition={i} onClick={onGamePlay}></button>{info}</>;
             }
         } else {
             info =<WinnerTable game={game} />;
         }
 
-        if(game.owner === window.crawlear.user.uid) {
+        if(GameUtils.isCurrentUserIsOwner(game.owner)) {
             director = "(D) "
         }
 

@@ -27,7 +27,7 @@ function GameConfigurator() {
         new Date().toLocaleDateString(),
         { latitude: 0, longitude: 0 },
         false, 2,
-        [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], window.crawlear.user.uid);
+        [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], [window.crawlear.user.uid]);
     });
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
@@ -158,11 +158,47 @@ function GameConfigurator() {
         }
     }
 
+    function areAllGroupsFilled() {
+        const groupsCounter = new Array(groups).fill(0);
+
+        for (let i=0; i<game.players.length; i++) {
+            groupsCounter[game.players[i].group]++;
+        }
+
+        return (typeof(groupsCounter.find((elem)=>{
+            return elem === 0;
+        })) === 'undefined')
+    }
+
+    function onGameDirectorChange(jid, value) {
+        const jUid = game.judges[jid].uid;
+        const newGame = {...game};
+
+        if (value && !newGame.owner.find((elem)=>{return elem === jUid})) {
+            newGame.owner.push(jUid);
+            setGame(newGame);
+        } else if(!value && newGame.owner.find((elem)=>{return elem === jUid})) {
+            const indexOf = newGame.owner.indexOf(jUid);
+            newGame.owner.splice(indexOf, 1);
+
+console.log(jUid);
+console.log(indexOf);
+console.log(newGame.owner);
+
+
+            setGame(newGame);
+        }
+
+        console.log(newGame.owner);
+    }
+
     function createGame() {
+        const allGroupsFilled = areAllGroupsFilled();
         window.scrollTo(0,0);
+
         if (!game.name || !game.name.length) {
             setErrorMessage(t('error.nonombre'));
-        } else if ((game.gameType !== KING_GAME && game.name && game.players.length && game.judges.length) || 
+        } else if ((game.gameType !== KING_GAME && allGroupsFilled && game.name && game.players.length && game.judges.length) || 
             (game.gameType === KING_GAME && game.name && game.players.length)) {
                 const newGame = {...game};
     
@@ -181,6 +217,8 @@ function GameConfigurator() {
                     setGame(newGame);
                 }, ()=>{});
                 navigate("/completegame");
+        } else if (!allGroupsFilled) {
+            setErrorMessage(t('error.rellenargrupos'));
         } else if (!game.judges.length && game.gameType !== 1) {
             setErrorMessage(t('error.nojueces'));
         } else if (!game.players.length) {
@@ -238,6 +276,7 @@ function GameConfigurator() {
                 isForJudge={true}
                 maxGroups={groups}
                 gameName={game.name}
+                onGameDirectorChange={onGameDirectorChange}
                 onPlayerNumerChange={onJudgeNumerChange} />);
     }
 

@@ -4,6 +4,7 @@ import GameProgressionInfoRow from './GameProgressionInfoRow';
 import AecarGameScores from './games/AecarGameScores';
 import IsrccGameScores from './games/IsrccGameScores';
 import Utils from '../Utils';
+import { GameUtils } from '../model/Game';
 
 const STATUS_WAITING = 'waiting';
 const STATUS_PLAYING = 'playing';
@@ -98,7 +99,7 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
             j=0,
             className;
 
-        if(player.group === jidGroup || window.crawlear.user.uid === game.owner) {
+        if(player.group === jidGroup || GameUtils.isCurrentUserIsOwner(game.owner)) {
             player.zones.forEach((zone)=>{
                 className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
                 if(gameProgression && gameProgression[player.group] && gameProgression[player.group][player.id]) {

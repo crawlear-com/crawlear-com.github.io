@@ -12,8 +12,8 @@ function GateProgressionPicker({onGatesChange,
 
     for (let i=0; i<zones; i++) {
         pickerElements.push(<>
-            <div className='zoneName'>{t('description.zona')} {i+1}:</div><br />
-            <Picker minValue={minValue || 1} 
+            <div key={i} className='zoneName'>{t('description.zona')} {i+1}:</div><br />
+            <Picker key={`picker${i}`} minValue={minValue || 1} 
                 maxValue={maxValue || 40}
                 value={value}
                 callback={(result) => {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 import Utils from '../Utils';
+import { GameUtils } from '../model/Game';
 import ErrorBox from '../components/ErrorBox';
 import GameProgression from './GameProgression';
 import GameTypePlayer from '../components/GameTypePlayer';
@@ -124,11 +125,11 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
         Object.entries(gameProgression).forEach((group)=>{
             if (Number(group[0]) === jidGroup) {
-                group[1].forEach((player)=>{
-                    player.forEach((zone)=>{
-                        if(zone.status === STATUS_WAITING || 
-                            zone.status === STATUS_REPAIR || 
-                            zone.status === STATUS_PLAYING) {
+                Object.entries(group[1]).forEach((player)=>{
+                    Object.entries(player[1]).forEach((zone)=>{
+                        if(zone[1].status === STATUS_WAITING || 
+                            zone[1].status === STATUS_REPAIR || 
+                            zone[1].status === STATUS_PLAYING) {
         
                             result = false;
                         }
@@ -220,7 +221,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
         if (state === GAME_STATUS_CREATED) {
             const directorProgression = [];
 
-            if (game.owner === window.crawlear.user.uid) {
+            if (GameUtils.isCurrentUserIsOwner(game.owner)) {
                 directorProgression.push(<div className="directorContainer rounded rounded3">
                         <div className="bold">{t('description.directordepartida')}</div>
                         <br />
@@ -270,7 +271,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
                     />
                 </div>
                 <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
-                {game.owner === window.crawlear.user.uid && isGroupGameFinished() ? <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button> : <></>}
+                {GameUtils.isCurrentUserIsOwner(game.owner) && isGroupGameFinished() ? <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button> : <></>}
             </>;
         } else if (state === GAME_STATUS_PLAYING) {
             view = <GameTypePlayer 

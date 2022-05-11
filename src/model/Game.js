@@ -156,6 +156,12 @@ class GameUtils {
         playerZone.gatesWithBonification = this.getGatesWithBonification(playerZone);
         playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints + (playerZone.gatesWithBonification * -2);
     }
+
+    static isCurrentUserIsOwner(owners) {
+        return owners.find((elem)=>{
+            return elem === window.crawlear.user.uid;
+        });
+    }
 }
 
 export { Game, GameUtils };
