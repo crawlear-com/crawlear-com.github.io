@@ -25,7 +25,10 @@ const AecarGameScores = {
         'points.sacarcoche',
         'points.nodorsal',
         'points.incumplimientotecnico'
-    ]
+    ],
+    fiascoTexts: ['points.noterminado','points.bateria'],    
+    fiascoSteps: [1,1],
+    fiascoMaxValues: [1,1]
 };
 
 export default AecarGameScores;
