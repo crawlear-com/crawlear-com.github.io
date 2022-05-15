@@ -122,8 +122,6 @@ function AecarGame({game,
 
         playerZone.fiascoControlTextValues = [...playerZone.fiascoControlTextValues];
         playerZone.fiascoControlTextValues[control] += value;
-
-        control === 0 && (playerZone.points += value);
         playerZone.fiascoControlTextValues[control] > 0 && (newState.forceAction = 'pause');
         setState(newState);
     }
@@ -196,6 +194,7 @@ function AecarGame({game,
             </div>
             <div className="rounded rounded2">                                
                 <TimerControl 
+                    courtesyTime={0}
                     startTime={playerZone.time}
                     onTimeFiasco={onTimeFiasco}
                     onPointBecauseLastMinute={onPointBecauseLastMinute}

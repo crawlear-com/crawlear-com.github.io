@@ -9,6 +9,7 @@ function RepairTimer({onTimeFiasco, onRepairTimerChange}) {
 
     return <div className="repairTimeContainer">
             <TimerControl 
+                courtesyTime={0}
                 label={t('points.reparacion')}
                 onTimeFiasco={onTimeFiasco}
                 onTimerChange={onRepairTimerChange}

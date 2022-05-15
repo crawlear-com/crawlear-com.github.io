@@ -267,6 +267,7 @@ function IsrccGame({game,
         </div>
         <div className="controlTextContainer rounded rounded2">
             <TimerControl
+                courtesyTime={60000}
                 startTime={playerZone.time}
                 label={t('description.tiempo')}
                 forceAction={state.forceAction}
