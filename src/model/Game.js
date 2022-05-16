@@ -44,7 +44,7 @@ class GameUtils {
 
                     if (game.gameType === GAME_TYPE_AECAR) {
                         zone.controlTextValues = new Array(23).fill(0);
-                        zone.fiascoControlTextValues = new Array(10).fill(0);
+                        zone.fiascoControlTextValues = new Array(2).fill(0);
                         zone.gateProgressionData = [];
                     } else if (game.gameType === GAME_TYPE_KING || 
                               game.gameType === GAME_TYPE_ISRCC) {

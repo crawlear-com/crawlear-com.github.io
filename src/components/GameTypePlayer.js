@@ -15,6 +15,7 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
             game={game}
             playerIndex={player}
             zoneIndex={zone}
+            onRepair={onRepair}
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}

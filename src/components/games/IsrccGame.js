@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
 import IsrccGameScores from './IsrccGameScores';
 import ControlTextArray from '../ControlTextArray';
-import FiascoControl from '../FiascoControl.js';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { GameUtils } from '../../model/Game';
@@ -24,6 +23,9 @@ function IsrccGame({game,
     const [state, setState] = React.useState(()=>{
         window.scrollTo(0,0);
         IsrccGameScores.texts = IsrccGameScores.texts.map(function(text) {
+            return t(text);
+        });
+        IsrccGameScores.fiascoTexts = IsrccGameScores.fiascoTexts.map(function(text) {
             return t(text);
         });
         return initControlTestValues(game);
@@ -232,8 +234,16 @@ function IsrccGame({game,
                 onValueChange={onChangeScore}
             /> : <></>,
         fiascoControlTextArray = playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
-            <FiascoControl values={playerZone.fiascoControlTextValues} onChangeScore={onFiascoChangeScore}
-            /> : <>{t('content.pulsafinjugador')}</>;
+            <ControlTextArray
+                textToken={'points.fiascos'}
+                controlTextValues={playerZone.fiascoControlTextValues}
+                steps={IsrccGameScores.fiascoSteps}
+                maxValues={IsrccGameScores.fiascoMaxValues}
+                texts={IsrccGameScores.fiascoTexts}
+                player={playerIndex}
+                isClosed={true}
+                onValueChange={onFiascoChangeScore}
+            />: <>{t('content.pulsafinjugador')}</>;
 
     if (GameUtils.isFiasco(state.game, state.tickTime, playerIndex, zoneIndex)) {
         Analytics.event('play', 'fiasco', player.name);
@@ -257,6 +267,7 @@ function IsrccGame({game,
         </div>
         <div className="controlTextContainer rounded rounded2">
             <TimerControl
+                courtesyTime={60000}
                 startTime={playerZone.time}
                 label={t('description.tiempo')}
                 forceAction={state.forceAction}

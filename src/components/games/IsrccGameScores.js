@@ -11,7 +11,9 @@ const IsrccGameScores = {
     'points.reparacion',
     'points.fueraespecificacion',
     'points.usodispositivo',
-    'points.bateria']
+    'points.bateria'],
+    fiascoSteps: [50,1,1,1,1],
+    fiascoMaxValues: [1,1,1,1,1]
 };
 
 export default IsrccGameScores;

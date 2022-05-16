@@ -6,25 +6,31 @@ import Utils from '../../Utils';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import AecarGameScores from './AecarGameScores';
-import { GameUtils } from '../../model/Game';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/AecarGame.scss'
 import '../../resources/css/rcSlider.scss'
 
-function AecarGame({game, onGameEnd, playerIndex, zoneIndex}) {
+function AecarGame({game, 
+    onGameEnd, 
+    onRepair,
+    playerIndex, 
+    zoneIndex}) {
     const { t } = useTranslation();
     const SliderWithTooltip = createSliderWithTooltip(Slider);
     const [state, setState] = React.useState(()=>{ 
         AecarGameScores.texts = AecarGameScores.texts.map(function(text) {
             return t(text);
-        });        
+        });
+        AecarGameScores.fiascoTexts = AecarGameScores.fiascoTexts.map(function(text) {
+            return t(text);
+        });
          
         return initControlTestValues(game);
     });
     
     React.useEffect(() => {
-        Analytics.pageview('/totaltimegame/');
+        Analytics.pageview('/aecar/');
     },[]);
 
     function onTimerChange(millis) {
@@ -51,14 +57,6 @@ function AecarGame({game, onGameEnd, playerIndex, zoneIndex}) {
             newState.forceAction = 'pause';
         }
         //GameUtils.getGatesPointExtras(playerZone);
-        setState(newState);
-    }
-
-    function onBatteryDirectFiasco(player, value) {
-        const newState = {...state},
-            players = newState.game.players;
-
-        players[player].zones[zoneIndex].battery = value;
         setState(newState);
     }
 
@@ -109,12 +107,36 @@ function AecarGame({game, onGameEnd, playerIndex, zoneIndex}) {
         setState(newState);
     }
 
+    function onFiascoChangeScore(value, control) {
+        const newState = {...state},
+            players = newState.game.players,
+            playerZone = players[playerIndex].zones[zoneIndex];
+
+        playerZone.fiascoControlTextValues = [...playerZone.fiascoControlTextValues];
+        playerZone.fiascoControlTextValues[control] += value;
+        playerZone.fiascoControlTextValues[control] > 0 && (newState.forceAction = 'pause');
+        setState(newState);
+    }
+
+
     function onTimeFiasco() {
 
     }
 
     function onPointBecauseLastMinute() {
 
+    }
+
+    function setRepairStatus() {
+        const newState = {...state},
+            players = newState.game.players,
+            playerZone = players[playerIndex].zones[zoneIndex];
+
+        playerZone.time = state.tickTime;
+        newState.forceAction = 'stop';
+        setState(newState);
+
+        onRepair && onRepair(playerIndex, zoneIndex);
     }
 
     if (state.game.players.length>0) {
@@ -129,10 +151,20 @@ function AecarGame({game, onGameEnd, playerIndex, zoneIndex}) {
                 steps: AecarGameScores.steps,
                 maxValues: AecarGameScores.maxValues,
                 texts: AecarGameScores.texts,
-                onDirectFiasco: onBatteryDirectFiasco,
                 onValueChange: onChangeScore,
                 isClosed: false
-            });
+            }),
+            fiascoControlTextArray = playerZone.gateProgression < game.gates[zoneIndex] ? 
+                <ControlTextArray
+                    textToken={'points.fiascos'}
+                    controlTextValues={playerZone.fiascoControlTextValues}
+                    steps={AecarGameScores.fiascoSteps}
+                    maxValues={AecarGameScores.fiascoMaxValues}
+                    texts={AecarGameScores.fiascoTexts}
+                    player={playerIndex}
+                    isClosed={true}
+                    onValueChange={onFiascoChangeScore}
+                />: <>{t('content.pulsafinjugador')}</>;
 
         if (isFiasco(state, playerIndex, zoneIndex)) {
             fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
@@ -151,8 +183,19 @@ function AecarGame({game, onGameEnd, playerIndex, zoneIndex}) {
                 {t('description.tiempomaximo')}: {Utils.printTime(Utils.millisToTime(game.maxTime))} <br />
                 {t('description.puntosmaximo')}: {game.maxPoints}<br />
             </div>
-            <div className="rounded rounded2">
-                
+            <div className="rounded rounded2">                                
+                <TimerControl 
+                    courtesyTime={0}
+                    startTime={playerZone.time}
+                    onTimeFiasco={onTimeFiasco}
+                    onPointBecauseLastMinute={onPointBecauseLastMinute}
+                    label={t('description.tiempo')}
+                    onTimerChange={onTimerChange}
+                    forceAction={state.forceAction}
+                    maxTime={game.maxTime} />
+                <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
+            </div>
+            <div className="controlTextContainer rounded rounded1">
                 {t('description.zona')}: {zoneIndex + 1}<br />
                 {t('description.avancepuerta')}: {playerZone.gateProgression}<br />
                 <SliderWithTooltip
@@ -164,20 +207,11 @@ function AecarGame({game, onGameEnd, playerIndex, zoneIndex}) {
                     onChange={onGateProgressionChange}
                     tipFormatter={(value)=>{ return value; }}
                 />
-                                
-                <TimerControl 
-                    startTime={playerZone.time}
-                    onTimeFiasco={onTimeFiasco}
-                    onPointBecauseLastMinute={onPointBecauseLastMinute}
-                    label={t('description.tiempo')}
-                    onTimerChange={onTimerChange}
-                    forceAction={state.forceAction}
-                    maxTime={game.maxTime} />
-            </div>
-            <div className="controlTextContainer rounded rounded1">
+
                 {fiasco}
                 <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
                 {controlTextArray}
+                {fiascoControlTextArray}
             </div>
             <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
             <button className="importantNote" onClick={()=>{
@@ -209,11 +243,11 @@ function initControlTestValues(game, reset) {
 
             for (let k=0; k<game.zones;k++) {
                 const zone = {
-                    battery: false,
                     points: 0,
                     time: 0,
                     judgedBy: [],
-                    controlTextValues: new Array(23).fill(0)
+                    controlTextValues: new Array(23).fill(0),
+                    fiascoControlTextValues: new Array(2).fill(0)
                 };
                 player.zones.push(zone);
             }

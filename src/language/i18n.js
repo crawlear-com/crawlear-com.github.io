@@ -179,7 +179,8 @@ i18n
             fueraespecificacion: 'out of specification',
             usodispositivo: 'device used',
             noempezado: 'not started',
-            fiascos: 'Fiascos'
+            fiascos: 'Fiascos',
+            noterminado: 'not finished'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -369,7 +370,8 @@ i18n
             fueraespecificacion: 'fuera especificación',
             usodispositivo: 'uso de dispositivo',
             noempezado: 'no empezado',
-            fiascos: 'Fiascos'
+            fiascos: 'Fiascos',
+            noterminado: 'no terminado'
           },
           gametype: {
             partidarapida: 'Partida rápida',

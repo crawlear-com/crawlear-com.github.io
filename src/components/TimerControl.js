@@ -12,7 +12,8 @@ function TimerControl ({
     startTime,
     forceAction,
     label,
-    onTimerChange, 
+    onTimerChange,
+    courtesyTime,
     maxTime,
     onPointBecauseLastMinute,
     onTimeFiasco}) {
@@ -69,7 +70,7 @@ function TimerControl ({
                 setState(previousInputs => ({ ...previousInputs,
                     millis: tickTime.current
             }));
-        } else if (onPointBecauseLastMinute && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + 60000)) {
+        } else if (onPointBecauseLastMinute && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime)) {
             tickTime.current += 10;
             onTimerChange && onTimerChange(tickTime.current);
             setState(previousInputs => ({ ...previousInputs,
