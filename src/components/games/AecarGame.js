@@ -30,7 +30,7 @@ function AecarGame({game,
     });
     
     React.useEffect(() => {
-        Analytics.pageview('/totaltimegame/');
+        Analytics.pageview('/aecar/');
     },[]);
 
     function onTimerChange(millis) {
@@ -57,14 +57,6 @@ function AecarGame({game,
             newState.forceAction = 'pause';
         }
         //GameUtils.getGatesPointExtras(playerZone);
-        setState(newState);
-    }
-
-    function onBatteryDirectFiasco(player, value) {
-        const newState = {...state},
-            players = newState.game.players;
-
-        players[player].zones[zoneIndex].battery = value;
         setState(newState);
     }
 
@@ -159,7 +151,6 @@ function AecarGame({game,
                 steps: AecarGameScores.steps,
                 maxValues: AecarGameScores.maxValues,
                 texts: AecarGameScores.texts,
-                onDirectFiasco: onBatteryDirectFiasco,
                 onValueChange: onChangeScore,
                 isClosed: false
             }),
