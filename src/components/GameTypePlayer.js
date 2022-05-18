@@ -12,7 +12,8 @@ const GAME_TYPE_ISRCC = 2;
 function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     const { t } = useTranslation();
     const elementsToRender = [];
-    let childrenContent, gameExtras;
+    let childrenContent,
+        gameExtras;
 
     if (game.gameType === GAME_TYPE_AECAR) {
         childrenContent = getAecarGameContent(t, player, zone, game.players[player].zones[zone].points);
@@ -21,6 +22,12 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
         childrenContent = getIsrccGameContent(t, player, zone, game.players[player].zones[zone].points);
         gameExtras = isrccExtras;
     }
+    
+    React.useEffect(()=>{
+        gameExtras.doPageView();
+    },[]);
+
+
 
     if (game.gameType !== GAME_TYPE_KING) {
         elementsToRender.push(<CoreGame 

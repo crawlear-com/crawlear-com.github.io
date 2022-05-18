@@ -40,8 +40,6 @@ function CoreGame({
 
     React.useEffect(() => {
         const playerZone = state.game.players[playerIndex].zones[zoneIndex];
-
-       // Analytics.pageview('/isrcc/');
         setState({
             ...state,
             tickTime: playerZone.time,

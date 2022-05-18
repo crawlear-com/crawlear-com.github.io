@@ -2,6 +2,7 @@ import * as React from 'react';
 import ControlTextArray from "../ControlTextArray";
 import { GameUtils } from '../../model/Game';
 import IsrccPoints from './IsrccPoints';
+import Analytics from '../../Analytics';
 
 const IsrccGameScores = {
     steps: [5,10,10,1,5,3],
@@ -125,6 +126,9 @@ const gameExtras = {
         }
 
         return result;
+    },
+    doPageView: ()=> {
+        Analytics.pageview('/isrcc/');
     }
 };
 
