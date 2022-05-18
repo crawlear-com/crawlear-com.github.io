@@ -39,21 +39,21 @@ class GameUtils {
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
                         gateProgressionData: new Array(game.gates[k]),
-                        fiascoControlTextValues: new Array(5).fill(0)
+                        fiascoControlTextValues: game.gameType === GAME_TYPE_AECAR ? new Array(2).fill(0) : new Array(5).fill(0)
                     };
 
-                    if (game.gameType === GAME_TYPE_AECAR) {
+                    /*if (game.gameType === GAME_TYPE_AECAR) {
                         zone.controlTextValues = new Array(23).fill(0);
                         zone.fiascoControlTextValues = new Array(2).fill(0);
                         zone.gateProgressionData = [];
                     } else if (game.gameType === GAME_TYPE_KING || 
                               game.gameType === GAME_TYPE_ISRCC) {
-                        for (let j=0; j<game.gates[k]; j++) {
+                    */    for (let j=0; j<game.gates[k]; j++) {
                             zone.gateProgressionData[j] = {
                                 gatePoints: 0,
-                                controlTextValues: new Array(6).fill(0)
+                                controlTextValues: game.gameType === GAME_TYPE_AECAR ? new Array(23).fill(0) : new Array(6).fill(0)
                             }
-                        }
+                        //}
                     }
 
                     player.zones.push(zone);
@@ -86,8 +86,7 @@ class GameUtils {
     
         return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
             (game.maxPoints <= playerZone.points && game.maxPoints > 0) ||
-            ((game.gameType===2 ? (game.maxTime + 60000) : game.maxTime) <= tickTime && 
-                game.maxTime > 0));
+            ((game.maxTime + 60000) <= tickTime && game.maxTime > 0));
     }
 
     static isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
@@ -137,24 +136,6 @@ class GameUtils {
         }
 
         return bonification*-2;
-    }
-
-    static getGatesWithFail(playerZone) {
-        return playerZone.gateProgressionData.filter((x, i) => {
-            return (x.gatePoints >= 20 && i<playerZone.gateProgression && x.controlTextValues[2]>0)
-        }).length;
-    }
-
-    static getGatesWithBonification(playerZone) {
-        return playerZone.gateProgressionData.filter((x,i) => {
-            return (x.gatePoints < 20 && i<playerZone.gateProgression && x.controlTextValues[2]<1)
-        }).length;
-    }
-
-    static getGatesPointExtras(playerZone) {
-        playerZone.gatesWithFail = this.getGatesWithFail(playerZone);
-        playerZone.gatesWithBonification = this.getGatesWithBonification(playerZone);
-        playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints + (playerZone.gatesWithBonification * -2);
     }
 
     static isCurrentUserIsOwner(owners) {

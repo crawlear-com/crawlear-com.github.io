@@ -1,3 +1,3 @@
-import AecarGameScores from "./AecarGameScores";
+import { AecarGameScores } from "./AecarGameScores";
 
 export default AecarGameScores;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Utils from '../Utils';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
-import IsrccGameScores from './games/IsrccGameScores';
-import AecarGameScores from './games/AecarGameScores';
+import { IsrccGameScores } from './games/IsrccGameScores';
+import { AecarGameScores } from './games/AecarGameScores';
 import { useTranslation } from 'react-i18next';
 import { GameUtils } from '../model/Game';
 

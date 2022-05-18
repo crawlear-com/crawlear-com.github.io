@@ -1,40 +1,45 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
-import IsrccGameScores from './IsrccGameScores';
-import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { GameUtils } from '../../model/Game';
 import Utils from '../../Utils';
+import { GameContext } from './GameContext';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/AecarGame.scss'
 import '../../resources/css/games/Isrcc.scss'
 import '../../resources/css/rcSlider.scss'
 
-function IsrccGame({game, 
-    onGameEnd,
-    onRepair,
-    playerIndex, 
-    zoneIndex}) {
+function CoreGame({
+            children,
+            game,
+            onGameEnd,
+            onRepair,
+            playerIndex, 
+            zoneIndex,
+            gameExtras}) {
     const { t } = useTranslation();
     const SliderWithTooltip = createSliderWithTooltip(Slider);
     const [state, setState] = React.useState(()=>{
         window.scrollTo(0,0);
-        IsrccGameScores.texts = IsrccGameScores.texts.map(function(text) {
-            return t(text);
-        });
-        IsrccGameScores.fiascoTexts = IsrccGameScores.fiascoTexts.map(function(text) {
-            return t(text);
-        });
         return initControlTestValues(game);
     });
+    const childrenContent = [];
     
+    if (children.length) {
+        childrenContent.push(React.cloneElement(children[0], {
+            onValueChange: onChangeScore
+        }));
+        childrenContent.push(React.cloneElement(children[1], {
+            onValueChange: onFiascoChangeScore
+        }));
+        childrenContent.push(React.cloneElement(children[2]));
+    }
+
     React.useEffect(() => {
         const playerZone = state.game.players[playerIndex].zones[zoneIndex];
-
-        Analytics.pageview('/isrcc/');
         setState({
             ...state,
             tickTime: playerZone.time,
@@ -51,7 +56,7 @@ function IsrccGame({game,
                 playerZone = players[playerIndex].zones[zoneIndex];
 
             playerZone.simpathyPoints = 0;
-            GameUtils.getGatesPointExtras(playerZone);
+            gameExtras.onTimerChange(playerZone);
         }
 
         setState({
@@ -81,8 +86,7 @@ function IsrccGame({game,
                 if (playerZone.gateProgression<currentGame.gates[zoneIndex] && playerCurrentGate.gatePoints+value >=0) {
                     playerCurrentGate.gatePoints += value;
                 }
-
-                GameUtils.getGatesPointExtras(playerZone);
+                gameExtras.onChangeScore(playerZone);
                 setState(newState);
 
                 if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
@@ -108,20 +112,10 @@ function IsrccGame({game,
     function onEndPlayer() {
         const newState = {...state},
             currentGame = newState.game,
-            players = currentGame.players,
-            playerZone = currentGame.players[playerIndex].zones[zoneIndex];
+            players = currentGame.players;
             
         window.scrollTo(0,0);
-        if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
-            playerZone.time = (currentGame.maxTime > 0 ? (currentGame.maxTime + 60000) : state.tickTime);
-            if(GameUtils.isNonPresentedFiasco(currentGame, playerIndex, zoneIndex)) {
-                playerZone.totalPoints = 50;
-            } else {
-                playerZone.totalPoints = (currentGame.maxPoints > 0 ? currentGame.maxPoints : playerZone.totalPoints);
-            }
-        } else {
-            playerZone.time = state.tickTime;
-        }
+        gameExtras.onEndPlayer(currentGame, state.tickTime, playerIndex, zoneIndex);
         newState.forceAction = 'stop';
         setState(newState);
 
@@ -138,7 +132,7 @@ function IsrccGame({game,
         if (value === newState.game.gates[zoneIndex]) {
             newState.forceAction = 'pause';
         }
-        GameUtils.getGatesPointExtras(currentZone);
+        gameExtras.onGateProgressionChange(currentZone);
         setState(newState);
     }
 
@@ -149,9 +143,8 @@ function IsrccGame({game,
 
         playerZone.fiascoControlTextValues = [...playerZone.fiascoControlTextValues];
         playerZone.fiascoControlTextValues[control] += value;
-
-        control === 0 && (playerZone.points += value);
         playerZone.fiascoControlTextValues[control] > 0 && (newState.forceAction = 'pause');
+        gameExtras.onFiascoChangeScore();
         setState(newState);
     }
 
@@ -161,7 +154,7 @@ function IsrccGame({game,
             playerZone = players[playerIndex].zones[zoneIndex];
 
         playerZone.simpathyPoints++;
-        GameUtils.getGatesPointExtras(playerZone);
+        gameExtras.onPointBecauseLastMinute(playerZone);
         setState(newState);
     }
 
@@ -187,70 +180,19 @@ function IsrccGame({game,
         onRepair && onRepair(playerIndex, zoneIndex);
     }
 
-    function generateSliderMarksFromGates(gateData, gateProgression) {
-        const result = {};
-
-        for (let i=0; i<gateData.length; i++) {
-            let classname = 'gatePoints ',
-                content;
-
-            if (i<gateProgression) {
-                if (gateData[i].gatePoints < 20 && gateData[i].controlTextValues[2]<1) {
-                    classname += 'colorGreen';
-                    content = '-2';
-                } else {
-                    classname += 'colorRed';
-                    content = '0';
-                }
-            } else {
-                classname += 'colorGrey';
-                content = '-';
-            }
-
-            result[i] = <div className={classname}>
-                {content}<br />
-                {gateData[i].gatePoints}
-            </div>;
-
-        }
-
-        return result;
-    }
-
     let fiasco = <></>;
     const currentGame = state.game,
         maxTime = currentGame.maxTime,
         player = currentGame.players[playerIndex],
-        playerZone = player.zones[zoneIndex],
-        currentBonification = GameUtils.getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression),
-        controlTextArray = playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
-            <ControlTextArray
-                controlTextValues={playerZone.gateProgressionData[playerZone.gateProgression].controlTextValues}
-                steps={IsrccGameScores.steps}
-                maxValues={IsrccGameScores.maxValues}
-                texts={IsrccGameScores.texts}
-                player={playerIndex}
-                isClosed={false}
-                onValueChange={onChangeScore}
-            /> : <></>,
-        fiascoControlTextArray = playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
-            <ControlTextArray
-                textToken={'points.fiascos'}
-                controlTextValues={playerZone.fiascoControlTextValues}
-                steps={IsrccGameScores.fiascoSteps}
-                maxValues={IsrccGameScores.fiascoMaxValues}
-                texts={IsrccGameScores.fiascoTexts}
-                player={playerIndex}
-                isClosed={true}
-                onValueChange={onFiascoChangeScore}
-            />: <>{t('content.pulsafinjugador')}</>;
+        playerZone = player.zones[zoneIndex];
 
     if (GameUtils.isFiasco(state.game, state.tickTime, playerIndex, zoneIndex)) {
         Analytics.event('play', 'fiasco', player.name);
         fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
     }
 
-    return <div className="gameContainer">
+    return (<GameContext.Provider value={state}>
+        <div className="gameContainer">
         <div className="playersList">
             <div className="playerListItem importantNote rounded">
                 <img src={player.avatar} alt="avatar"/>
@@ -279,9 +221,7 @@ function IsrccGame({game,
             <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="controlTextContainer info rounded rounded2">
-            <div className="pointsText">{t('description.bonificacion')}: { currentBonification}</div>
-
-            <div className="pointsText">{t('description.puntos')}: { playerZone.points}</div>
+            {childrenContent[2]}
             
             <SliderWithTooltip
                     step={1}
@@ -290,18 +230,18 @@ function IsrccGame({game,
                     dots={true}
                     value={playerZone.gateProgression}
                     onChange={onGateProgressionChange}
-                    marks={generateSliderMarksFromGates(playerZone.gateProgressionData, playerZone.gateProgression)}
+                    marks={gameExtras.generateSliderMarksFromGates(playerZone.gateProgressionData, playerZone.gateProgression)}
                     tipFormatter={(value)=>{
                         return playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
                             String(value).concat('-').concat(playerZone.gateProgressionData[playerZone.gateProgression].gatePoints) : 
                             '-'; 
                     }}
                 />
-            {controlTextArray}
         </div>
         
         <div className="controlTextContainer rounded rounded2">
-            {fiascoControlTextArray}
+            {playerZone.gateProgression < game.gates[zoneIndex] ? childrenContent[0] : <></>}
+            {playerZone.gateProgression < game.gates[zoneIndex] ? childrenContent[1] : <></>}
         </div>
 
         <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
@@ -309,6 +249,7 @@ function IsrccGame({game,
             onEndPlayer()
             }}>{t('description.finjugador')} ({player.name})</button><p />
     </div>
+    </GameContext.Provider>);
 }
 
 function initControlTestValues(game, reset) {
@@ -323,4 +264,4 @@ function initControlTestValues(game, reset) {
     return newState;
 }
 
-export default IsrccGame;
+export default CoreGame;
