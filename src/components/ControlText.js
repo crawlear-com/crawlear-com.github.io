@@ -1,6 +1,7 @@
 import * as React from 'react';
 import '../resources/css/ControlText.scss';
 import Analytics from '../Analytics';
+import { useTranslation } from 'react-i18next';
 
 function ControlText({
         text,
@@ -12,6 +13,8 @@ function ControlText({
     const isNegativeControl = (step<0);
     let boldValue = isNegativeControl ? value<0 : value>0;
     const valueRef = React.useRef();
+    const { t } = useTranslation();
+
 
     function updateValue(step) {
         if (!isNegativeControl && (value+step >= 0) && (!maxValue || value+step <= Math.abs(maxValue*step))) {
@@ -37,7 +40,7 @@ function ControlText({
             updateValue(-step)
         }}>-</button>
 
-        <div className={getControlClass("controlTextText")}>{text}: </div>
+        <div className={getControlClass("controlTextText")}>{t(text)}: </div>
         <div ref={valueRef} className={getControlClass("controlTextValue")}>{value}</div>        
     </div>;
 }

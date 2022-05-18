@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import * as React from 'react';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
-import IsrccGameScores from './games/IsrccGameScores';
+import { IsrccGameScores } from './games/IsrccGameScores';
 import { GameUtils } from '../model/Game';
 import Utils from '../Utils';
 

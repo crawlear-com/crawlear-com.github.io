@@ -3,8 +3,8 @@ import * as React from 'react';
 import Utils from '../Utils';
 import GameHeaderInfo from './GameHeaderInfo';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
-import IsrccGameScores from './games/IsrccGameScores';
-import AecarGameScores from './games/AecarGameScores';
+import { IsrccGameScores } from './games/IsrccGameScores';
+import { AecarGameScores } from './games/AecarGameScores';
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import { GameUtils } from '../model/Game';
 

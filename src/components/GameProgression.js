@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
-import AecarGameScores from './games/AecarGameScores';
-import IsrccGameScores from './games/IsrccGameScores';
+import { AecarGameScores } from './games/AecarGameScores';
+import { IsrccGameScores } from './games/IsrccGameScores';
 import Utils from '../Utils';
 import { GameUtils } from '../model/Game';
 

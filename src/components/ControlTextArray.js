@@ -1,23 +1,34 @@
 import * as React from 'react';
 import ControlText from './ControlText';
 import { useTranslation } from 'react-i18next';
+import { GameContext } from './games/GameContext';
 
 import dropDownImage from '../resources/img/arrowDown.png';
 
 function ControlTextArray({
+    controlTextValuesString,
     textToken='description.penalizaciones',
-    controlTextValues, 
     steps,
     maxValues,
     texts,
     player,
+    zone,
     isClosed=true,
     onValueChange}) {
+    
     let i=0;
-    const isFullScore = controlTextValues.length>14;
     const controlArray1 = [], 
         controlArray2 = [];
     const { t } = useTranslation();
+    const { game } = React.useContext(GameContext);
+
+    if(!game || !game.players.length) return <></>;
+
+    const playerZone = game.players[player].zones[zone];
+    const controlTextValues = controlTextValuesString.indexOf('fiasco')<0 ?
+        playerZone.gateProgressionData[playerZone.gateProgression][controlTextValuesString] : 
+        playerZone[controlTextValuesString];
+    const isFullScore = controlTextValues.length>14;
 
     function titleOnClick(event) {
         const element = event.target;
@@ -72,7 +83,7 @@ function ControlTextArray({
             </p>
             {controlArray2}
         </div> : <></>}
-    </>;
-}
+        </>
+    }
 
 export default ControlTextArray;
