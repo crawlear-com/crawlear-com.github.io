@@ -121,7 +121,8 @@ class FirebaseController {
       zones: game.zones,
       gates: game.gates,
       gameStatus: game.gameStatus,
-      owner: game.owner
+      owner: game.owner,
+      courtesyTime: game.courtesyTime
     };
   }
 

@@ -1,6 +1,7 @@
 const GAME_TYPE_AECAR = 0;
 const GAME_TYPE_KING = 1;
 const GAME_TYPE_ISRCC = 2;
+const GAME_TYPE_LEVANTE = 3;
 
 class Game {
     constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
@@ -19,6 +20,12 @@ class Game {
         this.zones = zones;
         this.gameStatus = gameStatus;
         this.owner = owner;
+
+        if (maxTime === 0) {
+            this.courtesyTime = 0;
+        } else {
+            this.courtesyTime = 60000;
+        }
     }
 }
 
@@ -39,21 +46,14 @@ class GameUtils {
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
                         gateProgressionData: new Array(game.gates[k]),
-                        fiascoControlTextValues: game.gameType === GAME_TYPE_AECAR ? new Array(2).fill(0) : new Array(5).fill(0)
+                        fiascoControlTextValues: game.gameType === GAME_TYPE_AECAR || game.gameType === GAME_TYPE_LEVANTE ? new Array(2).fill(0) : new Array(5).fill(0)
                     };
 
-                    /*if (game.gameType === GAME_TYPE_AECAR) {
-                        zone.controlTextValues = new Array(23).fill(0);
-                        zone.fiascoControlTextValues = new Array(2).fill(0);
-                        zone.gateProgressionData = [];
-                    } else if (game.gameType === GAME_TYPE_KING || 
-                              game.gameType === GAME_TYPE_ISRCC) {
-                    */    for (let j=0; j<game.gates[k]; j++) {
-                            zone.gateProgressionData[j] = {
-                                gatePoints: 0,
-                                controlTextValues: game.gameType === GAME_TYPE_AECAR ? new Array(23).fill(0) : new Array(6).fill(0)
-                            }
-                        //}
+                    for (let j=0; j<game.gates[k]; j++) {
+                        zone.gateProgressionData[j] = {
+                            gatePoints: 0,
+                            controlTextValues: game.gameType === GAME_TYPE_AECAR ? new Array(23).fill(0) : new Array(6).fill(0)
+                        }
                     }
 
                     player.zones.push(zone);

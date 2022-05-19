@@ -6,36 +6,36 @@ import '../resources/css/GameTypeController.scss';
 function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPointsType=0}) {
     const { t } = useTranslation();
     const labelsGameType = [t('gametype.aecar'), 
-            t('gametype.rey'),t('gametype.isrcc')],
+            t('gametype.rey'),t('gametype.isrcc'),t('gametype.levante124')],
         textsGameType = [<div>{t('gametype.modojuegoarcar')}</div>,
                 <div>{t('gametype.modojuegorey')}</div>,
-                <div>{t('gametype.modojuegoisrcc')}</div>
+                <div>{t('gametype.modojuegoisrcc')}</div>,
+                <div>{t('gametype.modojuegolevante124')}</div>
             ];
 
     const [state, setState] = React.useState({
-        gameType: selectedGameType,
-        pointsType: (selectedGameType === 0 || selectedGameType === 2 ? 1 : selectedPointsType)
+        gameType: selectedGameType
     });
     
     function onSelectGameTypeChange(event) {
-        const selected = event.target.selectedIndex,
-            pointsType = (selected === 0 || selected === 2 ? 1 : state.pointsType);
+        const selected = event.target.selectedIndex;
 
         onGameTypeChange && onGameTypeChange(selected);
         setState({
-            gameType: selected,
-            pointsType: pointsType
+            gameType: selected
         });
     }
 
     return <>
         <div className="gameType rounded1 rounded">
             <label htmlFor="gameTypeSelect" className="headerText bold">{t('gametype.modojuego')}
-            <select id="gameTypeSelect" defaultValue={2} onChange={onSelectGameTypeChange}>
-                <option value={0}>{labelsGameType[0]}</option>
-                <option value={1}>{labelsGameType[1]}</option>
-                <option value={2}>{labelsGameType[2]}</option>
-            </select></label>
+                <select id="gameTypeSelect" defaultValue={2} onChange={onSelectGameTypeChange}>
+                    <option value={0}>{labelsGameType[0]}</option>
+                    <option value={1}>{labelsGameType[1]}</option>
+                    <option value={2}>{labelsGameType[2]}</option>
+                    <option value={3}>{labelsGameType[3]}</option>
+                </select>
+            </label>
             <div className="gameSelectText smallText">{textsGameType[state.gameType]}</div>
         </div>
     </>;

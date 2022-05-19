@@ -70,16 +70,18 @@ function TimerControl ({
                 setState(previousInputs => ({ ...previousInputs,
                     millis: tickTime.current
             }));
-        } else if (onPointBecauseLastMinute && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime)) {
+        } else if ((onPointBecauseLastMinute && state.maxTime>0 && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime))
+                || state.maxTime===0) {
             tickTime.current += 10;
             onTimerChange && onTimerChange(tickTime.current);
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime.current
             }));
-            if (!containerRef.current.classList.contains('blink')) {
+
+            if (state.maxTime > 0 && !containerRef.current.classList.contains('blink')) {
                 containerRef.current.classList.add('blink');
             }
-            if ((state.maxTime + tickTime.current) % 10000 === 0) {
+            if (state.maxTime > 0 && ((state.maxTime + tickTime.current) % 10000 === 0)) {
                 onPointBecauseLastMinute();
             }
         } else {

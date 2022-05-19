@@ -47,6 +47,15 @@ function GameConfigurator() {
 
         Analytics.event('menu', 'playModeChange', selectedIndex);
         newGame.gameType = selectedIndex;
+
+        if (newGame.gameType === 3) {
+            newGame.maxPoints = 100;
+            newGame.maxTime = 0;
+        } else {
+            newGame.maxPoints = 40;
+            newGame.maxTime = 600000;
+        }
+
         setGame(newGame);
     }
 
@@ -85,10 +94,15 @@ function GameConfigurator() {
     }
 
     function onMaxTimeChange(time) {
-        const newGame = {...game}
+        const newGame = {...game};
 
         newGame.maxTime = time;
         Analytics.event('menu', 'maxTimeSet', time);
+        if (time === 0) {
+            newGame.courtesyTime = 0;
+        } else {
+            newGame.courtesyTime = 60000;
+        }
         setGame(newGame);
     }
 
