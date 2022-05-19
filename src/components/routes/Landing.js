@@ -5,6 +5,7 @@ import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
 
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
+import Levante124Logo from '../../resources/img/Levante124Logo.jpeg';
 
 import '../../resources/css/Landing.scss';
 
@@ -31,6 +32,10 @@ function Landing({onLoggin}) {
             <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                     firebase.signInWithGoogle(signInCallback);
                 }} />
+            <p>
+                <div>{t('content.colaboraciones')}</div>
+                <img className='collaborateLogo' src={Levante124Logo} alt="Levante 1/24 Logo" />
+            </p>
         </div>
         </>
 }

@@ -32,10 +32,15 @@ function CoreGame({
         childrenContent.push(React.cloneElement(children[0], {
             onValueChange: onChangeScore
         }));
-        childrenContent.push(React.cloneElement(children[1], {
-            onValueChange: onFiascoChangeScore
-        }));
-        childrenContent.push(React.cloneElement(children[2]));
+        if (children[2]) {
+            childrenContent.push(React.cloneElement(children[1], {
+                onValueChange: onFiascoChangeScore
+            }));
+            childrenContent.push(React.cloneElement(children[2]));
+        } else {
+            childrenContent.push(React.cloneElement(children[1]));
+        }
+        
     }
 
     React.useEffect(() => {
@@ -209,7 +214,7 @@ function CoreGame({
         </div>
         <div className="controlTextContainer rounded rounded2">
             <TimerControl
-                courtesyTime={60000}
+                courtesyTime={game.courtesyTime}
                 startTime={playerZone.time}
                 label={t('description.tiempo')}
                 forceAction={state.forceAction}
@@ -217,7 +222,11 @@ function CoreGame({
                 onTimeFiasco={onTimeFiasco}
                 onPointBecauseLastMinute={onPointBecauseLastMinute}
                 maxTime={maxTime} />
-                <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div>
+
+                {game.courtesyTime>0 ? 
+                    <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
+                    <></>}
+                
             <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="controlTextContainer info rounded rounded2">

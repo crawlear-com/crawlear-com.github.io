@@ -33,7 +33,13 @@ function MaxTimeAndPointsPicker({
         {maxTimePicker}
         <p>{t('content.maxTimeText2')}</p>
         <div className="pickerContainer rounded rounded2">
-            <Picker value={maxPoints} minValue={0} maxValue={40} callback={(result) => {onMaxPointsChange(result)}} initialValue={0} />
+            <Picker value={maxPoints} 
+                minValue={0}
+                maxValue={40}
+                initialValue={0}
+                callback={(result) => {
+                    onMaxPointsChange(result)
+                }} />
         </div>
     </div>;
 }
