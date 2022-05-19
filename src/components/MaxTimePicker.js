@@ -7,7 +7,6 @@ const MINUTES = 0;
 const SECS = 1;
 
 function MaxTimePicker({onMaxTimeChange, minutes, seconds}) {
-    //const [values, setValues] = React.useState([minutes, seconds]);
     const values = [minutes, seconds];
 
     function calculateTime(values) {

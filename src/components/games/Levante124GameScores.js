@@ -66,7 +66,7 @@ const gameExtras = {
         const playerZone = game.players[player].zones[zone];
 
         if (GameUtils.isFiasco(game, tickTime, player, zone)) {
-            playerZone.time = (game.maxTime > 0 ? (game.maxTime + 60000) : tickTime);
+            playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : tickTime);
         } else {
             playerZone.time = tickTime;
         }
