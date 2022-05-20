@@ -14,6 +14,10 @@ function GameHeaderInfo({game}) {
                 return t('gametype.aecar');
             case 1:
                 return t('gametype.rey');
+            case 2:
+                return t('gametype.isrcc');
+            case 3:
+                return t('gametype.levante124');
             default:
                 return t('gametype.isrcc');
         }
