@@ -61,6 +61,18 @@
 
         table {
             margin: auto;
+            td:nth-of-type(2), 
+            td:nth-of-type(7) {
+                writing-mode:unset !important;
+            }
+            
+            tr:first-of-type {
+                td {
+                    writing-mode: vertical-lr;
+                    //text-orientation: upright;
+                    //font-size: 0.8em;
+                }
+            }
         }
 
         .controlTextValues {

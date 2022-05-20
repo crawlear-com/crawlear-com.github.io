@@ -34,11 +34,11 @@ function GameResultTable({game, isDraw}) {
     players.push(<tr key={`${game.id}`}>
         <td></td>
         <td className="">{t("description.nombre")}</td>
-        <td>pts</td>
-        <td>g</td>
-        <td>b</td>
-        <td>tp</td>
-        <td>t</td>
+        <td>{t("description.puntos")}</td>
+        <td>{t("description.puertas")}</td>
+        <td>{t("description.bonificacion")}</td>
+        <td>{t("description.puntos")} {t("description.portiempo")}</td>
+        <td>{t("description.tiempo")}</td>
     </tr>);
     
     game.players.forEach((player)=>{
@@ -63,7 +63,7 @@ function GameResultTable({game, isDraw}) {
             if (zone.fiascoControlTextValues) {
                 if (zone.fiascoControlTextValues[4]) {
                     icon = <img src={batteryIcon} alt="battery" />;
-                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + 60000) : game.maxTime)) || 
+                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + game.courtesyTime) : game.maxTime)) || 
                     (game.maxPoints && zone.totalPoints === game.maxPoints) || 
                     (zone.fiascoControlTextValues.filter(x=>x>0).length > 0)){
                     icon = <img src={fiascoIcon} alt="fiasco" />;
@@ -74,7 +74,7 @@ function GameResultTable({game, isDraw}) {
             } else {
                 if (zone.battery) {
                     icon = <img src={batteryIcon} alt="fiasco" />;
-                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + 60000) : game.maxTime)) || 
+                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + game.courtesyTime) : game.maxTime)) || 
                            (game.maxPoints && zone.totalPoints === game.maxPoints)){
                     icon = <img src={fiascoIcon} alt="battery" />;
                 } else {
@@ -98,7 +98,7 @@ function GameResultTable({game, isDraw}) {
                 <tr key={i+j+2} className="closed">
                     <td colSpan={7}>
                         <ControlTextArrayVisualization 
-                            controlTextValues={game.gameType===2 && zone.gateProgressionData ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
+                            controlTextValues={game.gameType!==1 && zone.gateProgressionData ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
                             texts={gameTypeTexts} />
                         {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
                             <>
