@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
 import Levante124Logo from '../../resources/img/Levante124Logo.jpeg';
+import ZonaclubrcLogo from '../../resources/img/zonaclubrcLogo.png';
 
 import '../../resources/css/Landing.scss';
 
@@ -35,6 +36,7 @@ function Landing({onLoggin}) {
             <p>
                 <div>{t('content.colaboraciones')}</div>
                 <img className='collaborateLogo' src={Levante124Logo} alt="Levante 1/24 Logo" />
+                <img className='collaborateLogo' src={ZonaclubrcLogo} alt="CopaEspana Logo" />
             </p>
         </div>
         </>

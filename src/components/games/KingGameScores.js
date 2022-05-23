@@ -1,3 +1,9 @@
-import { AecarGameScores } from "./AecarGameScores";
+import { AecarGameScores } from "./AecarGameScores";
+import Analytics from "../../Analytics";
 
-export default AecarGameScores;
+const gameExtras = {
+    doPageView: ()=> {
+        Analytics.pageview('/king/');
+    }
+};
+export { AecarGameScores as KingGameScores, gameExtras };

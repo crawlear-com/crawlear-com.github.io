@@ -218,7 +218,10 @@ function GameConfigurator() {
                 newGame.uids = Utils.getUidsFromUsers(newGame.players);
                 newGame.jids = Utils.getUidsFromUsers(newGame.judges);
                 GameUtils.redoPlayersIds(game);
-                GameUtils.init(newGame, true);
+                GameUtils.init(newGame, 
+                    GameUtils.getGameTypeControlTextValuesInit(newGame.gameType),
+                    GameUtils.getGameTypeFiascoControlTextValuesInit(newGame.gameType),
+                    true);
                 fb.setGame(newGame, (game)=>{
                     newGame.gid = game.gid;
                     fb.createGameProgression(newGame);
@@ -345,5 +348,6 @@ function GameConfigurator() {
 
     </>);
 }
+
 
 export default GameConfigurator;

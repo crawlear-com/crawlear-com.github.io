@@ -7,7 +7,7 @@ import dropDownImage from '../resources/img/arrowDown.png';
 
 function ControlTextArray({
     controlTextValuesString,
-    textToken='description.penalizaciones',
+    textToken,
     steps,
     maxValues,
     texts,
@@ -70,7 +70,13 @@ function ControlTextArray({
         }
     }
 
-    return <>
+    if (!textToken) {
+        return <div className={"controlTextContainer"} onClick={titleOnClick}>
+            {controlArray1}
+            {controlArray2}
+        </div>
+    } else {
+        return <>
         <div className={isClosed ? "controlTextContainer closed" : "controlTextContainer"} onClick={titleOnClick}>
             <p key="mainTitle" className="controlTextTitle rounded rounded2">{t(textToken)}
                 <img src={dropDownImage} className="dropdown" alt="dropdown icon"></img>
@@ -85,5 +91,6 @@ function ControlTextArray({
         </div> : <></>}
         </>
     }
+}
 
 export default ControlTextArray;

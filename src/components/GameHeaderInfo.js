@@ -18,6 +18,8 @@ function GameHeaderInfo({game}) {
                 return t('gametype.isrcc');
             case 3:
                 return t('gametype.levante124');
+            case 4:
+                return t('gametype.copaespana');
             default:
                 return t('gametype.isrcc');
         }

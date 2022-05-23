@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
-import KingGameScores from './KingGameScores';
+import { KingGameScores } from './KingGameScores';
 import { GameUtils } from '../../model/Game';
 
 import '../../resources/css/games/KingGame.scss';
@@ -64,10 +64,11 @@ function KingGame({game, onGameEnd}) {
                 </div>
                 <div className="controlTextContainer rounded rounded1">
                     {ControlTextArray({
-                        controlTextValues: zone.controlTextValues,
+                        controlTextValuesString: 'controlTextValues',
                         steps: KingGameScores.steps,
                         maxValues: KingGameScores.maxValues,
                         texts: KingGameScores.texts,
+                        zone: 0,
                         player: i,
                         onValueChange: onChangeScore,
                     })}
@@ -88,7 +89,10 @@ function initControlTestValues(game) {
         order: [...game.players]
     }
 
-    GameUtils.init(newState.game, false);
+    GameUtils.init(newState.game, 
+        GameUtils.getGameTypeControlTextValuesInit(newState.game.gameType),
+        GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
+        false);
     for(let i=0; i<newState.game.players.length;i++) {
         newState.game.players[i].zones[0].controlTextValues = new Array(7).fill(0);
     }

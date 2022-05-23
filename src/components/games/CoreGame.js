@@ -5,7 +5,6 @@ import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { GameUtils } from '../../model/Game';
 import Utils from '../../Utils';
-import { GameContext } from './GameContext';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/AecarGame.scss'
@@ -40,7 +39,6 @@ function CoreGame({
         } else {
             childrenContent.push(React.cloneElement(children[1]));
         }
-        
     }
 
     React.useEffect(() => {
@@ -196,8 +194,8 @@ function CoreGame({
         fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
     }
 
-    return (<GameContext.Provider value={state}>
-        <div className="gameContainer">
+    return (
+    <div className="gameContainer">
         <div className="playersList">
             <div className="playerListItem importantNote rounded">
                 <img src={player.avatar} alt="avatar"/>
@@ -257,8 +255,7 @@ function CoreGame({
         <button className="importantNote" onClick={()=>{
             onEndPlayer()
             }}>{t('description.finjugador')} ({player.name})</button><p />
-    </div>
-    </GameContext.Provider>);
+    </div>);
 }
 
 function initControlTestValues(game, reset) {
@@ -268,7 +265,10 @@ function initControlTestValues(game, reset) {
         game: game
     }
 
-    GameUtils.init(newState.game, reset);
+    GameUtils.init(newState.game, 
+        GameUtils.getGameTypeControlTextValuesInit(game.gameType),
+        GameUtils.getGameTypeFiascoControlTextValuesInit(game.gameType),
+        reset);
 
     return newState;
 }

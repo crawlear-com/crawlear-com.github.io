@@ -1,11 +1,16 @@
 import { t } from 'i18next';
 import * as React from 'react';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
+
+import { AecarGameScores } from './games/AecarGameScores';
+import { CopaEspanaGameScores } from './games/CopaEspanaGameScores';
+import { Levante124GameScores } from './games/Levante124GameScores';
 import { IsrccGameScores } from './games/IsrccGameScores';
+
 import { GameUtils } from '../model/Game';
 import Utils from '../Utils';
 
-function GameProgressionInfoRow({gameProgression, gameTypeTexts}) {
+function GameProgressionInfoRow({gameType, gameProgression}) {
     if (gameProgression.data) {
         const points = gameProgression.data.points,
             totalPoints = gameProgression.data.totalPoints,
@@ -14,7 +19,25 @@ function GameProgressionInfoRow({gameProgression, gameTypeTexts}) {
             gateProgression = gameProgression.data.gateProgression,
             simpathyPoints = gameProgression.data.simpathyPoints,
             bonitification = gameProgression.data.gatesWithBonification;
+        let gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts),
+            fiascoGameTypeTexts = Utils.tokenToTexts(AecarGameScores.fiascoTexts);
 
+
+        if(gameType === 2) {
+            gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);
+            fiascoGameTypeTexts = Utils.tokenToTexts(IsrccGameScores.fiascoTexts);
+        }
+        
+        if(gameType === 3) {
+            gameTypeTexts = Utils.tokenToTexts(Levante124GameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(Levante124GameScores.fiascoTexts);
+        }
+
+        if(gameType ===4) {
+            gameTypeTexts = Utils.tokenToTexts(CopaEspanaGameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(CopaEspanaGameScores.fiascoTexts);
+        }
+            
         return <>
             <ul>
                 <li>{t('description.puntos')}: <span className="bold">{points}</span></li>
@@ -41,7 +64,7 @@ function GameProgressionInfoRow({gameProgression, gameTypeTexts}) {
                 <div className="fiascosText left bold">{t('points.fiascos')}:</div>
                 <ControlTextArrayVisualization 
                     controlTextValues={gameProgression.data.fiascoControlTextValues} 
-                    texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
+                    texts={fiascoGameTypeTexts} /> 
             </> : 
             <></>}
         </>;
