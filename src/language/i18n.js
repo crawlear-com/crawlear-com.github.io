@@ -19,7 +19,7 @@ i18n
             aboutus1: 'After going out on the field a couple of times, we realized that it would be a good idea to have a scoreboard for the matches, where we can manage the points in the different game modes that we practice.',
             aboutus2: 'If you have any questions, comments or suggestions, do not hesitate to contact us at crawlear.com@gmail.com',
             aboutus3: 'Barcelona (Spain) 2021',
-            welcomeMessage: 'is a professional score board for your 1/10 or 1/24 crawler AECAR, ISRCC, Levante 1/24 and Copa de España compatible events or competitions.',
+            welcomeMessage: 'is a professional score board for your 1/10 or 1/24 crawler AECAR, ISRCC, Levante 1/24 and ZonaRc regional Championship compatible events or competitions.',
             instrucciones: 'First add the players, select the game mode, the points type and push the Begin button.',
             instrucciones1: 'By clicking on the player you can define a positive (initial advantage) or negative (initial disadvantage) handicap. At the end of the game, the handicap will be added to the player\'s points to calculate the total points.',
             maxTimeText1: 'Select the maximum time (0 if you do not want to apply maximum time):',
@@ -230,8 +230,8 @@ i18n
             aecar: 'AECAR Rules',
             levante124: '1/24 Levante Rules',
             modojuegolevante124: 'By points game with basic but effective rules and scores',
-            copaespana: 'Copa de España',
-            modojuegocopaespana: 'By points game with full Copa de España rules and scores'
+            copaespana: 'Regional ZonaRc',
+            modojuegocopaespana: 'By points game with full ZonaRc Regional Championship rules and scores'
           }
         }
       },
@@ -242,7 +242,7 @@ i18n
             aboutus1: 'Después de salir al terreno de juego un par de veces nos dimos cuenta que sería una buena idea tener un marcador para las partidas, donde poder gestionar los puntos en los diferentes modos de juegos que practicamos.',
             aboutus2: 'Si tienes alguna duda, comentario o sugerencia no dudes en contactar con nosotros en crawlear.com@gmail.com',
             aboutus3: 'takezoRc, Barcelona 2022',
-            welcomeMessage: 'es un tablero profesional de puntuación para tus eventos o competiciones de Crawler 1/10 o 1/24 compatible con las reglas de AECAR, ISRCC, Levante 1/24 y la Copa de España.',
+            welcomeMessage: 'es un tablero profesional de puntuación para tus eventos o competiciones de Crawler 1/10 o 1/24 compatible con las reglas de AECAR, ISRCC, Levante 1/24 y el Campeonato Regional de ZonaRc.',
             instrucciones: 'Primero añade los jugadores, selecciona el modo de juego, el tipo de puntuación y pulsa Empezar.',
             instrucciones1: 'Pulsando en el jugador podrás definir un handicap positivo (ventaja inicial) o negativo (desventaja inicial). A final de partida el handicap se sumará a los puntos del jugador para calcular el total de puntos.',
             maxTimeText1: 'Selecciona el tiempo máximo (0 si no quieres aplicar tiempo máximo):',
@@ -455,8 +455,8 @@ i18n
             aecar: 'Reglas AECAR',
             levante124: '1/24 Levante',
             modojuegolevante124: 'Por puntos usando reglas y puntuaciones básicas pero efectivas',
-            copaespana: 'Copa de España',
-            modojuegocopaespana: 'Por puntos usando reglas y puntuaciones completasde la Copa de España'
+            copaespana: 'Regional ZonaRc',
+            modojuegocopaespana: 'Por puntos usando reglas y puntuaciones completas del Campeonato Regional de ZonaRc'
           }
         }
       }
