@@ -56,6 +56,12 @@ function getGatesPointExtras(playerZone) {
 }
 
 const gameExtras = {
+    controlTextValuesInit: () => {
+        return new Array(6).fill(0);
+    },
+    fiascoControlTextValuesInit: () => {
+      return new Array(2).fill(0);
+    },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
 
