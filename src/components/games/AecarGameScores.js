@@ -42,6 +42,7 @@ function getGameContent(t, player, zone, points) {
 
         childrenContent.push(<ControlTextArray
             controlTextValuesString='controlTextValues'
+            textToken={'description.penalizaciones'}
             player={player}
             zone={zone}
             steps={AecarGameScores.steps}
@@ -72,6 +73,12 @@ function getGatesPointExtras(playerZone) {
 }
 
 const gameExtras = {
+    controlTextValuesInit: () => {
+        return new Array(23).fill(0);
+    },
+    fiascoControlTextValuesInit: () => {
+      return new Array(2).fill(0);
+    },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
 

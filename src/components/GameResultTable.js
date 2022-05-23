@@ -3,6 +3,7 @@ import Utils from '../Utils';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import { IsrccGameScores } from './games/IsrccGameScores';
 import { AecarGameScores } from './games/AecarGameScores';
+import { CopaEspanaGameScores } from './games/CopaEspanaGameScores';
 import { useTranslation } from 'react-i18next';
 import { GameUtils } from '../model/Game';
 
@@ -20,6 +21,10 @@ function GameResultTable({game, isDraw}) {
 
     if(game.gameType === 2) {
         gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
+    }
+
+    if(game.gameType === 4) {
+        gameTypeTexts = Utils.tokenToTexts(CopaEspanaGameScores.texts);   
     }
 
     function onClickZone(event) {
@@ -100,6 +105,7 @@ function GameResultTable({game, isDraw}) {
                         <ControlTextArrayVisualization 
                             controlTextValues={game.gameType!==1 && zone.gateProgressionData ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
                             texts={gameTypeTexts} />
+
                         {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
                             <>
                                 <div className="left bold">{t('points.fiascos')}:</div>

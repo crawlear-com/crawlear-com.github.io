@@ -1,3 +1,8 @@
+import { gameExtras as AecarGameExtras } from '../components/games/AecarGameScores';
+import { gameExtras as IsrccGameExtras } from '../components/games/IsrccGameScores';
+import { gameExtras as CopaEspanaGameExtras } from '../components/games/CopaEspanaGameScores';
+import { gameExtras as Levante124GameExtras } from '../components/games/Levante124GameScores';
+
 const GAME_TYPE_AECAR = 0;
 const GAME_TYPE_KING = 1;
 const GAME_TYPE_ISRCC = 2;
@@ -30,7 +35,7 @@ class Game {
 }
 
 class GameUtils {
-    static init(game, forceInitZones) {
+    static init(game, controlTextValuesInit, fiascoControlTextValuesInit, forceInitZones) {
         game.players.forEach((player)=>{
             if (!player.zones || player.zones.length===0 || forceInitZones) {
                 player.zones = [];
@@ -46,13 +51,13 @@ class GameUtils {
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
                         gateProgressionData: new Array(game.gates[k]),
-                        fiascoControlTextValues: game.gameType === GAME_TYPE_AECAR || game.gameType === GAME_TYPE_LEVANTE ? new Array(2).fill(0) : new Array(5).fill(0)
+                        fiascoControlTextValues: fiascoControlTextValuesInit()
                     };
 
                     for (let j=0; j<game.gates[k]; j++) {
                         zone.gateProgressionData[j] = {
                             gatePoints: 0,
-                            controlTextValues: game.gameType === GAME_TYPE_AECAR ? new Array(23).fill(0) : new Array(6).fill(0)
+                            controlTextValues: controlTextValuesInit()
                         }
                     }
 
@@ -60,6 +65,58 @@ class GameUtils {
                 }
             }
         });
+    }
+
+    static getGameTypeControlTextValuesInit(gameType) {
+        let initFunct;
+    
+        switch (gameType) {
+            case 0:
+                initFunct = AecarGameExtras.controlTextValuesInit;
+                break;
+            case 1:
+                initFunct = AecarGameExtras.controlTextValuesInit;
+                break;
+            case 2:
+                initFunct = IsrccGameExtras.controlTextValuesInit;
+                break;
+            case 3:
+                initFunct = Levante124GameExtras.controlTextValuesInit;
+                break;    
+            case 4:
+                initFunct = CopaEspanaGameExtras.controlTextValuesInit;
+                break;
+            default: 
+                initFunct = IsrccGameExtras.controlTextValuesInit;
+        }
+    
+        return initFunct;
+    }
+    
+    static getGameTypeFiascoControlTextValuesInit(gameType) {
+        let initFunct;
+    
+        switch (gameType) {
+            case 0:
+                initFunct = AecarGameExtras.fiascoControlTextValuesInit;
+                break;
+            case 1:
+                initFunct = AecarGameExtras.fiascoControlTextValuesInit;
+                break;
+            case 2:
+                initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
+                break;
+            case 3:
+                initFunct = Levante124GameExtras.fiascoControlTextValuesInit;
+                break;
+            case 4:
+                initFunct = CopaEspanaGameExtras.fiascoControlTextValuesInit;
+                break;
+            default: 
+                initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
+        }
+    
+        return initFunct;
     }
 
     static redoPlayersIds(game) {

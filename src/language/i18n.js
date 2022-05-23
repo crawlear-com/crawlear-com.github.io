@@ -184,6 +184,31 @@ i18n
             noterminado: 'not finished',
             tocarcochenoavanzar: 'tocar coche (sin avanzar)',
             tocarcochepuerta: 'tocar coche (pasando puerta)',
+            empujarcocheacompañar:'Push car when accompanying',
+            reparacion30mins:'Repair in Pits maximum 30min',
+            conectarentiempoajuste: 'Connect transmitter and receiver at time of adjustment',
+            nococheparquecerrado: 'Do not have the car in a closed park at the beginning of the zone',
+            acaompañarcoche: 'Accompany car (car and a half)',
+            saltarsepuerta: 'Skip gate',
+            reparacionherramientasinsitu:'Repair with tools in situ',
+            manipulacionvehiculocarpa: 'Vehicle handling on the way to the tent',
+            saltarzona: 'Skip tricky zone (car + medium)',
+            tocarcocheiniciovuelco: 'Touch car when turning over',
+            vuelcoasistidotoque: 'Assisted rollover with a touch on the door or pilot',
+            vuelcoasistido: 'Assisted rollover',
+            caidapuente: 'Bridge fall',
+            recolocarpuente: 'Relocate on bridge',
+            utilizacionextrawinch: 'EXTRA use of the WINCH',
+            vuelcotoquepuertapiloto: 'Rollover touching door or pilot',
+            terminarzonasinobjeto: 'Zone end without an object',
+            tocarcoche: 'Touch the car',
+            tocarpuerta: 'Touch the door',
+            vuelconoasistido: 'Non-assisted rollover',
+            interferiraccionjuez: 'Interfere in the action of a Judge',
+            moverwinch: 'Move the vehicle >2cm when using the WINCH',
+            tiemposentrenamiento: 'Not respecting the training times',
+            unaruedaejetrasero: 'Pass only one wheel of the rear axle through the door',
+            tocarpuertaunarueda: 'To knock on a door and pass only 1 rear wheel through it'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -205,6 +230,8 @@ i18n
             aecar: 'AECAR Rules',
             levante124: '1/24 Levante Rules',
             modojuegolevante124: 'By points game with basic but effective rules and scores',
+            copaespana: 'Copa de España',
+            modojuegocopaespana: 'By points game with full Copa de España rules and scores'
           }
         }
       },
@@ -379,7 +406,34 @@ i18n
             fiascos: 'Fiascos',
             noterminado: 'no terminado',
             tocarcochenoavanzar: 'tocar coche (sin avanzar)',
-            tocarcochepuerta: 'tocar coche (pasando puerta)',            
+            tocarcochepuerta: 'tocar coche (pasando puerta)',
+            
+            empujarcocheacompañar:'Empujar coche al acompañar',
+            reparacion30mins:'Reparación en Boxes máximo 30min',
+            conectarentiempoajuste: 'Conectar emisora y receptor en tiempo de Ajuste',
+            nococheparquecerrado: 'No tener el coche en parque cerrado al inicio de la zona',
+            acaompañarcoche: 'Acompañar coche (coche y medio)',
+            saltarsepuerta: 'Saltarse Puerta',
+            reparacionherramientasinsitu:'Reparación con herramientas in situ',
+            manipulacionvehiculocarpa: 'Manipulación Vehículo en trayecto a carpa',
+            saltarzona: 'Saltar zona complicada (coche + medio)',
+            tocarcocheiniciovuelco: 'Tocar coche al iniciar vuelco',
+            vuelcoasistidotoque: 'Vuelco Asistido con toque en puerta o piloto',
+            vuelcoasistido: 'Vuelco Asistido ',
+            caidapuente: 'Caída de puente',
+            recolocarpuente: 'Recolocar en puente',
+            utilizacionextrawinch: 'Utilización EXTRA del WINCH',
+            vuelcotoquepuertapiloto: 'Vuelco con toque en puerta o piloto',
+            terminarzonasinobjeto: 'Terminar la zona sin algún objeto',
+            tocarcoche: 'Tocar el coche',
+            tocarpuerta: 'Tocar puerta',
+            vuelconoasistido: 'Vuelco no asistido',
+            interferiraccionjuez: 'Interferir en la acción de un Juez',
+            moverwinch: 'Mover el vehículo >2cm al sacar el WINCH',
+            tiemposentrenamiento: 'No respetar los tiempos de entrenamiento',
+            unaruedaejetrasero: 'Pasar solo una rueda del eje trasero por la puerta',
+            tocarpuertaunarueda: 'Tocar puerta y pasar solo 1 rueda trasera por ella'
+
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -401,6 +455,8 @@ i18n
             aecar: 'Reglas AECAR',
             levante124: '1/24 Levante',
             modojuegolevante124: 'Por puntos usando reglas y puntuaciones básicas pero efectivas',
+            copaespana: 'Copa de España',
+            modojuegocopaespana: 'Por puntos usando reglas y puntuaciones completasde la Copa de España'
           }
         }
       }

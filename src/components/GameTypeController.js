@@ -6,11 +6,15 @@ import '../resources/css/GameTypeController.scss';
 function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPointsType=0}) {
     const { t } = useTranslation();
     const labelsGameType = [t('gametype.aecar'), 
-            t('gametype.rey'),t('gametype.isrcc'),t('gametype.levante124')],
+            t('gametype.rey'),
+            t('gametype.isrcc'),
+            t('gametype.levante124'),
+            t('gametype.copaespana')],
         textsGameType = [<div>{t('gametype.modojuegoarcar')}</div>,
                 <div>{t('gametype.modojuegorey')}</div>,
                 <div>{t('gametype.modojuegoisrcc')}</div>,
-                <div>{t('gametype.modojuegolevante124')}</div>
+                <div>{t('gametype.modojuegolevante124')}</div>,
+                <div>{t('gametype.modojuegocopaespana')}</div>
             ];
 
     const [state, setState] = React.useState({
@@ -34,6 +38,7 @@ function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPoin
                     <option value={1}>{labelsGameType[1]}</option>
                     <option value={2}>{labelsGameType[2]}</option>
                     <option value={3}>{labelsGameType[3]}</option>
+                    <option value={4}>{labelsGameType[4]}</option>
                 </select>
             </label>
             <div className="gameSelectText smallText">{textsGameType[state.gameType]}</div>

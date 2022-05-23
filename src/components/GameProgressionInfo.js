@@ -1,22 +1,15 @@
 import { t } from 'i18next';
 import * as React from 'react';
-import Utils from '../Utils';
 import GameHeaderInfo from './GameHeaderInfo';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
-import { IsrccGameScores } from './games/IsrccGameScores';
-import { AecarGameScores } from './games/AecarGameScores';
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import { GameUtils } from '../model/Game';
 
 function GameProgressionInfo({game, gameProgression}) {
     const playersDone = [];
-    let i=0, gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts);
+    let i=0;
 
     if (game) {
-        if(game.gameType === 2) {
-            gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
-        }
-    
         playersDone.push(<GameHeaderInfo key="header" game={game}/>);
         
         game.players.forEach((player)=>{
@@ -35,7 +28,9 @@ function GameProgressionInfo({game, gameProgression}) {
                     const currentGameProgression = gameProgression[group][player.id][j];
         
                     if (currentGameProgression.status==="done") { 
-                        controlTextValues.push(<GameProgressionInfoRow gameProgression={currentGameProgression} gameTypeTexts={gameTypeTexts}/>);
+                        controlTextValues.push(<GameProgressionInfoRow 
+                            gameType={game.gameType}
+                            gameProgression={currentGameProgression} />);
                     } else if (currentGameProgression.status==="repair") {  
                         controlTextValues.push(t('points.reparacion').toUpperCase());
                     }

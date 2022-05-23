@@ -4,18 +4,38 @@ import { GameUtils } from '../../model/Game';
 import AecarPoints from './AecarPoints';
 import Analytics from '../../Analytics';
 
-const Levante124GameScores = {
-    steps: [1, 3, 5, 5, 5, 10],
-    maxValues: [0, 0, 0, 0],
-    texts: ['points.puerta',
-        'points.tocarcochenoavanzar',
-        'points.tocarcochepuerta',
-        'points.vuelco',
-        'points.saltopelota',
-        'points.reparacion'
-    ],
+const CopaEspanaGameScores = {
+    steps: [10, 10, 10, 10, 5, 5, 5, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 4],
+    maxValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+    texts: ['points.empujarcocheacompañar',
+    'points.reparacion30mins',
+    'points.conectarentiempoajuste',
+    'points.nococheparquecerrado',
+    'points.acaompañarcoche',
+    'points.saltarsepuerta',
+    'points.reparacionherramientasinsitu',
+    'points.manipulacionvehiculocarpa',
+    'points.saltarzona',
+    'points.tocarcocheiniciovuelco',
+    'points.vuelcoasistidotoque',
+    'points.vuelcoasistido',
+    'points.caidapuente',
+    'points.recolocarpuente',
+    'points.utilizacionextrawinch',
+    'points.vuelcotoquepuertapiloto',
+    'points.terminarzonasinobjeto',
+    'points.tocarcoche',
+    'points.tocarpuerta',
+    'points.vuelconoasistido',
+    'points.interferiraccionjuez',
+    'points.moverwinch',
+    'points.tiemposentrenamiento',
+    'points.unaruedaejetrasero',
+    'points.tocarpuertaunarueda'],
+
     fiascoTexts: ['points.bateria',
-    'points.reparacion'],
+        'points.reparacion'],
     fiascoSteps: [1,1],
     fiascoMaxValues: [1,1]
 };
@@ -25,20 +45,19 @@ function getGameContent(t, player, zone, points) {
 
     childrenContent.push(<ControlTextArray
         controlTextValuesString='controlTextValues'
-        textToken={'description.penalizaciones'}
         player={player}
         zone={zone}
-        steps={Levante124GameScores.steps}
-        maxValues={Levante124GameScores.maxValues}
-        texts={Levante124GameScores.texts}
+        steps={CopaEspanaGameScores.steps}
+        maxValues={CopaEspanaGameScores.maxValues}
+        texts={CopaEspanaGameScores.texts}
         isClosed={false} />);
 
     childrenContent.push(<ControlTextArray
         textToken={'points.fiascos'}
         controlTextValuesString='fiascoControlTextValues'
-        steps={Levante124GameScores.fiascoSteps}
-        maxValues={Levante124GameScores.fiascoMaxValues}
-        texts={Levante124GameScores.fiascoTexts}
+        steps={CopaEspanaGameScores.fiascoSteps}
+        maxValues={CopaEspanaGameScores.fiascoMaxValues}
+        texts={CopaEspanaGameScores.fiascoTexts}
         player={player}
         zone={zone}
         isClosed={true}
@@ -56,6 +75,12 @@ function getGatesPointExtras(playerZone) {
 }
 
 const gameExtras = {
+    controlTextValuesInit: () => {
+        return new Array(25).fill(0);
+    },
+    fiascoControlTextValuesInit: () => {
+      return new Array(2).fill(0);
+    },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
 
@@ -103,8 +128,8 @@ const gameExtras = {
         return result;
     },
     doPageView: ()=> {
-        Analytics.pageview('/levante124/');
+        Analytics.pageview('/copaespana/');
     }
 };
 
-export { Levante124GameScores, getGameContent, gameExtras };
+export { CopaEspanaGameScores, getGameContent, gameExtras };

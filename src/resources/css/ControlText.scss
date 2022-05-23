@@ -3,6 +3,23 @@
     display: flex;
     line-height: 40px;
     text-align: left;
+    background-color: rgb(30 30 30 / 32%);
+    margin-bottom: 5px;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.controlTextValue {
+    background-color: inherit;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 15px;
+}
+
+.controlTextText {
+    min-width: 153px;
+    padding: 10px 0;
 }
 
 .controlTextTitle {

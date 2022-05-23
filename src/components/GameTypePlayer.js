@@ -3,13 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from './games/AecarGameScores';
 import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from './games/IsrccGameScores';
 import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from './games/Levante124GameScores';
+import { getGameContent as getCopaEspanaGameContent, gameExtras as copaEspanaExtras } from './games/CopaEspanaGameScores';
+import { gameExtras as kingExtras } from './games/KingGameScores';
 import KingGame from './games/KingGame';
 import CoreGame from './games/CoreGame';
+import { GameContext } from './games/GameContext';
 
 const GAME_TYPE_AECAR = 0;
 const GAME_TYPE_KING = 1;
 const GAME_TYPE_ISRCC = 2;
 const GAME_TYPE_LEVANTE = 3;
+const GAME_TYPE_COPAESPANA = 4;
 
 function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     const { t } = useTranslation();
@@ -26,6 +30,11 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     } else if (game.gameType === GAME_TYPE_LEVANTE) {
         childrenContent = getLevanteGameContent(t, player, zone, game.players[player].zones[zone].points);
         gameExtras = levante124Extras;
+    } else if (game.gameType === GAME_TYPE_COPAESPANA) {
+        childrenContent = getCopaEspanaGameContent(t, player, zone, game.players[player].zones[zone].points);
+        gameExtras = copaEspanaExtras;
+    } else if (game.gameType === GAME_TYPE_KING) {
+        gameExtras = kingExtras;
     }
     
     React.useEffect(()=>{
@@ -44,10 +53,8 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
         </CoreGame>);
     } else {
         elementsToRender.push(<KingGame
-            game={game} 
             key={0}
-            playerIndex={player}
-            zoneIndex={zone}
+            game={game} 
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}
@@ -55,7 +62,11 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
         />);
     }
 
-    return elementsToRender;
+    return (
+        <GameContext.Provider value={{ game: game }}>
+            {elementsToRender}
+        </GameContext.Provider>);
+    
 }
 
 export default GameTypePlayer;

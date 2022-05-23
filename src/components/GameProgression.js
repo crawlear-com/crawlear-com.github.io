@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
-import { AecarGameScores } from './games/AecarGameScores';
-import { IsrccGameScores } from './games/IsrccGameScores';
-import Utils from '../Utils';
 import { GameUtils } from '../model/Game';
 
 const STATUS_WAITING = 'waiting';
@@ -17,11 +14,7 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
     const playersDone = [];
     const gameProgressionInfoRef = React.useRef();
-    let i=0, gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts);
-
-    if(game.gameType === 2) {
-        gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
-    }
+    let i=0;
 
     function prepareOnClick(event, player) {
         const zone = Number(event.target.closest('[data-zone]').getAttribute("data-zone"));
@@ -134,8 +127,9 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
 
             if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[player.group][selectedPlayer][selectedZone].data) {
                 playersDone.push(<div className='gameProgressionInfoItem smallText rounded rounded2'>
-                    <GameProgressionInfoRow innerRef={gameProgressionInfoRef} 
-                        gameTypeTexts={gameTypeTexts}
+                    <GameProgressionInfoRow 
+                        gameType={game.gameType}
+                        innerRef={gameProgressionInfoRef} 
                         key={`${i+j}Info`} 
                         gameProgression={gameProgression[player.group][selectedPlayer][selectedZone]} />
                 </div>);
