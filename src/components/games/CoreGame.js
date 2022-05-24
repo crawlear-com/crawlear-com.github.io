@@ -7,8 +7,7 @@ import { GameUtils } from '../../model/Game';
 import Utils from '../../Utils';
 
 import "rc-slider/assets/index.css";
-import '../../resources/css/games/AecarGame.scss'
-import '../../resources/css/games/Isrcc.scss'
+import '../../resources/css/games/CoreGame.scss'
 import '../../resources/css/rcSlider.scss'
 
 function CoreGame({
@@ -139,6 +138,23 @@ function CoreGame({
         setState(newState);
     }
 
+    function onGateProgressionButtonClick(event) {
+        const isPlus = (event.target.id === 'gatesPlusButton'),
+            zones = state.game.players[playerIndex].zones,
+            currentZone = zones[zoneIndex],
+            numGates = state.game.gates[zoneIndex];
+
+        if (isPlus) {
+            if (currentZone.gateProgression < numGates) {
+                onGateProgressionChange(currentZone.gateProgression+1);
+            }
+        } else {
+            if (currentZone.gateProgression > 0) {
+                onGateProgressionChange(currentZone.gateProgression-1);
+            }
+        }
+    }
+
     function onFiascoChangeScore(value, control) {
         const newState = {...state},
             players = newState.game.players,
@@ -227,9 +243,10 @@ function CoreGame({
                 
             <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
-        <div className="controlTextContainer info rounded rounded2">
+        <div className="gateProgressionContainer controlTextContainer info rounded rounded2">
             {childrenContent[2]}
             
+            {t('description.avancepuerta')}: {playerZone.gateProgression}
             <SliderWithTooltip
                     step={1}
                     min={0}
@@ -242,8 +259,9 @@ function CoreGame({
                         return playerZone.gateProgression < currentGame.gates[zoneIndex] ? 
                             String(value).concat('-').concat(playerZone.gateProgressionData[playerZone.gateProgression].gatePoints) : 
                             '-'; 
-                    }}
-                />
+                    }}/>
+            <button id='gatesPlusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextPlus'>+</button>
+            <button id='gatesMinusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextMinus'>-</button>
         </div>
         
         <div className="controlTextContainer rounded rounded2">
