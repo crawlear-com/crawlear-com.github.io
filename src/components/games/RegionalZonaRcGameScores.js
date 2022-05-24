@@ -48,17 +48,17 @@ function getGameContent(t, player, zone, points) {
         controlTextValuesString='controlTextValues'
         player={player}
         zone={zone}
-        steps={CopaEspanaGameScores.steps}
-        maxValues={CopaEspanaGameScores.maxValues}
-        texts={CopaEspanaGameScores.texts}
+        steps={RegionalZonaRcGameScores.steps}
+        maxValues={RegionalZonaRcGameScores.maxValues}
+        texts={RegionalZonaRcGameScores.texts}
         isClosed={false} />);
 
     childrenContent.push(<ControlTextArray
         textToken={'points.fiascos'}
         controlTextValuesString='fiascoControlTextValues'
-        steps={CopaEspanaGameScores.fiascoSteps}
-        maxValues={CopaEspanaGameScores.fiascoMaxValues}
-        texts={CopaEspanaGameScores.fiascoTexts}
+        steps={RegionalZonaRcGameScores.fiascoSteps}
+        maxValues={RegionalZonaRcGameScores.fiascoMaxValues}
+        texts={RegionalZonaRcGameScores.fiascoTexts}
         player={player}
         zone={zone}
         isClosed={true}
