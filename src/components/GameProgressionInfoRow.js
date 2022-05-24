@@ -3,7 +3,7 @@ import * as React from 'react';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 
 import { AecarGameScores } from './games/AecarGameScores';
-import { CopaEspanaGameScores } from './games/CopaEspanaGameScores';
+import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
 import { Levante124GameScores } from './games/Levante124GameScores';
 import { IsrccGameScores } from './games/IsrccGameScores';
 
@@ -34,8 +34,8 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
         }
 
         if(gameType ===4) {
-            gameTypeTexts = Utils.tokenToTexts(CopaEspanaGameScores.texts);   
-            fiascoGameTypeTexts = Utils.tokenToTexts(CopaEspanaGameScores.fiascoTexts);
+            gameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.fiascoTexts);
         }
             
         return <>

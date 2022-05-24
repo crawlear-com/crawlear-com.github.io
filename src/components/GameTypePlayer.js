@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from './games/AecarGameScores';
 import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from './games/IsrccGameScores';
 import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from './games/Levante124GameScores';
-import { getGameContent as getCopaEspanaGameContent, gameExtras as copaEspanaExtras } from './games/CopaEspanaGameScores';
+import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from './games/RegionalZonaRcGameScores';
 import { gameExtras as kingExtras } from './games/KingGameScores';
 import KingGame from './games/KingGame';
 import CoreGame from './games/CoreGame';
@@ -31,8 +31,8 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
         childrenContent = getLevanteGameContent(t, player, zone, game.players[player].zones[zone].points);
         gameExtras = levante124Extras;
     } else if (game.gameType === GAME_TYPE_COPAESPANA) {
-        childrenContent = getCopaEspanaGameContent(t, player, zone, game.players[player].zones[zone].points);
-        gameExtras = copaEspanaExtras;
+        childrenContent = getRegionalZonaRcGameContent(t, player, zone, game.players[player].zones[zone].points);
+        gameExtras = regionalZonaRcExtras;
     } else if (game.gameType === GAME_TYPE_KING) {
         gameExtras = kingExtras;
     }

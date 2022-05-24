@@ -4,7 +4,7 @@ import { GameUtils } from '../../model/Game';
 import AecarPoints from './AecarPoints';
 import Analytics from '../../Analytics';
 
-const CopaEspanaGameScores = {
+const RegionalZonaRcGameScores = {
     steps: [-5, 10, 10, 10, 10, 5, 5, 5, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 4],
     maxValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
@@ -137,4 +137,4 @@ const gameExtras = {
     }
 };
 
-export { CopaEspanaGameScores, getGameContent, gameExtras };
+export { RegionalZonaRcGameScores, getGameContent, gameExtras };
