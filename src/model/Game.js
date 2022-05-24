@@ -200,6 +200,18 @@ class GameUtils {
             return elem === window.crawlear.user.uid;
         });
     }
+
+    static getMaxGroupNumber(game) {
+        let maxGroup = 0;
+
+        game.players.forEach((player)=>{
+            if(maxGroup < player.group) {
+                maxGroup = player.group;
+            }
+        });
+
+        return maxGroup;
+    }
 }
 
 export { Game, GameUtils };

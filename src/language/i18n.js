@@ -147,7 +147,8 @@ i18n
             nopeticionespresencia: 'No presence requests',
             de: 'De:',
             aceptar: 'Accept',
-            reclamarpresencia: 'Claim presence'
+            reclamarpresencia: 'Claim presence',
+            entrenamientos: 'Mange trainings'
           },
           points: {
             vuelco: 'overturn',
@@ -208,7 +209,8 @@ i18n
             moverwinch: 'Move the vehicle >2cm when using the WINCH',
             tiemposentrenamiento: 'Not respecting the training times',
             unaruedaejetrasero: 'Pass only one wheel of the rear axle through the door',
-            tocarpuertaunarueda: 'To knock on a door and pass only 1 rear wheel through it'
+            tocarpuertaunarueda: 'To knock on a door and pass only 1 rear wheel through it',
+            puertabonificada: 'gate bonification'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -370,7 +372,8 @@ i18n
               nopeticionespresencia: 'Sin peticiones de presencia',
               de: 'de:',
               aceptar: 'Aceptar',
-              reclamarpresencia: 'Reclamar presencia'
+              reclamarpresencia: 'Reclamar presencia',
+              entrenamientos: 'Gestionar entrenamientos'
           },
           points: {
             vuelco: 'vuelco',
@@ -432,8 +435,8 @@ i18n
             moverwinch: 'Mover el vehículo >2cm al sacar el WINCH',
             tiemposentrenamiento: 'No respetar los tiempos de entrenamiento',
             unaruedaejetrasero: 'Pasar solo una rueda del eje trasero por la puerta',
-            tocarpuertaunarueda: 'Tocar puerta y pasar solo 1 rueda trasera por ella'
-
+            tocarpuertaunarueda: 'Tocar puerta y pasar solo 1 rueda trasera por ella',
+            puertabonificada: 'Puerta bonificada'
           },
           gametype: {
             partidarapida: 'Partida rápida',

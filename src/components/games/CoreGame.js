@@ -73,7 +73,8 @@ function CoreGame({
             currentGame = newState.game,
             players = currentGame.players,
             playerZone = players[playerIndex].zones[zoneIndex],
-            playerCurrentGate = playerZone.gateProgressionData[playerZone.gateProgression];
+            newGameProgressionData = [...playerZone.gateProgressionData],
+            playerCurrentGate = newGameProgressionData[playerZone.gateProgression];
 
         const pointsFiasco = ()=>{return currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0};
         const timeFiasco = ()=>{return currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0};
@@ -85,10 +86,11 @@ function CoreGame({
                 playerCurrentGate.controlTextValues[control] += value;
                 playerZone.points += value;
 
-                if (playerZone.gateProgression<currentGame.gates[zoneIndex] && playerCurrentGate.gatePoints+value >=0) {
+                if (playerZone.gateProgression<currentGame.gates[zoneIndex]) {
                     playerCurrentGate.gatePoints += value;
                 }
                 gameExtras.onChangeScore(playerZone);
+                playerZone.gateProgressionData = newGameProgressionData;
                 setState(newState);
 
                 if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
