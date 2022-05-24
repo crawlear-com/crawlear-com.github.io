@@ -36,7 +36,7 @@ function Landing({onLoggin}) {
             <p>
                 <div>{t('content.colaboraciones')}</div>
                 <img className='collaborateLogo' src={Levante124Logo} alt="Levante 1/24 Logo" />
-                <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website"><img className='collaborateLogo' src={ZonaclubrcLogo} alt="CopaEspana Logo" /></a>
+                <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website"><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
             </p>
         </div>
         </>
