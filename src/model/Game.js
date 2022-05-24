@@ -1,6 +1,6 @@
 import { gameExtras as AecarGameExtras } from '../components/games/AecarGameScores';
 import { gameExtras as IsrccGameExtras } from '../components/games/IsrccGameScores';
-import { gameExtras as CopaEspanaGameExtras } from '../components/games/CopaEspanaGameScores';
+import { gameExtras as RegionalZonaRcGameScores } from '../components/games/RegionalZonaRcGameScores';
 import { gameExtras as Levante124GameExtras } from '../components/games/Levante124GameScores';
 
 const GAME_TYPE_AECAR = 0;
@@ -84,7 +84,7 @@ class GameUtils {
                 initFunct = Levante124GameExtras.controlTextValuesInit;
                 break;    
             case 4:
-                initFunct = CopaEspanaGameExtras.controlTextValuesInit;
+                initFunct = RegionalZonaRcGameScores.controlTextValuesInit;
                 break;
             default: 
                 initFunct = IsrccGameExtras.controlTextValuesInit;
@@ -110,7 +110,7 @@ class GameUtils {
                 initFunct = Levante124GameExtras.fiascoControlTextValuesInit;
                 break;
             case 4:
-                initFunct = CopaEspanaGameExtras.fiascoControlTextValuesInit;
+                initFunct = RegionalZonaRcGameScores.fiascoControlTextValuesInit;
                 break;
             default: 
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
@@ -199,6 +199,18 @@ class GameUtils {
         return owners && owners.find((elem)=>{
             return elem === window.crawlear.user.uid;
         });
+    }
+
+    static getMaxGroupNumber(game) {
+        let maxGroup = 0;
+
+        game.players.forEach((player)=>{
+            if(maxGroup < player.group) {
+                maxGroup = player.group;
+            }
+        });
+
+        return maxGroup;
     }
 }
 

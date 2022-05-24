@@ -4,11 +4,12 @@ import { GameUtils } from '../../model/Game';
 import AecarPoints from './AecarPoints';
 import Analytics from '../../Analytics';
 
-const CopaEspanaGameScores = {
-    steps: [10, 10, 10, 10, 5, 5, 5, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 4],
-    maxValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+const RegionalZonaRcGameScores = {
+    steps: [-5, 10, 10, 10, 10, 5, 5, 5, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 4],
+    maxValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    texts: ['points.empujarcocheacompañar',
+    texts: ['points.puertabonificada',
+    'points.empujarcocheacompañar',
     'points.reparacion30mins',
     'points.conectarentiempoajuste',
     'points.nococheparquecerrado',
@@ -47,17 +48,17 @@ function getGameContent(t, player, zone, points) {
         controlTextValuesString='controlTextValues'
         player={player}
         zone={zone}
-        steps={CopaEspanaGameScores.steps}
-        maxValues={CopaEspanaGameScores.maxValues}
-        texts={CopaEspanaGameScores.texts}
+        steps={RegionalZonaRcGameScores.steps}
+        maxValues={RegionalZonaRcGameScores.maxValues}
+        texts={RegionalZonaRcGameScores.texts}
         isClosed={false} />);
 
     childrenContent.push(<ControlTextArray
         textToken={'points.fiascos'}
         controlTextValuesString='fiascoControlTextValues'
-        steps={CopaEspanaGameScores.fiascoSteps}
-        maxValues={CopaEspanaGameScores.fiascoMaxValues}
-        texts={CopaEspanaGameScores.fiascoTexts}
+        steps={RegionalZonaRcGameScores.fiascoSteps}
+        maxValues={RegionalZonaRcGameScores.fiascoMaxValues}
+        texts={RegionalZonaRcGameScores.fiascoTexts}
         player={player}
         zone={zone}
         isClosed={true}
@@ -76,7 +77,7 @@ function getGatesPointExtras(playerZone) {
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(25).fill(0);
+        return new Array(27).fill(0);
     },
     fiascoControlTextValuesInit: () => {
       return new Array(2).fill(0);
@@ -112,7 +113,11 @@ const gameExtras = {
                 content;
 
             if (i < gateProgression) {
-                classname += 'colorGreen';
+                if(gateData[i].controlTextValues[0] < 0) {
+                    classname += 'colorGreen';
+                } else {
+                    classname += 'colorClearGrey';
+                }
                 content = '-';
             } else {
                 classname += 'colorGrey';
@@ -132,4 +137,4 @@ const gameExtras = {
     }
 };
 
-export { CopaEspanaGameScores, getGameContent, gameExtras };
+export { RegionalZonaRcGameScores, getGameContent, gameExtras };

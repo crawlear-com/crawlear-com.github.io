@@ -85,7 +85,7 @@ function CoreGame({
                 playerCurrentGate.controlTextValues[control] += value;
                 playerZone.points += value;
 
-                if (playerZone.gateProgression<currentGame.gates[zoneIndex] && playerCurrentGate.gatePoints+value >=0) {
+                if (playerZone.gateProgression<currentGame.gates[zoneIndex]) {
                     playerCurrentGate.gatePoints += value;
                 }
                 gameExtras.onChangeScore(playerZone);

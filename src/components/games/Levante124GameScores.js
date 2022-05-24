@@ -45,11 +45,11 @@ function getGameContent(t, player, zone, points) {
     />);
 
     childrenContent.push(<AecarPoints 
-        player={player}
-        zone={zone} />);    
+            player={player}
+            zone={zone} />);
 
-    return childrenContent;
-}
+        return childrenContent;
+    }
 
 function getGatesPointExtras(playerZone) {
     playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints;

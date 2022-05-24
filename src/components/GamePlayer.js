@@ -9,6 +9,7 @@ import GameTypePlayer from '../components/GameTypePlayer';
 import RepairProgression from './RepairProgression';
 import GameProgressionDirector from './GameProgressionDirector';
 import PresenceButton from './PresenceButton';
+import TrainingController from './games/TrainingController';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';
@@ -16,6 +17,7 @@ import WinnerTable from '../components/WinnerTable';
 const GAME_STATUS_CREATED = 0;
 const GAME_STATUS_PLAYING = 1;
 const GAME_STATUS_FINISHED = 2;
+const GAME_STATUS_TRAINING = 3;
 
 const STATUS_WAITING = 'waiting';
 const STATUS_PLAYING = 'playing';
@@ -217,6 +219,14 @@ function GamePlayer({inGame, onBackButtonClick}) {
         fb.setGameProgression(game.gid, uid, jidGroup, zoneIndex, zone);*/
     }
 
+    function goTraining() {
+        setState(GAME_STATUS_TRAINING);
+    }
+
+    function onTrainingEnd() {
+        setState(GAME_STATUS_CREATED);
+    }
+
     if (game.gameType !== GAME_KING) {
         if (state === GAME_STATUS_CREATED) {
             const directorProgression = [];
@@ -246,7 +256,9 @@ function GamePlayer({inGame, onBackButtonClick}) {
                         fromName={window.crawlear.user.displayName} />
                 </>;
             }
-
+/*                <button className='trainingButton importantNote'
+                    onClick={goTraining}>{t('description.entrenamientos')}</button>
+*/
             view = <>
                 {directorProgression}
                 <div className="trackJudgeContainer rounded rounded3">
@@ -284,6 +296,8 @@ function GamePlayer({inGame, onBackButtonClick}) {
         } else if (state === GAME_STATUS_FINISHED) { 
             view = <div className="gameList"><WinnerTable game={game} />
             <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
+        } else if(state === GAME_STATUS_TRAINING) {
+            view = <TrainingController game={game} onTrainingEnd={onTrainingEnd} />
         }
     } else {
         if (state === GAME_STATUS_CREATED || view === GAME_STATUS_PLAYING) { 

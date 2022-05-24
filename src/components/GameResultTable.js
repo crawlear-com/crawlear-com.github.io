@@ -3,7 +3,7 @@ import Utils from '../Utils';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import { IsrccGameScores } from './games/IsrccGameScores';
 import { AecarGameScores } from './games/AecarGameScores';
-import { CopaEspanaGameScores } from './games/CopaEspanaGameScores';
+import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
 import { useTranslation } from 'react-i18next';
 import { GameUtils } from '../model/Game';
 
@@ -24,7 +24,7 @@ function GameResultTable({game, isDraw}) {
     }
 
     if(game.gameType === 4) {
-        gameTypeTexts = Utils.tokenToTexts(CopaEspanaGameScores.texts);   
+        gameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.texts);   
     }
 
     function onClickZone(event) {
