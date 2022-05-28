@@ -103,10 +103,10 @@ function GameResultTable({game, isDraw}) {
                 <tr key={i+j+2} className="closed">
                     <td colSpan={7}>
                         <ControlTextArrayVisualization 
-                            controlTextValues={game.gameType!==1 && zone.gateProgressionData ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
+                            controlTextValues={game.gameType!==1 && zone.gateProgressionData.length ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
                             texts={gameTypeTexts} />
 
-                        {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
+                        {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length ? 
                             <>
                                 <div className="left bold">{t('points.fiascos')}:</div>
                                 <ControlTextArrayVisualization 
