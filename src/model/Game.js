@@ -2,6 +2,7 @@ import { gameExtras as AecarGameExtras } from '../components/games/AecarGameScor
 import { gameExtras as IsrccGameExtras } from '../components/games/IsrccGameScores';
 import { gameExtras as RegionalZonaRcGameScores } from '../components/games/RegionalZonaRcGameScores';
 import { gameExtras as Levante124GameExtras } from '../components/games/Levante124GameScores';
+import { gameExtras as KingGameExtras } from '../components/games/KingGameScores';
 
 const GAME_TYPE_AECAR = 0;
 const GAME_TYPE_KING = 1;
@@ -102,7 +103,7 @@ class GameUtils {
                 initFunct = AecarGameExtras.controlTextValuesInit;
                 break;
             case 1:
-                initFunct = AecarGameExtras.controlTextValuesInit;
+                initFunct = KingGameExtras.controlTextValuesInit;
                 break;
             case 2:
                 initFunct = IsrccGameExtras.controlTextValuesInit;
@@ -128,7 +129,7 @@ class GameUtils {
                 initFunct = AecarGameExtras.fiascoControlTextValuesInit;
                 break;
             case 1:
-                initFunct = AecarGameExtras.fiascoControlTextValuesInit;
+                initFunct = KingGameExtras.fiascoControlTextValuesInit;
                 break;
             case 2:
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
