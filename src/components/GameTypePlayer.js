@@ -17,23 +17,24 @@ const GAME_TYPE_COPAESPANA = 4;
 
 function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     const { t } = useTranslation();
+    const [gameState, setGameState] = React.useState(game);
     const elementsToRender = [];
     let childrenContent,
         gameExtras;
 
-    if (game.gameType === GAME_TYPE_AECAR) {
-        childrenContent = getAecarGameContent(t, player, zone, game.players[player].zones[zone].points);
+    if (gameState.gameType === GAME_TYPE_AECAR) {
+        childrenContent = getAecarGameContent(t, player, zone, gameState.players[player].zones[zone].points);
         gameExtras = aecarExtras;
-    } else if (game.gameType === GAME_TYPE_ISRCC) {
-        childrenContent = getIsrccGameContent(t, player, zone, game.players[player].zones[zone].points);
+    } else if (gameState.gameType === GAME_TYPE_ISRCC) {
+        childrenContent = getIsrccGameContent(t, player, zone, gameState.players[player].zones[zone].points);
         gameExtras = isrccExtras;
-    } else if (game.gameType === GAME_TYPE_LEVANTE) {
-        childrenContent = getLevanteGameContent(t, player, zone, game.players[player].zones[zone].points);
+    } else if (gameState.gameType === GAME_TYPE_LEVANTE) {
+        childrenContent = getLevanteGameContent(t, player, zone, gameState.players[player].zones[zone].points);
         gameExtras = levante124Extras;
-    } else if (game.gameType === GAME_TYPE_COPAESPANA) {
-        childrenContent = getRegionalZonaRcGameContent(t, player, zone, game.players[player].zones[zone].points);
+    } else if (gameState.gameType === GAME_TYPE_COPAESPANA) {
+        childrenContent = getRegionalZonaRcGameContent(t, player, zone, gameState.players[player].zones[zone].points);
         gameExtras = regionalZonaRcExtras;
-    } else if (game.gameType === GAME_TYPE_KING) {
+    } else if (gameState.gameType === GAME_TYPE_KING) {
         gameExtras = kingExtras;
     }
     
@@ -41,9 +42,9 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
         gameExtras.doPageView();
     },[]);
 
-    if (game.gameType !== GAME_TYPE_KING) {
+    if (gameState.gameType !== GAME_TYPE_KING) {
         elementsToRender.push(<CoreGame 
-            game={game}
+            game={gameState}
             onGameEnd={(game)=>{onGameEnd(game)}}
             onRepair={onRepair}
             playerIndex={player}
@@ -54,7 +55,7 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     } else {
         elementsToRender.push(<KingGame
             key={0}
-            game={game} 
+            game={gameState} 
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}
@@ -63,7 +64,7 @@ function GameTypePlayer({game, player, zone, onGameEnd, onRepair}) {
     }
 
     return (
-        <GameContext.Provider value={{ game: game }}>
+        <GameContext.Provider value={{ game: gameState, setGame: setGameState }}>
             {elementsToRender}
         </GameContext.Provider>);
     

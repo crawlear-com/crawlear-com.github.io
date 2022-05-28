@@ -2,6 +2,7 @@ import { gameExtras as AecarGameExtras } from '../components/games/AecarGameScor
 import { gameExtras as IsrccGameExtras } from '../components/games/IsrccGameScores';
 import { gameExtras as RegionalZonaRcGameScores } from '../components/games/RegionalZonaRcGameScores';
 import { gameExtras as Levante124GameExtras } from '../components/games/Levante124GameScores';
+import { gameExtras as KingGameExtras } from '../components/games/KingGameScores';
 
 const GAME_TYPE_AECAR = 0;
 const GAME_TYPE_KING = 1;
@@ -50,6 +51,7 @@ class GameUtils {
                         gateProgression: 0,
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
+                        handicap: 0,
                         gateProgressionData: new Array(game.gates[k]),
                         fiascoControlTextValues: fiascoControlTextValuesInit()
                     };
@@ -67,6 +69,32 @@ class GameUtils {
         });
     }
 
+    static getGameTypeBodyClassName(gameType) {
+        let classname;
+    
+        switch (gameType) {
+            case 0:
+                classname = 'aecar';
+                break;
+            case 1:
+                classname = 'king';
+                break;
+            case 2:
+                classname = 'irscc';
+                break;
+            case 3:
+                classname = 'levante';
+                break;    
+            case 4:
+                classname = 'regionalzonarc';
+                break;
+            default: 
+                classname = '';
+        }
+    
+        return classname;
+    }
+
     static getGameTypeControlTextValuesInit(gameType) {
         let initFunct;
     
@@ -75,7 +103,7 @@ class GameUtils {
                 initFunct = AecarGameExtras.controlTextValuesInit;
                 break;
             case 1:
-                initFunct = AecarGameExtras.controlTextValuesInit;
+                initFunct = KingGameExtras.controlTextValuesInit;
                 break;
             case 2:
                 initFunct = IsrccGameExtras.controlTextValuesInit;
@@ -101,7 +129,7 @@ class GameUtils {
                 initFunct = AecarGameExtras.fiascoControlTextValuesInit;
                 break;
             case 1:
-                initFunct = AecarGameExtras.fiascoControlTextValuesInit;
+                initFunct = KingGameExtras.fiascoControlTextValuesInit;
                 break;
             case 2:
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
@@ -142,13 +170,14 @@ class GameUtils {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
     
         return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
-            (game.maxPoints <= playerZone.points && game.maxPoints > 0) ||
-            ((game.maxTime + 60000) <= tickTime && game.maxTime > 0));
+            (this.isPointsFiasco(game, playerZone)) ||
+            (this.isTimeFiasco(game, tickTime)));
     }
 
     static isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
-        let fiasco = false, gate = 0;
+        let fiasco = false, 
+            gate = 0;
     
         while(!fiasco && gate<game.gates[zoneIndex]) {
             let control = 0;
@@ -160,11 +189,18 @@ class GameUtils {
                     control++;
                 }
             }
-    
             gate++;
         }
-    
+
         return fiasco;
+    }
+
+    static isPointsFiasco(game, playerZone) {
+        return (game.maxPoints <= playerZone.points && game.maxPoints > 0);
+    }
+
+    static isTimeFiasco(game, tickTime) {
+        return ((game.maxTime + game.courtesyTime) <= tickTime && game.maxTime > 0);
     }
 
     static isNonPresentedFiasco(game, playerIndex, zoneIndex) {

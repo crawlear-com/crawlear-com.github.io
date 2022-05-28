@@ -94,7 +94,7 @@ function initControlTestValues(game) {
         GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
         false);
     for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].zones[0].controlTextValues = new Array(7).fill(0);
+        newState.game.players[i].zones[0].controlTextValues = new Array(6).fill(0);
     }
 
     return newState;

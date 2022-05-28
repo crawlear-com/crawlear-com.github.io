@@ -10,6 +10,7 @@ import RepairProgression from './RepairProgression';
 import GameProgressionDirector from './GameProgressionDirector';
 import PresenceButton from './PresenceButton';
 import TrainingController from './games/TrainingController';
+import { GameProgressionContext } from './games/GameProgressionContext';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';
@@ -75,20 +76,6 @@ function GamePlayer({inGame, onBackButtonClick}) {
             setGameProgression({...gameProgressionRef.current, ...res});
         });
     },[]);
-
-    /*React.useEffect(()=>{
-        Object.entries(gameProgressionRef.current).forEach((group, gIndex)=>{
-            Object.entries(group[1]).forEach((player, playerIndex)=>{
-                Object.entries(player[1]).forEach((zone, zoneIndex)=>{
-                    if (zone[1].status === 'done' || zone[1].status === 'repair') {
-                        game.players[playerIndex].zones[zoneIndex] = zone[1].data;
-                    }
-                });    
-            });
-
-            setGame(game);
-        });
-    },[gameProgressionRef.current]);*/
 
     function onZoneClick(player, zone) {
         setZone(zone);
@@ -210,15 +197,6 @@ function GamePlayer({inGame, onBackButtonClick}) {
         fb.setGameProgression(game.gid, id, group, zoneIndex, zone);
     }
 
-    function onRepairTimeFiasco(uid, zoneIndex, zone) {
-        /*const progressionData = zone.data;
-
-        progressionData.fiascoControlTextValues[1] = 1;
-        zone.status = STATUS_WAITING;
-        delete zone.repairData;
-        fb.setGameProgression(game.gid, uid, jidGroup, zoneIndex, zone);*/
-    }
-
     function goTraining() {
         setState(GAME_STATUS_TRAINING);
     }
@@ -230,8 +208,9 @@ function GamePlayer({inGame, onBackButtonClick}) {
     if (game.gameType !== GAME_KING) {
         if (state === GAME_STATUS_CREATED) {
             const directorProgression = [];
+            const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
 
-            if (GameUtils.isCurrentUserIsOwner(game.owner)) {
+            if (isCurrentUserIsOwner) {
                 directorProgression.push(<div className="directorContainer rounded rounded3">
                         <div className="bold">{t('description.directordepartida')}</div>
                         <br />
@@ -242,7 +221,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
             if (game.jids.find(elem=>elem===window.crawlear.user.uid)) {
                 let buton = <></>;
 
-                if (player.group === jidGroup) {
+                if (player.group === jidGroup || isCurrentUserIsOwner) {
                     buton = <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>;
                 }
                 judgeProgression = <>
@@ -256,18 +235,18 @@ function GamePlayer({inGame, onBackButtonClick}) {
                         fromName={window.crawlear.user.displayName} />
                 </>;
             }
-/*                <button className='trainingButton importantNote'
-                    onClick={goTraining}>{t('description.entrenamientos')}</button>
-*/
-            view = <>
+
+/*            <button className='trainingButton importantNote'
+            onClick={goTraining}>{t('description.entrenamientos')}</button> */
+            view = <GameProgressionContext.Provider value={[gameProgression, setGameProgression]}>
+                
                 {directorProgression}
                 <div className="trackJudgeContainer rounded rounded3">
                     <div className="bold">{t('description.juezdepista')}</div>
                     <GameProgression onZoneClick={onZoneClick} 
                         game={game}
                         jidGroup={jidGroup}
-                        players={game.players}
-                        gameProgression={gameProgression} />
+                        players={game.players} />
                     <p>
                         <ErrorBox message={error} />
                         {judgeProgression}
@@ -279,12 +258,11 @@ function GamePlayer({inGame, onBackButtonClick}) {
                         gameProgression={gameProgression}
                         game={game}
                         onRepairEnd={onRepairEnd}
-                        onRepairTimeFiasco={onRepairTimeFiasco}
                     />
                 </div>
                 <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
                 {GameUtils.isCurrentUserIsOwner(game.owner) && isGroupGameFinished() ? <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button> : <></>}
-            </>;
+            </GameProgressionContext.Provider>;
         } else if (state === GAME_STATUS_PLAYING) {
             view = <GameTypePlayer 
                 player={player.id} 

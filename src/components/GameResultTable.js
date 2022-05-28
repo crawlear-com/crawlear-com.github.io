@@ -38,12 +38,12 @@ function GameResultTable({game, isDraw}) {
 
     players.push(<tr key={`${game.id}`}>
         <td></td>
-        <td className="">{t("description.nombre")}</td>
+        <td className=""></td>
         <td>{t("description.puntos")}</td>
         <td>{t("description.puertas")}</td>
         <td>{t("description.bonificacion")}</td>
         <td>{t("description.puntos")} {t("description.portiempo")}</td>
-        <td>{t("description.tiempo")}</td>
+        <td></td>
     </tr>);
     
     game.players.forEach((player)=>{
@@ -103,10 +103,10 @@ function GameResultTable({game, isDraw}) {
                 <tr key={i+j+2} className="closed">
                     <td colSpan={7}>
                         <ControlTextArrayVisualization 
-                            controlTextValues={game.gameType!==1 && zone.gateProgressionData ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
+                            controlTextValues={game.gameType!==1 && zone.gateProgressionData.length ? GameUtils.sumControlTextValues(zone.gateProgressionData) : zone.controlTextValues} 
                             texts={gameTypeTexts} />
 
-                        {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
+                        {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length ? 
                             <>
                                 <div className="left bold">{t('points.fiascos')}:</div>
                                 <ControlTextArrayVisualization 
@@ -124,13 +124,12 @@ function GameResultTable({game, isDraw}) {
     })
 
     return <div className="gameParticipants">
-                <div className="resultTitle">{t('description.resultado')}:</div>
-                <table>
-                    <tbody>
-                        {players}
-                    </tbody>
-                </table>
-            </div>;
+        <table>
+            <tbody>
+                {players}
+            </tbody>
+        </table>
+    </div>;
 }
 
 export default GameResultTable;

@@ -147,7 +147,8 @@ class FirebaseController {
             points: player.points,
             totalPoints: player.points,
             simpathyPoints: 0,
-            time: player.time
+            time: player.time,
+            handicap: 0
           }];
           player.totalTime = player.time;
           player.totalPoints = player.points;
@@ -384,8 +385,8 @@ class FirebaseController {
     });
   }
 
-  setGameProgression(gid, playerId, group, zone, data) {
-    set(ref(this.rdb, `gameProgression/${gid}/${group}/${playerId}/${zone}`), data);
+  setGameProgression(gid, playerId, group, zone, fullData) {
+    set(ref(this.rdb, `gameProgression/${gid}/${group}/${playerId}/${zone}`), fullData);
   }
 
   removeGameProgression(gid) {

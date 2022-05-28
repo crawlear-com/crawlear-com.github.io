@@ -30,6 +30,7 @@ function CoreGame({
         childrenContent.push(React.cloneElement(children[0], {
             onValueChange: onChangeScore
         }));
+
         if (children[2]) {
             childrenContent.push(React.cloneElement(children[1], {
                 onValueChange: onFiascoChangeScore
@@ -38,6 +39,8 @@ function CoreGame({
         } else {
             childrenContent.push(React.cloneElement(children[1]));
         }
+
+        children[3] && childrenContent.push(React.cloneElement(children[3]));
     }
 
     React.useEffect(() => {
@@ -47,6 +50,8 @@ function CoreGame({
             tickTime: playerZone.time,
             forceAction: 'play'
         });
+
+        document.body.classList.add(GameUtils.getGameTypeBodyClassName(game.gameType));
     },[]);
 
     function onTimerChange(millis) {
@@ -122,6 +127,7 @@ function CoreGame({
         setState(newState);
 
         Analytics.event('play', 'endPlayer', players[playerIndex].name);
+        document.body.classList.remove(GameUtils.getGameTypeBodyClassName(game.gameType))
         onGameEnd(newState.game);
     }
 
@@ -244,8 +250,6 @@ function CoreGame({
             <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="gateProgressionContainer controlTextContainer info rounded rounded2">
-            {childrenContent[2]}
-            
             {t('description.avancepuerta')}: {playerZone.gateProgression}
             <SliderWithTooltip
                     step={1}
@@ -265,9 +269,12 @@ function CoreGame({
         </div>
         
         <div className="controlTextContainer rounded rounded2">
+            {childrenContent[2]}
             {playerZone.gateProgression < game.gates[zoneIndex] ? childrenContent[0] : <></>}
             {playerZone.gateProgression < game.gates[zoneIndex] ? childrenContent[1] : <></>}
         </div>
+
+        {childrenContent[3]}
 
         <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
         <button className="importantNote" onClick={()=>{
