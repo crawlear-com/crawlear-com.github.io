@@ -2,24 +2,26 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
 import { GameUtils } from '../model/Game';
+import { GameProgressionContext } from './games/GameProgressionContext';
 
 const STATUS_WAITING = 'waiting';
 const STATUS_PLAYING = 'playing';
 const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
 
-function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}) {
+function GameProgression({game, players, jidGroup, onZoneClick}) {
     const { t } = useTranslation();
     const [selectedZone, setSelectedZone] = React.useState(-1);
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
-    const playersDone = [];
     const gameProgressionInfoRef = React.useRef();
+    const [ gameProgression, setGameProgression ] = React.useContext(GameProgressionContext);
+    const playersDone = [];
+    const fb = window.crawlear.fb;
     let i=0;
 
     function prepareOnClick(event, player) {
         const zone = Number(event.target.closest('[data-zone]').getAttribute("data-zone"));
         const gameStatus = gameProgression[player.group][player.id][zone].status;
-        const gameData = gameProgression[player.group][player.id][zone].data;
 
         if (selectedZone === zone && selectedPlayer === player.id) {
             deselectPlayerAndZone();
@@ -28,7 +30,6 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
                 setSelectedPlayer(player.id);
                 setSelectedZone(zone);
                 onZoneClick(player, zone);
-                gameData && showGameProgression();
             } else {
                 deselectPlayerAndZone();
             }
@@ -64,7 +65,7 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
     function getNotAvailableZones() {
         const zones = new Array(game.zones).fill(false);
 
-        Object.entries(gameProgression).forEach((group, gIndex)=> {
+        gameProgression && Object.entries(gameProgression).forEach((group, gIndex)=> {
             Object.entries(group[1]).forEach((player, pIndex)=>{
                 Object.entries(player[1]).forEach((zone, zIndex)=>{
                     if(zone[1].status === 'playing') {
@@ -75,10 +76,6 @@ function GameProgression({game, gameProgression, players, jidGroup, onZoneClick}
         });
 
         return renderOccupiedZones(zones);
-    }
-
-    function showGameProgression() {
-        
     }
 
     playersDone.push(<div className=''>{t('content.estadozona')}</div>);

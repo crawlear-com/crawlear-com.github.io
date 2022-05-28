@@ -1,12 +1,11 @@
 .controlText {
     font-size: 14px;
     display: flex;
-    line-height: 40px;
+    line-height: 20px;
     text-align: left;
     background-color: rgb(30 30 30 / 32%);
     margin-bottom: 5px;
     border-radius: 15px;
-    padding: 5px;
 }
 
 .controlTextValue {
@@ -18,7 +17,7 @@
 }
 
 .controlTextText {
-    min-width: 153px;
+    min-width: 168px;
     padding: 10px 0;
 }
 

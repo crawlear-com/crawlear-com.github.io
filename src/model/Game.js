@@ -50,6 +50,7 @@ class GameUtils {
                         gateProgression: 0,
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
+                        handicap: 0,
                         gateProgressionData: new Array(game.gates[k]),
                         fiascoControlTextValues: fiascoControlTextValuesInit()
                     };
@@ -65,6 +66,32 @@ class GameUtils {
                 }
             }
         });
+    }
+
+    static getGameTypeBodyClassName(gameType) {
+        let classname;
+    
+        switch (gameType) {
+            case 0:
+                classname = 'aecar';
+                break;
+            case 1:
+                classname = 'king';
+                break;
+            case 2:
+                classname = 'irscc';
+                break;
+            case 3:
+                classname = 'levante';
+                break;    
+            case 4:
+                classname = 'regionalzonarc';
+                break;
+            default: 
+                classname = '';
+        }
+    
+        return classname;
     }
 
     static getGameTypeControlTextValuesInit(gameType) {
@@ -142,13 +169,14 @@ class GameUtils {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
     
         return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
-            (game.maxPoints <= playerZone.points && game.maxPoints > 0) ||
-            ((game.maxTime + 60000) <= tickTime && game.maxTime > 0));
+            (this.isPointsFiasco(game, playerZone)) ||
+            (this.isTimeFiasco(game, tickTime)));
     }
 
     static isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
-        let fiasco = false, gate = 0;
+        let fiasco = false, 
+            gate = 0;
     
         while(!fiasco && gate<game.gates[zoneIndex]) {
             let control = 0;
@@ -160,11 +188,18 @@ class GameUtils {
                     control++;
                 }
             }
-    
             gate++;
         }
-    
+
         return fiasco;
+    }
+
+    static isPointsFiasco(game, playerZone) {
+        return (game.maxPoints <= playerZone.points && game.maxPoints > 0);
+    }
+
+    static isTimeFiasco(game, tickTime) {
+        return ((game.maxTime + game.courtesyTime) <= tickTime && game.maxTime > 0);
     }
 
     static isNonPresentedFiasco(game, playerIndex, zoneIndex) {

@@ -18,6 +18,7 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
             gateFails = gameProgression.data.gatesWithFail,
             gateProgression = gameProgression.data.gateProgression,
             simpathyPoints = gameProgression.data.simpathyPoints,
+            handicap = gameProgression.data.handicap,
             bonitification = gameProgression.data.gatesWithBonification;
         let gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts),
             fiascoGameTypeTexts = Utils.tokenToTexts(AecarGameScores.fiascoTexts);
@@ -48,6 +49,9 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
                 :<></>}
                 {typeof(simpathyPoints) !== undefined ? 
                     <li>{t('description.portiempo')}: <span className="bold">{simpathyPoints}</span></li> 
+                :<></>}
+                {typeof(handicap) !== undefined ? 
+                    <li>{t('description.handicap')}: <span className="bold">{handicap}</span></li> 
                 :<></>}
                 <li>{t('description.total')}: <span className="bold">{totalPoints}</span></li>
                 <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>

@@ -90,7 +90,7 @@ function GameManagement({onLogout}) {
         let game = judgeGames[gamePosition];
         const newGames = [...judgeGames];
 
-        newGames.splice(gamePosition, 1);
+        newGames.splice(gamePosition, 1);// ELIMINAR OWNER TB!!!
         if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
             firebase.removeIdFromGame(game, window.crawlear.user.uid, "uids").then((game)=>{
                 firebase.removeIdFromGame(game, window.crawlear.user.uid, "jids").then((game)=>{
@@ -104,6 +104,13 @@ function GameManagement({onLogout}) {
         } else {
             firebase.removeIdFromGame(game, window.crawlear.user.uid, "jids").then((game)=>{
                 if (game.uids.length === 0 && game.jids.length === 0) {
+                    firebase.removeGame(game.gid);
+                }
+        
+                setJudgeGames(newGames);
+            });
+            firebase.removeIdFromGame(game, window.crawlear.user.uid, "owner").then((game)=>{
+                if (game.uids.length === 0 && game.jids.length === 0 && game.owner.length === 0) {
                     firebase.removeGame(game.gid);
                 }
         

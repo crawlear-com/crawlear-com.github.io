@@ -6,7 +6,7 @@ import '../resources/css/RepairProgression.scss';
 
 const STATUS_REPAIR = 'repair';
 
-function RepairProgression({gameProgression, game, onRepairTimeFiasco, onRepairEnd}) {
+function RepairProgression({gameProgression, game, onRepairEnd}) {
     const { t } = useTranslation();
     const repairs = [];
 

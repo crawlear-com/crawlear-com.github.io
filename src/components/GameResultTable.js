@@ -38,12 +38,12 @@ function GameResultTable({game, isDraw}) {
 
     players.push(<tr key={`${game.id}`}>
         <td></td>
-        <td className="">{t("description.nombre")}</td>
+        <td className=""></td>
         <td>{t("description.puntos")}</td>
         <td>{t("description.puertas")}</td>
         <td>{t("description.bonificacion")}</td>
         <td>{t("description.puntos")} {t("description.portiempo")}</td>
-        <td>{t("description.tiempo")}</td>
+        <td></td>
     </tr>);
     
     game.players.forEach((player)=>{
@@ -124,13 +124,12 @@ function GameResultTable({game, isDraw}) {
     })
 
     return <div className="gameParticipants">
-                <div className="resultTitle">{t('description.resultado')}:</div>
-                <table>
-                    <tbody>
-                        {players}
-                    </tbody>
-                </table>
-            </div>;
+        <table>
+            <tbody>
+                {players}
+            </tbody>
+        </table>
+    </div>;
 }
 
 export default GameResultTable;

@@ -148,7 +148,8 @@ i18n
             de: 'De:',
             aceptar: 'Accept',
             reclamarpresencia: 'Claim presence',
-            entrenamientos: 'Mange trainings'
+            entrenamientos: 'Mange trainings',
+            bonificacionaccesorios: 'Accessory bonification'
           },
           points: {
             vuelco: 'overturn',
@@ -373,7 +374,8 @@ i18n
               de: 'de:',
               aceptar: 'Aceptar',
               reclamarpresencia: 'Reclamar presencia',
-              entrenamientos: 'Gestionar entrenamientos'
+              entrenamientos: 'Gestionar entrenamientos',
+              bonificacionaccesorios: 'Bonificación de accesorios'
           },
           points: {
             vuelco: 'vuelco',
@@ -413,12 +415,16 @@ i18n
             
             empujarcocheacompañar:'Empujar coche al acompañar',
             reparacion30mins:'Reparación en Boxes máximo 30min',
+            
             conectarentiempoajuste: 'Conectar emisora y receptor en tiempo de Ajuste',
             nococheparquecerrado: 'No tener el coche en parque cerrado al inicio de la zona',
+            manipulacionvehiculocarpa: 'Manipulación Vehículo en trayecto a carpa',
+            tiemposentrenamiento: 'No respetar los tiempos de entrenamiento',
+
+
             acaompañarcoche: 'Acompañar coche (coche y medio)',
             saltarsepuerta: 'Saltarse Puerta',
             reparacionherramientasinsitu:'Reparación con herramientas in situ',
-            manipulacionvehiculocarpa: 'Manipulación Vehículo en trayecto a carpa',
             saltarzona: 'Saltar zona complicada (coche + medio)',
             tocarcocheiniciovuelco: 'Tocar coche al iniciar vuelco',
             vuelcoasistidotoque: 'Vuelco Asistido con toque en puerta o piloto',
@@ -433,7 +439,6 @@ i18n
             vuelconoasistido: 'Vuelco no asistido',
             interferiraccionjuez: 'Interferir en la acción de un Juez',
             moverwinch: 'Mover el vehículo >2cm al sacar el WINCH',
-            tiemposentrenamiento: 'No respetar los tiempos de entrenamiento',
             unaruedaejetrasero: 'Pasar solo una rueda del eje trasero por la puerta',
             tocarpuertaunarueda: 'Tocar puerta y pasar solo 1 rueda trasera por ella',
             puertabonificada: 'Puerta bonificada'

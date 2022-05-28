@@ -1,18 +1,22 @@
 import * as React from 'react';
 import ControlTextArray from "../ControlTextArray";
 import { GameUtils } from '../../model/Game';
-import AecarPoints from './AecarPoints';
+import RegionalZonaRcPoints from './RegionalZonaRcPoints';
+import RegionalZonaRcModificator from './RegionalZonaRcModificator';
 import Analytics from '../../Analytics';
+
+import '../../resources/css/games/RegionalZonaRcGameScores.scss';
 
 const RegionalZonaRcGameScores = {
     steps: [-5, 10, 10, 10, 10, 5, 5, 5, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 4],
     maxValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
     texts: ['points.puertabonificada',
-    'points.empujarcocheacompañar',
     'points.reparacion30mins',
     'points.conectarentiempoajuste',
     'points.nococheparquecerrado',
+
+    'points.empujarcocheacompañar',
     'points.acaompañarcoche',
     'points.saltarsepuerta',
     'points.reparacionherramientasinsitu',
@@ -35,10 +39,11 @@ const RegionalZonaRcGameScores = {
     'points.unaruedaejetrasero',
     'points.tocarpuertaunarueda'],
 
-    fiascoTexts: ['points.bateria',
+    fiascoTexts: ['points.noempezado',
+        'points.bateria',
         'points.reparacion'],
-    fiascoSteps: [1,1],
-    fiascoMaxValues: [1,1]
+    fiascoSteps: [1,1,1],
+    fiascoMaxValues: [1,1,1]
 };
 
 function getGameContent(t, player, zone, points) {
@@ -64,7 +69,11 @@ function getGameContent(t, player, zone, points) {
         isClosed={true}
     />);
 
-    childrenContent.push(<AecarPoints 
+    childrenContent.push(<RegionalZonaRcPoints 
+        player={player}
+        zone={zone} />);    
+
+    childrenContent.push(<RegionalZonaRcModificator 
         player={player}
         zone={zone} />);    
 
@@ -72,15 +81,15 @@ function getGameContent(t, player, zone, points) {
 }
 
 function getGatesPointExtras(playerZone) {
-    playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints;
+    playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints + playerZone.handicap;
 }
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(27).fill(0);
+        return new Array(26).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(2).fill(0);
+      return new Array(3).fill(0);
     },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
@@ -92,14 +101,16 @@ const gameExtras = {
     onEndPlayer: (game, tickTime, player, zone) => {
         const playerZone = game.players[player].zones[zone];
 
-        if (GameUtils.isFiasco(game, tickTime, player, zone)) {
-            playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : tickTime);
-        } else {
-            playerZone.time = tickTime;
+        if (GameUtils.isTimeFiasco(game, tickTime) || GameUtils.isFiascoFromFiascoControlTextValues(game, player, zone)) {
+            playerZone.totalPoints += 25;
         }
+        playerZone.time = tickTime;
     },
     onGateProgressionChange: (playerZone)=>{
         getGatesPointExtras(playerZone);
+    },
+    onHandicapChange: (playerZone)=>{
+        getGatesPointExtras(playerZone)
     },
     onFiascoChangeScore: () => { },
     onPointBecauseLastMinute: (playerZone) => {
