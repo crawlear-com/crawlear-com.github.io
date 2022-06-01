@@ -26,10 +26,11 @@ function KingGame({game, onGameEnd}) {
         const newState = {...state};
 
         const players = newState.game.players,
-            zone = players[player].zones[0];
+            zone = players[player].zones[0],
+            playerCurrentGate = zone.gateProgressionData[0];
 
-        zone.controlTextValues = [...zone.controlTextValues];
-        zone.controlTextValues[control] += value;
+        playerCurrentGate.controlTextValues = [...playerCurrentGate.controlTextValues];
+        playerCurrentGate.controlTextValues[control] += value;
         zone.totalPoints += value;
         newState.order = getPlayersOrder(newState.order.findIndex(item => item.id===players[player].id), newState.order);
         setState(newState);
@@ -94,7 +95,8 @@ function initControlTestValues(game) {
         GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
         false);
     for(let i=0; i<newState.game.players.length;i++) {
-        newState.game.players[i].zones[0].controlTextValues = new Array(6).fill(0);
+        
+        newState.game.players[i].zones[0].gateProgressionData[0].controlTextValues = new Array(6).fill(0);
     }
 
     return newState;
