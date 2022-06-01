@@ -34,7 +34,7 @@ function Landing({onLoggin}) {
                     firebase.signInWithGoogle(signInCallback);
                 }} />
             <p>
-                <div>{t('content.colaboraciones')}</div>
+                {t('content.colaboraciones')}<br />
                 <img className='collaborateLogo' src={Levante124Logo} alt="Levante 1/24 Logo" />
                 <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
             </p>
