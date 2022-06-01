@@ -400,8 +400,8 @@ class FirebaseController {
       const gameProgression = snapshot.val();
 
       Object.entries(gameProgression).forEach((player, playerPos)=>{
-        player[1].forEach((zone, zonePos)=>{
-          zone.data && (game.players[playerPos].zones[zonePos] = zone.data);
+        Object.entries(player[1]).forEach((zone, zonePos)=>{
+          zone[1].data && (game.players[playerPos].zones[zonePos] = zone[1].data);
         });
       });
 
