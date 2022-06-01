@@ -37,7 +37,7 @@ function KingGame({game, onGameEnd}) {
     }
 
     function gameEnd() {
-        onGameEnd && onGameEnd(Utils.calulateFinalGameResult(game));
+        onGameEnd && onGameEnd(game);
     }
 
     let result = [];
