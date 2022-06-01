@@ -13,6 +13,8 @@ import Analytics from './Analytics';
 import { Game } from './model/Game';
 import GameConfigurator from './components/GameConfigurator';
 
+import './Error.js';
+
 import './resources/css/Base.scss';
 import './resources/css/App.scss';
 import './resources/css/Footer.scss';
