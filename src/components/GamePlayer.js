@@ -165,7 +165,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
             setState(GAME_STATUS_CREATED); 
             setGame(newGame);
         } else {
-            const newGame = Utils.calulateFinalGameResult(game)
+            const newGame =  Utils.getOrderedGameResult(game);
             newGame.gameStatus = 2;
             fb.updateGame(newGame);
             fb.removeGameProgression(newGame.gid);
