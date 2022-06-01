@@ -36,7 +36,7 @@ function GameResultTable({game, isDraw}) {
         zoneTr.classList.toggle("closed");
     }
 
-    players.push(<tr key={`game${new Date().toTimeString()}`}>
+    players.push(<tr key={`game${new Date().getMilliseconds()}`}>
         <td></td>
         <td className=""></td>
         <td>{t("description.puntos")}</td>
