@@ -36,7 +36,7 @@ function GameResultTable({game, isDraw}) {
         zoneTr.classList.toggle("closed");
     }
 
-    players.push(<tr key={`${game.id}`}>
+    players.push(<tr key={`game${new Date().toTimeString()}`}>
         <td></td>
         <td className=""></td>
         <td>{t("description.puntos")}</td>
@@ -47,8 +47,7 @@ function GameResultTable({game, isDraw}) {
     </tr>);
     
     game.players.forEach((player)=>{
-        i=0;
-        players.push(<tr key={i+j}>
+        players.push(<tr key={`header${i+j}`}>
                 {isDraw ? <td></td> : <td className="bold gameListPosition">{j===0?<img src={winnerIcon} alt="winner" />:j+1}</td>}
                 {game.gameType === 1 ? 
                     <td className="bold gameListPlayerName gameListPoints bold textOverflow">{player.name}</td> :
@@ -61,7 +60,7 @@ function GameResultTable({game, isDraw}) {
                     {player.totalTime ? Utils.printTime(Utils.millisToTime(player.totalTime)) : <>00:00:000</>}
                 </td> : <></>}
             </tr>);
-        
+
         player.zones.forEach((zone)=>{
             let icon;
 
@@ -87,8 +86,8 @@ function GameResultTable({game, isDraw}) {
                 }
             }
 
-            players.push(<>
-                <tr key={i+j+1}>
+            players.push(
+                <tr key={`row0${i+j+1}`}>
                     <td>{icon}</td>
                     <td onClick={onClickZone}>{`${t('description.zona')} ${i+1}`}
                         <img className="iconArrowDown" src={openIcon} alt="click open" /></td>
@@ -99,8 +98,8 @@ function GameResultTable({game, isDraw}) {
                     <td className="gameListPoints">{zone.simpathyPoints ? zone.simpathyPoints : "0"}
                     </td>
                     {game.gameType !== 1 ? <td className="gameListTime">{Utils.printTime(Utils.millisToTime(zone.time))}</td> : <></>}
-                </tr>
-                <tr key={i+j+2} className="closed">
+                </tr>);
+            players.push(<tr key={`row1${i+j+2}`} className="closed">
                     <td colSpan={7}>
                         <ControlTextArrayVisualization 
                             controlTextValues={GameUtils.sumControlTextValues(zone.gateProgressionData)} 
@@ -115,9 +114,7 @@ function GameResultTable({game, isDraw}) {
                             </> : 
                             <></>}
                     </td>
-                </tr>
-            </>);
-            
+                </tr>);
             i++;
         });
         j++;

@@ -30,6 +30,7 @@ function GameProgressionInfo({game, gameProgression}) {
                     if (currentGameProgression.status==="done") { 
                         controlTextValues.push(<GameProgressionInfoRow 
                             gameType={game.gameType}
+                            key={`progressRow${j}`}
                             gameProgression={currentGameProgression} />);
                     } else if (currentGameProgression.status==="repair") {  
                         controlTextValues.push(t('points.reparacion').toUpperCase());
