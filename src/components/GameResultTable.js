@@ -101,6 +101,7 @@ function GameResultTable({game, isDraw}) {
                 </tr>);
             players.push(<tr key={`row1${i+j+2}`} className="closed">
                     <td colSpan={7}>
+                        {zone.handicap!==0 ? <div className='controlTextValues'>{t('description.bonificacionaccesorios')}: {zone.handicap}</div> : <></>}
                         <ControlTextArrayVisualization 
                             controlTextValues={GameUtils.sumControlTextValues(zone.gateProgressionData)} 
                             texts={gameTypeTexts} />
