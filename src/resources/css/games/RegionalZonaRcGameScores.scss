@@ -1,10 +1,47 @@
 .regionalzonarc {
     .controlText:nth-of-type(1){
-        background-color: #555;
+        background-color: #CCC;
+        color: black;
+        margin-bottom: 30px;
     }
+    
     .controlText:nth-of-type(2),
     .controlText:nth-of-type(3),
     .controlText:nth-of-type(4) {
-        background-color: #333;
+        background-color: #AAA;
+        color: black;
     }
+    .controlText:nth-of-type(4) {
+        margin-bottom: 30px;
+    }
+
+    .controlText:nth-of-type(5),
+    .controlText:nth-of-type(6),
+    .controlText:nth-of-type(7),
+    .controlText:nth-of-type(8),
+    .controlText:nth-of-type(9),
+    .controlText:nth-of-type(10) {
+        background-color: #888;
+    }
+    .controlText:nth-of-type(10) {
+        margin-bottom: 30px;
+    }
+    .controlText:nth-of-type(11),
+    .controlText:nth-of-type(12),
+    .controlText:nth-of-type(13),
+    .controlText:nth-of-type(14) {
+        background-color: #666;
+    }
+    .controlText:nth-of-type(14) {
+        margin-bottom: 30px;
+    }
+
+    .controlText:nth-of-type(15),
+    .controlText:nth-of-type(16) {
+        background-color: #444;
+    }
+    .controlText:nth-of-type(16) {
+        margin-bottom: 45px;
+    }
+
 }
