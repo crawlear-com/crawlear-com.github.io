@@ -247,10 +247,8 @@ function GamePlayer({inGame, onBackButtonClick}) {
                         game={game}
                         jidGroup={jidGroup}
                         players={game.players} />
-                    <p>
-                        <ErrorBox message={error} />
-                        {judgeProgression}
-                    </p>
+                    <ErrorBox message={error} />
+                    {judgeProgression}
                 </div>
                 <div className="tendJudgeContainer rounded rounded3">
                     <div className="bold">{t('description.juezdecarpa')}</div>
