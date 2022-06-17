@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import UserProfile from './UserProfile';
-import Spinner from './Spinner';
+import logo from '../resources/img/logo5.png'
+import '../resources/css/UserViewer.scss';
 
 function UserViewer({uid}) {
     const { t } = useTranslation();
@@ -9,19 +10,23 @@ function UserViewer({uid}) {
     const [user, setUser] = React.useState({});
 
     React.useEffect(()=>{
-        firebase.getUser(uid, (user)=>{
-            setUser({...user});
-            console.log(user);
-        });
+        if(window.crawlear && window.crawlear.user && window.crawlear.user.uid) {
+            firebase.getUser(uid, (user)=>{
+                setUser({...user});
+                console.log(user);
+            });
+        }
     }, []);
 
-    if (user.registrationDate) {
-
-        return <div className="gameViewer">
+    if (user.registrationDate ) {
+        return <div className="userViewer">
             <UserProfile user={user} />
         </div>;
     } else {
-        return <Spinner />;
+        return <div className=''>
+                <img src={logo} className="userViewerLogo" alt="web logo"></img>
+                <p>{t('content.userprofilenotlogged')}</p>
+            </div>;
     }
 }
 

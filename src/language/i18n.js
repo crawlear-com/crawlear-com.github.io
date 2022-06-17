@@ -50,7 +50,8 @@ i18n
             aceptarpresencia: 'Do you want to clean the presence request?',
             selecciongrupos: 'Select the number of groups',
             colaboraciones: 'Collaborates:',
-            editprofile: 'You can edit the user profile clicking on name, description or instagram username'
+            editprofile: 'You can edit the user profile clicking on name, description or instagram username',
+            userprofilenotlogged: 'You must be logged with a google account to see the user profile'
           },
           error: {
               nojugadores: 'Add the players',
@@ -278,7 +279,8 @@ i18n
             aceptarpresencia: '¿Quieres limpiar la petición de presencia?',
             selecciongrupos: 'Selecciona el número de grupos en la partida',
             colaboraciones: 'Colabora:',
-            editprofile: 'Puedes editar los datos haciendo click en el nombre, descripción o nombre de usuario en instagram'
+            editprofile: 'Puedes editar los datos haciendo click en el nombre, descripción o nombre de usuario en instagram',
+            userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
