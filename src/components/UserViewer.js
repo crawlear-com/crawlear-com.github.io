@@ -11,32 +11,30 @@ function UserViewer({uid}) {
     const [userData, setUserData] = React.useState({});
 
     React.useEffect(()=>{
-//        if(window.crawlear && window.crawlear.user && window.crawlear.user.uid) {
-            firebase.getUser(uid, (user)=>{
-                setUser({...user});
-                firebase.getUserExtraData(uid, (data)=>{
-                    setUserData(data);
-                });
+        firebase.getUser(uid, (user)=>{
+            setUser({...user});
+            firebase.getUserExtraData(uid, (data)=>{
+                setUserData(data);
             });
-//        }
+        });
     }, []);
 
     if (user.registrationDate ) {
         return <div className="userViewer">
             <UserProfile user={user} />
             <div>
-                Partidas creadas: {userData.ownerGames || 0}
+                {t('description.partidascreadas')}: {userData.ownerGames || 0}
             </div>
             <div>
-                Partidas como juez: {userData.judgeGames || 0}
+                {t('description.partidasdejuez')}: {userData.judgeGames || 0}
             </div>
             <div>
-                Partidas como piloto: {userData.pilotGames || 0}
+                {t('description.partidasprevias')}: {userData.pilotGames || 0}
             </div>
         </div>;
     } else {
         return <div className=''>
-                <img src={logo} className="userViewerLogo" alt="web logo"></img>
+                <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a>
                 <p>{t('content.userprofilenotlogged')}</p>
             </div>;
     }
