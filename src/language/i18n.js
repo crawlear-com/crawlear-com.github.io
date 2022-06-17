@@ -49,7 +49,8 @@ i18n
             quieresenviarpeticiondepresencia: 'Do you want to send a presence request?',
             aceptarpresencia: 'Do you want to clean the presence request?',
             selecciongrupos: 'Select the number of groups',
-            colaboraciones: 'Collaborates:'
+            colaboraciones: 'Collaborates:',
+            editprofile: 'You can edit the user profile clicking on name, description or instagram username'
           },
           error: {
               nojugadores: 'Add the players',
@@ -149,7 +150,8 @@ i18n
             aceptar: 'Accept',
             reclamarpresencia: 'Claim presence',
             entrenamientos: 'Mange trainings',
-            bonificacionaccesorios: 'Accessory bonification'
+            bonificacionaccesorios: 'Accessory bonification',
+            ayuda: 'Help'
           },
           points: {
             vuelco: 'overturn',
@@ -275,7 +277,8 @@ i18n
             quieresenviarpeticiondepresencia: '¿Quieres enviar una petición de presencia al director del juego?',
             aceptarpresencia: '¿Quieres limpiar la petición de presencia?',
             selecciongrupos: 'Selecciona el número de grupos en la partida',
-            colaboraciones: 'Colabora:'
+            colaboraciones: 'Colabora:',
+            editprofile: 'Puedes editar los datos haciendo click en el nombre, descripción o nombre de usuario en instagram'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -375,7 +378,8 @@ i18n
               aceptar: 'Aceptar',
               reclamarpresencia: 'Reclamar presencia',
               entrenamientos: 'Gestionar entrenamientos',
-              bonificacionaccesorios: 'Bonificación de accesorios'
+              bonificacionaccesorios: 'Bonificación de accesorios',
+              ayuda: 'Ayuda'
           },
           points: {
             vuelco: 'vuelco',

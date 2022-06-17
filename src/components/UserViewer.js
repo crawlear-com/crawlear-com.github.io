@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import UserProfile from './UserProfile';
+import Spinner from './Spinner';
 
 function UserViewer({uid}) {
     const { t } = useTranslation();
@@ -20,7 +21,7 @@ function UserViewer({uid}) {
             <UserProfile user={user} />
         </div>;
     } else {
-        return <>meeeh!</>;
+        return <Spinner />;
     }
 }
 

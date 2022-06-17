@@ -71,12 +71,12 @@ function UserProfile({user, onLogout}) {
     return <div className="userProfileContainer rounded rounded2">
         <div className="userProfilePhotoContainer">
             <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
-            <div className='logout' 
+            {!readOnly ? <div className='logout' 
                 onClick={()=> {
                     window.crawlear.fb.logout();
                     onLogout();
                     navigate("/");
-                }} >Logout</div>
+                }} >Logout</div> : <></>}
         </div>
         <div className="userProfileInlineContainer">
             <div className="name">
@@ -99,14 +99,18 @@ function UserProfile({user, onLogout}) {
                     onChange={onDescriptionChange} 
                     onBlur={onBlurSetDescription} />
             </p>
-            <div className='registrationDate'>
-                <span className='bold'>Instagram</span>:
+            <div className='instagram'>
+                <div className='bold'>Instagram: </div>
                     <input type="text" 
-                        className="bold textOverflow hidenInput" 
+                        className="textOverflow hidenInput" 
                         readOnly={readOnly}
                         value={instagram} 
                         onChange={onInstagramChange}
                         onBlur={onBlurSetInstagram} />
+            </div>
+
+            <div className='userProfileHelper'>
+                <p><span className='bold'>{t('description.ayuda')}:</span> {t('content.editprofile')}</p>
             </div>
         </div>
     </div>;
