@@ -112,8 +112,6 @@ function UserProfile({user, onLogout}) {
             {!readOnly ?<div className='userProfileHelper'>
                 <p><span className='bold'>{t('description.ayuda')}:</span> {t('content.editprofile')}</p>
             </div> : <></>}
-
-            {!readOnly ? <a href={`https://crawlear.com/profile?uid=${window.crawlear.user.uid}`} target="_blank"> Public profile link </a> : <></>}
         </div>
     </div>;
 }
