@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import UserProfile from './UserProfile';
 import logo from '../resources/img/logo5.png'
 import '../resources/css/UserViewer.scss';
+import Spinner from './Spinner';
 
 function UserViewer({uid}) {
     const { t } = useTranslation();
@@ -35,7 +36,7 @@ function UserViewer({uid}) {
     } else {
         return <div className=''>
                 <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a>
-                <p>{t('content.userprofilenotlogged')}</p>
+                <p><Spinner /></p>
             </div>;
     }
 }
