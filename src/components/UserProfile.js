@@ -109,9 +109,9 @@ function UserProfile({user, onLogout}) {
                         onBlur={onBlurSetInstagram} />
             </div>
 
-            <div className='userProfileHelper'>
+            {!readOnly ?<div className='userProfileHelper'>
                 <p><span className='bold'>{t('description.ayuda')}:</span> {t('content.editprofile')}</p>
-            </div>
+            </div> : <></>}
         </div>
     </div>;
 }
