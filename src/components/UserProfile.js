@@ -10,11 +10,13 @@ function UserProfile({user, onLogout}) {
     const navigate = useNavigate();
     const [userName, setUserName] = React.useState(user.displayName);
     const [description, setDescription] = React.useState(user.description);
+    const [instagram, setInstagram] = React.useState(user.instagram);
+    const readOnly = !(window.crawlear && window.crawlear.user && window.crawlear.user.uid) || (window.crawlear && window.crawlear.user && window.crawlear.user.uid !== user.uid) ;
 
     function onUserNameChange(event) {
         const newUserName = event.target.value;
 
-        if(newUserName !== userName && newUserName.length>0) {
+        if(!readOnly && newUserName !== userName && newUserName.length>0) {
             setUserName(newUserName);
         }
     }
@@ -22,17 +24,36 @@ function UserProfile({user, onLogout}) {
     function onDescriptionChange(event) {
         const newDescription = event.target.value;
 
-        if(newDescription !== description) {
+        if(!readOnly && newDescription !== description) {
             setDescription(newDescription);
+        }
+    }
+
+    function onInstagramChange(event) {
+        const newInstagram = event.target.value;
+
+        if(!readOnly && newInstagram !== instagram) {
+            setInstagram(newInstagram);
         }
     }
 
     function onBlurSetName(event) {
         const newUserName = event.target.value;
 
-        if(user.displayName !== newUserName && newUserName.length>0) {
+        if(!readOnly && user.displayName !== newUserName && newUserName.length>0) {
             user.displayName = newUserName;
             setUserName(newUserName);
+            firebase.setUser(user,()=>{ },()=>{ });
+        }
+    }
+
+
+    function onBlurSetInstagram(event) {
+        const newInstagram = event.target.value;
+
+        if(!readOnly && user.instagram !== newInstagram) {
+            user.instagram = newInstagram;
+            setInstagram(newInstagram);
             firebase.setUser(user,()=>{ },()=>{ });
         }
     }
@@ -40,7 +61,7 @@ function UserProfile({user, onLogout}) {
     function onBlurSetDescription(event) {
         const newDescription = event.target.value;
 
-        if(user.description !== newDescription) {
+        if(!readOnly && user.description !== newDescription) {
             user.description = newDescription;
             setDescription(newDescription);
             firebase.setUser(user,()=>{ },()=>{ });
@@ -50,7 +71,8 @@ function UserProfile({user, onLogout}) {
     return <div className="userProfileContainer rounded rounded2">
         <div className="userProfilePhotoContainer">
             <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
-            <div className='logout' onClick={()=> {
+            <div className='logout' 
+                onClick={()=> {
                     window.crawlear.fb.logout();
                     onLogout();
                     navigate("/");
@@ -58,21 +80,34 @@ function UserProfile({user, onLogout}) {
         </div>
         <div className="userProfileInlineContainer">
             <div className="name">
-                <input type="text" className="bold textOverflow hidenInput" 
+                <input type="text" 
+                    className="bold textOverflow hidenInput" 
+                    readOnly={readOnly}
                     value={userName} 
                     onChange={onUserNameChange}
                     onBlur={onBlurSetName} />
             </div>
             <div className='registrationDate'>
-                <span className='bold'>{t('description.registro')}</span>: {user.registrationDate}
+                <span className='bold'>{t('description.registro')}</span>: {new Date(user.registrationDate).toLocaleDateString()}
             </div>
             <p className='description'>
                 <span className='bold'>{t('description.descripcion')}</span>: 
-                <textarea type="text" className="hidenInput textOverflow" 
+                <textarea type="text" 
+                    readOnly={readOnly}
+                    className="hidenInput textOverflow"
                     value={description} 
                     onChange={onDescriptionChange} 
                     onBlur={onBlurSetDescription} />
             </p>
+            <div className='registrationDate'>
+                <span className='bold'>Instagram</span>:
+                    <input type="text" 
+                        className="bold textOverflow hidenInput" 
+                        readOnly={readOnly}
+                        value={instagram} 
+                        onChange={onInstagramChange}
+                        onBlur={onBlurSetInstagram} />
+            </div>
         </div>
     </div>;
 }
