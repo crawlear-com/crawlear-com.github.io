@@ -60,7 +60,6 @@ function App() {
           <Route path="/simplegame" element={<GameController game={getNewGame} />} />
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
-          <Route path="/viewgame" element={<GameViewer />} />
           <Route path="/profile" element={<UserViewer uid={queryParams.get && queryParams.get('uid')} />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
