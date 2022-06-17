@@ -237,7 +237,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
             }
 
 /*            <button className='trainingButton importantNote'
-            onClick={goTraining}>{t('description.entrenamientos')}</button> */
+            onClick={goTraining}>{t('description.entrenamientos')}</button> */           
             view = <GameProgressionContext.Provider value={[gameProgression, setGameProgression]}>
                 
                 {directorProgression}
@@ -245,8 +245,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
                     <div className="bold">{t('description.juezdepista')}</div>
                     <GameProgression onZoneClick={onZoneClick} 
                         game={game}
-                        jidGroup={jidGroup}
-                        players={game.players} />
+                        jidGroup={jidGroup} />
                     <ErrorBox message={error} />
                     {judgeProgression}
                 </div>

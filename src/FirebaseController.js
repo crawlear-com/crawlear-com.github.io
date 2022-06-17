@@ -82,18 +82,22 @@ class FirebaseController {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      okCallback(docSnap.data());
+      const user = docSnap.data();
+
+      user.uid = docRef.id;
+      okCallback(user);
     } else {
       koCallback();
     }
   }
 
-  async setUser({uid, displayName, photoURL, description}, okCallback, koCallback) {
+  async setUser({uid, displayName, photoURL, description, instagram}, okCallback, koCallback) {
     const data = {
       displayName: displayName,
       photoURL: photoURL,
       registrationDate: new Date().toString(),
-      description: description || ""
+      description: description || "",
+      instagram: instagram || ""
     };
 
     try {
@@ -179,6 +183,21 @@ class FirebaseController {
 
     return result;
   }
+
+  async getGame(gid, okCallback, koCallback) {
+    const docRef = doc(this.db, "games", gid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const res = docSnap.data();
+
+      res.gid = docRef.id;
+      okCallback(res);
+    } else {
+      koCallback();
+    }
+  }
+
 
   async getGamesFromUser(uid, okCallback, koCallback) {
     try {
@@ -313,6 +332,8 @@ class FirebaseController {
   }
 
  setUserInContext(data, uid) {
+    data.instagram = data.instagram || '';
+
     window.crawlear = {
       ...window.crawlear,
       user: data

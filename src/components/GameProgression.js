@@ -9,7 +9,7 @@ const STATUS_PLAYING = 'playing';
 const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
 
-function GameProgression({game, players, jidGroup, onZoneClick}) {
+function GameProgression({game, jidGroup, onZoneClick}) {
     const { t } = useTranslation();
     const [selectedZone, setSelectedZone] = React.useState(-1);
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
@@ -84,7 +84,7 @@ function GameProgression({game, players, jidGroup, onZoneClick}) {
         {t('content.seleccionapilotoyzona')}:
     </p>);
 
-    players.forEach((player)=>{
+    game.players.forEach((player)=>{
         let zones=[], 
             j=0,
             className;
