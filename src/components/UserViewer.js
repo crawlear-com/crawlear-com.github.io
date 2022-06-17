@@ -10,12 +10,11 @@ function UserViewer({uid}) {
     const [user, setUser] = React.useState({});
 
     React.useEffect(()=>{
-        if(window.crawlear && window.crawlear.user && window.crawlear.user.uid) {
+//        if(window.crawlear && window.crawlear.user && window.crawlear.user.uid) {
             firebase.getUser(uid, (user)=>{
                 setUser({...user});
-                console.log(user);
             });
-        }
+//        }
     }, []);
 
     if (user.registrationDate ) {
