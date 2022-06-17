@@ -91,6 +91,30 @@ class FirebaseController {
     }
   }
 
+  async getUserExtraData(uid, okCallback, koCallback) {
+    try {
+      const data = {};
+      let q = query(collection(this.db, "games"), 
+        where("uids", "array-contains", uid)),
+       querySnapshot = await getDocs(q);
+      data.pilotGames = querySnapshot.docs.length;
+
+      q = query(collection(this.db, "games"), 
+        where("jids", "array-contains", uid));
+      querySnapshot = await getDocs(q);
+      data.judgeGames = querySnapshot.docs.length;
+
+      q = query(collection(this.db, "games"), 
+        where("owner", "array-contains", uid));
+      querySnapshot = await getDocs(q);
+      data.ownerGames = querySnapshot.docs.length;
+
+      okCallback && okCallback(data);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
   async setUser({uid, displayName, photoURL, description, instagram}, okCallback, koCallback) {
     const data = {
       displayName: displayName,
