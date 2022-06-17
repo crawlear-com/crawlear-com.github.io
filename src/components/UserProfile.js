@@ -101,15 +101,16 @@ function UserProfile({user, onLogout}) {
             </p>
             <div className='instagram'>
                 <div className='bold'>Instagram: </div>
-                    <input type="text" 
+                {!readOnly ?<input type="text" 
                         className="textOverflow hidenInput" 
                         readOnly={readOnly}
                         value={instagram} 
                         onChange={onInstagramChange}
-                        onBlur={onBlurSetInstagram} />
+                        onBlur={onBlurSetInstagram} />:
+                        instagram ? <a href={`https://www.instagram.com/${instagram}/`} target="_blank">@{instagram}</a> : <></>}
             </div>
 
-            {!readOnly ?<div className='userProfileHelper'>
+            {!readOnly ? <div className='userProfileHelper'>
                 <p><span className='bold'>{t('description.ayuda')}:</span> {t('content.editprofile')}</p>
             </div> : <></>}
         </div>
