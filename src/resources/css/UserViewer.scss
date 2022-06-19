@@ -1,6 +1,36 @@
-userViewer {
+.userViewer {
+    .statistics, .posts {
+        font-size: 0.8em;
+        margin-bottom: 25px;
+        width: 94%;
+    }
 
+    .post {
+        margin-bottom: 25px;
+        width: 100%;
+        overflow: hidden;
+        text-align: left;
+    }
+
+    .postDate {
+        margin-bottom: 15px;
+        
+    }
+
+    .postText {
+        margin-bottom: 15px;
+        
+    }
+
+    .postUrlContent {
+        margin-bottom: 15px;
+    }
+
+    .postForm {
+
+    }
 }
 .userViewerLogo {
     width: 125px;
+    margin-bottom: 52px;
 }

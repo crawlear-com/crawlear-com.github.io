@@ -115,6 +115,7 @@ i18n
             buscarusuario: 'User search',
             resultado: 'Result',
             vergooglemaps: 'View in Google Maps',
+            verperfil: 'View social profile',
             usuariosenpartida: 'Players in game',
             juecesenpartida: 'Judges in game',
             peticionesdejuego: 'Game requests',
@@ -153,7 +154,11 @@ i18n
             reclamarpresencia: 'Claim presence',
             entrenamientos: 'Mange trainings',
             bonificacionaccesorios: 'Accessory bonification',
-            ayuda: 'Help'
+            ayuda: 'Help',
+            estadisticas: 'Statistics',
+            posts: 'Posts',
+            texto: 'Text',
+            publicar: 'Post an entry'
           },
           points: {
             vuelco: 'overturn',
@@ -345,6 +350,7 @@ i18n
               buscarusuario: 'Buscar usuario',
               resultado: 'Resultado',
               vergooglemaps: 'Ver en Google Maps',
+              verperfil: 'Ver perfil social',
               usuariosenpartida: 'Jugadores en partida',
               juecesenpartida: 'Jueces en partida',
               peticionesdejuego: 'Peticiones de Juego',
@@ -383,7 +389,11 @@ i18n
               reclamarpresencia: 'Reclamar presencia',
               entrenamientos: 'Gestionar entrenamientos',
               bonificacionaccesorios: 'Bonificación de accesorios',
-              ayuda: 'Ayuda'
+              ayuda: 'Ayuda',
+              estadisticas: 'Estadísticas',
+              posts: 'Entradas',
+              texto: 'Texto',
+              publicar: 'Publicar entrada'
           },
           points: {
             vuelco: 'vuelco',

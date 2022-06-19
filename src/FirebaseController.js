@@ -529,6 +529,40 @@ class FirebaseController {
   removeDirectorPresenceRequest(gid) {
     remove(ref(this.rdb, `presenceRequests/${gid}`));
   }
+
+  async setPost(uid, url, date, text, okCallback, koCallback) {
+    const data = {
+      uid: uid,
+      date: date,
+      url: url,
+      text: text
+    };
+
+    try {
+      const postRef = await addDoc(collection(this.db, "socialPosts"), data);
+      data.gid = postRef.id;
+      okCallback && okCallback(data);
+    } catch (e) {
+      koCallback && koCallback();
+    }
+  }
+
+  async getPosts(uid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "socialPosts"), 
+        where("uid", "==", uid));
+      const querySnapshot = await getDocs(q);
+      const posts = [];
+
+      querySnapshot.docs.forEach((postData)=>{
+        posts.push(postData.data());
+      });
+
+      okCallback && okCallback(posts);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
 }
 
 export default FirebaseController;
