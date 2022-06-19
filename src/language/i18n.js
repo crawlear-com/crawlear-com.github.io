@@ -51,7 +51,9 @@ i18n
             selecciongrupos: 'Select the number of groups',
             colaboraciones: 'Collaborates:',
             editprofile: 'You can edit the user profile clicking on name, description or instagram username',
-            userprofilenotlogged: 'You must be logged with a google account to see the user profile'
+            userprofilenotlogged: 'You must be logged with a google account to see the user profile',
+            urlEmbed: 'url to an instagram or youtube post',
+            textEmbed: 'text message of the post'
           },
           error: {
               nojugadores: 'Add the players',
@@ -286,7 +288,9 @@ i18n
             selecciongrupos: 'Selecciona el número de grupos en la partida',
             colaboraciones: 'Colabora:',
             editprofile: 'Puedes editar los datos haciendo click en el nombre, descripción o nombre de usuario en instagram',
-            userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario'
+            userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario',
+            urlEmbed: 'url a un post de insagram o youtube',
+            textEmbed: 'mensaje de la entrada'
           },
           error: {
               nojugadores: 'Añade a los jugadores',

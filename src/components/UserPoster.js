@@ -51,7 +51,11 @@ function UserPoster({onPostEntry}) {
 
             <form className='postForm-form' onSubmit={formSubmit}>
                 <label>URL:<input type="text" name="url" onChange={urlChange} /></label>
+                <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.urlEmbed')}</span>
+                <br /><br />
                 <label>{t('description.texto')}:<textarea onChange={textChange} type="text" name="text" /></label>
+                <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.textEmbed')}</span>
+                <br /><br />
                 <input type="submit" value="Submit" className='importantNote' />
             </form>
         </div>;
