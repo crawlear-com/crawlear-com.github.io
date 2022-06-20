@@ -39,8 +39,8 @@ function UserViewer({uid, onLogout}) {
     function removePostClick(event) {
         const id = event.target.getAttribute('data-id');
 
-        if(id) {
-            firebase.removePost(id);
+        if(id && window.confirm(t('content.seguroborrarpost'))) {
+            firebase.removePost(id, ()=>{}, ()=>{});
         }
     }
 

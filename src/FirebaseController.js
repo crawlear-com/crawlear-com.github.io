@@ -568,16 +568,8 @@ class FirebaseController {
     }
   }
 
-  async removePost(pid) {
-    const docRef = doc(this.db, "socialPosts", pid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      docRef.remove();           
-      okCallback(pid);
-    } else {
-      koCallback();
-    }
+  async removePost(pid, okCallback, koCallback) {
+    await deleteDoc(doc(this.db, "socialPosts", pid));
   }
 }
 

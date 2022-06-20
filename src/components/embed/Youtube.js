@@ -17,7 +17,7 @@ function Youtube({ url }) {
     if (videoId) {
         return <div className="youtube">
                 <iframe 
-                width="340" 
+                width="317" 
                 height="315" 
                 src={`https://www.youtube.com/embed/${videoId}`} 
                 title="YouTube video player" 
