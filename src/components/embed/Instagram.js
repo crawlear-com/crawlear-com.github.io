@@ -5,7 +5,7 @@ import '../../resources/css/embed/Instagram.scss';
 
 function Instagram({ url }) {
 
-    useScript('https://www.instagram.com/embed.js');
+    useScript('https://www.instagram.com/embed.js','instagram-embed-loader');
 
     return <div className="instagram">
     

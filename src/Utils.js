@@ -13,6 +13,20 @@ class Utils {
         return false;
     }
 
+    static sanitizeUrl(url) {
+        const params = url.indexOf('?');
+
+        if(url[url.length-1] !== '/') {
+            url += '/';
+        }
+
+        if (params>=0) {
+            url = url.slice(params, url.length);
+        }
+
+        return url;
+    }
+
     static isYoutubeUrl(url) {
         var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
         var match = url.match(regExp);
@@ -21,10 +35,10 @@ class Utils {
     }
 
     static isInstagramUrl(url) {
-        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/([\w,.-_]*)\/p\/(.*?)\//;
-        var match = url.match(regExp);
+        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)(?:\/(?:.?)*)*\/p\/(.*)*/;
+        var match = this.sanitizeUrl(url).match(regExp);
         
-        return match && match[2];
+        return match && match[1];
     }
 
     static tokenToTexts(tokens) {

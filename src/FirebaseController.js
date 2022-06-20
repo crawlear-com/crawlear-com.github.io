@@ -541,7 +541,7 @@ class FirebaseController {
     if (text.length>=0 && url.length >=0) {
       try {
         const postRef = await addDoc(collection(this.db, "socialPosts"), data);
-        data.gid = postRef.id;
+        data.pid = postRef.id;
         okCallback && okCallback(data);
       } catch (e) {
         koCallback && koCallback();
@@ -570,6 +570,7 @@ class FirebaseController {
 
   async removePost(pid, okCallback, koCallback) {
     await deleteDoc(doc(this.db, "socialPosts", pid));
+    okCallback && okCallback();
   }
 }
 

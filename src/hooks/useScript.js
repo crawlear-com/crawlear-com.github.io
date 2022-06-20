@@ -6,6 +6,7 @@ const useScript = (url, id) => {
     const script = document.createElement('script');
     
     if(!scriptElement) {
+      script.id = id;
       script.src = url;
       script.async = true;
   

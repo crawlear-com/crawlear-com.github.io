@@ -1,4 +1,5 @@
 import * as React from 'react';
+import '../../resources/css/embed/Youtube.scss';
 
 function getVideoId(url) {
     var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -15,10 +16,8 @@ function Youtube({ url }) {
     const videoId = getVideoId(url);
 
     if (videoId) {
-        return <div className="youtube">
+        return <div className="youtube video-responsive">
                 <iframe 
-                width="317" 
-                height="315" 
                 src={`https://www.youtube.com/embed/${videoId}`} 
                 title="YouTube video player" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

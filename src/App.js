@@ -32,12 +32,12 @@ function App() {
 
   React.useEffect(() => {
     Analytics.event('App','init',`${navigator.userAgent}`);
-    navigate("profile?uid=DDzlRnl4s7Ovj72CT6Rq5rmJzc52");
+    //navigate("profile?uid=DDzlRnl4s7Ovj72CT6Rq5rmJzc52");
   }, [])
 
   function onLoggin() {
     setStateLogged(true);
-    //navigate("/completegame");
+    navigate("/completegame");
   }
 
   function onLogout() {

@@ -32,7 +32,7 @@ function UserViewer({uid, onLogout}) {
     function onPostEntry(post) {
         const newUserPosts = [...userPosts];
 
-        newUserPosts.push(post);
+        newUserPosts.unshift(post);
         setUserPosts(newUserPosts);
     }
 
@@ -40,7 +40,13 @@ function UserViewer({uid, onLogout}) {
         const id = event.target.getAttribute('data-id');
 
         if(id && window.confirm(t('content.seguroborrarpost'))) {
-            firebase.removePost(id, ()=>{}, ()=>{});
+            firebase.removePost(id, ()=>{
+                const newUserPosts = userPosts.filter((elem)=>{
+                    return elem.pid !== id;
+                });
+
+                setUserPosts(newUserPosts);
+            }, ()=>{});
         }
     }
 
