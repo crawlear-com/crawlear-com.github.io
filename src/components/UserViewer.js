@@ -34,6 +34,8 @@ function UserViewer({uid, onLogout}) {
 
         newUserPosts.unshift(post);
         setUserPosts(newUserPosts);
+
+        window.instgr && window.instgr.Embeds.process();
     }
 
     function removePostClick(event) {
@@ -46,6 +48,8 @@ function UserViewer({uid, onLogout}) {
                 });
 
                 setUserPosts(newUserPosts);
+
+                window.instgr && window.instgr.Embeds.process();
             }, ()=>{});
         }
     }
@@ -60,8 +64,9 @@ function UserViewer({uid, onLogout}) {
                     embeds.push(
                         <div className="post rounded rounded2">
                             {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                            <div className='postDate bold'>{new Date(post.date).toLocaleDateString()}</div>
+                            <div className='postDate'>{new Date(post.date).toLocaleDateString()}</div>
                             <div className='postText bold'>{post.text}</div>
+                            <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                             <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
                         </div>);
                 } else {
@@ -69,7 +74,8 @@ function UserViewer({uid, onLogout}) {
                         <div className="post rounded rounded2">
                             {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
                             <div className='postDate'>{new Date(post.date).toLocaleDateString()}</div>
-                            <div className='postText'>{post.text}</div>
+                            <div className='postText bold'>{post.text}</div>
+                            <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                             <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
                         </div>);
                 }

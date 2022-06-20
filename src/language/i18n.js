@@ -55,6 +55,7 @@ i18n
             userprofilenotlogged: 'You must be logged with a google account to see the user profile',
             urlEmbed: 'url to an instagram or youtube post',
             textEmbed: 'text message of the post',
+            gameEmbed: 'game asociated to the post',
             nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube'
           },
           error: {
@@ -71,6 +72,7 @@ i18n
               nosocialurl: 'The url must be a youtube or instagram post'
           },
           description: {
+            juego: 'game',
             nojugadores: 'No players',
             nojueces: 'No judges',
             nopartidas: 'No previous games',
@@ -166,7 +168,10 @@ i18n
             posts: 'Posts',
             texto: 'Text',
             publicar: 'Post an entry',
-            compartir: 'Share'
+            compartir: 'Share',
+            noasignarjuego: 'don\'t assign a game',
+            sinjuego: 'no assigned game',
+            juegoasignado: 'Game assigned (not visible)'
           },
           points: {
             vuelco: 'overturn',
@@ -298,6 +303,7 @@ i18n
             userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario',
             urlEmbed: 'url a un post de insagram o youtube',
             textEmbed: 'mensaje de la entrada',
+            gameEmbed: 'juego asociado a la entrada',
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube'
           },
           error: {
@@ -314,6 +320,7 @@ i18n
               nosocialurl: 'La url debe apuntar a una entrada de youtube o instagram'
           },
           description: {
+              juego: 'juego',
               nojugadores: 'No hay jugadores',
               nojueces: 'No hay jueces',
               nopartidas: 'No hay partidas guardadas',
@@ -409,7 +416,10 @@ i18n
               posts: 'Entradas',
               texto: 'Texto',
               publicar: 'Publicar entrada',
-              compartir: 'Compartir'
+              compartir: 'Compartir',
+              noasignarjuego: 'no asignar juego',
+              sinjuego: 'sin juego asignado',
+              juegoasignado: 'Juego asignado (no disponible)'
           },
           points: {
             vuelco: 'vuelco',

@@ -530,9 +530,10 @@ class FirebaseController {
     remove(ref(this.rdb, `presenceRequests/${gid}`));
   }
 
-  async setPost(uid, url, date, text, okCallback, koCallback) {
+  async setPost(uid, url, date, text, gid, okCallback, koCallback) {
     const data = {
       uid: uid,
+      gid: gid,
       date: date,
       url: url,
       text: text

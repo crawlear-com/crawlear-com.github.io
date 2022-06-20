@@ -21,14 +21,19 @@
         color: white;
     }
 
+    .postText {
+        margin-top: 15px;
+    }
     .postDate {
         margin-bottom: 15px;
-        
     }
 
-    .postText {
+    .postGame {
         margin-bottom: 15px;
-        
+    }
+
+    .postText, .postDate, .postGame {
+        padding: 0 10px;
     }
 
     .postUrlContent {

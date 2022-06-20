@@ -14,7 +14,7 @@ const useScript = (url, id) => {
     }
 
     return () => {
-      document.body.removeChild(script);
+      script.parentElement && document.body.removeChild(script);
     }
   }, [url]);
 };
