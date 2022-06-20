@@ -14,14 +14,15 @@
         width: 25%;
 
         img {
-            max-width: 80px;
+            margin: 0 auto;
+            width: 100%;
             border-radius: 15px;
         }
     }
 
     .userProfileInlineContainer {
         float: right;
-        width: 75%;
+        width: 73%;
         .name {
             margin: 5px 0;
         }
@@ -38,10 +39,6 @@
     .description {
         float: left;
         width: 100%;
-    }
-
-    .instagram {
-        
     }
 
     .hidenInput {

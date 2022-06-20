@@ -13,6 +13,20 @@ class Utils {
         return false;
     }
 
+    static isYoutubeUrl(url) {
+        var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        
+        return (match && match[2].length == 11);
+    }
+
+    static isInstagramUrl(url) {
+        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/([\w,.-_]*)\/p\/(.*?)\//;
+        var match = url.match(regExp);
+        
+        return match && match[2];
+    }
+
     static tokenToTexts(tokens) {
         return tokens.map((x)=>{return t(x);});
     }

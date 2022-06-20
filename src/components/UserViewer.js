@@ -8,7 +8,7 @@ import Instagram from './embed/Instagram';
 import Youtube from './embed/Youtube';
 import UserPoster from './UserPoster';
 
-function UserViewer({uid}) {
+function UserViewer({uid, onLogout}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [user, setUser] = React.useState({});
@@ -36,14 +36,24 @@ function UserViewer({uid}) {
         setUserPosts(newUserPosts);
     }
 
+    function removePostClick(event) {
+        const id = event.target.getAttribute('data-id');
+
+        if(id) {
+            firebase.removePost(id);
+        }
+    }
+
     if (user.registrationDate ) {
         const embeds = [];
 
         if (userPosts.length) {
             userPosts.forEach((post, index) => {
                 if(post.url.indexOf('instagram')>=0) {
+                    //Unify this!
                     embeds.push(
                         <div className="post rounded rounded2">
+                            {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
                             <div className='postDate bold'>{new Date(post.date).toLocaleDateString()}</div>
                             <div className='postText bold'>{post.text}</div>
                             <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
@@ -51,6 +61,7 @@ function UserViewer({uid}) {
                 } else {
                     embeds.push(
                         <div className="post rounded rounded2">
+                            {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
                             <div className='postDate'>{new Date(post.date).toLocaleDateString()}</div>
                             <div className='postText'>{post.text}</div>
                             <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
@@ -58,13 +69,13 @@ function UserViewer({uid}) {
                 }
             });
         } else {
-            embeds.push(<div>No {t('description.posts')}</div>);
+            embeds.push(<div className='rounded rounded2'>{t('content.nopost')}</div>);
         }
 
         return <div className="userViewer">
             {!isUserLogged ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
-            <UserProfile user={user} />
-            
+            <UserProfile onLogout={onLogout} user={user} />
+
             <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
                 <div>
@@ -80,7 +91,7 @@ function UserViewer({uid}) {
 
             {isUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
 
-            <div className="posts">
+            <div className="posts rounded rounded3">
                 <div className='headerText bold'>{t('description.posts')}</div>
                 {embeds}
             </div>

@@ -538,11 +538,15 @@ class FirebaseController {
       text: text
     };
 
-    try {
-      const postRef = await addDoc(collection(this.db, "socialPosts"), data);
-      data.gid = postRef.id;
-      okCallback && okCallback(data);
-    } catch (e) {
+    if (text.length>=0 && url.length >=0) {
+      try {
+        const postRef = await addDoc(collection(this.db, "socialPosts"), data);
+        data.gid = postRef.id;
+        okCallback && okCallback(data);
+      } catch (e) {
+        koCallback && koCallback();
+      }
+    } else {
       koCallback && koCallback();
     }
   }
@@ -550,17 +554,29 @@ class FirebaseController {
   async getPosts(uid, okCallback, koCallback) {
     try {
       const q = query(collection(this.db, "socialPosts"), 
-        where("uid", "==", uid));
+        where("uid", "==", uid), orderBy("date", "desc"), limit(10));
       const querySnapshot = await getDocs(q);
       const posts = [];
 
       querySnapshot.docs.forEach((postData)=>{
-        posts.push(postData.data());
+        posts.push({...postData.data(), pid: postData.id});
       });
 
       okCallback && okCallback(posts);
       } catch(e) {
         koCallback && koCallback();
+    }
+  }
+
+  async removePost(pid) {
+    const docRef = doc(this.db, "socialPosts", pid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      docRef.remove();           
+      okCallback(pid);
+    } else {
+      koCallback();
     }
   }
 }

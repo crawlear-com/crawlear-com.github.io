@@ -53,7 +53,8 @@ i18n
             editprofile: 'You can edit the user profile clicking on name, description or instagram username',
             userprofilenotlogged: 'You must be logged with a google account to see the user profile',
             urlEmbed: 'url to an instagram or youtube post',
-            textEmbed: 'text message of the post'
+            textEmbed: 'text message of the post',
+            nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube'
           },
           error: {
               nojugadores: 'Add the players',
@@ -63,7 +64,10 @@ i18n
               juegoencurso: 'Player is already playing the zone',
               reparacionencurso: 'Player is currently repairing',
               rellenargrupos: 'Check the configuration, there is a group with no pilots',
-              nodirectordepartida: 'Check at least one judge as Game director'
+              nodirectordepartida: 'Check at least one judge as Game director',
+              noposttext: 'The post text is empty',
+              noposturl: 'The post url is empty',
+              nosocialurl: 'The url must be a youtube or instagram post'
           },
           description: {
             nojugadores: 'No players',
@@ -160,7 +164,8 @@ i18n
             estadisticas: 'Statistics',
             posts: 'Posts',
             texto: 'Text',
-            publicar: 'Post an entry'
+            publicar: 'Post an entry',
+            compartir: 'Share'
           },
           points: {
             vuelco: 'overturn',
@@ -290,7 +295,8 @@ i18n
             editprofile: 'Puedes editar los datos haciendo click en el nombre, descripción o nombre de usuario en instagram',
             userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario',
             urlEmbed: 'url a un post de insagram o youtube',
-            textEmbed: 'mensaje de la entrada'
+            textEmbed: 'mensaje de la entrada',
+            nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -300,7 +306,10 @@ i18n
               juegoencurso: 'El jugador y la zona ya está en juego',
               reparacionencurso: 'El jugador está en estado de reparación',
               rellenargrupos: 'Repasa la configuración, existe algun grupo sin pilotos',
-              nodirectordepartida: 'Marca al menos un juez como director de partida'
+              nodirectordepartida: 'Marca al menos un juez como director de partida',
+              noposttext: 'El texto de la entrada está vacío',
+              noposturl: 'La url de la entrada está vacía',
+              nosocialurl: 'La url debe apuntar a una entrada de youtube o instagram'
           },
           description: {
               nojugadores: 'No hay jugadores',
@@ -397,7 +406,8 @@ i18n
               estadisticas: 'Estadísticas',
               posts: 'Entradas',
               texto: 'Texto',
-              publicar: 'Publicar entrada'
+              publicar: 'Publicar entrada',
+              compartir: 'Compartir'
           },
           points: {
             vuelco: 'vuelco',
