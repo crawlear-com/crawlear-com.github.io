@@ -13,8 +13,8 @@ import { getDatabase,
          get,
          remove,
          ref } from "firebase/database";
-import { addDoc, getFirestore } from "firebase/firestore"
-import { setDoc, 
+import { addDoc,
+         setDoc, 
          doc,
          getDoc,
          updateDoc,
@@ -24,6 +24,7 @@ import { setDoc,
          orderBy,
          limit,
          startAt,
+         getFirestore,
          getDocs,
          deleteDoc } from "firebase/firestore";
 

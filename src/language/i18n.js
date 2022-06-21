@@ -171,7 +171,9 @@ i18n
             compartir: 'Share',
             noasignarjuego: 'don\'t assign a game',
             sinjuego: 'no assigned game',
-            juegoasignado: 'Game assigned (not visible)'
+            juegoasignado: 'Game assigned (not visible)',
+            murodepiloto: 'Pilot Wall',
+            publicar: 'Publish'
           },
           points: {
             vuelco: 'overturn',
@@ -419,7 +421,9 @@ i18n
               compartir: 'Compartir',
               noasignarjuego: 'no asignar juego',
               sinjuego: 'sin juego asignado',
-              juegoasignado: 'Juego asignado (no disponible)'
+              juegoasignado: 'Juego asignado (no disponible)',
+              murodepiloto: 'Muro de Piloto',
+              publicar: 'Publicar'
           },
           points: {
             vuelco: 'vuelco',

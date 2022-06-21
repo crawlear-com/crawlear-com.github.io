@@ -64,7 +64,7 @@ function UserViewer({uid, onLogout}) {
                     embeds.push(
                         <div className="post rounded rounded2">
                             {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                            <div className='postDate'>{new Date(post.date).toLocaleDateString()}</div>
+                            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
                             <div className='postText bold'>{post.text}</div>
                             <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                             <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
@@ -73,7 +73,7 @@ function UserViewer({uid, onLogout}) {
                     embeds.push(
                         <div className="post rounded rounded2">
                             {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                            <div className='postDate'>{new Date(post.date).toLocaleDateString()}</div>
+                            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
                             <div className='postText bold'>{post.text}</div>
                             <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                             <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
@@ -81,7 +81,7 @@ function UserViewer({uid, onLogout}) {
                 } else {
                     embeds.push(<div className="post rounded rounded2">
                         {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                        <div className='postDate'>{new Date(post.date).toLocaleDateString()}</div>
+                        <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
                         <div className='postText bold'>{post.text}</div>
                         <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                     </div>);
@@ -111,7 +111,7 @@ function UserViewer({uid, onLogout}) {
             {isUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
 
             <div className="posts rounded rounded3">
-                <div className='headerText bold'>{t('description.posts')}</div>
+                <div className='headerText bold'>{t('description.murodepiloto')}</div>
                 {embeds}
             </div>
         </div>;

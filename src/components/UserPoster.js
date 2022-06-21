@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import '../resources/css/UserPoster.scss';
 import Utils from '../Utils';
 import ErrorBox from './ErrorBox';
+import * as firestore from 'firebase/firestore';
 
 function UserPoster({onPostEntry}) {
     const { t } = useTranslation();
@@ -15,7 +16,7 @@ function UserPoster({onPostEntry}) {
         text: '',
         gid: -1,
         gameName: '',
-        date: new Date().toString()
+        date: firestore.Timestamp.fromDate(new Date())
     });
 
     React.useEffect(()=>{
@@ -66,7 +67,7 @@ function UserPoster({onPostEntry}) {
             text: '',
             gid: -1,
             gameName: '',
-            date: new Date().toString()
+            date: firestore.Timestamp.fromDate(new Date())
         });
     }
 
@@ -113,7 +114,7 @@ function UserPoster({onPostEntry}) {
                 <br /><br />
 
                 <ErrorBox message={errorMessage} />
-                <input type="submit" value= {t('description.aceptar')} className='submit importantNote' />
+                <input type="submit" value= {t('description.publicar')} className='submit importantNote' />
             </form>
         </div>;
 }

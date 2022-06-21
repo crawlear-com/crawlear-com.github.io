@@ -27,7 +27,7 @@ function TwitterSharer({ url }) {
     }, []);
 
     return <a className="twitter-share-button"
-            href={`https://twitter.com/intent/tweet?url=${encodeURI(url)}&text=${encodeURI(shareText)}`}
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURI(shareText)}`}
             data-size="large">Tweet</a>;
 }
 

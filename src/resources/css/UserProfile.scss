@@ -1,3 +1,15 @@
+.userViewer {
+    .userProfileContainer {
+        background-image: url(../img/pilotbackground.png), linear-gradient(#345B63, #112031);
+        background-attachment: fixed;
+        background-position: center;
+        background-position-y: top;
+        background-position-x: right;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }    
+}
+
 .userProfileContainer {
     text-align: right;
     display: inline-block;
