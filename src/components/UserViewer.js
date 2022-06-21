@@ -69,7 +69,7 @@ function UserViewer({uid, onLogout}) {
                             <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                             <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
                         </div>);
-                } else {
+                } else if(post.url.indexOf('youtube')>=0) {
                     embeds.push(
                         <div className="post rounded rounded2">
                             {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
@@ -78,6 +78,13 @@ function UserViewer({uid, onLogout}) {
                             <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                             <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
                         </div>);
+                } else {
+                    embeds.push(<div className="post rounded rounded2">
+                        {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
+                        <div className='postDate'>{new Date(post.date).toLocaleDateString()}</div>
+                        <div className='postText bold'>{post.text}</div>
+                        <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
+                    </div>);
                 }
             });
         } else {

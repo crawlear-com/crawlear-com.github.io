@@ -16,12 +16,12 @@ class Utils {
     static sanitizeUrl(url) {
         const params = url.indexOf('?');
 
-        if(url[url.length-1] !== '/') {
-            url += '/';
+        if (params>=0) {
+            url = url.slice(0, params);
         }
 
-        if (params>=0) {
-            url = url.slice(params, url.length);
+        if(url[url.length-1] !== '/') {
+            url += '/';
         }
 
         return url;

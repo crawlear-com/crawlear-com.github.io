@@ -53,7 +53,7 @@ i18n
             colaboraciones: 'Collaborates:',
             editprofile: 'You can edit the user profile clicking on name, description or instagram username',
             userprofilenotlogged: 'You must be logged with a google account to see the user profile',
-            urlEmbed: 'url to an instagram or youtube post',
+            urlEmbed: '(optional) url to an instagram or youtube post',
             textEmbed: 'text message of the post',
             gameEmbed: 'game asociated to the post',
             nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube'
@@ -301,7 +301,7 @@ i18n
             colaboraciones: 'Colabora:',
             editprofile: 'Puedes editar los datos haciendo click en el nombre, descripción o nombre de usuario en instagram',
             userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario',
-            urlEmbed: 'url a un post de insagram o youtube',
+            urlEmbed: '(opcional) url a un post de insagram o youtube',
             textEmbed: 'mensaje de la entrada',
             gameEmbed: 'juego asociado a la entrada',
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube'

@@ -75,20 +75,20 @@ function UserPoster({onPostEntry}) {
         event.stopPropagation();
 
         if (!window.crawlear || !window.crawlear.user || !window.crawlear.user.uid) return;
-
-        if (state.url.length<=0) {
-            setErrorMessage(t('error.noposturl'));
-        } else if (state.text.length <=0) { 
+        
+        if (state.text.length <=0) { 
             setErrorMessage(t('error.noposttext'));
-        } else if (Utils.isYoutubeUrl(state.url) || Utils.isInstagramUrl(state.url)) {
+        } else if ((state.url.length<=0) || (state.url.length>0) && (Utils.isYoutubeUrl(state.url) || Utils.isInstagramUrl(state.url))) {
             firebase.setPost(window.crawlear.user.uid, state.url, state.date, state.text, state.gid, (post)=>{
                 setErrorMessage("");
                 clearState();
                 onPostEntry && onPostEntry(post);
             }, ()=>{});  
-        } else {
+        } else if (state.url.length>0) {
             setErrorMessage(t('error.nosocialurl'));
         }
+
+        //    setErrorMessage(t('error.noposturl'));
     }
 
     gameOptionElements.push(<option key="initialValue" value={-1}>{t('description.noasignarjuego')}</option>);
