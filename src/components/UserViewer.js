@@ -30,7 +30,7 @@ function UserViewer({uid, onLogout}) {
     }, []);
 
     React.useEffect(()=>{
-        window.setTimeout(()=>{window.instgr && window.instgr.Embeds.process()}, 4500);
+        window.instgrm && window.instgrm.Embeds.process();
     },[userPosts]);
 
     function onPostEntry(post) {

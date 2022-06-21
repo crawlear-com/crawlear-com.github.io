@@ -1,16 +1,11 @@
 import * as React from 'react';
 import useScript from '../../hooks/useScript';
 import Logo from './logoInstagram.svg';
-import Utils from '../../Utils';
 import '../../resources/css/embed/Instagram.scss';
 
 function Instagram({ url }) {
-
-    return <iframe width="320" height="440" src={`${Utils.sanitizeUrl(url)}embed/`} frameborder="0"></iframe>;
-
-    /*
     useScript('https://www.instagram.com/embed.js','instagram-embed-loader', ()=>{
-        window.instgr && window.instgr.Embeds.process();
+        window.instgrm && window.instgrm.Embeds.process();
     });
 
     return <div className="instagram">
@@ -61,12 +56,7 @@ function Instagram({ url }) {
             </p>
             </div>
         </blockquote>
-        
         </div>;
-
-        */
-
-
 }
 
 export default Instagram;
