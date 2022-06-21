@@ -363,8 +363,6 @@ class FirebaseController {
       ...window.crawlear,
       user: data
     };
-  
-    window.crawlear.user.registrationDate = new Date(data.registrationDate).toLocaleDateString();
     window.crawlear.user.uid = uid;
   }
   
