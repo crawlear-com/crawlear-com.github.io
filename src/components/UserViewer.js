@@ -29,13 +29,15 @@ function UserViewer({uid, onLogout}) {
         }, ()=>{});
     }, []);
 
+    React.useEffect(()=>{
+        window.setTimeout(()=>{window.instgr && window.instgr.Embeds.process()}, 4500);
+    },[userPosts]);
+
     function onPostEntry(post) {
         const newUserPosts = [...userPosts];
 
         newUserPosts.unshift(post);
         setUserPosts(newUserPosts);
-
-        window.instgr && window.instgr.Embeds.process();
     }
 
     function removePostClick(event) {
@@ -48,8 +50,6 @@ function UserViewer({uid, onLogout}) {
                 });
 
                 setUserPosts(newUserPosts);
-
-                window.instgr && window.instgr.Embeds.process();
             }, ()=>{});
         }
     }
@@ -62,7 +62,7 @@ function UserViewer({uid, onLogout}) {
                 if(post.url.indexOf('instagram')>=0) {
                     //Unify this!
                     embeds.push(
-                        <div className="post rounded rounded2">
+                        <div key={post.pid} className="post rounded rounded2">
                             {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
                             <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
                             <div className='postText bold'>{post.text}</div>
@@ -71,7 +71,7 @@ function UserViewer({uid, onLogout}) {
                         </div>);
                 } else if(post.url.indexOf('youtube')>=0) {
                     embeds.push(
-                        <div className="post rounded rounded2">
+                        <div key={post.pid} className="post rounded rounded2">
                             {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
                             <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
                             <div className='postText bold'>{post.text}</div>
@@ -79,7 +79,7 @@ function UserViewer({uid, onLogout}) {
                             <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
                         </div>);
                 } else {
-                    embeds.push(<div className="post rounded rounded2">
+                    embeds.push(<div key={post.pid} className="post rounded rounded2">
                         {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
                         <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
                         <div className='postText bold'>{post.text}</div>
@@ -88,7 +88,7 @@ function UserViewer({uid, onLogout}) {
                 }
             });
         } else {
-            embeds.push(<div className='rounded rounded2'>{t('content.nopost')}</div>);
+            embeds.push(<div key="nopost" className='rounded rounded2'>{t('content.nopost')}</div>);
         }
 
         return <div className="userViewer">
