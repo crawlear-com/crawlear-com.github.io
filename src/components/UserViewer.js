@@ -78,7 +78,7 @@ function UserViewer({uid, onLogout}) {
                 }
 
                 embeds.push(
-                    <div key={post.pid} className="post rounded rounded2">
+                    <div key={post.pid} className="post rounded ">
                         {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
                         <div className='postDate'>{post.date.toDate().toLocaleDateString()} - {post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
                         <div className='postText bold'>{post.text}</div>
@@ -87,7 +87,7 @@ function UserViewer({uid, onLogout}) {
                     </div>);
             });
         } else {
-            embeds.push(<div key="nopost" className='rounded rounded2'>{t('content.nopost')}</div>);
+            embeds.push(<div key="nopost" className='rounded '>{t('content.nopost')}</div>);
         }
 
         return <div className="userViewer">
