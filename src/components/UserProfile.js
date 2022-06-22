@@ -3,8 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import FacebookSharer from './embed/FacebookSharer';
 import TwitterSharer from './embed/TwitterSharer';
+import TelegramSharer from './embed/TelegramSharer';
+import WhatsappSharer from './embed/WhatsappSharer';
 
 import '../resources/css/UserProfile.scss';
+
 
 function UserProfile({user, onLogout}) {
     const { t } = useTranslation();
@@ -73,6 +76,8 @@ function UserProfile({user, onLogout}) {
 /* 
                 <FacebookSharer url={`https://crawlear.com/profile?uid=${user.uid}`}/>
                 <TwitterSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
+                <WhatsappSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
+                <TelegramSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
                 {!readOnly ? <div className='viewProfileLink' onClick={()=>{navigate(`/profile?uid=${window.crawlear.user.uid}`)}}> {t('description.verperfil')}</div> : <></>}
 */
 

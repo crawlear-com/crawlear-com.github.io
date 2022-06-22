@@ -2,8 +2,6 @@ import { t } from 'i18next';
 import * as React from 'react';
 
 function TwitterSharer({ url }) {
-    const shareText = 'Hey! This is my crawlear.com pilot profile';
-    
     React.useEffect(()=>{
         window.twttr = (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0],
@@ -27,7 +25,7 @@ function TwitterSharer({ url }) {
     }, []);
 
     return <a className="twitter-share-button"
-            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURI(shareText)}`}
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURI(t('content.shareText'))}`}
             data-size="large">Tweet</a>;
 }
 
