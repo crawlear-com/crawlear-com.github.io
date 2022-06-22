@@ -32,7 +32,6 @@ function App() {
 
   React.useEffect(() => {
     Analytics.event('App','init',`${navigator.userAgent}`);
-    //navigate("profile?uid=Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1");
   }, [])
 
   function onLoggin() {
