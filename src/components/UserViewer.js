@@ -7,6 +7,8 @@ import Spinner from './Spinner';
 import Instagram from './embed/Instagram';
 import Youtube from './embed/Youtube';
 import UserPoster from './UserPoster';
+import Analytics from '../Analytics';
+import Utils from '../Utils';
 
 function UserViewer({uid, onLogout}) {
     const { t } = useTranslation();
@@ -27,17 +29,24 @@ function UserViewer({uid, onLogout}) {
         firebase.getPosts(uid, (data)=>{
             setUserPosts([...userPosts, ...data]);
         }, ()=>{});
+
+        Analytics.pageview(`${document.location.pathname}${document.location.search}`);
     }, []);
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();
     },[userPosts]);
 
+    function getPostType(post) {
+        post.url ? (Utils.isInstagramUrl(url) ? 'instagram' : 'youtube') : 'text'
+    }
+
     function onPostEntry(post) {
         const newUserPosts = [...userPosts];
 
         newUserPosts.unshift(post);
         setUserPosts(newUserPosts);
+        Analytics.event('post','added', getPostType(post));
     }
 
     function removePostClick(event) {
@@ -50,6 +59,7 @@ function UserViewer({uid, onLogout}) {
                 });
 
                 setUserPosts(newUserPosts);
+                Analytics.event('post','removed');
             }, ()=>{});
         }
     }
@@ -59,33 +69,22 @@ function UserViewer({uid, onLogout}) {
 
         if (userPosts.length) {
             userPosts.forEach((post, index) => {
+                let embed = <></>;
+
                 if(post.url.indexOf('instagram')>=0) {
-                    //Unify this!
-                    embeds.push(
-                        <div key={post.pid} className="post rounded rounded2">
-                            {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
-                            <div className='postText bold'>{post.text}</div>
-                            <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
-                            <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
-                        </div>);
-                } else if(post.url.indexOf('youtube')>=0) {
-                    embeds.push(
-                        <div key={post.pid} className="post rounded rounded2">
-                            {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
-                            <div className='postText bold'>{post.text}</div>
-                            <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
-                            <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
-                        </div>);
-                } else {
-                    embeds.push(<div key={post.pid} className="post rounded rounded2">
-                        {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                        <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
-                        <div className='postText bold'>{post.text}</div>
-                        <div className='postGame'>{post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
-                    </div>);
+                    embed = <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
+                } else if(post.url.indexOf('youtu')>=0) {
+                    embed = <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
                 }
+
+                embeds.push(
+                    <div key={post.pid} className="post rounded rounded2">
+                        {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
+                        <div className='postDate'>{post.date.toDate().toLocaleDateString()} - {post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
+                        <div className='postText bold'>{post.text}</div>
+                        {embed}                        
+                        <div className='postGame'></div>
+                    </div>);
             });
         } else {
             embeds.push(<div key="nopost" className='rounded rounded2'>{t('content.nopost')}</div>);

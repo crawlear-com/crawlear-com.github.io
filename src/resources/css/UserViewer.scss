@@ -1,8 +1,18 @@
 .userViewer {
     .statistics, .posts {
-        font-size: 0.8em;
         margin-bottom: 25px;
         width: 94%;
+    }
+    .statistics {
+        background-image: url(../img/pilotbackground.png), linear-gradient(#345B63, #112031);
+        //background-attachment: fixed;
+        //background-position: center;
+        //background-position-y: bottom;
+        background-position-x: center;
+        background-repeat: no-repeat;
+        //background-size: contain;
+
+        padding-bottom: 35px;
     }
 
     .removePostButton {
@@ -10,9 +20,12 @@
     }
 
     .post {
+        font-size: 0.8em;
         margin-bottom: 25px;
         width: 95%;
         overflow: hidden;
+        background-color: #EEE;
+        color: black;
         text-align: left;
     }
 
@@ -22,26 +35,27 @@
     }
 
     .postText {
-        margin-top: 15px;
+        margin: 25px 0;
     }
     .postDate {
-        margin-bottom: 15px;
+        margin: 10px 0 15px 0;
+        font-size: 0.8em;
     }
 
     .postGame {
         margin-bottom: 15px;
-        font-size: 0.8em;
     }
 
     .postText, .postDate, .postGame {
         padding: 0 10px;
+        text-align: right;
     }
 
     .postUrlContent {
         margin-bottom: 15px;
     }
 
-    .postForm {
+    .postForm-form {
 
     }
 }
