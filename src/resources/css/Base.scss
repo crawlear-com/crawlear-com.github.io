@@ -44,7 +44,8 @@ body {
 
 button, 
 select,
-input {
+input,
+textarea {
   margin: 5px;
   border-radius: 15px;
   font-size: 21px;
@@ -53,7 +54,7 @@ input {
   color: white;
 }
 
-input {
+input, textarea {
   color: black;
 }
 
@@ -121,7 +122,7 @@ button {
   }
 }
 
-input {
+input, textarea {
   background-color: white;
   max-width: 195px;
   font-size: 17px;

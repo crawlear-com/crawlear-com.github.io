@@ -30,6 +30,7 @@ i18n
             enviorequest2: 'The player must accept the request to be added to the game',
             peticionjuegoconfirmacion: 'Do you want to send a game request?',
             seguroborrarjuego: 'Do you want to delete the game?',
+            seguroborrarpost: 'Do you want to delete the post?',
             nogeolocation: 'Your browser does not support geolocation',
             landingMainText: 'Sign In with your Google.com account to get all the functionality',
             landingSecondText: 'Or just play a',
@@ -51,7 +52,11 @@ i18n
             selecciongrupos: 'Select the number of groups',
             colaboraciones: 'Collaborates:',
             editprofile: 'You can edit the user profile clicking on name, description or instagram username',
-            userprofilenotlogged: 'You must be logged with a google account to see the user profile'
+            userprofilenotlogged: 'You must be logged with a google account to see the user profile',
+            urlEmbed: '(optional) url to an instagram or youtube post',
+            textEmbed: 'text message of the post',
+            gameEmbed: 'if the post is related, select the game asociated to the post',
+            nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube'
           },
           error: {
               nojugadores: 'Add the players',
@@ -61,9 +66,13 @@ i18n
               juegoencurso: 'Player is already playing the zone',
               reparacionencurso: 'Player is currently repairing',
               rellenargrupos: 'Check the configuration, there is a group with no pilots',
-              nodirectordepartida: 'Check at least one judge as Game director'
+              nodirectordepartida: 'Check at least one judge as Game director',
+              noposttext: 'The post text is empty',
+              noposturl: 'The post url is empty',
+              nosocialurl: 'The url must be a youtube or instagram post'
           },
           description: {
+            juego: 'game',
             nojugadores: 'No players',
             nojueces: 'No judges',
             nopartidas: 'No previous games',
@@ -115,6 +124,7 @@ i18n
             buscarusuario: 'User search',
             resultado: 'Result',
             vergooglemaps: 'View in Google Maps',
+            verperfil: 'View social profile',
             usuariosenpartida: 'Players in game',
             juecesenpartida: 'Judges in game',
             peticionesdejuego: 'Game requests',
@@ -153,7 +163,17 @@ i18n
             reclamarpresencia: 'Claim presence',
             entrenamientos: 'Mange trainings',
             bonificacionaccesorios: 'Accessory bonification',
-            ayuda: 'Help'
+            ayuda: 'Help',
+            estadisticas: 'Statistics',
+            posts: 'Posts',
+            texto: 'Text',
+            publicar: 'Post an entry',
+            compartir: 'Share',
+            noasignarjuego: 'don\'t assign a game',
+            sinjuego: 'no game assigned',
+            juegoasignado: 'Game assigned (not visible)',
+            murodepiloto: 'Pilot Wall',
+            publicar: 'Publish'
           },
           points: {
             vuelco: 'overturn',
@@ -260,6 +280,7 @@ i18n
             enviorequest2: 'El usuario deberá aceptar la petición para poder ser agregado a la partida',
             peticionjuegoconfirmacion: '¿Quieres enviar una petición de juego?',
             seguroborrarjuego: '¿Quieres ELIMINAR el juego?',
+            seguroborrarpost: '¿Quieres ELIMINAR la entrada?',
             nogeolocation: 'Tu navegador no soporta geolocalizacíon',
             landingMainText: 'Ingresa con tu cuenta de Google.com para acceder a las funcionalidades completas',
             landingSecondText: 'O si lo prefieres, puedes jugar simplemente una',
@@ -281,7 +302,11 @@ i18n
             selecciongrupos: 'Selecciona el número de grupos en la partida',
             colaboraciones: 'Colabora:',
             editprofile: 'Puedes editar los datos haciendo click en el nombre, descripción o nombre de usuario en instagram',
-            userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario'
+            userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario',
+            urlEmbed: '(opcional) url a un post de insagram o youtube',
+            textEmbed: 'mensaje de la entrada',
+            gameEmbed: 'si está relacionado conm la entrada, selecciona juego asociado a la entrada',
+            nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -291,9 +316,13 @@ i18n
               juegoencurso: 'El jugador y la zona ya está en juego',
               reparacionencurso: 'El jugador está en estado de reparación',
               rellenargrupos: 'Repasa la configuración, existe algun grupo sin pilotos',
-              nodirectordepartida: 'Marca al menos un juez como director de partida'
+              nodirectordepartida: 'Marca al menos un juez como director de partida',
+              noposttext: 'El texto de la entrada está vacío',
+              noposturl: 'La url de la entrada está vacía',
+              nosocialurl: 'La url debe apuntar a una entrada de youtube o instagram'
           },
           description: {
+              juego: 'juego',
               nojugadores: 'No hay jugadores',
               nojueces: 'No hay jueces',
               nopartidas: 'No hay partidas guardadas',
@@ -345,6 +374,7 @@ i18n
               buscarusuario: 'Buscar usuario',
               resultado: 'Resultado',
               vergooglemaps: 'Ver en Google Maps',
+              verperfil: 'Ver perfil social',
               usuariosenpartida: 'Jugadores en partida',
               juecesenpartida: 'Jueces en partida',
               peticionesdejuego: 'Peticiones de Juego',
@@ -383,7 +413,17 @@ i18n
               reclamarpresencia: 'Reclamar presencia',
               entrenamientos: 'Gestionar entrenamientos',
               bonificacionaccesorios: 'Bonificación de accesorios',
-              ayuda: 'Ayuda'
+              ayuda: 'Ayuda',
+              estadisticas: 'Estadísticas',
+              posts: 'Entradas',
+              texto: 'Texto',
+              publicar: 'Publicar entrada',
+              compartir: 'Compartir',
+              noasignarjuego: 'no asignar juego',
+              sinjuego: 'sin juego asignado',
+              juegoasignado: 'Juego asignado (no disponible)',
+              murodepiloto: 'Muro de Piloto',
+              publicar: 'Publicar'
           },
           points: {
             vuelco: 'vuelco',

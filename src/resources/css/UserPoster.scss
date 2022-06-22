@@ -1,0 +1,23 @@
+.postForm {
+    margin-bottom: 25px;
+}
+.postForm-help {
+    font-size: 0.6em;
+}
+
+.postForm-label {
+    font-size: 0.8em;
+
+    input {
+        height: 15px;
+    }
+
+    textarea {
+        height: 50px;
+        max-width: 250px;
+    }
+
+    input, textarea {
+        margin-left: 15px;
+    }
+}

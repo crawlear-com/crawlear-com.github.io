@@ -13,8 +13,8 @@ import { getDatabase,
          get,
          remove,
          ref } from "firebase/database";
-import { addDoc, getFirestore } from "firebase/firestore"
-import { setDoc, 
+import { addDoc,
+         setDoc, 
          doc,
          getDoc,
          updateDoc,
@@ -24,6 +24,7 @@ import { setDoc,
          orderBy,
          limit,
          startAt,
+         getFirestore,
          getDocs,
          deleteDoc } from "firebase/firestore";
 
@@ -362,8 +363,6 @@ class FirebaseController {
       ...window.crawlear,
       user: data
     };
-  
-    window.crawlear.user.registrationDate = new Date(data.registrationDate).toLocaleDateString();
     window.crawlear.user.uid = uid;
   }
   
@@ -528,6 +527,50 @@ class FirebaseController {
 
   removeDirectorPresenceRequest(gid) {
     remove(ref(this.rdb, `presenceRequests/${gid}`));
+  }
+
+  async setPost(uid, url, date, text, gid, okCallback, koCallback) {
+    const data = {
+      uid: uid,
+      gid: gid,
+      date: date,
+      url: url,
+      text: text
+    };
+
+    if (text.length>=0 && url.length >=0) {
+      try {
+        const postRef = await addDoc(collection(this.db, "socialPosts"), data);
+        data.pid = postRef.id;
+        okCallback && okCallback(data);
+      } catch (e) {
+        koCallback && koCallback();
+      }
+    } else {
+      koCallback && koCallback();
+    }
+  }
+
+  async getPosts(uid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "socialPosts"), 
+        where("uid", "==", uid), orderBy("date", "desc"), limit(10));
+      const querySnapshot = await getDocs(q);
+      const posts = [];
+
+      querySnapshot.docs.forEach((postData)=>{
+        posts.push({...postData.data(), pid: postData.id});
+      });
+
+      okCallback && okCallback(posts);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
+  async removePost(pid, okCallback, koCallback) {
+    await deleteDoc(doc(this.db, "socialPosts", pid));
+    okCallback && okCallback();
   }
 }
 

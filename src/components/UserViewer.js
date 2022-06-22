@@ -4,12 +4,19 @@ import UserProfile from './UserProfile';
 import logo from '../resources/img/logo5.png'
 import '../resources/css/UserViewer.scss';
 import Spinner from './Spinner';
+import Instagram from './embed/Instagram';
+import Youtube from './embed/Youtube';
+import UserPoster from './UserPoster';
+import Analytics from '../Analytics';
+import Utils from '../Utils';
 
-function UserViewer({uid}) {
+function UserViewer({uid, onLogout}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
+    const [userPosts, setUserPosts] = React.useState([])
+    const isUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
 
     React.useEffect(()=>{
         firebase.getUser(uid, (user)=>{
@@ -18,25 +25,100 @@ function UserViewer({uid}) {
                 setUserData(data);
             });
         });
+
+        firebase.getPosts(uid, (data)=>{
+            setUserPosts([...userPosts, ...data]);
+        }, ()=>{});
+
+        Analytics.pageview(`${document.location.pathname}${document.location.search}`);
     }, []);
 
+    React.useEffect(()=>{
+        window.instgrm && window.instgrm.Embeds.process();
+    },[userPosts]);
+
+    function getPostType(post) {
+        post.url ? (Utils.isInstagramUrl(url) ? 'instagram' : 'youtube') : 'text'
+    }
+
+    function onPostEntry(post) {
+        const newUserPosts = [...userPosts];
+
+        newUserPosts.unshift(post);
+        setUserPosts(newUserPosts);
+        Analytics.event('post','added', getPostType(post));
+    }
+
+    function removePostClick(event) {
+        const id = event.target.getAttribute('data-id');
+
+        if(id && window.confirm(t('content.seguroborrarpost'))) {
+            firebase.removePost(id, ()=>{
+                const newUserPosts = userPosts.filter((elem)=>{
+                    return elem.pid !== id;
+                });
+
+                setUserPosts(newUserPosts);
+                Analytics.event('post','removed');
+            }, ()=>{});
+        }
+    }
+
     if (user.registrationDate ) {
+        const embeds = [];
+
+        if (userPosts.length) {
+            userPosts.forEach((post, index) => {
+                let embed = <></>;
+
+                if(post.url.indexOf('instagram')>=0) {
+                    embed = <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
+                } else if(post.url.indexOf('youtu')>=0) {
+                    embed = <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
+                }
+
+                embeds.push(
+                    <div key={post.pid} className="post rounded rounded2">
+                        {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
+                        <div className='postDate'>{post.date.toDate().toLocaleDateString()} - {post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
+                        <div className='postText bold'>{post.text}</div>
+                        {embed}                        
+                        <div className='postGame'></div>
+                    </div>);
+            });
+        } else {
+            embeds.push(<div key="nopost" className='rounded rounded2'>{t('content.nopost')}</div>);
+        }
+
         return <div className="userViewer">
-            <UserProfile user={user} />
-            <div>
-                {t('description.partidascreadas')}: {userData.ownerGames || 0}
+            {!isUserLogged ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
+            <UserProfile onLogout={onLogout} user={user} />
+
+            <div className="statistics rounded rounded3">
+                <div className='headerText bold'>{t('description.estadisticas')}</div>
+                <div>
+                    {t('description.partidascreadas')}: {userData.ownerGames || 0}
+                </div>
+                <div>
+                    {t('description.partidasdejuez')}: {userData.judgeGames || 0}
+                </div>
+                <div>
+                    {t('description.partidasprevias')}: {userData.pilotGames || 0}
+                </div>
             </div>
-            <div>
-                {t('description.partidasdejuez')}: {userData.judgeGames || 0}
-            </div>
-            <div>
-                {t('description.partidasprevias')}: {userData.pilotGames || 0}
+
+            {isUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
+
+            <div className="posts rounded rounded3">
+                <div className='headerText bold'>{t('description.murodepiloto')}</div>
+                {embeds}
             </div>
         </div>;
     } else {
         return <div className=''>
                 <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a>
-                <p><Spinner /></p>
+                <br />
+                <Spinner />
             </div>;
     }
 }

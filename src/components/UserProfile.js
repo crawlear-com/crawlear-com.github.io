@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import FacebookSharer from './embed/FacebookSharer';
+import TwitterSharer from './embed/TwitterSharer';
 
 import '../resources/css/UserProfile.scss';
 
@@ -68,15 +70,24 @@ function UserProfile({user, onLogout}) {
         }
     }
 
+/* 
+                <FacebookSharer url={`https://crawlear.com/profile?uid=${user.uid}`}/>
+                <TwitterSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
+                {!readOnly ? <div className='viewProfileLink' onClick={()=>{navigate(`/profile?uid=${window.crawlear.user.uid}`)}}> {t('description.verperfil')}</div> : <></>}
+*/
+
     return <div className="userProfileContainer rounded rounded2">
         <div className="userProfilePhotoContainer">
             <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
-            {!readOnly ? <div className='logout' 
+            
+            <div className='sharerContainer'>
+                {!readOnly ? <div className='logout' 
                 onClick={()=> {
                     window.crawlear.fb.logout();
                     onLogout();
                     navigate("/");
-                }} >Logout</div> : <></>}
+            }} >Logout</div> : <></>}
+            </div>
         </div>
         <div className="userProfileInlineContainer">
             <div className="name">

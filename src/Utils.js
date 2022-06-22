@@ -13,6 +13,34 @@ class Utils {
         return false;
     }
 
+    static sanitizeUrl(url) {
+        const params = url.indexOf('?');
+
+        if (params>=0) {
+            url = url.slice(0, params);
+        }
+
+        if(url[url.length-1] !== '/') {
+            url += '/';
+        }
+
+        return url;
+    }
+
+    static isYoutubeUrl(url) {
+        var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        
+        return (match && match[2].length == 11);
+    }
+
+    static isInstagramUrl(url) {
+        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)(?:\/(?:.?)*)*\/p\/(.*)*/;
+        var match = this.sanitizeUrl(url).match(regExp);
+        
+        return match && match[1];
+    }
+
     static tokenToTexts(tokens) {
         return tokens.map((x)=>{return t(x);});
     }
