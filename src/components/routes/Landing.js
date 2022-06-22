@@ -16,7 +16,7 @@ function Landing({onLogin}) {
     const firebase = window.crawlear.fb;
     
     function signInCallback() {
-        onLogin();
+        onLogin(true);
         navigate("/completegame");
     }
 
