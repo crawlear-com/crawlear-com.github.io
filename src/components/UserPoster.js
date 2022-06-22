@@ -3,14 +3,19 @@ import { useTranslation } from 'react-i18next';
 import '../resources/css/UserPoster.scss';
 import Utils from '../Utils';
 import ErrorBox from './ErrorBox';
+import Spinner from './Spinner';
 import * as firestore from 'firebase/firestore';
+
+const WAITING = 0;
+const POSTING = 1;
 
 function UserPoster({onPostEntry}) {
     const { t } = useTranslation();
     const gameOptionElements = [];
     const firebase = window.crawlear.fb;
     const [errorMessage, setErrorMessage] = React.useState("");
-        const gameListRef = React.useRef([]);
+    const [formStatus, setFormStatus] = React.useState(WAITING);
+    const gameListRef = React.useRef([]);
     const [state, setState] = React.useState({
         url: '',
         text: '',
@@ -83,11 +88,16 @@ function UserPoster({onPostEntry}) {
             (Utils.isYoutubeUrl(state.url) || 
              Utils.isInstagramUrl(state.url) || 
              Utils.isTiktokUrl(state.url))) {
+                setFormStatus(POSTING);
                 firebase.setPost(window.crawlear.user.uid, state.url, state.date, state.text, state.gid, (post)=>{
+                    setFormStatus(WAITING);
                     setErrorMessage("");
                     clearState();
                     onPostEntry && onPostEntry(post);
-                }, ()=>{});  
+                }, ()=>{
+                    setFormStatus(WAITING);
+                    clearState();
+                });  
         } else if (state.url.length>0) {
             setErrorMessage(t('error.nosocialurl'));
         }
@@ -117,7 +127,8 @@ function UserPoster({onPostEntry}) {
                 <br /><br />
 
                 <ErrorBox message={errorMessage} />
-                <input type="submit" value= {t('description.publicar')} className='submit importantNote' />
+                {formStatus===WAITING ? <input type="submit" value= {t('description.publicar')} className='submit importantNote' /> : <Spinner />}
+                
             </form>
         </div>;
 }
