@@ -12,7 +12,7 @@ import Landing from './components/routes/Landing';
 import Analytics from './Analytics';
 import { Game } from './model/Game';
 import GameConfigurator from './components/GameConfigurator';
-import UserViewer from './components/UserViewer';
+import UserViewer from './components/routes/UserViewer';
 
 import './Error.js';
 
@@ -34,9 +34,11 @@ function App() {
     Analytics.event('App','init',`${navigator.userAgent}`);
   }, [])
 
-  function onLoggin() {
+  function onLogin(navigateAction) {
     setStateLogged(true);
-    navigate("/completegame");
+    if (navigateAction) {
+      navigate("/completegame");
+    }
   }
 
   function onLogout() {
@@ -56,11 +58,11 @@ function App() {
         {stateLogged ? <Menu /> : <></>}
         <div className="AppMainContainer">
         <Routes>
-          <Route path="/" element={<Landing onLoggin={onLoggin} />} />
+          <Route path="/" element={<Landing onLogin={()=>{onLogin(true)}} />} />
           <Route path="/simplegame" element={<GameController game={getNewGame} />} />
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
-          <Route path="/profile" element={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
+          <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
