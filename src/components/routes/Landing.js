@@ -10,21 +10,21 @@ import ZonaclubrcLogo from '../../resources/img/zonaclubrcLogo.png';
 
 import '../../resources/css/Landing.scss';
 
-function Landing({onLoggin}) {
+function Landing({onLogin}) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const firebase = window.crawlear.fb;
     
     function signInCallback() {
-        onLoggin();
+        onLogin();
         navigate("/completegame");
     }
 
     React.useEffect(() => {
-        firebase.checkIfLogged(onLoggin);
+        firebase.checkIfLogged(onLogin);
         Analytics.pageview('/landing/');
     },[]);
-//<p>{t('content.licenseText')}</p>
+
     return <>
         <MainPageTextContent />
 
@@ -33,6 +33,7 @@ function Landing({onLoggin}) {
             <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                     firebase.signInWithGoogle(signInCallback);
                 }} />
+            <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
                 <img className='collaborateLogo' src={Levante124Logo} alt="Levante 1/24 Logo" />

@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import UserProfile from './UserProfile';
-import logo from '../resources/img/logo5.png'
-import '../resources/css/UserViewer.scss';
-import Spinner from './Spinner';
-import Instagram from './embed/Instagram';
-import Youtube from './embed/Youtube';
-import UserPoster from './UserPoster';
-import Analytics from '../Analytics';
-import Utils from '../Utils';
+import UserProfile from '../UserProfile';
+import logo from '../../resources/img/logo5.png'
+import '../../resources/css/UserViewer.scss';
+import Spinner from '../Spinner';
+import Instagram from '../embed/Instagram';
+import Youtube from '../embed/Youtube';
+import UserPoster from '../UserPoster';
+import Analytics from '../../Analytics';
+import Utils from '../../Utils';
 
-function UserViewer({uid, onLogout}) {
+function UserViewer({uid, onLogout, onLogin}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [user, setUser] = React.useState({});
@@ -19,6 +19,7 @@ function UserViewer({uid, onLogout}) {
     const isUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
 
     React.useEffect(()=>{
+        firebase.checkIfLogged(()=>{onLogin(false)});
         firebase.getUser(uid, (user)=>{
             setUser({...user});
             firebase.getUserExtraData(uid, (data)=>{
