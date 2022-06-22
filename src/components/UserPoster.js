@@ -79,12 +79,15 @@ function UserPoster({onPostEntry}) {
         
         if (state.text.length <=0) { 
             setErrorMessage(t('error.noposttext'));
-        } else if ((state.url.length<=0) || (state.url.length>0) && (Utils.isYoutubeUrl(state.url) || Utils.isInstagramUrl(state.url))) {
-            firebase.setPost(window.crawlear.user.uid, state.url, state.date, state.text, state.gid, (post)=>{
-                setErrorMessage("");
-                clearState();
-                onPostEntry && onPostEntry(post);
-            }, ()=>{});  
+        } else if ((state.url.length<=0) || (state.url.length>0) && 
+            (Utils.isYoutubeUrl(state.url) || 
+             Utils.isInstagramUrl(state.url) || 
+             Utils.isTiktokUrl(state.url))) {
+                firebase.setPost(window.crawlear.user.uid, state.url, state.date, state.text, state.gid, (post)=>{
+                    setErrorMessage("");
+                    clearState();
+                    onPostEntry && onPostEntry(post);
+                }, ()=>{});  
         } else if (state.url.length>0) {
             setErrorMessage(t('error.nosocialurl'));
         }

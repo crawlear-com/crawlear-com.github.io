@@ -41,6 +41,24 @@ class Utils {
         return match && match[1];
     }
 
+    static getTiktokVideoId(url) {
+        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?tiktok.com\/@(.*)\/video\/(.*)*/;
+        var match = this.sanitizeUrl(url).match(regExp);
+        
+        if((match && match[1] && match[2])) {
+            return match[2]
+        } else {
+            return null;
+        }
+    } 
+
+    static isTiktokUrl(url) {
+        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?tiktok.com\/@(.*)\/video\/(.*)*/;
+        var match = this.sanitizeUrl(url).match(regExp);
+        
+        return (match && match[1] && match[2]);
+    }
+
     static tokenToTexts(tokens) {
         return tokens.map((x)=>{return t(x);});
     }

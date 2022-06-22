@@ -5,6 +5,7 @@ import logo from '../../resources/img/logo5.png'
 import '../../resources/css/UserViewer.scss';
 import Spinner from '../Spinner';
 import Instagram from '../embed/Instagram';
+import Tiktok from '../embed/Tiktok';
 import Youtube from '../embed/Youtube';
 import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
@@ -76,6 +77,8 @@ function UserViewer({uid, onLogout, onLogin}) {
                     embed = <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
                 } else if(post.url.indexOf('youtu')>=0) {
                     embed = <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
+                } else if(post.url.indexOf('tiktok')>=0) {
+                    embed = <Tiktok className="postUrlContent" key={`yout${index}`} url={post.url} />
                 }
 
                 embeds.push(
