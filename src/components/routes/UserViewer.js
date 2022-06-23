@@ -10,6 +10,7 @@ import Youtube from '../embed/Youtube';
 import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
+import Post from '../Post';
 
 function UserViewer({uid, onLogout, onLogin}) {
     const { t } = useTranslation();
@@ -71,24 +72,7 @@ function UserViewer({uid, onLogout, onLogin}) {
 
         if (userPosts.length) {
             userPosts.forEach((post, index) => {
-                let embed = <></>;
-
-                if(post.url.indexOf('instagram')>=0) {
-                    embed = <Instagram className="postUrlContent" key={`insta${index}`} url={post.url} />
-                } else if(post.url.indexOf('youtu')>=0) {
-                    embed = <Youtube className="postUrlContent" key={`yout${index}`} url={post.url} />
-                } else if(post.url.indexOf('tiktok')>=0) {
-                    embed = <Tiktok className="postUrlContent" key={`yout${index}`} url={post.url} />
-                }
-
-                embeds.push(
-                    <div key={post.pid} className="post rounded ">
-                        {isUserLogged ? <button data-id={post.pid} onClick={removePostClick} className='removePostButton'>-</button>: <></>}
-                        <div className='postDate'>{post.date.toDate().toLocaleDateString()} - {post.gid && post.gid.length>2 ? t('description.juegoasignado') : t('description.sinjuego')}</div>
-                        <div className='postText bold'>{post.text}</div>
-                        {embed}                        
-                        <div className='postGame'></div>
-                    </div>);
+                embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={isUserLogged} />);
             });
         } else {
             embeds.push(<div key="nopost" className='rounded '>{t('content.nopost')}</div>);
