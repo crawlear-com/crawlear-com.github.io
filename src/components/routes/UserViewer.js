@@ -8,10 +8,7 @@ import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
-import FacebookSharer from '../embed/FacebookSharer';
-import TwitterSharer from '../embed/TwitterSharer';
-import TelegramSharer from '../embed/TelegramSharer';
-import WhatsappSharer from '../embed/WhatsappSharer';
+import Sharers from '../embed/Sharers';
 import { useNavigate } from 'react-router-dom';
 
 function UserViewer({uid, onLogout, onLogin}) {
@@ -87,16 +84,10 @@ function UserViewer({uid, onLogout, onLogin}) {
 
             <div className='viewProfileLink importantNote' onClick={()=>{
                     navigate(`/completegame`)
+                    Analytics.event('navigation','tool', window.crawlear.user.uid);
                 }}> {t('description.volverherramientajuego')}</div>
 
-            <div className='sharerContainer rounded rounded3'>
-                <div className='bold shareProfileText'>{t('content.comparteenredes')}</div>
-                <FacebookSharer url={`https://crawlear.com/profile?uid=${user.uid}`}/>
-                <TwitterSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
-                <WhatsappSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
-                <TelegramSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
-            </div>
-
+            <Sharers uid={user.uid} />
             <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
                 <div>
