@@ -57,8 +57,8 @@ i18n
             textEmbed: 'text message of the post',
             gameEmbed: 'if the post is related, select the game asociated to the post and the users will see the results',
             nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
-            shareText: 'Hey! This is my crawlear.com pilot profile ',
-            comparteenredes: 'Share your pilot profile in social networks:'
+            shareText: 'Hey! Check this crawlear.com pilot profile ',
+            comparteenredes: 'Share this pilot profile in social networks:'
           },
           error: {
               nojugadores: 'Add the players',
@@ -176,7 +176,8 @@ i18n
             juegoasignado: 'Game assigned (not visible)',
             murodepiloto: 'Pilot Wall',
             publicar: 'Publish',
-            resolverjuego: 'get game result'
+            resolverjuego: 'get game result',
+            volverherramientajuego: 'go back to the game tool'
           },
           points: {
             vuelco: 'overturn',
@@ -310,8 +311,8 @@ i18n
             textEmbed: 'mensaje de la entrada',
             gameEmbed: 'si está relacionado conm la entrada, selecciona juego asociado a la entrada y los usuarios podrán ver el resultado',
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
-            shareText: 'Hey! Éste es mi perfil de piloto en crawlear.com ',
-            comparteenredes: 'Comparte tu perfil de piloto en redes sociales:'
+            shareText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
+            comparteenredes: 'Comparte éste perfil de piloto en redes sociales:'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -429,7 +430,8 @@ i18n
               juegoasignado: 'Juego asignado (no disponible)',
               murodepiloto: 'Muro de Piloto',
               publicar: 'Publicar',
-              resolverjuego: 'ver resultado del juego'
+              resolverjuego: 'ver resultado del juego',
+              volverherramientajuego: 'volver a la herramienta de juego'
           },
           points: {
             vuelco: 'vuelco',

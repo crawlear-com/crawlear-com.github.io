@@ -12,10 +12,12 @@ import FacebookSharer from '../embed/FacebookSharer';
 import TwitterSharer from '../embed/TwitterSharer';
 import TelegramSharer from '../embed/TelegramSharer';
 import WhatsappSharer from '../embed/WhatsappSharer';
+import { useNavigate } from 'react-router-dom';
 
 function UserViewer({uid, onLogout, onLogin}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
+    const navigate = useNavigate();
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([])
@@ -83,8 +85,12 @@ function UserViewer({uid, onLogout, onLogin}) {
             {!window.crawlear || !window.crawlear.user || !window.crawlear.user.uid ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <UserProfile onLogout={onLogout} user={user} />
 
-            <div className='sharerContainer'>
-                {t('content.comparteenredes')}<br />
+            <div className='viewProfileLink importantNote' onClick={()=>{
+                    navigate(`/completegame`)
+                }}> {t('description.volverherramientajuego')}</div>
+
+            <div className='sharerContainer rounded rounded3'>
+                <div className='bold shareProfileText'>{t('content.comparteenredes')}</div>
                 <FacebookSharer url={`https://crawlear.com/profile?uid=${user.uid}`}/>
                 <TwitterSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
                 <WhatsappSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />

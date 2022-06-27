@@ -61,5 +61,9 @@
 }
 
 .sharerContainer {
-    margin-bottom: 14px;;
+    margin-bottom: 14px;
+
+    .shareProfileText {
+        margin: 15px;
+    }
 }
