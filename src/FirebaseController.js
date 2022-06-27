@@ -570,6 +570,48 @@ class FirebaseController {
 
   async removePost(pid, okCallback, koCallback) {
     await deleteDoc(doc(this.db, "socialPosts", pid));
+    const q = query(collection(this.db, "likes"), 
+      where("pid", "==", pid));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.docs.forEach((postData)=>{
+      deleteDoc(doc(this.db, "likes", postData.id));
+    });
+
+    okCallback && okCallback();
+  }
+
+  async getIfPostIsLiked(pid, uid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "likes"), 
+        where("uid", "==", uid), 
+        where("pid", "==", pid), 
+        limit(1));
+      const querySnapshot = await getDocs(q);
+
+      okCallback && okCallback(querySnapshot.docs.length===1, querySnapshot.docs[0].id);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
+  async setLike(pid, uid, okCallback, koCallback) {
+    const data = {
+      pid: pid,
+      uid: uid
+    };
+
+    try {
+      const postRef = await addDoc(collection(this.db, "likes"), data);
+
+      okCallback && okCallback(postRef.id);
+    } catch (e) {
+      koCallback && koCallback();
+    }
+  }
+
+  async removeLike(lid, okCallback, koCallback) {
+    await deleteDoc(doc(this.db, "likes", lid));
     okCallback && okCallback();
   }
 }
