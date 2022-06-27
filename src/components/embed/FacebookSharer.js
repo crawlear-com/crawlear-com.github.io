@@ -2,6 +2,8 @@ import { t } from 'i18next';
 import * as React from 'react';
 import useScript from '../../hooks/useScript';
 
+import '../../resources/css/embed/FacebookSharer.scss';
+
 function FacebookSharer({ url }) {
     
     React.useEffect(()=>{

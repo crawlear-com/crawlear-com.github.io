@@ -588,8 +588,9 @@ class FirebaseController {
         where("pid", "==", pid), 
         limit(1));
       const querySnapshot = await getDocs(q);
+      const isLiked = querySnapshot.docs.length===1;
 
-      okCallback && okCallback(querySnapshot.docs.length===1, querySnapshot.docs[0].id);
+      okCallback && okCallback(isLiked, isLiked ? querySnapshot.docs[0].id : '');
       } catch(e) {
         koCallback && koCallback();
     }

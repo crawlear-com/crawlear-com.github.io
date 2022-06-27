@@ -32,11 +32,13 @@ function App() {
 
   React.useEffect(() => {
     Analytics.event('App','init',`${navigator.userAgent}`);
+    //navigate("/profile?uid=CDyfAQsbSZWcfv0Ryo58iX8d2qJ2");
   }, [])
 
   function onLogin(navigateAction) {
     setStateLogged(true);
     if (navigateAction) {
+      
       navigate("/completegame");
     }
   }

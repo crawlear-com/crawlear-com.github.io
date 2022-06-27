@@ -57,7 +57,8 @@ i18n
             textEmbed: 'text message of the post',
             gameEmbed: 'if the post is related, select the game asociated to the post and the users will see the results',
             nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
-            shareText: 'Hey! This is my crawlear pilot wall '
+            shareText: 'Hey! This is my crawlear.com pilot profile ',
+            comparteenredes: 'Share your pilot profile in social networks:'
           },
           error: {
               nojugadores: 'Add the players',
@@ -309,7 +310,8 @@ i18n
             textEmbed: 'mensaje de la entrada',
             gameEmbed: 'si está relacionado conm la entrada, selecciona juego asociado a la entrada y los usuarios podrán ver el resultado',
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
-            shareText: 'Hey! Éste es mi muro de piloto en crawlear '
+            shareText: 'Hey! Éste es mi perfil de piloto en crawlear.com ',
+            comparteenredes: 'Comparte tu perfil de piloto en redes sociales:'
           },
           error: {
               nojugadores: 'Añade a los jugadores',

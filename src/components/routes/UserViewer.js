@@ -4,13 +4,14 @@ import UserProfile from '../UserProfile';
 import logo from '../../resources/img/logo5.png'
 import '../../resources/css/UserViewer.scss';
 import Spinner from '../Spinner';
-import Instagram from '../embed/Instagram';
-import Tiktok from '../embed/Tiktok';
-import Youtube from '../embed/Youtube';
 import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
+import FacebookSharer from '../embed/FacebookSharer';
+import TwitterSharer from '../embed/TwitterSharer';
+import TelegramSharer from '../embed/TelegramSharer';
+import WhatsappSharer from '../embed/WhatsappSharer';
 
 function UserViewer({uid, onLogout, onLogin}) {
     const { t } = useTranslation();
@@ -79,8 +80,16 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
 
         return <div className="userViewer">
-            {!isUserLogged ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
+            {!window.crawlear || !window.crawlear.user || !window.crawlear.user.uid ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <UserProfile onLogout={onLogout} user={user} />
+
+            <div className='sharerContainer'>
+                {t('content.comparteenredes')}<br />
+                <FacebookSharer url={`https://crawlear.com/profile?uid=${user.uid}`}/>
+                <TwitterSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
+                <WhatsappSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
+                <TelegramSharer url={`https://crawlear.com/profile?uid=${user.uid}`} />
+            </div>
 
             <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
@@ -97,7 +106,7 @@ function UserViewer({uid, onLogout, onLogin}) {
 
             {isUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
 
-            <div className="posts rounded rounded3">
+            <div className="posts">
                 <div className='headerText bold'>{t('description.murodepiloto')}</div>
                 {embeds}
             </div>
