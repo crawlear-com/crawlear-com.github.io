@@ -1,9 +1,9 @@
 .userViewer {
     .statistics, .posts {
         margin-bottom: 25px;
-        width: 94%;
     }
     .statistics {
+        width: 94%;
         background-image: url(../img/pilotbackground.png), linear-gradient(#345B63, #112031);
         background-position-x: center;
         background-repeat: no-repeat;
@@ -55,21 +55,15 @@
     }
 }
 
-.sharerContainer {
-    .fb-share-button {
-        height: 100%;
-        margin: 10px 0;
-        display: block;
-    }
-
-    .twitter-share-button {
-        height: 100%;
-        display: block;
-        margin: 0 auto 10px auto;
-    }
-}
-
 .userViewerLogo {
     width: 125px;
     margin-bottom: 52px;
+}
+
+.sharerContainer {
+    margin-bottom: 14px;
+
+    .shareProfileText {
+        margin: 15px;
+    }
 }

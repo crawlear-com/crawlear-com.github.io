@@ -4,21 +4,21 @@ import UserProfile from '../UserProfile';
 import logo from '../../resources/img/logo5.png'
 import '../../resources/css/UserViewer.scss';
 import Spinner from '../Spinner';
-import Instagram from '../embed/Instagram';
-import Tiktok from '../embed/Tiktok';
-import Youtube from '../embed/Youtube';
 import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
+import Sharers from '../embed/Sharers';
+import { useNavigate } from 'react-router-dom';
 
 function UserViewer({uid, onLogout, onLogin}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
+    const navigate = useNavigate();
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([])
-    const isUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
+    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
 
     React.useEffect(()=>{
         firebase.checkIfLogged(()=>{onLogin(false)});
@@ -72,16 +72,22 @@ function UserViewer({uid, onLogout, onLogin}) {
 
         if (userPosts.length) {
             userPosts.forEach((post, index) => {
-                embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={isUserLogged} />);
+                embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={isUidTheUserLogged} />);
             });
         } else {
             embeds.push(<div key="nopost" className='rounded '>{t('content.nopost')}</div>);
         }
 
         return <div className="userViewer">
-            {!isUserLogged ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <UserProfile onLogout={onLogout} user={user} />
 
+            {firebase.isUserLogged() ? <div className='viewProfileLink importantNote' onClick={()=>{
+                    navigate(`/completegame`)
+                    Analytics.event('navigation','tool', window.crawlear.user.uid);
+                }}> {t('description.volverherramientajuego')}</div> : <></>}
+
+            <Sharers uid={user.uid} />
             <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
                 <div>
@@ -95,9 +101,9 @@ function UserViewer({uid, onLogout, onLogin}) {
                 </div>
             </div>
 
-            {isUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
+            {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
 
-            <div className="posts rounded rounded3">
+            <div className="posts">
                 <div className='headerText bold'>{t('description.murodepiloto')}</div>
                 {embeds}
             </div>

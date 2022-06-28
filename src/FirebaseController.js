@@ -18,7 +18,7 @@ import { addDoc,
          doc,
          getDoc,
          updateDoc,
-         query, 
+         query,
          collection, 
          where,
          orderBy,
@@ -26,7 +26,8 @@ import { addDoc,
          startAt,
          getFirestore,
          getDocs,
-         deleteDoc } from "firebase/firestore";
+         deleteDoc,
+         writeBatch } from "firebase/firestore";
 
 import { getAuth, 
   getRedirectResult,
@@ -570,7 +571,74 @@ class FirebaseController {
 
   async removePost(pid, okCallback, koCallback) {
     await deleteDoc(doc(this.db, "socialPosts", pid));
+    this.removeLikes(pid, 10);
+
     okCallback && okCallback();
+  }
+
+  async getIfPostIsLiked(pid, uid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "likes"), 
+        where("uid", "==", uid), 
+        where("pid", "==", pid), 
+        limit(1));
+      const querySnapshot = await getDocs(q);
+      const isLiked = querySnapshot.docs.length===1;
+
+      okCallback && okCallback(isLiked, isLiked ? querySnapshot.docs[0].id : '');
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
+  async setLike(pid, uid, okCallback, koCallback) {
+    const data = {
+      pid: pid,
+      uid: uid
+    };
+
+    try {
+      const postRef = await addDoc(collection(this.db, "likes"), data);
+
+      okCallback && okCallback(postRef.id);
+    } catch (e) {
+      koCallback && koCallback();
+    }
+  }
+
+  async removeLike(lid, okCallback, koCallback) {
+    await deleteDoc(doc(this.db, "likes", lid));
+    okCallback && okCallback();
+  }
+
+  async removeLikes(pid, batchSize) {
+    const collectionRef = query(collection(this.db, "likes"), 
+      where("pid", "==", pid), orderBy('__name__'), limit(batchSize));
+  
+    return new Promise((resolve, reject) => {
+      this.deleteQueryBatch(collectionRef, resolve).catch(reject);
+    });
+  }
+  
+  async deleteQueryBatch(query, resolve) {
+    const snapshot = await getDocs(query);
+  
+    const batchSize = snapshot.size;
+    if (batchSize === 0) {
+      resolve();
+      return;
+    }
+  
+    snapshot.docs.forEach(async (doc) => {
+      const batch = writeBatch(this.db)
+
+      batch.delete(doc.ref);
+      batch.commit();
+    });
+
+    setTimeout(()=>{
+      this.deleteQueryBatch(query, resolve);
+    }, 100);
   }
 }
 

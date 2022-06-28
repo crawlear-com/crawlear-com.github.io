@@ -1,6 +1,8 @@
 import { t } from 'i18next';
 import * as React from 'react';
 
+import '../../resources/css/embed/TwitterSharer.scss';
+
 function TwitterSharer({ url }) {
     React.useEffect(()=>{
         window.twttr = (function(d, s, id) {
