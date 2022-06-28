@@ -82,10 +82,10 @@ function UserViewer({uid, onLogout, onLogin}) {
             {!window.crawlear || !window.crawlear.user || !window.crawlear.user.uid ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <UserProfile onLogout={onLogout} user={user} />
 
-            <div className='viewProfileLink importantNote' onClick={()=>{
+            {window.crawlear && window.crawlear.user && window.crawlear.user.uid ? <div className='viewProfileLink importantNote' onClick={()=>{
                     navigate(`/completegame`)
                     Analytics.event('navigation','tool', window.crawlear.user.uid);
-                }}> {t('description.volverherramientajuego')}</div>
+                }}> {t('description.volverherramientajuego')}</div> : <></>}
 
             <Sharers uid={user.uid} />
             <div className="statistics rounded rounded3">
