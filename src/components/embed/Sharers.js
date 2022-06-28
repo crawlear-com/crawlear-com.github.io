@@ -9,12 +9,12 @@ function Sharers({uid}) {
     const { t } = useTranslation();
 
     return <div className='sharerContainer rounded rounded3'>
-    <div className='bold shareProfileText'>{t('content.comparteenredes')}</div>
-    <FacebookSharer url={`https://crawlear.com/profile?uid=${uid}`}/>
-    <TwitterSharer url={`https://crawlear.com/profile?uid=${uid}`} />
-    <WhatsappSharer url={`https://crawlear.com/profile?uid=${uid}`} />
-    <TelegramSharer url={`https://crawlear.com/profile?uid=${uid}`} />
-</div>
+        <div className='bold shareProfileText'>{t('content.comparteenredes')}</div>
+        <FacebookSharer url={`https://crawlear.com/profile?uid=${uid}`}/>
+        <TwitterSharer url={`https://crawlear.com/profile?uid=${uid}`} />
+        <WhatsappSharer url={`https://crawlear.com/profile?uid=${uid}`} />
+        <TelegramSharer url={`https://crawlear.com/profile?uid=${uid}`} />
+    </div>
 ;
 }
 
