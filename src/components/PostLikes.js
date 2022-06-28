@@ -8,7 +8,7 @@ const NOT_LOADED=-1;
 const NOT_PRESSED=0;
 const PRESSED=1;
 
-function PostLikes({post, isReadOnly, onLikePost, onRemoveLikePost}) {
+function PostLikes({post, onLikePost, onRemoveLikePost}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [status, setStatus] = React.useState({
@@ -17,7 +17,7 @@ function PostLikes({post, isReadOnly, onLikePost, onRemoveLikePost}) {
     });
 
     React.useEffect(()=>{
-        if (window.crawlear && window.crawlear.user && window.crawlear.user.uid) {
+        if (firebase.isUserLogged()) {
             firebase.getIfPostIsLiked(post.pid, window.crawlear.user.uid, (isLiked, lid)=>{
                 if(isLiked) {
                     setStatus({ 
@@ -43,18 +43,20 @@ function PostLikes({post, isReadOnly, onLikePost, onRemoveLikePost}) {
                     state: NOT_PRESSED, 
                     lid: 0
                 });
+                onRemoveLikePost && onRemoveLikePost();
             },()=>{});
         }  else {
             firebase.setLike(post.pid, window.crawlear.user.uid, (lid)=>{
                 setStatus({ 
                     state: PRESSED, 
                     lid: lid
-                }); 
+                });
+                onLikePost && onLikePost();
             });
         }
     }
 
-    return window.crawlear && window.crawlear.user && window.crawlear.user.uid ? <div className="likeContiner">
+    return firebase.isUserLogged() ? <div className="likeContiner">
               <span className={status.state === PRESSED?'press':''}>
                 <img src={icon} onClick={onClickLike} />
               </span>
