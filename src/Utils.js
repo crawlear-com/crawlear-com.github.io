@@ -35,7 +35,7 @@ class Utils {
     }
 
     static isInstagramUrl(url) {
-        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)(?:\/(?:.?)*)*\/p\/(.*)*/;
+        var regExp = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)(?:\/(?:.?)*)*\/(?:reel|p|tv)\/(.*)*(?:\/)*/;
         var match = this.sanitizeUrl(url).match(regExp);
         
         return match && match[1];
