@@ -64,7 +64,7 @@ function App() {
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
           <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
-          <Route path="/post" element={<PostViewer pid={queryParams.get && queryParams.get('pid')} />} />
+          <Route path="/post" element={<PostViewer onLogin={()=>{onLogin(false)}} pid={queryParams.get && queryParams.get('pid')} />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />

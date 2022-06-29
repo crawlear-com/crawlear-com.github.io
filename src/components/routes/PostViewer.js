@@ -7,13 +7,14 @@ import Analytics from '../../Analytics';
 
 import logo from '../../resources/img/logo5.png'
 
-function PostViewer({pid}) {
+function PostViewer({pid, onLogin}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [post, setPost] = React.useState({});
     const bottomButtons = [];
 
     React.useEffect(()=>{
+        firebase.checkIfLogged(()=>{onLogin(false)});
         firebase.getPost(pid, (post)=>{
             setPost(post);
         }, ()=>{});
