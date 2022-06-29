@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import WinnerTable from './WinnerTable';
 import PostLikes from './PostLikes';
 import GoogleMaps from './embed/GoogleMaps';
@@ -8,6 +9,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [game, setGame] = React.useState({});
+    const navigate = useNavigate();
 
     function resolveGame(gid) {
         firebase.getGame(gid, (game)=>{
@@ -19,11 +21,15 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
         return post.gid && post.gid.length>2;
     }
 
+    function goToPost(event) {
+        navigate(`/post?pid=${post.pid}`);
+    }
+
     return <>
             {readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
             <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             
-            <div className='postText bold'>{post.text}</div>
+            <div className='postText bold' onClick={goToPost}>{post.text}</div>
             {children}
 
             <div className='postGameContainer'>

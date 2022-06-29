@@ -5,15 +5,15 @@ import TwitterSharer from '../embed/TwitterSharer';
 import TelegramSharer from '../embed/TelegramSharer';
 import WhatsappSharer from '../embed/WhatsappSharer';
 
-function Sharers({uid}) {
+function Sharers({url}) {
     const { t } = useTranslation();
 
     return <div className='sharerContainer rounded rounded3'>
         <div className='bold shareProfileText'>{t('content.comparteenredes')}</div>
-        <FacebookSharer url={`https://crawlear.com/profile?uid=${uid}`}/>
-        <TwitterSharer url={`https://crawlear.com/profile?uid=${uid}`} />
-        <WhatsappSharer url={`https://crawlear.com/profile?uid=${uid}`} />
-        <TelegramSharer url={`https://crawlear.com/profile?uid=${uid}`} />
+        <FacebookSharer url={`https://crawlear.com/${url}`}/>
+        <TwitterSharer url={`https://crawlear.com/${url}`} />
+        <WhatsappSharer url={`https://crawlear.com/${url}`} />
+        <TelegramSharer url={`https://crawlear.com/${url}`} />
     </div>
 ;
 }

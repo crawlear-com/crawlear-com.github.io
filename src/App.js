@@ -13,6 +13,7 @@ import Analytics from './Analytics';
 import { Game } from './model/Game';
 import GameConfigurator from './components/GameConfigurator';
 import UserViewer from './components/routes/UserViewer';
+import PostViewer from './components/routes/PostViewer';
 
 import './Error.js';
 
@@ -37,7 +38,6 @@ function App() {
   function onLogin(navigateAction) {
     setStateLogged(true);
     if (navigateAction) {
-      
       navigate("/completegame");
     }
   }
@@ -64,6 +64,7 @@ function App() {
           <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
           <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
+          <Route path="/post" element={<PostViewer pid={queryParams.get && queryParams.get('pid')} />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />

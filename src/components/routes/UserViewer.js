@@ -87,7 +87,7 @@ function UserViewer({uid, onLogout, onLogin}) {
                     Analytics.event('navigation','tool', window.crawlear.user.uid);
                 }}> {t('description.volverherramientajuego')}</div> : <></>}
 
-            <Sharers uid={user.uid} />
+            <Sharers url={`profile?uid=${user.uid}`} />
             <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
                 <div>
