@@ -57,7 +57,8 @@ i18n
             textEmbed: 'text message of the post',
             gameEmbed: 'if the post is related, select the PUBLIC game asociated to the post and the users will see the results and location.',
             nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
-            shareText: 'Hey! Check this crawlear.com pilot profile ',
+            shareProfileText: 'Hey! Check this crawlear.com pilot profile ',
+            sharePostText: 'Hey! Check this crawlear.com post ',
             comparteenredes: 'Share this pilot profile in social networks:'
           },
           error: {
@@ -312,7 +313,8 @@ i18n
             textEmbed: 'mensaje de la entrada',
             gameEmbed: 'si está relacionado conm la entrada, selecciona juego PÚBLICO asociado a la entrada y los usuarios podrán ver el resultado y la localización',
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
-            shareText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
+            shareProfileText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
+            sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredes: 'Comparte éste perfil de piloto en redes sociales:'
           },
           error: {

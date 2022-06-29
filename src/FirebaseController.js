@@ -561,6 +561,20 @@ class FirebaseController {
     }
   }
 
+  async getPost(pid, okCallback, koCallback) {
+      const docRef = doc(this.db, "socialPosts", pid);
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        const res = docSnap.data();
+  
+        res.pid = docRef.id;
+        okCallback(res);
+      } else {
+        koCallback();
+      }
+  }
+
   async getPosts(uid, okCallback, koCallback) {
     try {
       const q = query(collection(this.db, "socialPosts"), 

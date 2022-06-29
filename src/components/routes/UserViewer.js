@@ -41,7 +41,7 @@ function UserViewer({uid, onLogout, onLogin}) {
     },[userPosts]);
 
     function getPostType(post) {
-        post.url ? (Utils.isInstagramUrl(url) ? 'instagram' : 'youtube') : 'text'
+        return post.url ? (Utils.isInstagramUrl(post.url) ? 'instagram' : 'youtube') : 'text';
     }
 
     function onPostEntry(post) {
@@ -87,7 +87,7 @@ function UserViewer({uid, onLogout, onLogin}) {
                     Analytics.event('navigation','tool', window.crawlear.user.uid);
                 }}> {t('description.volverherramientajuego')}</div> : <></>}
 
-            <Sharers uid={user.uid} />
+            <Sharers url={`profile?uid=${user.uid}`} text={t('content.shareProfileText')} />
             <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
                 <div>
