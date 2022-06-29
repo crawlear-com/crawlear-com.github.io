@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Post from '../Post';
 import Sharers from '../embed/Sharers';
 import Spinner from '../Spinner';
+import Analytics from '../../Analytics';
 
 import logo from '../../resources/img/logo5.png'
 
@@ -16,6 +17,8 @@ function PostViewer({pid}) {
         firebase.getPost(pid, (post)=>{
             setPost(post);
         }, ()=>{});
+
+        Analytics.pageview(`${document.location.pathname}${document.location.search}`);
     },[]);
 
     if (firebase.isUserLogged()) {

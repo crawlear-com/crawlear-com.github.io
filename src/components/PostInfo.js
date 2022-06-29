@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import WinnerTable from './WinnerTable';
 import PostLikes from './PostLikes';
 import GoogleMaps from './embed/GoogleMaps';
+import Analytics from '../Analytics';
 
 function PostInfo({ post, readOnly, onRemovePost, children }) {
     const { t } = useTranslation();
@@ -22,6 +23,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     }
 
     function goToPost(event) {
+        Analytics.event('navigation','post', post.uid);
         navigate(`/post?pid=${post.pid}`);
     }
 
