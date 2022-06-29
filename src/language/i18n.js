@@ -55,7 +55,7 @@ i18n
             userprofilenotlogged: 'You must be logged with a google account to see the user profile',
             urlEmbed: '(optional) url to an instagram, youtube or tiktok post',
             textEmbed: 'text message of the post',
-            gameEmbed: 'if the post is related, select the game asociated to the post and the users will see the results',
+            gameEmbed: 'if the post is related, select the PUBLIC game asociated to the post and the users will see the results and location.',
             nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
             shareText: 'Hey! Check this crawlear.com pilot profile ',
             comparteenredes: 'Share this pilot profile in social networks:'
@@ -75,6 +75,7 @@ i18n
           },
           description: {
             juego: 'game',
+            juegopublico: 'public game',
             nojugadores: 'No players',
             nojueces: 'No judges',
             nopartidas: 'No previous games',
@@ -173,7 +174,7 @@ i18n
             compartir: 'Share',
             noasignarjuego: 'don\'t assign a game',
             sinjuego: 'no game assigned',
-            juegoasignado: 'Game assigned (not visible)',
+            juegoasignado: 'Game assigned',
             murodepiloto: 'Pilot Wall',
             publicar: 'Publish',
             resolverjuego: 'get game result',
@@ -309,7 +310,7 @@ i18n
             userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario',
             urlEmbed: '(opcional) url a un post de insagram, youtube o tiktok',
             textEmbed: 'mensaje de la entrada',
-            gameEmbed: 'si está relacionado conm la entrada, selecciona juego asociado a la entrada y los usuarios podrán ver el resultado',
+            gameEmbed: 'si está relacionado conm la entrada, selecciona juego PÚBLICO asociado a la entrada y los usuarios podrán ver el resultado y la localización',
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
             shareText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
             comparteenredes: 'Comparte éste perfil de piloto en redes sociales:'
@@ -329,6 +330,7 @@ i18n
           },
           description: {
               juego: 'juego',
+              juegopublico: 'juego público',
               nojugadores: 'No hay jugadores',
               nojueces: 'No hay jueces',
               nopartidas: 'No hay partidas guardadas',
@@ -427,7 +429,7 @@ i18n
               compartir: 'Compartir',
               noasignarjuego: 'no asignar juego',
               sinjuego: 'sin juego asignado',
-              juegoasignado: 'Juego asignado (no disponible)',
+              juegoasignado: 'Juego asignado',
               murodepiloto: 'Muro de Piloto',
               publicar: 'Publicar',
               resolverjuego: 'ver resultado del juego',

@@ -27,17 +27,17 @@ function UserPoster({onPostEntry}) {
     React.useEffect(()=>{
         const uid = window.crawlear.user.uid;
 
-        firebase.getGamesFromUser(uid, (games)=>{
+        firebase.getGamesFromUser(uid, true, (games)=>{
             if (games.length) {
                 gameListRef.current = games.concat(gameListRef.current);
             }
         }, ()=>{});
-        firebase.getGamesFromJudge(uid, (games)=>{
+        firebase.getGamesFromJudge(uid, true, (games)=>{
             if (games.length) {
                 gameListRef.current = games.concat(gameListRef.current);
             }
         }, ()=>{});
-        firebase.getGamesFromDirector(uid, (games)=>{
+        firebase.getGamesFromDirector(uid, true, (games)=>{
             if (games.length) {
                 gameListRef.current = games.concat(gameListRef.current);
             }
@@ -122,7 +122,7 @@ function UserPoster({onPostEntry}) {
                 <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.textEmbed')}</span>
                 <br /><br />
                 
-                <label className="postForm-label">{t('description.juego')}: <select onChange={onGameChange}>{gameOptionElements}</select></label>
+                <label className="postForm-label">{t('description.juegopublico')}: <select onChange={onGameChange}>{gameOptionElements}</select></label>
                 <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.gameEmbed')}</span>
                 <br /><br />
 
