@@ -75,21 +75,13 @@ function UserViewer({uid, onLogout, onLogin}) {
                 embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={isUidTheUserLogged} />);
             });
         } else {
-            embeds.push(<div key="nopost" className='rounded '>{t('content.nopost')}</div>);
+            embeds.push(<div key="nopost" className='rounded rounded3'>{t('content.nopost')}</div>);
         }
 
         return <div className="userViewer">
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <UserProfile onLogout={onLogout} user={user} />
 
-            {firebase.isUserLogged() ? <div className='viewProfileLink importantNote' onClick={()=>{
-                    navigate(`/completegame`)
-                    Analytics.event('navigation','tool', window.crawlear.user.uid);
-                }}> {t('description.volverherramientajuego')}</div> : <></>}
-
-            <Sharers url={`profile?uid=${user.uid}`} 
-                headerText={t('content.comparteenredespiloto')}
-                text={t('content.shareProfileText')} />
             <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
                 <div>
@@ -103,10 +95,14 @@ function UserViewer({uid, onLogout, onLogin}) {
                 </div>
             </div>
 
-            {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
+            {firebase.isUserLogged() ? <div className='viewProfileLink importantNote' onClick={()=>{
+                    navigate(`/completegame`)
+                    Analytics.event('navigation','tool', window.crawlear.user.uid);
+                }}> {t('description.volverherramientajuego')}</div> : <></>}
 
             <div className="posts">
                 <div className='headerText bold'>{t('description.murodepiloto')}</div>
+                {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
                 {embeds}
             </div>
         </div>;

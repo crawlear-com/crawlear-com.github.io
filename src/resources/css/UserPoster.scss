@@ -1,6 +1,28 @@
 .postForm {
     margin-bottom: 25px;
 }
+
+.postForm .headerText:after {
+    display: inline-block;
+    content: '';
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    background: url('../img/arrowUp.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.postForm.closed .headerText:after {
+    background: url('../img/arrowDown.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.postForm.closed {
+    padding-bottom: 30px;
+    overflow: hidden;
+}
+
 .postForm-help {
     font-size: 0.6em;
 }

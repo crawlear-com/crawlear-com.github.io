@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Sharers from './embed/Sharers';
 
 import '../resources/css/UserProfile.scss';
 
@@ -12,7 +13,7 @@ function UserProfile({user, onLogout}) {
     const [userName, setUserName] = React.useState(user.displayName);
     const [description, setDescription] = React.useState(user.description);
     const [instagram, setInstagram] = React.useState(user.instagram);
-    const readOnly = !(window.crawlear && window.crawlear.user && window.crawlear.user.uid) || (window.crawlear && window.crawlear.user && window.crawlear.user.uid !== user.uid) ;
+    const readOnly = !(window.crawlear && window.crawlear.user && window.crawlear.user.uid) || (window.crawlear && window.crawlear.user && window.crawlear.user.uid !== user.uid);
 
     function onUserNameChange(event) {
         const newUserName = event.target.value;
@@ -91,18 +92,19 @@ function UserProfile({user, onLogout}) {
                     onChange={onUserNameChange}
                     onBlur={onBlurSetName} />
             </div>
-            <div className='registrationDate'>
+            {!readOnly ? <div className='registrationDate'>
                 <span className='bold'>{t('description.registro')}</span>: {new Date(user.registrationDate).toLocaleDateString()}
-            </div>
-            <p className='description'>
-                <span className='bold'>{t('description.descripcion')}</span>: 
+                </div> : <></>}
+            <div className='description'>
+                { !readOnly ? <span className='bold'>{t('description.descripcion')}:</span> : <></> }
                 <textarea type="text" 
                     readOnly={readOnly}
                     className="hidenInput textOverflow"
                     value={description} 
                     onChange={onDescriptionChange} 
                     onBlur={onBlurSetDescription} />
-            </p>
+            </div>
+            {(readOnly &&  instagram || !readOnly) ?
             <div className='instagram'>
                 <div className='bold'>Instagram: </div>
                 {!readOnly ?<input type="text" 
@@ -112,7 +114,11 @@ function UserProfile({user, onLogout}) {
                         onChange={onInstagramChange}
                         onBlur={onBlurSetInstagram} />:
                         instagram ? <a href={`https://www.instagram.com/${instagram}/`} target="_blank">@{instagram}</a> : <></>}
-            </div>
+            </div> : <></>}
+
+            <Sharers url={`profile?uid=${user.uid}`} 
+                headerText={t('content.comparteenredespiloto')}
+                text={t('content.shareProfileText')} />
 
             {!readOnly ? <div className='userProfileHelper'>
                 <p><span className='bold'>{t('description.ayuda')}:</span> {t('content.editprofile')}</p>

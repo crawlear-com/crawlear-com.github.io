@@ -7,7 +7,7 @@
 .userProfileContainer {
     text-align: right;
     display: inline-block;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     width: 94%;
     font-size: 0.8em;
 
@@ -48,8 +48,7 @@
     }
 
     .description {
-        float: left;
-        width: 100%;
+        margin-top: 5px;
     }
 
     .hidenInput {

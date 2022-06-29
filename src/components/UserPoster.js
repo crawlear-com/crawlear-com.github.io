@@ -105,13 +105,19 @@ function UserPoster({onPostEntry}) {
         //    setErrorMessage(t('error.noposturl'));
     }
 
+    function onHeaderClick(event) {
+        const header = event.target;
+
+        header.parentElement.classList.toggle('closed');
+    }
+
     gameOptionElements.push(<option key="initialValue" value={-1}>{t('description.noasignarjuego')}</option>);
     gameListRef.current && gameListRef.current.forEach((element, index) => {
         gameOptionElements.push(<option key={index} value={element.gid}>{element.name}</option>);
     });
 
-    return <div className="postForm rounded rounded3">
-            <div className='headerText bold'>{t('description.publicar')}</div>
+    return <div className="postForm rounded rounded3 closed">
+            <div className='headerText bold' onClick={onHeaderClick}>{t('description.publicar')}</div>
 
             <form className='postForm-form' onSubmit={formSubmit}>
                 <label className="postForm-label">URL: <input type="text" name="url" onChange={urlChange} value={state.url} /></label>
