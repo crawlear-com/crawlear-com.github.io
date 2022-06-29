@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import WinnerTable from './WinnerTable';
 import PostLikes from './PostLikes';
+import GoogleMaps from './embed/GoogleMaps';
 
 function PostInfo({ post, readOnly, onRemovePost, children }) {
     const { t } = useTranslation();
@@ -22,13 +23,19 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
             {readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
             <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             
-            {game.gid ? <div className='postDate bold'>{game.gid ? <WinnerTable game={game} /> : <></>}</div> : 
-                    postHasGameAssigned() ? <div className='postDate bold' onClick={()=>{resolveGame(post.gid)}}>{t('description.resolverjuego')}</div> :
-                        <div className='postDate bold'>{t('description.sinjuego')}</div>}
-            
             <div className='postText bold'>{post.text}</div>
-            <div className='postGame'></div>
             {children}
+
+            <div className='postGameContainer'>
+                <div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
+                {game.gid ? <div className='postGame bold'>
+                                {game.gid ? <>{t('description.nombre')}:<span className='gameName'>{game.name} </span><WinnerTable game={game} /></> : <></>}
+                                {game.location && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMaps location={game.location} /></> : <></>}
+                            </div> : 
+                                postHasGameAssigned() ? 
+                                    <button className='getGameName importantNote' onClick={()=>{resolveGame(post.gid)}}>{t('description.resolverjuego')}</button> :
+                                    <div className='getGameName bold'>{t('description.sinjuego')}</div>}
+            </div>
             <PostLikes post={post} isReadOnly={readOnly} />
         </>;
 }

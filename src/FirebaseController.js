@@ -225,7 +225,7 @@ class FirebaseController {
   }
 
 
-  async getGamesFromUser(uid, okCallback, koCallback) {
+  async getGamesFromUser(uid, onlyIsPublic, okCallback, koCallback) {
     try {
       const games = [];
       const q = query(collection(this.db, "games"), 
@@ -236,6 +236,27 @@ class FirebaseController {
         const game = gameData.data();
 
         if(!game.jids || game.jids.indexOf(uid)<0) {
+          ((onlyIsPublic && game.isPublic) || !onlyIsPublic) && games.push(gameData);
+        }
+      });
+
+      okCallback && okCallback(this.transformGamesIntoModel(games));
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
+  async getGamesFromJudge(jid, onlyIsPublic, okCallback, koCallback) {
+    try {
+      const games = [];
+      const q = query(collection(this.db, "games"), 
+        where("jids", "array-contains", jid));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.docs.forEach((gameData)=>{
+        const game = gameData.data();
+
+        if ((onlyIsPublic && game.isPublic) || !onlyIsPublic) {
           games.push(gameData);
         }
       });
@@ -246,19 +267,7 @@ class FirebaseController {
     }
   }
 
-  async getGamesFromJudge(jid, okCallback, koCallback) {
-    try {
-      const q = query(collection(this.db, "games"), 
-        where("jids", "array-contains", jid));
-      const querySnapshot = await getDocs(q);
-
-      okCallback && okCallback(this.transformGamesIntoModel(querySnapshot.docs));
-      } catch(e) {
-        koCallback && koCallback();
-    }
-  }
-
-  async getGamesFromDirector(jid, okCallback, koCallback) {
+  async getGamesFromDirector(jid, onlyIsPublic, okCallback, koCallback) {
     try {
       const games = [];
       const q = query(collection(this.db, "games"), 
@@ -269,7 +278,7 @@ class FirebaseController {
         const game = gameData.data();
 
         if(!game.jids || game.jids.indexOf(jid)<0) {
-          games.push(gameData);
+          ((onlyIsPublic && game.isPublic) || !onlyIsPublic) && games.push(gameData);
         }
       });
 

@@ -59,15 +59,15 @@ function GameManagement({onLogout}) {
     }
 
     function refreshGames() {
-        firebase.getGamesFromUser(window.crawlear.user.uid, (pGames)=> {
+        firebase.getGamesFromUser(window.crawlear.user.uid, false, (pGames)=> {
             setGames(previousInputs => ([...previousInputs,...pGames]));
         });
 
-        firebase.getGamesFromJudge(window.crawlear.user.uid, (jGames)=> {
+        firebase.getGamesFromJudge(window.crawlear.user.uid, false, (jGames)=> {
             setJudgeGames(previousInputs => ([...previousInputs,...jGames]));
         });
 
-        firebase.getGamesFromDirector(window.crawlear.user.uid, (dGames)=> {
+        firebase.getGamesFromDirector(window.crawlear.user.uid, false, (dGames)=> {
             setJudgeGames(previousInputs => ([...previousInputs,...dGames]));
         });
     }
