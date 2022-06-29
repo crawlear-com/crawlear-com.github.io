@@ -5,8 +5,8 @@ import Analytics from '../../Analytics';
 import Logo from '../../resources/img/telegramLogo.png';
 import '../../resources/css/embed/TelegramSharer.scss';
 
-function TelegramSharer({ url }) {
-    const shareUrl = `https://telegram.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURI(t('content.shareText'))}`;
+function TelegramSharer({ url, text }) {
+    const shareUrl = `https://telegram.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURI(text)}`;
 
     function onLinkClick() {
         Analytics.event('share','telegram', shareUrl);

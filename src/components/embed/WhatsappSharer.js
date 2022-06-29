@@ -1,10 +1,12 @@
 import { t } from 'i18next';
 import * as React from 'react';
 import Logo from '../../resources/img/whatsappLogo.svg';
-import '../../resources/css/embed/WhatsappSharer.scss'
+import Analytics from '../../Analytics';
 
-function WhatsappSharer({ url }) {
-    const shareUrl = `https://api.whatsapp.com/send?text=${encodeURI(t('content.shareText'))} ${encodeURIComponent(url)}`;
+import '../../resources/css/embed/WhatsappSharer.scss';
+
+function WhatsappSharer({ url, text }) {
+    const shareUrl = `https://api.whatsapp.com/send?text=${encodeURI(text)} ${encodeURIComponent(url)}`;
 
     function onLinkClick() {
         Analytics.event('share','whatsapp', shareUrl);
