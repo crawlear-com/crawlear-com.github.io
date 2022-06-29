@@ -32,7 +32,9 @@ function PostViewer({pid, onLogin}) {
         {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
         {post.pid ? <>
                 <Post post={post} readOnly={false} /> 
-                <Sharers url={`post?pid=${post.pid}`} text={t('content.sharePostText')} />
+                <Sharers url={`post?pid=${post.pid}`} 
+                    headerText={t('content.comparteenredespost')}
+                    text={t('content.sharePostText')} />
             </>
             : 
             <>

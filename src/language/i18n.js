@@ -59,7 +59,8 @@ i18n
             nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
             shareProfileText: 'Hey! Check this crawlear.com pilot profile ',
             sharePostText: 'Hey! Check this crawlear.com post ',
-            comparteenredes: 'Share this pilot profile in social networks:'
+            comparteenredespiloto: 'Share this pilot profile in social networks:',
+            comparteenredespost: 'Share this post in social networks:'
           },
           error: {
               nojugadores: 'Add the players',
@@ -315,7 +316,8 @@ i18n
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
             shareProfileText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
-            comparteenredes: 'Comparte éste perfil de piloto en redes sociales:'
+            comparteenredespost: 'Comparte ésta entrada en redes sociales:',
+            comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
