@@ -12,6 +12,7 @@ function Menu() {
     const [isOpen, setIsOpen] = React.useState(false);
     const { t } = useTranslation();
     const [lightMode, setLightMode] = React.useState(false);
+    const userIsLoged = (window.crawlear && window.crawlear.fb && window.crawlear.fb.isUserLogged());
 
     function onMenuClick() {
         setIsOpen(!isOpen);
@@ -38,6 +39,9 @@ function Menu() {
                 <div className="burguerMenuBar"></div>
                 <div className="linksContainer">
                     <ul>
+                        {userIsLoged ? <li><a href="/completegame">{t("description.herramientajuego")}</a></li> : <></>}
+                        {userIsLoged ? <li><a href={`/profile?uid=${window.crawlear.user.uid}`}>{t("description.perfilsocial")}</a></li> : <></>}
+                        {userIsLoged ? <li>-</li> : <></>}
                         <li><a href="/">{t("description.paginaprincipal")}</a></li>
                         <li><a href="/privacypolicy">{t("description.politicaprivacidad")}</a></li>
                         <li><a href="/aboutus">{t("description.aboutus")}</a></li>

@@ -178,9 +178,13 @@ i18n
             sinjuego: 'no game assigned',
             juegoasignado: 'Game assigned',
             murodepiloto: 'Pilot Wall',
-            publicar: 'Publish',
             resolverjuego: 'get game result',
-            volverherramientajuego: 'go back to the game tool'
+            herramientajuego: 'Game Tool',
+            volverherramientajuego: 'go back to the game tool',
+            tendenciapiloto: 'Profile trend: PiLOT',
+            tendenciajuez: 'Profile trend: JUDGE',
+            tendencianeutral: 'Profile trend: PiLOT and JUDGE',
+            perfilsocial: 'Social profile'
           },
           points: {
             vuelco: 'overturn',
@@ -435,9 +439,13 @@ i18n
               sinjuego: 'sin juego asignado',
               juegoasignado: 'Juego asignado',
               murodepiloto: 'Muro de Piloto',
-              publicar: 'Publicar',
               resolverjuego: 'ver resultado del juego',
-              volverherramientajuego: 'volver a la herramienta de juego'
+              herramientajuego: 'Herramienta de juego',
+              volverherramientajuego: 'volver a la herramienta de juego',
+              tendenciapiloto: 'Tendencia del perfil: PiLOTO',
+              tendenciajuez: 'Tendencia del perfil: JUEZ',
+              tendencianeutral: 'Tendencia del perfil: JUEZ y PiLOTO',
+              perfilsocial: 'Perfil social'
           },
           points: {
             vuelco: 'vuelco',

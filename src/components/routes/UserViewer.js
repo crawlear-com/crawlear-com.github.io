@@ -8,8 +8,11 @@ import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
-import Sharers from '../embed/Sharers';
 import { useNavigate } from 'react-router-dom';
+
+const USER_TYPE_PILOT = 0;
+const USER_TYPE_JUDGE = 1;
+const USER_TYPE_NEUTRAL = 2;
 
 function UserViewer({uid, onLogout, onLogin}) {
     const { t } = useTranslation();
@@ -69,6 +72,7 @@ function UserViewer({uid, onLogout, onLogin}) {
 
     if (user.registrationDate ) {
         const embeds = [];
+        let userType;
 
         if (userPosts.length) {
             userPosts.forEach((post, index) => {
@@ -76,6 +80,14 @@ function UserViewer({uid, onLogout, onLogin}) {
             });
         } else {
             embeds.push(<div key="nopost" className='rounded rounded3'>{t('content.nopost')}</div>);
+        }
+
+        if ((userData.judgeGames - userData.pilotGames) > 0) {
+            userType = USER_TYPE_JUDGE;
+        } else if ((userData.judgeGames - userData.pilotGames) === 0) { 
+            userType = USER_TYPE_NEUTRAL;
+        } else {
+            userType = USER_TYPE_NEUTRAL;
         }
 
         return <div className="userViewer">
@@ -93,12 +105,10 @@ function UserViewer({uid, onLogout, onLogin}) {
                 <div>
                     {t('description.partidasprevias')}: {userData.pilotGames || 0}
                 </div>
+                <p className='bold'>
+                    {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
+                </p>
             </div>
-
-            {firebase.isUserLogged() ? <div className='viewProfileLink importantNote' onClick={()=>{
-                    navigate(`/completegame`)
-                    Analytics.event('navigation','tool', window.crawlear.user.uid);
-                }}> {t('description.volverherramientajuego')}</div> : <></>}
 
             <div className="posts">
                 <div className='headerText bold'>{t('description.murodepiloto')}</div>

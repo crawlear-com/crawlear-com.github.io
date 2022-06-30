@@ -72,7 +72,9 @@ function UserProfile({user, onLogout}) {
 
     return <div className="userProfileContainer rounded rounded2">
         <div className="userProfilePhotoContainer">
-            <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
+            {readOnly ? <a href={`https://crawlear.com/profile?uid=${user.uid}`}>
+                <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
+            </a> : <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img> }
             
             <div className='sharerContainer'>
                 {!readOnly ? <div className='logout' 

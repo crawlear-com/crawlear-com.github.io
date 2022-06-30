@@ -141,10 +141,6 @@ function GameManagement({onLogout}) {
             {state === STATE_MENU ? 
                 <>
                     <UserProfile user={window.crawlear.user} onLogout={onLogout} />
-                    <div className='viewProfileLink importantNote' onClick={()=>{
-                        Analytics.event('navigation','profile', window.crawlear.user.uid);
-                        navigate(`/profile?uid=${window.crawlear.user.uid}`)}
-                    }> {t('description.verperfil')}</div>
                     <GameRequests user={window.crawlear.user} />
                     <GameList title={t('description.partidasprevias')} 
                         games={games}
