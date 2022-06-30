@@ -4,6 +4,7 @@ import Instagram from './embed/Instagram';
 import Youtube from './embed/Youtube';
 import Tiktok from './embed/Tiktok';
 import PostInfo from './PostInfo';
+import Sharers from './embed/Sharers';
 
 import '../resources/css/Post.scss';
 
@@ -25,6 +26,9 @@ function Post({post, readOnly, onRemovePost}) {
                 readOnly={readOnly}>
             {embed}
             </PostInfo>
+            <Sharers url={`post?pid=${post.pid}`} 
+                    headerText={t('content.comparteenredespost')}
+                    text={t('content.sharePostText')} />
         </div>;
 }
 
