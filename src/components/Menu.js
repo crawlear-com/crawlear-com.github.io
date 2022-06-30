@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import logo from '../resources/img/logo5.png'
 import '../resources/css/Menu.scss';
+import Analytics from '../Analytics';
 
 const LIGHTMODE_CLASS = 'lightMode';
 
@@ -11,6 +13,7 @@ function Menu() {
     const { t } = useTranslation();
     const [lightMode, setLightMode] = React.useState(false);
     const userIsLoged = (window.crawlear && window.crawlear.fb && window.crawlear.fb.isUserLogged());
+    const navigate = useNavigate();
 
     function onMenuClick() {
         setIsOpen(!isOpen);
@@ -29,6 +32,11 @@ function Menu() {
         }
     }
 
+    function browseTo(path) {
+        Analytics.event('navigation','menu', path);
+        navigate(path)
+    }
+
     if (isOpen) {
         return <header className="App-header">
             <div className="rounded menuContainer open" onClick={onMenuClick}>
@@ -37,16 +45,16 @@ function Menu() {
                 <div className="burguerMenuBar"></div>
                 <div className="linksContainer">
                     <ul>
-                        <li><a href="/completegame">{t("description.herramientajuego")}</a></li>
-                        <li><a href={`/profile?uid=${window.crawlear.user.uid}`}>{t("description.perfilsocial")}</a></li>
+                        <li><div onClick={()=>{browseTo("/completegame")}}>{t("description.herramientajuego")}</div></li>
+                        <li><div onClick={()=>{browseTo(`/profile?uid=${window.crawlear.user.uid}`)}}>{t("description.perfilsocial")}</div></li>
                         <li>-</li>
-                        <li><a href="/privacypolicy">{t("description.politicaprivacidad")}</a></li>
-                        <li><a href="/aboutus">{t("description.aboutus")}</a></li>
+                        <li><div onClick={()=>{browseTo("/privacypolicy")}}>{t("description.politicaprivacidad")}</div></li>
+                        <li><div onClick={()=>{browseTo("/aboutus")}}>{t("description.aboutus")}</div></li>
                         <li>-</li>
-                        <li><a href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR Crawler</a></li>
-                        <li><a href="https://isrcc.eu/">ISRCC International Scale Rock Crawler Championship</a></li>
+                        <li><div href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR Crawler</div></li>
+                        <li><div href="https://isrcc.eu/">ISRCC International Scale Rock Crawler Championship</div></li>
                     </ul>
-                    <a className="lightModeSwitch" href="#clear" onClick={switchLightMode}>Modo claro / oscuro</a>
+                    <div className="lightModeSwitch" onClick={switchLightMode}>Modo claro / oscuro</div>
                 </div>
             </div>
         </header>;
