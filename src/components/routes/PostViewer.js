@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Post from '../Post';
-import Sharers from '../embed/Sharers';
 import Spinner from '../Spinner';
 import Analytics from '../../Analytics';
 import UserProfile from '../UserProfile';
@@ -43,9 +42,6 @@ function PostViewer({pid, onLogin}) {
         {post.pid ? <>
                 {user.displayName ? <UserProfile user={user}/> : <></>}
                 <Post post={post} readOnly={false} /> 
-                <Sharers url={`post?pid=${post.pid}`} 
-                    headerText={t('content.comparteenredespost')}
-                    text={t('content.sharePostText')} />
             </>
             : 
             <>

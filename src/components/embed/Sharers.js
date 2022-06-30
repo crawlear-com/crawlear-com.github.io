@@ -10,10 +10,12 @@ function Sharers({url, text, headerText}) {
 
     return <div className='sharerContainer'>
         <div className='bold shareProfileText'>{headerText}</div>
-        <FacebookSharer url={`https://crawlear.com/${url}`} text={text} />
-        <TwitterSharer url={`https://crawlear.com/${url}`} text={text} />
-        <WhatsappSharer url={`https://crawlear.com/${url}`} text={text} />
-        <TelegramSharer url={`https://crawlear.com/${url}`} text={text} />
+        <div className='sharers'>
+            <FacebookSharer url={`https://crawlear.com/${url}`} text={text} />
+            <TwitterSharer url={`https://crawlear.com/${url}`} text={text} />
+            <WhatsappSharer url={`https://crawlear.com/${url}`} text={text} />
+            <TelegramSharer url={`https://crawlear.com/${url}`} text={text} />
+        </div>
     </div>
 ;
 }

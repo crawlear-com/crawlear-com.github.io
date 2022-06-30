@@ -1,33 +1,50 @@
-.post .gameContainer {
-    color: white;
-    margin-top: 15px;
-}
-
-.post .postGameContainer {
-    text-align: center;
-
-    .getGameName, .gameName {
-        margin: 15px 0;
-    }
-
-    .gameName {
-        width: 70%;
-    }
-    
-    .gameAssigned {
+body .post {
+    .gameContainer {
+        color: white;
         margin-top: 15px;
     }
-    
-    .postGame {
-        margin: 15px 0;
-    }
-    
-    .gameName {
-        margin-left: 10px;
-        margin-bottom: 10px;
-    }
+    .sharerContainer {
+        width: 80%;
+        margin: 0 auto;
+        float: right;
 
-    .mapouter {
+        .shareProfileText {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .sharers {
+            width: 95%;
+            margin: 0 auto;
+        }
+    }
+    .postGameContainer {
         text-align: center;
+    
+        .getGameName, .gameName {
+            margin: 15px 0;
+        }
+    
+        .gameName {
+            width: 70%;
+        }
+        
+        .gameAssigned {
+            margin-top: 15px;
+        }
+        
+        .postGame {
+            margin: 15px 0;
+        }
+        
+        .gameName {
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+    
+        .mapouter {
+            text-align: center;
+        }
     }
 }
