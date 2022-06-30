@@ -20,6 +20,18 @@ body {
   background-size: cover;
 }
 
+body.completegame {
+  background-image: url(../img/fondo5.jpeg);
+}
+
+body.profile {
+  background-image: url(../img/fondo3.jpeg);
+}
+
+body.post {
+  background-image: url(../img/fondo4.jpeg);
+}
+
 .blink {
   animation: blinker 1s linear infinite;
 }
@@ -76,8 +88,6 @@ button {
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
-  //display: inline-flex;
-  //flex-direction: column;
   font-size: 18px;
   justify-content: center;
   line-height: 0.5;

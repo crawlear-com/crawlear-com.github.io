@@ -25,6 +25,11 @@ function PostViewer({pid, onLogin}) {
         }, ()=>{});
 
         Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+        window.document.body.classList.add('post');
+
+        return ()=>{
+            window.document.body.classList.remove('post');
+        }
     },[]);
 
     if (firebase.isUserLogged()) {

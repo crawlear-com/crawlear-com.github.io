@@ -37,6 +37,11 @@ function UserViewer({uid, onLogout, onLogin}) {
         }, ()=>{});
 
         Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+        window.document.body.classList.add('profile');
+
+        return ()=>{
+            window.document.body.classList.remove('profile');
+        }
     }, []);
 
     React.useEffect(()=>{
