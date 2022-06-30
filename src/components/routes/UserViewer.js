@@ -87,7 +87,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         } else if ((userData.judgeGames - userData.pilotGames) === 0) { 
             userType = USER_TYPE_NEUTRAL;
         } else {
-            userType = USER_TYPE_NEUTRAL;
+            userType = USER_TYPE_PILOT;
         }
 
         return <div className="userViewer">
