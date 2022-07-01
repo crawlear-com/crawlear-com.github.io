@@ -52,7 +52,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
             },()=>{}); 
         }
 
-    },[]);
+    },[status.isUserLogged, status.isPostFromUserLogged]);
 
     function onClickLike(event) {
         if (status.state === NOT_LOADED) return;
@@ -90,7 +90,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
             status.isPostFromUserLogged ? <div className="likeContainer">{likes}</div> :
             <div className="likeContainer">
               <span className={status.state === PRESSED?'press':''}>
-                <img src={icon} onClick={onClickLike} />
+                <img src={icon} onClick={onClickLike} alt='like button' />
               </span>
         </div> : <div className="likeContainer">{likes}</div>;
 }
