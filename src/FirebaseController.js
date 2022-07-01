@@ -599,6 +599,20 @@ class FirebaseController {
     okCallback && okCallback();
   }
 
+  async getPostLikesCount(pid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "likes"), 
+        where("pid", "==", pid), 
+        limit(15));
+      const querySnapshot = await getDocs(q);
+      const likes = querySnapshot.docs.length;
+
+      okCallback && okCallback(likes);
+      } catch(e) {
+        koCallback && koCallback();
+    }    
+  }
+
   async getIfPostIsLiked(pid, uid, okCallback, koCallback) {
     try {
       const q = query(collection(this.db, "likes"), 

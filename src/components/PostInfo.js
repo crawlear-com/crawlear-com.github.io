@@ -34,17 +34,18 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
             <div className='postText bold' onClick={goToPost}>{post.text}</div>
             {children}
 
+            <PostLikes post={post} isReadOnly={readOnly} />
             <div className='postGameContainer'>
-                <div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
                 {game.gid ? <div className='postGame bold'>
-                                {game.gid ? <>{t('description.nombre')}:<span className='gameName'>{game.name} </span><WinnerTable game={game} /></> : <></>}
+                                {game.gid ? <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
+                                            {t('description.nombre')}:<span className='gameName'>{game.name} </span><WinnerTable game={game} /></> : <></>}
                                 {game.location && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMaps location={game.location} /></> : <></>}
                             </div> : 
                                 postHasGameAssigned() ? 
-                                    <button className='getGameName importantNote' onClick={()=>{resolveGame(post.gid)}}>{t('description.resolverjuego')}</button> :
-                                    <div className='getGameName bold'>{t('description.sinjuego')}</div>}
+                                    <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
+                                    <button className='getGameName importantNote' onClick={()=>{resolveGame(post.gid)}}>{t('description.resolverjuego')}</button></> :
+                                        <div className='getGameName bold'>{t('description.sinjuego')}</div>}
             </div>
-            <PostLikes post={post} isReadOnly={readOnly} />
         </>;
 }
 
