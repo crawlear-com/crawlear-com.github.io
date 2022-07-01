@@ -4,10 +4,6 @@ html {
 }
 
 body {
-  margin: 0;
-}
-
-#root {
   background-color: #333;
   color: #fcf7ff;
   font-family: Montserrat, Roboto, sans-serif;
@@ -19,19 +15,20 @@ body {
   background-attachment: fixed;
   background-position: center;
   background-position-y: top;
+  background-position-x: right;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-body.completegame #root {
+body.completegame {
   background-image: url(../img/fondo5.jpeg);
 }
 
-body.profile #root{
+body.profile {
   background-image: url(../img/fondo3.jpeg);
 }
 
-body.post #root{
+body.post {
   background-image: url(../img/fondo4.jpeg);
 }
 
