@@ -87,9 +87,9 @@ class FirebaseController {
       const user = docSnap.data();
 
       user.uid = docRef.id;
-      okCallback(user);
+      okCallback && okCallback(user);
     } else {
-      koCallback();
+      koCallback && koCallback();
     }
   }
 
