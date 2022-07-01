@@ -52,7 +52,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
             },()=>{}); 
         }
 
-    },[status.isUserLogged, status.isPostFromUserLogged]);
+    },[]);
 
     function onClickLike(event) {
         if (status.state === NOT_LOADED) return;
