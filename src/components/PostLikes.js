@@ -12,22 +12,16 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     const { t } = useTranslation();
     const likes = [];
     const firebase = window.crawlear.fb;
+    const isPostFromUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid;
+    const isUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid;
     const [status, setStatus] = React.useState({
-        isPostFromUserLogged: firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid,
-        isUserLogged: firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid,
         status: NOT_LOADED,
         likes: 0,
         lid: 0
     });
 
     React.useEffect(()=>{
-        const isPostFromUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid;
-        const isUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid;
 
-        setStatus({...status, 
-                isPostFromUserLogged: isPostFromUserLogged,
-                isUserLogged: isUserLogged 
-        });
         if (isUserLogged) {
             firebase.getIfPostIsLiked(post.pid, window.crawlear.user.uid, (isLiked, lid)=>{
                 if(isLiked) {
