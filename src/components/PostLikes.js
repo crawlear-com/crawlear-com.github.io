@@ -10,28 +10,48 @@ const PRESSED=1;
 
 function PostLikes({post, onLikePost, onRemoveLikePost}) {
     const { t } = useTranslation();
+    const likes = [];
     const firebase = window.crawlear.fb;
     const [status, setStatus] = React.useState({
+        isPostFromUserLogged: firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid,
+        isUserLogged: firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid,
         status: NOT_LOADED,
+        likes: 0,
         lid: 0
     });
 
     React.useEffect(()=>{
-        if (firebase.isUserLogged()) {
+        const isPostFromUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid;
+        const isUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid;
+
+        setStatus({...status, 
+                isPostFromUserLogged: isPostFromUserLogged,
+                isUserLogged: isUserLogged 
+        });
+        if (isUserLogged) {
             firebase.getIfPostIsLiked(post.pid, window.crawlear.user.uid, (isLiked, lid)=>{
                 if(isLiked) {
-                    setStatus({ 
-                        state: PRESSED, 
+                    setStatus({ ...status,
+                        state: PRESSED,
                         lid: lid
                     }); 
                 } else {
-                    setStatus({
+                    setStatus({ ...status, 
                         state: NOT_PRESSED, 
                         lid: 0
                     }); 
                 }
             },()=>{}); 
         }
+
+        if (isPostFromUserLogged || !isUserLogged) {
+            firebase.getPostLikesCount(post.pid, (likes)=>{
+                setStatus({ ...status,
+                    likes: likes
+                }); 
+            },()=>{}); 
+        }
+
     },[]);
 
     function onClickLike(event) {
@@ -39,7 +59,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
 
         if(status.state === PRESSED) {
             firebase.removeLike(status.lid,()=>{
-                setStatus({
+                setStatus({ ...status,
                     state: NOT_PRESSED, 
                     lid: 0
                 });
@@ -47,7 +67,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
             },()=>{});
         }  else {
             firebase.setLike(post.pid, window.crawlear.user.uid, (lid)=>{
-                setStatus({ 
+                setStatus({ ...status,
                     state: PRESSED, 
                     lid: lid
                 });
@@ -56,11 +76,23 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
         }
     }
 
-    return firebase.isUserLogged() ? <div className="likeContiner">
+    if (status.likes >10) {
+        likes.push(<div className='bold'>Likes 🔥🔥🔥</div>);
+    } else if (status.likes >5) {
+        likes.push(<div className='bold'>Likes 🔥🔥</div>);
+    } else if (status.likes >0) { 
+        likes.push(<div className='bold'>Likes 🔥</div>);
+    } else {
+        likes.push(<div className='bold'>Likes 🧊</div>);
+    }
+
+    return status.isUserLogged ? 
+            status.isPostFromUserLogged ? <div className="likeContainer">{likes}</div> :
+            <div className="likeContainer">
               <span className={status.state === PRESSED?'press':''}>
                 <img src={icon} onClick={onClickLike} />
               </span>
-        </div> : <></>;
+        </div> : <div className="likeContainer">{likes}</div>;
 }
 
 export default PostLikes;

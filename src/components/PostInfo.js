@@ -34,6 +34,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
             <div className='postText bold' onClick={goToPost}>{post.text}</div>
             {children}
 
+            <PostLikes post={post} isReadOnly={readOnly} />
             <div className='postGameContainer'>
                 {game.gid ? <div className='postGame bold'>
                                 {game.gid ? <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
@@ -45,7 +46,6 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
                                     <button className='getGameName importantNote' onClick={()=>{resolveGame(post.gid)}}>{t('description.resolverjuego')}</button></> :
                                         <div className='getGameName bold'>{t('description.sinjuego')}</div>}
             </div>
-            <PostLikes post={post} isReadOnly={readOnly} />
         </>;
 }
 
