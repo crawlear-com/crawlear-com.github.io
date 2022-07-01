@@ -21,6 +21,9 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     });
 
     React.useEffect(()=>{
+        const isPostFromUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid;
+        const isUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid;
+    
         if (isUserLogged) {
             firebase.getIfPostIsLiked(post.pid, window.crawlear.user.uid, (isLiked, lid)=>{
                 if(isLiked) {
