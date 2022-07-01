@@ -21,7 +21,6 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     });
 
     React.useEffect(()=>{
-
         if (isUserLogged) {
             firebase.getIfPostIsLiked(post.pid, window.crawlear.user.uid, (isLiked, lid)=>{
                 if(isLiked) {
@@ -80,13 +79,13 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
         likes.push(<div className='bold'>Likes 🧊</div>);
     }
 
-    return status.isUserLogged ? 
-            status.isPostFromUserLogged ? <div className="likeContainer">{likes}</div> :
+    return isUserLogged ? 
+            (isPostFromUserLogged ? <div className="likeContainer">{likes}</div> :
             <div className="likeContainer">
               <span className={status.state === PRESSED?'press':''}>
                 <img src={icon} onClick={onClickLike} alt='like button' />
               </span>
-        </div> : <div className="likeContainer">{likes}</div>;
+        </div>) : <div className="likeContainer">{likes}</div>;
 }
 
 export default PostLikes;
