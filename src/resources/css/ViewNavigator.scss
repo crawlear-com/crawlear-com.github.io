@@ -10,9 +10,9 @@
         height: 100%;
         width: 96%;
         overflow-y: scroll;
-        margin: 0 auto;
+        margin: 15px auto 0 auto;
         padding: 0 5px;
-
+        transition: 0.1s ease-in-out;
     }
 
     .col1::-webkit-scrollbar,

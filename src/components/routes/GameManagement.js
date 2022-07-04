@@ -145,6 +145,7 @@ function GameManagement({onLogout}) {
     return <>
             {state === STATE_MENU ? 
                 <>
+                    <div className='headerText bold'>{t('description.juego')}</div>
                     <UserProfile user={window.crawlear.user} onLogout={onLogout} />
                     <GameRequests user={window.crawlear.user} />
                     <GameList title={t('description.partidasprevias')} 

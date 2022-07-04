@@ -10,6 +10,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [game, setGame] = React.useState({});
+    const [userFromPost, setUserFromPost] = React.useState({});
     const navigate = useNavigate();
 
     function resolveGame(gid) {
@@ -27,10 +28,32 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
         navigate(`/post?pid=${post.pid}`);
     }
 
+    React.useEffect(()=>{
+        if(!readOnly) {
+            firebase.getUser(post.uid, (user)=>{
+                setUserFromPost(user);
+            },()=>{})
+        }
+    },[]);
+
     return <>
             {readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
             <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             
+            {userFromPost.uid ? <div className="userProfileContainer rounded rounded2">
+                    <div className="userProfilePhotoContainer">
+                        <img referrerPolicy="no-referrer" className="photo" src={userFromPost.photoURL} alt="user avatar"></img>
+                    </div>
+
+                    <div className="userProfileInlineContainer">
+                        <div className="name">
+                            <input type="text" 
+                                className="bold textOverflow hidenInput" 
+                                readOnly={true}
+                                value={userFromPost.displayName} />
+                        </div>
+                    </div>
+            </div> : <></>}
             <div className='postText bold' onClick={goToPost}>{post.text}</div>
             {children}
 

@@ -6,6 +6,15 @@
     background-color: #EEE;
     color: black;
     text-align: left;
+
+    .userProfilePhotoContainer {
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+            float: left;
+        }
+    }
 }
 
 .postText {
