@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Sharers from './embed/Sharers';
+import { UserStatusContext } from '../UserStatusContext';
 
 import '../resources/css/UserProfile.scss';
 
@@ -13,7 +14,17 @@ function UserProfile({user, onLogout}) {
     const [userName, setUserName] = React.useState(user.displayName);
     const [description, setDescription] = React.useState(user.description);
     const [instagram, setInstagram] = React.useState(user.instagram);
-    const readOnly = !(window.crawlear && window.crawlear.user && window.crawlear.user.uid) || (window.crawlear && window.crawlear.user && window.crawlear.user.uid !== user.uid);
+    const { isUserLoged } = React.useContext(UserStatusContext);
+    const [fid, setFid] = React.useState(-1);
+    const followAction = [];
+
+    React.useEffect(()=>{
+        if (isUserLoged && !isTheUserLogged(user.uid)) {
+            firebase.getFidFromFollow(window.crawlear.user.uid, user.uid, (result)=>{
+                setFid(result);
+            }, ()=>{});
+        }
+    },[isUserLoged]);
 
     function onUserNameChange(event) {
         const newUserName = event.target.value;
@@ -26,7 +37,7 @@ function UserProfile({user, onLogout}) {
     function onDescriptionChange(event) {
         const newDescription = event.target.value;
 
-        if(!readOnly && newDescription !== description) {
+        if(isTheUserLogged(user.uid) && newDescription !== description) {
             setDescription(newDescription);
         }
     }
@@ -34,7 +45,7 @@ function UserProfile({user, onLogout}) {
     function onInstagramChange(event) {
         const newInstagram = event.target.value;
 
-        if(!readOnly && newInstagram !== instagram) {
+        if(isTheUserLogged(user.uid) && newInstagram !== instagram) {
             setInstagram(newInstagram);
         }
     }
@@ -42,7 +53,7 @@ function UserProfile({user, onLogout}) {
     function onBlurSetName(event) {
         const newUserName = event.target.value;
 
-        if(!readOnly && user.displayName !== newUserName && newUserName.length>0) {
+        if(isTheUserLogged(user.uid) && user.displayName !== newUserName && newUserName.length>0) {
             user.displayName = newUserName;
             setUserName(newUserName);
             firebase.setUser(user,()=>{ },()=>{ });
@@ -53,7 +64,7 @@ function UserProfile({user, onLogout}) {
     function onBlurSetInstagram(event) {
         const newInstagram = event.target.value;
 
-        if(!readOnly && user.instagram !== newInstagram) {
+        if(isTheUserLogged(user.uid) && user.instagram !== newInstagram) {
             user.instagram = newInstagram;
             setInstagram(newInstagram);
             firebase.setUser(user,()=>{ },()=>{ });
@@ -63,70 +74,96 @@ function UserProfile({user, onLogout}) {
     function onBlurSetDescription(event) {
         const newDescription = event.target.value;
 
-        if(!readOnly && user.description !== newDescription) {
+        if(isTheUserLogged(user.uid) && user.description !== newDescription) {
             user.description = newDescription;
             setDescription(newDescription);
             firebase.setUser(user,()=>{ },()=>{ });
         }
     }
 
+    function onFollowClick() {
+        firebase.setFollow(window.crawlear.user.uid, user.uid, (fid)=>{
+            fid && setFid(fid);
+        }, ()=>{});
+    }
+
+    if (isUserLoged && !isTheUserLogged(user.uid)) {
+        if (fid !== -1) {
+            followAction.push(<div key="followAction" className='follow' onClick={onUnFollowClick}>{t('description.unfollow')}</div>);
+        } else {
+            followAction.push(<div key="followAction" className='follow' onClick={onFollowClick}>{t('description.follow')}</div>);
+        }
+    }
+
+    function onUnFollowClick() {
+        firebase.removeFollow(fid, ()=>{
+            setFid(-1);
+        }, ()=>{});
+    }
+
     return <div className="userProfileContainer rounded rounded2">
         <div className="userProfilePhotoContainer">
-            {readOnly ? <a href={`https://crawlear.com/profile?uid=${user.uid}`}>
+            {!isUserLoged || !isTheUserLogged(user.uid) ? <a href={`https://crawlear.com/profile?uid=${user.uid}`}>
                 <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
             </a> : <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img> }
             
             <div className='sharerContainer'>
-                {!readOnly ? <div className='logout' 
+                {isTheUserLogged(user.uid) ? <div className='logout' 
                 onClick={()=> {
                     window.crawlear.fb.logout();
                     onLogout();
                     navigate("/");
             }} >Logout</div> : <></>}
+            {followAction}
             </div>
         </div>
         <div className="userProfileInlineContainer">
             <div className="name">
                 <input type="text" 
                     className="bold textOverflow hidenInput" 
-                    readOnly={readOnly}
+                    readOnly={!isUserLoged || !isTheUserLogged(user.uid)}
                     value={userName} 
                     onChange={onUserNameChange}
                     onBlur={onBlurSetName} />
             </div>
-            {!readOnly ? <div className='registrationDate'>
+            {isTheUserLogged(user.uid) ? <div className='registrationDate'>
                 <span className='bold'>{t('description.registro')}</span>: {new Date(user.registrationDate).toLocaleDateString()}
                 </div> : <></>}
             <div className='description'>
-                { !readOnly ? <span className='bold'>{t('description.descripcion')}:</span> : <></> }
+                {isTheUserLogged(user.uid) ? <span className='bold'>{t('description.descripcion')}:</span> : <></> }
                 <textarea type="text" 
-                    readOnly={readOnly}
+                    readOnly={!isUserLoged || !isTheUserLogged(user.uid)}
                     className="hidenInput textOverflow"
                     value={description} 
                     onChange={onDescriptionChange} 
                     onBlur={onBlurSetDescription} />
             </div>
-            {(readOnly &&  instagram || !readOnly) ?
+            {(((!isUserLoged || !isTheUserLogged(user.uid)) &&  instagram) || isTheUserLogged(user.uid)) ?
             <div className='instagram'>
                 <div className='bold'>Instagram: </div>
-                {!readOnly ?<input type="text" 
+                {isTheUserLogged(user.uid) ? <input type="text" 
                         className="textOverflow hidenInput" 
-                        readOnly={readOnly}
+                        readOnly={!isUserLoged || !isTheUserLogged(user.uid)}
                         value={instagram} 
                         onChange={onInstagramChange}
-                        onBlur={onBlurSetInstagram} />:
-                        instagram ? <a href={`https://www.instagram.com/${instagram}/`} target="_blank">@{instagram}</a> : <></>}
+                        onBlur={onBlurSetInstagram} /> :
+                    instagram ? 
+                        <a href={`https://www.instagram.com/${instagram}/`} target="_blank">@{instagram}</a> : <></>}
             </div> : <></>}
 
             <Sharers url={`profile?uid=${user.uid}`} 
                 headerText={t('content.comparteenredespiloto')}
                 text={t('content.shareProfileText')} />
 
-            {!readOnly ? <div className='userProfileHelper'>
+            {isTheUserLogged(user.uid) ? <div className='userProfileHelper'>
                 <p><span className='bold'>{t('description.ayuda')}:</span> {t('content.editprofile')}</p>
             </div> : <></>}
         </div>
     </div>;
+}
+
+function isTheUserLogged(uid) {
+    return window.crawlear.fb.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
 }
 
 export default UserProfile;

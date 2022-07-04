@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import GameController from './components/GameController';
 import TxtRoute from './components/routes/TxtRoute';
-import Footer from './components/Footer';
 import Menu from './components/Menu';
 import FirebaseController from './FirebaseController';
 import GameManagement from './components/routes/GameManagement';
+import MainContainer from './components/routes/MainContainer';
 import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
@@ -14,6 +14,7 @@ import { Game } from './model/Game';
 import GameConfigurator from './components/GameConfigurator';
 import UserViewer from './components/routes/UserViewer';
 import PostViewer from './components/routes/PostViewer';
+import { UserStatusContext } from './UserStatusContext';
 
 import './Error.js';
 
@@ -33,6 +34,7 @@ function App() {
 
   React.useEffect(() => {
     Analytics.event('App','init',`${navigator.userAgent}`);
+    //navigate("/profile?uid=DDzlRnl4s7Ovj72CT6Rq5rmJzc52");
   }, [])
 
   function onLogin(navigateAction) {
@@ -54,14 +56,14 @@ function App() {
       [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], []);
   }
 
-  return (<>
+  return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
       <div className="App">
         {stateLogged ? <Menu /> : <></>}
         <div className="AppMainContainer">
         <Routes>
           <Route path="/" element={<Landing onLogin={()=>{onLogin(true)}} />} />
           <Route path="/simplegame" element={<GameController game={getNewGame} />} />
-          <Route path="/completegame" element={<GameManagement onLogout={onLogout} />} />
+          <Route path="/completegame" element={<MainContainer onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
           <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
           <Route path="/post" element={<PostViewer onLogin={()=>{onLogin(false)}} pid={queryParams.get && queryParams.get('pid')} />} />
@@ -72,10 +74,8 @@ function App() {
         </div>
 
         <div className="adsContainer"></div>
-        <Footer></Footer>
       </div>
-    </>
-  );
+  </UserStatusContext.Provider>);
 }
 
 export default App;

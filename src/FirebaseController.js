@@ -561,6 +561,24 @@ class FirebaseController {
     }
   }
 
+  async setFollow(fromUid, toUid, okCallback, koCallback) {
+    try {
+      const postRef = await addDoc(collection(this.db, "follows"), {
+        fromUid: fromUid,
+        toUid: toUid
+      });
+      okCallback && okCallback(postRef.id);
+    } catch (e) {
+      koCallback && koCallback();
+    }
+  }
+
+  async removeFollow(fid, okCallback, koCallback) {
+    await deleteDoc(doc(this.db, "follows", fid));
+    okCallback && okCallback();
+  }
+
+
   async getPost(pid, okCallback, koCallback) {
       const docRef = doc(this.db, "socialPosts", pid);
       const docSnap = await getDoc(docRef);
@@ -589,6 +607,38 @@ class FirebaseController {
       okCallback && okCallback(posts);
       } catch(e) {
         koCallback && koCallback();
+    }
+  }
+
+  async getPostsFromFollowFeed(uid, okCallback, koCallback) {
+    try {
+      const posts = [];
+      const q = query(collection(this.db, "follows"), 
+        where("fromUid", "==", uid));
+      const querySnapshotFollows = await getDocs(q);
+      const follows = [];
+
+      querySnapshotFollows.docs.forEach((followData)=>{
+        const data = followData.data();
+        follows.push(data.toUid);
+      });
+
+      if (follows.length > 0) {
+        const qp = query(collection(this.db, "socialPosts"), 
+          where("uid", "in", follows),
+          orderBy("date", "desc"), limit(10));
+        const querySnapshotPosts = await getDocs(qp);
+
+        querySnapshotPosts.docs.forEach((postData)=>{
+          const data = postData.data();
+          data.pid = postData.id;
+          posts.push(data);
+        });
+
+        okCallback && okCallback(posts);
+      }
+    } catch(e) {
+      koCallback && koCallback();
     }
   }
 
@@ -623,6 +673,21 @@ class FirebaseController {
       const isLiked = querySnapshot.docs.length===1;
 
       okCallback && okCallback(isLiked, isLiked ? querySnapshot.docs[0].id : '');
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
+  async getFidFromFollow(fromUid, toUid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "follows"), 
+        where("fromUid", "==", fromUid), 
+        where("toUid", "==", toUid), 
+        limit(1));
+      const querySnapshot = await getDocs(q);
+      const fid = querySnapshot.docs.length===1 ? querySnapshot.docs[0].id : -1;
+
+      okCallback && okCallback(fid);
       } catch(e) {
         koCallback && koCallback();
     }

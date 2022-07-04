@@ -178,13 +178,17 @@ i18n
             sinjuego: 'no game assigned',
             juegoasignado: 'Game assigned',
             murodepiloto: 'Pilot Wall',
+            murodefollows: 'Follows Wall',
             resolverjuego: 'get game result',
             herramientajuego: 'Game Tool',
             volverherramientajuego: 'go back to the game tool',
             tendenciapiloto: 'Profile trend: PiLOT',
             tendenciajuez: 'Profile trend: JUDGE',
             tendencianeutral: 'Profile trend: PiLOT and JUDGE',
-            perfilsocial: 'Social profile'
+            perfilsocial: 'Social profile',
+            follow: 'Follow',
+            unfollow: 'Unfollow',
+            logout: 'Logout'
           },
           points: {
             vuelco: 'overturn',
@@ -439,13 +443,17 @@ i18n
               sinjuego: 'sin juego asignado',
               juegoasignado: 'Juego asignado',
               murodepiloto: 'Muro de Piloto',
+              murodefollows: 'Muro de Pilotos seguidos',
               resolverjuego: 'ver resultado del juego',
               herramientajuego: 'Herramienta de juego',
               volverherramientajuego: 'volver a la herramienta de juego',
               tendenciapiloto: 'Tendencia del perfil: PiLOTO',
               tendenciajuez: 'Tendencia del perfil: JUEZ',
               tendencianeutral: 'Tendencia del perfil: JUEZ y PiLOTO',
-              perfilsocial: 'Perfil social'
+              perfilsocial: 'Perfil social',
+              follow: 'Seguir',
+              unfollow: 'Dejar de serguir',
+              logout: 'Salir'
           },
           points: {
             vuelco: 'vuelco',

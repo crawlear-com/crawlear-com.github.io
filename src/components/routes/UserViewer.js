@@ -27,7 +27,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         firebase.checkIfLogged(()=>{onLogin(false)});
         firebase.getUser(uid, (user)=>{
             setUser({...user});
-            firebase.getUserExtraData(uid, (data)=>{
+            !isUidTheUserLogged && firebase.getUserExtraData(uid, (data)=>{
                 setUserData(data);
             });
         });
@@ -97,23 +97,23 @@ function UserViewer({uid, onLogout, onLogin}) {
 
         return <div className="userViewer">
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
-            <UserProfile onLogout={onLogout} user={user} />
-
-            <div className="statistics rounded rounded3">
-                <div className='headerText bold'>{t('description.estadisticas')}</div>
-                <div>
-                    {t('description.partidascreadas')}: {userData.ownerGames || 0}
-                </div>
-                <div>
-                    {t('description.partidasdejuez')}: {userData.judgeGames || 0}
-                </div>
-                <div>
-                    {t('description.partidasprevias')}: {userData.pilotGames || 0}
-                </div>
-                <p className='bold'>
-                    {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
-                </p>
-            </div>
+            {!isUidTheUserLogged ? <><UserProfile onLogout={onLogout} user={user} /> 
+                        <div className="statistics rounded rounded3">
+                        <div className='headerText bold'>{t('description.estadisticas')}</div>
+                        <div>
+                            {t('description.partidascreadas')}: {userData.ownerGames || 0}
+                        </div>
+                        <div>
+                            {t('description.partidasdejuez')}: {userData.judgeGames || 0}
+                        </div>
+                        <div>
+                            {t('description.partidasprevias')}: {userData.pilotGames || 0}
+                        </div>
+                        <p className='bold'>
+                            {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
+                        </p>
+                    </div></>
+            : <></>}
 
             <div className="posts">
                 <div className='headerText bold'>{t('description.murodepiloto')}</div>
