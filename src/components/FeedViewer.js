@@ -5,7 +5,6 @@ import Spinner from './Spinner';
 import Analytics from '../Analytics';
 import Post from './Post';
 import { useNavigate } from 'react-router-dom';
-import UserSearch from './UserSearch';
 
 import '../resources/css/FeedViewer.scss';
 
@@ -63,11 +62,6 @@ function FeedViewer(props) {
         });
 
         return <div className="feedViewer">
-                  <UserSearch 
-                    isForJudge={false}
-                    onUserSeachPlayerAdd={()=>{}} 
-                    gameName='' />
-
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <div className="posts">
                 <div className='headerText bold'>{t('description.murodefollows')}</div>

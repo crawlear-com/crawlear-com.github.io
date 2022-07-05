@@ -38,7 +38,6 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
 
     return <>
             {readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
-            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             
             {userFromPost.uid ? <div className="userProfileContainer rounded rounded2">
                     <div className="userProfilePhotoContainer">
@@ -54,6 +53,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
                         </div>
                     </div>
             </div> : <></>}
+            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             <div className='postText bold' onClick={goToPost}>{post.text}</div>
             {children}
 
