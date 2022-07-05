@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 import '../resources/css/ViewNavigator.scss';
 
@@ -36,7 +35,7 @@ class ViewNavigatorColumner {
         this.col2.style.transform = `translate(0,0)`;
         this.col3.style.transform = `translate(${this.columnWidth}px,0)`;
 
-        console.log(this.columnWidth);
+        body.classList.add('completegame');
     }
 
     onTouchStart(event) {
@@ -46,8 +45,6 @@ class ViewNavigatorColumner {
             const touch = touches[0];
 
             this.startX = touch.clientX;
-
-            console.log('TOUCH START' + this.startX);
         }
     }
     onTouchMove(event) {
@@ -79,6 +76,8 @@ class ViewNavigatorColumner {
     
                     this.col1.classList.remove('current');
                     this.col2.classList.add('current');
+                    body.classList.remove('profile');
+                    body.classList.add('completegame');
                 } else if (this.col2.classList.contains('current')) { 
                     this.col1.style.transform = `translate(${-2*(this.columnWidth*2)}px,0)`;
                     this.col2.style.transform = `translate(${-this.columnWidth}px,0)`;
@@ -86,6 +85,8 @@ class ViewNavigatorColumner {
     
                     this.col2.classList.remove('current');
                     this.col3.classList.add('current');
+                    body.classList.remove('completegame');
+                    body.classList.add('feed');
                 } else if (this.col3.classList.contains('current')) { 
                     this.col1.style.transform = `translate(${-2*(this.columnWidth*2)}px,0)`;
                     this.col2.style.transform = `translate(${-this.columnWidth}px,0)`;
@@ -103,6 +104,8 @@ class ViewNavigatorColumner {
     
                     this.col2.classList.remove('current');
                     this.col1.classList.add('current');
+                    body.classList.remove('completegame');
+                    body.classList.add('profile');
                 } else if (this.col3.classList.contains('current')) { 
                     this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
                     this.col2.style.transform = `translate(0px,0)`;
@@ -110,6 +113,8 @@ class ViewNavigatorColumner {
                     
                     this.col3.classList.remove('current');
                     this.col2.classList.add('current');
+                    body.classList.remove('feed');
+                    body.classList.add('completegame');
                 }
             }
         } else {

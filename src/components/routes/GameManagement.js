@@ -27,12 +27,12 @@ function GameManagement({onLogout}) {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        window.document.body.classList.add('completegame');
+        //window.document.body.classList.add('completegame');
         Analytics.pageview('/completegame/');
-        firebase.isUserLogged() && refreshGames();    
+        firebase.isUserLogged() && refreshGames();
 
         return ()=>{
-            window.document.body.classList.remove('completegame');
+            //window.document.body.classList.remove('completegame');
         }
     },[]);
 
@@ -145,7 +145,7 @@ function GameManagement({onLogout}) {
     return <>
             {state === STATE_MENU ? 
                 <>
-                    <div className='headerText bold'>{t('description.juego')}</div>
+                    <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
                     <UserProfile user={window.crawlear.user} onLogout={onLogout} />
                     <GameRequests user={window.crawlear.user} />
                     <GameList title={t('description.partidasprevias')} 

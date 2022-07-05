@@ -18,6 +18,7 @@ body {
   background-position-x: right;
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 
 body.completegame {
@@ -28,7 +29,7 @@ body.profile {
   background-image: url(../img/fondo3.jpeg);
 }
 
-body.post {
+body.feed {
   background-image: url(../img/fondo4.jpeg);
 }
 

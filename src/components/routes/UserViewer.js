@@ -37,10 +37,10 @@ function UserViewer({uid, onLogout, onLogin}) {
         }, ()=>{});
 
         Analytics.pageview(`${document.location.pathname}${document.location.search}`);
-        window.document.body.classList.add('profile');
+        //window.document.body.classList.add('profile');
 
         return ()=>{
-            window.document.body.classList.remove('profile');
+            //window.document.body.classList.remove('profile');
         }
     }, []);
 
@@ -116,7 +116,7 @@ function UserViewer({uid, onLogout, onLogin}) {
             : <></>}
 
             <div className="posts">
-                <div className='headerText bold'>{t('description.murodepiloto')}</div>
+                <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
                 {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
                 {embeds}
             </div>

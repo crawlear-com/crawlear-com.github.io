@@ -39,7 +39,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     return <>
             {readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
             
-            {userFromPost.uid ? <div className="userProfileContainer rounded rounded2">
+            {userFromPost.uid ? <a href={`https://crawlear.com/profile?uid=${userFromPost.uid}`} className="userProfileContainer" alt="user profile name and link">
                     <div className="userProfilePhotoContainer">
                         <img referrerPolicy="no-referrer" className="photo" src={userFromPost.photoURL} alt="user avatar"></img>
                     </div>
@@ -52,7 +52,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
                                 value={userFromPost.displayName} />
                         </div>
                     </div>
-            </div> : <></>}
+            </a> : <></>}
             <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             <div className='postText bold' onClick={goToPost}>{post.text}</div>
             {children}

@@ -64,7 +64,7 @@ function FeedViewer(props) {
         return <div className="feedViewer">
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <div className="posts">
-                <div className='headerText bold'>{t('description.murodefollows')}</div>
+                <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
                 {embeds}
             </div>
         </div>;

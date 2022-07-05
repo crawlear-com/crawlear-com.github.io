@@ -48,3 +48,21 @@ body .post {
         }
     }
 }
+
+.feedViewer .post {
+    .userProfileContainer {
+        margin: 0px;
+    }
+
+    .postDate {
+        margin: 10px 0 0 0;
+    }
+
+    .postText {
+        margin: 0 0 15px 0;
+    }
+
+    .name input {
+        color: black;
+    }
+}
