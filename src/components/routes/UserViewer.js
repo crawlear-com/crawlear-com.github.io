@@ -9,19 +9,28 @@ import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
 import { useNavigate } from 'react-router-dom';
+import UseIfVisible from '../../hooks/UseIfVisible';
 
 const USER_TYPE_PILOT = 0;
 const USER_TYPE_JUDGE = 1;
 const USER_TYPE_NEUTRAL = 2;
 
 function UserViewer({uid, onLogout, onLogin}) {
+    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const navigate = useNavigate();
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([])
-    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
+    const [isVisible, setIsVisible] = React.useState(false);
+    const mainContainerRef = React.useRef();
+
+    UseIfVisible(mainContainerRef.current, (isVisible)=>{
+        console.log("AQUIIIIIII!")
+        console.log(isVisible);
+        setIsVisible(isVisible);
+    });
 
     React.useEffect(()=>{
         firebase.checkIfLogged(()=>{onLogin(false)});
@@ -95,7 +104,7 @@ function UserViewer({uid, onLogout, onLogin}) {
             userType = USER_TYPE_PILOT;
         }
 
-        return <div className="userViewer">
+        return <div className="userViewer" ref={mainContainerRef}>
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             {!isUidTheUserLogged ? <><UserProfile onLogout={onLogout} user={user} /> 
                         <div className="statistics rounded rounded3">
@@ -115,7 +124,7 @@ function UserViewer({uid, onLogout, onLogin}) {
                     </div></>
             : <></>}
 
-            <div className="posts">
+            <div className="posts" ref={mainContainerRef}>
                 <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
                 {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
                 {embeds}
