@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import UserProfile from '../UserProfile';
-import logo from '../../resources/img/logo5.png'
-import '../../resources/css/UserViewer.scss';
-import Spinner from '../Spinner';
 import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
 import { useNavigate } from 'react-router-dom';
 import UseIfVisible from '../../hooks/UseIfVisible';
+import LoadingLogo from '../LoadingLogo';
+
+import '../../resources/css/UserViewer.scss';
 
 const USER_TYPE_PILOT = 0;
 const USER_TYPE_JUDGE = 1;
@@ -26,14 +26,15 @@ function UserViewer({uid, onLogout, onLogin}) {
     const [isVisible, setIsVisible] = React.useState(false);
     const mainContainerRef = React.useRef();
 
-    UseIfVisible(mainContainerRef.current, (isVisible)=>{
-        console.log("AQUIIIIIII!")
-        console.log(isVisible);
-        setIsVisible(isVisible);
+    UseIfVisible(mainContainerRef.current, (visible)=>{
+        visible && setIsVisible(visible);
     });
 
     React.useEffect(()=>{
         firebase.checkIfLogged(()=>{onLogin(false)});
+    },[]);
+
+    React.useEffect(()=>{
         firebase.getUser(uid, (user)=>{
             setUser({...user});
             !isUidTheUserLogged && firebase.getUserExtraData(uid, (data)=>{
@@ -46,12 +47,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         }, ()=>{});
 
         Analytics.pageview(`${document.location.pathname}${document.location.search}`);
-        //window.document.body.classList.add('profile');
-
-        return ()=>{
-            //window.document.body.classList.remove('profile');
-        }
-    }, []);
+    }, [isVisible, uid]);
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();
@@ -84,7 +80,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
     }
 
-    if (user.registrationDate ) {
+    if (user.registrationDate && isVisible) {
         const embeds = [];
         let userType;
 
@@ -104,7 +100,7 @@ function UserViewer({uid, onLogout, onLogin}) {
             userType = USER_TYPE_PILOT;
         }
 
-        return <div className="userViewer" ref={mainContainerRef}>
+        return <div className="userViewer">
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             {!isUidTheUserLogged ? <><UserProfile onLogout={onLogout} user={user} /> 
                         <div className="statistics rounded rounded3">
@@ -124,18 +120,14 @@ function UserViewer({uid, onLogout, onLogin}) {
                     </div></>
             : <></>}
 
-            <div className="posts" ref={mainContainerRef}>
+            <div className="posts">
                 <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
                 {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
                 {embeds}
             </div>
         </div>;
     } else {
-        return <div className=''>
-                <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a>
-                <br />
-                <Spinner />
-            </div>;
+        return <LoadingLogo logoRef={mainContainerRef}/>;
     }
 }
 

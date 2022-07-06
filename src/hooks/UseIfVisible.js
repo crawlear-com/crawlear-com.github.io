@@ -6,7 +6,7 @@ const UseIfVisible = (elementToObserve, setIsVisible) => {
         const observer = new IntersectionObserver(
           (entries) => {
               setIsVisible(entries[0].isIntersecting)
-          },{root}
+          },{}
         )
 
         observer.observe(elementToObserve)
@@ -16,11 +16,7 @@ const UseIfVisible = (elementToObserve, setIsVisible) => {
           }
         }
       }
-      /*return () => {
-        if (elementToObserve) {
-            observer.unobserve(elementToObserve)
-          }
-      }*/
+
   }, [elementToObserve]);
 };
 

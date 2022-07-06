@@ -5,6 +5,8 @@ import Spinner from './Spinner';
 import Analytics from '../Analytics';
 import Post from './Post';
 import { useNavigate } from 'react-router-dom';
+import UseIfVisible from '../hooks/UseIfVisible';
+import LoadingLogo from './LoadingLogo';
 
 import '../resources/css/FeedViewer.scss';
 
@@ -17,6 +19,12 @@ function FeedViewer(props) {
     const navigate = useNavigate();
     const [feedPosts, setFeedPosts] = React.useState([]);
     const [status, setStatus] = React.useState(STATUS_LOADING);
+    const [isVisible, setIsVisible] = React.useState(false);
+    const mainContainerRef = React.useRef();
+
+    UseIfVisible(mainContainerRef.current, (visible)=>{
+        visible && setIsVisible(visible);
+    });
 
     React.useEffect(()=>{
 /*        firebase.getPosts(uid, (data)=>{
@@ -33,7 +41,7 @@ function FeedViewer(props) {
         return ()=>{
 
         }
-    }, []);
+    }, [isVisible]);
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();
@@ -54,7 +62,7 @@ function FeedViewer(props) {
         }
     }
 
-    if (status===STATUS_LOADED && feedPosts.length) {
+    if (status===STATUS_LOADED && feedPosts.length && isVisible) {
         const embeds = [];
 
         feedPosts.forEach((post, index) => {
@@ -68,14 +76,10 @@ function FeedViewer(props) {
                 {embeds}
             </div>
         </div>;
-    } else if(status===STATUS_LOADED) {
+    } else if(status===STATUS_LOADED && isVisible) {
         return <div className=''>No posts!</div>;
     } else {
-        return <div className=''>
-                <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a>
-                <br />
-                <Spinner />
-            </div>;
+        return <LoadingLogo logoRef={mainContainerRef}/>;
     }
 }
 
