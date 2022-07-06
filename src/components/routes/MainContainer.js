@@ -12,15 +12,15 @@ function MainContainer({onLogin, onLogout}) {
     const col3Ref = React.useRef();
 
     return <ViewNavigator col1={col1Ref} col2={col2Ref} col3={col3Ref}>
-        <div id='col1' ref={col1Ref} className='col1'>
+        <div id='col1' ref={col1Ref} className='col1 animated'>
             <UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={window.crawlear.user.uid}/>
             <Footer></Footer>
         </div>
-        <div id='col2' ref={col2Ref} className='col2'>
+        <div id='col2' ref={col2Ref} className='col2 animated'>
             <GameManagement />
             <Footer></Footer>
         </div>
-        <div id='col3' ref={col3Ref} className='col3'>
+        <div id='col3' ref={col3Ref} className='col3 animated'>
             <FeedViewer />
             <Footer></Footer>
         </div>

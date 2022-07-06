@@ -45,6 +45,9 @@ class ViewNavigatorColumner {
             const touch = touches[0];
 
             this.startX = touch.clientX;
+            this.col1.classList.toggle('animated');
+            this.col2.classList.toggle('animated');
+            this.col3.classList.toggle('animated');
         }
     }
     onTouchMove(event) {
@@ -67,8 +70,10 @@ class ViewNavigatorColumner {
     onTouchEnd(event) {
         const finalProgressX = event.changedTouches[0].clientX - this.startX;
         
+console.log(finalProgressX);
+
         if (Math.abs(finalProgressX) > 100) {
-            if(this.startX > finalProgressX) {
+            if(finalProgressX < 0) {
                 if (this.col1.classList.contains('current')) {
                     this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
                     this.col2.style.transform = `translate(0px,0)`;
@@ -132,6 +137,10 @@ class ViewNavigatorColumner {
                 this.col3.style.transform = `translate(0px,0)`;
             }
         }
+
+        this.col1.classList.toggle('animated');
+        this.col2.classList.toggle('animated');
+        this.col3.classList.toggle('animated');
     }
 }
 
