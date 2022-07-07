@@ -18,19 +18,21 @@ body {
   background-position-x: right;
   background-repeat: no-repeat;
   background-size: cover;
-  overflow: hidden;
 }
 
 body.completegame {
   background-image: url(../img/fondo5.jpeg);
+  overflow: hidden;
 }
 
 body.profile {
   background-image: url(../img/fondo3.jpeg);
+  overflow: hidden;
 }
 
 body.feed {
   background-image: url(../img/fondo4.jpeg);
+  overflow: hidden;
 }
 
 .blink {
