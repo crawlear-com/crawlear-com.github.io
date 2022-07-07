@@ -13,7 +13,7 @@ function MainContainer({onLogin, onLogout}) {
 
     return <ViewNavigator col1={col1Ref} col2={col2Ref} col3={col3Ref}>
         <div id='col1' ref={col1Ref} className='col1 animated'>
-            <UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={window.crawlear.user.uid}/>
+            <UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={window.crawlear && window.crawlear.user && window.crawlear.user.uid}/>
             <Footer></Footer>
         </div>
         <div id='col2' ref={col2Ref} className='col2 animated'>

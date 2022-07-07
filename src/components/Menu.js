@@ -12,7 +12,6 @@ function Menu() {
     const [isOpen, setIsOpen] = React.useState(false);
     const { t } = useTranslation();
     const [lightMode, setLightMode] = React.useState(false);
-    const userIsLoged = (window.crawlear && window.crawlear.fb && window.crawlear.fb.isUserLogged());
     const navigate = useNavigate();
 
     function onMenuClick() {

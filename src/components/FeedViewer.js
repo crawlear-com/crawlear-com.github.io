@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../resources/img/logo5.png'
-import Spinner from './Spinner';
 import Analytics from '../Analytics';
 import Post from './Post';
-import { useNavigate } from 'react-router-dom';
 import UseIfVisible from '../hooks/UseIfVisible';
+import { UserStatusContext } from '../UserStatusContext';
 import LoadingLogo from './LoadingLogo';
 
 import '../resources/css/FeedViewer.scss';
@@ -16,11 +15,11 @@ const STATUS_LOADED = 1;
 function FeedViewer(props) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
-    const navigate = useNavigate();
     const [feedPosts, setFeedPosts] = React.useState([]);
     const [status, setStatus] = React.useState(STATUS_LOADING);
     const [isVisible, setIsVisible] = React.useState(false);
     const mainContainerRef = React.useRef();
+    const { isUserLoged } = React.useContext(UserStatusContext);
 
     UseIfVisible(mainContainerRef.current, (visible)=>{
         visible && setIsVisible(visible);
@@ -31,17 +30,16 @@ function FeedViewer(props) {
             setFeedPosts([...feedPosts, ...data]);
         }, ()=>{});*/
 
-        firebase.getPostsFromFollowFeed(window.crawlear.user.uid, (data)=>{
+        isVisible && isUserLoged && firebase.getPostsFromFollowFeed(window.crawlear.user.uid, (data)=>{
             setFeedPosts([...feedPosts, ...data]);
             setStatus(STATUS_LOADED);
+            Analytics.pageview(`/feedviewer/`);
         }, ()=>{});
-
-        //Analytics.pageview(`${document.location.pathname}${document.location.search}`);
 
         return ()=>{
 
         }
-    }, [isVisible]);
+    }, [isVisible, isUserLoged]);
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();

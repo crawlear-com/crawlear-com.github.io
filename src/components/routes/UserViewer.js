@@ -5,7 +5,6 @@ import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
-import { useNavigate } from 'react-router-dom';
 import UseIfVisible from '../../hooks/UseIfVisible';
 import LoadingLogo from '../LoadingLogo';
 
@@ -19,7 +18,6 @@ function UserViewer({uid, onLogout, onLogin}) {
     const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
-    const navigate = useNavigate();
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([])
@@ -35,18 +33,20 @@ function UserViewer({uid, onLogout, onLogin}) {
     },[]);
 
     React.useEffect(()=>{
-        firebase.getUser(uid, (user)=>{
-            setUser({...user});
-            !isUidTheUserLogged && firebase.getUserExtraData(uid, (data)=>{
-                setUserData(data);
+        if(uid) {
+            firebase.getUser(uid, (user)=>{
+                setUser({...user});
+                !isUidTheUserLogged && firebase.getUserExtraData(uid, (data)=>{
+                    setUserData(data);
+                });
             });
-        });
-
-        firebase.getPosts(uid, (data)=>{
-            setUserPosts([...userPosts, ...data]);
-        }, ()=>{});
-
-        Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+    
+            firebase.getPosts(uid, (data)=>{
+                setUserPosts([...userPosts, ...data]);
+            }, ()=>{});
+    
+            Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+        } 
     }, [isVisible, uid]);
 
     React.useEffect(()=>{
