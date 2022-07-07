@@ -18,6 +18,7 @@ function UserViewer({uid, onLogout, onLogin}) {
     const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
+    const [uid, setUid] = React.useState(uid);
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([])
