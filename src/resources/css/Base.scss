@@ -20,19 +20,22 @@ body {
   background-size: cover;
 }
 
+body.completegame, 
+body.profile,
+body.feed { 
+  overflow: hidden;
+}
+
 body.completegame {
   background-image: url(../img/fondo5.jpeg);
-  overflow: hidden;
 }
 
 body.profile {
   background-image: url(../img/fondo3.jpeg);
-  overflow: hidden;
 }
 
 body.feed {
   background-image: url(../img/fondo4.jpeg);
-  overflow: hidden;
 }
 
 .blink {

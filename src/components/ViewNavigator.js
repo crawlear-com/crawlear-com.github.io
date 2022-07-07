@@ -25,6 +25,7 @@ class ViewNavigatorColumner {
 
         this.columnWidth = document.querySelector('.viewNavigatorContainer').clientWidth;
         this.startX = 0;
+        this.startY = 0;
         this.col1 = col1;
         this.col2 = col2;
         this.col3 = col3;
@@ -52,25 +53,26 @@ class ViewNavigatorColumner {
     }
     onTouchMove(event) {
         const progressX = Math.round(event.touches[0].clientX) - this.startX;
+        const progressY = Math.round(event.touches[0].clientY) - this.startY;
 
-        if (this.col1.classList.contains('current')) {
-            this.col1.style.transform = `translate(${progressX}px,0)`;
-            this.col2.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
-            this.col3.style.transform = `translate(${progressX+this.columnWidth*2}px,0)`;
-        } else if (this.col2.classList.contains('current')) { 
-            this.col1.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
-            this.col2.style.transform = `translate(${progressX}px,0)`;
-            this.col3.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
-        } else if (this.col3.classList.contains('current')) { 
-            this.col1.style.transform = `translate(${progressX-this.columnWidth*2}px,0)`;
-            this.col2.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
-            this.col3.style.transform = `translate(${progressX}px,0)`;
+        if (progressX > progressY) {
+            if (this.col1.classList.contains('current')) {
+                this.col1.style.transform = `translate(${progressX}px,0)`;
+                this.col2.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
+                this.col3.style.transform = `translate(${progressX+this.columnWidth*2}px,0)`;
+            } else if (this.col2.classList.contains('current')) { 
+                this.col1.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
+                this.col2.style.transform = `translate(${progressX}px,0)`;
+                this.col3.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
+            } else if (this.col3.classList.contains('current')) { 
+                this.col1.style.transform = `translate(${progressX-this.columnWidth*2}px,0)`;
+                this.col2.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
+                this.col3.style.transform = `translate(${progressX}px,0)`;
+            }    
         }
     }
     onTouchEnd(event) {
         const finalProgressX = event.changedTouches[0].clientX - this.startX;
-        
-console.log(finalProgressX);
 
         if (Math.abs(finalProgressX) > 100) {
             if(finalProgressX < 0) {
