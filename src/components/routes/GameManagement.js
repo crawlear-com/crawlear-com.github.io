@@ -27,13 +27,8 @@ function GameManagement({onLogout}) {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        //window.document.body.classList.add('completegame');
         Analytics.pageview('/completegame/');
         firebase.isUserLogged() && refreshGames();
-
-        return ()=>{
-            //window.document.body.classList.remove('completegame');
-        }
     },[]);
 
     React.useEffect(()=>{

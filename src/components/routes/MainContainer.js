@@ -17,7 +17,7 @@ function MainContainer({onLogin, onLogout}) {
             <Footer></Footer>
         </div>
         <div id='col2' ref={col2Ref} className='col2 animated'>
-            <GameManagement />
+            <GameManagement onLogin={()=>{onLogin(false)}} onLogout={onLogout} />
             <Footer></Footer>
         </div>
         <div id='col3' ref={col3Ref} className='col3 animated'>

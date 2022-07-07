@@ -9,6 +9,10 @@ function ViewNavigator({col1, col2, col3, children}) {
 
     React.useEffect(()=>{
         viewNavigator = new ViewNavigatorColumner(col1.current, col2.current, col3.current);
+
+        return ()=>{
+            viewNavigator.destroy();
+        }
     },[]);
 
     return <div className='viewNavigatorContainer'>
@@ -19,9 +23,13 @@ function ViewNavigator({col1, col2, col3, children}) {
 
 class ViewNavigatorColumner {
     constructor(col1, col2, col3) {
-        body.addEventListener('touchstart', this.onTouchStart.bind(this));
-        body.addEventListener('touchmove', this.onTouchMove.bind(this));
-        body.addEventListener('touchend', this.onTouchEnd.bind(this));
+        this.onTouchStartBinded = this.onTouchStart.bind(this);
+        this.onTouchMoveBinded = this.onTouchMove.bind(this);
+        this.onTouchEndBinded = this.onTouchEnd.bind(this);
+
+        body.addEventListener('touchstart', this.onTouchStartBinded);
+        body.addEventListener('touchmove', this.onTouchMoveBinded);
+        body.addEventListener('touchend', this.onTouchEndBinded);
 
         this.columnWidth = document.querySelector('.viewNavigatorContainer').clientWidth;
         this.startX = 0;
@@ -37,6 +45,15 @@ class ViewNavigatorColumner {
         this.col3.style.transform = `translate(${this.columnWidth}px,0)`;
 
         body.classList.add('completegame');
+    }
+
+    destroy() {
+        body.classList.remove('completegame');
+        body.classList.remove('profile');
+        body.classList.remove('feed');
+        body.removeEventListener('touchstart', this.onTouchStartBinded);
+        body.removeEventListener('touchmove', this.onTouchMoveBinded);
+        body.removeEventListener('touchend', this.onTouchEndBinded);
     }
 
     onTouchStart(event) {

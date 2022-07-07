@@ -111,7 +111,7 @@ function UserProfile({user, onLogout}) {
                 {isTheUserLogged(user.uid) ? <div className='logout' 
                 onClick={()=> {
                     window.crawlear.fb.logout();
-                    onLogout();
+                    onLogout && onLogout();
                     navigate("/");
             }} >Logout</div> : <></>}
             {followAction}
