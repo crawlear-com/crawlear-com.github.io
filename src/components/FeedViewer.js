@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import logo from '../resources/img/logo5.png'
+import logo from '../resources/img/logo5.png';
+import refreshIcon from '../resources/img/iconRefresh.png';
 import Analytics from '../Analytics';
 import Post from './Post';
 import { UserStatusContext } from '../UserStatusContext';
@@ -20,16 +21,20 @@ function FeedViewer({uid}) {
     const { isUserLoged } = React.useContext(UserStatusContext);
 
     React.useEffect(()=>{
-        isVisible && isUserLoged && firebase.getPostsFromFollowFeed(uid, (data)=>{
-            setFeedPosts([...feedPosts, ...data]);
-            setStatus(STATUS_LOADED);
-            Analytics.pageview(`/feedviewer/`);
-        }, ()=>{});
+        getData();
     }, [isVisible, isUserLoged, uid]);
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();
     },[feedPosts]);
+
+    function getData() {
+        isVisible && isUserLoged && firebase.getPostsFromFollowFeed(uid, (data)=>{
+            setFeedPosts([...data]);
+            setStatus(STATUS_LOADED);
+            Analytics.pageview(`/feedviewer/`);
+        }, ()=>{});
+    }
 
     function removePostClick(event) {
         const id = event.target.getAttribute('data-id');
@@ -61,6 +66,13 @@ function FeedViewer({uid}) {
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <div className="posts">
                 <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
+
+                <button className="refreshButton" onClick={()=>{
+                        setStatus(STATUS_LOADING);
+                        getData();
+                    }}><img src={refreshIcon} alt="refresh icon"></img>
+                </button>
+
                 {embeds}
             </div>
         </div>;

@@ -189,7 +189,8 @@ i18n
             perfilsocial: 'Social profile',
             follow: 'Follow',
             unfollow: 'Unfollow',
-            logout: 'Logout'
+            logout: 'Logout',
+            refrescar: 'Reload'
           },
           points: {
             vuelco: 'overturn',
@@ -455,7 +456,8 @@ i18n
               perfilsocial: 'Perfil social',
               follow: 'Seguir',
               unfollow: 'Dejar de serguir',
-              logout: 'Salir'
+              logout: 'Salir',
+              refrescar: 'Recargar'
           },
           points: {
             vuelco: 'vuelco',
