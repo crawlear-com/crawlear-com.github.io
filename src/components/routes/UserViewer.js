@@ -5,9 +5,9 @@ import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
-import UseIfVisible from '../../hooks/UseIfVisible';
 import LoadingLogo from '../LoadingLogo';
 
+import logo from '../../resources/img/logo5.png';
 import '../../resources/css/UserViewer.scss';
 
 const USER_TYPE_PILOT = 0;
@@ -18,20 +18,15 @@ function UserViewer({uid, onLogout, onLogin}) {
     const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
-    const [uid, setUid] = React.useState(uid);
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([])
     const [isVisible, setIsVisible] = React.useState(false);
-    const mainContainerRef = React.useRef();
-
-    UseIfVisible(mainContainerRef.current, (visible)=>{
-        visible && setIsVisible(visible);
-    });
 
     React.useEffect(()=>{
         firebase.checkIfLogged(()=>{onLogin(false)});
     },[]);
+
 
     React.useEffect(()=>{
         if(uid) {
@@ -81,6 +76,10 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
     }
 
+    function onScreen(visible) {
+        visible && setIsVisible(visible);
+    }
+
     if (user.registrationDate && isVisible) {
         const embeds = [];
         let userType;
@@ -128,7 +127,7 @@ function UserViewer({uid, onLogout, onLogin}) {
             </div>
         </div>;
     } else {
-        return <LoadingLogo logoRef={mainContainerRef}/>;
+        return <LoadingLogo onVisible={onScreen}/>;
     }
 }
 

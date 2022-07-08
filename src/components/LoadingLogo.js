@@ -1,8 +1,26 @@
 import * as React from 'react';
-import logo from '../resources/img/logo5.png'
 import Spinner from './Spinner';
+import UseIfVisible from '../hooks/UseIfVisible';
 
-function LoadingLogo({logoRef}) {
+import logo from '../resources/img/logo5.png';
+
+
+function LoadingLogo({onVisible}) {
+    const logoRef = React.useRef(null);
+    const [statusRendered, setStatusRendered] = React.useState(false);
+    const [isVisible, setIsVisible] = React.useState(false);
+
+    React.useEffect(()=>{
+        setStatusRendered(true);
+    },[]);
+
+    UseIfVisible(logoRef.current, (visible)=>{
+        if(!isVisible && visible) {
+            setIsVisible(true);
+            onVisible(true);
+        }
+    });
+
     return <div className=''>
         <a href="https://crawlear.com" target="_blank" rel="noreferrer">
             <img ref={logoRef} src={logo} className="userViewerLogo" alt="web logo"></img>

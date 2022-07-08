@@ -9,7 +9,8 @@ const UseIfVisible = (elementToObserve, setIsVisible) => {
           },{}
         )
 
-        observer.observe(elementToObserve)
+        observer.observe(elementToObserve);
+        
         return () => {
           if (elementToObserve) {
             observer.unobserve(elementToObserve)

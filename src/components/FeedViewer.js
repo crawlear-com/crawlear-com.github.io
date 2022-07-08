@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import logo from '../resources/img/logo5.png'
 import Analytics from '../Analytics';
 import Post from './Post';
-import UseIfVisible from '../hooks/UseIfVisible';
 import { UserStatusContext } from '../UserStatusContext';
 import LoadingLogo from './LoadingLogo';
 
@@ -12,34 +11,21 @@ import '../resources/css/FeedViewer.scss';
 const STATUS_LOADING = 0;
 const STATUS_LOADED = 1;
 
-function FeedViewer(props) {
+function FeedViewer({uid}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [feedPosts, setFeedPosts] = React.useState([]);
     const [status, setStatus] = React.useState(STATUS_LOADING);
     const [isVisible, setIsVisible] = React.useState(false);
-    const mainContainerRef = React.useRef();
     const { isUserLoged } = React.useContext(UserStatusContext);
 
-    UseIfVisible(mainContainerRef.current, (visible)=>{
-        visible && setIsVisible(visible);
-    });
-
     React.useEffect(()=>{
-/*        firebase.getPosts(uid, (data)=>{
-            setFeedPosts([...feedPosts, ...data]);
-        }, ()=>{});*/
-
-        isVisible && isUserLoged && firebase.getPostsFromFollowFeed(window.crawlear.user.uid, (data)=>{
+        isVisible && isUserLoged && firebase.getPostsFromFollowFeed(uid, (data)=>{
             setFeedPosts([...feedPosts, ...data]);
             setStatus(STATUS_LOADED);
             Analytics.pageview(`/feedviewer/`);
         }, ()=>{});
-
-        return ()=>{
-
-        }
-    }, [isVisible, isUserLoged]);
+    }, [isVisible, isUserLoged, uid]);
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();
@@ -60,11 +46,15 @@ function FeedViewer(props) {
         }
     }
 
+    function onScreen(visible) {
+        visible && setIsVisible(visible);
+    }
+
     if (status===STATUS_LOADED && feedPosts.length && isVisible) {
         const embeds = [];
 
         feedPosts.forEach((post, index) => {
-            embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid} />);
+            embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={uid === post.uid} />);
         });
 
         return <div className="feedViewer">
@@ -77,7 +67,7 @@ function FeedViewer(props) {
     } else if(status===STATUS_LOADED && isVisible) {
         return <div className=''>No posts!</div>;
     } else {
-        return <LoadingLogo logoRef={mainContainerRef}/>;
+        return <LoadingLogo onVisible={onScreen}/>;
     }
 }
 

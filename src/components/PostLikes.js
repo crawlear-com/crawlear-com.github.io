@@ -70,13 +70,13 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     }
 
     if (status.likes >10) {
-        likes.push(<div className='bold'>Likes 🔥🔥🔥</div>);
+        likes.push(<div key="likes+++" className='bold'>Likes 🔥🔥🔥</div>);
     } else if (status.likes >5) {
-        likes.push(<div className='bold'>Likes 🔥🔥</div>);
+        likes.push(<div key="likes++" className='bold'>Likes 🔥🔥</div>);
     } else if (status.likes >0) { 
-        likes.push(<div className='bold'>Likes 🔥</div>);
+        likes.push(<div key="likes+" className='bold'>Likes 🔥</div>);
     } else {
-        likes.push(<div className='bold'>Likes 🧊</div>);
+        likes.push(<div key="likes" className='bold'>Likes 🧊</div>);
     }
 
     return isUserLoged ? 
