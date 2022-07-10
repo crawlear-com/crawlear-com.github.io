@@ -3,7 +3,7 @@ import Spinner from './Spinner';
 import UseIfVisible from '../hooks/UseIfVisible';
 
 import logo from '../resources/img/logo5.png';
-
+import '../resources/css/LoadingLogo.scss';
 
 function LoadingLogo({onVisible}) {
     const logoRef = React.useRef(null);
@@ -21,7 +21,7 @@ function LoadingLogo({onVisible}) {
         }
     });
 
-    return <div className=''>
+    return <div className='loadingLogo'>
         <a href="https://crawlear.com" target="_blank" rel="noreferrer">
             <img ref={logoRef} src={logo} className="userViewerLogo" alt="web logo"></img>
         </a>

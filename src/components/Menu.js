@@ -45,7 +45,7 @@ function Menu() {
                 <div className="linksContainer">
                     <ul>
                         <li><div onClick={()=>{browseTo("/completegame")}}>{t("description.herramientajuego")}</div></li>
-                        <li><div onClick={()=>{browseTo(`/profile?uid=${window.crawlear.user.uid}`)}}>{t("description.perfilsocial")}</div></li>
+                        <li><div onClick={()=>{browseTo("/social")}}>{t("description.perfilsocial")}</div></li>
                         <li>-</li>
                         <li><div onClick={()=>{browseTo("/privacypolicy")}}>{t("description.politicaprivacidad")}</div></li>
                         <li><div onClick={()=>{browseTo("/aboutus")}}>{t("description.aboutus")}</div></li>

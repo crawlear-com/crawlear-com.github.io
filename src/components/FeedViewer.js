@@ -22,6 +22,7 @@ function FeedViewer({uid}) {
 
     React.useEffect(()=>{
         getData();
+        isVisible && Analytics.pageview(`/feedviewer/`);
     }, [isVisible, isUserLoged, uid]);
 
     React.useEffect(()=>{
@@ -32,7 +33,6 @@ function FeedViewer({uid}) {
         isVisible && isUserLoged && firebase.getPostsFromFollowFeed(uid, (data)=>{
             setFeedPosts([...data]);
             setStatus(STATUS_LOADED);
-            Analytics.pageview(`/feedviewer/`);
         }, ()=>{});
     }
 

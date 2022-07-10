@@ -190,7 +190,9 @@ i18n
             follow: 'Follow',
             unfollow: 'Unfollow',
             logout: 'Logout',
-            refrescar: 'Reload'
+            refrescar: 'Reload',
+            seguidores: 'Followers',
+            siguiendo: 'Following',
           },
           points: {
             vuelco: 'overturn',
@@ -457,7 +459,9 @@ i18n
               follow: 'Seguir',
               unfollow: 'Dejar de serguir',
               logout: 'Salir',
-              refrescar: 'Recargar'
+              refrescar: 'Recargar',
+              seguidores: 'Seguidores',
+              siguiendo: 'Siguiendo',
           },
           points: {
             vuelco: 'vuelco',

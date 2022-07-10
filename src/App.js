@@ -63,7 +63,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing onLogin={()=>{onLogin(true)}} />} />
           <Route path="/simplegame" element={<GameController game={getNewGame} />} />
-          <Route path="/completegame" element={<MainContainer onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
+          <Route path="/completegame" element={<GameManagement onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
+          <Route path="/social" element={<MainContainer onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
           <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
           <Route path="/post" element={<PostViewer onLogin={()=>{onLogin(false)}} pid={queryParams.get && queryParams.get('pid')} />} />

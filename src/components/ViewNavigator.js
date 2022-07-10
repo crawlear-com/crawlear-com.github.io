@@ -5,11 +5,11 @@ import Utils from '../Utils';
 
 const body = window.document.body;
 
-function ViewNavigator({col1, col2, col3, children}) {
+function ViewNavigator({col1, col2, children}) {
     let viewNavigator;
 
     React.useEffect(()=>{
-        viewNavigator = new ViewNavigatorColumner(col1.current, col2.current, col3.current);
+        viewNavigator = new ViewNavigatorColumner(col1.current, col2.current);
 
         return ()=>{
             viewNavigator.destroy();
@@ -23,7 +23,7 @@ function ViewNavigator({col1, col2, col3, children}) {
 }
 
 class ViewNavigatorColumner {
-    constructor(col1, col2, col3) {
+    constructor(col1, col2) {
         this.onTouchStartBinded = this.onTouchStart.bind(this);
         this.onTouchMoveBinded = this.onTouchMove.bind(this);
         this.onTouchEndBinded = this.onTouchEnd.bind(this);
@@ -34,15 +34,12 @@ class ViewNavigatorColumner {
         this.startY = 0;
         this.col1 = col1;
         this.col2 = col2;
-        this.col3 = col3;
 
-        this.currentCol = col2;
-        this.currentCol.classList.add('current');
-        this.col1.style.transform = `translate(-${this.columnWidth}px,0)`;
-        this.col2.style.transform = `translate(0,0)`;
-        this.col3.style.transform = `translate(${this.columnWidth}px,0)`;
+        this.col1.classList.add('current');
+        this.col1.style.transform = `translate(0,0)`;
+        this.col2.style.transform = `translate(${this.columnWidth}px,0)`;
 
-        body.classList.add('completegame');
+        body.classList.add('profile');
     }
 
     addEvents() {
@@ -80,7 +77,6 @@ class ViewNavigatorColumner {
         }
         this.col1.classList.toggle('animated');
         this.col2.classList.toggle('animated');
-        this.col3.classList.toggle('animated');
     }
 
     onTouchMove(event) {
@@ -91,15 +87,9 @@ class ViewNavigatorColumner {
             if (this.col1.classList.contains('current')) {
                 this.col1.style.transform = `translate(${progressX}px,0)`;
                 this.col2.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
-                this.col3.style.transform = `translate(${progressX+this.columnWidth*2}px,0)`;
             } else if (this.col2.classList.contains('current')) { 
                 this.col1.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
                 this.col2.style.transform = `translate(${progressX}px,0)`;
-                this.col3.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
-            } else if (this.col3.classList.contains('current')) { 
-                this.col1.style.transform = `translate(${progressX-this.columnWidth*2}px,0)`;
-                this.col2.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
-                this.col3.style.transform = `translate(${progressX}px,0)`;
             }    
         }
     }
@@ -113,70 +103,42 @@ class ViewNavigatorColumner {
                 if (this.col1.classList.contains('current')) {
                     this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
                     this.col2.style.transform = `translate(0px,0)`;
-                    this.col3.style.transform = `translate(${this.columnWidth}px,0)`;
     
                     this.col1.classList.remove('current');
                     this.col2.classList.add('current');
+
                     body.classList.remove('profile');
-                    body.classList.add('completegame');
-                } else if (this.col2.classList.contains('current')) { 
-                    this.col1.style.transform = `translate(${-2*(this.columnWidth*2)}px,0)`;
-                    this.col2.style.transform = `translate(${-this.columnWidth}px,0)`;
-                    this.col3.style.transform = `translate(0px,0)`;
-    
-                    this.col2.classList.remove('current');
-                    this.col3.classList.add('current');
-                    body.classList.remove('completegame');
                     body.classList.add('feed');
-                } else if (this.col3.classList.contains('current')) { 
-                    this.col1.style.transform = `translate(${-2*(this.columnWidth*2)}px,0)`;
-                    this.col2.style.transform = `translate(${-this.columnWidth}px,0)`;
-                    this.col3.style.transform = `translate(0px,0)`;
+                } else if (this.col2.classList.contains('current')) { 
+                    this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
+                    this.col2.style.transform = `translate(0px,0)`;
                 }
             } else {
                 if (this.col1.classList.contains('current')) {
                     this.col1.style.transform = `translate(0px,0)`;
                     this.col2.style.transform = `translate(${this.columnWidth}px,0)`;
-                    this.col3.style.transform = `translate(${2*this.columnWidth*2}px,0)`;
                 } else if (this.col2.classList.contains('current')) { 
                     this.col1.style.transform = `translate(0px,0)`;
                     this.col2.style.transform = `translate(${this.columnWidth}px,0)`;
-                    this.col3.style.transform = `translate(${2*this.columnWidth*2}px,0)`;
     
                     this.col2.classList.remove('current');
                     this.col1.classList.add('current');
-                    body.classList.remove('completegame');
-                    body.classList.add('profile');
-                } else if (this.col3.classList.contains('current')) { 
-                    this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
-                    this.col2.style.transform = `translate(0px,0)`;
-                    this.col3.style.transform = `translate(${this.columnWidth}px,0)`;
-                    
-                    this.col3.classList.remove('current');
-                    this.col2.classList.add('current');
                     body.classList.remove('feed');
-                    body.classList.add('completegame');
+                    body.classList.add('profile');
                 }
             }
         } else {
             if (this.col1.classList.contains('current')) {
                 this.col1.style.transform = `translate(0px,0)`;
                 this.col2.style.transform = `translate(${this.columnWidth}px,0)`;
-                this.col3.style.transform = `translate(${2*this.columnWidth*2}px,0)`;
             } else if (this.col2.classList.contains('current')) { 
                 this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
                 this.col2.style.transform = `translate(0px,0)`;
-                this.col3.style.transform = `translate(${this.columnWidth*2}px,0)`;
-            } else if (this.col3.classList.contains('current')) { 
-                this.col1.style.transform = `translate(${-this.columnWidth*2}px,0)`;
-                this.col2.style.transform = `translate(${-this.columnWidth}px,0)`;
-                this.col3.style.transform = `translate(0px,0)`;
             }
         }
 
         this.col1.classList.toggle('animated');
         this.col2.classList.toggle('animated');
-        this.col3.classList.toggle('animated');
     }
 }
 

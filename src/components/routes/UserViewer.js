@@ -32,7 +32,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         if(uid) {
             firebase.getUser(uid, (user)=>{
                 setUser({...user});
-                !isUidTheUserLogged && firebase.getUserExtraData(uid, (data)=>{
+                firebase.getUserExtraData(uid, (data)=>{
                     setUserData(data);
                 });
             });
@@ -41,7 +41,7 @@ function UserViewer({uid, onLogout, onLogin}) {
                 setUserPosts([...userPosts, ...data]);
             }, ()=>{});
     
-            Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`);
         } 
     }, [isVisible, uid]);
 
@@ -101,24 +101,29 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
 
         return <div className="userViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
-            {!isUidTheUserLogged ? <><UserProfile onLogout={onLogout} user={user} /> 
-                        <div className="statistics rounded rounded3">
-                        <div className='headerText bold'>{t('description.estadisticas')}</div>
-                        <div>
-                            {t('description.partidascreadas')}: {userData.ownerGames || 0}
-                        </div>
-                        <div>
-                            {t('description.partidasdejuez')}: {userData.judgeGames || 0}
-                        </div>
-                        <div>
-                            {t('description.partidasprevias')}: {userData.pilotGames || 0}
-                        </div>
-                        <p className='bold'>
-                            {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
-                        </p>
-                    </div></>
-            : <></>}
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : 
+                <><div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div></>}
+            <><UserProfile onLogout={onLogout} user={user} /> 
+                <div className="statistics rounded rounded3">
+                <div className='headerText bold'>{t('description.estadisticas')}</div>
+                <div>
+                    {t('description.partidascreadas')}: {userData.ownerGames || 0}
+                </div>
+                <div>
+                    {t('description.partidasdejuez')}: {userData.judgeGames || 0}
+                </div>
+                <div>
+                    {t('description.partidasprevias')}: {userData.pilotGames || 0}
+                </div>
+                <p className='bold'>
+                    {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
+                </p>
+
+                <p>
+                    <div>{`${t('description.siguiendo')}: ${userData.following}`}</div>
+                    <div>{`${t('description.seguidores')}: ${userData.followers}`}</div>
+                </p>
+            </div></>
 
             <div className="posts">
                 <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
