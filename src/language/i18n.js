@@ -60,7 +60,8 @@ i18n
             shareProfileText: 'Hey! Check this crawlear.com pilot profile ',
             sharePostText: 'Hey! Check this crawlear.com post ',
             comparteenredespiloto: 'Share this pilot profile in social networks:',
-            comparteenredespost: 'Share this post in social networks:'
+            comparteenredespost: 'Share this post in social networks:',
+            ayudasocialprofile: 'Are you looking to view or edit you profile? Open the lateral menu and go to Social Profile'
           },
           error: {
               nojugadores: 'Add the players',
@@ -329,7 +330,8 @@ i18n
             shareProfileText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
-            comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:'
+            comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
+            ayudasocialprofile: 'Estás buscando tu perfil o cómo editarlo? Abre el menú lateral y ve a Perfil Social'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
