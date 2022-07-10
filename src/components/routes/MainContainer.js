@@ -2,7 +2,6 @@ import * as React from 'react';
 import ViewNavigator from '../ViewNavigator';
 import UserViewer from './UserViewer';
 import FeedViewer from '../FeedViewer';
-import Footer from '../Footer';
 
 function MainContainer({onLogin, onLogout}) {
     const col1Ref = React.useRef();

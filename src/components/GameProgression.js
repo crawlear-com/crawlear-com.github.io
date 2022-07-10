@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
 import { GameUtils } from '../model/Game';
-import { GameProgressionContext } from './games/GameProgressionContext';
+import { GameProgressionContext } from './context/GameProgressionContext';
 
 const STATUS_WAITING = 'waiting';
 const STATUS_PLAYING = 'playing';

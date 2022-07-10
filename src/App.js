@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 import GameConfigurator from './components/GameConfigurator';
 import UserViewer from './components/routes/UserViewer';
 import PostViewer from './components/routes/PostViewer';
-import { UserStatusContext } from './UserStatusContext';
+import { UserStatusContext } from './components/context/UserStatusContext';
 
 import './Error.js';
 
@@ -35,7 +35,6 @@ function App() {
 
   React.useEffect(() => {
     Analytics.event('App','init',`${navigator.userAgent}`);
-    //navigate("/profile?uid=DDzlRnl4s7Ovj72CT6Rq5rmJzc52");
   }, [])
 
   function onLogin(navigateAction) {

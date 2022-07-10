@@ -4,7 +4,7 @@ import logo from '../resources/img/logo5.png';
 import refreshIcon from '../resources/img/iconRefresh.png';
 import Analytics from '../Analytics';
 import Post from './Post';
-import { UserStatusContext } from '../UserStatusContext';
+import { UserStatusContext } from './context/UserStatusContext';
 import LoadingLogo from './LoadingLogo';
 
 import '../resources/css/FeedViewer.scss';

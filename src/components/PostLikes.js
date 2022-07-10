@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { UserStatusContext } from '../UserStatusContext';
+import { UserStatusContext } from './context/UserStatusContext';
 
 import '../resources/css/PostLikes.scss';
 import icon from '../resources/img/iconLike.png';

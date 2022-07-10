@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ControlText from './ControlText';
 import { useTranslation } from 'react-i18next';
-import { GameContext } from './games/GameContext';
+import { GameContext } from './context/GameContext';
 
 import dropDownImage from '../resources/img/arrowDown.png';
 
@@ -17,10 +17,10 @@ function ControlTextArray({
     onValueChange}) {
     
     let i=0;
-    const controlArray1 = [], 
-        controlArray2 = [];
     const { t } = useTranslation();
     const { game } = React.useContext(GameContext);
+    const controlArray1 = [], 
+        controlArray2 = [];
 
     if(!game || !game.players.length) return <></>;
 

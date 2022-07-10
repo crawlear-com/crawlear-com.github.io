@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Sharers from './embed/Sharers';
-import { UserStatusContext } from '../UserStatusContext';
+import { UserStatusContext } from './context/UserStatusContext';
 
 import '../resources/css/UserProfile.scss';
 
