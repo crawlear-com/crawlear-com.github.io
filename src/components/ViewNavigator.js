@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import '../resources/css/ViewNavigator.scss';
+import Utils from '../Utils';
 
 const body = window.document.body;
 
@@ -27,10 +28,7 @@ class ViewNavigatorColumner {
         this.onTouchMoveBinded = this.onTouchMove.bind(this);
         this.onTouchEndBinded = this.onTouchEnd.bind(this);
 
-        body.addEventListener('touchstart', this.onTouchStartBinded);
-        body.addEventListener('touchmove', this.onTouchMoveBinded);
-        body.addEventListener('touchend', this.onTouchEndBinded);
-
+        this.addEvents();
         this.columnWidth = document.querySelector('.viewNavigatorContainer').clientWidth;
         this.startX = 0;
         this.startY = 0;
@@ -47,32 +45,46 @@ class ViewNavigatorColumner {
         body.classList.add('completegame');
     }
 
+    addEvents() {
+        const isMobile = Utils.isMobile();
+
+        body.addEventListener(isMobile ? 'touchstart' : 'mousedown', this.onTouchStartBinded);
+        isMobile && body.addEventListener('touchmove', this.onTouchMoveBinded);
+        body.addEventListener(isMobile ? 'touchend' : 'mouseup', this.onTouchEndBinded);
+    }
+
+    removeEvents() {
+        const isMobile = Utils.isMobile();
+
+        body.removeEventListener(isMobile ? 'touchstart' : 'mousedown', this.onTouchStartBinded);
+        isMobile && body.removeEventListener('touchmove', this.onTouchMoveBinded);
+        body.removeEventListener(isMobile ? 'touchend' : 'mouseup', this.onTouchEndBinded);
+    }
+
     destroy() {
         body.classList.remove('completegame');
         body.classList.remove('profile');
         body.classList.remove('feed');
-        body.removeEventListener('touchstart', this.onTouchStartBinded);
-        body.removeEventListener('touchmove', this.onTouchMoveBinded);
-        body.removeEventListener('touchend', this.onTouchEndBinded);
+        this.removeEvents();
     }
 
     onTouchStart(event) {
         const touches = event.touches;
 
-        if(touches && touches.length === 1) {
-            const touch = touches[0];
-
-            this.startX = touch.clientX;
-            this.col1.classList.toggle('animated');
-            this.col2.classList.toggle('animated');
-            this.col3.classList.toggle('animated');
-        }
+        this.startX = (touches && touches.length === 1 ? touches[0].clientX : event.clientX);
+        this.col1.classList.toggle('animated');
+        this.col2.classList.toggle('animated');
+        this.col3.classList.toggle('animated');
     }
-    onTouchMove(event) {
-        const progressX = Math.round(event.touches[0].clientX) - this.startX;
-        const progressY = Math.round(event.touches[0].clientY) - this.startY;
 
-        if (progressX > progressY) {
+    onTouchMove(event) {
+        const progressX = Math.round(event.touches ? event.touches[0].clientX : event.clientX) - this.startX;
+        const progressY = Math.round(event.touches ? event.touches[0].clientY : event.clientY) - this.startY;
+
+//        event.stopPropagation();
+
+//        if (progressX > progressY) {
+//            console.log("?");
             if (this.col1.classList.contains('current')) {
                 this.col1.style.transform = `translate(${progressX}px,0)`;
                 this.col2.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
@@ -86,10 +98,10 @@ class ViewNavigatorColumner {
                 this.col2.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
                 this.col3.style.transform = `translate(${progressX}px,0)`;
             }    
-        }
+//        }
     }
     onTouchEnd(event) {
-        const finalProgressX = event.changedTouches[0].clientX - this.startX;
+        const finalProgressX = (event.touches ? event.changedTouches[0].clientX : event.clientX) - this.startX;
 
         if (Math.abs(finalProgressX) > 100) {
             if(finalProgressX < 0) {
