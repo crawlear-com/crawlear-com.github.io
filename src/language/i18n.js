@@ -56,12 +56,14 @@ i18n
             urlEmbed: '(optional) url to an instagram, youtube or tiktok post',
             textEmbed: 'text message of the post',
             gameEmbed: 'if the post is related, select the PUBLIC game asociated to the post and the users will see the results and location.',
-            nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
+            nopost: 'There is no posts at youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
+            nofeedpost: 'There is no posts at your pilot feed. Follow to your friends or favorite pilots to get their posts.',
             shareProfileText: 'Hey! Check this crawlear.com pilot profile ',
             sharePostText: 'Hey! Check this crawlear.com post ',
             comparteenredespiloto: 'Share this pilot profile in social networks:',
             comparteenredespost: 'Share this post in social networks:',
-            ayudasocialprofile: 'Are you looking to view or edit you profile? Open the lateral menu and go to Social Profile'
+            ayudasocialprofile: 'Are you looking to view or edit you profile? Open the lateral menu and go to Social Profile',
+            ayudafeedsocial: 'Swipe left to get your following pilots social feed'
           },
           error: {
               nojugadores: 'Add the players',
@@ -327,11 +329,13 @@ i18n
             textEmbed: 'mensaje de la entrada',
             gameEmbed: 'si está relacionado conm la entrada, selecciona juego PÚBLICO asociado a la entrada y los usuarios podrán ver el resultado y la localización',
             nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
+            nofeedpost: 'No hay ninguna entrada en tu muro de pilotos seguidos. Sigue a tus amigos o pilotos favoritos para ver aquí sus entradas.',
             shareProfileText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
             comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
-            ayudasocialprofile: 'Estás buscando tu perfil o cómo editarlo? Abre el menú lateral y ve a Perfil Social'
+            ayudasocialprofile: 'Estás buscando tu perfil o cómo editarlo? Abre el menú lateral y ve a Perfil Social',
+            ayudafeedsocial: 'Arrastra a la izquierda para ver el muro social de los pilotos a los que sigues'
           },
           error: {
               nojugadores: 'Añade a los jugadores',

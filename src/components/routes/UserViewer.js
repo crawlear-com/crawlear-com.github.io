@@ -102,7 +102,10 @@ function UserViewer({uid, onLogout, onLogin}) {
 
         return <div className="userViewer">
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : 
-                <><div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div></>}
+                <>
+                    <div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div>
+                    {isUidTheUserLogged ? <p className='profileHelper rounded bold'>{t('description.ayuda')}: {t('content.ayudafeedsocial')}</p> : <></>}
+                </>}
             <><UserProfile onLogout={onLogout} user={user} /> 
                 <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
@@ -119,10 +122,8 @@ function UserViewer({uid, onLogout, onLogin}) {
                     {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
                 </p>
 
-                <p>
-                    <div>{`${t('description.siguiendo')}: ${userData.following}`}</div>
-                    <div>{`${t('description.seguidores')}: ${userData.followers}`}</div>
-                </p>
+                <div>{`${t('description.siguiendo')}: ${userData.following}`}</div>
+                <div>{`${t('description.seguidores')}: ${userData.followers}`}</div>
             </div></>
 
             <div className="posts">

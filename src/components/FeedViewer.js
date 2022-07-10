@@ -77,7 +77,10 @@ function FeedViewer({uid}) {
             </div>
         </div>;
     } else if(status===STATUS_LOADED && isVisible) {
-        return <div className=''>No posts!</div>;
+        return <div className="posts">
+                <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
+                <div className='rounded rounded3'>{t('content.nofeedpost')}</div>
+            </div>;
     } else {
         return <LoadingLogo onVisible={onScreen}/>;
     }

@@ -644,9 +644,9 @@ class FirebaseController {
           data.pid = postData.id;
           posts.push(data);
         });
-
-        okCallback && okCallback(posts);
       }
+
+      okCallback && okCallback(posts);
     } catch(e) {
       koCallback && koCallback();
     }
