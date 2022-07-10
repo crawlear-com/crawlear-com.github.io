@@ -62,7 +62,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
                 {game.gid ? <div className='postGame bold'>
                                 {game.gid ? <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
                                             {t('description.nombre')}:<span className='gameName'>{game.name} </span><WinnerTable game={game} /></> : <></>}
-                                {game.location && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMaps location={game.location} /></> : <></>}
+                                {game.location && game.location.longitude && game.location.longitude && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMaps location={game.location} /></> : <></>}
                             </div> : 
                                 postHasGameAssigned() ? 
                                     <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>

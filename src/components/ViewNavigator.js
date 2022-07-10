@@ -71,7 +71,13 @@ class ViewNavigatorColumner {
     onTouchStart(event) {
         const touches = event.touches;
 
-        this.startX = (touches && touches.length === 1 ? touches[0].clientX : event.clientX);
+        if (touches && touches.length === 1) {
+            this.startX = touches[0].clientX;
+            this.startY = touches[0].clientY;
+        } else {
+            this.startX = event.clientX;
+            this.startY = event.clientY;
+        }
         this.col1.classList.toggle('animated');
         this.col2.classList.toggle('animated');
         this.col3.classList.toggle('animated');
@@ -81,10 +87,7 @@ class ViewNavigatorColumner {
         const progressX = Math.round(event.touches ? event.touches[0].clientX : event.clientX) - this.startX;
         const progressY = Math.round(event.touches ? event.touches[0].clientY : event.clientY) - this.startY;
 
-//        event.stopPropagation();
-
-//        if (progressX > progressY) {
-//            console.log("?");
+        if (Math.abs(progressX) > Math.abs(progressY)) {
             if (this.col1.classList.contains('current')) {
                 this.col1.style.transform = `translate(${progressX}px,0)`;
                 this.col2.style.transform = `translate(${progressX+this.columnWidth}px,0)`;
@@ -98,12 +101,14 @@ class ViewNavigatorColumner {
                 this.col2.style.transform = `translate(${progressX-this.columnWidth}px,0)`;
                 this.col3.style.transform = `translate(${progressX}px,0)`;
             }    
-//        }
+        }
     }
+
     onTouchEnd(event) {
         const finalProgressX = (event.touches ? event.changedTouches[0].clientX : event.clientX) - this.startX;
+        const finalProgressY = (event.touches ? event.changedTouches[0].clientY : event.clientY) - this.startY;
 
-        if (Math.abs(finalProgressX) > 100) {
+        if (Math.abs(finalProgressX) > 100 && Math.abs(finalProgressX) > Math.abs(finalProgressY)) {
             if(finalProgressX < 0) {
                 if (this.col1.classList.contains('current')) {
                     this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;

@@ -67,11 +67,11 @@ function FeedViewer({uid}) {
             <div className="posts">
                 <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
 
-                <button className="refreshButton" onClick={()=>{
+                <div className="refreshButton" onClick={()=>{
                         setStatus(STATUS_LOADING);
                         getData();
                     }}><img src={refreshIcon} alt="refresh icon"></img>
-                </button>
+                </div>
 
                 {embeds}
             </div>

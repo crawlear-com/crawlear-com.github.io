@@ -18,13 +18,18 @@
 }
 
 .feedViewer .headerText {
-    float: left;
 }
 
 .refreshButton {
-    float: right;
+    position: fixed;
+    top: 19px;
+    right: 8px;
     margin-bottom: 15px;
     padding: 0;
+
+    img {
+        width: 20px;
+    }
 }
 
 .postText {
