@@ -53,10 +53,10 @@ i18n
             colaboraciones: 'Collaborates:',
             editprofile: 'You can edit the user profile clicking on name, description or instagram username',
             userprofilenotlogged: 'You must be logged with a google account to see the user profile',
-            urlEmbed: '(optional) url to an instagram, youtube or tiktok post',
+            urlEmbed: '(optional) url to an instagram, youtube, facebook or tiktok post',
             textEmbed: 'text message of the post',
             gameEmbed: 'if the post is related, select the PUBLIC game asociated to the post and the users will see the results and location.',
-            nopost: 'There is no posts at youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
+            nopost: 'There is no posts at youy profile. Fill the profile with your lastest photos and videos from instagram, tiktok, facebook and youtube',
             nofeedpost: 'There is no posts at your pilot feed. Follow to your friends or favorite pilots to get their posts.',
             shareProfileText: 'Hey! Check this crawlear.com pilot profile ',
             sharePostText: 'Hey! Check this crawlear.com post ',
@@ -76,7 +76,7 @@ i18n
               nodirectordepartida: 'Check at least one judge as Game director',
               noposttext: 'The post text is empty',
               noposturl: 'The post url is empty',
-              nosocialurl: 'The url must be a youtube or instagram post'
+              nosocialurl: 'The url must be a youtube, instagram, tiktok or facebook public post'
           },
           description: {
             juego: 'game',
@@ -328,7 +328,7 @@ i18n
             urlEmbed: '(opcional) url a un post de insagram, youtube o tiktok',
             textEmbed: 'mensaje de la entrada',
             gameEmbed: 'si está relacionado conm la entrada, selecciona juego PÚBLICO asociado a la entrada y los usuarios podrán ver el resultado y la localización',
-            nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
+            nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram. Tiktok, Facebook y Youtube',
             nofeedpost: 'No hay ninguna entrada en tu muro de pilotos seguidos. Sigue a tus amigos o pilotos favoritos para ver aquí sus entradas.',
             shareProfileText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
@@ -348,7 +348,7 @@ i18n
               nodirectordepartida: 'Marca al menos un juez como director de partida',
               noposttext: 'El texto de la entrada está vacío',
               noposturl: 'La url de la entrada está vacía',
-              nosocialurl: 'La url debe apuntar a una entrada de youtube o instagram'
+              nosocialurl: 'La url debe apuntar a una entrada de youtube, tiktok, facebook o instagram'
           },
           description: {
               juego: 'juego',

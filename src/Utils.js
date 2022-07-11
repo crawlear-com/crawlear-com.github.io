@@ -59,6 +59,13 @@ class Utils {
         return (match && match[1] && match[2]);
     }
 
+    static isFacebookUrl(url) {
+        var regExp = /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/;
+        var match = this.sanitizeUrl(url).match(regExp);
+        
+        return (match && match[1] && match[2]);
+    }
+
     static tokenToTexts(tokens) {
         return tokens.map((x)=>{return t(x);});
     }

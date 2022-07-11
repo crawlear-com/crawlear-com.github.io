@@ -87,6 +87,7 @@ function UserPoster({onPostEntry}) {
         } else if ((state.url.length<=0) || (state.url.length>0) && 
             (Utils.isYoutubeUrl(state.url) || 
              Utils.isInstagramUrl(state.url) || 
+             Utils.isFacebookUrl(state.url) || 
              Utils.isTiktokUrl(state.url))) {
                 setFormStatus(POSTING);
                 firebase.setPost(window.crawlear.user.uid, state.url, state.date, state.text, state.gid, (post)=>{

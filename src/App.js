@@ -11,7 +11,6 @@ import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
 import Analytics from './Analytics';
 import { Game } from './model/Game';
-import Footer from './components/Footer';
 import GameConfigurator from './components/GameConfigurator';
 import UserViewer from './components/routes/UserViewer';
 import PostViewer from './components/routes/PostViewer';
@@ -75,7 +74,6 @@ function App() {
         </div>
 
         <div className="adsContainer"></div>
-        <Footer></Footer>
       </div>
   </UserStatusContext.Provider>);
 }

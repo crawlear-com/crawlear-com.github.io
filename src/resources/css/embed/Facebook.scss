@@ -1,0 +1,12 @@
+.fb_iframe_widget {
+    max-width: 345px !important;
+
+    span {
+        max-width: 345px !important;
+    
+        iframe {
+            max-width: 345px !important;
+        }
+    }
+}
+

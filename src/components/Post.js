@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Instagram from './embed/Instagram';
 import Youtube from './embed/Youtube';
 import Tiktok from './embed/Tiktok';
+import Facebook from './embed/Facebook';
 import PostInfo from './PostInfo';
 import Sharers from './embed/Sharers';
 import UseIfVisible from '../hooks/UseIfVisible';
@@ -36,6 +37,8 @@ function Post({post, readOnly, onRemovePost}) {
         embed = <Youtube className="postUrlContent" url={post.url} />
     } else if(post.url.indexOf('tiktok')>=0) {
         embed = <Tiktok className="postUrlContent" url={post.url} />
+    } else if(post.url.indexOf('facebook')>=0) {
+        embed = <Facebook className="postUrlContent" url={post.url} />
     }
 
     if (isVisible) {
