@@ -1,5 +1,8 @@
 body {
     .posts {
+        max-width: 470px;
+        margin: 0 auto 25px auto;
+    
         .embedLoadingContainer {
             width: 300px;
             height: 300px;

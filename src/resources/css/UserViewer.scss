@@ -1,9 +1,13 @@
 .userViewer {
+    max-width: 470px;
+    margin: 0 auto 25px auto;
+
     .statistics, .posts {
         margin-bottom: 25px;
+        margin: 0 auto 25px auto;
     }
     .statistics {
-        width: 94%;
+        width: 96%;
         background-image: url(../img/pilotbackground.png), linear-gradient(#345B63, #112031);
         background-position-x: center;
         background-repeat: no-repeat;

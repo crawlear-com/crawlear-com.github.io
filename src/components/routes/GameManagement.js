@@ -137,11 +137,15 @@ function GameManagement({onLogout}) {
         navigate("/gameconfigurator");
     }
 
+    function socialProfileNavigation() {
+        navigate("/social");
+    }
+
     return <>
             {state === STATE_MENU ? 
                 <>
                     <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
-                    <p className='profileHelper rounded bold'>{t('description.ayuda')}: {t('content.ayudasocialprofile')}</p>
+                    <p onClick={socialProfileNavigation} className='profileHelper rounded bold'>{t('description.ayuda')}: {t('content.ayudasocialprofile')}</p>
 
                     <GameRequests user={window.crawlear.user} />
                     <GameList title={t('description.partidasprevias')} 

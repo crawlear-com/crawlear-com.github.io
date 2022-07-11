@@ -62,7 +62,7 @@ i18n
             sharePostText: 'Hey! Check this crawlear.com post ',
             comparteenredespiloto: 'Share this pilot profile in social networks:',
             comparteenredespost: 'Share this post in social networks:',
-            ayudasocialprofile: 'Are you looking to view or edit you profile? Open the lateral menu and go to Social Profile',
+            ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help',
             ayudafeedsocial: 'Swipe left to get your following pilots social feed'
           },
           error: {
@@ -334,7 +334,7 @@ i18n
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
             comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
-            ayudasocialprofile: 'Estás buscando tu perfil o cómo editarlo? Abre el menú lateral y ve a Perfil Social',
+            ayudasocialprofile: 'Estás buscando tu perfil de piloto o cómo editarlo? Abre el menú lateral y ve a Perfil Social o haz click en éste texto de ayuda',
             ayudafeedsocial: 'Arrastra a la izquierda para ver el muro social de los pilotos a los que sigues'
           },
           error: {
