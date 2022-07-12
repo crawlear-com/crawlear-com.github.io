@@ -145,7 +145,7 @@ function GameManagement({onLogout}) {
             {state === STATE_MENU ? 
                 <>
                     <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
-                    <p onClick={socialProfileNavigation} className='profileHelper rounded bold'>{t('content.ayudasocialprofile')}</p>
+                    <p onClick={socialProfileNavigation} className='profileHelper rounded rounded3 bold'>{t('content.ayudasocialprofile')}</p>
                     <UserProfile user={window.crawlear.user} onLogout={onLogout} />
 
                     <GameRequests user={window.crawlear.user} />
