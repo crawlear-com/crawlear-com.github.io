@@ -5,12 +5,18 @@ import FeedViewer from '../FeedViewer';
 import Footer from '../Footer';
 import { UserStatusContext } from '../context/UserStatusContext';
 
+const body = window.document.body;
+
 function MainContainer({onLogin, onLogout}) {
     const col1Ref = React.useRef();
     const col2Ref = React.useRef();
     const col3Ref = React.useRef();
     const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid;
     const { isUserLoged } = React.useContext(UserStatusContext);
+
+    React.useEffect(()=>{
+        body.classList.add('profile');
+    },[]);
 
     if (isUserLoged){
         return <ViewNavigator col1={col1Ref} col2={col2Ref}>

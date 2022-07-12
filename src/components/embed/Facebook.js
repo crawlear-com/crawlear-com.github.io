@@ -17,8 +17,16 @@ function Facebook({ url }) {
             FB && FB.XFBML && FB.XFBML.parse();
         }
     }, []);
-    useScript('https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v14.0','fbjdk', ()=>{
-        
+
+    useScript('https://connect.facebook.net/es_ES/sdk.js','fbjdk', ()=>{
+        window.fbAsyncInit = function() {
+            FB.init({
+              appId            : '',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v14.0'
+            });
+          };
     });
     //https://www.facebook.com/20531316728/posts/10154009990506729/
 

@@ -27,6 +27,7 @@ class ViewNavigatorColumner {
         this.onTouchStartBinded = this.onTouchStart.bind(this);
         this.onTouchMoveBinded = this.onTouchMove.bind(this);
         this.onTouchEndBinded = this.onTouchEnd.bind(this);
+        this.onResizeBinded = this.onResize.bind(this);
 
         this.addEvents();
         this.columnWidth = document.querySelector('.viewNavigatorContainer').clientWidth;
@@ -38,8 +39,21 @@ class ViewNavigatorColumner {
         this.col1.classList.add('current');
         this.col1.style.transform = `translate(0,0)`;
         this.col2.style.transform = `translate(${this.columnWidth}px,0)`;
+    }
 
-        body.classList.add('profile');
+    onResize() {
+        this.columnWidth = document.querySelector('.viewNavigatorContainer').clientWidth;
+        this.resetColum();
+    }
+
+    resetColum() {
+        if (this.col1.classList.contains('current')) {
+            this.col1.style.transform = `translate(0px,0)`;
+            this.col2.style.transform = `translate(${this.columnWidth}px,0)`;
+        } else if (this.col2.classList.contains('current')) { 
+            this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
+            this.col2.style.transform = `translate(0px,0)`;
+        }
     }
 
     addEvents() {
@@ -48,6 +62,8 @@ class ViewNavigatorColumner {
         body.addEventListener(isMobile ? 'touchstart' : 'mousedown', this.onTouchStartBinded);
         isMobile && body.addEventListener('touchmove', this.onTouchMoveBinded);
         body.addEventListener(isMobile ? 'touchend' : 'mouseup', this.onTouchEndBinded);
+
+        window.addEventListener('resize', this.onResizeBinded);
     }
 
     removeEvents() {
@@ -56,6 +72,8 @@ class ViewNavigatorColumner {
         body.removeEventListener(isMobile ? 'touchstart' : 'mousedown', this.onTouchStartBinded);
         isMobile && body.removeEventListener('touchmove', this.onTouchMoveBinded);
         body.removeEventListener(isMobile ? 'touchend' : 'mouseup', this.onTouchEndBinded);
+
+        window.removeEventListener('resize', this.onResizeBinded);
     }
 
     destroy() {
@@ -128,13 +146,7 @@ class ViewNavigatorColumner {
                 }
             }
         } else {
-            if (this.col1.classList.contains('current')) {
-                this.col1.style.transform = `translate(0px,0)`;
-                this.col2.style.transform = `translate(${this.columnWidth}px,0)`;
-            } else if (this.col2.classList.contains('current')) { 
-                this.col1.style.transform = `translate(${-this.columnWidth}px,0)`;
-                this.col2.style.transform = `translate(0px,0)`;
-            }
+            this.resetColum();
         }
 
         this.col1.classList.toggle('animated');
