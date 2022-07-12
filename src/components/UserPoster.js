@@ -9,7 +9,7 @@ import * as firestore from 'firebase/firestore';
 const WAITING = 0;
 const POSTING = 1;
 
-function UserPoster({onPostEntry}) {
+function UserPoster({onPostEntry, isOpened}) {
     const { t } = useTranslation();
     const gameOptionElements = [];
     const firebase = window.crawlear.fb;
@@ -117,7 +117,7 @@ function UserPoster({onPostEntry}) {
         gameOptionElements.push(<option key={index} value={element.gid}>{element.name}</option>);
     });
 
-    return <div className={`postForm rounded rounded3 ${gameListRef.current && gameListRef.current.length ? '' : 'closed'}`}>
+    return <div className={`postForm rounded rounded3 ${isOpened ? '' : 'closed'}`}>
             <div className='headerText bold' onClick={onHeaderClick}>{t('description.publicar')}</div>
 
             <form className='postForm-form' onSubmit={formSubmit}>

@@ -128,7 +128,7 @@ function UserViewer({uid, onLogout, onLogin}) {
 
             <div className="posts">
                 <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
-                {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
+                {isUidTheUserLogged ? <UserPoster isOpened={!userPosts.length} onPostEntry={onPostEntry}/> : <></>}
                 {embeds}
             </div>
         </div>;
