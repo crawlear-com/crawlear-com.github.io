@@ -117,13 +117,13 @@ function UserPoster({onPostEntry}) {
         gameOptionElements.push(<option key={index} value={element.gid}>{element.name}</option>);
     });
 
-    return <div className="postForm rounded rounded3 closed">
+    return <div className={`postForm rounded rounded3 ${gameListRef.current && gameListRef.current.length ? '' : 'closed'}`}>
             <div className='headerText bold' onClick={onHeaderClick}>{t('description.publicar')}</div>
 
             <form className='postForm-form' onSubmit={formSubmit}>
                 <label className="postForm-label">URL: <input type="text" name="url" onChange={urlChange} value={state.url} /></label>
                 <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.urlEmbed')}</span>
-                <br /><br />
+                <br />
                 
                 <label className="postForm-label">{t('description.texto')}: <textarea value={state.text} onChange={textChange} type="text" name="text" /></label>
                 <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.textEmbed')}</span>
