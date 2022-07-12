@@ -10,7 +10,7 @@ import RepairProgression from './RepairProgression';
 import GameProgressionDirector from './GameProgressionDirector';
 import PresenceButton from './PresenceButton';
 import TrainingController from './games/TrainingController';
-import { GameProgressionContext } from './games/GameProgressionContext';
+import { GameProgressionContext } from './context/GameProgressionContext';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';

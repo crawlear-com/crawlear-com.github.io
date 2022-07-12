@@ -20,15 +20,21 @@ body {
   background-size: cover;
 }
 
-body.completegame {
-  background-image: url(../img/fondo5.jpeg);
+body.completegame, 
+body.profile,
+body.feed { 
+  overflow: hidden;
 }
 
-body.profile {
+body.completegame {
   background-image: url(../img/fondo3.jpeg);
 }
 
-body.post {
+body.profile {
+  background-image: url(../img/fondo5.jpeg);
+}
+
+body.feed {
   background-image: url(../img/fondo4.jpeg);
 }
 

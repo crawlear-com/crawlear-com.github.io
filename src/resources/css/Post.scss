@@ -1,50 +1,84 @@
-body .post {
-    .gameContainer {
-        color: white;
-        margin-top: 15px;
-    }
-    .sharerContainer {
-        width: 80%;
-        margin: 0 auto;
-        float: right;
-
-        .shareProfileText {
-            width: 90%;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .sharers {
-            width: 95%;
+body {
+    .posts {
+        max-width: 470px;
+        margin: 0 auto 25px auto;
+    
+        .embedLoadingContainer {
+            width: 300px;
+            height: 300px;
             margin: 0 auto;
         }
     }
-    .postGameContainer {
-        text-align: center;
-    
-        .getGameName, .gameName {
-            margin: 15px 0;
-        }
-    
-        .gameName {
-            width: 70%;
-        }
-        
-        .gameAssigned {
+
+    .post {
+        max-width: 546px;
+        margin: 0 auto 25px auto;
+
+        .gameContainer {
+            color: white;
             margin-top: 15px;
         }
-        
-        .postGame {
-            margin: 15px 0;
+        .sharerContainer {
+            width: 80%;
+            margin: 0 auto;
+            float: right;
+
+            .shareProfileText {
+                width: 90%;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .sharers {
+                width: 95%;
+                margin: 0 auto;
+            }
         }
-        
-        .gameName {
-            margin-left: 10px;
-            margin-bottom: 10px;
-        }
-    
-        .mapouter {
+        .postGameContainer {
             text-align: center;
+        
+            .getGameName, .gameName {
+                margin: 15px 0;
+            }
+        
+            .gameName {
+                width: 70%;
+            }
+            
+            .gameAssigned {
+                margin-top: 15px;
+            }
+            
+            .postGame {
+                margin: 15px 0;
+            }
+            
+            .gameName {
+                margin-left: 10px;
+                margin-bottom: 10px;
+            }
+        
+            .mapouter {
+                text-align: center;
+            }
         }
+    }
+}
+
+.feedViewer .post {
+    .userProfileContainer {
+        margin: 0px;
+    }
+
+    .postDate {
+        margin: 10px 0 0 0;
+    }
+
+    .postText {
+        margin: 0 0 15px 0;
+    }
+
+    .name input {
+        color: black;
     }
 }

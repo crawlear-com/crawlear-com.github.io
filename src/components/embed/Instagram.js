@@ -1,9 +1,12 @@
 import * as React from 'react';
 import useScript from '../../hooks/useScript';
+
 import Logo from './logoInstagram.svg';
+
 import '../../resources/css/embed/Instagram.scss';
 
 function Instagram({ url }) {
+
     useScript('https://www.instagram.com/embed.js','instagram-embed-loader', ()=>{
         window.instgrm && window.instgrm.Embeds.process();
     });
@@ -56,7 +59,7 @@ function Instagram({ url }) {
             </p>
             </div>
         </blockquote>
-        </div>;
+    </div>;
 }
 
 export default Instagram;

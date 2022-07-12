@@ -1,9 +1,13 @@
 .userViewer {
+    max-width: 470px;
+    margin: 0 auto 25px auto;
+
     .statistics, .posts {
         margin-bottom: 25px;
+        margin: 0 auto 25px auto;
     }
     .statistics {
-        width: 94%;
+        width: 96%;
         background-image: url(../img/pilotbackground.png), linear-gradient(#345B63, #112031);
         background-position-x: center;
         background-repeat: no-repeat;
@@ -29,27 +33,6 @@
         border: 0px;
         color: white;
         padding: 10px;
-    }
-
-    .postText {
-        margin: 25px 0;
-    }
-    .postDate {
-        margin: 10px 0 15px 0;
-        font-size: 0.8em;
-    }
-
-    .postGame {
-        margin-bottom: 15px;
-    }
-
-    .postText, .postDate, .postGame {
-        padding: 0 10px;
-        text-align: justify;
-    }
-
-    .postUrlContent {
-        margin-bottom: 15px;
     }
 
     .postForm-form {

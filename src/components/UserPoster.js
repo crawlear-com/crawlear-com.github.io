@@ -9,7 +9,7 @@ import * as firestore from 'firebase/firestore';
 const WAITING = 0;
 const POSTING = 1;
 
-function UserPoster({onPostEntry}) {
+function UserPoster({onPostEntry, isOpened}) {
     const { t } = useTranslation();
     const gameOptionElements = [];
     const firebase = window.crawlear.fb;
@@ -87,6 +87,7 @@ function UserPoster({onPostEntry}) {
         } else if ((state.url.length<=0) || (state.url.length>0) && 
             (Utils.isYoutubeUrl(state.url) || 
              Utils.isInstagramUrl(state.url) || 
+             //Utils.isFacebookUrl(state.url) || 
              Utils.isTiktokUrl(state.url))) {
                 setFormStatus(POSTING);
                 firebase.setPost(window.crawlear.user.uid, state.url, state.date, state.text, state.gid, (post)=>{
@@ -116,13 +117,13 @@ function UserPoster({onPostEntry}) {
         gameOptionElements.push(<option key={index} value={element.gid}>{element.name}</option>);
     });
 
-    return <div className="postForm rounded rounded3 closed">
+    return <div className={`postForm rounded rounded3 ${isOpened ? '' : 'closed'}`}>
             <div className='headerText bold' onClick={onHeaderClick}>{t('description.publicar')}</div>
 
             <form className='postForm-form' onSubmit={formSubmit}>
                 <label className="postForm-label">URL: <input type="text" name="url" onChange={urlChange} value={state.url} /></label>
                 <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.urlEmbed')}</span>
-                <br /><br />
+                <br />
                 
                 <label className="postForm-label">{t('description.texto')}: <textarea value={state.text} onChange={textChange} type="text" name="text" /></label>
                 <br /><span className='postForm-help bold'>{t('description.ayuda')}:</span> <span className='postForm-help'>{t('content.textEmbed')}</span>

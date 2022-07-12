@@ -1,48 +1,49 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import UserProfile from '../UserProfile';
-import logo from '../../resources/img/logo5.png'
-import '../../resources/css/UserViewer.scss';
-import Spinner from '../Spinner';
 import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
-import { useNavigate } from 'react-router-dom';
+import LoadingLogo from '../LoadingLogo';
+
+import logo from '../../resources/img/logo5.png';
+import '../../resources/css/UserViewer.scss';
 
 const USER_TYPE_PILOT = 0;
 const USER_TYPE_JUDGE = 1;
 const USER_TYPE_NEUTRAL = 2;
 
 function UserViewer({uid, onLogout, onLogin}) {
+    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
-    const navigate = useNavigate();
     const [user, setUser] = React.useState({});
     const [userData, setUserData] = React.useState({});
     const [userPosts, setUserPosts] = React.useState([])
-    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
+    const [isVisible, setIsVisible] = React.useState(false);
 
     React.useEffect(()=>{
         firebase.checkIfLogged(()=>{onLogin(false)});
-        firebase.getUser(uid, (user)=>{
-            setUser({...user});
-            firebase.getUserExtraData(uid, (data)=>{
-                setUserData(data);
+    },[]);
+
+
+    React.useEffect(()=>{
+        if(uid) {
+            firebase.getUser(uid, (user)=>{
+                setUser({...user});
+                firebase.getUserExtraData(uid, (data)=>{
+                    setUserData(data);
+                });
             });
-        });
-
-        firebase.getPosts(uid, (data)=>{
-            setUserPosts([...userPosts, ...data]);
-        }, ()=>{});
-
-        Analytics.pageview(`${document.location.pathname}${document.location.search}`);
-        window.document.body.classList.add('profile');
-
-        return ()=>{
-            window.document.body.classList.remove('profile');
-        }
-    }, []);
+    
+            firebase.getPosts(uid, (data)=>{
+                setUserPosts([...userPosts, ...data]);
+            }, ()=>{});
+    
+            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+        } 
+    }, [isVisible, uid]);
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();
@@ -75,7 +76,11 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
     }
 
-    if (user.registrationDate ) {
+    function onScreen(visible) {
+        visible && setIsVisible(visible);
+    }
+
+    if (user.registrationDate && isVisible) {
         const embeds = [];
         let userType;
 
@@ -96,10 +101,13 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
 
         return <div className="userViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
-            <UserProfile onLogout={onLogout} user={user} />
-
-            <div className="statistics rounded rounded3">
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : 
+                <>
+                    <div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div>
+                    {isUidTheUserLogged ? <p className='profileHelper rounded rounded3 bold'>{t('description.ayuda')}: {t('content.ayudafeedsocial')}</p> : <></>}
+                </>}
+            <><UserProfile onLogout={onLogout} user={user} /> 
+                <div className="statistics rounded rounded3">
                 <div className='headerText bold'>{t('description.estadisticas')}</div>
                 <div>
                     {t('description.partidascreadas')}: {userData.ownerGames || 0}
@@ -113,20 +121,19 @@ function UserViewer({uid, onLogout, onLogin}) {
                 <p className='bold'>
                     {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
                 </p>
-            </div>
+
+                <div>{`${t('description.siguiendo')}: ${userData.following}`}</div>
+                <div>{`${t('description.seguidores')}: ${userData.followers}`}</div>
+            </div></>
 
             <div className="posts">
-                <div className='headerText bold'>{t('description.murodepiloto')}</div>
-                {isUidTheUserLogged ? <UserPoster onPostEntry={onPostEntry}/> : <></>}
+                <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
+                {isUidTheUserLogged ? <UserPoster isOpened={!userPosts.length} onPostEntry={onPostEntry}/> : <></>}
                 {embeds}
             </div>
         </div>;
     } else {
-        return <div className=''>
-                <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a>
-                <br />
-                <Spinner />
-            </div>;
+        return <LoadingLogo onVisible={onScreen}/>;
     }
 }
 

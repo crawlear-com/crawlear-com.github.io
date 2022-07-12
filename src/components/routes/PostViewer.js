@@ -24,10 +24,10 @@ function PostViewer({pid, onLogin}) {
         }, ()=>{});
 
         Analytics.pageview(`${document.location.pathname}${document.location.search}`);
-        window.document.body.classList.add('post');
+        window.document.body.classList.add('postview');
 
         return ()=>{
-            window.document.body.classList.remove('post');
+            window.document.body.classList.remove('postview');
         }
     },[]);
 

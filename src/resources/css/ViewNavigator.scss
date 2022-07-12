@@ -1,0 +1,37 @@
+.viewNavigatorContainer {
+    position: fixed;
+    top: 56px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+
+    #col1, #col2, #col3 {
+        position: fixed;
+        height: calc(100% - 56px);
+        width: 96%;
+        overflow-y: scroll;
+        margin: 0 auto;
+        padding: 0 5px;
+    }
+
+    #col1.animated,
+    #col2.animated,
+    #col3.animated {
+        transition: 0.1s ease-in-out;
+    }
+
+    .col1::-webkit-scrollbar,
+    .col2::-webkit-scrollbar,
+    .col3::-webkit-scrollbar {
+        display: none;
+    }
+
+    #col1 {
+        transform: translate(0px, 0);
+    }
+
+    #col2 {
+        transform: translate(700px, 0);
+        
+    }
+}

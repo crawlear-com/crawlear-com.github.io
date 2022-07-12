@@ -1,0 +1,54 @@
+.post {
+    font-size: 0.8em;
+    margin-bottom: 25px;
+    width: 95%;
+    overflow: hidden;
+    background-color: #EEE;
+    color: black;
+    text-align: left;
+
+    .userProfilePhotoContainer {
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+            float: left;
+        }
+    }
+}
+
+.feedViewer .headerText {
+}
+
+.refreshButton {
+    position: fixed;
+    top: 19px;
+    right: 8px;
+    margin-bottom: 15px;
+    padding: 0;
+
+    img {
+        width: 20px;
+    }
+}
+
+.postText {
+    margin: 25px 0;
+}
+.postDate {
+    margin: 10px 0 15px 0;
+    font-size: 0.8em;
+}
+
+.postGame {
+    margin-bottom: 15px;
+}
+
+.postText, .postDate, .postGame {
+    padding: 0 10px;
+    text-align: justify;
+}
+
+.postUrlContent {
+    margin-bottom: 15px;
+}

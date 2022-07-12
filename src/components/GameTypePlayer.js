@@ -7,7 +7,7 @@ import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZ
 import { gameExtras as kingExtras } from './games/KingGameScores';
 import KingGame from './games/KingGame';
 import CoreGame from './games/CoreGame';
-import { GameContext } from './games/GameContext';
+import { GameContext } from './context/GameContext';
 
 const GAME_TYPE_AECAR = 0;
 const GAME_TYPE_KING = 1;

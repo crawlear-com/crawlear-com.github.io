@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { UserStatusContext } from './context/UserStatusContext';
 
 import '../resources/css/PostLikes.scss';
 import icon from '../resources/img/iconLike.png';
@@ -12,8 +13,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     const { t } = useTranslation();
     const likes = [];
     const firebase = window.crawlear.fb;
-    const isPostFromUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid;
-    const isUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid;
+    const { isUserLoged } = React.useContext(UserStatusContext);
     const [status, setStatus] = React.useState({
         status: NOT_LOADED,
         likes: 0,
@@ -21,10 +21,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     });
 
     React.useEffect(()=>{
-        const isPostFromUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === post.uid;
-        const isUserLogged = firebase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid;
-    
-        if (isUserLogged) {
+        if (isUserLoged) {
             firebase.getIfPostIsLiked(post.pid, window.crawlear.user.uid, (isLiked, lid)=>{
                 if(isLiked) {
                     setStatus({ ...status,
@@ -40,7 +37,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
             },()=>{}); 
         }
 
-        if (isPostFromUserLogged || !isUserLogged) {
+        if (isPostFromUserLogged(post.uid) || !isUserLoged) {
             firebase.getPostLikesCount(post.pid, (likes)=>{
                 setStatus({ ...status,
                     likes: likes
@@ -73,22 +70,26 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     }
 
     if (status.likes >10) {
-        likes.push(<div className='bold'>Likes 🔥🔥🔥</div>);
+        likes.push(<div key="likes+++" className='bold'>Likes 🔥🔥🔥</div>);
     } else if (status.likes >5) {
-        likes.push(<div className='bold'>Likes 🔥🔥</div>);
+        likes.push(<div key="likes++" className='bold'>Likes 🔥🔥</div>);
     } else if (status.likes >0) { 
-        likes.push(<div className='bold'>Likes 🔥</div>);
+        likes.push(<div key="likes+" className='bold'>Likes 🔥</div>);
     } else {
-        likes.push(<div className='bold'>Likes 🧊</div>);
+        likes.push(<div key="likes" className='bold'>Likes 🧊</div>);
     }
 
-    return isUserLogged ? 
-            (isPostFromUserLogged ? <div className="likeContainer">{likes}</div> :
+    return isUserLoged ? 
+            (isPostFromUserLogged(post.uid) ? <div className="likeContainer">{likes}</div> :
             <div className="likeContainer">
               <span className={status.state === PRESSED?'press':''}>
                 <img src={icon} onClick={onClickLike} alt='like button' />
               </span>
         </div>) : <div className="likeContainer">{likes}</div>;
+}
+
+function isPostFromUserLogged(uid) { 
+    return window.crawlear.fb.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid; 
 }
 
 export default PostLikes;

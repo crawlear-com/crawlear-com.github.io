@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Game, GameUtils } from '../model/Game';
-import GameTypeController from './GameTypeController';
-import PlayerController from './PlayerController';
-import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
-import ZonesPicker from './ZonesPicker';
-import GroupsPicker from './GroupsPicker';
-import GateProgressionPicker from './GateProgressionPicker';
-import Spinner from './Spinner';
-import ErrorBox from './ErrorBox';
-import Utils from '../Utils';
+import { Game, GameUtils } from '../../model/Game';
+import GameTypeController from '../GameTypeController';
+import PlayerController from '../PlayerController';
+import MaxTimeAndPointsPicker from '../MaxTimeAndPointsPicker';
+import ZonesPicker from '../ZonesPicker';
+import GroupsPicker from '../GroupsPicker';
+import GateProgressionPicker from '../GateProgressionPicker';
+import Spinner from '../Spinner';
+import ErrorBox from '../ErrorBox';
+import Utils from '../../Utils';
+import { UserStatusContext } from '../context/UserStatusContext';
 
 import { useTranslation } from 'react-i18next';
-import Analytics from '../Analytics';
+import Analytics from '../../Analytics';
 
-import '../resources/css/GameConfigurator.scss';
+import '../../resources/css/GameConfigurator.scss';
 
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
@@ -35,6 +36,7 @@ function GameConfigurator() {
     const [groups, setGroups] = React.useState(1);
     const { t } = useTranslation();
     const extraConfigurationComponents = [];
+    const { isUserLoged } = React.useContext(UserStatusContext);
     const fb = window.crawlear.fb;
     let locationElement;
 
@@ -293,60 +295,64 @@ function GameConfigurator() {
                 onPlayerNumerChange={onJudgeNumerChange} />);
     }
 
-    return (<>
-        <ErrorBox message={errorMessage} />
-        <div className="newGameContainer rounded rounded1">
-            <div className="newGame">
-                <div className="headerText bold">{t('description.nuevaPartida')}</div>
-                <div className="newGameRow">
-                    <span className="">{t('description.nombre')}</span>: <input className="newGameNameInput" type="text" onChange={onNameChange}></input>
-                </div>
-                <div className="newGameRow">
-                    <span className="">{t('description.fecha')}</span>: {new Date().toLocaleDateString()}
-                </div>
-                <div className="newGameRow">
-                    <span className="">{t('description.esPublica')}</span>: <input type="checkbox" value="true" onChange={onIsPublicChange}></input>
-                </div>
-                <div className="newGameRow">
-                    <span className="">{t('description.localizacion')}</span>: 
-                    {locationElement}
+    if (isUserLoged) {
+        return (<>
+            <ErrorBox message={errorMessage} />
+            <div className="newGameContainer rounded rounded1">
+                <div className="newGame">
+                    <div className="headerText bold">{t('description.nuevaPartida')}</div>
+                    <div className="newGameRow">
+                        <span className="">{t('description.nombre')}</span>: <input className="newGameNameInput" type="text" onChange={onNameChange}></input>
+                    </div>
+                    <div className="newGameRow">
+                        <span className="">{t('description.fecha')}</span>: {new Date().toLocaleDateString()}
+                    </div>
+                    <div className="newGameRow">
+                        <span className="">{t('description.esPublica')}</span>: <input type="checkbox" value="true" onChange={onIsPublicChange}></input>
+                    </div>
+                    <div className="newGameRow">
+                        <span className="">{t('description.localizacion')}</span>: 
+                        {locationElement}
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <GameTypeController 
-            selectedGameType={game.gameType}
-            selectedPointsType={game.pointsType}
-            onGameTypeChange={(selectedIndex) => {
-                onGameTypeChange(selectedIndex);
-            }
-        } />
-
-        {extraConfigurationComponents}
-
-        <PlayerController gameName={game.name} 
-            isForJudge={false}
-            maxGroups={groups}
-            onPlayerNumerChange={(players)=>{
-                onPlayerNumerChange && onPlayerNumerChange(players);
-            }
-        }/>
-
-        <p>
-            <button className="importantNote" 
-                onClick={() => {
-                    createGame(t);
+    
+            <GameTypeController 
+                selectedGameType={game.gameType}
+                selectedPointsType={game.pointsType}
+                onGameTypeChange={(selectedIndex) => {
+                    onGameTypeChange(selectedIndex);
                 }
-            }>{t('description.crear')}</button>
-            <button
-                onClick={() => {
-                    navigate("/completegame");
+            } />
+    
+            {extraConfigurationComponents}
+    
+            <PlayerController gameName={game.name} 
+                isForJudge={false}
+                maxGroups={groups}
+                onPlayerNumerChange={(players)=>{
+                    onPlayerNumerChange && onPlayerNumerChange(players);
                 }
-            }>{t('description.atras')}</button>
+            }/>
+    
+            <p>
+                <button className="importantNote" 
+                    onClick={() => {
+                        createGame(t);
+                    }
+                }>{t('description.crear')}</button>
+                <button
+                    onClick={() => {
+                        navigate("/completegame");
+                    }
+                }>{t('description.atras')}</button>
+            </p>
+        </>);
+    } else {
+        return <>Not logged! go to <a href='https://crawlear.com'>crawlear.com</a></>
+    }
 
-        </p>
 
-    </>);
 }
 
 

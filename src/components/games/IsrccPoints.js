@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { GameContext } from './GameContext';
+import { GameContext } from '../context/GameContext';
 import { GameUtils } from '../../model/Game';
 
 function IsrccPoints({player, zone}) {

@@ -27,13 +27,8 @@ function GameManagement({onLogout}) {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        window.document.body.classList.add('completegame');
         Analytics.pageview('/completegame/');
-        firebase.isUserLogged() && refreshGames();    
-
-        return ()=>{
-            window.document.body.classList.remove('completegame');
-        }
+        firebase.isUserLogged() && refreshGames();
     },[]);
 
     React.useEffect(()=>{
@@ -142,10 +137,17 @@ function GameManagement({onLogout}) {
         navigate("/gameconfigurator");
     }
 
+    function socialProfileNavigation() {
+        navigate("/social");
+    }
+
     return <>
             {state === STATE_MENU ? 
                 <>
+                    <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
+                    <p onClick={socialProfileNavigation} className='profileHelper rounded rounded3 bold'>{t('content.ayudasocialprofile')}</p>
                     <UserProfile user={window.crawlear.user} onLogout={onLogout} />
+
                     <GameRequests user={window.crawlear.user} />
                     <GameList title={t('description.partidasprevias')} 
                         games={games}

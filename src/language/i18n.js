@@ -55,12 +55,15 @@ i18n
             userprofilenotlogged: 'You must be logged with a google account to see the user profile',
             urlEmbed: '(optional) url to an instagram, youtube or tiktok post',
             textEmbed: 'text message of the post',
-            gameEmbed: 'if the post is related, select the PUBLIC game asociated to the post and the users will see the results and location.',
-            nopost: 'There is no post in youy profile. Fill the profile with your lastest photos and videos from instagram and youtube',
+            gameEmbed: 'if the post is related with one of your public games, select it to asociate it to the post and the users will see the results and location (if available).',
+            nopost: 'There is no posts at youy profile. Fill the profile with your lastest photos and videos from instagram, tiktok and youtube',
+            nofeedpost: 'There is no posts at your pilot feed. Follow to your friends or favorite pilots to get their posts.',
             shareProfileText: 'Hey! Check this crawlear.com pilot profile ',
             sharePostText: 'Hey! Check this crawlear.com post ',
             comparteenredespiloto: 'Share this pilot profile in social networks:',
-            comparteenredespost: 'Share this post in social networks:'
+            comparteenredespost: 'Share this post in social networks:',
+            ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help',
+            ayudafeedsocial: 'Swipe left to get your following pilots social feed'
           },
           error: {
               nojugadores: 'Add the players',
@@ -73,7 +76,7 @@ i18n
               nodirectordepartida: 'Check at least one judge as Game director',
               noposttext: 'The post text is empty',
               noposturl: 'The post url is empty',
-              nosocialurl: 'The url must be a youtube or instagram post'
+              nosocialurl: 'The url must be a youtube, instagram or tiktok public post'
           },
           description: {
             juego: 'game',
@@ -178,13 +181,21 @@ i18n
             sinjuego: 'no game assigned',
             juegoasignado: 'Game assigned',
             murodepiloto: 'Pilot Wall',
+            murodefollows: 'Follows Wall',
+            secciondejuego: 'Game section',
             resolverjuego: 'get game result',
             herramientajuego: 'Game Tool',
             volverherramientajuego: 'go back to the game tool',
             tendenciapiloto: 'Profile trend: PiLOT',
             tendenciajuez: 'Profile trend: JUDGE',
             tendencianeutral: 'Profile trend: PiLOT and JUDGE',
-            perfilsocial: 'Social profile'
+            perfilsocial: 'Social profile',
+            follow: 'Follow',
+            unfollow: 'Unfollow',
+            logout: 'Logout',
+            refrescar: 'Reload',
+            seguidores: 'Followers',
+            siguiendo: 'Following',
           },
           points: {
             vuelco: 'overturn',
@@ -316,12 +327,15 @@ i18n
             userprofilenotlogged: 'Haz Sign In en crawlear.com con una cuenta de google para poder ver la información del perfil de usuario',
             urlEmbed: '(opcional) url a un post de insagram, youtube o tiktok',
             textEmbed: 'mensaje de la entrada',
-            gameEmbed: 'si está relacionado conm la entrada, selecciona juego PÚBLICO asociado a la entrada y los usuarios podrán ver el resultado y la localización',
-            nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram y youtube',
+            gameEmbed: 'si está relacionado con la entrada puedes seleccionar unos de tus juegos marcados como PÚBLICO y los usuarios podrán ver el resultado y la localización (si hubiese)',
+            nopost: 'No hay ninguna entrada en tu perfil. Rellénalo con tus últimas fotografías y videos de instagram. Tiktok, Facebook y Youtube',
+            nofeedpost: 'No hay ninguna entrada en tu muro de pilotos seguidos. Sigue a tus amigos o pilotos favoritos para ver aquí sus entradas.',
             shareProfileText: 'Hey! Echa un ojo a éste perfil de piloto en crawlear.com ',
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
-            comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:'
+            comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
+            ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.',
+            ayudafeedsocial: 'Arrastra a la izquierda para ver el muro social de los pilotos a los que sigues'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -334,7 +348,7 @@ i18n
               nodirectordepartida: 'Marca al menos un juez como director de partida',
               noposttext: 'El texto de la entrada está vacío',
               noposturl: 'La url de la entrada está vacía',
-              nosocialurl: 'La url debe apuntar a una entrada de youtube o instagram'
+              nosocialurl: 'La url debe apuntar a una entrada de youtube, tiktok o instagram'
           },
           description: {
               juego: 'juego',
@@ -439,13 +453,21 @@ i18n
               sinjuego: 'sin juego asignado',
               juegoasignado: 'Juego asignado',
               murodepiloto: 'Muro de Piloto',
+              murodefollows: 'Muro de Pilotos seguidos',
+              secciondejuego: 'Sección de juego',
               resolverjuego: 'ver resultado del juego',
               herramientajuego: 'Herramienta de juego',
               volverherramientajuego: 'volver a la herramienta de juego',
               tendenciapiloto: 'Tendencia del perfil: PiLOTO',
               tendenciajuez: 'Tendencia del perfil: JUEZ',
               tendencianeutral: 'Tendencia del perfil: JUEZ y PiLOTO',
-              perfilsocial: 'Perfil social'
+              perfilsocial: 'Perfil social',
+              follow: 'Seguir',
+              unfollow: 'Dejar de serguir',
+              logout: 'Salir',
+              refrescar: 'Recargar',
+              seguidores: 'Seguidores',
+              siguiendo: 'Siguiendo',
           },
           points: {
             vuelco: 'vuelco',

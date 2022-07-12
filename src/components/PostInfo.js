@@ -10,6 +10,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [game, setGame] = React.useState({});
+    const [userFromPost, setUserFromPost] = React.useState({});
     const navigate = useNavigate();
 
     function resolveGame(gid) {
@@ -27,10 +28,32 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
         navigate(`/post?pid=${post.pid}`);
     }
 
+    React.useEffect(()=>{
+        if(!readOnly) {
+            firebase.getUser(post.uid, (user)=>{
+                setUserFromPost(user);
+            },()=>{})
+        }
+    },[]);
+
     return <>
             {readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
-            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             
+            {userFromPost.uid ? <a href={`https://crawlear.com/profile?uid=${userFromPost.uid}`} className="userProfileContainer" alt="user profile name and link">
+                    <div className="userProfilePhotoContainer">
+                        <img referrerPolicy="no-referrer" className="photo" src={userFromPost.photoURL} alt="user avatar"></img>
+                    </div>
+
+                    <div className="userProfileInlineContainer">
+                        <div className="name">
+                            <input type="text" 
+                                className="bold textOverflow hidenInput" 
+                                readOnly={true}
+                                value={userFromPost.displayName} />
+                        </div>
+                    </div>
+            </a> : <></>}
+            <div className='postDate'>{post.date.toDate().toLocaleDateString()}</div>
             <div className='postText bold' onClick={goToPost}>{post.text}</div>
             {children}
 
@@ -39,7 +62,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
                 {game.gid ? <div className='postGame bold'>
                                 {game.gid ? <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
                                             {t('description.nombre')}:<span className='gameName'>{game.name} </span><WinnerTable game={game} /></> : <></>}
-                                {game.location && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMaps location={game.location} /></> : <></>}
+                                {game.location && game.location.longitude && game.location.longitude && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMaps location={game.location} /></> : <></>}
                             </div> : 
                                 postHasGameAssigned() ? 
                                     <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
