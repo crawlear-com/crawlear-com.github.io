@@ -36,6 +36,11 @@ function FeedViewer({uid}) {
         }, ()=>{});
     }
 
+    function refreshContent() {
+        setStatus(STATUS_LOADING);
+        getData();
+    }
+
     function removePostClick(event) {
         const id = event.target.getAttribute('data-id');
 
@@ -67,10 +72,7 @@ function FeedViewer({uid}) {
             <div className="posts">
                 <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
 
-                <div className="refreshButton" onClick={()=>{
-                        setStatus(STATUS_LOADING);
-                        getData();
-                    }}><img src={refreshIcon} alt="refresh icon"></img>
+                <div className="refreshButton" onClick={refreshContent}><img src={refreshIcon} alt="refresh icon"></img>
                 </div>
 
                 {embeds}

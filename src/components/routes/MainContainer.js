@@ -1,9 +1,10 @@
 import * as React from 'react';
-import ViewNavigator from '../ViewNavigator';
+import ViewNavigator from '../viewnavigator/ViewNavigator';
 import UserViewer from './UserViewer';
 import FeedViewer from '../FeedViewer';
 import Footer from '../Footer';
 import { UserStatusContext } from '../context/UserStatusContext';
+import { t } from 'i18next';
 
 const body = window.document.body;
 
@@ -31,7 +32,7 @@ function MainContainer({onLogin, onLogout}) {
     </ViewNavigator>;
 
     } else {
-        return <>Not logged! go to <a href='https://crawlear.com'>crawlear.com</a></>
+        return <>{t('content.userprofilenotlogged')} <a href='https://crawlear.com'>crawlear.com</a></>
     }
 
 }

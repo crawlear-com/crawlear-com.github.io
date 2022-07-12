@@ -1,21 +1,21 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Game, GameUtils } from '../model/Game';
-import GameTypeController from './GameTypeController';
-import PlayerController from './PlayerController';
-import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
-import ZonesPicker from './ZonesPicker';
-import GroupsPicker from './GroupsPicker';
-import GateProgressionPicker from './GateProgressionPicker';
-import Spinner from './Spinner';
-import ErrorBox from './ErrorBox';
-import Utils from '../Utils';
-import { UserStatusContext } from './context/UserStatusContext';
+import { Game, GameUtils } from '../../model/Game';
+import GameTypeController from '../GameTypeController';
+import PlayerController from '../PlayerController';
+import MaxTimeAndPointsPicker from '../MaxTimeAndPointsPicker';
+import ZonesPicker from '../ZonesPicker';
+import GroupsPicker from '../GroupsPicker';
+import GateProgressionPicker from '../GateProgressionPicker';
+import Spinner from '../Spinner';
+import ErrorBox from '../ErrorBox';
+import Utils from '../../Utils';
+import { UserStatusContext } from '../context/UserStatusContext';
 
 import { useTranslation } from 'react-i18next';
-import Analytics from '../Analytics';
+import Analytics from '../../Analytics';
 
-import '../resources/css/GameConfigurator.scss';
+import '../../resources/css/GameConfigurator.scss';
 
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;

@@ -1,26 +1,6 @@
-import * as React from 'react';
-
-import '../resources/css/ViewNavigator.scss';
-import Utils from '../Utils';
+import Utils from "../../Utils";
 
 const body = window.document.body;
-
-function ViewNavigator({col1, col2, children}) {
-    let viewNavigator;
-
-    React.useEffect(()=>{
-        viewNavigator = new ViewNavigatorColumner(col1.current, col2.current);
-
-        return ()=>{
-            viewNavigator.destroy();
-        }
-    },[]);
-
-    return <div className='viewNavigatorContainer'>
-        {children}
-    </div>
-    ;
-}
 
 class ViewNavigatorColumner {
     constructor(col1, col2) {
@@ -154,4 +134,4 @@ class ViewNavigatorColumner {
     }
 }
 
-export default ViewNavigator;
+export default ViewNavigatorColumner;

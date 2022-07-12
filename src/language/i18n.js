@@ -334,7 +334,7 @@ i18n
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
             comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
-            ayudasocialprofile: 'Estás buscando tu perfil de piloto o cómo editarlo? Abre el menú lateral y ve a Perfil Social o haz click en éste texto de ayuda',
+            ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.',
             ayudafeedsocial: 'Arrastra a la izquierda para ver el muro social de los pilotos a los que sigues'
           },
           error: {

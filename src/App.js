@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import GameController from './components/GameController';
 import TxtRoute from './components/routes/TxtRoute';
 import Menu from './components/Menu';
 import FirebaseController from './FirebaseController';
@@ -11,7 +10,7 @@ import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
 import Analytics from './Analytics';
 import { Game } from './model/Game';
-import GameConfigurator from './components/GameConfigurator';
+import GameConfigurator from './components/routes/GameConfigurator';
 import UserViewer from './components/routes/UserViewer';
 import PostViewer from './components/routes/PostViewer';
 import { UserStatusContext } from './components/context/UserStatusContext';
@@ -61,7 +60,6 @@ function App() {
         <div className="AppMainContainer">
         <Routes>
           <Route path="/" element={<Landing onLogin={()=>{onLogin(true)}} />} />
-          <Route path="/simplegame" element={<GameController game={getNewGame} />} />
           <Route path="/completegame" element={<GameManagement onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
           <Route path="/social" element={<MainContainer onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />

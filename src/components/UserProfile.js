@@ -8,7 +8,6 @@ import '../resources/css/UserProfile.scss';
 
 
 function UserProfile({user, onLogout}) {
-    const readOnly = !(window.crawlear && window.crawlear.user && window.crawlear.user.uid) || (window.crawlear && window.crawlear.user && window.crawlear.user.uid !== user.uid);
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const navigate = useNavigate();
@@ -30,7 +29,7 @@ function UserProfile({user, onLogout}) {
     function onUserNameChange(event) {
         const newUserName = event.target.value;
 
-        if(!readOnly && newUserName !== userName && newUserName.length>0) {
+        if(isTheUserLogged(user.uid) && newUserName !== userName && newUserName.length>0) {
             setUserName(newUserName);
         }
     }
