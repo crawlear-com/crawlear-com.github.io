@@ -5,6 +5,7 @@ import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
 import Post from '../Post';
+import Posts from '../Posts';
 import LoadingLogo from '../LoadingLogo';
 
 import logo from '../../resources/img/logo5.png';
@@ -45,10 +46,6 @@ function UserViewer({uid, onLogout, onLogin}) {
         } 
     }, [isVisible, uid]);
 
-    React.useEffect(()=>{
-        window.instgrm && window.instgrm.Embeds.process();
-    },[userPosts]);
-
     function getPostType(post) {
         return post.url ? (Utils.isInstagramUrl(post.url) ? 'instagram' : 'youtube') : 'text';
     }
@@ -61,11 +58,8 @@ function UserViewer({uid, onLogout, onLogin}) {
         Analytics.event('post','added', getPostType(post));
     }
 
-    function removePostClick(event) {
-        const id = event.target.getAttribute('data-id');
-
-        if(id && window.confirm(t('content.seguroborrarpost'))) {
-            firebase.removePost(id, ()=>{
+    function removePostClick(id) {
+        id && firebase.removePost(id, ()=>{
                 const newUserPosts = userPosts.filter((elem)=>{
                     return elem.pid !== id;
                 });
@@ -73,24 +67,14 @@ function UserViewer({uid, onLogout, onLogin}) {
                 setUserPosts(newUserPosts);
                 Analytics.event('post','removed');
             }, ()=>{});
-        }
     }
 
     function onScreen(visible) {
         visible && setIsVisible(visible);
     }
 
-    if (user.registrationDate && isVisible) {
-        const embeds = [];
+    if (user.registrationDate && userPosts && isVisible) {
         let userType;
-
-        if (userPosts.length) {
-            userPosts.forEach((post, index) => {
-                embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={isUidTheUserLogged} />);
-            });
-        } else {
-            embeds.push(<div key="nopost" className='rounded rounded3'>{t('content.nopost')}</div>);
-        }
 
         if ((userData.judgeGames - userData.pilotGames) > 0) {
             userType = USER_TYPE_JUDGE;
@@ -129,7 +113,7 @@ function UserViewer({uid, onLogout, onLogin}) {
             <div className="posts">
                 <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
                 {isUidTheUserLogged ? <UserPoster isOpened={!userPosts.length} onPostEntry={onPostEntry}/> : <></>}
-                {embeds}
+                <Posts posts={userPosts} readOnly={!isUidTheUserLogged} removePostClick={removePostClick} />
             </div>
         </div>;
     } else {

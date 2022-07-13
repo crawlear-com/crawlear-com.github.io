@@ -4,6 +4,7 @@ import logo from '../resources/img/logo5.png';
 import refreshIcon from '../resources/img/iconRefresh.png';
 import Analytics from '../Analytics';
 import Post from './Post';
+import Posts from './Posts';
 import { UserStatusContext } from './context/UserStatusContext';
 import LoadingLogo from './LoadingLogo';
 
@@ -25,10 +26,6 @@ function FeedViewer({uid}) {
         isVisible && Analytics.pageview(`/feedviewer/`);
     }, [isVisible, isUserLoged, uid]);
 
-    React.useEffect(()=>{
-        window.instgrm && window.instgrm.Embeds.process();
-    },[feedPosts]);
-
     function getData() {
         isVisible && isUserLoged && firebase.getPostsFromFollowFeed(uid, (data)=>{
             setFeedPosts([...data]);
@@ -41,19 +38,15 @@ function FeedViewer({uid}) {
         getData();
     }
 
-    function removePostClick(event) {
-        const id = event.target.getAttribute('data-id');
+    function removePostClick(id) {
+        id && firebase.removePost(id, ()=>{
+            const newUserPosts = feedPosts.filter((elem)=>{
+                return elem.pid !== id;
+            });
 
-        if(id && window.confirm(t('content.seguroborrarpost'))) {
-            firebase.removePost(id, ()=>{
-                const newUserPosts = feedPosts.filter((elem)=>{
-                    return elem.pid !== id;
-                });
-
-                setFeedPosts(newUserPosts);
-                Analytics.event('post','removed');
-            }, ()=>{});
-        }
+            setFeedPosts(newUserPosts);
+            Analytics.event('post','removed');
+        }, ()=>{});
     }
 
     function onScreen(visible) {
@@ -61,12 +54,6 @@ function FeedViewer({uid}) {
     }
 
     if (status===STATUS_LOADED && feedPosts.length && isVisible) {
-        const embeds = [];
-
-        feedPosts.forEach((post, index) => {
-            embeds.push(<Post key={index} post={post} onRemovePost={removePostClick} readOnly={uid === post.uid} />);
-        });
-
         return <div className="feedViewer">
             {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
             <div className="posts">
@@ -74,8 +61,7 @@ function FeedViewer({uid}) {
 
                 <div className="refreshButton" onClick={refreshContent}><img src={refreshIcon} alt="refresh icon"></img>
                 </div>
-
-                {embeds}
+                <Posts posts={feedPosts} readOnly={true} removePostClick={removePostClick} />
             </div>
         </div>;
     } else if(status===STATUS_LOADED && isVisible) {
