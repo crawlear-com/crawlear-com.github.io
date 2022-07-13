@@ -29,7 +29,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     }
 
     React.useEffect(()=>{
-        if(!readOnly) {
+        if(readOnly) {
             firebase.getUser(post.uid, (user)=>{
                 setUserFromPost(user);
             },()=>{})
@@ -37,7 +37,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     },[]);
 
     return <>
-            {readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
+            {!readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
             
             {userFromPost.uid ? <a href={`https://crawlear.com/profile?uid=${userFromPost.uid}`} className="userProfileContainer" alt="user profile name and link">
                     <div className="userProfilePhotoContainer">
