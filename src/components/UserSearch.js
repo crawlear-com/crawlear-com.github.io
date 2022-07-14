@@ -8,7 +8,8 @@ function UserSearch({onUserSeachPlayerAdd,
     onUserClick,
     mainText,
     secondaryText,
-    iconSend}) {
+    iconSend,
+    children}) {
     const firebase = window.crawlear.fb;
     const { t } = useTranslation();
     const [username, setUsername] = React.useState("");
@@ -21,6 +22,9 @@ function UserSearch({onUserSeachPlayerAdd,
         const uid = element.getAttribute("data-uid");
         const displayName = element.getAttribute("data-displayname");
         const photoURL = element.getAttribute("data-photourl");
+
+        setUsers([]);
+        setUsername("");
 
         onUserSeachPlayerAdd && onUserSeachPlayerAdd({
             uid: uid,
@@ -53,7 +57,7 @@ function UserSearch({onUserSeachPlayerAdd,
     const usersResult = [];
     let i=0;
     
-    if(users.length>0) {
+    if (users.length>0) {
         usersResult.push(<div key={i} className="userSearchResultsText smallText">{secondaryText}</div>);
         i++;
     }
@@ -80,6 +84,7 @@ function UserSearch({onUserSeachPlayerAdd,
             </div>
             <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
 
+            {children}
             <div ref={resultRef} className="resultsContainer">
                 {usersResult}
             </div>

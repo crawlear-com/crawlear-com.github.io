@@ -1,5 +1,12 @@
 
 .feedViewer {
+    .userSearchContainer {
+        margin: 0 auto 25px auto;
+        max-width: 470px;
+        .resultsContainer .userSearchItem .userSearchResult {
+            max-width: 97%;
+        }    
+    }
     .post {
         font-size: 0.8em;
         margin-bottom: 25px;
@@ -53,9 +60,5 @@
     
     .postUrlContent {
         margin-bottom: 15px;
-    }
-
-    .userSearchContainer {
-        margin-top: 50px;
     }
 }
