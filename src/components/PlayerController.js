@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PlayerItem from './PlayerItem';
-import UserSearch from './UserSearch';
+import UserSearch from './UserSearchForGame';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 

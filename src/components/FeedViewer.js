@@ -1,13 +1,15 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import logo from '../resources/img/logo5.png';
 import refreshIcon from '../resources/img/iconRefresh.png';
 import Analytics from '../Analytics';
-import Post from './Post';
 import Posts from './Posts';
 import { UserStatusContext } from './context/UserStatusContext';
 import LoadingLogo from './LoadingLogo';
+import UserSearch from './UserSearch';
 
+import icon1px from '../resources/img/1px.png';
 import '../resources/css/FeedViewer.scss';
 
 const STATUS_LOADING = 0;
@@ -20,6 +22,7 @@ function FeedViewer({uid}) {
     const [status, setStatus] = React.useState(STATUS_LOADING);
     const [isVisible, setIsVisible] = React.useState(false);
     const { isUserLoged } = React.useContext(UserStatusContext);
+    const navigate = useNavigate();
 
     React.useEffect(()=>{
         getData();
@@ -53,9 +56,18 @@ function FeedViewer({uid}) {
         visible && setIsVisible(visible);
     }
 
+    function onUserClick(uid) {
+        window.open(`https://crawlear.com/profile?uid=${uid}`,'_blank');
+    }
+
     if (status===STATUS_LOADED && feedPosts.length && isVisible) {
         return <div className="feedViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <>
+                <UserSearch onUserClick={onUserClick}
+                    mainText={t('content.usuarionosistema')} 
+                    secondaryText={t('content.clickenusuariooseguir')}
+                    iconSend={icon1px} />
+            </>}
             <div className="posts">
                 <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
 

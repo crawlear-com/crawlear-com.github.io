@@ -4,7 +4,6 @@ import UserProfile from '../UserProfile';
 import UserPoster from '../UserPoster';
 import Analytics from '../../Analytics';
 import Utils from '../../Utils';
-import Post from '../Post';
 import Posts from '../Posts';
 import LoadingLogo from '../LoadingLogo';
 

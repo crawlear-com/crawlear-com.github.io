@@ -59,8 +59,8 @@ class FirebaseController {
 
   async userSearch(name, okCallback, koCallback) {
     try {
-      const gamesRef = collection(this.db, "users");
-      const q = query(gamesRef, orderBy('displayName'), startAt(name), limit(10));
+      const usersRef = collection(this.db, "users");
+      const q = query(usersRef, orderBy('displayName'), startAt(name), limit(10));
       const querySnapshot = await getDocs(q);
       const result = [];
 
