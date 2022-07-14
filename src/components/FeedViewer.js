@@ -57,7 +57,7 @@ function FeedViewer({uid}) {
     }
 
     function onUserClick(uid) {
-        window.open(`https://crawlear.com/profile?uid=${uid}`,'_blank');
+        navigate(`/profile?uid=${uid}`);
     }
 
     if (status===STATUS_LOADED && feedPosts.length && isVisible) {

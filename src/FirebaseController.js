@@ -630,7 +630,9 @@ class FirebaseController {
 
       querySnapshotFollows.docs.forEach((followData)=>{
         const data = followData.data();
-        follows.push(data.toUid);
+        if (follows.length < 10) { 
+          follows.push(data.toUid);
+        }
       });
 
       if (follows.length > 0) {
