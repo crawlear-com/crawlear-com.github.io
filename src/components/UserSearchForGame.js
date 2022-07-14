@@ -1,34 +1,24 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import UserSearch from './UserSearch';
 
 import '../resources/css/UserSearch.scss';
 import iconSend from '../resources/img/iconSend.png';
-import iconAdd from '../resources/img/iconAdd.png';
 
 function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
     const firebase = window.crawlear.fb;
     const { t } = useTranslation();
-    const [username, setUsername] = React.useState("");
-    const [users, setUsers] = React.useState([]);
     const gameRequestsRef = React.useRef(0);
     const [gameRequests, setGameRequests] = React.useState(0);
-    const resultRef = React.useRef();
     const inputRef = React.useRef();
     
-    function addUserFromSeach(event) {
-        const element = event.target;
-        const uid = element.getAttribute("data-uid");
-        const displayName = element.getAttribute("data-displayname");
-        const photoURL = element.getAttribute("data-photourl");
-
+    function addUserFromSeach({uid, displayName, photoURL}) {
         if (!uid) return;
         if (uid !== window.crawlear.user.uid) {
             if (!window.confirm(t('content.peticionjuegoconfirmacion'))) {
                 return;
             }
         }
-        setUsername("");
-        setUsers([]);
         if (uid === window.crawlear.user.uid) {
             const user = window.crawlear.user;
 
@@ -64,45 +54,8 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
         }
     }
 
-    function userSearch(event) {
-        const textValue = event.target.value;
-
-        setUsername(textValue);
-        if(firebase.isUserLogged()) {
-            if (textValue.length > 0) {
-                firebase.userSearch(textValue, (users)=>{
-                    setUsers(users);
-                }, ()=>{});
-            } else {
-                setUsers([]);
-            }    
-        }
-    }
-
-    const usersResult = [];
     const gameRequestsList = [];
     let addButton, i=0;
-    
-    if(users.length>0) {
-        usersResult.push(<div key={i} className="userSearchResultsText smallText">{t('content.enviorequest')}. {t('content.enviorequest2')}</div>);
-        i++;
-    }
-
-    users.forEach((user)=>{
-        let actionIcon = iconSend;
-        if (user.uid === window.crawlear.user.uid) {
-            actionIcon = iconAdd;
-        }
-
-        usersResult.push(<div className="bold userSearchItem" key={i}>
-                <span className="userSearchResult textOverflow">{user.displayName}</span>
-                    <img src={actionIcon} alt="send icon" data-uid={user.uid} 
-                    data-displayname={user.displayName} 
-                    data-photourl={user.photoURL} 
-                    onClick={addUserFromSeach}></img>
-        </div>);
-        i++;
-    });
 
     if (gameRequestsRef.current > 0) {
         gameRequestsList.push(<div key={i}>{gameRequestsRef.current} {t('description.peticionespendientes')}</div>);
@@ -110,9 +63,6 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
 
     if (!isForJudge) {
         addButton = <button className="buttonControlTextPlus" onClick={()=>{
-            setUsers([]);
-            setUsername("");
-
             inputRef.current.value && onUserSeachPlayerAdd({
                 uid: "",
                 displayName: inputRef.current.value
@@ -120,18 +70,13 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
         }}>+</button>;
     }
 
-    return <div className="userSearchContainer rounded rounded3">
-            <div className="userSearchText smallText">{
-                firebase.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')
-            }</div>
-            <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
-            {addButton} 
-            {gameRequestsList}
-
-            <div ref={resultRef} className="resultsContainer">
-                {usersResult}
-            </div>
-        </div>;
+    return <UserSearch onUserSeachPlayerAdd={addUserFromSeach}
+                mainText={firebase.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')}
+                secondaryText={`${t('content.enviorequest')}. ${t('content.enviorequest2')}`}
+                iconSend={iconSend}>
+                    {addButton} 
+                    {gameRequestsList}
+            </UserSearch>
 }
 
 export default UserSearchForGame;
