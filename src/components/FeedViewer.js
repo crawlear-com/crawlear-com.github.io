@@ -80,6 +80,12 @@ function FeedViewer({uid}) {
     } else if(status===STATUS_LOADED && isVisible) {
         return <div className="posts">
                 <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
+                <UserSearch onUserClick={onUserClick}
+                    mainText={t('content.puedesbuscarusuarios')} 
+                    secondaryText={t('content.clickenusuariooseguir')}
+                    iconSend={icon1px} />
+                
+                <br />
                 <div className='rounded rounded3'>{t('content.nofeedpost')}</div>
             </div>;
     } else {
