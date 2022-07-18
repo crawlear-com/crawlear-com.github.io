@@ -626,19 +626,20 @@ class FirebaseController {
       const q = query(collection(this.db, "follows"), 
         where("fromUid", "==", uid));
       const querySnapshotFollows = await getDocs(q);
-      const follows = [];
+      const followsDocs = querySnapshotFollows.docs;
 
-      querySnapshotFollows.docs.forEach((followData)=>{
-        const data = followData.data();
-        if (follows.length < 10) { 
+      while (followsDocs.length > 0) {
+        const follows = [];
+        const splited = followsDocs.splice(0,10);
+
+        splited.forEach((followData)=>{
+          const data = followData.data();
           follows.push(data.toUid);
-        }
-      });
+        });
 
-      if (follows.length > 0) {
         const qp = query(collection(this.db, "socialPosts"), 
-          where("uid", "in", follows),
-          orderBy("date", "desc"), limit(10));
+              where("uid", "in", follows),
+              orderBy("date", "desc"), limit(10));
         const querySnapshotPosts = await getDocs(qp);
 
         querySnapshotPosts.docs.forEach((postData)=>{
