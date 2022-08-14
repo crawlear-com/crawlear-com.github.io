@@ -62,10 +62,13 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
     }
 
     if (!isForJudge) {
-        addButton = <button className="buttonControlTextPlus" onClick={()=>{
-            inputRef.current.value && onUserSeachPlayerAdd({
+        addButton = <button ref={inputRef} className="buttonControlTextPlus" onClick={()=>{
+            inputRef.current && 
+            inputRef.current.previousElementSibling && 
+            inputRef.current.previousElementSibling.value && 
+            onUserSeachPlayerAdd({
                 uid: "",
-                displayName: inputRef.current.value
+                displayName: inputRef.current.previousElementSibling.value
             });
         }}>+</button>;
     }
