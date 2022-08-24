@@ -10,7 +10,6 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
     const { t } = useTranslation();
     const gameRequestsRef = React.useRef(0);
     const [gameRequests, setGameRequests] = React.useState(0);
-    const inputRef = React.useRef();
     
     function addUserFromSeach({uid, displayName, photoURL}) {
         if (!uid) return;
@@ -55,29 +54,17 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
     }
 
     const gameRequestsList = [];
-    let addButton, i=0;
+    let i=0;
 
     if (gameRequestsRef.current > 0) {
         gameRequestsList.push(<div key={i}>{gameRequestsRef.current} {t('description.peticionespendientes')}</div>);
     }
 
-    if (!isForJudge) {
-        addButton = <button ref={inputRef} className="buttonControlTextPlus" onClick={()=>{
-            inputRef.current && 
-            inputRef.current.previousElementSibling && 
-            inputRef.current.previousElementSibling.value && 
-            onUserSeachPlayerAdd({
-                uid: "",
-                displayName: inputRef.current.previousElementSibling.value
-            });
-        }}>+</button>;
-    }
-
     return <UserSearch onUserSeachPlayerAdd={addUserFromSeach}
+                onPlusAddUserClick={!isForJudge ? onUserSeachPlayerAdd : undefined }
                 mainText={firebase.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')}
                 secondaryText={`${t('content.enviorequest')}. ${t('content.enviorequest2')}`}
                 iconSend={iconSend}>
-                    {addButton} 
                     {gameRequestsList}
             </UserSearch>
 }

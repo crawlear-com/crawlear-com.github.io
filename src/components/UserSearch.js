@@ -6,6 +6,7 @@ import iconAdd from '../resources/img/iconAdd.png';
 
 function UserSearch({onUserSeachPlayerAdd, 
     onUserClick,
+    onPlusAddUserClick,
     mainText,
     secondaryText,
     iconSend,
@@ -55,7 +56,7 @@ function UserSearch({onUserSeachPlayerAdd,
     }
 
     const usersResult = [];
-    let i=0;
+    let i=0, addButton;
     
     if (users.length>0) {
         usersResult.push(<div key={i} className="userSearchResultsText smallText">{secondaryText}</div>);
@@ -78,12 +79,27 @@ function UserSearch({onUserSeachPlayerAdd,
         i++;
     });
 
+    if (onPlusAddUserClick) {
+        addButton = <button className="buttonControlTextPlus" onClick={()=>{
+            const value = inputRef.current.value;
+
+            setUsers([]);
+            setUsername("");
+            onPlusAddUserClick({
+                uid: "",
+                displayName: value
+            });
+        }}>+</button>;
+    }
+
+
     return <div className="userSearchContainer rounded rounded3">
             <div className="userSearchText smallText">
                 {mainText}
             </div>
             <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
 
+            {addButton}
             {children}
             <div ref={resultRef} className="resultsContainer">
                 {usersResult}
