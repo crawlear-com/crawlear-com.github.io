@@ -4,7 +4,8 @@ import TxtRoute from './components/routes/TxtRoute';
 import Menu from './components/Menu';
 import FirebaseController from './FirebaseController';
 import GameManagement from './components/routes/GameManagement';
-import MainContainer from './components/routes/MainContainer';
+import FollowsWall from './components/routes/FollowsWall';
+import PilotWall from './components/routes/PilotWall';
 import AboutUs from './components/routes/AboutUs';
 import PrivacyPolicy from './components/routes/PrivacyPolicy';
 import Landing from './components/routes/Landing';
@@ -61,7 +62,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing onLogin={()=>{onLogin(true)}} />} />
           <Route path="/completegame" element={<GameManagement onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
-          <Route path="/social" element={<MainContainer onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
+          <Route path="/social" element={<PilotWall onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
+          <Route path="/follows" element={<FollowsWall />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
           <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
           <Route path="/post" element={<PostViewer onLogin={()=>{onLogin(false)}} pid={queryParams.get && queryParams.get('pid')} />} />

@@ -64,8 +64,7 @@ i18n
             sharePostText: 'Hey! Check this crawlear.com post ',
             comparteenredespiloto: 'Share this pilot profile in social networks:',
             comparteenredespost: 'Share this post in social networks:',
-            ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help',
-            ayudafeedsocial: 'Swipe left to get your following pilots social feed'
+            ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help'
           },
           error: {
               nojugadores: 'Add the players',
@@ -198,7 +197,7 @@ i18n
             logout: 'Logout',
             refrescar: 'Reload',
             seguidores: 'Followers',
-            siguiendo: 'Following',
+            siguiendo: 'Following'
           },
           points: {
             vuelco: 'overturn',
@@ -339,8 +338,7 @@ i18n
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
             comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
-            ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.',
-            ayudafeedsocial: 'Arrastra a la izquierda para ver el muro social de los pilotos a los que sigues'
+            ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
