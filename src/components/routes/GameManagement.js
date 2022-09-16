@@ -146,7 +146,6 @@ function GameManagement({onLogout}) {
                 <>
                     <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
                     <p onClick={socialProfileNavigation} className='profileHelper rounded bold'>{t('content.ayudasocialprofile')}</p>
-                    <UserProfile user={window.crawlear.user} onLogout={onLogout} />
 
                     <GameRequests user={window.crawlear.user} />
                     <GameList title={t('description.partidasprevias')} 

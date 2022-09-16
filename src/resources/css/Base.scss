@@ -20,12 +20,6 @@ body {
   background-size: cover;
 }
 
-body.completegame, 
-body.profile,
-body.feed { 
-  overflow: hidden;
-}
-
 body.completegame {
   background-image: url(../img/fondo3.jpeg);
 }
