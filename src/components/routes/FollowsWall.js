@@ -11,7 +11,7 @@ function FollowsWall() {
     const { isUserLoged } = React.useContext(UserStatusContext);
 
     React.useEffect(()=>{
-        body.classList.add('profile');
+        body.classList.add('feed');
     },[]);
 
     if (isUserLoged){
