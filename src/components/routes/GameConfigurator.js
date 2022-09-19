@@ -198,8 +198,6 @@ function GameConfigurator() {
             newGame.owner.splice(indexOf, 1);
             setGame(newGame);
         }
-
-        console.log(newGame.owner);
     }
 
     function createGame() {
