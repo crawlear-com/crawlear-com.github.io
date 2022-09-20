@@ -89,7 +89,7 @@ function GameResultTable({game, isDraw}) {
             players.push(
                 <tr key={`row0${i+j+1}`}>
                     <td>{icon}</td>
-                    <td onClick={onClickZone}>{`${t('description.zona')} ${i+1}`}
+                    <td onClick={onClickZone}>{`${t('description.zona')} ${i % player.zones.length +1}`}
                         <img className="iconArrowDown" src={openIcon} alt="click open" /></td>
                     <td className="gameListPoints">{zone.totalPoints}</td>
                     <td className="gameListPoints">{zone.gateProgression}</td>
