@@ -65,7 +65,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
     } else if (game.gameType === GAME_TYPE_KING) {
         gameExtras = kingExtras;
     }
-    method && method(t, player.id, zone, game.players[player.id].zones[zone].points);
+    method && (childrenContent = method(t, player.id, zone, game.players[player.id].zones[zone].points));
 
     function updateGameFromProgression(progression) {
         const newGame = {...game};
@@ -159,13 +159,15 @@ function GamePlayer({inGame, onBackButtonClick}) {
     function onClosePlayButtonClick() {
         if (window.confirm(t('content.cerrarpartida')) && isGroupGameFinished()) {
             fb.getGameResult(game, (game)=>{
-                game.gameStatus = 2;
-                gameExtras.onGameEnd(game);
-                game = Utils.getOrderedGameResult(game);
-                fb.updateGame(game);
-                fb.removeGameProgression(game.gid);
+                let newGame = {...game};
+
+                newGame.gameStatus = 2;
+                gameExtras.onGameEnd(newGame);
+                newGame = Utils.getOrderedGameResult(newGame);
+                fb.updateGame(newGame);
+                fb.removeGameProgression(newGame.gid);
                 setState(GAME_STATUS_FINISHED);
-                setGame(game);
+                setGame(newGame);
             }, ()=>{});
         }
     }
@@ -188,6 +190,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
             setState(GAME_STATUS_CREATED); 
             setGame(newGame);
         } else {
+            gameExtras.onGameEnd(game);
             const newGame =  Utils.getOrderedGameResult(game);
             newGame.gameStatus = 2;
             fb.updateGame(newGame);

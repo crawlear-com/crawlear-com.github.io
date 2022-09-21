@@ -119,9 +119,6 @@ const gameExtras = {
                 }
             });
         });
-
-        
-
     },
     onEndPlayer: (game, tickTime, player, zone) => {
         const playerZone = game.players[player].zones[zone];

@@ -8,6 +8,7 @@ export const GAME_TYPE_AECAR = 0;
 export const GAME_TYPE_KING = 1;
 export const GAME_TYPE_ISRCC = 2;
 export const GAME_TYPE_LEVANTE = 3;
+export const GAME_TYPE_COPAESPANA = 4;
 
 class Game {
     constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
