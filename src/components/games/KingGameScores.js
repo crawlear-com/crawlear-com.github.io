@@ -18,8 +18,8 @@ const KingGameScores = {
     fiascoSteps: [1, 1],
     fiascoMaxValues: [1, 1],
     courtesyTime: 0,
-    maxPoints: 100,
-    maxTime: 0
+    maxPoints: 50,
+    maxTime: 600000
 };
 
 function getGameContent(t, player, zone, points) {
@@ -68,7 +68,7 @@ const gameExtras = {
     onChangeScore: (playerZone)=>{
         getGatesPointExtras(playerZone);
     },
-    onGameEnd: ()=> {
+    onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
             player.zones.forEach((zone, zoneIndex)=>{
                 if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {

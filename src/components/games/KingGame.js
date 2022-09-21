@@ -2,10 +2,9 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
-import Utils from '../../Utils';
+import TimerControl from '../TimerControl';
 import { KingGameScores } from './KingGameScores';
 import { GameUtils } from '../../model/Game';
-
 import '../../resources/css/games/KingGame.scss';
 
 function KingGame({game, onGameEnd}) {
@@ -32,6 +31,7 @@ function KingGame({game, onGameEnd}) {
         playerCurrentGate.controlTextValues = [...playerCurrentGate.controlTextValues];
         playerCurrentGate.controlTextValues[control] += value;
         zone.totalPoints += value;
+        zone.points += value;
         newState.order = getPlayersOrder(newState.order.findIndex(item => item.id===players[player].id), newState.order);
         setState(newState);
     }
@@ -42,10 +42,21 @@ function KingGame({game, onGameEnd}) {
 
     let result = [];
 
+    result.push(<TimerControl                 
+        courtesyTime={0}
+        startTime={0}
+        label={t('description.tiempo')}
+        maxTime={state.game.maxTime} />);
+
     result.push(<div key={0}>{t('description.ordenruta')}:</div>);
     for(let i=0;i<state.game.players.length;i++) {
+        let classFiasco= '';
+
+        if (GameUtils.isPointsFiasco(game, state.order[i].zones[0])) {
+            classFiasco = 'blink foreColorRed'
+        }
         result.push(<div key={i+1}>
-                <div className="controlTextContainerQueue rounded bold">
+                <div className={`controlTextContainerQueue rounded bold ${classFiasco}`}>
                     {state.order[i].name}: {state.order[i].zones[0].totalPoints} ptos
                 </div>
             </div>);

@@ -304,7 +304,10 @@ function GamePlayer({inGame, onBackButtonClick}) {
         }
     } else {
         if (state === GAME_STATUS_CREATED || view === GAME_STATUS_PLAYING) { 
-            view = <GameTypePlayer game={game} onGameEnd={onGameEnd} />;
+            view = <GameTypePlayer 
+                game={game} 
+                onGameEnd={onGameEnd}
+                gameExtras={gameExtras} />;
         } else {
             view = <div class="gameList"><WinnerTable game={game} />
             <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
