@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import Analytics from '../Analytics';
+import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from './games/AecarGameScores';
+import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from './games/IsrccGameScores';
+import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from './games/Levante124GameScores';
+import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from './games/RegionalZonaRcGameScores';
+import { gameExtras as kingExtras } from './games/KingGameScores';
 import Utils from '../Utils';
 import { GameUtils } from '../model/Game';
 import ErrorBox from '../components/ErrorBox';
@@ -25,6 +29,12 @@ const STATUS_PLAYING = 'playing';
 const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
 
+const GAME_TYPE_AECAR = 0;
+const GAME_TYPE_KING = 1;
+const GAME_TYPE_ISRCC = 2;
+const GAME_TYPE_LEVANTE = 3;
+const GAME_TYPE_COPAESPANA = 4;
+
 const GAME_KING = 1;
 
 function GamePlayer({inGame, onBackButtonClick}) {
@@ -40,9 +50,35 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
     const { t } = useTranslation();
-    let view = <></>;
-    let judgeProgression = <></>;
+    let view = <></>,
+        judgeProgression = <></>,
+        childrenContent = <></>,
+        gameExtras;
 
+    
+    if (game.gameType === GAME_TYPE_AECAR) {
+        if (player!=-1 && zone != -1) {
+            childrenContent = getAecarGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
+        }
+        gameExtras = aecarExtras;
+    } else if (game.gameType === GAME_TYPE_ISRCC) {
+        if (player!=-1 && zone != -1) {
+            childrenContent = getIsrccGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
+        }
+        gameExtras = isrccExtras;
+    } else if (game.gameType === GAME_TYPE_LEVANTE) {
+        if (player!=-1 && zone != -1) {
+            childrenContent = getLevanteGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
+        }
+        gameExtras = levante124Extras;
+    } else if (game.gameType === GAME_TYPE_COPAESPANA) {
+        if (player!=-1 && zone != -1) {
+            childrenContent = getRegionalZonaRcGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
+        }
+        gameExtras = regionalZonaRcExtras;
+    } else if (game.gameType === GAME_TYPE_KING) {
+        gameExtras = kingExtras;
+    }
 
     function updateGameFromProgression(progression) {
         const newGame = {...game};
@@ -137,6 +173,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
         if (window.confirm(t('content.cerrarpartida')) && isGroupGameFinished()) {
             fb.getGameResult(game, (game)=>{
                 game.gameStatus = 2;
+                gameExtras.onGameEnd(game);
                 game = Utils.getOrderedGameResult(game);
                 fb.updateGame(game);
                 fb.removeGameProgression(game.gid);
@@ -263,10 +300,12 @@ function GamePlayer({inGame, onBackButtonClick}) {
             view = <GameTypePlayer 
                 player={player.id} 
                 zone={zone} 
-                game={game} 
+                game={game}
+                gameExtras={gameExtras}
                 onGameEnd={onGameEnd}
-                onRepair={onRepair}
-                />;
+                onRepair={onRepair}>
+                    {childrenContent}
+                </GameTypePlayer>;
         } else if (state === GAME_STATUS_FINISHED) { 
             view = <div className="gameList"><WinnerTable game={game} />
             <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>

@@ -17,7 +17,10 @@ const Levante124GameScores = {
     fiascoTexts: ['points.bateria',
     'points.reparacion'],
     fiascoSteps: [1,1],
-    fiascoMaxValues: [1,1]
+    fiascoMaxValues: [1,1],
+    courtesyTime: 0,
+    maxPoints: 100,
+    maxTime: 0
 };
 
 function getGameContent(t, player, zone, points) {
@@ -70,13 +73,21 @@ const gameExtras = {
         getGatesPointExtras(playerZone);
     },
     onEndPlayer: (game, tickTime, player, zone) => {
-        const playerZone = game.players[player].zones[zone];
+        game.players[player].zones[zone].time = tickTime;
+    },
+    onGameEnd: (game)=> {
+        game.players.forEach((player, playerIndex)=>{
+            player.zones.forEach((zone, zoneIndex)=>{
+                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                    const playerZone = game.players[playerIndex].zones[zoneIndex];
 
-        if (GameUtils.isFiasco(game, tickTime, player, zone)) {
-            playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : tickTime);
-        } else {
-            playerZone.time = tickTime;
-        }
+                    playerZone.time = (game.maxTime > 0 ? game.maxTime : playerZone.time);
+                    playerZone.points = (game.maxPoints > 0 ? game.maxPoints : playerZone.maxPoints);
+                    getGatesPointExtras(playerZone);
+                }
+            });
+
+        });
     },
     onGateProgressionChange: (playerZone)=>{
         getGatesPointExtras(playerZone);

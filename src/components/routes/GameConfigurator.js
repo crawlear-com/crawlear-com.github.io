@@ -11,6 +11,11 @@ import Spinner from '../Spinner';
 import ErrorBox from '../ErrorBox';
 import Utils from '../../Utils';
 import { UserStatusContext } from '../context/UserStatusContext';
+import { AecarGameScores } from '../games/AecarGameScores';
+import { IsrccGameScores } from '../games/IsrccGameScores';
+import { Levante124GameScores } from '../games/Levante124GameScores';
+import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
+import { KingGameScores } from '../games/KingGameScores';
 
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../Analytics';
@@ -20,7 +25,12 @@ import '../../resources/css/GameConfigurator.scss';
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
 const STATE_LOCATION_LOCATING=2;
-const KING_GAME = 1;
+
+const GAME_TYPE_AECAR = 0;
+const GAME_TYPE_KING = 1;
+const GAME_TYPE_ISRCC = 2;
+const GAME_TYPE_LEVANTE = 3;
+const GAME_TYPE_COPAESPANA = 4;
 
 function GameConfigurator() {
     const [game, setGame] = React.useState(()=>{
@@ -46,17 +56,39 @@ function GameConfigurator() {
 
     function onGameTypeChange(selectedIndex) {
         const newGame = {...game};
+        let maxTime = 0, maxPoints = 0;
 
         Analytics.event('menu', 'playModeChange', selectedIndex);
         newGame.gameType = selectedIndex;
 
-        if (newGame.gameType === 3) {
-            newGame.maxPoints = 100;
-            newGame.maxTime = 0;
-        } else {
-            newGame.maxPoints = 40;
-            newGame.maxTime = 600000;
+        switch (newGame.gameType) {
+            case GAME_TYPE_AECAR:
+                maxPoints = AecarGameScores.maxPoints;
+                maxTime = AecarGameScores.maxTime;
+                break;
+            case GAME_TYPE_KING:
+                maxPoints = KingGameScores.maxPoints;
+                maxTime = KingGameScores.maxTime;
+                break;
+            case GAME_TYPE_ISRCC:
+                maxPoints = IsrccGameScores.maxPoints;
+                maxTime = IsrccGameScores.maxTime;
+                break;
+            case GAME_TYPE_LEVANTE:
+                maxPoints = Levante124GameScores.maxPoints;
+                maxTime = Levante124GameScores.maxTime;
+                break;    
+            case GAME_TYPE_COPAESPANA:
+                maxPoints = RegionalZonaRcGameScores.maxPoints;
+                maxTime = RegionalZonaRcGameScores.maxTime;
+                break;
+            default: 
+                maxPoints = 0;
+                maxTime = 0;
         }
+
+        newGame.maxPoints = maxPoints;
+        newGame.maxTime = maxTime;
 
         setGame(newGame);
     }
@@ -91,7 +123,7 @@ function GameConfigurator() {
         Analytics.event('menu', 'maxPointsSet', points);
         const newGame = {...game};
 
-        newGame.points = points;
+        newGame.maxPoints = points;
         setGame(newGame);
     }
 
@@ -100,11 +132,6 @@ function GameConfigurator() {
 
         newGame.maxTime = time;
         Analytics.event('menu', 'maxTimeSet', time);
-        if (time === 0) {
-            newGame.courtesyTime = 0;
-        } else {
-            newGame.courtesyTime = 60000;
-        }
         setGame(newGame);
     }
 
@@ -206,11 +233,11 @@ function GameConfigurator() {
 
         if (!game.name || !game.name.length) {
             setErrorMessage(t('error.nonombre'));
-        } else if ((game.gameType !== KING_GAME && allGroupsFilled && game.name && game.players.length && game.judges.length && game.owner.length) || 
-            (game.gameType === KING_GAME && game.name && game.players.length)) {
+        } else if ((game.gameType !== GAME_TYPE_KING && allGroupsFilled && game.name && game.players.length && game.judges.length && game.owner.length) || 
+            (game.gameType === GAME_TYPE_KING && game.name && game.players.length)) {
                 const newGame = {...game};
     
-                if (game.gameType === KING_GAME) {
+                if (game.gameType === GAME_TYPE_KING) {
                     newGame.judges.push({...window.crawlear.user});
                     newGame.zones = 1;
                     newGame.gates = new Array(1).fill(1);
@@ -237,7 +264,7 @@ function GameConfigurator() {
         } else if (!game.owner.length) {
             setErrorMessage(t('error.nodirectordepartida'));
         } else {
-            if (!game.judges.length && game.gameType !== KING_GAME) {
+            if (!game.judges.length && game.gameType !== GAME_TYPE_KING) {
                 setErrorMessage(t('error.nojueces'));
             } else if (!game.players.length) {
                 setErrorMessage(t('error.nojugadores'));
@@ -260,7 +287,7 @@ function GameConfigurator() {
         locationElement = <div className="">{t('content.nogeolocation')}</div>;
     }
 
-    if (game.gameType !== KING_GAME) {
+    if (game.gameType !== GAME_TYPE_KING) {
         extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
             mode={game.pointsType} 
             onMaxPointsChange={onMaxPointsChange}
