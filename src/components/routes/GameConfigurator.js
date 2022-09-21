@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Game, GameUtils } from '../../model/Game';
+import { GAME_TYPE_AECAR, GAME_TYPE_ISRCC, GAME_TYPE_KING, GAME_TYPE_LEVANTE, GAME_TYPE_COPAESPANA,
+     Game, GameUtils } from '../../model/Game';
 import GameTypeController from '../GameTypeController';
 import PlayerController from '../PlayerController';
 import MaxTimeAndPointsPicker from '../MaxTimeAndPointsPicker';
@@ -25,12 +26,6 @@ import '../../resources/css/GameConfigurator.scss';
 const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
 const STATE_LOCATION_LOCATING=2;
-
-const GAME_TYPE_AECAR = 0;
-const GAME_TYPE_KING = 1;
-const GAME_TYPE_ISRCC = 2;
-const GAME_TYPE_LEVANTE = 3;
-const GAME_TYPE_COPAESPANA = 4;
 
 function GameConfigurator() {
     const [game, setGame] = React.useState(()=>{

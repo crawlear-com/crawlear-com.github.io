@@ -15,6 +15,7 @@ import GameProgressionDirector from './GameProgressionDirector';
 import PresenceButton from './PresenceButton';
 import TrainingController from './games/TrainingController';
 import { GameProgressionContext } from './context/GameProgressionContext';
+import { GAME_TYPE_AECAR, GAME_TYPE_ISRCC, GAME_TYPE_KING, GAME_TYPE_LEVANTE, GAME_TYPE_COPAESPANA } from '../model/Game';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';
@@ -28,14 +29,6 @@ const STATUS_WAITING = 'waiting';
 const STATUS_PLAYING = 'playing';
 const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
-
-const GAME_TYPE_AECAR = 0;
-const GAME_TYPE_KING = 1;
-const GAME_TYPE_ISRCC = 2;
-const GAME_TYPE_LEVANTE = 3;
-const GAME_TYPE_COPAESPANA = 4;
-
-const GAME_KING = 1;
 
 function GamePlayer({inGame, onBackButtonClick}) {
     const fb = window.crawlear.fb;
@@ -53,32 +46,26 @@ function GamePlayer({inGame, onBackButtonClick}) {
     let view = <></>,
         judgeProgression = <></>,
         childrenContent = <></>,
-        gameExtras;
+        gameExtras,
+        method;
 
     
     if (game.gameType === GAME_TYPE_AECAR) {
-        if (player!=-1 && zone != -1) {
-            childrenContent = getAecarGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
-        }
+        player!=-1 && zone != -1 && (method = getAecarGameContent);
         gameExtras = aecarExtras;
     } else if (game.gameType === GAME_TYPE_ISRCC) {
-        if (player!=-1 && zone != -1) {
-            childrenContent = getIsrccGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
-        }
+        player!=-1 && zone != -1 && (method = getIsrccGameContent);
         gameExtras = isrccExtras;
     } else if (game.gameType === GAME_TYPE_LEVANTE) {
-        if (player!=-1 && zone != -1) {
-            childrenContent = getLevanteGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
-        }
+        player!=-1 && zone != -1 && (method = getLevanteGameContent);
         gameExtras = levante124Extras;
     } else if (game.gameType === GAME_TYPE_COPAESPANA) {
-        if (player!=-1 && zone != -1) {
-            childrenContent = getRegionalZonaRcGameContent(t, player.id, zone, game.players[player.id].zones[zone].points);
-        }
+        player!=-1 && zone != -1 && (method = getRegionalZonaRcGameContent);
         gameExtras = regionalZonaRcExtras;
     } else if (game.gameType === GAME_TYPE_KING) {
         gameExtras = kingExtras;
     }
+    method && method(t, player.id, zone, game.players[player.id].zones[zone].points);
 
     function updateGameFromProgression(progression) {
         const newGame = {...game};
@@ -241,7 +228,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
         setState(GAME_STATUS_CREATED);
     }
 
-    if (game.gameType !== GAME_KING) {
+    if (game.gameType !== GAME_TYPE_KING) {
         if (state === GAME_STATUS_CREATED) {
             const directorProgression = [];
             const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);

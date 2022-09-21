@@ -4,10 +4,10 @@ import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from
 import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
 import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
 
-const GAME_TYPE_AECAR = 0;
-const GAME_TYPE_KING = 1;
-const GAME_TYPE_ISRCC = 2;
-const GAME_TYPE_LEVANTE = 3;
+export const GAME_TYPE_AECAR = 0;
+export const GAME_TYPE_KING = 1;
+export const GAME_TYPE_ISRCC = 2;
+export const GAME_TYPE_LEVANTE = 3;
 
 class Game {
     constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
