@@ -35,7 +35,7 @@ function MaxTimeAndPointsPicker({
         <div className="pickerContainer rounded rounded2">
             <Picker value={maxPoints} 
                 minValue={0}
-                maxValue={40}
+                maxValue={maxPoints}
                 initialValue={0}
                 callback={(result) => {
                     onMaxPointsChange(result)

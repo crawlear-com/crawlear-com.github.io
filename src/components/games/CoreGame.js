@@ -96,7 +96,7 @@ function CoreGame({
                 gameExtras.onChangeScore(playerZone);
                 setState(newState);
 
-                if (GameUtils.isFiasco(newState.game, state.tickTime, playerIndex, zoneIndex)) {
+                if (GameUtils.isFiasco(newState.game, playerIndex, zoneIndex)) {
                     setState({
                         ...state,
                         forceAction: 'pause'
@@ -188,7 +188,7 @@ function CoreGame({
 
         setState({
             ...newState,
-            tickTime: game.maxTime + 60000,
+            tickTime: game.maxTime,
             forceAction: 'pause'
         });
     }
@@ -211,7 +211,7 @@ function CoreGame({
         player = currentGame.players[playerIndex],
         playerZone = player.zones[zoneIndex];
 
-    if (GameUtils.isFiasco(state.game, state.tickTime, playerIndex, zoneIndex)) {
+    if (GameUtils.isFiasco(state.game, playerIndex, zoneIndex)) {
         Analytics.event('play', 'fiasco', player.name);
         fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
     }

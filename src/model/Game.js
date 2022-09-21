@@ -1,13 +1,14 @@
-import { gameExtras as AecarGameExtras } from '../components/games/AecarGameScores';
-import { gameExtras as IsrccGameExtras } from '../components/games/IsrccGameScores';
-import { gameExtras as RegionalZonaRcGameScores } from '../components/games/RegionalZonaRcGameScores';
-import { gameExtras as Levante124GameExtras } from '../components/games/Levante124GameScores';
-import { gameExtras as KingGameExtras } from '../components/games/KingGameScores';
+import { gameExtras as AecarGameExtras, AecarGameScores } from '../components/games/AecarGameScores';
+import { gameExtras as IsrccGameExtras, IsrccGameScores } from '../components/games/IsrccGameScores';
+import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from '../components/games/RegionalZonaRcGameScores';
+import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
+import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
 
-const GAME_TYPE_AECAR = 0;
-const GAME_TYPE_KING = 1;
-const GAME_TYPE_ISRCC = 2;
-const GAME_TYPE_LEVANTE = 3;
+export const GAME_TYPE_AECAR = 0;
+export const GAME_TYPE_KING = 1;
+export const GAME_TYPE_ISRCC = 2;
+export const GAME_TYPE_LEVANTE = 3;
+export const GAME_TYPE_COPAESPANA = 4;
 
 class Game {
     constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
@@ -30,7 +31,28 @@ class Game {
         if (maxTime === 0) {
             this.courtesyTime = 0;
         } else {
-            this.courtesyTime = 60000;
+            let courtesyTime;
+    
+            switch (gameType) {
+                case 0:
+                    courtesyTime = AecarGameScores.courtesyTime;
+                    break;
+                case 1:
+                    courtesyTime = KingGameScores.courtesyTime;
+                    break;
+                case 2:
+                    courtesyTime = IsrccGameScores.courtesyTime;
+                    break;
+                case 3:
+                    courtesyTime = Levante124GameScores.courtesyTime;
+                    break;    
+                case 4:
+                    courtesyTime = RegionalZonaRcGameScores.courtesyTime;
+                    break;
+                default: 
+                    courtesyTime = 0;
+            }
+            this.courtesyTime = courtesyTime;
         }
     }
 }
@@ -138,7 +160,7 @@ class GameUtils {
                 initFunct = Levante124GameExtras.fiascoControlTextValuesInit;
                 break;
             case 4:
-                initFunct = RegionalZonaRcGameScores.fiascoControlTextValuesInit;
+                initFunct = RegionalZonaRcGameExtras.fiascoControlTextValuesInit;
                 break;
             default: 
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
@@ -166,12 +188,12 @@ class GameUtils {
         return controlTextValues;
     }
 
-    static isFiasco(game, tickTime, playerIndex, zoneIndex) {
+    static isFiasco(game, playerIndex, zoneIndex) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
     
         return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
             (this.isPointsFiasco(game, playerZone)) ||
-            (this.isTimeFiasco(game, tickTime)));
+            (this.isTimeFiasco(game, playerZone)));
     }
 
     static isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
@@ -199,8 +221,8 @@ class GameUtils {
         return (game.maxPoints <= playerZone.points && game.maxPoints > 0);
     }
 
-    static isTimeFiasco(game, tickTime) {
-        return ((game.maxTime + game.courtesyTime) <= tickTime && game.maxTime > 0);
+    static isTimeFiasco(game, playerZone) {
+        return ((game.maxTime + game.courtesyTime) <= playerZone.time && game.maxTime > 0);
     }
 
     static isNonPresentedFiasco(game, playerIndex, zoneIndex) {

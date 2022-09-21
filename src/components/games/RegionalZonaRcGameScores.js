@@ -46,7 +46,10 @@ const RegionalZonaRcGameScores = {
         'points.bateria',
         'points.reparacion'],
     fiascoSteps: [1,1,1],
-    fiascoMaxValues: [1,1,1]
+    fiascoMaxValues: [1,1,1],
+    courtesyTime: 60000,
+    maxPoints: 40,
+    maxTime: 0
 };
 
 function getGameContent(t, player, zone, points) {
@@ -101,13 +104,27 @@ const gameExtras = {
     onChangeScore: (playerZone)=>{
         getGatesPointExtras(playerZone);
     },
+    onGameEnd: (game)=> {
+        game.players.forEach((player, playerIndex)=>{
+            player.zones.forEach((zone, zoneIndex)=>{
+                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                    const playerZone = game.players[playerIndex].zones[zoneIndex];
+
+                    playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : playerZone.time);
+                    if (GameUtils.isTimeFiasco(game, playerZone) || GameUtils.isFiascoFromFiascoControlTextValues(game, player, zone)) {
+                        playerZone.totalPoints += 25;
+                    }
+                    
+                    getGatesPointExtras(playerZone);
+                }
+            });
+        });
+    },
     onEndPlayer: (game, tickTime, player, zone) => {
         const playerZone = game.players[player].zones[zone];
 
-        if (GameUtils.isTimeFiasco(game, tickTime) || GameUtils.isFiascoFromFiascoControlTextValues(game, player, zone)) {
-            playerZone.totalPoints += 25;
-        }
         playerZone.time = tickTime;
+        
     },
     onGateProgressionChange: (playerZone)=>{
         getGatesPointExtras(playerZone);

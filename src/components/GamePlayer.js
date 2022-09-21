@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import Analytics from '../Analytics';
+import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from './games/AecarGameScores';
+import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from './games/IsrccGameScores';
+import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from './games/Levante124GameScores';
+import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from './games/RegionalZonaRcGameScores';
+import { gameExtras as kingExtras } from './games/KingGameScores';
 import Utils from '../Utils';
 import { GameUtils } from '../model/Game';
 import ErrorBox from '../components/ErrorBox';
@@ -11,6 +15,7 @@ import GameProgressionDirector from './GameProgressionDirector';
 import PresenceButton from './PresenceButton';
 import TrainingController from './games/TrainingController';
 import { GameProgressionContext } from './context/GameProgressionContext';
+import { GAME_TYPE_AECAR, GAME_TYPE_ISRCC, GAME_TYPE_KING, GAME_TYPE_LEVANTE, GAME_TYPE_COPAESPANA } from '../model/Game';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';
@@ -25,8 +30,6 @@ const STATUS_PLAYING = 'playing';
 const STATUS_REPAIR = 'repair';
 const STATUS_DONE = 'done';
 
-const GAME_KING = 1;
-
 function GamePlayer({inGame, onBackButtonClick}) {
     const fb = window.crawlear.fb;
     const [state, setState] = React.useState(GAME_STATUS_CREATED);
@@ -40,9 +43,29 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
     const { t } = useTranslation();
-    let view = <></>;
-    let judgeProgression = <></>;
+    let view = <></>,
+        judgeProgression = <></>,
+        childrenContent = <></>,
+        gameExtras,
+        method;
 
+    
+    if (game.gameType === GAME_TYPE_AECAR) {
+        player!=-1 && zone != -1 && (method = getAecarGameContent);
+        gameExtras = aecarExtras;
+    } else if (game.gameType === GAME_TYPE_ISRCC) {
+        player!=-1 && zone != -1 && (method = getIsrccGameContent);
+        gameExtras = isrccExtras;
+    } else if (game.gameType === GAME_TYPE_LEVANTE) {
+        player!=-1 && zone != -1 && (method = getLevanteGameContent);
+        gameExtras = levante124Extras;
+    } else if (game.gameType === GAME_TYPE_COPAESPANA) {
+        player!=-1 && zone != -1 && (method = getRegionalZonaRcGameContent);
+        gameExtras = regionalZonaRcExtras;
+    } else if (game.gameType === GAME_TYPE_KING) {
+        gameExtras = kingExtras;
+    }
+    method && (childrenContent = method(t, player.id, zone, game.players[player.id].zones[zone].points));
 
     function updateGameFromProgression(progression) {
         const newGame = {...game};
@@ -136,12 +159,15 @@ function GamePlayer({inGame, onBackButtonClick}) {
     function onClosePlayButtonClick() {
         if (window.confirm(t('content.cerrarpartida')) && isGroupGameFinished()) {
             fb.getGameResult(game, (game)=>{
-                game.gameStatus = 2;
-                game = Utils.getOrderedGameResult(game);
-                fb.updateGame(game);
-                fb.removeGameProgression(game.gid);
+                let newGame = {...game};
+
+                newGame.gameStatus = 2;
+                gameExtras.onGameEnd(newGame);
+                newGame = Utils.getOrderedGameResult(newGame);
+                fb.updateGame(newGame);
+                fb.removeGameProgression(newGame.gid);
                 setState(GAME_STATUS_FINISHED);
-                setGame(game);
+                setGame(newGame);
             }, ()=>{});
         }
     }
@@ -164,6 +190,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
             setState(GAME_STATUS_CREATED); 
             setGame(newGame);
         } else {
+            gameExtras.onGameEnd(game);
             const newGame =  Utils.getOrderedGameResult(game);
             newGame.gameStatus = 2;
             fb.updateGame(newGame);
@@ -204,7 +231,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
         setState(GAME_STATUS_CREATED);
     }
 
-    if (game.gameType !== GAME_KING) {
+    if (game.gameType !== GAME_TYPE_KING) {
         if (state === GAME_STATUS_CREATED) {
             const directorProgression = [];
             const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
@@ -263,10 +290,12 @@ function GamePlayer({inGame, onBackButtonClick}) {
             view = <GameTypePlayer 
                 player={player.id} 
                 zone={zone} 
-                game={game} 
+                game={game}
+                gameExtras={gameExtras}
                 onGameEnd={onGameEnd}
-                onRepair={onRepair}
-                />;
+                onRepair={onRepair}>
+                    {childrenContent}
+                </GameTypePlayer>;
         } else if (state === GAME_STATUS_FINISHED) { 
             view = <div className="gameList"><WinnerTable game={game} />
             <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>

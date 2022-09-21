@@ -19,7 +19,10 @@ const IsrccGameScores = {
     'points.usodispositivo',
     'points.bateria'],
     fiascoSteps: [50,1,1,1,1],
-    fiascoMaxValues: [1,1,1,1,1]
+    fiascoMaxValues: [1,1,1,1,1],
+    courtesyTime: 0,
+    maxPoints: 40,
+    maxTime: 600000
 };
 
 function getGameContent(t, player, zone, points) {
@@ -83,19 +86,28 @@ const gameExtras = {
     onChangeScore: (playerZone)=>{
         getGatesPointExtras(playerZone);
     },
+    onGameEnd: (game)=> {
+        game.players.forEach((player, playerIndex)=>{
+            player.zones.forEach((zone, zoneIndex)=>{
+                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                    const playerZone = game.players[playerIndex].zones[zoneIndex];
+
+                    playerZone.time = (game.maxTime > 0 ? game.maxTime : playerZone.time);
+                    if(GameUtils.isNonPresentedFiasco(game, player, zone)) {
+                        playerZone.points = 50;
+                    } else {
+                        playerZone.points = (game.maxPoints > 0 ? game.maxPoints : playerZone.totalPoints);
+                    }
+        
+                    getGatesPointExtras(playerZone);
+                }
+            });
+        });
+    },
     onEndPlayer: (game, tickTime, player, zone)=>{
         const playerZone = game.players[player].zones[zone];
 
-        if (GameUtils.isFiasco(game, tickTime, player, zone)) {
-            playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : tickTime);
-            if(GameUtils.isNonPresentedFiasco(game, player, zone)) {
-                playerZone.totalPoints = 50;
-            } else {
-                playerZone.totalPoints = (game.maxPoints > 0 ? game.maxPoints : playerZone.totalPoints);
-            }
-        } else {
-            playerZone.time = tickTime;
-        }
+        playerZone.time = tickTime;
     },
     onGateProgressionChange: (playerZone)=>{
         getGatesPointExtras(playerZone);

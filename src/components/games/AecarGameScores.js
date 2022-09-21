@@ -34,7 +34,10 @@ const AecarGameScores = {
     ],
     fiascoTexts: ['points.noterminado', 'points.bateria'],
     fiascoSteps: [1, 1],
-    fiascoMaxValues: [1, 1]
+    fiascoMaxValues: [1, 1],
+    courtesyTime: 120000000, //indefinido
+    maxPoints: 40,
+    maxTime: 600000
 };
 
 function getGameContent(t, player, zone, points) {
@@ -89,11 +92,20 @@ const gameExtras = {
     onEndPlayer: (game, tickTime, player, zone) => {
         const playerZone = game.players[player].zones[zone];
 
-        if (GameUtils.isFiasco(game, tickTime, player, zone)) {
-            playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : tickTime);
-        } else {
-            playerZone.time = tickTime;
-        }
+        playerZone.time = tickTime;
+    },
+    onGameEnd: (game)=> {
+        game.players.forEach((player, playerIndex)=>{
+            player.zones.forEach((zone, zoneIndex)=>{
+                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                    const playerZone = game.players[playerIndex].zones[zoneIndex];
+
+                    playerZone.time = (game.maxTime > 0 ? game.maxTime : playerZone.time);
+                    playerZone.points = (game.maxPoints > 0 ? game.maxPoints : playerZone.maxPoints);
+                    getGatesPointExtras(playerZone);
+                }
+            });
+        });
     },
     onGateProgressionChange: (playerZone)=>{
         getGatesPointExtras(playerZone);

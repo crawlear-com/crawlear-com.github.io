@@ -36,7 +36,7 @@ function GameProgressionInfo({game, gameProgression}) {
                         controlTextValues.push(t('points.reparacion').toUpperCase());
                     }
                     
-                    if (GameUtils.isFiasco(game, currentGameProgression.data.time, player.id, index)) { 
+                    if (GameUtils.isFiasco(game, player.id, index)) { 
                         fiasco = <img src={fiascoIcon} alt="fiasco" />;
                     }
     
