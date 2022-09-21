@@ -282,14 +282,15 @@ function GameConfigurator() {
         locationElement = <div className="">{t('content.nogeolocation')}</div>;
     }
 
+    extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
+        mode={game.pointsType} 
+        onMaxPointsChange={onMaxPointsChange}
+        onMaxTimeChange={onMaxTimeChange}
+        maxTime={game.maxTime}
+        maxPoints={game.maxPoints}
+        showTimePicker={true} />);
+
     if (game.gameType !== GAME_TYPE_KING) {
-        extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
-            mode={game.pointsType} 
-            onMaxPointsChange={onMaxPointsChange}
-            onMaxTimeChange={onMaxTimeChange}
-            maxTime={game.maxTime}
-            maxPoints={game.maxPoints}
-            showTimePicker={true} />);
         extraConfigurationComponents.push(<ZonesPicker key={1}
             game={game}
             value={game.zones}
