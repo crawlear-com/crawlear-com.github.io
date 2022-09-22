@@ -67,8 +67,7 @@ function GameResultTable({game, isDraw}) {
             if (zone.fiascoControlTextValues) {
                 if (zone.fiascoControlTextValues[4]) {
                     icon = <img src={batteryIcon} alt="battery" />;
-                    //courtesyTime
-                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + game.courtesyTime) : game.maxTime)) || 
+                } else if ((game.maxTime && zone.time === (game.maxTime + game.courtesyTime)) || 
                     (game.maxPoints && zone.totalPoints === game.maxPoints) || 
                     (zone.fiascoControlTextValues.filter(x=>x>0).length > 0)){
                     icon = <img src={fiascoIcon} alt="fiasco" />;
@@ -79,8 +78,7 @@ function GameResultTable({game, isDraw}) {
             } else {
                 if (zone.battery) {
                     icon = <img src={batteryIcon} alt="fiasco" />;
-                    //courtesyTime
-                } else if ((game.maxTime && zone.time === (game.gameType===2 ? (game.maxTime + game.courtesyTime) : game.maxTime)) || 
+                } else if ((game.maxTime && zone.time === (game.maxTime + game.courtesyTime)) || 
                            (game.maxPoints && zone.totalPoints === game.maxPoints)){
                     icon = <img src={fiascoIcon} alt="battery" />;
                 } else {
