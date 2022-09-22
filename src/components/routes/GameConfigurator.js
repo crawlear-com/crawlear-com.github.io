@@ -286,8 +286,8 @@ function GameConfigurator() {
         mode={game.pointsType} 
         onMaxPointsChange={onMaxPointsChange}
         onMaxTimeChange={onMaxTimeChange}
-        maxTime={game.maxTime}
-        maxPoints={game.maxPoints}
+        time={game.maxTime}
+        points={game.maxPoints}
         showTimePicker={true} />);
 
     if (game.gameType !== GAME_TYPE_KING) {

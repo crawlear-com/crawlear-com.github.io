@@ -10,12 +10,12 @@ function MaxTimeAndPointsPicker({
         onMaxTimeChange, 
         onMaxPointsChange, 
         showTimePicker,
-        maxTime,
-        maxPoints
+        time,
+        points
     }) {
     
     const { t } = useTranslation(),
-        maxTimeStruct = Utils.millisToTime(maxTime);
+        maxTimeStruct = Utils.millisToTime(time);
     let maxTimePicker = <></>;
 
     if (showTimePicker) {
@@ -33,9 +33,8 @@ function MaxTimeAndPointsPicker({
         {maxTimePicker}
         <p>{t('content.maxTimeText2')}</p>
         <div className="pickerContainer rounded rounded2">
-            <Picker value={maxPoints} 
+            <Picker value={points} 
                 minValue={0}
-                maxValue={maxPoints}
                 initialValue={0}
                 callback={(result) => {
                     onMaxPointsChange(result)

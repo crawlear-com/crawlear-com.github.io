@@ -77,8 +77,8 @@ function GameMenu({game, beginGame, onPlayerChange}) {
             mode={currentGame.pointsType} 
             onMaxPointsChange={onMaxPointsChange}
             onMaxTimeChange={onMaxTimeChange}
-            maxTime={currentGame.maxTime}
-            maxPoints={currentGame.maxPoints}
+            time={currentGame.maxTime}
+            points={currentGame.maxPoints}
             showTimePicker={true} />
         
         <ZonesPicker
