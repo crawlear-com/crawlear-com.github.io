@@ -48,8 +48,8 @@ const RegionalZonaRcGameScores = {
     fiascoSteps: [1,1,1],
     fiascoMaxValues: [1,1,1],
     courtesyTime: 60000,
-    maxPoints: 40,
-    maxTime: 0
+    maxPoints: 25,
+    maxTime: 600000
 };
 
 function getGameContent(t, player, zone, points) {
@@ -99,7 +99,6 @@ const gameExtras = {
     },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
-
     },
     onChangeScore: (playerZone)=>{
         getGatesPointExtras(playerZone);
@@ -112,7 +111,7 @@ const gameExtras = {
 
                     playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : playerZone.time);
                     if (GameUtils.isTimeFiasco(game, playerZone) || GameUtils.isFiascoFromFiascoControlTextValues(game, player, zone)) {
-                        playerZone.totalPoints += 25;
+                        playerZone.points += 25;
                     }
                     
                     getGatesPointExtras(playerZone);

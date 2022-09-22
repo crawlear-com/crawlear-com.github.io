@@ -134,7 +134,7 @@ class GameUtils {
                 initFunct = Levante124GameExtras.controlTextValuesInit;
                 break;    
             case 4:
-                initFunct = RegionalZonaRcGameScores.controlTextValuesInit;
+                initFunct = RegionalZonaRcGameExtras.controlTextValuesInit;
                 break;
             default: 
                 initFunct = IsrccGameExtras.controlTextValuesInit;

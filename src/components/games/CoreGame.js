@@ -65,6 +65,7 @@ function CoreGame({
             playerZone.simpathyPoints = 0;
             gameExtras.onTimerChange(playerZone);
         }
+        playerZone.time = millis;
 
         setState({
             ...newState,
@@ -188,7 +189,7 @@ function CoreGame({
 
         setState({
             ...newState,
-            tickTime: game.maxTime,
+            tickTime: game.maxTime + game.courtesyTime,
             forceAction: 'pause'
         });
     }
