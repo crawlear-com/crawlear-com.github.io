@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../resources/css/Picker.scss';
 
-function Picker({callback, minValue = 0, maxValue = 40, initialValue = 0, value = 0}) {
+function Picker({callback, minValue = 0, maxValue = 200, initialValue = 0, value = 0}) {
     const elementRef = React.useRef();
 
     !value && (value = initialValue);
