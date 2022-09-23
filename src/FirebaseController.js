@@ -351,9 +351,6 @@ class FirebaseController {
       provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
       isTokenAutoRefreshEnabled: true
     });
-
-//    const appCheck = firebase.appCheck();
-//    appCheck.activate('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP', true);
   }
 
   isUserLogged() {
