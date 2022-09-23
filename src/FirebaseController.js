@@ -2,7 +2,11 @@ import 'babel-polyfill';
 import Utils from './Utils';
 import { Game } from './model/Game';
 
-import { initializeApp } from "firebase/app"
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+import { initializeApp } from "firebase/app";
 import { getDatabase, 
          onValue,
          onChildAdded,
@@ -55,6 +59,7 @@ class FirebaseController {
     this.auth = getAuth();
     this.db = getFirestore();
     this.rdb = getDatabase();
+    this.initAppCheck();
   }
 
   async userSearch(name, okCallback, koCallback) {
@@ -339,6 +344,16 @@ class FirebaseController {
     }
 
     return game;
+  }
+
+  initAppCheck() {
+    const appCheck = initializeAppCheck(this.app, {
+      provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
+      isTokenAutoRefreshEnabled: true
+    });
+
+//    const appCheck = firebase.appCheck();
+//    appCheck.activate('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP', true);
   }
 
   isUserLogged() {
