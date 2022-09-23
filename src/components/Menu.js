@@ -48,11 +48,12 @@ function Menu() {
                         <li><div onClick={()=>{browseTo("/social")}}>{t("description.perfilsocial")}</div></li>
                         <li><div onClick={()=>{browseTo("/follows")}}>{t("description.murodefollows")}</div></li>
                         <li>-</li>
+                        <li><div href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR</div></li>
+                        <li><div href="https://www.clubzonarc.es/">Club ZonaRc</div></li>
+                        <li><div href="https://isrcc.eu/">ISRCC</div></li>
+                        <li>-</li>
                         <li><div onClick={()=>{browseTo("/privacypolicy")}}>{t("description.politicaprivacidad")}</div></li>
                         <li><div onClick={()=>{browseTo("/aboutus")}}>{t("description.aboutus")}</div></li>
-                        <li>-</li>
-                        <li><div href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR Crawler</div></li>
-                        <li><div href="https://isrcc.eu/">ISRCC International Scale Rock Crawler Championship</div></li>
                     </ul>
                     <div className="lightModeSwitch" onClick={switchLightMode}>Modo claro / oscuro</div>
                 </div>
