@@ -33,7 +33,7 @@ function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPoin
     return <>
         <div className="gameType rounded1 rounded">
             <label htmlFor="gameTypeSelect" className="headerText bold">{t('gametype.modojuego')}
-                <select id="gameTypeSelect" defaultValue={2} onChange={onSelectGameTypeChange}>
+                <select id="gameTypeSelect" defaultValue={3} onChange={onSelectGameTypeChange}>
                     <option value={0}>{labelsGameType[0]}</option>
                     <option value={1}>{labelsGameType[1]}</option>
                     <option value={2}>{labelsGameType[2]}</option>

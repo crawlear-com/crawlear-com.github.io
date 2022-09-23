@@ -32,7 +32,7 @@ function GameConfigurator() {
         return new Game("",
         new Date().toLocaleDateString(),
         { latitude: 0, longitude: 0 },
-        false, 2,
+        false, GAME_TYPE_LEVANTE,
         [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], []);
     });
     const navigate = useNavigate();
