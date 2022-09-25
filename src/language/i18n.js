@@ -270,6 +270,8 @@ i18n
             modojuegorey: 'There is no pre-established route and the first participant, the King, chooses the path when playing. All participants run at the same time in line following the same route as the King. If a player scores he goes to the end of the queue. The winner will be the player with the lowest score.',
             modojuegoarcar: 'By points game using the AECAR rules and scores',
             modojuegoisrcc: 'By points game using the ISRCC rules and scores',
+            modojuegolevante124: 'By points game using the Levante 1/24 rules and scores',
+            modojuegominicrawlerpassion: 'By points game with basic but effective rules and scores',
             simple: 'Simple',
             completa: 'Complete',
             descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points. There is no max time or max points',
@@ -280,8 +282,9 @@ i18n
             isrcc: 'ISRCC Rules',
             aecar: 'AECAR Rules',
             levante124: '1/24 Levante Rules',
-            modojuegolevante124: 'By points game with basic but effective rules and scores',
+            
             copaespana: 'Regional ZonaRc',
+            minicrawlerpassion: 'Mini Crawler Passion',
             modojuegocopaespana: 'By points game with full ZonaRc Regional Championship rules and scores'
           }
         }
@@ -548,6 +551,9 @@ i18n
             modojuegorey: 'No hay ruta preestablecida y el primer participante, el Rey, escoge el camino al jugar. Todos los participantes corren a la vez en línea siguiendo la misma ruta que el Rey. Si un jugador puntúa pasa al final de la cola. El ganador será el jugador con menor puntuación.',
             modojuegoarcar: 'Por puntos usando el reglamento y puntuaciones del reglamento ARCAR',
             modojuegoisrcc: 'Por puntos usando el reglamento y puntuaciones del reglamento ISRCC',
+            modojuegolevante124: 'Por puntos usando reglas y puntuaciones del regalmento Levante 1/24',
+            modojuegocopaespana: 'Por puntos usando reglas y puntuaciones completas del Campeonato Regional de ZonaRc',
+            modojuegominicrawlerpassion: 'Por puntos usando reglas y puntuaciones básicas pero efectivas',
             simple: 'Simple',
             completa: 'Completa',
             descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos. No se aplica tiempo ni puntuación máxima.',
@@ -558,9 +564,8 @@ i18n
             isrcc: 'Reglas ISRCC',
             aecar: 'Reglas AECAR',
             levante124: '1/24 Levante',
-            modojuegolevante124: 'Por puntos usando reglas y puntuaciones básicas pero efectivas',
             copaespana: 'Regional ZonaRc',
-            modojuegocopaespana: 'Por puntos usando reglas y puntuaciones completas del Campeonato Regional de ZonaRc'
+            minicrawlerpassion: 'Mini Crawler Passion'
           }
         }
       }

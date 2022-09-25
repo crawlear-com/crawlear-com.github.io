@@ -3,12 +3,14 @@ import { gameExtras as IsrccGameExtras, IsrccGameScores } from '../components/ga
 import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from '../components/games/RegionalZonaRcGameScores';
 import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
 import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
+import { gameExtras as MiniCrawlerPassionGameExtras, MiniCrawlerPassionGameScores } from '../components/games/MiniCrawlerPassionGameScores';
 
 export const GAME_TYPE_AECAR = 0;
 export const GAME_TYPE_KING = 1;
 export const GAME_TYPE_ISRCC = 2;
 export const GAME_TYPE_LEVANTE = 3;
 export const GAME_TYPE_COPAESPANA = 4;
+export const GAME_TYPE_MINICRAWLERPASSION = 5;
 
 class Game {
     constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
@@ -34,20 +36,23 @@ class Game {
             let courtesyTime;
     
             switch (gameType) {
-                case 0:
+                case GAME_TYPE_AECAR:
                     courtesyTime = AecarGameScores.courtesyTime;
                     break;
-                case 1:
+                case GAME_TYPE_KING:
                     courtesyTime = KingGameScores.courtesyTime;
                     break;
-                case 2:
+                case GAME_TYPE_ISRCC:
                     courtesyTime = IsrccGameScores.courtesyTime;
                     break;
-                case 3:
+                case GAME_TYPE_LEVANTE:
                     courtesyTime = Levante124GameScores.courtesyTime;
                     break;    
-                case 4:
+                case GAME_TYPE_COPAESPANA:
                     courtesyTime = RegionalZonaRcGameScores.courtesyTime;
+                    break;
+                case GAME_TYPE_MINICRAWLERPASSION:
+                    courtesyTime = MiniCrawlerPassionGameScores.courtesyTime;
                     break;
                 default: 
                     courtesyTime = 0;
@@ -95,21 +100,25 @@ class GameUtils {
         let classname;
     
         switch (gameType) {
-            case 0:
+            case GAME_TYPE_AECAR:
                 classname = 'aecar';
                 break;
-            case 1:
+            case GAME_TYPE_KING:
                 classname = 'king';
                 break;
-            case 2:
+            case GAME_TYPE_ISRCC:
                 classname = 'irscc';
                 break;
-            case 3:
+            case GAME_TYPE_LEVANTE:
                 classname = 'levante';
                 break;    
-            case 4:
+            case GAME_TYPE_COPAESPANA:
                 classname = 'regionalzonarc';
                 break;
+            case GAME_TYPE_MINICRAWLERPASSION:
+                classname = 'minicrawlerpassion';
+                break;
+    
             default: 
                 classname = '';
         }
@@ -121,21 +130,25 @@ class GameUtils {
         let initFunct;
     
         switch (gameType) {
-            case 0:
+            case GAME_TYPE_AECAR:
                 initFunct = AecarGameExtras.controlTextValuesInit;
                 break;
-            case 1:
+            case GAME_TYPE_KING:
                 initFunct = KingGameExtras.controlTextValuesInit;
                 break;
-            case 2:
+            case GAME_TYPE_ISRCC:
                 initFunct = IsrccGameExtras.controlTextValuesInit;
                 break;
-            case 3:
+            case GAME_TYPE_LEVANTE:
                 initFunct = Levante124GameExtras.controlTextValuesInit;
                 break;    
-            case 4:
+            case GAME_TYPE_COPAESPANA:
                 initFunct = RegionalZonaRcGameExtras.controlTextValuesInit;
                 break;
+            case GAME_TYPE_MINICRAWLERPASSION:
+                initFunct = MiniCrawlerPassionGameExtras.controlTextValuesInit;
+                break;
+    
             default: 
                 initFunct = IsrccGameExtras.controlTextValuesInit;
         }
@@ -147,20 +160,23 @@ class GameUtils {
         let initFunct;
     
         switch (gameType) {
-            case 0:
+            case GAME_TYPE_AECAR:
                 initFunct = AecarGameExtras.fiascoControlTextValuesInit;
                 break;
-            case 1:
+            case GAME_TYPE_KING:
                 initFunct = KingGameExtras.fiascoControlTextValuesInit;
                 break;
-            case 2:
+            case GAME_TYPE_ISRCC:
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
                 break;
-            case 3:
+            case GAME_TYPE_LEVANTE:
                 initFunct = Levante124GameExtras.fiascoControlTextValuesInit;
                 break;
-            case 4:
+            case GAME_TYPE_COPAESPANA:
                 initFunct = RegionalZonaRcGameExtras.fiascoControlTextValuesInit;
+                break;
+            case GAME_TYPE_MINICRAWLERPASSION:
+                initFunct = MiniCrawlerPassionGameExtras.fiascoControlTextValuesInit;
                 break;
             default: 
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;

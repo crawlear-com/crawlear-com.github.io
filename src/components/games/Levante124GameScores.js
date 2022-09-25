@@ -51,8 +51,8 @@ function getGameContent(t, player, zone, points) {
             player={player}
             zone={zone} />);
 
-        return childrenContent;
-    }
+    return childrenContent;
+}
 
 function getGatesPointExtras(playerZone) {
     playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints;

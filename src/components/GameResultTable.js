@@ -4,8 +4,17 @@ import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import { IsrccGameScores } from './games/IsrccGameScores';
 import { AecarGameScores } from './games/AecarGameScores';
 import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
+import { Levante124GameScores } from './games/Levante124GameScores';
+import { MiniCrawlerPassionGameScores } from './games/MiniCrawlerPassionGameScores';
+
 import { useTranslation } from 'react-i18next';
-import { GameUtils } from '../model/Game';
+import { GAME_TYPE_AECAR,
+    GAME_TYPE_ISRCC,
+    GAME_TYPE_KING,
+    GAME_TYPE_LEVANTE,
+    GAME_TYPE_COPAESPANA,
+    GAME_TYPE_MINICRAWLERPASSION,
+    GameUtils } from '../model/Game';
 
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import winnerIcon from '../resources/img/iconWinner.png';
@@ -19,12 +28,22 @@ function GameResultTable({game, isDraw}) {
     let gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts),
         j=0, i=0;
 
-    if(game.gameType === 2) {
-        gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);   
-    }
-
-    if(game.gameType === 4) {
-        gameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.texts);   
+    switch(game.gameType) {
+        case GAME_TYPE_ISRCC:
+            gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);
+            break;
+        case GAME_TYPE_LEVANTE:
+            gameTypeTexts = Utils.tokenToTexts(Levante124GameScores.texts);
+            break;
+        case GAME_TYPE_COPAESPANA:
+            gameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.texts);
+            break;
+        case GAME_TYPE_MINICRAWLERPASSION:
+            gameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.texts);
+                break;
+        default:
+            gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts);
+            break;
     }
 
     function onClickZone(event) {
