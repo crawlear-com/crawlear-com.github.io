@@ -4,9 +4,9 @@ import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from 
 import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from './games/IsrccGameScores';
 import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from './games/Levante124GameScores';
 import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from './games/RegionalZonaRcGameScores';
+import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniCrawlerPassionExtras } from './games/MiniCrawlerPassionGameScores';
 import { gameExtras as kingExtras } from './games/KingGameScores';
 import Utils from '../Utils';
-import { GameUtils } from '../model/Game';
 import ErrorBox from '../components/ErrorBox';
 import GameProgression from './GameProgression';
 import GameTypePlayer from '../components/GameTypePlayer';
@@ -15,7 +15,13 @@ import GameProgressionDirector from './GameProgressionDirector';
 import PresenceButton from './PresenceButton';
 import TrainingController from './games/TrainingController';
 import { GameProgressionContext } from './context/GameProgressionContext';
-import { GAME_TYPE_AECAR, GAME_TYPE_ISRCC, GAME_TYPE_KING, GAME_TYPE_LEVANTE, GAME_TYPE_COPAESPANA } from '../model/Game';
+import { GAME_TYPE_AECAR, 
+         GAME_TYPE_ISRCC, 
+         GAME_TYPE_KING, 
+         GAME_TYPE_LEVANTE, 
+         GAME_TYPE_COPAESPANA,
+         GAME_TYPE_MINICRAWLERPASSION,
+        GameUtils } from '../model/Game';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';
@@ -64,7 +70,11 @@ function GamePlayer({inGame, onBackButtonClick}) {
         gameExtras = regionalZonaRcExtras;
     } else if (game.gameType === GAME_TYPE_KING) {
         gameExtras = kingExtras;
+    } else if (game.gameType === GAME_TYPE_MINICRAWLERPASSION) {
+        player!=-1 && zone != -1 && (method = getMiniCrawlerPassionGameContent);
+        gameExtras = miniCrawlerPassionExtras;
     }
+
     method && (childrenContent = method(t, player.id, zone, game.players[player.id].zones[zone].points));
 
     function updateGameFromProgression(progression) {

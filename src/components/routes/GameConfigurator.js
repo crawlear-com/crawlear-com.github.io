@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GAME_TYPE_AECAR, GAME_TYPE_ISRCC, GAME_TYPE_KING, GAME_TYPE_LEVANTE, GAME_TYPE_COPAESPANA,
-     Game, GameUtils } from '../../model/Game';
+import { GAME_TYPE_AECAR,
+    GAME_TYPE_ISRCC,
+    GAME_TYPE_KING,
+    GAME_TYPE_LEVANTE,
+    GAME_TYPE_COPAESPANA,
+    GAME_TYPE_MINICRAWLERPASSION,
+    Game, GameUtils } from '../../model/Game';
 import GameTypeController from '../GameTypeController';
 import PlayerController from '../PlayerController';
 import MaxTimeAndPointsPicker from '../MaxTimeAndPointsPicker';
@@ -17,6 +22,7 @@ import { IsrccGameScores } from '../games/IsrccGameScores';
 import { Levante124GameScores } from '../games/Levante124GameScores';
 import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
 import { KingGameScores } from '../games/KingGameScores';
+import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
 
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../Analytics';
@@ -76,6 +82,10 @@ function GameConfigurator() {
             case GAME_TYPE_COPAESPANA:
                 maxPoints = RegionalZonaRcGameScores.maxPoints;
                 maxTime = RegionalZonaRcGameScores.maxTime;
+                break;
+            case GAME_TYPE_MINICRAWLERPASSION:
+                maxPoints = MiniCrawlerPassionGameScores.maxPoints;
+                maxTime = MiniCrawlerPassionGameScores.maxTime;
                 break;
             default: 
                 maxPoints = 0;

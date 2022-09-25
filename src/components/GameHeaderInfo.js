@@ -2,6 +2,12 @@ import * as React from 'react';
 import GoogleMapsUrl from './GoogleMapsUrl';
 import Utils from '../Utils';
 import { useTranslation } from 'react-i18next';
+import { GAME_TYPE_AECAR, 
+    GAME_TYPE_ISRCC, 
+    GAME_TYPE_KING, 
+    GAME_TYPE_LEVANTE, 
+    GAME_TYPE_COPAESPANA,
+    GAME_TYPE_MINICRAWLERPASSION } from '../model/Game';
 
 import '../resources/css/GameHeaderInfo.scss'
 
@@ -10,16 +16,18 @@ function GameHeaderInfo({game}) {
 
     function resolveGameType(gameType) {
         switch(gameType) {
-            case 0:
+            case GAME_TYPE_AECAR:
                 return t('gametype.aecar');
-            case 1:
+            case GAME_TYPE_KING:
                 return t('gametype.rey');
-            case 2:
+            case GAME_TYPE_ISRCC:
                 return t('gametype.isrcc');
-            case 3:
+            case GAME_TYPE_LEVANTE:
                 return t('gametype.levante124');
-            case 4:
+            case GAME_TYPE_COPAESPANA:
                 return t('gametype.copaespana');
+            case GAME_TYPE_MINICRAWLERPASSION:
+                return t('gametype.minicrawlerpassion');
             default:
                 return t('gametype.isrcc');
         }

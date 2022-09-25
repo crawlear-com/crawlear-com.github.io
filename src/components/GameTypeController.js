@@ -9,12 +9,14 @@ function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPoin
             t('gametype.rey'),
             t('gametype.isrcc'),
             t('gametype.levante124'),
-            t('gametype.copaespana')],
+            t('gametype.copaespana'),
+            t('gametype.minicrawlerpassion')],
         textsGameType = [<div>{t('gametype.modojuegoarcar')}</div>,
                 <div>{t('gametype.modojuegorey')}</div>,
                 <div>{t('gametype.modojuegoisrcc')}</div>,
                 <div>{t('gametype.modojuegolevante124')}</div>,
-                <div>{t('gametype.modojuegocopaespana')}</div>
+                <div>{t('gametype.modojuegocopaespana')}</div>,
+                <div>{t('gametype.modojuegominicrawlerpassion')}</div>
             ];
 
     const [state, setState] = React.useState({
@@ -39,6 +41,7 @@ function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPoin
                     <option value={2}>{labelsGameType[2]}</option>
                     <option value={3}>{labelsGameType[3]}</option>
                     <option value={4}>{labelsGameType[4]}</option>
+                    <option value={5}>{labelsGameType[5]}</option>
                 </select>
             </label>
             <div className="gameSelectText smallText">{textsGameType[state.gameType]}</div>
