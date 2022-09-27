@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
 import Levante124Logo from '../../resources/img/Levante124Logo.jpeg';
 import ZonaclubrcLogo from '../../resources/img/zonaclubrcLogo.png';
+import MiniCrawlerPassionLogo from '../../resources/img/mcpLogo.png';
 
 import '../../resources/css/Landing.scss';
 
@@ -38,6 +39,7 @@ function Landing({onLogin}) {
                 {t('content.colaboraciones')}<br />
                 <img className='collaborateLogo' src={Levante124Logo} alt="Levante 1/24 Logo" />
                 <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
+                <img className='collaborateLogo' src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
             </p>
         </div>
         </>
