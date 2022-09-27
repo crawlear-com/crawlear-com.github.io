@@ -29,7 +29,7 @@ function Landing({onLogin}) {
     return <>
         <MainPageTextContent />
 
-        <div className="loginAndContent">
+        <div className="loginAndContent aboutUsContent">
             <p>{t('content.landingMainText')}:</p>
             <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                     firebase.signInWithGoogle(signInCallback);
