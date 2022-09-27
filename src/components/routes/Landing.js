@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
 import Levante124Logo from '../../resources/img/Levante124Logo.jpeg';
 import ZonaclubrcLogo from '../../resources/img/zonaclubrcLogo.png';
-import MiniCrawlerPassionLogo from '../../resources/img/mcpLogo.jpeg';
+import MiniCrawlerPassionLogo from '../../resources/img/mcpLogo.png';
 
 import '../../resources/css/Landing.scss';
 
