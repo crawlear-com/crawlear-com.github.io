@@ -134,7 +134,7 @@ function UserPoster({onPostEntry, isOpened}) {
                 <br /><br />
 
                 <ErrorBox message={errorMessage} />
-                {formStatus===WAITING ? <input type="submit" value= {t('description.publicar')} className='submit importantNote' /> : <Spinner />}
+                {formStatus===WAITING ? <input type="submit" value={t('description.publicar')} className='submit importantNote' /> : <Spinner />}
                 
             </form>
         </div>;
