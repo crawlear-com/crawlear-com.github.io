@@ -5,6 +5,7 @@ import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { GameUtils } from '../../model/Game';
 import Utils from '../../Utils';
+import BluetoothButton from '../bluetooth/BluetoothButton';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/CoreGame.scss'
@@ -234,6 +235,7 @@ function CoreGame({
             {fiasco}
         </div>
         <div className="controlTextContainer rounded rounded2">
+            <BluetoothButton />
             <TimerControl
                 courtesyTime={game.courtesyTime}
                 startTime={playerZone.time}
