@@ -460,7 +460,7 @@ i18n
               sinjuego: 'sin juego asignado',
               juegoasignado: 'Juego asignado',
               murodepiloto: 'Muro de Piloto',
-              murodefollows: 'Muro de Pilotos seguidos',
+              murodefollows: 'Muro de Pilotos',
               secciondejuego: 'Herramienta de juego',
               resolverjuego: 'ver resultado del juego',
               herramientajuego: 'Herramienta de juego',
