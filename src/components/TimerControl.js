@@ -2,11 +2,15 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 import Utils from '../Utils';
+import EventManager from '../EventManager';
 import '../resources/css/TimerControl.scss';
 
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
 const STATE_STOP = 'stop';
+
+const MSG_START = 'BT_START';
+const MSG_STOP = 'BT_STOP';
 
 function TimerControl ({
     startTime,
@@ -20,6 +24,7 @@ function TimerControl ({
     const { t } = useTranslation();
     const containerRef = React.useRef(null);
     const tickTime = React.useRef(startTime || 0);
+    const eventManager = new EventManager();
     const [state, setState] = React.useState(()=>{ 
         return { 
             millis: startTime || 0,
@@ -46,6 +51,7 @@ function TimerControl ({
             newState.millis = tickTime.current;
             newState.timer = setInterval(() => {timerCount(newState)}, 10);
             setState(previousInputs => ({ ...previousInputs,...newState}));
+            eventManager.sendMessage(MSG_START, {});
         } else if (newState.state === STATE_PAUSE){
             const finalTime = tickTime.current + (Date.now() - newState.timeStart);
             
@@ -54,12 +60,14 @@ function TimerControl ({
             newState.timer && clearInterval(state.timer);
             newState.timer = null;
             setState(previousInputs => ({ ...previousInputs,...newState}));
+            eventManager.sendMessage(MSG_STOP, {});
         } else {
             newState.millis = 0;
             tickTime.current = 0;
             newState.timer && clearInterval(state.timer);
             newState.timer = null;
             setState(previousInputs => ({ ...previousInputs,...newState}));
+            eventManager.sendMessage(MSG_STOP, {});
         }
     }, [state.state]);
 
