@@ -1,6 +1,10 @@
 .rc-slider {
     height: 61px;
-    width: 98%;
+    width: 61%;
+}
+.generic .rc-slider {
+    min-height: 325px;
+    margin: 15px auto;
 }
 .rc-slider-rail {
     background-color: #333;
@@ -29,6 +33,7 @@
 
 .rc-slider-mark-text {
     color: black;
+    padding-bottom: 50%;
 }
 
 body.lightMode { 

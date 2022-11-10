@@ -1,0 +1,50 @@
+.buttonText {
+    font-size: 14px;
+    display: flex;
+    line-height: 20px;
+    text-align: left;
+    background-color: rgb(30 30 30 / 32%);
+    margin-bottom: 5px;
+    border-radius: 15px;
+    font-size: 0.7em;
+}
+
+.buttonTextValue {
+    background-color: inherit;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 15px;
+    width: 100%;
+    text-align: right;
+}
+
+.buttonTextText {
+    min-width: 168px;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.buttonTextTitle {
+    margin: 0px 0px 10px 0px;
+    font-size: 0.8em;
+}
+
+.buttonTextContainer {
+    overflow: hidden;
+
+    .dropdown {
+        width: 20px;
+        margin: 0;
+        float: right;
+    }
+    .closed {
+        height: 35px;
+    }
+}
+
+.buttonTextPlus, 
+.buttonTextMinus {
+    text-shadow: 2px 2px 4px #333;
+    font-weight: bold;
+}

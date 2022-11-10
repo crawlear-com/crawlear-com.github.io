@@ -4,6 +4,7 @@ import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from
 import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
 import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
 import { gameExtras as MiniCrawlerPassionGameExtras, MiniCrawlerPassionGameScores } from '../components/games/MiniCrawlerPassionGameScores';
+import { gameExtras as GenericGameExtras, GenericGameScores } from '../components/games/GenericGameScores';
 
 export const GAME_TYPE_AECAR = 0;
 export const GAME_TYPE_KING = 1;
@@ -11,6 +12,7 @@ export const GAME_TYPE_ISRCC = 2;
 export const GAME_TYPE_LEVANTE = 3;
 export const GAME_TYPE_COPAESPANA = 4;
 export const GAME_TYPE_MINICRAWLERPASSION = 5;
+export const GAME_TYPE_GENERIC = 6;
 
 class Game {
     constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
@@ -53,6 +55,9 @@ class Game {
                     break;
                 case GAME_TYPE_MINICRAWLERPASSION:
                     courtesyTime = MiniCrawlerPassionGameScores.courtesyTime;
+                    break;
+                case GAME_TYPE_GENERIC:
+                    courtesyTime = GenericGameScores.courtesyTime;
                     break;
                 default: 
                     courtesyTime = 0;
@@ -118,7 +123,9 @@ class GameUtils {
             case GAME_TYPE_MINICRAWLERPASSION:
                 classname = 'minicrawlerpassion';
                 break;
-    
+            case GAME_TYPE_GENERIC:
+                classname = 'generic';
+                break;
             default: 
                 classname = '';
         }
@@ -148,7 +155,9 @@ class GameUtils {
             case GAME_TYPE_MINICRAWLERPASSION:
                 initFunct = MiniCrawlerPassionGameExtras.controlTextValuesInit;
                 break;
-    
+            case GAME_TYPE_GENERIC:
+                initFunct = GenericGameExtras.controlTextValuesInit;
+                break;    
             default: 
                 initFunct = IsrccGameExtras.controlTextValuesInit;
         }
@@ -178,6 +187,9 @@ class GameUtils {
             case GAME_TYPE_MINICRAWLERPASSION:
                 initFunct = MiniCrawlerPassionGameExtras.fiascoControlTextValuesInit;
                 break;
+            case GAME_TYPE_GENERIC:
+                initFunct = GenericGameExtras.fiascoControlTextValuesInit;
+                break;
             default: 
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
         }
@@ -193,7 +205,8 @@ class GameUtils {
     }
 
     static sumControlTextValues(gateProgresionData) {
-        const controlTextValues = new Array(gateProgresionData[0].controlTextValues.length).fill(0);
+        const arrayLength = gateProgresionData.length ? gateProgresionData[0].controlTextValues.length : 0;
+        const controlTextValues = new Array(arrayLength).fill(0);
     
         gateProgresionData.forEach((data)=>{
             data.controlTextValues.forEach((control, index)=>{

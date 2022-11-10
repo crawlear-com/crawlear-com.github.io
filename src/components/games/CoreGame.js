@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-import { GameUtils } from '../../model/Game';
+import { GameUtils, GAME_TYPE_GENERIC } from '../../model/Game';
 import Utils from '../../Utils';
 
 import "rc-slider/assets/index.css";
@@ -234,6 +234,11 @@ function CoreGame({
             {fiasco}
         </div>
         <div className="controlTextContainer rounded rounded2">
+            {game.courtesyTime>0 ? 
+                    <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
+                <></>}
+
+            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
             <TimerControl
                 courtesyTime={game.courtesyTime}
                 startTime={playerZone.time}
@@ -243,18 +248,15 @@ function CoreGame({
                 onTimeFiasco={onTimeFiasco}
                 onPointBecauseLastMinute={onPointBecauseLastMinute}
                 maxTime={maxTime} />
-
-                {game.courtesyTime>0 ? 
-                    <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
-                    <></>}
-                
-            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="gateProgressionContainer controlTextContainer info rounded rounded2">
             {t('description.avancepuerta')}: {playerZone.gateProgression}
+            <button id='gatesPlusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextPlus'>+</button>
+            <button id='gatesMinusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextMinus'>-</button>
             <SliderWithTooltip
                     step={1}
                     min={0}
+                    vertical={game.gameType === GAME_TYPE_GENERIC}
                     max={currentGame.gates[zoneIndex]}
                     dots={true}
                     value={playerZone.gateProgression}
@@ -265,8 +267,6 @@ function CoreGame({
                             String(value).concat('-').concat(playerZone.gateProgressionData[playerZone.gateProgression].gatePoints) : 
                             '-'; 
                     }}/>
-            <button id='gatesPlusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextPlus'>+</button>
-            <button id='gatesMinusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextMinus'>-</button>
         </div>
         
         <div className="controlTextContainer rounded rounded2">

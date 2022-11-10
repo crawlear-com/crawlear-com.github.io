@@ -7,12 +7,15 @@ import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
 import { Levante124GameScores } from './games/Levante124GameScores';
 import { IsrccGameScores } from './games/IsrccGameScores';
 import { MiniCrawlerPassionGameScores } from './games/MiniCrawlerPassionGameScores';
+import { GenericGameScores  } from './games/GenericGameScores';
+
 import { GAME_TYPE_AECAR, 
     GAME_TYPE_ISRCC, 
     GAME_TYPE_KING, 
     GAME_TYPE_LEVANTE, 
     GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION } from '../model/Game';
+    GAME_TYPE_MINICRAWLERPASSION,
+    GAME_TYPE_GENERIC } from '../model/Game';
 
 
 import { GameUtils } from '../model/Game';
@@ -50,6 +53,11 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
         if(gameType ===GAME_TYPE_MINICRAWLERPASSION) {
             gameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.texts);   
             fiascoGameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.fiascoTexts);
+        }
+
+        if(gameType ===GAME_TYPE_GENERIC) {
+            gameTypeTexts = Utils.tokenToTexts(GenericGameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(GenericGameScores.fiascoTexts);
         }
             
         return <>
