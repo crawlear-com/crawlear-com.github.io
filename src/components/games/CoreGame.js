@@ -6,6 +6,8 @@ import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { GameUtils } from '../../model/Game';
 import Utils from '../../Utils';
 import BluetoothButton from '../bluetooth/BluetoothButton';
+import EventManager from '../../EventManager';
+import { MSG_GATES, MSG_POINTS } from '../bluetooth/Bluetooth';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/CoreGame.scss'
@@ -21,6 +23,7 @@ function CoreGame({
             gameExtras}) {
     const { t } = useTranslation();
     const SliderWithTooltip = createSliderWithTooltip(Slider);
+    const eventManager = new EventManager();
     const [state, setState] = React.useState(()=>{
         window.scrollTo(0,0);
         return initControlTestValues(game);
@@ -95,6 +98,8 @@ function CoreGame({
                 if (playerZone.gateProgression<currentGame.gates[zoneIndex]) {
                     playerCurrentGate.gatePoints += value;
                 }
+
+                eventManager.sendMessage(MSG_POINTS, playerZone.points);
                 gameExtras.onChangeScore(playerZone);
                 setState(newState);
 
@@ -139,6 +144,8 @@ function CoreGame({
             currentZone = zones[zoneIndex];
 
         currentZone.gateProgression = value;
+        eventManager.sendMessage(MSG_GATES, currentZone.gateProgression);
+
         if (value === newState.game.gates[zoneIndex]) {
             newState.forceAction = 'pause';
         }

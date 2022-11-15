@@ -1,11 +1,11 @@
 import * as React from 'react';
 import EventManager from '../../EventManager';
 import Bluetooth from './Bluetooth';
+import { MSG_GATES, MSG_POINTS, MSG_START, MSG_STOP, MSG_TIME } from './Bluetooth';
 
 const NOT_CONNECTED = 0;
 const CONNECTED = 1;
-const MSG_START = 'BT_START';
-const MSG_STOP = 'BT_STOP';
+
 
 function BluetoothButton(props) {
     const [state, setState] = React.useState(NOT_CONNECTED);
@@ -27,6 +27,9 @@ function BluetoothButton(props) {
 
         eventManager.listenMessages(MSG_START, onTimeStart);
         eventManager.listenMessages(MSG_STOP, onTimeStop);
+        eventManager.listenMessages(MSG_TIME, onTimeChange);
+        eventManager.listenMessages(MSG_POINTS, onPointsChange);
+        eventManager.listenMessages(MSG_GATES, onGatesChange);
     }
 
     function onTimeStart() {
@@ -35,6 +38,18 @@ function BluetoothButton(props) {
 
     function onTimeStop() {
         bt.sendStop();
+    }
+
+    function onTimeChange(timeEvent) {
+        bt.sendTime(timeEvent.detail);
+    }
+
+    function onPointsChange(pointsEvent) {
+        bt.sendPoints(pointsEvent.detail);
+    }
+
+    function onGatesChange(gatesEvent) {
+        bt.sendGates(gatesEvent.detail);
     }
 
     if (state === NOT_CONNECTED) {

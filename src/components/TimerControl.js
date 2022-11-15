@@ -3,14 +3,13 @@ import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 import Utils from '../Utils';
 import EventManager from '../EventManager';
+import { MSG_TIME, MSG_START, MSG_STOP } from './bluetooth/Bluetooth';
+
 import '../resources/css/TimerControl.scss';
 
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
 const STATE_STOP = 'stop';
-
-const MSG_START = 'BT_START';
-const MSG_STOP = 'BT_STOP';
 
 function TimerControl ({
     startTime,
@@ -77,7 +76,10 @@ function TimerControl ({
                 onTimerChange && onTimerChange(tickTime.current);
                 setState(previousInputs => ({ ...previousInputs,
                     millis: tickTime.current
-            }));
+                }));
+                if(tickTime.current % 250 === 0) {
+                    eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)));
+                }
         } else if ((onPointBecauseLastMinute && state.maxTime>0 && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime))
                 || state.maxTime===0) {
             tickTime.current += 10;
