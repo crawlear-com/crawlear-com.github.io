@@ -4,7 +4,7 @@ import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from
 import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
 import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
 import { gameExtras as MiniCrawlerPassionGameExtras, MiniCrawlerPassionGameScores } from '../components/games/MiniCrawlerPassionGameScores';
-import { Location, Player, Judge, GateProgressionData, GameProgressionData, Zone } from './GameInterfaces';
+import { Location, Player, Judge, GateProgressionData, Zone } from './GameInterfaces';
 
 export const GAME_TYPE_AECAR = 0;
 export const GAME_TYPE_KING = 1;
@@ -13,12 +13,21 @@ export const GAME_TYPE_LEVANTE = 3;
 export const GAME_TYPE_COPAESPANA = 4;
 export const GAME_TYPE_MINICRAWLERPASSION = 5;
 
+enum GameType {
+    GAME_TYPE_AECAR,
+    GAME_TYPE_KING,
+    GAME_TYPE_ISRCC,
+    GAME_TYPE_LEVANTE,
+    GAME_TYPE_COPAESPANA,
+    GAME_TYPE_MINICRAWLERPASSION
+}
+
 class Game {
     name: string;
     date: Date;
     location: Location;
     isPublic: boolean;
-    gameType: number;
+    gameType: GameType;
     players: Array<Player>;
     judges: Array<Judge>;
     maxTime: number;
@@ -35,7 +44,7 @@ class Game {
         date: Date, 
         location: Location, 
         isPublic: boolean, 
-        gameType: number,
+        gameType: GameType,
         players: Array<Player>,
         judges: Array<Judge>,
         maxTime: number, 
@@ -132,7 +141,7 @@ class GameUtils {
         });
     }
 
-    static getGameTypeBodyClassName(gameType: number) {
+    static getGameTypeBodyClassName(gameType: GameType) {
         let classname;
     
         switch (gameType) {
@@ -162,7 +171,7 @@ class GameUtils {
         return classname;
     }
 
-    static getGameTypeControlTextValuesInit(gameType: number) {
+    static getGameTypeControlTextValuesInit(gameType: GameType) {
         let initFunct;
     
         switch (gameType) {
@@ -192,7 +201,7 @@ class GameUtils {
         return initFunct;
     }
     
-    static getGameTypeFiascoControlTextValuesInit(gameType: number) {
+    static getGameTypeFiascoControlTextValuesInit(gameType: GameType) {
         let initFunct;
     
         switch (gameType) {
