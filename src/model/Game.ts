@@ -4,6 +4,7 @@ import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from
 import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
 import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
 import { gameExtras as MiniCrawlerPassionGameExtras, MiniCrawlerPassionGameScores } from '../components/games/MiniCrawlerPassionGameScores';
+import { Location, Player, Judge, GateProgressionData, GameProgressionData, Zone } from './GameInterfaces';
 
 export const GAME_TYPE_AECAR = 0;
 export const GAME_TYPE_KING = 1;
@@ -13,7 +14,39 @@ export const GAME_TYPE_COPAESPANA = 4;
 export const GAME_TYPE_MINICRAWLERPASSION = 5;
 
 class Game {
-    constructor(name, date, location, isPublic, gameType, players, judges, maxTime, maxPoints, gates, zones, gameStatus, uids, jids, owner) {
+    name: string;
+    date: Date;
+    location: Location;
+    isPublic: boolean;
+    gameType: number;
+    players: Array<Player>;
+    judges: Array<Judge>;
+    maxTime: number;
+    maxPoints: number;
+    gates: Array<number>;
+    uids: Array<string>;
+    jids: Array<string>;
+    zones: number;
+    gameStatus: number;
+    owner: Array<string>;
+    courtesyTime: number;
+    
+    constructor(name:string, 
+        date: Date, 
+        location: Location, 
+        isPublic: boolean, 
+        gameType: number,
+        players: Array<Player>,
+        judges: Array<Judge>,
+        maxTime: number, 
+        maxPoints: number,
+        gates: Array<number>,
+        zones: number,
+        gameStatus: number, 
+        uids: Array<string>,
+        jids: Array<string>,
+        owner: Array<string>) {
+
         this.name = name;
         this.date = date;
         this.location = location;
@@ -63,13 +96,16 @@ class Game {
 }
 
 class GameUtils {
-    static init(game, controlTextValuesInit, fiascoControlTextValuesInit, forceInitZones) {
+    static init(game: Game, 
+        controlTextValuesInit: Function, 
+        fiascoControlTextValuesInit: Function,
+        forceInitZones: boolean) {
         game.players.forEach((player)=>{
             if (!player.zones || player.zones.length===0 || forceInitZones) {
                 player.zones = [];
         
                 for (let k=0; k<game.zones;k++) {
-                    const zone = {
+                    const zone: Zone = {
                         points: 0,
                         totalPoints: 0,
                         simpathyPoints: 0,
@@ -96,7 +132,7 @@ class GameUtils {
         });
     }
 
-    static getGameTypeBodyClassName(gameType) {
+    static getGameTypeBodyClassName(gameType: number) {
         let classname;
     
         switch (gameType) {
@@ -126,7 +162,7 @@ class GameUtils {
         return classname;
     }
 
-    static getGameTypeControlTextValuesInit(gameType) {
+    static getGameTypeControlTextValuesInit(gameType: number) {
         let initFunct;
     
         switch (gameType) {
@@ -156,7 +192,7 @@ class GameUtils {
         return initFunct;
     }
     
-    static getGameTypeFiascoControlTextValuesInit(gameType) {
+    static getGameTypeFiascoControlTextValuesInit(gameType: number) {
         let initFunct;
     
         switch (gameType) {
@@ -185,14 +221,14 @@ class GameUtils {
         return initFunct;
     }
 
-    static redoPlayersIds(game) {
+    static redoPlayersIds(game: Game) {
         game.players.forEach((player, index)=>{
             player.id = index;
         });
 
     }
 
-    static sumControlTextValues(gateProgresionData) {
+    static sumControlTextValues(gateProgresionData:Array<GateProgressionData>) {
         const arrayLength = gateProgresionData.length ? gateProgresionData[0].controlTextValues.length : 0;
         const controlTextValues = new Array(arrayLength).fill(0);
     
@@ -205,7 +241,7 @@ class GameUtils {
         return controlTextValues;
     }
 
-    static isFiasco(game, playerIndex, zoneIndex) {
+    static isFiasco(game: Game, playerIndex: number, zoneIndex: number) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
     
         return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
@@ -213,7 +249,7 @@ class GameUtils {
             (this.isTimeFiasco(game, playerZone)));
     }
 
-    static isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) {
+    static isFiascoFromFiascoControlTextValues(game: Game, playerIndex: number, zoneIndex: number) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
         let fiasco = false, 
             gate = 0;
@@ -234,15 +270,15 @@ class GameUtils {
         return fiasco;
     }
 
-    static isPointsFiasco(game, playerZone) {
+    static isPointsFiasco(game: Game, playerZone: Zone) {
         return (game.maxPoints <= playerZone.points && game.maxPoints > 0);
     }
 
-    static isTimeFiasco(game, playerZone) {
+    static isTimeFiasco(game: Game, playerZone: Zone) {
         return ((game.maxTime + game.courtesyTime) <= playerZone.time && game.maxTime > 0);
     }
 
-    static isNonPresentedFiasco(game, playerIndex, zoneIndex) {
+    static isNonPresentedFiasco(game: Game, playerIndex: number, zoneIndex: number) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
         let fiasco = false, gate = 0;
     
@@ -258,7 +294,7 @@ class GameUtils {
     }
 
 
-    static  getZoneTotalBonification(gateProgresionData, gateProgresion) {
+    static  getZoneTotalBonification(gateProgresionData:Array<GateProgressionData>, gateProgresion:number) {
         let bonification = 0;
 
         for (let i=0; i<gateProgresion; i++) {
@@ -270,13 +306,13 @@ class GameUtils {
         return bonification*-2;
     }
 
-    static isCurrentUserIsOwner(owners) {
+    static isCurrentUserIsOwner(owners:Array<string>) {
         return owners && owners.find((elem)=>{
             return elem === window.crawlear.user.uid;
         });
     }
 
-    static getMaxGroupNumber(game) {
+    static getMaxGroupNumber(game: Game) {
         let maxGroup = 0;
 
         game.players.forEach((player)=>{

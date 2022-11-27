@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import Menu from '../../components/Menu.js';
 
 const div = document.createElement('div');
@@ -20,7 +21,7 @@ beforeEach(()=>{
 });
 
 test('renders Menu closed', () => {
-  const { container } = render(<Menu />, div),
+  const { container } = render(<BrowserRouter><Menu /></BrowserRouter>, div),
     menu = container.querySelector('.menuContainer'),
     menuEntries = menu.querySelector(".linksContainer");
 
@@ -30,7 +31,7 @@ test('renders Menu closed', () => {
 });
 
 test('opens Menu', () => {
-    const { container } = render(<Menu />, div),
+    const { container } = render(<BrowserRouter><Menu /></BrowserRouter>, div),
       menu = container.querySelector('.menuContainer');
   
     expect(menu.classList.contains("open")).toBeFalsy();
@@ -39,18 +40,22 @@ test('opens Menu', () => {
   });
 
   test('renders Menu open', () => {
-    const { container } = render(<Menu />, div),
+    const { container } = render(<BrowserRouter><Menu /></BrowserRouter>, div),
       menu = container.querySelector('.menuContainer');
   
     expect(menu.classList.contains("open")).toBeFalsy();
     menu.click();
     const links = menu.querySelectorAll(".linksContainer li");
 
-    expect(links.length).toBe(8);
-    expect(links[0].querySelector("a").getAttribute("href")).toBe("/");
-    expect(links[1].querySelector("a").getAttribute("href")).toBe("/privacypolicy");
-    expect(links[2].querySelector("a").getAttribute("href")).toBe("/aboutus");
+    expect(links.length).toBe(10);
+    expect(links[0].textContent).toBe("description.herramientajuego");
+    expect(links[1].textContent).toBe("description.perfilsocial");
+    expect(links[2].textContent).toBe("description.murodefollows");
     expect(links[3].textContent).toBe("-");
-    expect(links[4].querySelector("a").getAttribute("href")).toBe("https://www.aecar.org/modalidades.php?tipo=crawler");
-    expect(links[5].querySelector("a").getAttribute("href")).toBe("Reglamento Campeonato Nacional de Crawler 2022.pdf");
+    expect(links[4].querySelector("div").getAttribute("href")).toBe("https://www.aecar.org/modalidades.php?tipo=crawler");
+    expect(links[5].querySelector("div").getAttribute("href")).toBe("https://www.clubzonarc.es/");
+    expect(links[6].querySelector("div").getAttribute("href")).toBe("https://isrcc.eu/");
+    expect(links[7].textContent).toBe("-");
+    expect(links[8].textContent).toBe("description.politicaprivacidad");
+    expect(links[9].textContent).toBe("description.aboutus");
   });

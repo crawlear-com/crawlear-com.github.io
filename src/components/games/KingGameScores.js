@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ControlTextArray from "../ControlTextArray";
-import { GameUtils } from '../../model/Game';
+import { GameUtils } from '../../model/Game.ts';
 import AecarPoints from './AecarPoints';
 import Analytics from '../../Analytics';
 

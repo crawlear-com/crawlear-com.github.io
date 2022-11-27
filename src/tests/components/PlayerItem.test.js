@@ -29,7 +29,7 @@ test('renders PlayerItem', () => {
             i={0} 
             onRemovePlayer={onRemovePlayerMock} />, div);
 
-    expect(container.querySelector(".playerBox").textContent).toBe("Player1-");
+    expect(container.querySelector(".playerBox").textContent).toBe("Player1");
 });
 
 test('- removes the player', () => {
@@ -42,5 +42,5 @@ test('- removes the player', () => {
             i={0} 
             onRemovePlayer={onRemovePlayerMock} />, div);
 
-    expect(container.querySelector(".playerBox").textContent).toBe("Player1-");
+    expect(container.querySelector(".playerBox").textContent).toBe("Player1");
 });

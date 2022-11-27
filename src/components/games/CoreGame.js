@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-import { GameUtils } from '../../model/Game';
+import { GameUtils } from '../../model/Game.ts';
 import Utils from '../../Utils';
 
 import "rc-slider/assets/index.css";

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import KingGame from './games/KingGame';
 import CoreGame from './games/CoreGame';
 import { GameContext } from './context/GameContext';
@@ -14,7 +13,6 @@ function GameTypePlayer({game,
     gameExtras,
     children
 }) {
-    const { t } = useTranslation();
     const [gameState, setGameState] = React.useState(game);
     const elementsToRender = [];
     
@@ -24,6 +22,7 @@ function GameTypePlayer({game,
 
     if (gameState.gameType !== GAME_TYPE_KING) {
         elementsToRender.push(<CoreGame 
+            key={1}
             game={gameState}
             onGameEnd={(game)=>{onGameEnd(game)}}
             onRepair={onRepair}

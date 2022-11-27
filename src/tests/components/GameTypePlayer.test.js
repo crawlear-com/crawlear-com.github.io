@@ -1,8 +1,9 @@
 import { render } from '@testing-library/react';
 import GameTypePlayer from '../../components/GameTypePlayer.js';
-import { Game, GameUtils } from '../../model/Game.js';
+import { Game, GameUtils } from '../../model/Game.ts';
+import { gameExtras, getGameContent } from '../../components/games/AecarGameScores';
 
-let game;
+let game, gameContent;
 const div = document.createElement('div'),
     players = [{"id":1,"name":"Álvaro","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Álvaro","time":0,"points":0,},
         {"id":2,"name":"Joan","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Joan","time":0,"points":0},
@@ -22,10 +23,11 @@ jest.mock('react-i18next', () => ({
 
 beforeEach(()=>{  
     window.scrollTo = jest.fn();
-  document.body.innerHTML = '';
-  document.body.append(div);
+    document.body.innerHTML = '';
+    document.body.append(div);
 
-  game = new Game("",
+    gameContent = getGameContent("", 0,0, 0);
+    game = new Game("",
         new Date().toLocaleDateString(),
         { latitude: 0, longitude: 0 },
         false, 2,
@@ -40,13 +42,19 @@ beforeEach(()=>{
             totalTime: 16480,
             uid: "",
             zones: [{
-                battery: false,
-                controlTextValues: [0,5,1,3,2,4,3,0,4,0,5,0,6,0,7,0,8,0,9,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,0,18,0,19,0,20,0,21,0],
-                fiascoControlTextValues: [0,5,1,3,2,4,3,0,4,0,5,0,6,0,7,0,8,0,9,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,0,18,0,19,0,20,0,21,0],
-                gateProgression: 10,
-                points: 12,
-                time: 16480
-            }]
+                fiascoControlTextValues: [],
+                controlTextValues: [],
+                gateProgression: 1,
+                gateProgressionData: [],
+                gatesWithBonification: 0,
+                gatesWithFail: 0,
+                judgedBy: [],
+                points: 10,
+                totalPoints: 10,
+                simpathyPoints: 0,
+                time: 6000,
+                handicap: 0
+              }]
         },{
             avatar: "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=D2",
             id: 1,
@@ -58,46 +66,63 @@ beforeEach(()=>{
             totalTime: 16480,
             uid: "",
             zones: [{
-                battery: false,
-                controlTextValues: [0,5,1,3,2,4,3,0,4,0,5,0,6,0,7,0,8,0,9,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,0,18,0,19,0,20,0,21,0],
-                fiascoControlTextValues: [0,5,1,3,2,4,3,0,4,0,5,0,6,0,7,0,8,0,9,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,0,18,0,19,0,20,0,21,0],
-                gateProgression: 10,
-                points: 12,
-                time: 16480
-            }]
+                fiascoControlTextValues: [],
+                controlTextValues: [],
+                gateProgression: 1,
+                gateProgressionData: [],
+                gatesWithBonification: 0,
+                gatesWithFail: 0,
+                judgedBy: [],
+                points: 10,
+                totalPoints: 10,
+                simpathyPoints: 0,
+                time: 6000,
+                handicap: 0
+              }]
         }], [], 600000, 40, 10, 1, 0, [], []);
         GameUtils.init(game);
 });
 
 test('renders GameTypePlayer: 0', () => {
-    const onGameEndMock = jest.fn(), 
+    const onGameEndMock = jest.fn(),
+        onRepairMock = jest.fn(),
         { container } = render(<GameTypePlayer 
+            gameExtras={gameExtras}
             onGameEnd={onGameEndMock}
+            onRepair={onRepairMock}
             player={0}
             zone={0}
-            game={game} />, div);
+            game={game}>{gameContent}</GameTypePlayer>, div);
     expect(container.querySelector('.gameContainer')).not.toBeNull();
     expect(container.querySelector('.gameContainer')).not.toBeUndefined();
 });
 
 test('renders GameTypePlayer: 1', () => {
     const onGameEndMock = jest.fn(),
+        onRepairMock = jest.fn(),
         { container } = render(<GameTypePlayer 
+            gameExtras={gameExtras}
             onGameEnd={onGameEndMock}
+            onRepair={onRepairMock}
             player={0}
             zone={0}
-            game={game} />, div);
+            game={game}>{gameContent}</GameTypePlayer>, div);
     expect(container.querySelector('.gameContainer')).not.toBeNull();
     expect(container.querySelector('.gameContainer')).not.toBeUndefined();
 });
 
 test('renders GameTypePlayer: 2', () => {
     const onGameEndMock = jest.fn(), 
+        onRepairMock = jest.fn(),
         { container } = render(<GameTypePlayer 
+            gameExtras={gameExtras}
             onGameEnd={onGameEndMock}
+            onRepair={onRepairMock}
             player={0}
             zone={0}
-            game={game} />, div);
+            game={game}>{gameContent}</GameTypePlayer>, div);
     expect(container.querySelector('.gameContainer')).not.toBeNull();
     expect(container.querySelector('.gameContainer')).not.toBeUndefined();
 });
+
+

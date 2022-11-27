@@ -1,22 +1,17 @@
 import { t } from 'i18next';
 import * as React from 'react';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
-
+import Utils from '../Utils';
 import { AecarGameScores } from './games/AecarGameScores';
 import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
 import { Levante124GameScores } from './games/Levante124GameScores';
 import { IsrccGameScores } from './games/IsrccGameScores';
 import { MiniCrawlerPassionGameScores } from './games/MiniCrawlerPassionGameScores';
-import { GAME_TYPE_AECAR, 
-    GAME_TYPE_ISRCC, 
-    GAME_TYPE_KING, 
+import { GAME_TYPE_ISRCC, 
     GAME_TYPE_LEVANTE, 
     GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION } from '../model/Game';
+    GAME_TYPE_MINICRAWLERPASSION, GameUtils } from '../model/Game.ts';
 
-
-import { GameUtils } from '../model/Game';
-import Utils from '../Utils';
 
 function GameProgressionInfoRow({gameType, gameProgression}) {
     if (gameProgression.data) {

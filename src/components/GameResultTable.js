@@ -6,15 +6,12 @@ import { AecarGameScores } from './games/AecarGameScores';
 import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
 import { Levante124GameScores } from './games/Levante124GameScores';
 import { MiniCrawlerPassionGameScores } from './games/MiniCrawlerPassionGameScores';
-
 import { useTranslation } from 'react-i18next';
-import { GAME_TYPE_AECAR,
-    GAME_TYPE_ISRCC,
-    GAME_TYPE_KING,
+import { GAME_TYPE_ISRCC,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
-    GameUtils } from '../model/Game';
+    GameUtils } from '../model/Game.ts';
 
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import winnerIcon from '../resources/img/iconWinner.png';

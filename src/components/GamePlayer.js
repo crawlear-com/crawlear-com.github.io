@@ -21,7 +21,7 @@ import { GAME_TYPE_AECAR,
          GAME_TYPE_LEVANTE, 
          GAME_TYPE_COPAESPANA,
          GAME_TYPE_MINICRAWLERPASSION,
-        GameUtils } from '../model/Game';
+        GameUtils } from '../model/Game.ts';
 
 import '../resources/css/GamePlayer.scss';
 import WinnerTable from '../components/WinnerTable';

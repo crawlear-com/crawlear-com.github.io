@@ -6,7 +6,7 @@ import { GAME_TYPE_AECAR,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
-    Game, GameUtils } from '../../model/Game';
+    Game, GameUtils } from '../../model/Game.ts';
 import GameTypeController from '../GameTypeController';
 import PlayerController from '../PlayerController';
 import MaxTimeAndPointsPicker from '../MaxTimeAndPointsPicker';
