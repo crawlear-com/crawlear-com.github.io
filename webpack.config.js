@@ -29,6 +29,13 @@ module.exports = {
         }
     },
     {
+        test: /\.?ts$/,
+        exclude: /node_modules/,
+        use: {
+            loader: "ts-loader"
+        }
+    },
+    {
         test: /\.(jpe?g|png|pdf|gif|svg)$/i, 
         type: 'asset/resource'
     }]
