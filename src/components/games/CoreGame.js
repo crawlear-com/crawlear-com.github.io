@@ -234,6 +234,11 @@ function CoreGame({
             {fiasco}
         </div>
         <div className="controlTextContainer rounded rounded2">
+            {game.courtesyTime>0 ? 
+                    <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
+                    <></>}            
+            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
+
             <TimerControl
                 courtesyTime={game.courtesyTime}
                 startTime={playerZone.time}
@@ -243,12 +248,6 @@ function CoreGame({
                 onTimeFiasco={onTimeFiasco}
                 onPointBecauseLastMinute={onPointBecauseLastMinute}
                 maxTime={maxTime} />
-
-                {game.courtesyTime>0 ? 
-                    <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
-                    <></>}
-                
-            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="gateProgressionContainer controlTextContainer info rounded rounded2">
             {t('description.avancepuerta')}: {playerZone.gateProgression}
