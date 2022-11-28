@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-import { GameUtils } from '../../model/Game.ts';
+import { GameUtils, GAME_TYPE_GENERIC } from '../../model/Game.ts';
 import Utils from '../../Utils';
 
 import "rc-slider/assets/index.css";
@@ -257,6 +257,7 @@ function CoreGame({
                     min={0}
                     max={currentGame.gates[zoneIndex]}
                     dots={true}
+                    vertical={game.gameType === GAME_TYPE_GENERIC}
                     value={playerZone.gateProgression}
                     onChange={onGateProgressionChange}
                     marks={gameExtras.generateSliderMarksFromGates(playerZone.gateProgressionData, playerZone.gateProgression)}

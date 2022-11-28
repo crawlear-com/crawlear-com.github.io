@@ -259,7 +259,12 @@ i18n
             tiemposentrenamiento: 'Not respecting the training times',
             unaruedaejetrasero: 'Pass only one wheel of the rear axle through the door',
             tocarpuertaunarueda: 'To knock on a door and pass only 1 rear wheel through it',
-            puertabonificada: 'gate bonification'
+            puertabonificada: 'gate bonification',
+            masuno: '1',
+            masdos: '2',
+            mastres: '3',
+            mascuatro: '4',
+            mascinco: '5'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -272,6 +277,7 @@ i18n
             modojuegoisrcc: 'By points game using the ISRCC rules and scores',
             modojuegolevante124: 'By points game using the Levante 1/24 rules and scores',
             modojuegominicrawlerpassion: 'By points game with basic but effective rules and scores',
+            modojuegogeneric: 'By pointa using generic rules and scores',
             simple: 'Simple',
             completa: 'Complete',
             descripcionPuntosSimple: 'Score: Winch, touch, obstacle jump, repair, door, overturn and progression door. There is no time or maximum points. There is no max time or max points',
@@ -282,7 +288,7 @@ i18n
             isrcc: 'ISRCC Rules',
             aecar: 'AECAR Rules',
             levante124: '1/24 Levante Rules',
-            
+            generic: 'Generic Rules',
             copaespana: 'Regional ZonaRc',
             minicrawlerpassion: 'Mini Crawler Passion',
             modojuegocopaespana: 'By points game with full ZonaRc Regional Championship rules and scores'
@@ -540,7 +546,12 @@ i18n
             moverwinch: 'Mover el vehículo >2cm al sacar el WINCH',
             unaruedaejetrasero: 'Pasar solo una rueda del eje trasero por la puerta',
             tocarpuertaunarueda: 'Tocar puerta y pasar solo 1 rueda trasera por ella',
-            puertabonificada: 'Puerta bonificada'
+            puertabonificada: 'Puerta bonificada',
+            masuno: '1',
+            masdos: '2',
+            mastres: '3',
+            mascuatro: '4',
+            mascinco: '5'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -554,6 +565,7 @@ i18n
             modojuegolevante124: 'Por puntos usando reglas y puntuaciones del regalmento Levante 1/24',
             modojuegocopaespana: 'Por puntos usando reglas y puntuaciones completas del Campeonato Regional de ZonaRc',
             modojuegominicrawlerpassion: 'Por puntos usando reglas y puntuaciones básicas pero efectivas',
+            modojuegogeneric: 'Por puntos usando reglas y puntuaciones genéricas',
             simple: 'Simple',
             completa: 'Completa',
             descripcionPuntosSimple: 'Puntuación: Winch, tocar, salto obstaculo, reparacion, puerta, vuelco y puerta progresion. No hay tiempo ni puntos máximos. No se aplica tiempo ni puntuación máxima.',
@@ -564,6 +576,7 @@ i18n
             isrcc: 'Reglas ISRCC',
             aecar: 'Reglas AECAR',
             levante124: '1/24 Levante',
+            generic: 'Reglas genéricas',
             copaespana: 'Regional ZonaRc',
             minicrawlerpassion: 'Mini Crawler Passion'
           }

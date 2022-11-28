@@ -8,11 +8,17 @@
     font-size: 0.8em;
 }
 
+.generic .gateProgressionContainer {
+    width: 26%;
+    float: left;
+    margin: 0 10px 0 10px;
+}
+
 .gateProgressionContainer {
     .buttonControlTextPlus,
     .buttonControlTextMinus {
-        width: 50px;
-        height: 50px;
+        width: 35px;
+        height: 35px;
     }
 }
 
@@ -41,11 +47,6 @@
 
 .fiascoBox .importantNote {
     margin-bottom: 15px;
-}
-
-.rc-slider {
-    width: 80%;
-    margin: 15px auto;
 }
 
 .info {

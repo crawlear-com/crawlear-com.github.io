@@ -5,6 +5,7 @@ import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from
 import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from './games/Levante124GameScores';
 import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from './games/RegionalZonaRcGameScores';
 import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniCrawlerPassionExtras } from './games/MiniCrawlerPassionGameScores';
+import { getGameContent as getGenericGameContent, gameExtras as genericExtras } from './games/GenericGameScores';
 import { gameExtras as kingExtras } from './games/KingGameScores';
 import Utils from '../Utils';
 import ErrorBox from '../components/ErrorBox';
@@ -21,6 +22,7 @@ import { GAME_TYPE_AECAR,
          GAME_TYPE_LEVANTE, 
          GAME_TYPE_COPAESPANA,
          GAME_TYPE_MINICRAWLERPASSION,
+         GAME_TYPE_GENERIC,
         GameUtils } from '../model/Game.ts';
 
 import '../resources/css/GamePlayer.scss';
@@ -73,6 +75,9 @@ function GamePlayer({inGame, onBackButtonClick}) {
     } else if (game.gameType === GAME_TYPE_MINICRAWLERPASSION) {
         player!=-1 && zone != -1 && (method = getMiniCrawlerPassionGameContent);
         gameExtras = miniCrawlerPassionExtras;
+    } else if (game.gameType === GAME_TYPE_GENERIC) {
+        player!=-1 && zone != -1 && (method = getGenericGameContent);
+        gameExtras = genericExtras;
     }
 
     method && (childrenContent = method(t, player.id, zone, game.players[player.id].zones[zone].points));

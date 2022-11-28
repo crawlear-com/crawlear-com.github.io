@@ -6,11 +6,13 @@ import { AecarGameScores } from './games/AecarGameScores';
 import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
 import { Levante124GameScores } from './games/Levante124GameScores';
 import { MiniCrawlerPassionGameScores } from './games/MiniCrawlerPassionGameScores';
+import { GenericGameScores } from './games/GenericGameScores';
 import { useTranslation } from 'react-i18next';
 import { GAME_TYPE_ISRCC,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
+    GAME_TYPE_GENERIC,
     GameUtils } from '../model/Game.ts';
 
 import fiascoIcon from '../resources/img/iconFiasco.png';
@@ -38,6 +40,9 @@ function GameResultTable({game, isDraw}) {
         case GAME_TYPE_MINICRAWLERPASSION:
             gameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.texts);
                 break;
+        case GAME_TYPE_GENERIC:
+            gameTypeTexts = Utils.tokenToTexts(GenericGameScores.texts);
+                break;        
         default:
             gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts);
             break;
