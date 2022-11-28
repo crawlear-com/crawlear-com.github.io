@@ -3,7 +3,7 @@ import * as React from 'react';
 import GameHeaderInfo from './GameHeaderInfo';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
 import fiascoIcon from '../resources/img/iconFiasco.png';
-import { GameUtils } from '../model/Game';
+import { GameUtils } from '../model/Game.ts';
 
 function GameProgressionInfo({game, gameProgression}) {
     const playersDone = [];

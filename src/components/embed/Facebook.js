@@ -1,8 +1,6 @@
 import * as React from 'react';
 import useScript from '../../hooks/useScript';
 
-//import Logo from './logoFacebook.svg';
-
 import '../../resources/css/embed/Facebook.scss';
 
 function Facebook({ url }) {
@@ -11,7 +9,7 @@ function Facebook({ url }) {
         const scriptElement = document.getElementById('fb-root');
 
         if(!scriptElement) {
-            const div = document.createElement(div);
+            const div = document.createElement("DIV");
             div.id = 'fb-root';
         } else {
             FB && FB.XFBML && FB.XFBML.parse();

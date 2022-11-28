@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameProgressionInfo from './GameProgressionInfo';
-import '../resources/css/GameList.scss';
 import WinnerTable from './WinnerTable';
-import { GameUtils } from '../model/Game';
+import { GameUtils } from '../model/Game.ts';
+
+import '../resources/css/GameList.scss';
 
 function GameList({games, gameProgressions, readOnly, onRemoveGame, title, onGamePlay}) {
     const { t } = useTranslation();

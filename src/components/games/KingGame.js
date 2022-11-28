@@ -4,7 +4,7 @@ import ControlTextArray from '../ControlTextArray';
 import Analytics from '../../Analytics';
 import TimerControl from '../TimerControl';
 import { KingGameScores } from './KingGameScores';
-import { GameUtils } from '../../model/Game';
+import { GameUtils } from '../../model/Game.ts';
 import '../../resources/css/games/KingGame.scss';
 
 function KingGame({game, onGameEnd}) {

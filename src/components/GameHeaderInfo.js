@@ -7,7 +7,7 @@ import { GAME_TYPE_AECAR,
     GAME_TYPE_KING, 
     GAME_TYPE_LEVANTE, 
     GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION } from '../model/Game';
+    GAME_TYPE_MINICRAWLERPASSION } from '../model/Game.ts';
 
 import '../resources/css/GameHeaderInfo.scss'
 

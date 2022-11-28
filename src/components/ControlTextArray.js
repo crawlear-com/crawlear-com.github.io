@@ -57,7 +57,7 @@ function ControlTextArray({
         while (i<controlTextValues.length) {
             const j = i;
 
-            controlArray2.push(<ControlText key={i} 
+            controlArray2.push(<ControlText key={`fullScore${i}`} 
                 value={controlTextValues[i]}
                 maxValue={maxValues[i]}
                 onValueChange={(value)=> {
