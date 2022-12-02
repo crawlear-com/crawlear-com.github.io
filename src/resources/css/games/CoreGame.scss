@@ -8,10 +8,16 @@
     font-size: 0.8em;
 }
 
-.generic .gateProgressionContainer {
-    width: 26%;
-    float: left;
-    margin: 0 10px 0 10px;
+.generic {
+    .gateProgressionContainer {
+        width: 26%;
+        float: left;
+        margin: 0 10px 0 10px;
+    }
+
+    .gatePoints {
+        padding: 0px;
+    }
 }
 
 .gateProgressionContainer {
