@@ -251,6 +251,8 @@ function CoreGame({
         </div>
         <div className="gateProgressionContainer controlTextContainer info rounded rounded2">
             {t('description.avancepuerta')}: {playerZone.gateProgression}
+            <button id='gatesPlusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextPlus'>+</button>
+            <button id='gatesMinusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextMinus'>-</button>
             <SliderWithTooltip
                     step={1}
                     min={0}
@@ -265,8 +267,6 @@ function CoreGame({
                             String(value).concat('-').concat(playerZone.gateProgressionData[playerZone.gateProgression].gatePoints) : 
                             '-'; 
                     }}/>
-            <button id='gatesPlusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextPlus'>+</button>
-            <button id='gatesMinusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextMinus'>-</button>
         </div>
         
         <div className="controlTextContainer rounded rounded2">
