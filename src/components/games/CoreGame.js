@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import TimerControl from '../TimerControl';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-import { GameUtils } from '../../model/Game.ts';
+import { GameUtils, GAME_TYPE_GENERIC } from '../../model/Game.ts';
 import Utils from '../../Utils';
 
 import "rc-slider/assets/index.css";
@@ -234,6 +234,11 @@ function CoreGame({
             {fiasco}
         </div>
         <div className="controlTextContainer rounded rounded2">
+            {game.courtesyTime>0 ? 
+                    <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
+                    <></>}            
+            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
+
             <TimerControl
                 courtesyTime={game.courtesyTime}
                 startTime={playerZone.time}
@@ -243,12 +248,6 @@ function CoreGame({
                 onTimeFiasco={onTimeFiasco}
                 onPointBecauseLastMinute={onPointBecauseLastMinute}
                 maxTime={maxTime} />
-
-                {game.courtesyTime>0 ? 
-                    <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
-                    <></>}
-                
-            <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
         </div>
         <div className="gateProgressionContainer controlTextContainer info rounded rounded2">
             {t('description.avancepuerta')}: {playerZone.gateProgression}
@@ -257,6 +256,7 @@ function CoreGame({
                     min={0}
                     max={currentGame.gates[zoneIndex]}
                     dots={true}
+                    vertical={game.gameType === GAME_TYPE_GENERIC}
                     value={playerZone.gateProgression}
                     onChange={onGateProgressionChange}
                     marks={gameExtras.generateSliderMarksFromGates(playerZone.gateProgressionData, playerZone.gateProgression)}

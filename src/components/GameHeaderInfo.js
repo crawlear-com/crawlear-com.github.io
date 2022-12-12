@@ -7,7 +7,8 @@ import { GAME_TYPE_AECAR,
     GAME_TYPE_KING, 
     GAME_TYPE_LEVANTE, 
     GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION } from '../model/Game.ts';
+    GAME_TYPE_MINICRAWLERPASSION,
+    GAME_TYPE_GENERIC } from '../model/Game.ts';
 
 import '../resources/css/GameHeaderInfo.scss'
 
@@ -28,7 +29,9 @@ function GameHeaderInfo({game}) {
                 return t('gametype.copaespana');
             case GAME_TYPE_MINICRAWLERPASSION:
                 return t('gametype.minicrawlerpassion');
-            default:
+            case GAME_TYPE_GENERIC:
+                return t('gametype.generic');
+                default:
                 return t('gametype.isrcc');
         }
     }

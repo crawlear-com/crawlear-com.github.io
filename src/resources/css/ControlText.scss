@@ -19,7 +19,7 @@
 .controlTextText {
     min-width: 168px;
     padding: 10px 0;
-    width: 100%;
+    width: auto;
 }
 
 .controlTextTitle {
@@ -44,4 +44,57 @@
 .buttonControlTextMinus {
     text-shadow: 2px 2px 4px #333;
     font-size: 12px;
+}
+
+.generic {
+    .controlText {
+        font-size: 14px;
+        display: flex;
+        line-height: 20px;
+        text-align: left;
+        background-color: rgb(30 30 30 / 32%);
+        margin-bottom: 5px;
+        border-radius: 15px;
+        font-size: 0.7em;
+    }
+    
+    .controlTextValue {
+        background-color: inherit;
+        padding: 10px;
+        font-weight: bold;
+        font-size: 1.1em;
+        border-radius: 15px;
+        width: 100%;
+        text-align: right;
+    }
+    
+    .controlTextText {
+        min-width: 30px;
+        padding: 10px 0;
+        width: 100%;
+    }
+    
+    .controlTextTitle {
+        margin: 0px 0px 10px 0px;
+        font-size: 0.7em;
+    }
+    
+    .controlTextContainer {
+        overflow: hidden;
+    
+        .dropdown {
+            width: 20px;
+            margin: 0;
+            float: right;
+        }
+        .closed {
+            height: 35px;
+        }
+    }
+    
+    .buttonTextPlus, 
+    .buttonTextMinus {
+        text-shadow: 2px 2px 4px #333;
+        font-weight: bold;
+    }
 }

@@ -4,6 +4,7 @@ import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from
 import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
 import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
 import { gameExtras as MiniCrawlerPassionGameExtras, MiniCrawlerPassionGameScores } from '../components/games/MiniCrawlerPassionGameScores';
+import { gameExtras as GenericGameExtras, GenericGameScores } from '../components/games/GenericGameScores';
 import { Location, Player, Judge, GateProgressionData, Zone } from './GameInterfaces';
 
 export const GAME_TYPE_AECAR = 0;
@@ -12,6 +13,7 @@ export const GAME_TYPE_ISRCC = 2;
 export const GAME_TYPE_LEVANTE = 3;
 export const GAME_TYPE_COPAESPANA = 4;
 export const GAME_TYPE_MINICRAWLERPASSION = 5;
+export const GAME_TYPE_GENERIC = 6;
 
 enum GameType {
     GAME_TYPE_AECAR,
@@ -19,7 +21,8 @@ enum GameType {
     GAME_TYPE_ISRCC,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION
+    GAME_TYPE_MINICRAWLERPASSION,
+    GAME_TYPE_GENERIC
 }
 
 class Game {
@@ -96,6 +99,9 @@ class Game {
                 case GAME_TYPE_MINICRAWLERPASSION:
                     courtesyTime = MiniCrawlerPassionGameScores.courtesyTime;
                     break;
+                case GAME_TYPE_GENERIC:
+                    courtesyTime = GenericGameScores.courtesyTime;
+                    break;
                 default: 
                     courtesyTime = 0;
             }
@@ -163,6 +169,9 @@ class GameUtils {
             case GAME_TYPE_MINICRAWLERPASSION:
                 classname = 'minicrawlerpassion';
                 break;
+            case GAME_TYPE_GENERIC:
+                classname = 'generic';
+                break;
     
             default: 
                 classname = '';
@@ -193,7 +202,9 @@ class GameUtils {
             case GAME_TYPE_MINICRAWLERPASSION:
                 initFunct = MiniCrawlerPassionGameExtras.controlTextValuesInit;
                 break;
-    
+            case GAME_TYPE_GENERIC:
+                initFunct = GenericGameExtras.controlTextValuesInit;
+                break;    
             default: 
                 initFunct = IsrccGameExtras.controlTextValuesInit;
         }
@@ -222,6 +233,9 @@ class GameUtils {
                 break;
             case GAME_TYPE_MINICRAWLERPASSION:
                 initFunct = MiniCrawlerPassionGameExtras.fiascoControlTextValuesInit;
+                break;
+            case GAME_TYPE_GENERIC:
+                initFunct = GenericGameExtras.fiascoControlTextValuesInit;
                 break;
             default: 
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;

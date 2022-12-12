@@ -15,7 +15,6 @@ function ControlText({
     const valueRef = React.useRef();
     const { t } = useTranslation();
 
-
     function updateValue(step) {
         if (!isNegativeControl && (value+step >= 0) && (!maxValue || value+step <= Math.abs(maxValue*step))) {
             Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
@@ -40,8 +39,8 @@ function ControlText({
             updateValue(-step)
         }}>-</button>
 
-        <div className={getControlClass("controlTextText")}>{t(text)}: </div>
-        <div ref={valueRef} className={getControlClass("controlTextValue")}>{value}</div>        
+        <div className={getControlClass("controlTextText")}>{t(text)} </div>
+        <div ref={valueRef} className={getControlClass("controlTextValue")}>{value}</div>
     </div>;
 }
 

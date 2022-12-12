@@ -6,6 +6,7 @@ import { GAME_TYPE_AECAR,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
+    GAME_TYPE_GENERIC,
     Game, GameUtils } from '../../model/Game.ts';
 import GameTypeController from '../GameTypeController';
 import PlayerController from '../PlayerController';
@@ -23,6 +24,7 @@ import { Levante124GameScores } from '../games/Levante124GameScores';
 import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
 import { KingGameScores } from '../games/KingGameScores';
 import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
+import { GenericGameScores } from '../games/GenericGameScores';
 
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../Analytics';
@@ -86,6 +88,10 @@ function GameConfigurator() {
             case GAME_TYPE_MINICRAWLERPASSION:
                 maxPoints = MiniCrawlerPassionGameScores.maxPoints;
                 maxTime = MiniCrawlerPassionGameScores.maxTime;
+                break;
+            case GAME_TYPE_GENERIC:
+                maxPoints = GenericGameScores.maxPoints;
+                maxTime = GenericGameScores.maxTime;
                 break;
             default: 
                 maxPoints = 0;

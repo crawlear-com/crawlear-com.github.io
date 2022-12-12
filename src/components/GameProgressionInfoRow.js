@@ -7,10 +7,13 @@ import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
 import { Levante124GameScores } from './games/Levante124GameScores';
 import { IsrccGameScores } from './games/IsrccGameScores';
 import { MiniCrawlerPassionGameScores } from './games/MiniCrawlerPassionGameScores';
+import { GenericGameScores } from './games/GenericGameScores';
 import { GAME_TYPE_ISRCC, 
     GAME_TYPE_LEVANTE, 
     GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION, GameUtils } from '../model/Game.ts';
+    GAME_TYPE_MINICRAWLERPASSION, 
+    GAME_TYPE_GENERIC,
+    GameUtils } from '../model/Game.ts';
 
 
 function GameProgressionInfoRow({gameType, gameProgression}) {
@@ -46,7 +49,12 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
             gameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.texts);   
             fiascoGameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.fiascoTexts);
         }
-            
+
+        if(gameType ===GAME_TYPE_GENERIC) {
+            gameTypeTexts = Utils.tokenToTexts(GenericGameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(GenericGameScores.fiascoTexts);
+        }   
+        
         return <>
             <ul>
                 <li>{t('description.puntos')}: <span className="bold">{points}</span></li>

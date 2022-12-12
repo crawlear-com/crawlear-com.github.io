@@ -2,7 +2,6 @@ import * as React from 'react';
 import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
 import GameList from '../GameList.js';
-import UserProfile from '../UserProfile.js';
 import GameRequests from '../GameRequests.js';
 import GamePlayer from '../GamePlayer.js';
 
