@@ -23,7 +23,8 @@ class Bluetooth {
         navigator.bluetooth.requestDevice({
             filters: [{
               name: 'CrawlearBluetoothDevice'
-            }]
+            }],
+            optionalServices: ['3feb1e8a-3981-4045-ad39-b225135013a0']
           }).then(device => {
             this.device = device;
             callback && callback(device);
@@ -54,8 +55,8 @@ class Bluetooth {
     }
 
     sendPoints(points) {
-      if(this.timeValueCharacteristic) {
-        this.timeValueCharacteristic.writeValue(new TextEncoder().encode(points));  
+      if(this.pointsCharacteristic) {
+        this.pointsCharacteristic.writeValue(new TextEncoder().encode(points));  
       }
     }
 

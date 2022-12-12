@@ -193,7 +193,8 @@ class GameUtils {
     }
 
     static sumControlTextValues(gateProgresionData) {
-        const controlTextValues = new Array(gateProgresionData[0].controlTextValues.length).fill(0);
+        const arrayLength = gateProgresionData.length ? gateProgresionData[0].controlTextValues.length : 0;
+        const controlTextValues = new Array(arrayLength).fill(0);
     
         gateProgresionData.forEach((data)=>{
             data.controlTextValues.forEach((control, index)=>{

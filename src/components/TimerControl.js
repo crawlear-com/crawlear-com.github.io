@@ -68,6 +68,7 @@ function TimerControl ({
             setState(previousInputs => ({ ...previousInputs,...newState}));
             eventManager.sendMessage(MSG_STOP, {});
         }
+        eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)));
     }, [state.state]);
 
     function timerCount(state) {
