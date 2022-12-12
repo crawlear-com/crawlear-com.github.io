@@ -14,6 +14,7 @@ import GameConfigurator from './components/routes/GameConfigurator';
 import UserViewer from './components/routes/UserViewer';
 import PostViewer from './components/routes/PostViewer';
 import { UserStatusContext } from './components/context/UserStatusContext';
+import initPwa from './pwa/initPwa';
 
 import './Error.js';
 
@@ -33,6 +34,7 @@ function App() {
 
   React.useEffect(() => {
     Analytics.event('App','init',`${navigator.userAgent}`);
+    initPwa();
   }, [])
 
   function onLogin(navigateAction) {
