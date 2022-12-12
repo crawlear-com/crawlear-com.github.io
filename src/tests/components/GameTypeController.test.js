@@ -45,5 +45,5 @@ test('renders GameTypeController', () => {
         selectGameType = selects[0];
 
     expect(selects.length).toBe(1);
-    expect(selectGameType.querySelectorAll('option').length).toBe(6);
+    expect(selectGameType.querySelectorAll('option').length).toBe(7);
 });
