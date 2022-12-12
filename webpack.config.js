@@ -59,7 +59,8 @@ module.exports = {
         { from: "src/pwa/service-worker.js", to: "" },
         { from: "src/static/favicon.ico", to: "static/" },
         { from: "src/static/logo192.png", to: "static/" },
-        { from: "src/static/logo512.png", to: "static/" }
+        { from: "src/static/logo512.png", to: "static/" },
+        { from: "public/.well-known/assetlinks.json", to: ".well-known/" }
       ]})
   ]
 }
