@@ -260,11 +260,11 @@ i18n
             unaruedaejetrasero: 'Pass only one wheel of the rear axle through the door',
             tocarpuertaunarueda: 'To knock on a door and pass only 1 rear wheel through it',
             puertabonificada: 'gate bonification',
-            masuno: '1',
-            masdos: '2',
-            mastres: '3',
-            mascuatro: '4',
-            mascinco: '5'
+            masuno: '+1',
+            masdos: '+2',
+            mastres: '+3',
+            mascuatro: '+4',
+            mascinco: '+5'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -547,11 +547,11 @@ i18n
             unaruedaejetrasero: 'Pasar solo una rueda del eje trasero por la puerta',
             tocarpuertaunarueda: 'Tocar puerta y pasar solo 1 rueda trasera por ella',
             puertabonificada: 'Puerta bonificada',
-            masuno: '1',
-            masdos: '2',
-            mastres: '3',
-            mascuatro: '4',
-            mascinco: '5'
+            masuno: '+1',
+            masdos: '+2',
+            mastres: '+3',
+            mascuatro: '+4',
+            mascinco: '+5'
           },
           gametype: {
             partidarapida: 'Partida rápida',
