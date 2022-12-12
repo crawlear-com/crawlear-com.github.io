@@ -1,0 +1,1 @@
+self.addEventListener("install",(function(){console.log("Install!")})),self.addEventListener("activate",(e=>{console.log("Activate!")})),self.addEventListener("fetch",(function(e){}));
