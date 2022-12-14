@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import MainPageTextContent from '../MainPageTextContent.js';
 import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
+import Offline from './Offline.js';
+import Footer from '../Footer.js';
 
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
 import Levante124Logo from '../../resources/img/Levante124Logo.jpeg';
@@ -30,10 +32,13 @@ function Landing({onLogin}) {
         <MainPageTextContent />
 
         <div className="loginAndContent aboutUsContent">
-            <p>{t('content.landingMainText')}:</p>
-            <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
+            {navigator.onLine ? 
+                <><p>{t('content.landingMainText')}:</p>
+                <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                     firebase.signInWithGoogle(signInCallback);
-                }} />
+                }} /></>
+                :
+                <Offline />}
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
@@ -42,6 +47,8 @@ function Landing({onLogin}) {
                 <img className='collaborateLogo' src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
             </p>
         </div>
+
+        <Footer />
         </>
 }
 

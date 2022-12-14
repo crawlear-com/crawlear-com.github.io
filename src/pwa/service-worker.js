@@ -1,8 +1,20 @@
 const CACHE_NAME = "crawlearCache_v1";
 
 //eslint-disable-next-line
-self.addEventListener('install', function() {
+self.addEventListener('install', event => {
     console.log(`CrawlearServiceWorker::${CACHE_NAME} Installed`);
+
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(function(cache) {
+          return cache.addAll([
+            './',
+            'index.html',
+            '/main.js',
+            '/88eb99d0c3739d8fccb7.png',
+            '/cc09ab0763994fa2fdd3.png'
+          ]);
+        })
+      );
 });
 
 //eslint-disable-next-line

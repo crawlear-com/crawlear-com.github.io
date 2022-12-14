@@ -64,7 +64,8 @@ i18n
             sharePostText: 'Hey! Check this crawlear.com post ',
             comparteenredespiloto: 'Share this pilot profile in social networks:',
             comparteenredespost: 'Share this post in social networks:',
-            ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help'
+            ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help',
+            offlineMainText: 'Your browser is offline, check again in minutes'
           },
           error: {
               nojugadores: 'Add the players',
@@ -347,7 +348,8 @@ i18n
             sharePostText: 'Hey! Echa un ojo a ésta entrada en crawlear.com ',
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
             comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
-            ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.'
+            ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.',
+            offlineMainText: 'Tu navegador no tiene conexión, comprueba de nuevo en unos minutos'
           },
           error: {
               nojugadores: 'Añade a los jugadores',

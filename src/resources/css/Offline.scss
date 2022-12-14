@@ -1,0 +1,10 @@
+body.offline {
+    background-image: none;
+
+    .offlineContainer {
+        width: 100%;
+        margin: 10px auto;
+        padding: 15px;
+        text-decoration: underline;
+    }
+}
