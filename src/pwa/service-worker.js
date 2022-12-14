@@ -1,4 +1,4 @@
-const CACHE_NAME = "crawlearCache_v2";
+const CACHE_NAME = "crawlearCache_v3";
 
 //eslint-disable-next-line
 self.addEventListener('install', event => {
@@ -39,6 +39,14 @@ self.addEventListener('fetch', function(event) {
       });
     }));
   } else {
-    return;
+    event.respondWith(caches.open(CACHE_NAME).then((cache) => {
+        return fetch(event.request.url).then((fetchedResponse) => {
+          cache.put(event.request, fetchedResponse.clone());
+  
+          return fetchedResponse;
+        }).catch(() => {
+          return cache.match(event.request.url);
+        });
+      }));
   }
 });
