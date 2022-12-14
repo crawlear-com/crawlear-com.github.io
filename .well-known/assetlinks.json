@@ -1,5 +1,0 @@
-[{
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target" : { "namespace": "android_app", "package_name": "com.crawlear.twa",
-                 "sha256_cert_fingerprints": ["42:6D:50:5F:70:C4:DF:C7:E9:7C:9D:0D:44:D1:5F:38:01:22:A1:CB:78:E7:D9:7F:1B:17:1F:6F:67:C1:07:E5"] }
-  }]
