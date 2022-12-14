@@ -1,15 +1,13 @@
-import Analytics from "../Analytics";
-
 const CACHE_NAME = "crawlearCache_v1";
 
 //eslint-disable-next-line
 self.addEventListener('install', function() {
-    Analytics.event('App','pwa','install');
+    console.log(`CrawlearServiceWorker::${CACHE_NAME} Installed`);
 });
 
 //eslint-disable-next-line
 self.addEventListener("activate", event => {
-    Analytics.event('App','pwa','activate');
+    console.log(`CrawlearServiceWorker::${CACHE_NAME} Activated`);
 });
 
 //eslint-disable-next-line
