@@ -8,6 +8,7 @@ function initPwa() {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
             const sw = isLocalhost() ? 'service-worker-dev.js' : 'service-worker.js';
+
             navigator.serviceWorker.register(sw).then(function(registration) {
                 Analytics.event('App','pwa','registered');
             }, function(err) {
