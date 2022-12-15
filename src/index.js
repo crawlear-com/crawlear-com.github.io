@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Analytics from './Analytics';
 import { BrowserRouter } from 'react-router-dom';
+import initPwa from './pwa/initPwa';
 import i18n from './language/i18n';
 
 Analytics.init('UA-156750890-2');
@@ -21,3 +22,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+initPwa();

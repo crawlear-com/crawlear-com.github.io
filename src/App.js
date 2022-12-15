@@ -34,7 +34,6 @@ function App() {
 
   React.useEffect(() => {
     Analytics.event('App','init',`${navigator.userAgent}`);
-    initPwa();
   }, [])
 
   function onLogin(navigateAction) {

@@ -44,15 +44,17 @@ self.addEventListener('fetch', function(event) {
             });
             });
         }));
-        } else {
-        if (event.request.url.indexOf('chrome-extension://') === -1) {
+    } else {
+        const url = event.request.url;
+
+        if ((url.indexOf('crawlear.com') <= -1) && (url.indexOf('chrome-extension://') <= -1)) {
             event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-                return fetch(event.request.url).then((fetchedResponse) => {
+                return fetch(url).then((fetchedResponse) => {
                     cache.put(event.request, fetchedResponse.clone());
             
                     return fetchedResponse;
                 }).catch(() => {
-                    return cache.match(event.request.url);
+                    return cache.match(url);
                 });
             }));    
         } else {
