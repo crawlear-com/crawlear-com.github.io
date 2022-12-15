@@ -21,11 +21,12 @@ function TimerControl ({
     const containerRef = React.useRef(null);
     const tickTime = React.useRef(startTime || 0);
     const [state, setState] = React.useState(()=>{ 
-        return { 
+        return {
             millis: startTime || 0,
             timer: null,
             maxTime: maxTime,
-            state: STATE_PAUSE
+            state: STATE_PAUSE,
+            timeStart: Date.now()
         };
     });
     const timeValue = Utils.millisToTime(state.millis);
@@ -36,21 +37,17 @@ function TimerControl ({
     },[forceAction]);
 
     React.useEffect(()=> {
-        const newState = {
-            ...state,
-            timeStart: Date.now()
-        };
+        const newState = { ...state };
 
         if (newState.state === STATE_PLAY) {
             newState.timer && clearInterval(newState.timer);
             newState.millis = tickTime.current;
             newState.timer = setInterval(() => {timerCount(newState)}, 10);
+            
+            newState.timeStart = Date.now();
+            
             setState(previousInputs => ({ ...previousInputs,...newState}));
         } else if (newState.state === STATE_PAUSE){
-            const finalTime = tickTime.current + (Date.now() - newState.timeStart);
-            
-            newState.millis = finalTime;
-            tickTime.current = finalTime;
             newState.timer && clearInterval(state.timer);
             newState.timer = null;
             setState(previousInputs => ({ ...previousInputs,...newState}));
@@ -65,14 +62,14 @@ function TimerControl ({
 
     function timerCount(state) {
         if (tickTime.current < state.maxTime) {
-                tickTime.current += 10;
-                onTimerChange && onTimerChange(tickTime.current);
-                setState(previousInputs => ({ ...previousInputs,
-                    millis: tickTime.current
+            tickTime.current = (Date.now() - state.timeStart) + state.millis;
+            onTimerChange && onTimerChange(tickTime.current);
+            setState(previousInputs => ({ ...previousInputs,
+                millis: tickTime.current
             }));
         } else if ((onPointBecauseLastMinute && state.maxTime>0 && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime))
                 || state.maxTime===0) {
-            tickTime.current += 10;
+            tickTime.current = (Date.now() - state.timeStart);
             onTimerChange && onTimerChange(tickTime.current);
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime.current
