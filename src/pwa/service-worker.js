@@ -1,4 +1,4 @@
-const CACHE_NAME = "crawlearCache_v7";
+const CACHE_NAME = "crawlearCache_v8";
 
 //eslint-disable-next-line
 self.addEventListener('install', event => {
