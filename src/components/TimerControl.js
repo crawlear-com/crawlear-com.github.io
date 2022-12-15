@@ -43,9 +43,7 @@ function TimerControl ({
             newState.timer && clearInterval(newState.timer);
             newState.millis = tickTime.current;
             newState.timer = setInterval(() => {timerCount(newState)}, 10);
-            
             newState.timeStart = Date.now();
-            
             setState(previousInputs => ({ ...previousInputs,...newState}));
         } else if (newState.state === STATE_PAUSE){
             newState.timer && clearInterval(state.timer);
