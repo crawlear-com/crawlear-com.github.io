@@ -1,4 +1,4 @@
-const CACHE_NAME = "crawlearCache_v5";
+const CACHE_NAME = "crawlearCache_v6";
 const isLocahost = ()=>{
     return document.location.href.indexOf('localhost') >= 0;
 };
