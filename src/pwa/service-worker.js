@@ -30,7 +30,7 @@ self.addEventListener("activate", event => {
 
 //eslint-disable-next-line
 self.addEventListener('fetch', function(event) {
-    if (!isLocahost) {
+    if (!isLocahost()) {
         if (event.request.destination === 'image') {
             event.respondWith(caches.open(CACHE_NAME).then((cache) => {
               return cache.match(event.request.url).then((cachedResponse) => {
