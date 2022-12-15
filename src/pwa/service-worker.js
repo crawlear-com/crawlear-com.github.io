@@ -1,7 +1,4 @@
 const CACHE_NAME = "crawlearCache_v6";
-const isLocahost = ()=>{
-    return document.location.href.indexOf('localhost') >= 0;
-};
 
 //eslint-disable-next-line
 self.addEventListener('install', event => {
@@ -30,37 +27,33 @@ self.addEventListener("activate", event => {
 
 //eslint-disable-next-line
 self.addEventListener('fetch', function(event) {
-    if (!isLocahost()) {
-        if (event.request.destination === 'image') {
-            event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-              return cache.match(event.request.url).then((cachedResponse) => {
-                if (cachedResponse) {
-                    
-                    return cachedResponse;
-                }
-                return fetch(event.request).then((fetchedResponse) => {
-                    cache.put(event.request, fetchedResponse.clone());
-        
-                    return fetchedResponse;
-                });
-              });
-            }));
-          } else {
-            if (event.request.url.indexOf('chrome-extension://') === -1) {
-                event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-                    return fetch(event.request.url).then((fetchedResponse) => {
-                      cache.put(event.request, fetchedResponse.clone());
-              
-                      return fetchedResponse;
-                    }).catch(() => {
-                      return cache.match(event.request.url);
-                    });
-                }));    
-            } else {
-                return;
+    if (event.request.destination === 'image') {
+        event.respondWith(caches.open(CACHE_NAME).then((cache) => {
+            return cache.match(event.request.url).then((cachedResponse) => {
+            if (cachedResponse) {
+                
+                return cachedResponse;
             }
-          }   
-    } else {
-        return;
+            return fetch(event.request).then((fetchedResponse) => {
+                cache.put(event.request, fetchedResponse.clone());
+    
+                return fetchedResponse;
+            });
+            });
+        }));
+        } else {
+        if (event.request.url.indexOf('chrome-extension://') === -1) {
+            event.respondWith(caches.open(CACHE_NAME).then((cache) => {
+                return fetch(event.request.url).then((fetchedResponse) => {
+                    cache.put(event.request, fetchedResponse.clone());
+            
+                    return fetchedResponse;
+                }).catch(() => {
+                    return cache.match(event.request.url);
+                });
+            }));    
+        } else {
+            return;
+        }
     }
 });
