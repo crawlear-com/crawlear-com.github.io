@@ -10,6 +10,7 @@ import '../resources/css/TimerControl.scss';
 const STATE_PLAY = 'play';
 const STATE_PAUSE = 'pause';
 const STATE_STOP = 'stop';
+const TIMER_MIN_INTERVAL = 10;
 
 function TimerControl ({
     startTime,
@@ -46,7 +47,7 @@ function TimerControl ({
         if (newState.state === STATE_PLAY) {
             newState.timer && clearInterval(newState.timer);
             newState.millis = tickTime.current;
-            newState.timer = setInterval(() => {timerCount(newState)}, 10);
+            newState.timer = setInterval(() => {timerCount(newState)}, TIMER_MIN_INTERVAL);
             newState.timeStart = Date.now();
             eventManager.sendMessage(MSG_START, {});
             setState(previousInputs => ({ ...previousInputs,...newState}));
@@ -73,9 +74,7 @@ function TimerControl ({
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime.current
             }));
-            if(tickTime.current % 250 === 0) {
-                eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)));
-            }
+            eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)));
         } else if ((onPointBecauseLastMinute && state.maxTime>0 && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime))
                 || state.maxTime===0) {
             tickTime.current = (Date.now() - state.timeStart);

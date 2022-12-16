@@ -55,15 +55,15 @@ class Bluetooth {
     }
 
     sendTime(time:string) {
-      if(this.pointsCharacteristic) {
-        this.pointsCharacteristic.writeValue(new TextEncoder().encode(time));  
+      if(this.timeValueCharacteristic) {
+        this.timeValueCharacteristic.writeValue(new TextEncoder().encode(time));  
       }
 
     }
 
     sendPoints(points:string) {
-      if(this.timeValueCharacteristic) {
-        this.timeValueCharacteristic.writeValue(new TextEncoder().encode(points));  
+      if(this.pointsCharacteristic) {
+        this.pointsCharacteristic.writeValue(new TextEncoder().encode(points));  
       }
     }
 
