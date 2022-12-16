@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@types/web-bluetooth": "0.0.16",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.26.0",
     "copy-webpack-plugin": "^10.1.0",
@@ -60,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^18.0.26",
     "gh-pages": "^3.2.3",
     "jest": "^27.4.5",
     "ts-loader": "^9.4.1",
