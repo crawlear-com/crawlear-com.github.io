@@ -74,7 +74,9 @@ function TimerControl ({
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime.current
             }));
-            eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)));
+            if(Date.now() % 2 === 0) {
+                eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)));
+            }
         } else if ((onPointBecauseLastMinute && state.maxTime>0 && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime))
                 || state.maxTime===0) {
             tickTime.current = (Date.now() - state.timeStart);
