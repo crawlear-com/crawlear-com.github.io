@@ -2,6 +2,9 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../Analytics';
 import Utils from '../Utils';
+import EventManager from '../EventManager.ts';
+import { MSG_TIME, MSG_START, MSG_STOP } from '../Bluetooth.ts';
+
 import '../resources/css/TimerControl.scss';
 
 const STATE_PLAY = 'play';
@@ -20,6 +23,7 @@ function TimerControl ({
     const { t } = useTranslation();
     const containerRef = React.useRef(null);
     const tickTime = React.useRef(startTime || 0);
+    const eventManager = new EventManager();
     const [state, setState] = React.useState(()=>{ 
         return {
             millis: startTime || 0,
@@ -44,16 +48,19 @@ function TimerControl ({
             newState.millis = tickTime.current;
             newState.timer = setInterval(() => {timerCount(newState)}, 10);
             newState.timeStart = Date.now();
+            eventManager.sendMessage(MSG_START, {});
             setState(previousInputs => ({ ...previousInputs,...newState}));
         } else if (newState.state === STATE_PAUSE){
             newState.timer && clearInterval(state.timer);
             newState.timer = null;
+            eventManager.sendMessage(MSG_STOP, {});
             setState(previousInputs => ({ ...previousInputs,...newState}));
         } else {
             newState.millis = 0;
             tickTime.current = 0;
             newState.timer && clearInterval(state.timer);
             newState.timer = null;
+            eventManager.sendMessage(MSG_STOP, {});
             setState(previousInputs => ({ ...previousInputs,...newState}));
         }
     }, [state.state]);
@@ -65,6 +72,9 @@ function TimerControl ({
             setState(previousInputs => ({ ...previousInputs,
                 millis: tickTime.current
             }));
+            if(tickTime.current % 250 === 0) {
+                eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)));
+            }
         } else if ((onPointBecauseLastMinute && state.maxTime>0 && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime))
                 || state.maxTime===0) {
             tickTime.current = (Date.now() - state.timeStart);

@@ -5,6 +5,9 @@ import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
 import { GameUtils, GAME_TYPE_GENERIC } from '../../model/Game.ts';
 import Utils from '../../Utils';
+import BluetoothButton from '../bluetooth/BluetoothButton.js';
+import EventManager from '../../EventManager.ts';
+import { MSG_GATES, MSG_POINTS } from '../../Bluetooth.ts';
 
 import "rc-slider/assets/index.css";
 import '../../resources/css/games/CoreGame.scss'
@@ -20,6 +23,7 @@ function CoreGame({
             gameExtras}) {
     const { t } = useTranslation();
     const SliderWithTooltip = createSliderWithTooltip(Slider);
+    const eventManager = new EventManager();
     const [state, setState] = React.useState(()=>{
         window.scrollTo(0,0);
         return initControlTestValues(game);
@@ -94,6 +98,7 @@ function CoreGame({
                 if (playerZone.gateProgression<currentGame.gates[zoneIndex]) {
                     playerCurrentGate.gatePoints += value;
                 }
+                eventManager.sendMessage(MSG_POINTS, playerZone.points);
                 gameExtras.onChangeScore(playerZone);
                 setState(newState);
 
@@ -138,6 +143,7 @@ function CoreGame({
             currentZone = zones[zoneIndex];
 
         currentZone.gateProgression = value;
+        eventManager.sendMessage(MSG_GATES, currentZone.gateProgression);
         if (value === newState.game.gates[zoneIndex]) {
             newState.forceAction = 'pause';
         }
@@ -234,6 +240,7 @@ function CoreGame({
             {fiasco}
         </div>
         <div className="controlTextContainer rounded rounded2">
+            <BluetoothButton />
             {game.courtesyTime>0 ? 
                     <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
                     <></>}            
