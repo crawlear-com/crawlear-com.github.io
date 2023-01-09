@@ -265,7 +265,8 @@ i18n
             masdos: '+2',
             mastres: '+3',
             mascuatro: '+4',
-            mascinco: '+5'
+            mascinco: '+5',
+            bonificacion: 'bonus'
           },
           gametype: {
             partidarapida: 'Partida rápida',
@@ -553,7 +554,8 @@ i18n
             masdos: '+2',
             mastres: '+3',
             mascuatro: '+4',
-            mascinco: '+5'
+            mascinco: '+5',
+            bonificacion: 'bonus'
           },
           gametype: {
             partidarapida: 'Partida rápida',
