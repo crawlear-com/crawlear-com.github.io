@@ -10,7 +10,7 @@ function Footer() {
     const firebase = window.crawlear.fb;
 
     return <div className="Footer">
-        [©<a href="https://crawlear.com">crawlear.com</a> 2022
+        [©<a href="https://crawlear.com">crawlear.com</a> 2023
         {firebase.isUserLogged() ? <>]</> : <>
             - <a href="https://crawlear.com/aboutus">{t('description.aboutus')}</a> - <a href="https://crawlear.com/privacypolicy">{t('description.politicaprivacidad')}</a>]</>}
 

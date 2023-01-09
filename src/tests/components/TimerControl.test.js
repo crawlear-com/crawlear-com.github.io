@@ -16,6 +16,7 @@ jest.mock('react-i18next', () => ({
 
 beforeEach(()=>{  
   document.body.innerHTML = '';
+  div.className = 'AppMainContainer';
   document.body.append(div);
 });
 
