@@ -5,13 +5,14 @@ import GenericPoints from './GenericPoints';
 import Analytics from '../../Analytics';
 
 const GenericGameScores = {
-    steps: [1, 2, 3, 4, 5],
-    maxValues: [0, 0, 0, 0, 0],
+    steps: [1, 2, 3, 4, 5, -5],
+    maxValues: [0, 0, 0, 0, 0, 0],
     texts: ['points.masuno',
         'points.masdos',
         'points.mastres',
         'points.mascuatro',
-        'points.mascinco'
+        'points.mascinco',
+        'points.bonificacion'
     ],
     fiascoTexts: ['points.fiasco'],
     fiascoSteps: [1],
@@ -58,10 +59,10 @@ function getGatesPointExtras(playerZone) {
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(5).fill(0);
+        return new Array(GenericGameScores.steps.length).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(1).fill(0);
+      return new Array(GenericGameScores.fiascoSteps.length).fill(0);
     },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
