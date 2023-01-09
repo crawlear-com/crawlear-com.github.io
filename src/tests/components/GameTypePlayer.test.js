@@ -24,6 +24,7 @@ jest.mock('react-i18next', () => ({
 beforeEach(()=>{  
     window.scrollTo = jest.fn();
     document.body.innerHTML = '';
+    div.className = 'AppMainContainer';
     document.body.append(div);
 
     gameContent = getGameContent("", 0,0, 0);
