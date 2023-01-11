@@ -1,3 +1,4 @@
+import * as React from 'react';
 import ControlTextArray from "../ControlTextArray";
 import { GameUtils } from '../../model/Game.ts';
 import IsrccPoints from './IsrccPoints';
@@ -85,6 +86,11 @@ const gameExtras = {
     onChangeScore: (playerZone)=>{
         getGatesPointExtras(playerZone);
     },
+    onEndPlayer: (game, tickTime, player, zone)=>{
+        const playerZone = game.players[player].zones[zone];
+
+        playerZone.time = tickTime;
+    },
     onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
             player.zones.forEach((zone, zoneIndex)=>{
@@ -102,11 +108,6 @@ const gameExtras = {
                 }
             });
         });
-    },
-    onEndPlayer: (game, tickTime, player, zone)=>{
-        const playerZone = game.players[player].zones[zone];
-
-        playerZone.time = tickTime;
     },
     onGateProgressionChange: (playerZone)=>{
         getGatesPointExtras(playerZone);
