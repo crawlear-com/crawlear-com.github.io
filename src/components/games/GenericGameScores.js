@@ -54,7 +54,12 @@ function getGameContent(t, player, zone, points) {
 }
 
 function getGatesPointExtras(playerZone) {
-    playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints;
+    playerZone.gatesWithFail = getGatesWithFail(playerZone);
+    playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints + (playerZone.gatesWithFail*3);
+}
+
+function getGatesWithFail(playerZone) {
+    return playerZone.gateProgressionData.length - playerZone.gateProgression;
 }
 
 const gameExtras = {
