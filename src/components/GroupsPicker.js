@@ -7,9 +7,9 @@ function GroupsPicker({onGroupsChange,
     minValue,
     maxValue}) {
     const { t } = useTranslation();
+    const isOffLine = true; //!navigator.onLine;
 
-
-    return <div>
+    return isOffLine ? <></> : <div>
         <p>{t('content.selecciongrupos')}:</p>
         <div className="pickerContainer horizontalScrollContainer rounded rounded2">
             <Picker minValue={minValue || 1} 

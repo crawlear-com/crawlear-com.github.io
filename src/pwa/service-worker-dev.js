@@ -1,4 +1,4 @@
-const CACHE_NAME = "crawlearCacheDEV_v2";
+const CACHE_NAME = "crawlearCacheDEV_v9";
 
 //eslint-disable-next-line
 self.addEventListener('install', event => {
@@ -30,5 +30,35 @@ self.addEventListener("activate", event => {
 
 //eslint-disable-next-line
 self.addEventListener('fetch', function(event) {
+  if (event.request.destination === 'image') {
+    event.respondWith(caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(event.request.url).then((cachedResponse) => {
+        if (cachedResponse) {
+            
+            return cachedResponse;
+        }
+        return fetch(event.request).then((fetchedResponse) => {
+            cache.put(event.request, fetchedResponse.clone());
 
+            return fetchedResponse;
+        });
+        });
+    }));
+} else {
+    const url = event.request.url;
+
+    if ((url.indexOf('localhost') >= 0 || url.indexOf('crawlear.com') >= 0) && (url.indexOf('chrome-extension://') <= 0)) {
+        event.respondWith(caches.open(CACHE_NAME).then((cache) => {
+            return fetch(url).then((fetchedResponse) => {
+                cache.put(event.request, fetchedResponse.clone());
+        
+                return fetchedResponse;
+            }).catch(() => {
+                return cache.match(url);
+            });
+        }));    
+    } else {
+        return;
+    }
+}
 });

@@ -35,14 +35,15 @@ const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
 const STATE_LOCATION_LOCATING=2;
 
-function GameConfigurator() {
+function GameConfigurator({onGameCreated}) {
     const [game, setGame] = React.useState(()=>{
         return new Game("",
         new Date().toLocaleDateString(),
         { latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE,
-        [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], []);
+        [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], []);
     });
+    const isOffline = true; //!navigator.onLine;
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);
@@ -260,12 +261,16 @@ function GameConfigurator() {
                     GameUtils.getGameTypeControlTextValuesInit(newGame.gameType),
                     GameUtils.getGameTypeFiascoControlTextValuesInit(newGame.gameType),
                     true);
-                fb.setGame(newGame, (game)=>{
-                    newGame.gid = game.gid;
-                    fb.createGameProgression(newGame);
-                    setGame(newGame);
-                }, ()=>{});
-                navigate("/completegame");
+                if (isOffline && onGameCreated) {
+                    onGameCreated(newGame);
+                } else {
+                    fb.setGame(newGame, (game)=>{
+                        newGame.gid = game.gid;
+                        fb.createGameProgression(newGame);
+                        setGame(newGame);
+                    }, ()=>{});
+                    navigate("/completegame");
+                }
         } else if (!allGroupsFilled) {
             setErrorMessage(t('error.rellenargrupos'));
         } else if (!game.judges.length && game.gameType !== 1) {
@@ -323,7 +328,7 @@ function GameConfigurator() {
             value={1}
             minValue={1}
             maxValue={10}
-            />)
+            />) 
         extraConfigurationComponents.push(<PlayerController key={4}
                 isForJudge={true}
                 maxGroups={groups}
@@ -332,7 +337,7 @@ function GameConfigurator() {
                 onPlayerNumerChange={onJudgeNumerChange} />);
     }
 
-    if (isUserLoged) {
+    if (isUserLoged || isOffline) {
         return (<>
             <ErrorBox message={errorMessage} />
             <div className="newGameContainer rounded rounded1">

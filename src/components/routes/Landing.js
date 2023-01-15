@@ -17,6 +17,7 @@ function Landing({onLogin}) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const firebase = window.crawlear.fb;
+    const isOffline = true; //!navigator.onLine;
     
     function signInCallback() {
         onLogin(true);
@@ -28,17 +29,18 @@ function Landing({onLogin}) {
         Analytics.pageview('/landing/');
     },[]);
 
-    return <>
+    if (isOffline) {
+        return <Offline />;
+    } else {
+        return <>
         <MainPageTextContent />
 
         <div className="loginAndContent aboutUsContent">
-            {navigator.onLine ? 
-                <><p>{t('content.landingMainText')}:</p>
-                <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
+            <><p>{t('content.landingMainText')}:</p>
+              <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                     firebase.signInWithGoogle(signInCallback);
-                }} /></>
-                :
-                <Offline />}
+              }} />
+            </>
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
@@ -50,6 +52,7 @@ function Landing({onLogin}) {
 
         <Footer />
         </>
+    }
 }
 
 export default Landing;
