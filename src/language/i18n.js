@@ -198,7 +198,10 @@ i18n
             logout: 'Logout',
             refrescar: 'Reload',
             seguidores: 'Followers',
-            siguiendo: 'Following'
+            siguiendo: 'Following',
+            eliminarpartida: 'Remove game',
+            jugarpartida: 'Play game',
+            regenerarpartida: 'Regenerate play'
           },
           points: {
             vuelco: 'overturn',
@@ -484,6 +487,9 @@ i18n
               refrescar: 'Recargar',
               seguidores: 'Seguidores',
               siguiendo: 'Siguiendo',
+              eliminarpartida: 'Eliminar partida',
+              jugarpartida: 'Jugar partida',
+              regenerarpartida: 'Regenerar partida'
           },
           points: {
             vuelco: 'vuelco',

@@ -9,13 +9,14 @@ import '../resources/css/PlayerController.scss';
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
 function PlayerController({
+  inPlayers,
   onPlayerNumerChange, 
   onGameDirectorChange, 
   gameName, 
   isForJudge, 
   maxGroups}) {
 
-  const [players, setPlayers] = React.useState([]);
+  const [players, setPlayers] = React.useState(inPlayers || []);
   const { t } = useTranslation();
 
   React.useEffect(() => {

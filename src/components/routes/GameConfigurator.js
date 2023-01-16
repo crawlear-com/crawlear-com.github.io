@@ -35,13 +35,16 @@ const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
 const STATE_LOCATION_LOCATING=2;
 
-function GameConfigurator() {
+function GameConfigurator({preconfiguredGame}) {
     const [game, setGame] = React.useState(()=>{
-        return new Game("",
-        new Date().toLocaleDateString(),
-        { latitude: 0, longitude: 0 },
-        false, GAME_TYPE_LEVANTE,
-        [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], []);
+        const newGame = preconfiguredGame || new Game("",
+            new Date().toLocaleDateString(),
+            { latitude: 0, longitude: 0 },
+            false, GAME_TYPE_LEVANTE,
+            [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], []);
+
+        newGame.date = new Date().toLocaleDateString();
+        return newGame;
     });
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
@@ -327,6 +330,7 @@ function GameConfigurator() {
         extraConfigurationComponents.push(<PlayerController key={4}
                 isForJudge={true}
                 maxGroups={groups}
+                inPlayers={game.judges}
                 gameName={game.name}
                 onGameDirectorChange={onGameDirectorChange}
                 onPlayerNumerChange={onJudgeNumerChange} />);
@@ -339,13 +343,13 @@ function GameConfigurator() {
                 <div className="newGame">
                     <div className="headerText bold">{t('description.nuevaPartida')}</div>
                     <div className="newGameRow">
-                        <span className="">{t('description.nombre')}</span>: <input className="newGameNameInput" type="text" onChange={onNameChange}></input>
+                        <span className="">{t('description.nombre')}</span>: <input value={game.name} className="newGameNameInput" type="text" onChange={onNameChange}></input>
                     </div>
                     <div className="newGameRow">
-                        <span className="">{t('description.fecha')}</span>: {new Date().toLocaleDateString()}
+                        <span className="">{t('description.fecha')}</span>: {game.date}
                     </div>
                     <div className="newGameRow">
-                        <span className="">{t('description.esPublica')}</span>: <input type="checkbox" value="true" onChange={onIsPublicChange}></input>
+                        <span className="">{t('description.esPublica')}</span>: <input type="checkbox" checked={game.isPublic} onChange={onIsPublicChange}></input>
                     </div>
                     <div className="newGameRow">
                         <span className="">{t('description.localizacion')}</span>: 
@@ -366,6 +370,7 @@ function GameConfigurator() {
     
             <PlayerController gameName={game.name} 
                 isForJudge={false}
+                inPlayers={game.players}
                 maxGroups={groups}
                 onPlayerNumerChange={(players)=>{
                     onPlayerNumerChange && onPlayerNumerChange(players);
@@ -380,7 +385,7 @@ function GameConfigurator() {
                 }>{t('description.crear')}</button>
                 <button
                     onClick={() => {
-                        navigate("/completegame");
+                        window.location.reload();
                     }
                 }>{t('description.atras')}</button>
             </p>
