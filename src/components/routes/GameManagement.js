@@ -7,9 +7,11 @@ import GamePlayer from '../GamePlayer.js';
 
 import '../../resources/css/GameManagement.scss';
 import { Navigate, useNavigate } from 'react-router-dom';
+import GameConfigurator from './GameConfigurator.js';
 
 const STATE_MENU = 0;
 const STATE_PLAYING = 1;
+const STATE_CONFIGURE = 2;
 
 function GameManagement({onLogout}) {
     const firebase = window.crawlear.fb;
@@ -124,6 +126,12 @@ function GameManagement({onLogout}) {
         setGame(games[gamePosition]);
     }
 
+    function onConfigureGame(games, gamePosition) {
+        window.scrollTo(0,0);
+        setState(STATE_CONFIGURE);
+        setGame(games[gamePosition]);
+    }
+
     function goBackToMenuStatus() {
         setState(STATE_MENU);
         setGame({});
@@ -153,6 +161,9 @@ function GameManagement({onLogout}) {
                         gameProgressions={currentGameProgressions}
                         onRemoveGame={(gamePosition)=>{
                             onRemovePlayerGames(gamePosition)}
+                        }
+                        onConfigureGame={(gamePosition)=>{
+                            onConfigureGame(games, gamePosition)}
                         } />
                     <GameList title={t('description.partidasdejuez')} 
                         games={judgeGames}
@@ -160,6 +171,9 @@ function GameManagement({onLogout}) {
                         onGamePlay={(event)=>{
                             onGamePlay(judgeGames, event.target.getAttribute("data-gameposition"));
                         }}
+                        onConfigureGame={(gamePosition)=>{
+                            onConfigureGame(judgeGames, gamePosition)}
+                        }
                         gameProgressions={currentGameProgressions}
                         onRemoveGame={(gamePosition)=>{
                             onRemoveJudgeGame(gamePosition)}
@@ -169,7 +183,10 @@ function GameManagement({onLogout}) {
                 state === STATE_PLAYING ? 
                     <GamePlayer inGame={game}
                         onBackButtonClick={goBackToMenuStatus} />
-                : <></>}
+                : 
+                state === STATE_CONFIGURE ? 
+                    <GameConfigurator preconfiguredGame={game} />
+                :<></>}
         </>;
 }
 
