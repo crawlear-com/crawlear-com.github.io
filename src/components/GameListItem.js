@@ -40,6 +40,4 @@ function GameListItem({game, gamePosition, gameProgression, onGamePlay, readOnly
             </div>;
 }
 
-//<button data-position={gamePosition} className="removeButton" onClick={removeGame}>-</button>
-
 export default GameListItem;
