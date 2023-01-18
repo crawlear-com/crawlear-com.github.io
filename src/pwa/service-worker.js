@@ -1,4 +1,4 @@
-const CACHE_NAME = "crawlearCache_v11";
+const CACHE_NAME = "crawlearCache_v12";
 
 //eslint-disable-next-line
 self.addEventListener('install', event => {
@@ -47,7 +47,7 @@ self.addEventListener('fetch', function(event) {
     } else {
         const url = event.request.url;
 
-        if ((url.indexOf('crawlear.com') >= 0) && (url.indexOf('chrome-extension://') <= 0)) {
+        if ((event.request.method !== 'POST') && (url.indexOf('crawlear.com') >= 0) && (url.indexOf('chrome-extension://') <= 0)) {
             event.respondWith(caches.open(CACHE_NAME).then((cache) => {
                 return fetch(url).then((fetchedResponse) => {
                     cache.put(event.request, fetchedResponse.clone());
