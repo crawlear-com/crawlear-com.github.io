@@ -115,7 +115,15 @@ class GameUtils {
         controlTextValuesInit: Function, 
         fiascoControlTextValuesInit: Function,
         forceInitZones: boolean) {
+        
+        game.gameStatus = 0;
         game.players.forEach((player)=>{
+            player.time = 0;
+            player.points = 0;
+            player.totalGateProgression = 0;
+            player.totalPoints = 0;
+            player.totalTime = 0;
+
             if (!player.zones || player.zones.length===0 || forceInitZones) {
                 player.zones = [];
         

@@ -11,6 +11,9 @@ interface Player {
     name: string,
     points?: number,
     time?: number,
+    totalGateProgression?: number,
+    totalPoints?: number,
+    totalTime?: number,
     uid: string,
     zones: Array<Zone>
 }
