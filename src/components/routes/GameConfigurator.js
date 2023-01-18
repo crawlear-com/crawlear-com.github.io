@@ -267,8 +267,8 @@ function GameConfigurator({preconfiguredGame}) {
                     newGame.gid = game.gid;
                     fb.createGameProgression(newGame);
                     setGame(newGame);
+                    window.location.href.indexOf('completegame')<0 ? navigate("/completegame") : window.location.reload();
                 }, ()=>{});
-                window.location.href.indexOf('completegame')<0 ? navigate("/completegame") : window.location.reload();
         } else if (!allGroupsFilled) {
             setErrorMessage(t('error.rellenargrupos'));
         } else if (!game.judges.length && game.gameType !== 1) {

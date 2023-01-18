@@ -4,23 +4,25 @@ import { useTranslation } from 'react-i18next';
 
 function GameListMenu({gamePosition, onRemoveClick, onRegenerateClick}) {
     const { t } = useTranslation();
+    const containerRef = React.useRef(null);
 
-    function openMenu(event) {
-        const element = event.target.closest('.gameListItemMenu');
-
-        element.classList.toggle('closed');
+    function toggleMenu() {
+        containerRef.current.classList.toggle('closed');
     }
 
-    return <span  class="gameListItemMenu rounded closed">
-        <div onClick={openMenu}>
+    return <span ref={containerRef} class="gameListItemMenu rounded closed">
+        <div onClick={toggleMenu} >
             <div class="burguerMenuBar"></div>
             <div class="burguerMenuBar"></div>
             <div class="burguerMenuBar"></div>
-        </div>
+        </div>            
 
         <GameListMenuItem text={t('description.eliminarpartida')} 
             gamePosition={gamePosition}
-            onClickFunction={onRemoveClick}/>
+            onClickFunction={(event)=>{
+                toggleMenu();
+                onRemoveClick(event);
+            }}/>
         <GameListMenuItem text={t('description.regenerarpartida')} 
             gamePosition={gamePosition}
             onClickFunction={onRegenerateClick} />
