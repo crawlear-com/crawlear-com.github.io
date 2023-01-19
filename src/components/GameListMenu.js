@@ -10,11 +10,11 @@ function GameListMenu({gamePosition, onRemoveClick, onRegenerateClick}) {
         containerRef.current.classList.toggle('closed');
     }
 
-    return <span ref={containerRef} class="gameListItemMenu rounded closed">
+    return <span ref={containerRef} className="gameListItemMenu rounded closed">
         <div onClick={toggleMenu} >
-            <div class="burguerMenuBar"></div>
-            <div class="burguerMenuBar"></div>
-            <div class="burguerMenuBar"></div>
+            <div className="burguerMenuBar"></div>
+            <div className="burguerMenuBar"></div>
+            <div className="burguerMenuBar"></div>
         </div>            
 
         <GameListMenuItem text={t('description.eliminarpartida')} 
