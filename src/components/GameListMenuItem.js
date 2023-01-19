@@ -6,7 +6,7 @@ function GameListMenuItem({gamePosition, onClickFunction, text}) {
     return <div data-gameposition={gamePosition} onClick={(event)=>{
             event.stopPropagation();
             onClickFunction(event)
-        }} class="gameListMenuItem">
+        }} className="gameListMenuItem">
         {text}
     </div>;
 }
