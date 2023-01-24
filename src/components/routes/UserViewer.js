@@ -98,7 +98,7 @@ function UserViewer({uid, onLogout, onLogin}) {
                     {t('description.partidasdejuez')}: {userData.judgeGames || 0}
                 </div>
                 <div>
-                    {t('description.partidasprevias')}: {userData.pilotGames || 0}
+                    {t('description.partidascomopiloto')}: {userData.pilotGames || 0}
                 </div>
                 <p className='bold'>
                     {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}

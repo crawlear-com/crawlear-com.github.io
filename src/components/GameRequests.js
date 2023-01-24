@@ -48,10 +48,14 @@ function GameRequests({user}) {
         </div>);
     });
 
-    return <div className="gameRequestsContainer rounded rounded1">
-        <div className="headerText bold">{t('description.peticionesdejuego')}</div>
-        {requestsList.length>0 ? requestsList : <div className="centerText smallText">{t('description.norequests')}</div>}
-    </div>;
+    if(requestsList.length>0) {
+        return <div className="gameRequestsContainer rounded rounded1">
+                    <div className="headerText bold">{t('description.peticionesdejuego')}</div>
+                        {requestsList}
+                </div>;
+    } else {
+        return <></>;
+    }
 }
 
 export default GameRequests;

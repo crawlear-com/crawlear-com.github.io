@@ -5,9 +5,11 @@ import WinnerTable from './WinnerTable';
 
 import '../resources/css/GameListItem.scss';
 
-function GameListItem({game, gamePosition, gameProgression, onGamePlay, readOnly}) {
+function GameListItem({game, gamePosition, onGamePlay, readOnly}) {
+    const [gameProgression, setGameProgression] = React.useState(null);
+    const firebase = window.crawlear.fb;
     let info, 
-    director = <></>;
+        director = <></>;
 
     if(game.gameStatus === 0 || game.gameStatus === 1) {
         if(gameProgression) {
@@ -32,6 +34,11 @@ function GameListItem({game, gamePosition, gameProgression, onGamePlay, readOnly
         const element = event.target.parentElement;
 
         element.classList.toggle('closed');
+        if(!element.classList.contains('closed') && !gameProgression) {
+            firebase.getGameProgressionOnce(game.gid, (uid, progression)=>{
+                setGameProgression({...progression});
+            }, ()=>{ });
+        }
     }
 
     return <div key={gamePosition} className="gameContainer rounded rounded1 closed">
