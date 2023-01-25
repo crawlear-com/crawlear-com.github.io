@@ -135,10 +135,15 @@ function GameManagement({onLogout}) {
     }
 
     function goBackToMenuStatus() {
+        window.scrollTo(0,0);
         setState(STATE_MENU);
         setGame({});
-        setJudgeGames([]);
+
+        setAllGames([]);
         setGames([]);
+        setJudgeGames([]);
+        setStoredGames([]);
+
         refreshGames();
     }
 
