@@ -17,6 +17,7 @@ function UserSearch({onUserSeachPlayerAdd,
     const [users, setUsers] = React.useState([]);
     const resultRef = React.useRef();
     const inputRef = React.useRef();
+    const isOffline = true; //!navigator.onLine;
     
     function addUserFromSearch(event) {
         const element = event.target;
@@ -38,7 +39,7 @@ function UserSearch({onUserSeachPlayerAdd,
         const textValue = event.target.value;
 
         setUsername(textValue);
-        if(firebase.isUserLogged()) {
+        if(!isOffline && firebase.isUserLogged()) {
             if (textValue.length > 0) {
                 firebase.userSearch(textValue, (users)=>{
                     setUsers(users);
