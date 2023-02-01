@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { isOffline } from './routes/Offline';
 
 import '../resources/css/UserSearch.scss';
 import iconAdd from '../resources/img/iconAdd.png';
@@ -38,7 +39,7 @@ function UserSearch({onUserSeachPlayerAdd,
         const textValue = event.target.value;
 
         setUsername(textValue);
-        if(firebase.isUserLogged()) {
+        if(!isOffline && firebase.isUserLogged()) {
             if (textValue.length > 0) {
                 firebase.userSearch(textValue, (users)=>{
                     setUsers(users);
@@ -94,11 +95,12 @@ function UserSearch({onUserSeachPlayerAdd,
 
 
     return <div className="userSearchContainer rounded rounded3">
-            <div className="userSearchText smallText">
-                {mainText}
-            </div>
-            <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
-
+            {!isOffline || onPlusAddUserClick ? 
+                <><div className="userSearchText smallText">
+                    {mainText}
+                </div> 
+                <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
+                </> : <></>}
             {addButton}
             {children}
             <div ref={resultRef} className="resultsContainer">

@@ -7,6 +7,8 @@ import { GAME_TYPE_AECAR,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
     GAME_TYPE_GENERIC,
+    OFFLINE_USER_UID,
+    OfflinePlayer,
     Game, GameUtils } from '../../model/Game.ts';
 import GameTypeController from '../GameTypeController';
 import PlayerController from '../PlayerController';
@@ -25,6 +27,7 @@ import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
 import { KingGameScores } from '../games/KingGameScores';
 import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
 import { GenericGameScores } from '../games/GenericGameScores';
+import { isOffline } from './Offline';
 
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../Analytics';
@@ -35,13 +38,13 @@ const STATE_LOCATION_UNKNOWN=0;
 const STATE_LOCATION_LOCATED=1;
 const STATE_LOCATION_LOCATING=2;
 
-function GameConfigurator({preconfiguredGame}) {
+function GameConfigurator({preconfiguredGame, onGameCreated}) {
     const [game, setGame] = React.useState(()=>{
         const newGame = preconfiguredGame || new Game("",
             new Date().toLocaleDateString(),
             { latitude: 0, longitude: 0 },
             false, GAME_TYPE_LEVANTE,
-            [], [], 600000, 40, new Array(4).fill(10), 4, 0, [], [], []);
+            [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], []);
 
         newGame.date = new Date().toLocaleDateString();
         return newGame;
@@ -58,6 +61,9 @@ function GameConfigurator({preconfiguredGame}) {
 
     React.useEffect(()=>{
         window.scrollTo(0,0);
+        if (isOffline) {
+            onJudgeNumerChange([OfflinePlayer]);
+        }
     }, []);
 
     function onGameTypeChange(selectedIndex) {
@@ -115,7 +121,11 @@ function GameConfigurator({preconfiguredGame}) {
             action = 'removeJudge';
         }
         Analytics.event('menu', action, judges.length);
-        newGame.judges = judges;
+        newGame.judges = [...judges];
+        if(isOffline && !newGame.owner.length) {
+            newGame.owner.push(OFFLINE_USER_UID);
+        }
+
         setGame(newGame);
         setErrorMessage("");
     }
@@ -128,7 +138,7 @@ function GameConfigurator({preconfiguredGame}) {
             action = 'removePlayer';
         }
         Analytics.event('menu', action, players.length);
-        newGame.players = players;
+        newGame.players = [...players];
         setGame(newGame);
         setErrorMessage("");
     }
@@ -263,12 +273,16 @@ function GameConfigurator({preconfiguredGame}) {
                     GameUtils.getGameTypeControlTextValuesInit(newGame.gameType),
                     GameUtils.getGameTypeFiascoControlTextValuesInit(newGame.gameType),
                     true);
-                fb.setGame(newGame, (game)=>{
-                    newGame.gid = game.gid;
-                    fb.createGameProgression(newGame);
-                    setGame(newGame);
-                    window.location.href.indexOf('completegame')<0 ? navigate("/completegame") : window.location.reload();
-                }, ()=>{});
+                if (isOffline && onGameCreated) {
+                    onGameCreated(newGame);
+                } else {                    
+                    fb.setGame(newGame, (game)=>{
+                        newGame.gid = game.gid;
+                        fb.createGameProgression(newGame);
+                        setGame(newGame);
+                        window.location.href.indexOf('completegame')<0 ? navigate("/completegame") : window.location.reload();
+                    }, ()=>{});
+                }
         } else if (!allGroupsFilled) {
             setErrorMessage(t('error.rellenargrupos'));
         } else if (!game.judges.length && game.gameType !== 1) {
@@ -327,16 +341,18 @@ function GameConfigurator({preconfiguredGame}) {
             minValue={1}
             maxValue={10}
             />)
-        extraConfigurationComponents.push(<PlayerController key={4}
+        if (!isOffline) {
+            extraConfigurationComponents.push(<PlayerController key={4}
                 isForJudge={true}
                 maxGroups={groups}
                 inPlayers={game.judges}
                 gameName={game.name}
                 onGameDirectorChange={onGameDirectorChange}
                 onPlayerNumerChange={onJudgeNumerChange} />);
+        }
     }
 
-    if (isUserLoged) {
+    if (isUserLoged || isOffline) {
         return (<>
             <ErrorBox message={errorMessage} />
             <div className="newGameContainer rounded rounded1">

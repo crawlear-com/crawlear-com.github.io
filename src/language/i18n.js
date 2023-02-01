@@ -65,7 +65,7 @@ i18n
             comparteenredespiloto: 'Share this pilot profile in social networks:',
             comparteenredespost: 'Share this post in social networks:',
             ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help',
-            offlineMainText: 'Your browser is offline, check again in minutes'
+            offlineMainText: 'Your browser is offline, check again in minutes or create an offline game (it will be not be saved!)'
           },
           error: {
               nojugadores: 'Add the players',
@@ -97,6 +97,7 @@ i18n
             ordenaleatorio: 'Random order',
             empezar: 'Begin',
             crear: 'New game',
+            crearoffline: 'New offline game',
             atras: 'Back',
             ganador: 'WINNER',
             empate: 'TIE GAME',
@@ -354,7 +355,7 @@ i18n
             comparteenredespost: 'Comparte ésta entrada en redes sociales:',
             comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
             ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.',
-            offlineMainText: 'Tu navegador no tiene conexión, comprueba de nuevo en unos minutos'
+            offlineMainText: 'Tu navegador no tiene conexión, comprueba de nuevo en unos minutos  o crea un juego sin conexión (no será guardado!)'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -386,6 +387,7 @@ i18n
               ordenaleatorio: 'Orden aleatorio',
               empezar: 'Empezar',
               crear: 'Crear juego',
+              crearoffline: 'Crear juego offline',
               atras: 'Atrás',
               ganador: 'GANADOR',
               empate: 'EMPATE',

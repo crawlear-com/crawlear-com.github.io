@@ -15,6 +15,8 @@ export const GAME_TYPE_COPAESPANA = 4;
 export const GAME_TYPE_MINICRAWLERPASSION = 5;
 export const GAME_TYPE_GENERIC = 6;
 
+export const OFFLINE_USER_UID = 'offlineUid';
+
 enum GameType {
     GAME_TYPE_AECAR,
     GAME_TYPE_KING,
@@ -153,6 +155,32 @@ class GameUtils {
                 }
             }
         });
+    }
+
+    static createGameProgression(zones: number, players: number) {
+        const groups = 1;
+        const gameProgressionData = new Array(1);
+
+        gameProgressionData[0] = new Array(players);
+
+        for (let i=0; i<players; i++) {
+            gameProgressionData[0][i] = new Array(zones);
+            for (let j=0; j<zones; j++) {
+                gameProgressionData[0][i][j] = {status: 'waiting'};
+            }
+        }
+
+        return gameProgressionData;
+    }
+
+    static getGameResult(game: Game, gameProgression: Array<number>) {
+        Object.entries(gameProgression).forEach((player, playerPos)=>{
+            Object.entries(player[1]).forEach((zone, zonePos)=>{
+                zone[1].data && (game.players[playerPos].zones[zonePos] = zone[1].data);
+            });
+        });
+
+        return game;
     }
 
     static getGameTypeBodyClassName(gameType: GameType) {
@@ -355,5 +383,32 @@ class GameUtils {
         return maxGroup;
     }
 }
+
+export const OfflinePlayer = {
+    avatar: "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=J1",
+    battery: false,
+    group: 0,
+    id: 0,
+    name: "J1",
+    points: 0,
+    time: 0,
+    uid: OFFLINE_USER_UID,
+    zones: [{
+        fiascoControlTextValues: [0],
+        gateProgression: 0,
+        gateProgressionData: [{
+            controlTextValues: [0, 0, 0, 0, 0, 0],
+            gatePoints: 0
+        }],
+        gatesWithBonification: 0,
+        gatesWithFail: 0,
+        handicap: 0,
+        judgedBy: new Array(),
+        points: 0,
+        simpathyPoints: 0,
+        time: 0,
+        totalPoints: 0
+    }]
+};
 
 export { Game, GameUtils };

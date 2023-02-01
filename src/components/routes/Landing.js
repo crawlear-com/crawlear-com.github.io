@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MainPageTextContent from '../MainPageTextContent.js';
 import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
-import Offline from './Offline.js';
+import { Offline, isOffline } from './Offline.js';
 import Footer from '../Footer.js';
 
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
@@ -28,17 +28,19 @@ function Landing({onLogin}) {
         Analytics.pageview('/landing/');
     },[]);
 
-    return <>
+    if (isOffline) {
+        return <>
+            <Offline />
+        </>;
+    } else {
+        return <>
         <MainPageTextContent />
 
         <div className="loginAndContent aboutUsContent">
-            {navigator.onLine ? 
-                <><p>{t('content.landingMainText')}:</p>
-                <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
-                    firebase.signInWithGoogle(signInCallback);
-                }} /></>
-                :
-                <Offline />}
+            <p>{t('content.landingMainText')}:</p>
+            <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
+                firebase.signInWithGoogle(signInCallback);
+            }} />
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
@@ -50,6 +52,7 @@ function Landing({onLogin}) {
 
         <Footer />
         </>
+    }
 }
 
 export default Landing;
