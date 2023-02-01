@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MainPageTextContent from '../MainPageTextContent.js';
 import Analytics from '../../Analytics.js';
 import { useTranslation } from 'react-i18next';
-import Offline from './Offline.js';
+import { Offline, isOffline } from './Offline.js';
 import Footer from '../Footer.js';
 
 import image from '../../resources/img/btn_google_signin_light_pressed_web.png';
@@ -17,7 +17,6 @@ function Landing({onLogin}) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const firebase = window.crawlear.fb;
-    const isOffline = !navigator.onLine;
     
     function signInCallback() {
         onLogin(true);

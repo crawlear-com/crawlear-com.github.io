@@ -27,6 +27,7 @@ import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
 import { KingGameScores } from '../games/KingGameScores';
 import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
 import { GenericGameScores } from '../games/GenericGameScores';
+import { isOffline } from './Offline';
 
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../Analytics';
@@ -48,7 +49,6 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         newGame.date = new Date().toLocaleDateString();
         return newGame;
     });
-    const isOffline = !navigator.onLine;
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);

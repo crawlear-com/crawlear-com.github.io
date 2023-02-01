@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Picker from './Picker';
+import { isOffline } from './routes/Offline';
 
 function GroupsPicker({onGroupsChange,
     value,
     minValue,
     maxValue}) {
     const { t } = useTranslation();
-    const isOffline = !navigator.onLine;
 
     return isOffline ? <></> :
         <div>

@@ -16,6 +16,7 @@ import GameProgressionDirector from './GameProgressionDirector';
 import PresenceButton from './PresenceButton';
 import TrainingController from './games/TrainingController';
 import { GameProgressionContext } from './context/GameProgressionContext';
+import { isOffline } from './routes/Offline';
 import { GAME_TYPE_AECAR, 
          GAME_TYPE_ISRCC, 
          GAME_TYPE_KING, 
@@ -51,7 +52,6 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
     const { t } = useTranslation();
-    const isOffline = !navigator.onLine;
     let view = <></>,
         judgeProgression = <></>,
         childrenContent = <></>,

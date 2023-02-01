@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { isOffline } from './routes/Offline';
 
 import '../resources/css/UserSearch.scss';
 import iconAdd from '../resources/img/iconAdd.png';
@@ -17,7 +18,6 @@ function UserSearch({onUserSeachPlayerAdd,
     const [users, setUsers] = React.useState([]);
     const resultRef = React.useRef();
     const inputRef = React.useRef();
-    const isOffline = !navigator.onLine;
     
     function addUserFromSearch(event) {
         const element = event.target;
