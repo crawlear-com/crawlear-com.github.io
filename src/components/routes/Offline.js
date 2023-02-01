@@ -53,4 +53,4 @@ function Offline() {
 
 export const isOffline  = !navigator.onLine;
 
-export default Offline;
+export { Offline };
