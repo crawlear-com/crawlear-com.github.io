@@ -30,7 +30,9 @@ function Landing({onLogin}) {
     },[]);
 
     if (isOffline) {
-        return <Offline />;
+        return <>
+            <Offline />
+        </>;
     } else {
         return <>
         <MainPageTextContent />

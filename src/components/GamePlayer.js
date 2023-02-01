@@ -51,6 +51,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
     const { t } = useTranslation();
+    const isOffline = true; //!navigator.onLine;
     let view = <></>,
         judgeProgression = <></>,
         childrenContent = <></>,
@@ -97,21 +98,25 @@ function GamePlayer({inGame, onBackButtonClick}) {
     }
 
     React.useEffect(()=>{
-        fb.getGameProgression(game.gid, ()=>{}, ()=>{}, (group, progression)=>{
-            const res = {};
+        if (!isOffline) {
+            fb.getGameProgression(game.gid, ()=>{}, ()=>{}, (group, progression)=>{
+                const res = {};
 
-            res[group] = progression;
-            updateGameFromProgression(progression);
-            gameProgressionRef.current = {...gameProgressionRef.current, ...res};
-            setGameProgression({...gameProgressionRef.current, ...res});
-        }, (group, progression)=>{
-            const res = {};
+                res[group] = progression;
+                updateGameFromProgression(progression);
+                gameProgressionRef.current = {...gameProgressionRef.current, ...res};
+                setGameProgression({...gameProgressionRef.current, ...res});
+            }, (group, progression)=>{
+                const res = {};
 
-            res[group] = progression;
-            updateGameFromProgression(progression);
-            gameProgressionRef.current = {...gameProgressionRef.current, ...res};
-            setGameProgression({...gameProgressionRef.current, ...res});
-        });
+                res[group] = progression;
+                updateGameFromProgression(progression);
+                gameProgressionRef.current = {...gameProgressionRef.current, ...res};
+                setGameProgression({...gameProgressionRef.current, ...res});
+            });
+        } else {
+            setGameProgression(GameUtils.createGameProgression(game.zones, game.players.length));
+        }
     },[]);
 
     function onZoneClick(player, zone) {
@@ -172,7 +177,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
     }
 
     function onClosePlayButtonClick() {
-        if (window.confirm(t('content.cerrarpartida')) && isGroupGameFinished()) {
+        if (window.confirm(t('content.cerrarpartida')) && !isOffline && isGroupGameFinished()) {
             fb.getGameResult(game, (game)=>{
                 let newGame = {...game};
 
@@ -181,9 +186,14 @@ function GamePlayer({inGame, onBackButtonClick}) {
                 newGame = Utils.getOrderedGameResult(newGame);
                 fb.updateGame(newGame);
                 fb.removeGameProgression(newGame.gid);
-                setState(GAME_STATUS_FINISHED);
                 setGame(newGame);
+                setState(GAME_STATUS_FINISHED);
             }, ()=>{});
+        } else if (isOffline) {
+            const newGame = Utils.getOrderedGameResult(game);
+
+            setGame(GameUtils.getGameResult(newGame, gameProgression));
+            setState(GAME_STATUS_FINISHED);
         }
     }
 

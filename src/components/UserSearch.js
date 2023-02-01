@@ -95,11 +95,12 @@ function UserSearch({onUserSeachPlayerAdd,
 
 
     return <div className="userSearchContainer rounded rounded3">
-            <div className="userSearchText smallText">
-                {mainText}
-            </div>
-            <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
-
+            {!isOffline || onPlusAddUserClick ? 
+                <><div className="userSearchText smallText">
+                    {mainText}
+                </div> 
+                <input id={Date.now()} ref={inputRef} className='userSearchName' onChange={userSearch} value={username} />
+                </> : <></>}
             {addButton}
             {children}
             <div ref={resultRef} className="resultsContainer">

@@ -18,40 +18,6 @@ function PlayerController({
 
   const [players, setPlayers] = React.useState(inPlayers || []);
   const { t } = useTranslation();
-  const isOffLine = true; //!navigator.onLine;
-
-  React.useEffect(()=>{
-    if (isOffLine) {
-      const newPlayers = [{
-              avatar: "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=J1",
-              battery: false,
-              group: 0,
-              id: 0,
-              name: "J1",
-              points: 0,
-              time: 0,
-              uid: "",
-              zones: [{
-                  fiascoControlTextValues: [0],
-                  gateProgression: 0,
-                  gateProgressionData: [{
-                      controlTextValues: [0, 0, 0, 0, 0, 0],
-                      gatePoints: 0
-                  }],
-                  gatesWithBonification: 0,
-                  gatesWithFail: 0,
-                  handicap: 0,
-                  judgedBy: [],
-                  points: 0,
-                  simpathyPoints: 0,
-                  time: 0,
-                  totalPoints: 0
-              }]
-          }];
-
-      setPlayers(newPlayers);
-  }
-  },[]);
 
   React.useEffect(() => {
     onPlayerNumerChange && onPlayerNumerChange(players);

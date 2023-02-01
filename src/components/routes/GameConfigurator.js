@@ -7,6 +7,8 @@ import { GAME_TYPE_AECAR,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
     GAME_TYPE_GENERIC,
+    OFFLINE_USER_UID,
+    OfflinePlayer,
     Game, GameUtils } from '../../model/Game.ts';
 import GameTypeController from '../GameTypeController';
 import PlayerController from '../PlayerController';
@@ -59,6 +61,9 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
 
     React.useEffect(()=>{
         window.scrollTo(0,0);
+        if (isOffline) {
+            onJudgeNumerChange([OfflinePlayer]);
+        }
     }, []);
 
     function onGameTypeChange(selectedIndex) {
@@ -117,6 +122,10 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         }
         Analytics.event('menu', action, judges.length);
         newGame.judges = [...judges];
+        if(isOffline && !newGame.owner.length) {
+            newGame.owner.push(OFFLINE_USER_UID);
+        }
+
         setGame(newGame);
         setErrorMessage("");
     }
@@ -332,13 +341,15 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
             minValue={1}
             maxValue={10}
             />)
-        extraConfigurationComponents.push(<PlayerController key={4}
+        if (!isOffline) {
+            extraConfigurationComponents.push(<PlayerController key={4}
                 isForJudge={true}
                 maxGroups={groups}
                 inPlayers={game.judges}
                 gameName={game.name}
                 onGameDirectorChange={onGameDirectorChange}
                 onPlayerNumerChange={onJudgeNumerChange} />);
+        }
     }
 
     if (isUserLoged || isOffline) {
