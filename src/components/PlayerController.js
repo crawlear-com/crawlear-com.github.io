@@ -76,7 +76,7 @@ function PlayerController({
     <div className="players rounded rounded1">
       <div className="headerText bold">{isForJudge ? t('description.jueces') : t('description.jugadores') }</div>
 
-      <UserSearch  
+      <UserSearch 
         isForJudge={isForJudge}
         onUserSeachPlayerAdd={onUserSeachPlayerAdd} 
         gameName={gameName} />

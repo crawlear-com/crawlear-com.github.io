@@ -51,7 +51,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
     const { t } = useTranslation();
-    const isOffline = true; //!navigator.onLine;
+    const isOffline = !navigator.onLine;
     let view = <></>,
         judgeProgression = <></>,
         childrenContent = <></>,
@@ -177,7 +177,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
     }
 
     function onClosePlayButtonClick() {
-        if (window.confirm(t('content.cerrarpartida')) && !isOffline && isGroupGameFinished()) {
+        if (isGroupGameFinished() && window.confirm(t('content.cerrarpartida')) && !isOffline) {
             fb.getGameResult(game, (game)=>{
                 let newGame = {...game};
 

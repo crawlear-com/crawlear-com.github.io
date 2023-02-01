@@ -48,7 +48,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         newGame.date = new Date().toLocaleDateString();
         return newGame;
     });
-    const isOffline = true; //!navigator.onLine;
+    const isOffline = !navigator.onLine;
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);

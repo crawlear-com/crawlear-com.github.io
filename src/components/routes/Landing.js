@@ -17,7 +17,7 @@ function Landing({onLogin}) {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const firebase = window.crawlear.fb;
-    const isOffline = true; //!navigator.onLine;
+    const isOffline = !navigator.onLine;
     
     function signInCallback() {
         onLogin(true);
@@ -25,7 +25,7 @@ function Landing({onLogin}) {
     }
 
     React.useEffect(() => {
-//        firebase.checkIfLogged(onLogin);
+        firebase.checkIfLogged(onLogin);
         Analytics.pageview('/landing/');
     },[]);
 
