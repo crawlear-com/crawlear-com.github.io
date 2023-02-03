@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 
 function isLocalhost() {
@@ -14,7 +14,7 @@ class Analytics {
 
     static pageview(path) {
         if (!isLocalhost()) {
-            ReactGA.pageview(path);
+            ReactGA.send({ hitType: "pageview", page: path });
         }
     }
 
