@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import initPwa from './pwa/initPwa';
 import i18n from './language/i18n';
 
-Analytics.init('UA-156750890-2');
+Analytics.init('G-J1NH6FT6E3');
 
 ReactDOM.render(
   <React.StrictMode>
