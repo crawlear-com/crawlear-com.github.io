@@ -18,7 +18,7 @@ function WinnerTable({ game }) {
             draw = true;
             winnerOrTieBox = <div className="">{t('description.empate')}</div>;
     } else {
-        winnerOrTieBox = <><p>{t('description.ganador')}: <b>{game.players[finalWinner].name}<b /></b> </p></>;
+        winnerOrTieBox = <>{t('description.ganador')}: <b>{game.players[finalWinner].name}</b></>;
     }
 
     return <div className='gameContainer'>
