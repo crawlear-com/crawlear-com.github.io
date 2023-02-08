@@ -58,6 +58,7 @@ module.exports = {
         { from: "src/static/robots.txt", to: "" },
         { from: "src/pwa/service-worker.js", to: "" },
         { from: "src/pwa/service-worker-dev.js", to: "" },
+        { from: "src/pwa/firebase-messaging-sw.js", to: "" },
         { from: "src/static/favicon.ico", to: "static/" },
         { from: "src/static/logo192.png", to: "static/" },
         { from: "src/static/logo512.png", to: "static/" },

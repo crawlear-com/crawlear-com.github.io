@@ -5,6 +5,7 @@ import { Game } from './model/Game.ts';
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import FCMController from './pwa/FCMController';
 
 import { initializeApp } from "firebase/app";
 import { getDatabase, 
@@ -49,7 +50,8 @@ const firebaseConfig = {
   storageBucket: "crawlear-com.appspot.com",
   messagingSenderId: "879856500816",
   appId: "1:879856500816:web:4287599cc229d5f4c3d155",
-  measurementId: "G-YD7VLXPTM2"
+  measurementId: "G-YD7VLXPTM2",
+  fcmKey: "BF8jxdqAtWQhEodSWKx5G5MeV1vumAdNLZrsnHC7hzzW7ZtRlCoJJ_9dvZVq5WsepT8oM9FqUGgpjqS4s2AqRYA"
 };
 
 class FirebaseController {
@@ -60,6 +62,7 @@ class FirebaseController {
     this.db = getFirestore();
     this.rdb = getDatabase();
     this.initAppCheck();
+    this.fcm = new FCMController(this.app, firebaseConfig.fcmKey);
   }
 
   async userSearch(name, okCallback, koCallback) {

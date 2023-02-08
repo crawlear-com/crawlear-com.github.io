@@ -21,8 +21,9 @@ import './resources/css/Base.scss';
 import './resources/css/App.scss';
 import './resources/css/Footer.scss';
 
+const fb = new FirebaseController();
+
 function App() {
-  const fb = new FirebaseController();
   const [stateLogged, setStateLogged] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
