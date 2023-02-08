@@ -29,6 +29,7 @@ function getGameContent(t, player, zone, points) {
     const childrenContent = [];
 
     childrenContent.push(<ControlTextArray
+            key="ctP"
             controlTextValuesString='controlTextValues'
             textToken={'description.penalizaciones'}
             steps={IsrccGameScores.steps}
@@ -40,6 +41,7 @@ function getGameContent(t, player, zone, points) {
         />);
 
     childrenContent.push(<ControlTextArray
+            key="ctF"
             textToken={'points.fiascos'}
             controlTextValuesString='fiascoControlTextValues'
             steps={IsrccGameScores.fiascoSteps}
@@ -50,7 +52,10 @@ function getGameContent(t, player, zone, points) {
             isClosed={true}
         />);
 
-    childrenContent.push(<IsrccPoints player={player} zone={zone} />);
+    childrenContent.push(<IsrccPoints 
+        key="iP"
+        player={player} 
+        zone={zone} />);
 
     return childrenContent;
 }

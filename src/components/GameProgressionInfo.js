@@ -50,7 +50,7 @@ function GameProgressionInfo({game, gameProgression}) {
             });
     
             if (zones.length>0) {
-                playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded2'>
+                playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded1'>
                     <img src={player.avatar} alt="player avatar" />
                     <div>{zones}</div>
                 </div>);

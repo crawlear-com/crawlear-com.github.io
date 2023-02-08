@@ -10,7 +10,7 @@ function GameProgressionDirector({game, gameProgression}) {
     const [requests, setRequests] = React.useState({});
     const res = [];
     
-    res.push(<div className=''>{t('content.zonascompletadas')}</div>);
+    res.push(<div key={'zC'} className=''>{t('content.zonascompletadas')}</div>);
 
     function onPresenceRequestAdded(key, value) {
         if (value.status === 'pending') {
@@ -60,25 +60,25 @@ function GameProgressionDirector({game, gameProgression}) {
             });
 
             if (playersIngroupDone === Object.entries(group[1]).length) {
-                groupDone.push(<span className='directorGroup'>{t('description.grupo')} {gIndex +1}</span>);
+                groupDone.push(<span key={`dG${i}`} className='directorGroup'>{t('description.grupo')} {gIndex +1}</span>);
             }
         });
 
-        res.push(<div className='directorZone horizontalScrolling'>
+        res.push(<div key={`dZ${i}`} className='directorZone horizontalScrolling'>
             {t('description.zona')} {i+1}: {groupDone}
 
         </div>);
     }
 
-    res.push(<p className='bold'>{t('description.peticionesdepresencia')}:</p>);
+    res.push(<p key={'pdp'} className='bold'>{t('description.peticionesdepresencia')}:</p>);
     if (!requestsRef.current) {
-        res.push(<p className=''>{t('description.nopeticionespresencia')}</p>);
+        res.push(<p key={'npsp'} className=''>{t('description.nopeticionespresencia')}</p>);
     }
 
-    requestsRef.current && Object.keys(requestsRef.current).forEach((request, index)=>{
+    requestsRef.current && Object.keys(requestsRef.current).forEach((request, i)=>{
         const element = requestsRef.current[request];
 
-        res.push(<div className='directorRequestContainer blink'>
+        res.push(<div key={`dR${i}`} className='directorRequestContainer blink'>
         <div>
             <div>{t('description.de')} {element.fromName}</div>
             <div>{t('description.zona')}: {element.zone+1}</div>

@@ -32,18 +32,18 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, onConfigureG
     }
 
     games && games.forEach((game) => {
-        gameList.push(<>
-            <GameListMenu gamePosition={i}
+        gameList.push(<div key={i}>
+            <GameListMenu key={`menu${i}`} gamePosition={i}
                 onRegenerateClick={regenerateGame} 
                 onRemoveClick={(event)=>{
                     removeGame(event);
                     onRemoveGame(event);
                 }} />
-            <GameListItem game={game} 
+            <GameListItem key={`item${i}`} game={game} 
                 onGamePlay={onGamePlay}
                 gamePosition={i} 
                 gameProgression={gameProgressions && gameProgressions[game.gid]} 
-                readOnly={readOnly} /></>);
+                readOnly={readOnly} /></div>);
         i++;
       });
 
