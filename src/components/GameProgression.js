@@ -48,13 +48,13 @@ function GameProgression({game, jidGroup, onZoneClick}) {
         zones.forEach((zone, zIndex)=>{
             const row = [];
             
-            row.push(<>{t('description.zona')} {zIndex+1}: </>);
+            row.push(<span key={zIndex}>{t('description.zona')} {zIndex+1}: </span>);
             if (zone) {
-                row.push(<span className='directorGroup colorRed'>{t('description.ocupado')}</span>);
+                row.push(<span key={`dG${zIndex}`} className='directorGroup colorRed'>{t('description.ocupado')}</span>);
             } else {
-                row.push(<><span className='directorGroup'>{t('description.libre')}</span><br /></>);
+                row.push(<span key={`div${zIndex}`}><span className='directorGroup'>{t('description.libre')}</span><br /></span>);
             }
-            result.push(<div className='directorZone'>{row}</div>);
+            result.push(<div key={`dZ${zIndex}`} className='directorZone'>{row}</div>);
         });
 
         return <div className=''>
@@ -78,13 +78,13 @@ function GameProgression({game, jidGroup, onZoneClick}) {
         return renderOccupiedZones(zones);
     }
 
-    playersDone.push(<div className=''>{t('content.estadozona')}</div>);
-    playersDone.push(<div>{getNotAvailableZones()}</div>);
+    playersDone.push(<div key="eZ" className=''>{t('content.estadozona')}</div>);
+    playersDone.push(<div key="nAz">{getNotAvailableZones()}</div>);
     playersDone.push(<p key="header">
         {t('content.seleccionapilotoyzona')}:
     </p>);
 
-    game.players.forEach((player)=>{
+    game.players.forEach((player, index)=>{
         let zones=[], 
             j=0,
             className;
@@ -116,18 +116,17 @@ function GameProgression({game, jidGroup, onZoneClick}) {
                 j++;
             });
 
-            playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded3'>
+            playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded1'>
                     <div><img src={player.avatar} alt="player avatar" />
                     {t('description.grupo')} {player.group+1}</div>
                     <div className="horizontalScrollContainer">{zones}</div>
             </div>);
 
             if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[player.group][selectedPlayer][selectedZone].data) {
-                playersDone.push(<div className='gameProgressionInfoItem smallText rounded rounded2'>
+                playersDone.push(<div key={`${i+j}Info`} className='gameProgressionInfoItem smallText rounded rounded2'>
                     <GameProgressionInfoRow 
                         gameType={game.gameType}
                         innerRef={gameProgressionInfoRef} 
-                        key={`${i+j}Info`} 
                         gameProgression={gameProgression[player.group][selectedPlayer][selectedZone]} />
                 </div>);
             }

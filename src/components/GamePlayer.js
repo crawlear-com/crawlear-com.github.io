@@ -262,7 +262,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
             const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
 
             if (isCurrentUserIsOwner) {
-                directorProgression.push(<div className="directorContainer rounded rounded3">
+                directorProgression.push(<div key="dP" className="directorContainer rounded rounded3">
                         <div className="bold">{t('description.directordepartida')}</div>
                         <br />
                         <GameProgressionDirector game={game} gameProgression={gameProgression} />

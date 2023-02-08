@@ -56,6 +56,7 @@ function getGameContent(t, player, zone, points) {
     const childrenContent = [];
 
     childrenContent.push(<ControlTextArray
+        key="ctP"
         controlTextValuesString='controlTextValues'
         player={player}
         zone={zone}
@@ -65,6 +66,7 @@ function getGameContent(t, player, zone, points) {
         isClosed={false} />);
 
     childrenContent.push(<ControlTextArray
+        key="ctF"
         textToken={'points.fiascos'}
         controlTextValuesString='fiascoControlTextValues'
         steps={RegionalZonaRcGameScores.fiascoSteps}
@@ -76,10 +78,12 @@ function getGameContent(t, player, zone, points) {
     />);
 
     childrenContent.push(<RegionalZonaRcPoints 
+        key="zRP"
         player={player}
         zone={zone} />);    
 
     childrenContent.push(<RegionalZonaRcModificator 
+        key="zRM"
         player={player}
         zone={zone} />);    
 

@@ -42,7 +42,8 @@ function KingGame({game, onGameEnd}) {
 
     let result = [];
 
-    result.push(<TimerControl                 
+    result.push(<TimerControl  
+        key="tmC"               
         courtesyTime={0}
         startTime={0}
         label={t('description.tiempo')}

@@ -29,7 +29,7 @@
 }
 
 .headerText {
-  padding: 10px;
+  padding: 6px;
   height: 40px;
   line-height: 40px;
   text-align: center;
@@ -113,7 +113,8 @@ body.lightMode {
 }
 
 .rounded3 {
-  background-image: linear-gradient(#112031, #345B63);
+  //background-image: linear-gradient(#112031, #345B63);
+  background-color: #345B63;
 }
 
 .headerPlayer {
@@ -151,7 +152,7 @@ body.lightMode {
 }
 
 .closed {
-  height: 30px;
+  height: 26px;
   box-shadow: none;
 }
 

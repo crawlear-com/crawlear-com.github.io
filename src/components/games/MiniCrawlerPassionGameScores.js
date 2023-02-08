@@ -28,6 +28,7 @@ function getGameContent(t, player, zone, points) {
     const childrenContent = [];
 
     childrenContent.push(<ControlTextArray
+        key="ctP"
         controlTextValuesString='controlTextValues'
         textToken={'description.penalizaciones'}
         player={player}
@@ -38,6 +39,7 @@ function getGameContent(t, player, zone, points) {
         isClosed={false} />);
 
     childrenContent.push(<ControlTextArray
+        key="ctF"
         textToken={'points.fiascos'}
         controlTextValuesString='fiascoControlTextValues'
         steps={MiniCrawlerPassionGameScores.fiascoSteps}
@@ -49,6 +51,7 @@ function getGameContent(t, player, zone, points) {
     />);
 
     childrenContent.push(<AecarPoints 
+            key="aP"
             player={player}
             zone={zone} />);
 
