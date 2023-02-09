@@ -37,7 +37,7 @@ function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPoin
     const optionElements = [];
 
     labelsGameType.forEach((element, position)=>{
-        optionElements.push(<option value={position}>{labelsGameType[position]}</option>);
+        optionElements.push(<option key={position} value={position}>{labelsGameType[position]}</option>);
     });
 
     return <>
