@@ -240,7 +240,7 @@ function CoreGame({
             {fiasco}
         </div>
         <div className="controlTextContainer rounded rounded2">
-            <BluetoothButton />
+            {Utils.isIphone() ? <></> : <BluetoothButton /> }
             {game.courtesyTime>0 ? 
                     <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
                     <></>}            

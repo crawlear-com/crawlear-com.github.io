@@ -6,11 +6,11 @@ class Utils {
     static PLAYER_STATE_PAUSE = 'pause';
 
     static isMobile() {
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-            return true;
-        }
+        return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
 
-        return false;
+    static isIphone() {
+        return (/iPhone|iPad|iPod/i.test(navigator.userAgent));
     }
 
     static sanitizeUrl(url) {
