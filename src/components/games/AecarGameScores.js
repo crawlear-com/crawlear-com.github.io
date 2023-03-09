@@ -80,10 +80,10 @@ function getGatesPointExtras(playerZone) {
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(23).fill(0);
+        return new Array(AecarGameScores.steps.length).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(2).fill(0);
+      return new Array(AecarGameScores.fiascoSteps.length).fill(0);
     },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);

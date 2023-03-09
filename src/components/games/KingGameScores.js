@@ -5,11 +5,10 @@ import AecarPoints from './AecarPoints';
 import Analytics from '../../Analytics';
 
 const KingGameScores = {
-    steps: [5, 3, 2, 5, 5, 3],
-    maxValues: [0, 0, 0, 0, 0, 0],
+    steps: [5, 3, 5, 5, 3],
+    maxValues: [0, 0, 0, 0, 0],
     texts: ['points.vuelco',
         'points.tocar',
-        'points.puerta',
         'points.saltoobstaculo',
         'points.reparacion',
         'points.winch'
@@ -59,10 +58,10 @@ function getGatesPointExtras(playerZone) {
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(6).fill(0);
+        return new Array(KingGameScores.steps.length).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(2).fill(0);
+      return new Array(KingGameScores.fiascoSteps.length).fill(0);
     },
     onTimerChange: () => {},
     onChangeScore: (playerZone)=>{

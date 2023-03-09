@@ -108,7 +108,7 @@ function initControlTestValues(game) {
         false);
     for(let i=0; i<newState.game.players.length;i++) {
         
-        newState.game.players[i].zones[0].gateProgressionData[0].controlTextValues = new Array(6).fill(0);
+        newState.game.players[i].zones[0].gateProgressionData[0].controlTextValues = new Array(KingGameScores.steps.length).fill(0);
     }
 
     return newState;

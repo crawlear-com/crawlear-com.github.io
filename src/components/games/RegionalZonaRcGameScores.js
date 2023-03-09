@@ -96,10 +96,10 @@ function getGatesPointExtras(playerZone) {
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(26).fill(0);
+        return new Array(RegionalZonaRcGameScores.steps.length).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(3).fill(0);
+      return new Array(RegionalZonaRcGameScores.fiascoSteps.length).fill(0);
     },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
