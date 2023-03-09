@@ -75,51 +75,26 @@ function GameManagement({onLogout}) {
         });
     }
 
-    function onRemovePlayerGames(gamePosition) {
-        let game = games[gamePosition];
-        const newGames = [...games];
+    async function onRemoveGames(gameArray, gamePosition, setMethod) {
+        let game = gameArray[gamePosition];
+        const newGames = [...gameArray],
+            uid = window.crawlear.user.uid;
+
+        if (game.uids.indexOf(uid)>=0) {
+            game = await firebase.removeIdFromGame(game, uid, "uids");
+        }
+        if (game.jids.indexOf(uid)>=0) {
+            game = await firebase.removeIdFromGame(game, uid, "jids");
+        }
+        if (game.owner.indexOf(uid)>=0) {
+            game = await firebase.removeIdFromGame(game, uid, "owner");
+        }
+        if (game.uids.length === 0 && game.jids.length === 0) {
+            await firebase.removeGame(game.gid);
+        }
 
         newGames.splice(gamePosition, 1);
-        firebase.removeIdFromGame(game, window.crawlear.user.uid, "uids").then((game)=>{
-            if (game.uids.length === 0 && game.jids.length === 0) {
-                firebase.removeGame(game.gid);
-            }
-    
-            setGames(newGames);
-        });
-    }
-
-    function onRemoveJudgeGame(gamePosition) {
-        let game = judgeGames[gamePosition];
-        const newGames = [...judgeGames];
-
-        newGames.splice(gamePosition, 1);// ELIMINAR OWNER TB!!!
-        if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
-            firebase.removeIdFromGame(game, window.crawlear.user.uid, "uids").then((game)=>{
-                firebase.removeIdFromGame(game, window.crawlear.user.uid, "jids").then((game)=>{
-                    if (game.uids.length === 0 && game.jids.length === 0) {
-                        firebase.removeGame(game.gid);
-                    }
-            
-                    setJudgeGames(newGames);
-                });
-            });
-        } else {
-            firebase.removeIdFromGame(game, window.crawlear.user.uid, "jids").then((game)=>{
-                if (game.uids.length === 0 && game.jids.length === 0) {
-                    firebase.removeGame(game.gid);
-                }
-        
-                setJudgeGames(newGames);
-            });
-            firebase.removeIdFromGame(game, window.crawlear.user.uid, "owner").then((game)=>{
-                if (game.uids.length === 0 && game.jids.length === 0 && game.owner.length === 0) {
-                    firebase.removeGame(game.gid);
-                }
-        
-                setJudgeGames(newGames);
-            });
-        }
+        setMethod(newGames);
     }
 
     function onGamePlay(games, gamePosition) {
@@ -161,7 +136,7 @@ function GameManagement({onLogout}) {
                         games={games}
                         readOnly={true}
                         onRemoveGame={(gamePosition)=>{
-                            onRemovePlayerGames(gamePosition)}
+                            onRemoveGames(games, gamePosition, setGames)}
                         }
                         onConfigureGame={(gamePosition)=>{
                             onConfigureGame(games, gamePosition)}
@@ -176,15 +151,15 @@ function GameManagement({onLogout}) {
                             onConfigureGame(judgeGames, gamePosition)}
                         }
                         onRemoveGame={(gamePosition)=>{
-                            onRemoveJudgeGame(gamePosition)}
-                        } />
+                            onRemoveGames(judgeGames, gamePosition, setJudgeGames)
+                        }} />
                     <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crear')}</button>                        
                     
                     <GameList title={t('description.partidasprevias')} 
                         games={storedGames}
                         readOnly={false}
                         onRemoveGame={(gamePosition)=>{
-                            onRemovePlayerGames(gamePosition)}
+                            onRemoveGames(storedGames, gamePosition, setStoredGames)}
                         }
                         onConfigureGame={(gamePosition)=>{
                             onConfigureGame(games, gamePosition)}

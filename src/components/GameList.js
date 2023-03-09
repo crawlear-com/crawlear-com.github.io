@@ -37,7 +37,6 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, onConfigureG
                 onRegenerateClick={regenerateGame} 
                 onRemoveClick={(event)=>{
                     removeGame(event);
-                    onRemoveGame(event);
                 }} />
             <GameListItem key={`item${i}`} game={game} 
                 onGamePlay={onGamePlay}
