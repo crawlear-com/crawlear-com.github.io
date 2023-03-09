@@ -80,10 +80,10 @@ function getGatesWithBonification(playerZone) {
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(6).fill(0);
+        return new Array(IsrccGameScores.steps.length).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(5).fill(0);
+      return new Array(IsrccGameScores.fiascoSteps.length).fill(0);
     },
     onTimerChange: (playerZone)=>{
         getGatesPointExtras(playerZone);

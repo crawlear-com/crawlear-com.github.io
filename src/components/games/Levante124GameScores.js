@@ -63,10 +63,10 @@ function getGatesPointExtras(playerZone) {
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(6).fill(0);
+        return new Array(Levante124GameScores.steps.length).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(2).fill(0);
+      return new Array(Levante124GameScores.fiascoSteps.length).fill(0);
     },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
