@@ -75,6 +75,12 @@ function GameManagement({onLogout}) {
         });
     }
 
+    function onConfigureGames(gameArray, gamePosition) {
+        window.scrollTo(0,0);
+        setState(STATE_CONFIGURE);
+        setGame(gameArray[gamePosition]);
+    }
+
     async function onRemoveGames(gameArray, gamePosition, setMethod) {
         let game = gameArray[gamePosition];
         const newGames = [...gameArray],
@@ -100,12 +106,6 @@ function GameManagement({onLogout}) {
     function onGamePlay(games, gamePosition) {
         window.scrollTo(0,0);
         setState(STATE_PLAYING);
-        setGame(games[gamePosition]);
-    }
-
-    function onConfigureGame(games, gamePosition) {
-        window.scrollTo(0,0);
-        setState(STATE_CONFIGURE);
         setGame(games[gamePosition]);
     }
 
@@ -139,7 +139,7 @@ function GameManagement({onLogout}) {
                             onRemoveGames(games, gamePosition, setGames)}
                         }
                         onConfigureGame={(gamePosition)=>{
-                            onConfigureGame(games, gamePosition)}
+                            onConfigureGames(games, gamePosition)}
                         } />
                     <GameList title={t('description.partidasdejuez')} 
                         games={judgeGames}
@@ -148,7 +148,7 @@ function GameManagement({onLogout}) {
                             onGamePlay(judgeGames, event.target.getAttribute("data-gameposition"));
                         }}
                         onConfigureGame={(gamePosition)=>{
-                            onConfigureGame(judgeGames, gamePosition)}
+                            onConfigureGames(judgeGames, gamePosition)}
                         }
                         onRemoveGame={(gamePosition)=>{
                             onRemoveGames(judgeGames, gamePosition, setJudgeGames)
@@ -162,7 +162,7 @@ function GameManagement({onLogout}) {
                             onRemoveGames(storedGames, gamePosition, setStoredGames)}
                         }
                         onConfigureGame={(gamePosition)=>{
-                            onConfigureGame(games, gamePosition)}
+                            onConfigureGames(storedGames, gamePosition)}
                         } />
                 </> : 
                 state === STATE_PLAYING ? 
