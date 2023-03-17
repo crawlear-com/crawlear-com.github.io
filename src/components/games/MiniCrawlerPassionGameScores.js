@@ -59,7 +59,7 @@ function getGameContent(t, player, zone, points) {
 }
 
 function getGatesPointExtras(playerZone) {
-    playerZone.totalPoints = playerZone.points;
+    playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints;
 }
 
 const gameExtras = {
