@@ -2,6 +2,7 @@ import * as React from 'react';
 import Analytics from '../../Analytics';
 import AecarPoints from './AecarPoints';
 import ControlTextArray from '../ControlTextArray';
+import { GameUtils } from '../../model/Game.ts';
 
 const MiniCrawlerPassionGameScores = {
     steps: [1, 3, 5, 5, 5, 5, 10],
@@ -55,6 +56,10 @@ function getGameContent(t, player, zone, points) {
             zone={zone} />);
 
     return childrenContent;
+}
+
+function getGatesPointExtras(playerZone) {
+    playerZone.totalPoints = playerZone.points;
 }
 
 const gameExtras = {
