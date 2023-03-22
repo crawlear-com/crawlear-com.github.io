@@ -43,7 +43,7 @@ import { getAuth,
 
 const firebaseConfig = {
   apiKey: "AIzaSyATlKKGw99gurKNwHL7BU1-_Llj0hwJy60",
-  authDomain: "crawlear-com.firebaseapp.com",
+  authDomain: "crawlear.com",
   databaseURL: "https://crawlear-com-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "crawlear-com",
   storageBucket: "crawlear-com.appspot.com",

@@ -63,7 +63,12 @@ module.exports = {
         { from: "src/static/logo512.png", to: "static/" },
         { from: "public/.well-known/assetlinks.json", to: ".well-known/" },
         { from: "_config.yml", to: "" },
-        { from: ".nojekyll", to: "" }
+        { from: ".nojekyll", to: "" },
+        { from: "src/static/signin_helpers/experiments.js", to: "__/auth/" },
+        { from: "src/static/signin_helpers/handler", to: "__/auth/" },
+        { from: "src/static/signin_helpers/handler.js", to: "__/auth/" },
+        { from: "src/static/signin_helpers/iframe", to: "__/auth/" },
+        { from: "src/static/signin_helpers/iframe.js", to: "__/auth/" }
       ]})
   ]
 }
