@@ -401,7 +401,7 @@ class FirebaseController {
   signInWithGoogle(callback) {
     setPersistence(this.auth, browserLocalPersistence)
     .then(() => {
-      if (Utils.isMobile()) {
+      if (Utils.isMobile() && !Utils.isIphone() && !Utils.isFirefox()) {
         signInWithRedirect(this.auth, this.provider);
       } else {
         signInWithPopup(this.auth, this.provider)
