@@ -13,6 +13,10 @@ class Utils {
         return (/iPhone|iPad|iPod/i.test(navigator.userAgent));
     }
 
+    static isFirefox() {
+        return (/Firefox/i.test(navigator.userAgent));
+    }
+
     static sanitizeUrl(url) {
         const params = url.indexOf('?');
 
