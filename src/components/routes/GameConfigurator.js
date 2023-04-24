@@ -52,6 +52,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = React.useState("");
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN);
+    const [randomizePlayersOrder, setRandomizePlayersOrder] = React.useState(false);
     const [groups, setGroups] = React.useState(1);
     const { t } = useTranslation();
     const extraConfigurationComponents = [];
@@ -251,6 +252,25 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         }
     }
 
+    function markRandomizePlayersOrder(event) {
+        const value = event.target.checked;
+
+        setRandomizePlayersOrder(value);
+    }
+
+    function randomPlayersOrder(game) {
+        if(game.players.length) {
+            let players = [...game.players];
+    
+            players = players.sort((a, b)=>{
+                return Math.random() - 0.5;
+            });
+    
+            game.players = players;
+            GameUtils.redoPlayersIds(game);
+        }
+    }
+
     function createGame() {
         const allGroupsFilled = areAllGroupsFilled();
         window.scrollTo(0,0);
@@ -268,7 +288,9 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
                 }
                 newGame.uids = Utils.getUidsFromUsers(newGame.players);
                 newGame.jids = Utils.getUidsFromUsers(newGame.judges);
-                GameUtils.redoPlayersIds(game);
+                if (randomizePlayersOrder) {
+                    randomPlayersOrder(newGame);
+                }
                 GameUtils.init(newGame, 
                     GameUtils.getGameTypeControlTextValuesInit(newGame.gameType),
                     GameUtils.getGameTypeFiascoControlTextValuesInit(newGame.gameType),
@@ -392,7 +414,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
                     onPlayerNumerChange && onPlayerNumerChange(players);
                 }
             }/>
-    
+            <input type="checkbox" onChange={markRandomizePlayersOrder}></input>{t('description.ordenRamdomJugadores')}
             <p>
                 <button className="importantNote" 
                     onClick={() => {

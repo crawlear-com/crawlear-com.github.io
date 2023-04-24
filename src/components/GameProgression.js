@@ -118,6 +118,8 @@ function GameProgression({game, jidGroup, onZoneClick}) {
 
             playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded1'>
                     <div><img src={player.avatar} alt="player avatar" />
+
+                    {player.name} <br />
                     {t('description.grupo')} {player.group+1}</div>
                     <div className="horizontalScrollContainer">{zones}</div>
             </div>);
