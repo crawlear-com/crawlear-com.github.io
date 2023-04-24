@@ -203,7 +203,8 @@ i18n
             siguiendo: 'Following',
             eliminarpartida: 'Remove game',
             jugarpartida: 'Play game',
-            regenerarpartida: 'Regenerate play'
+            regenerarpartida: 'Regenerate play',
+            ordenRamdomJugadores: 'Random players order'
           },
           points: {
             vuelco: 'overturn',
@@ -494,7 +495,8 @@ i18n
               siguiendo: 'Siguiendo',
               eliminarpartida: 'Eliminar partida',
               jugarpartida: 'Jugar partida',
-              regenerarpartida: 'Regenerar partida'
+              regenerarpartida: 'Regenerar partida',
+              ordenRamdomJugadores: 'Orden aleatorio de salida'
           },
           points: {
             vuelco: 'vuelco',
