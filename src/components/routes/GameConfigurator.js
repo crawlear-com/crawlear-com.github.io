@@ -299,7 +299,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
                     onGameCreated(newGame);
                 } else {                    
                     fb.setGame(newGame, (game)=>{
-                        newGame.gid = game.gid;
+                        newGamesetGameId(game.gid);
                         fb.createGameProgression(newGame);
                         setGame(newGame);
                         window.location.href.indexOf('completegame')<0 ? navigate("/completegame") : window.location.reload();

@@ -28,6 +28,7 @@ enum GameType {
 }
 
 class Game {
+    gid: string;
     name: string;
     date: Date;
     location: Location;
@@ -76,6 +77,7 @@ class Game {
         this.zones = zones;
         this.gameStatus = gameStatus;
         this.owner = owner;
+        this.gid = '';
 
         if (maxTime === 0) {
             this.courtesyTime = 0;
@@ -109,6 +111,10 @@ class Game {
             }
             this.courtesyTime = courtesyTime;
         }
+    }
+
+    setGameId(gid: string) {
+        this.gid = gid
     }
 }
 

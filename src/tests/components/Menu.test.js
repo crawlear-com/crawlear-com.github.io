@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Menu from '../../components/Menu.js';
 
@@ -35,7 +35,10 @@ test('opens Menu', () => {
       menu = container.querySelector('.menuContainer');
   
     expect(menu.classList.contains("open")).toBeFalsy();
-    menu.click();
+    act(() => {
+      menu.click()
+    })
+  
     expect(menu.classList.contains("open")).toBeTruthy();
   });
 
@@ -44,7 +47,9 @@ test('opens Menu', () => {
       menu = container.querySelector('.menuContainer');
   
     expect(menu.classList.contains("open")).toBeFalsy();
-    menu.click();
+    act(() => {
+      menu.click();
+    })
     const links = menu.querySelectorAll(".linksContainer li");
 
     expect(links.length).toBe(10);

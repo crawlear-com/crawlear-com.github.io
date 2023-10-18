@@ -35,13 +35,13 @@ class Bluetooth {
           }).then(device => {
             this.device = device;
             callback && callback(device);
-            return device.gatt.connect();
-          }).then(server => server.getPrimaryService(GATT_SERVICE))
+            return device.gatt && device.gatt.connect();
+          }).then(server => server && server.getPrimaryService(GATT_SERVICE))
           .then(service => {
-            const timeStatusPromise = service.getCharacteristic(GATT_CHARACTERISTIC);
-            const timeValuePromise = service.getCharacteristic(GATTIME_CHARACTERISTIC);
-            const pointsPromise = service.getCharacteristic(GATPOINTS_CHARACTERISTIC);
-            const gatesPromise = service.getCharacteristic(GATGATES_CHARACTERISTIC);
+            const timeStatusPromise = service && service.getCharacteristic(GATT_CHARACTERISTIC);
+            const timeValuePromise = service && service.getCharacteristic(GATTIME_CHARACTERISTIC);
+            const pointsPromise = service && service.getCharacteristic(GATPOINTS_CHARACTERISTIC);
+            const gatesPromise = service && service.getCharacteristic(GATGATES_CHARACTERISTIC);
 
             return Promise.all([timeStatusPromise, timeValuePromise, pointsPromise, gatesPromise]);
           })

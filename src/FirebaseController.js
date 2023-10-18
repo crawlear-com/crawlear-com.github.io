@@ -217,8 +217,7 @@ class FirebaseController {
         data.uids,
         data.jids,
         data.owner);
-      game.gid = element.id;
-
+      game.setGameId(element.id);
       result.push(game);
     });
 
