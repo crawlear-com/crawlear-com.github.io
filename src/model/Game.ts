@@ -30,7 +30,7 @@ enum GameType {
 class Game {
     gid: string;
     name: string;
-    date: Date;
+    date: string;
     location: Location;
     isPublic: boolean;
     gameType: GameType;
@@ -47,7 +47,7 @@ class Game {
     courtesyTime: number;
     
     constructor(name:string, 
-        date: Date, 
+        date: string, 
         location: Location, 
         isPublic: boolean, 
         gameType: GameType,

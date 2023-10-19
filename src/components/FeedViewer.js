@@ -7,7 +7,7 @@ import Analytics from '../Analytics';
 import Posts from './Posts';
 import { UserStatusContext } from './context/UserStatusContext';
 import LoadingLogo from './LoadingLogo';
-import UserSearch from './UserSearch';
+import UserSearch from '../gameConfigurator/components/UserSearch';
 
 import icon1px from '../resources/img/1px.png';
 import '../resources/css/FeedViewer.scss';

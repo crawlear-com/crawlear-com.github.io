@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import GameConfigurator from './GameConfigurator';
+import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator';
 import GamePlayer from '../GamePlayer';
 import { OFFLINE_USER_UID } from '../../model/Game.ts';
 import MainPageTextContent from '../MainPageTextContent';

@@ -7,6 +7,9 @@ module.exports = {
   output: {
     path:path.resolve(__dirname, "dist"),
   },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
+  },
   devServer: {
     static: './dist',
   },
@@ -29,7 +32,7 @@ module.exports = {
         }
     },
     {
-        test: /\.?ts$/,
+      test: /\.(ts)x?/i,
         exclude: /node_modules/,
         use: {
             loader: "ts-loader"
