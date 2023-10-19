@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import PlayerController from './PlayerController';
-import GameTypeController from './GameTypeController';
+import PlayerController from '../gameConfigurator/components/PlayerController';
+import GameTypeController from '../gameConfigurator/components/GameTypeController';
 import Analytics from '../Analytics';
-import MaxTimeAndPointsPicker from './MaxTimeAndPointsPicker';
-import ZonesPicker from './ZonesPicker';
-import GateProgressionPicker from './GateProgressionPicker';
+import MaxTimeAndPointsPicker from '../gameConfigurator/components/MaxTimeAndPointsPicker';
+import ZonesPicker from '../gameConfigurator/components/ZonesPicker';
+import GateProgressionPicker from '../gameConfigurator/components/GateProgressionPicker';
 
 function GameMenu({game, beginGame, onPlayerChange}) {
     const { t } = useTranslation();
