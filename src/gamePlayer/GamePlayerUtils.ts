@@ -6,7 +6,7 @@ const GamePlayerUtils = {
         return game.gameType === GAME_TYPE_KING;
     },
 
-    isGroupGameFinished: (game: Game, gameProgression: GameProgressionData, jidGroup: number) => {
+    isGroupGameFinished: (game: Game, gameProgression: Array<any>, jidGroup: number) => {
         let result = true;
         
         if (GamePlayerUtils.isIndividualGame(game)) return true;

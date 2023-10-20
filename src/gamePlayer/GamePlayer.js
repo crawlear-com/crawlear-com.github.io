@@ -8,14 +8,9 @@ import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniC
 import { getGameContent as getGenericGameContent, gameExtras as genericExtras } from '../components/games/GenericGameScores';
 import { gameExtras as kingExtras } from '../components/games/KingGameScores';
 import Utils from '../Utils';
-import GamePlayerUtils, { STATUS_WAITING, STATUS_REPAIR, STATUS_PLAYING, STATUS_DONE } from './GamePlayerUtils';
+import GamePlayerUtils, { STATUS_REPAIR, STATUS_PLAYING, STATUS_DONE } from './GamePlayerUtils';
 import GamePlayerMenu from './components/GamePlayerMenu';
-import ErrorBox from '../components/ErrorBox';
-import GameProgression from '../components/GameProgression';
 import GameTypePlayer from '../components/GameTypePlayer';
-import RepairProgression from '../components/RepairProgression';
-import GameProgressionDirector from '../components/GameProgressionDirector';
-import PresenceButton from '../components/PresenceButton';
 import { GameProgressionContext } from '../components/context/GameProgressionContext';
 import WinnerTable from '../components/WinnerTable';
 import { isOffline } from '../components/routes/Offline';
@@ -38,14 +33,13 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const fb = window.crawlear.fb;
     const [state, setState] = React.useState(GAME_STATUS_CREATED);
     const [game, setGame] = React.useState(inGame);
-    const [error,setError] = React.useState("");
-    const [player, setPlayer] = React.useState(-1);
-    const [zone, setZone] = React.useState(-1);
     const [jidGroup, setJidGroup] = React.useState(()=>{
         return Utils.getGroupFromJid(game, window.crawlear.user.uid);
     });
     const [gameProgression, setGameProgression] = React.useState({});
     const gameProgressionRef = React.useRef({});
+    const [player, setPlayer] = React.useState({});
+    const [zone, setZone] = React.useState(-1);
     const { t } = useTranslation();
     let view = <></>,
         judgeProgression = <></>,
@@ -55,24 +49,24 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
     
     if (game.gameType === GAME_TYPE_AECAR) {
-        player!=-1 && zone != -1 && (method = getAecarGameContent);
+        player!==-1 && zone !== -1 && (method = getAecarGameContent);
         gameExtras = aecarExtras;
     } else if (game.gameType === GAME_TYPE_ISRCC) {
-        player!=-1 && zone != -1 && (method = getIsrccGameContent);
+        player!==-1 && zone !== -1 && (method = getIsrccGameContent);
         gameExtras = isrccExtras;
     } else if (game.gameType === GAME_TYPE_LEVANTE) {
-        player!=-1 && zone != -1 && (method = getLevanteGameContent);
+        player!==-1 && zone !== -1 && (method = getLevanteGameContent);
         gameExtras = levante124Extras;
     } else if (game.gameType === GAME_TYPE_COPAESPANA) {
-        player!=-1 && zone != -1 && (method = getRegionalZonaRcGameContent);
+        player!==-1 && zone !== -1 && (method = getRegionalZonaRcGameContent);
         gameExtras = regionalZonaRcExtras;
     } else if (game.gameType === GAME_TYPE_KING) {
         gameExtras = kingExtras;
     } else if (game.gameType === GAME_TYPE_MINICRAWLERPASSION) {
-        player!=-1 && zone != -1 && (method = getMiniCrawlerPassionGameContent);
+        player!==-1 && zone !== -1 && (method = getMiniCrawlerPassionGameContent);
         gameExtras = miniCrawlerPassionExtras;
     } else if (game.gameType === GAME_TYPE_GENERIC) {
-        player!=-1 && zone != -1 && (method = getGenericGameContent);
+        player!==-1 && zone !== -1 && (method = getGenericGameContent);
         gameExtras = genericExtras;
     }
 
@@ -114,37 +108,19 @@ function GamePlayer({inGame, onBackButtonClick}) {
         }
     },[]);
 
-    function onZoneClick(player, zone) {
-        setZone(zone);
-        setPlayer(player);
-        setError("");
+    function onBeginGame(player, zone) {
+        const pid = player.id;
+        const group = player.group;
+
+        setState(GAME_STATUS_PLAYING);
+        setPlayer(player)
+        setZone(zone)
+        gameProgression[group][pid][zone].status = STATUS_PLAYING;
+        setGameProgression(gameProgression);
+        fb.setGameProgression(game.gid, pid, group, zone, gameProgression[group][pid][zone]);
     }
 
-    function onBeginGame() {
-        if(player===-1 || zone === -1) {
-            setError(t('content.seleccionapilotoyzona'));
-        } else {
-            const pid = player.id;
-            const group = player.group;
-            const value = gameProgression[group][pid][zone];
-
-            if((value.status === STATUS_WAITING && window.confirm(t('content.quieresempezarzona'))) || 
-              (value.status === STATUS_DONE && window.confirm(t('content.quiereseditarpartida'))) || 
-              (value.status === STATUS_PLAYING && window.confirm(t('content.seguroeditarpartidaenjuego')))) {
-                setError("");
-                setState(GAME_STATUS_PLAYING);
-                gameProgression[group][pid][zone].status = STATUS_PLAYING;
-                setGameProgression(gameProgression);
-                fb.setGameProgression(game.gid, pid, group, zone, gameProgression[group][pid][zone]);
-            } else if (value.status === STATUS_PLAYING) {
-                setError(t('error.juegoencurso'));
-            } else if (value.status === STATUS_REPAIR) { 
-                setError(t('error.reparacionencurso'));
-            }
-        }
-    }
-
-    function onClosePlayButtonClick() {
+    function onClosePlayButtonClick(game) {
         if (GamePlayerUtils.isGroupGameFinished(game, gameProgression, jidGroup) && window.confirm(t('content.cerrarpartida')) && !isOffline) {
             fb.getGameResult(game, (game)=>{
                 let newGame = {...game};
@@ -166,7 +142,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
     }
 
     function onGameEnd(updatedGame) {
-        if(!isIndividualGame()) {
+        if(!GamePlayerUtils.isIndividualGame(game)) {
             const pid = player.id;
             const group = player.group;
             const newGameProgression = {...gameProgression};
@@ -215,66 +191,15 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
 
         if (state === GAME_STATUS_CREATED) {
-            const directorProgression = [];
-            const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
-
-            if (isCurrentUserIsOwner) {
-                directorProgression.push(<div key="dP" className="directorContainer rounded rounded3">
-                        <div className="bold">{t('description.directordepartida')}</div>
-                        <br />
-                        <GameProgressionDirector game={game} gameProgression={gameProgression} />
-                    </div>);
-            }
-
-            if (game.jids.find(elem=>elem===window.crawlear.user.uid)) {
-                let buton = <></>;
-
-                if (player.group === jidGroup || isCurrentUserIsOwner) {
-                    buton = <button onClick={onBeginGame} className="playButton importantNote">{t("description.empezar")}</button>;
-                }
-                judgeProgression = <>
-                    {t('description.jugadorseleccionado')}: {player !==-1 ? player.name : ""} <br />
-                    {t('description.zonaseleccionada')}: {zone !==-1 ? zone+1 : ""}<br />
-                    {buton}
-                    <PresenceButton fromUid={window.crawlear.user.uid} 
-                        game={game} 
-                        zone={zone}
-                        playerName={player.name}
-                        fromName={window.crawlear.user.displayName} />
-                </>;
-            }
-
-/*            <button className='trainingButton importantNote'
-            onClick={goTraining}>{t('description.entrenamientos')}</button> */           
             view = <GameProgressionContext.Provider value={[gameProgression, setGameProgression]}>
-                
-                {directorProgression}
-                <div className="trackJudgeContainer rounded rounded3">
-                    <div className="bold">{t('description.juezdepista')}</div>
-                    <GameProgression onZoneClick={onZoneClick} 
-                        game={game}
-                        jidGroup={jidGroup} />
-                    <ErrorBox message={error} />
-                    {judgeProgression}
-                </div>
-                <div className="tendJudgeContainer rounded rounded3">
-                    <div className="bold">{t('description.juezdecarpa')}</div>
-                    <RepairProgression 
-                        gameProgression={gameProgression}
-                        game={game}
-                        onRepairEnd={GamePlayerUtils.onRepairEnd}
-                    />
-                </div>
-                <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
-                { GameUtils.isCurrentUserIsOwner(game.owner) && 
-                  GamePlayerUtils.isGroupGameFinished(game, gameProgression, jidGroup) ? 
-                    <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button> : 
-                    <></> }
+                <GamePlayerMenu game={game} gameProgression={gameProgression}
+                    jidGroup={jidGroup} onBeginGame={onBeginGame} onBackButtonClick={onBackButtonClick}
+                    onCloseButonClick={onClosePlayButtonClick}></GamePlayerMenu>
             </GameProgressionContext.Provider>
 
         } else if (state === GAME_STATUS_PLAYING) {
             view = <GameTypePlayer 
-                player={player.id} 
+                player={player.id}
                 zone={zone} 
                 game={game}
                 gameExtras={gameExtras}
@@ -292,7 +217,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
 
 
     } else {
-        if (state === GAME_STATUS_CREATED || view === GAME_STATUS_PLAYING) { 
+        if (state === GAME_STATUS_CREATED || state === GAME_STATUS_PLAYING) { 
             view = <GameTypePlayer 
                 game={game} 
                 onGameEnd={onGameEnd}
