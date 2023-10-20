@@ -35,7 +35,7 @@ function RepairProgression({gameProgression, game, onRepairEnd}) {
                         </div>
                         <RepairTimer  />
                         <button onClick={()=>{
-                            prepareOnRepairEnd(game.players[[player[0]]].id, group[0], index, zone[1]);
+                            prepareOnRepairEnd(game.gid, game.players[[player[0]]].id, group[0], index, zone[1]);
                         }} className="importantNote">{t('description.fin')}</button>
                     </div>);
                 }

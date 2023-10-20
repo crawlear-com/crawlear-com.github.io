@@ -1,22 +1,24 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from './games/AecarGameScores';
-import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from './games/IsrccGameScores';
-import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from './games/Levante124GameScores';
-import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from './games/RegionalZonaRcGameScores';
-import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniCrawlerPassionExtras } from './games/MiniCrawlerPassionGameScores';
-import { getGameContent as getGenericGameContent, gameExtras as genericExtras } from './games/GenericGameScores';
-import { gameExtras as kingExtras } from './games/KingGameScores';
+import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from '../components/games/AecarGameScores';
+import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from '../components/games/IsrccGameScores';
+import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from '../components/games/Levante124GameScores';
+import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from '../components/games/RegionalZonaRcGameScores';
+import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniCrawlerPassionExtras } from '../components/games/MiniCrawlerPassionGameScores';
+import { getGameContent as getGenericGameContent, gameExtras as genericExtras } from '../components/games/GenericGameScores';
+import { gameExtras as kingExtras } from '../components/games/KingGameScores';
 import Utils from '../Utils';
+import GamePlayerUtils, { STATUS_WAITING, STATUS_REPAIR, STATUS_PLAYING, STATUS_DONE } from './GamePlayerUtils';
+import GamePlayerMenu from './components/GamePlayerMenu';
 import ErrorBox from '../components/ErrorBox';
-import GameProgression from './GameProgression';
+import GameProgression from '../components/GameProgression';
 import GameTypePlayer from '../components/GameTypePlayer';
-import RepairProgression from './RepairProgression';
-import GameProgressionDirector from './GameProgressionDirector';
-import PresenceButton from './PresenceButton';
-import TrainingController from './games/TrainingController';
-import { GameProgressionContext } from './context/GameProgressionContext';
-import { isOffline } from './routes/Offline';
+import RepairProgression from '../components/RepairProgression';
+import GameProgressionDirector from '../components/GameProgressionDirector';
+import PresenceButton from '../components/PresenceButton';
+import { GameProgressionContext } from '../components/context/GameProgressionContext';
+import WinnerTable from '../components/WinnerTable';
+import { isOffline } from '../components/routes/Offline';
 import { GAME_TYPE_AECAR, 
          GAME_TYPE_ISRCC, 
          GAME_TYPE_KING, 
@@ -24,20 +26,13 @@ import { GAME_TYPE_AECAR,
          GAME_TYPE_COPAESPANA,
          GAME_TYPE_MINICRAWLERPASSION,
          GAME_TYPE_GENERIC,
-        GameUtils } from '../model/Game.ts';
+        GameUtils } from '../model/Game';
 
 import '../resources/css/GamePlayer.scss';
-import WinnerTable from '../components/WinnerTable';
 
 const GAME_STATUS_CREATED = 0;
 const GAME_STATUS_PLAYING = 1;
 const GAME_STATUS_FINISHED = 2;
-const GAME_STATUS_TRAINING = 3;
-
-const STATUS_WAITING = 'waiting';
-const STATUS_PLAYING = 'playing';
-const STATUS_REPAIR = 'repair';
-const STATUS_DONE = 'done';
 
 function GamePlayer({inGame, onBackButtonClick}) {
     const fb = window.crawlear.fb;
@@ -149,35 +144,8 @@ function GamePlayer({inGame, onBackButtonClick}) {
         }
     }
 
-    function isGroupGameFinished() {
-        let result = true;
-        
-        if (isIndividualGame()) return true;
-
-        Object.entries(gameProgression).forEach((group)=>{
-            if (Number(group[0]) === jidGroup) {
-                Object.entries(group[1]).forEach((player)=>{
-                    Object.entries(player[1]).forEach((zone)=>{
-                        if(zone[1].status === STATUS_WAITING || 
-                            zone[1].status === STATUS_REPAIR || 
-                            zone[1].status === STATUS_PLAYING) {
-        
-                            result = false;
-                        }
-                    });    
-                })
-            }
-        })
-        
-        return result;
-    }
-
-    function isIndividualGame() {
-        return game.gameType === 1;
-    }
-
     function onClosePlayButtonClick() {
-        if (isGroupGameFinished() && window.confirm(t('content.cerrarpartida')) && !isOffline) {
+        if (GamePlayerUtils.isGroupGameFinished(game, gameProgression, jidGroup) && window.confirm(t('content.cerrarpartida')) && !isOffline) {
             fb.getGameResult(game, (game)=>{
                 let newGame = {...game};
 
@@ -242,21 +210,10 @@ function GamePlayer({inGame, onBackButtonClick}) {
         setState(GAME_STATUS_CREATED);
     }
 
-    function onRepairEnd(id, group, zoneIndex, zone) {
-        zone.status = STATUS_WAITING;
-        delete zone.repairData;
-        fb.setGameProgression(game.gid, id, group, zoneIndex, zone);
-    }
-
-    function goTraining() {
-        setState(GAME_STATUS_TRAINING);
-    }
-
-    function onTrainingEnd() {
-        setState(GAME_STATUS_CREATED);
-    }
-
     if (game.gameType !== GAME_TYPE_KING) {
+
+
+
         if (state === GAME_STATUS_CREATED) {
             const directorProgression = [];
             const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
@@ -305,12 +262,16 @@ function GamePlayer({inGame, onBackButtonClick}) {
                     <RepairProgression 
                         gameProgression={gameProgression}
                         game={game}
-                        onRepairEnd={onRepairEnd}
+                        onRepairEnd={GamePlayerUtils.onRepairEnd}
                     />
                 </div>
                 <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
-                {GameUtils.isCurrentUserIsOwner(game.owner) && isGroupGameFinished() ? <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button> : <></>}
-            </GameProgressionContext.Provider>;
+                { GameUtils.isCurrentUserIsOwner(game.owner) && 
+                  GamePlayerUtils.isGroupGameFinished(game, gameProgression, jidGroup) ? 
+                    <button className="closeButton importantNote" onClick={onClosePlayButtonClick}>{t('description.cerrarpartida')}</button> : 
+                    <></> }
+            </GameProgressionContext.Provider>
+
         } else if (state === GAME_STATUS_PLAYING) {
             view = <GameTypePlayer 
                 player={player.id} 
@@ -324,9 +285,12 @@ function GamePlayer({inGame, onBackButtonClick}) {
         } else if (state === GAME_STATUS_FINISHED) { 
             view = <div className="gameList"><WinnerTable game={game} />
             <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
-        } else if(state === GAME_STATUS_TRAINING) {
-            view = <TrainingController game={game} onTrainingEnd={onTrainingEnd} />
         }
+
+
+
+
+
     } else {
         if (state === GAME_STATUS_CREATED || view === GAME_STATUS_PLAYING) { 
             view = <GameTypePlayer 
