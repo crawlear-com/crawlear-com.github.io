@@ -42,7 +42,6 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const [zone, setZone] = React.useState(-1);
     const { t } = useTranslation();
     let view = <></>,
-        judgeProgression = <></>,
         childrenContent = <></>,
         gameExtras,
         method;
