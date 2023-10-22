@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { GameUtils } from '../../model/Game.js';
+import { GameUtils } from '../../model/Game';
 
 function PresenceButton({game, playerName, fromName, zone}) {
     const { t } = useTranslation();
