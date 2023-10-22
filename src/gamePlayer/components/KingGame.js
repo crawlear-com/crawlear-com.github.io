@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import ControlTextArray from '../ControlTextArray';
+import ControlTextArray from '../../components/ControlTextArray';
 import Analytics from '../../Analytics';
-import TimerControl from '../TimerControl';
-import { KingGameScores } from './KingGameScores';
-import { GameUtils } from '../../model/Game.ts';
-import '../../resources/css/games/KingGame.scss';
+import TimerControl from './TimerControl';
+import { KingGameScores } from '../../components/games/KingGameScores';
+import { GameUtils } from '../../model/Game';
+import '../styles/KingGame.scss';
 
 function KingGame({game, onGameEnd}) {
     const { t } = useTranslation();

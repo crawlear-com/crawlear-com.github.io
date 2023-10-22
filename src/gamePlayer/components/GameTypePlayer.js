@@ -1,7 +1,7 @@
 import * as React from 'react';
-import KingGame from './games/KingGame';
-import CoreGame from './games/CoreGame';
-import { GameContext } from './context/GameContext';
+import KingGame from './KingGame';
+import CoreGame from './CoreGame';
+import { GameContext } from '../../components/context/GameContext';
 
 const GAME_TYPE_KING = 1;
 

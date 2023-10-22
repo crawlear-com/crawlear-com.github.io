@@ -20,17 +20,17 @@
     }
 
     .timerPlayButton {
-        background-image: url(../img/iconPlay.png);
+        background-image: url(./img/iconPlay.png);
     }
 
     .resetButton {
-        background-image: url(../img/iconStop.png);
+        background-image: url(./img/iconStop.png);
     }
 }
 
 .timerContainer.play {
     .timerPlayButton {
-        background-image: url(../img/iconPause.png);
+        background-image: url(./img/iconPause.png);
     }
 }
 

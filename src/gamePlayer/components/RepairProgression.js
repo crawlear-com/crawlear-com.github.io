@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import RepairTimer from './RepairTimer';
 
-import '../resources/css/RepairProgression.scss';
+import '../styles/RepairProgression.scss';
 
 const STATUS_REPAIR = 'repair';
 
@@ -10,9 +10,9 @@ function RepairProgression({gameProgression, game, onRepairEnd}) {
     const { t } = useTranslation();
     const repairs = [];
 
-    function prepareOnRepairEnd(playerId, group, zoneIndex, zone) {
+    function prepareOnRepairEnd(gid, playerId, group, zoneIndex, zone) {
         if (window.confirm(t('content.finalizarreparacion'))) {
-            onRepairEnd && onRepairEnd(playerId, group, zoneIndex, zone);
+            onRepairEnd && onRepairEnd(gid, playerId, group, zoneIndex, zone);
         }
     }
 
@@ -35,7 +35,7 @@ function RepairProgression({gameProgression, game, onRepairEnd}) {
                         </div>
                         <RepairTimer  />
                         <button onClick={()=>{
-                            prepareOnRepairEnd(game.players[[player[0]]].id, group[0], index, zone[1]);
+                            prepareOnRepairEnd(game.gid, game.players[[player[0]]].id, group[0], index, zone[1]);
                         }} className="importantNote">{t('description.fin')}</button>
                     </div>);
                 }

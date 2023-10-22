@@ -92,7 +92,7 @@ function GameProgressionDirector({game, gameProgression}) {
         </div></div>);
     });
 
-    return res;
+    return <>{ [res] }</>;
 }
 
 export default GameProgressionDirector;

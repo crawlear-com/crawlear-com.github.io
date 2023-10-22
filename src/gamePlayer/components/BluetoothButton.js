@@ -1,7 +1,6 @@
 import * as React from 'react';
-import EventManager from '../../EventManager.ts';
-import Bluetooth from '../../Bluetooth.ts';
-import { MSG_GATES, MSG_POINTS, MSG_START, MSG_STOP, MSG_TIME } from '../../Bluetooth.ts';
+import EventManager from '../../EventManager'
+import Bluetooth, { MSG_GATES, MSG_POINTS, MSG_START, MSG_STOP, MSG_TIME } from '../Bluetooth'
 
 const NOT_CONNECTED = 0;
 const CONNECTED = 1;

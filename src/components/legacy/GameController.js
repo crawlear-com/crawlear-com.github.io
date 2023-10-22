@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameMenu from '../GameMenu';
 import WinnerTable from '../WinnerTable';
-import GameTypePlayer from '../GameTypePlayer';
+import GameTypePlayer from '../../gamePlayer/components/GameTypePlayer';
 import Menu from '../Menu';
 import Utils from '../../Utils';
 import Analytics from '../../Analytics';

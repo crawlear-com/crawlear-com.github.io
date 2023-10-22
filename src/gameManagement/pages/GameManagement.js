@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Analytics from '../../Analytics.js';
-import GamePlayer from '../../components/GamePlayer.js';
+import GamePlayer from '../../gamePlayer/GamePlayer.js';
 import GameManagementMenu from '../components/GameManagementMenu.js';
 import { Navigate } from 'react-router-dom';
 import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator.js';

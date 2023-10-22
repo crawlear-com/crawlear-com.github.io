@@ -136,7 +136,7 @@ function GameProgression({game, jidGroup, onZoneClick}) {
         }
     });
 
-    return playersDone;
+    return <>{ playersDone }</>
 }
 
 function resolveGameStatus(t, status, data) {

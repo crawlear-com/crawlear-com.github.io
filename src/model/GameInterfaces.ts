@@ -61,4 +61,10 @@ interface Zone {
     fiascoControlTextValues: Array<number>
 }
 
-export { Location, Player, Judge, GateProgressionData, GameProgressionData, Zone };
+interface GameProgressionZone {
+    status: string,
+    data: GameProgressionData,
+    repairData: any
+}
+
+export { Location, Player, Judge, GateProgressionData, GameProgressionData, GameProgressionZone, Zone };

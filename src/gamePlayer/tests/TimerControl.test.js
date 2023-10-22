@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import TimerControl from '../../components/TimerControl.js';
+import TimerControl from '../components/TimerControl.js';
 
 const div = document.createElement('div');
 
