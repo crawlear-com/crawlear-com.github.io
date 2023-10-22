@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
-import GameTypePlayer from '../../components/GameTypePlayer.js';
+import GameTypePlayer from '../components/GameTypePlayer.js';
 import { Game, GameUtils } from '../../model/Game.ts';
-import { gameExtras, getGameContent } from '../../components/games/AecarGameScores';
+import { gameExtras, getGameContent } from '../../components/games/AecarGameScores.js';
 
 let game, gameContent;
 const div = document.createElement('div'),

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { GameUtils } from '../../model/Game.ts';
 import { useTranslation } from 'react-i18next';
 import Utils from '../../Utils';
-import TimerControl from '../TimerControl';
+import TimerControl from '../../gamePlayer/components/TimerControl.js';
 
 import '../../resources/css/games/TrainingController.scss';
 

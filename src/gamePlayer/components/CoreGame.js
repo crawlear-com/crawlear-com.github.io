@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import TimerControl from '../TimerControl';
+import TimerControl from './TimerControl';
 import Analytics from '../../Analytics';
 import Slider, { createSliderWithTooltip } from 'rc-slider';
-import { GameUtils, GAME_TYPE_GENERIC } from '../../model/Game.ts';
+import { GameUtils, GAME_TYPE_GENERIC } from '../../model/Game';
 import Utils from '../../Utils';
-import BluetoothButton from '../bluetooth/BluetoothButton.js';
-import EventManager from '../../EventManager.ts';
-import { MSG_GATES, MSG_POINTS } from '../../Bluetooth.ts';
+import BluetoothButton from './BluetoothButton.js';
+import EventManager from '../../EventManager';
+import { MSG_GATES, MSG_POINTS } from '../Bluetooth';
 
 import "rc-slider/assets/index.css";
-import '../../resources/css/games/CoreGame.scss'
-import '../../resources/css/rcSlider.scss'
+import '../styles/CoreGame.scss'
+import '../styles/rcSlider.scss'
 
 function CoreGame({
             children,

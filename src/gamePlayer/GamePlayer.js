@@ -2,14 +2,14 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GamePlayerUtils from './GamePlayerUtils';
 import GamePlayerMenu from './components/GamePlayerMenu';
-import GameTypePlayer from '../components/GameTypePlayer';
+import GameTypePlayer from './components/GameTypePlayer';
 import { GameProgressionContext } from '../components/context/GameProgressionContext';
 import WinnerTable from '../components/WinnerTable';
 
 import { GAME_TYPE_KING } from '../model/Game'
 import UseGamePlayer, { GAME_STATUS_CREATED, GAME_STATUS_FINISHED, GAME_STATUS_PLAYING } from './hooks/UseGamePlayer';
 
-import '../resources/css/GamePlayer.scss'
+import './styles/GamePlayer.scss'
 
 function GamePlayer({inGame, onBackButtonClick}) {
     let view = <></>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import TimerControl from './TimerControl';
 
-import '../resources/css/RepairTimer.scss';
+import '../styles/RepairTimer.scss';
 
 function RepairTimer({onTimeFiasco, onRepairTimerChange}) {
     const { t } = useTranslation();
