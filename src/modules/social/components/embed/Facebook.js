@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useScript from '../../hooks/UseScript';
+import UseScript from '../../hooks/UseScript';
 
 import '../../styles/embed/Facebook.scss';
 
@@ -16,7 +16,7 @@ function Facebook({ url }) {
         }
     }, []);
 
-    useScript('https://connect.facebook.net/es_ES/sdk.js','fbjdk', ()=>{
+    UseScript('https://connect.facebook.net/es_ES/sdk.js','fbjdk', ()=>{
         window.fbAsyncInit = function() {
             FB.init({
               appId            : '',

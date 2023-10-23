@@ -1,5 +1,5 @@
 import * as React from 'react';
-import useScript from '../../hooks/UseScript';
+import UseScript from '../../hooks/UseScript';
 
 import Logo from '../../styles/embed/img/logoInstagram.svg';
 
@@ -7,7 +7,7 @@ import '../../styles/embed/Instagram.scss';
 
 function Instagram({ url }) {
 
-    useScript('https://www.instagram.com/embed.js','instagram-embed-loader', ()=>{
+    UseScript('https://www.instagram.com/embed.js','instagram-embed-loader', ()=>{
         window.instgrm && window.instgrm.Embeds.process();
     });
 
