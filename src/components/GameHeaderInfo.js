@@ -1,5 +1,5 @@
 import * as React from 'react';
-import GoogleMaps from './embed/GoogleMaps';
+import GoogleMaps from '../modules/social/components/embed/GoogleMaps';
 import Utils from '../Utils';
 import { useTranslation } from 'react-i18next';
 import { GAME_TYPE_AECAR, 

@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import youtubeLogo from '../resources/img/youtubelogo.svg';
-import instagramLogo from '../resources/img/instagramlogo.svg';
-import facebookLogo from  '../resources/img/facebooklogo.svg';
-
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
+import youtubeLogo from '../modules/social/styles/embed/img/youtubelogo.svg'
+import instagramLogo from '../modules/social/styles/embed/img/instagramlogo.svg'
+import facebookLogo from  '../resources/img/facebooklogo.svg'
 
 function Footer() {
     const { t } = useTranslation();

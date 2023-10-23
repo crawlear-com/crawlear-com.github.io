@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ControlText from './ControlText';
 import { useTranslation } from 'react-i18next';
-import { GameContext } from './context/GameContext';
+import { GameContext } from '../context/GameContext';
 
 import dropDownImage from '../resources/img/arrowDown.png';
 

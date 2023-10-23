@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { GameContext } from '../context/GameContext';
+import { GameContext } from '../../context/GameContext';
 
 function RegionalZonaRcPoints({player, zone}) {
     const { t } = useTranslation();
