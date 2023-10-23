@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import PlayerHandicap from '../PlayerHandicap';
 import { gameExtras } from './RegionalZonaRcGameScores';
-import { GameContext } from '../context/GameContext';
+import { GameContext } from '../../context/GameContext';
 
 function RegionalZonaRcModificator({player, zone}) {
     const { t } = useTranslation();

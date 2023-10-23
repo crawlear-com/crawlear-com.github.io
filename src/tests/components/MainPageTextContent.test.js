@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import MainPageTextContent from '../../components/MainPageTextContent.js';
+import MainPageTextContent from '../../pages/components/MainPageTextContent.js';
 
 const div = document.createElement('div');
 

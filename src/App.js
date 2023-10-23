@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import TxtRoute from './components/routes/TxtRoute';
+import TxtRoute from './pages/TxtRoute';
 import Menu from './components/Menu';
 import FirebaseController from './FirebaseController';
-import GameManagement from './gameManagement/pages/GameManagement';
-import FollowsWall from './components/routes/FollowsWall';
-import PilotWall from './components/routes/PilotWall';
-import AboutUs from './components/routes/AboutUs';
-import PrivacyPolicy from './components/routes/PrivacyPolicy';
-import Landing from './components/routes/Landing';
+import GameManagement from './modules/gameManagement/pages/GameManagement';
+import FollowsWall from './modules/social/pages/FollowsWall';
+import PilotWall from './modules/social/pages/PilotWall';
+import AboutUs from './pages/AboutUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Landing from './pages/Landing';
 import Analytics from './Analytics';
-import GameConfigurator from './gameConfigurator/pages/GameConfigurator';
-import UserViewer from './components/routes/UserViewer';
-import PostViewer from './components/routes/PostViewer';
-import { UserStatusContext } from './components/context/UserStatusContext';
+import GameConfigurator from './modules/gameConfigurator/pages/GameConfigurator';
+import UserViewer from './modules/social/pages/UserViewer';
+import PostViewer from './modules/social/pages/PostViewer';
+import { UserStatusContext } from './context/UserStatusContext';
 
 import './Error.js';
 
