@@ -97,18 +97,18 @@ const GamePlayerUtils = {
             childrenContent
 
         if (gameType === GAME_TYPE_AECAR) {
-            zone !== -1 && (method = getAecarGameContent);
+            method = getAecarGameContent
         } else if (gameType === GAME_TYPE_ISRCC) {
-            zone !== -1 && (method = getIsrccGameContent);
+            method = getIsrccGameContent
         } else if (gameType === GAME_TYPE_LEVANTE) {
-            zone !== -1 && (method = getLevanteGameContent);
+            method = getLevanteGameContent
         } else if (gameType === GAME_TYPE_COPAESPANA) {
-            zone !== -1 && (method = getRegionalZonaRcGameContent);
+            method = getRegionalZonaRcGameContent
         } else if (gameType === GAME_TYPE_KING) {
         } else if (gameType === GAME_TYPE_MINICRAWLERPASSION) {
-            zone !== -1 && (method = getMiniCrawlerPassionGameContent);
+            method = getMiniCrawlerPassionGameContent
         } else if (gameType === GAME_TYPE_GENERIC) {
-            zone !== -1 && (method = getGenericGameContent);
+            method = getGenericGameContent
         }
 
         method && (childrenContent = method(playerId, zone))
