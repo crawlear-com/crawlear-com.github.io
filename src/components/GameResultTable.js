@@ -1,19 +1,19 @@
 import * as React from 'react';
 import Utils from '../Utils';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
-import { IsrccGameScores } from './games/IsrccGameScores';
-import { AecarGameScores } from './games/AecarGameScores';
-import { RegionalZonaRcGameScores } from './games/RegionalZonaRcGameScores';
-import { Levante124GameScores } from './games/Levante124GameScores';
-import { MiniCrawlerPassionGameScores } from './games/MiniCrawlerPassionGameScores';
-import { GenericGameScores } from './games/GenericGameScores';
+import { IsrccGameScores } from '../games/IsrccGameScores';
+import { AecarGameScores } from '../games/AecarGameScores';
+import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
+import { Levante124GameScores } from '../games/Levante124GameScores';
+import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
+import { GenericGameScores } from '../games/GenericGameScores';
 import { useTranslation } from 'react-i18next';
 import { GAME_TYPE_ISRCC,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
     GAME_TYPE_GENERIC,
-    GameUtils } from '../model/Game.ts';
+    GameUtils } from '../games/Game';
 
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import winnerIcon from '../resources/img/iconWinner.png';

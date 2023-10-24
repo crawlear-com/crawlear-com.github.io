@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react"
 import UseGameConfigurator from '../hooks/UseGameConfigurator'
-import { Game, GAME_TYPE_LEVANTE, GAME_TYPE_AECAR } from '../../../model/Game';
+import { Game, GAME_TYPE_LEVANTE, GAME_TYPE_AECAR } from '../../../games/Game';
 
 const div = document.createElement('div')
 let winBack 

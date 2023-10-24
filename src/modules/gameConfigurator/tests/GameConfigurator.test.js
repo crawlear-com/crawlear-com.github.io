@@ -3,7 +3,7 @@ import GameConfigurator from '../pages/GameConfigurator'
 import ZonesPicker from '../components/ZonesPicker'
 import GateProgressionPicker from '../components/GateProgressionPicker'
 import UserSearchForGame from '../components/UserSearchForGame'
-import { Game, GAME_TYPE_LEVANTE } from '../../../model/Game'
+import { Game, GAME_TYPE_LEVANTE } from '../../../games/Game'
 import { UserStatusContext } from '../../../context/UserStatusContext'
 
 const div = document.createElement('div')

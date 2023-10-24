@@ -1,27 +1,25 @@
 import * as React from 'react';
-import Analytics from '../../Analytics';
-import AecarPoints from './AecarPoints';
-import ControlTextArray from '../ControlTextArray';
-import { GameUtils } from '../../model/Game.ts';
+import ControlTextArray from "../components/ControlTextArray";
+import { GameUtils } from './Game';
+import GenericPoints from './GenericPoints';
+import Analytics from '../Analytics';
 
-const MiniCrawlerPassionGameScores = {
-    steps: [1, 3, 5, 5, 5, 5, 10],
-    maxValues: [0, 0, 0, 0, 0, 0, 0],
-    texts: ['points.puerta',
-        'points.tocarcoche',
-        'points.saltoobstaculo',
-        'points.vuelco',
-        'points.saltopelota',
-        'points.winch',
-        'points.reparacion'
+const GenericGameScores = {
+    steps: [1, 2, 3, 4, 5, -5],
+    maxValues: [0, 0, 0, 0, 0, 0],
+    texts: ['points.masuno',
+        'points.masdos',
+        'points.mastres',
+        'points.mascuatro',
+        'points.mascinco',
+        'points.bonificacion'
     ],
-    fiascoTexts: ['points.bateria',
-        'points.reparacion'],
-    fiascoSteps: [1,1],
-    fiascoMaxValues: [1,1],
-    courtesyTime: 0,
-    maxPoints: 80,
-    maxTime: 480000
+    fiascoTexts: ['points.fiasco'],
+    fiascoSteps: [1],
+    fiascoMaxValues: [1],
+    courtesyTime: 120000000, //indefinido
+    maxPoints: 40,
+    maxTime: 600000
 };
 
 function getGameContent(player, zone) {
@@ -33,41 +31,46 @@ function getGameContent(player, zone) {
         textToken={'description.penalizaciones'}
         player={player}
         zone={zone}
-        steps={MiniCrawlerPassionGameScores.steps}
-        maxValues={MiniCrawlerPassionGameScores.maxValues}
-        texts={MiniCrawlerPassionGameScores.texts}
+        steps={GenericGameScores.steps}
+        maxValues={GenericGameScores.maxValues}
+        texts={GenericGameScores.texts}
         isClosed={false} />);
 
     childrenContent.push(<ControlTextArray
         key="ctF"
         textToken={'points.fiascos'}
         controlTextValuesString='fiascoControlTextValues'
-        steps={MiniCrawlerPassionGameScores.fiascoSteps}
-        maxValues={MiniCrawlerPassionGameScores.fiascoMaxValues}
-        texts={MiniCrawlerPassionGameScores.fiascoTexts}
+        steps={GenericGameScores.fiascoSteps}
+        maxValues={GenericGameScores.fiascoMaxValues}
+        texts={GenericGameScores.fiascoTexts}
         player={player}
         zone={zone}
         isClosed={true}
-    />);
+            />);
 
-    childrenContent.push(<AecarPoints 
-            key="aP"
+        childrenContent.push(<GenericPoints 
+            key="gP"
             player={player}
-            zone={zone} />);
+            zone={zone} />);    
 
     return childrenContent;
 }
 
 function getGatesPointExtras(playerZone) {
-    playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints;
+    playerZone.gatesWithFail = getGatesWithFail(playerZone);
+    playerZone.totalPoints = playerZone.points + playerZone.simpathyPoints + (playerZone.gatesWithFail*3);
+}
+
+function getGatesWithFail(playerZone) {
+    return playerZone.gateProgressionData.length - playerZone.gateProgression;
 }
 
 const gameExtras = {
     controlTextValuesInit: () => {
-        return new Array(MiniCrawlerPassionGameScores.steps.length).fill(0);
+        return new Array(GenericGameScores.steps.length).fill(0);
     },
     fiascoControlTextValuesInit: () => {
-      return new Array(MiniCrawlerPassionGameScores.fiascoSteps.length).fill(0);
+      return new Array(GenericGameScores.fiascoSteps.length).fill(0);
     },
     onTimerChange: (playerZone) => {
         getGatesPointExtras(playerZone);
@@ -77,7 +80,9 @@ const gameExtras = {
         getGatesPointExtras(playerZone);
     },
     onEndPlayer: (game, tickTime, player, zone) => {
-        game.players[player].zones[zone].time = tickTime;
+        const playerZone = game.players[player].zones[zone];
+
+        playerZone.time = tickTime;
     },
     onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
@@ -90,7 +95,6 @@ const gameExtras = {
                     getGatesPointExtras(playerZone);
                 }
             });
-
         });
     },
     onGateProgressionChange: (playerZone)=>{
@@ -124,8 +128,8 @@ const gameExtras = {
         return result;
     },
     doPageView: ()=> {
-        Analytics.pageview('/minicrawlerpassion/');
+        Analytics.pageview('/aecar/');
     }
 };
 
-export { MiniCrawlerPassionGameScores, getGameContent, gameExtras };
+export { GenericGameScores, getGameContent, gameExtras };

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Game, OfflinePlayer, GameUtils } from '../../../model/Game'
-import { GAME_TYPE_LEVANTE, OFFLINE_USER_UID, GAME_TYPE_KING } from '../../../model/Game'
+import { Game, OfflinePlayer, GameUtils } from '../../../games/Game'
+import { GAME_TYPE_LEVANTE, OFFLINE_USER_UID, GAME_TYPE_KING } from '../../../games/Game'
 import GameConfiguratorUtils from '../GameConfiguratorUtils'
 import { isOffline } from '../../../pages/Offline'
 import { useNavigate } from 'react-router-dom'
@@ -194,7 +194,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
             setErrorMessage(t('error.nojueces'))
         } else if (!game.players.length) {
             setErrorMessage(t('error.nojugadores'))
-        } else if (!game.owner.length) {
+        } else if (game.gameType !== GAME_TYPE_KING && !game.owner.length) {
             setErrorMessage(t('error.nodirectordepartida'))
         } else if ((game.gameType !== GAME_TYPE_KING && allGroupsFilled) || 
                    (game.gameType === GAME_TYPE_KING)) {

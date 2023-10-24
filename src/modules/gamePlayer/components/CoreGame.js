@@ -20,7 +20,10 @@ function CoreGame({
         onFiascoChangeScore, onPointBecauseLastMinute, 
         onTimeFiasco, setRepairStatus] = UseCoreGame(onGameEnd, onRepair, playerIndex, 
             zoneIndex)
-    
+    const currentGame = state.game,
+        player = currentGame.players[playerIndex],
+        playerZone = player.zones[zoneIndex]
+
     if (children.length) {
         childrenContent.push(React.cloneElement(children[0], {
             onValueChange: onChangeScore
@@ -37,10 +40,6 @@ function CoreGame({
 
         children[3] && childrenContent.push(React.cloneElement(children[3]));
     }
-
-    const currentGame = state.game,
-        player = currentGame.players[playerIndex],
-        playerZone = player.zones[zoneIndex];
 
     return (
     <div className="gameContainer">

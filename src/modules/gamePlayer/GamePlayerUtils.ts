@@ -4,15 +4,15 @@ import { Game, GAME_TYPE_AECAR,
     GAME_TYPE_LEVANTE, 
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
-    GAME_TYPE_GENERIC } from "../../model/Game";
-import { GameProgressionZone } from "../../model/GameInterfaces";
-import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from '../../components/games/AecarGameScores';
-import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from '../../components/games/IsrccGameScores';
-import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from '../../components/games/Levante124GameScores';
-import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from '../../components/games/RegionalZonaRcGameScores';
-import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniCrawlerPassionExtras } from '../../components/games/MiniCrawlerPassionGameScores';
-import { getGameContent as getGenericGameContent, gameExtras as genericExtras } from '../../components/games/GenericGameScores';
-import { gameExtras as kingExtras } from '../../components/games/KingGameScores';
+    GAME_TYPE_GENERIC } from "../../games/Game";
+import { GameProgressionZone } from "../../games/GameInterfaces";
+import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from '../../games/AecarGameScores';
+import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from '../../games/IsrccGameScores';
+import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from '../../games/Levante124GameScores';
+import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZonaRcExtras } from '../../games/RegionalZonaRcGameScores';
+import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniCrawlerPassionExtras } from '../../games/MiniCrawlerPassionGameScores';
+import { getGameContent as getGenericGameContent, gameExtras as genericExtras } from '../../games/GenericGameScores';
+import { gameExtras as kingExtras } from '../../games/KingGameScores';
 
 const GamePlayerUtils = {
     isIndividualGame: (game: Game) => {

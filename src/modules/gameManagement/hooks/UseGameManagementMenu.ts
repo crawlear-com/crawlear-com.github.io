@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Game } from '../../../model/Game';
+import { Game } from '../../../games/Game';
 
 function UseGameManagementMenu(): Array<any> {
     const [games, setGames] = React.useState<Array<Game>>([]);

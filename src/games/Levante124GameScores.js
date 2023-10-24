@@ -1,8 +1,8 @@
 import * as React from 'react';
-import ControlTextArray from "../ControlTextArray";
-import { GameUtils } from '../../model/Game.ts';
+import ControlTextArray from "../components/ControlTextArray";
+import { GameUtils } from './Game';
 import AecarPoints from './AecarPoints';
-import Analytics from '../../Analytics';
+import Analytics from '../Analytics';
 
 const Levante124GameScores = {
     steps: [1, 3, 5, 5, 5, 10],

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Analytics from '../../../Analytics';
-import { Player } from '../../../model/GameInterfaces';
+import { Player } from '../../../games/GameInterfaces';
 
 function UsePostViewer(pid: number, onLogin: Function) {
     const firebase = window.crawlear.fb;

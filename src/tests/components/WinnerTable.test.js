@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import WinnerTable from '../../components/WinnerTable.js';
-import { Game, GAME_TYPE_AECAR } from '../../model/Game.ts';
+import { Game, GAME_TYPE_AECAR } from '../../games/Game.js';
 
 const div = document.createElement('div'),
     goToMenuMock = jest.fn();

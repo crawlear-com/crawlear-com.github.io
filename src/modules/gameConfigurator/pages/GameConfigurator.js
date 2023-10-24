@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GAME_TYPE_KING } from '../../../model/Game';
+import { GAME_TYPE_KING } from '../../../games/Game';
 import GameTypeController from '../components/GameTypeController';
 import PlayerController from '../components/PlayerController';
 import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import GameProgressionInfo from '../../../components/GameProgressionInfo';
-import { GameUtils } from '../../../model/Game';
+import { GameUtils } from '../../../games/Game';
 import WinnerTable from '../../../components/WinnerTable';
 
 import '../styles/GameListItem.scss';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameProgression from './GameProgression';
-import { GameProgressionContext } from './games/GameProgressionContext';
+import { GameProgressionContext } from '../games/GameProgressionContext';
 
 function GameViewer({gid}) {
     const { t } = useTranslation();

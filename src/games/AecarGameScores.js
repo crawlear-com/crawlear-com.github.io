@@ -1,8 +1,8 @@
-import * as React from 'react';
-import ControlTextArray from "../ControlTextArray";
-import { GameUtils } from '../../model/Game.ts';
-import AecarPoints from './AecarPoints';
-import Analytics from '../../Analytics';
+import * as React from 'react'
+import ControlTextArray from "../components/ControlTextArray"
+import { GameUtils } from './Game'
+import AecarPoints from './AecarPoints'
+import Analytics from '../Analytics'
 
 const AecarGameScores = {
     steps: [5, 3, 2, 5, 5, 3, -1, 3, 1, 5, 1, 2, 3, 1, 5, 5, 3, 3, 5, 5, 5, 3, 3],
