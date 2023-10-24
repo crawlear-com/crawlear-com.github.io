@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Player } from '../../../model/GameInterfaces'
+import { Player } from '../../../games/GameInterfaces'
 import { GameProgressionContext } from '../../../context/GameProgressionContext'
 import { STATUS_DONE, STATUS_PLAYING, STATUS_WAITING, STATUS_REPAIR } from '../GamePlayerUtils'
-import { GameProgressionZone } from '../../../model/GameInterfaces'
+import { GameProgressionZone } from '../../../games/GameInterfaces'
 
 function UseGamePlayerMenu(onBeginGame: Function) {
   const [player, setPlayer] = React.useState<Player | null>(null)

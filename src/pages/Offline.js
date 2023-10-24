@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameConfigurator from '../modules/gameConfigurator/pages/GameConfigurator';
 import GamePlayer from '../modules/gamePlayer/GamePlayer';
-import { OFFLINE_USER_UID } from '../model/Game';
+import { OFFLINE_USER_UID } from '../games/Game';
 import MainPageTextContent from './components/MainPageTextContent';
 
 import './styles/Offline.scss';

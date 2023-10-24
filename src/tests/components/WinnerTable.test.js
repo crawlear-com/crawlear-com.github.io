@@ -1,6 +1,6 @@
-import { render } from '@testing-library/react';
-import WinnerTable from '../../components/WinnerTable.js';
-import { Game, GAME_TYPE_AECAR } from '../../model/Game.ts';
+import { render } from '@testing-library/react'
+import WinnerTable from '../../components/WinnerTable'
+import { Game, GAME_TYPE_AECAR } from '../../games/Game'
 
 const div = document.createElement('div'),
     goToMenuMock = jest.fn();
@@ -18,8 +18,8 @@ jest.mock('react-i18next', () => ({
 }));
 
 beforeEach(()=>{  
-    document.body.innerHTML = '';
-    document.body.append(div);
+    document.body.innerHTML = ''
+    document.body.append(div)
     game = new Game("Game test", 
         new Date(), 
         {
@@ -28,7 +28,7 @@ beforeEach(()=>{
         },
         true,
         GAME_TYPE_AECAR,
-        [], [], 0, 0, [0], ["uid1","uid2"], ["jid1", "jid2"], 1, 0, "owner", 0);
+        [], [], 0, 0, [0], ["uid1","uid2"], ["jid1", "jid2"], 1, 0, "owner", 0)
         
     game.players = [{
         photoURL: "avatar1",
@@ -89,20 +89,20 @@ beforeEach(()=>{
             points: 10,
             time: 0 
         }]
-    }];
-});
+    }]
+})
 
 test("renders the basic winner table", () => {
-  const { container } = render(<WinnerTable game={game} />, div);
-  const elem  = container.querySelector(".gameParticipants");
+  const { container } = render(<WinnerTable game={game} />, div)
+  const elem  = container.querySelector(".gameParticipants")
 
-  expect(elem.textContent.indexOf("Player1")).toBeGreaterThan(0);
-});
+  expect(elem.textContent.indexOf("Player1")).toBeGreaterThan(0)
+})
 
 test("renders the winner table", () => {
-    const { container } = render(<WinnerTable game={game} />, div);  
-    const elem  = container.querySelector(".gameParticipants");
+    const { container } = render(<WinnerTable game={game} />, div); 
+    const elem  = container.querySelector(".gameParticipants")
   
-    expect(elem.textContent.indexOf("Player1")).toBe(101);
-    expect(elem.textContent.indexOf("Player2")).toBe(152);
-  });
+    expect(elem.textContent.indexOf("Player1")).toBe(101)
+    expect(elem.textContent.indexOf("Player2")).toBe(152)
+  })

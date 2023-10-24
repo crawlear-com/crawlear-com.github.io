@@ -1,11 +1,11 @@
-import { AecarGameScores } from '../../components/games/AecarGameScores'
-import { IsrccGameScores } from '../../components/games/IsrccGameScores'
-import { Levante124GameScores } from '../../components/games/Levante124GameScores'
-import { RegionalZonaRcGameScores } from '../../components/games/RegionalZonaRcGameScores'
-import { KingGameScores } from '../../components/games/KingGameScores'
-import { MiniCrawlerPassionGameScores } from '../../components/games/MiniCrawlerPassionGameScores'
-import { GenericGameScores } from '../../components/games/GenericGameScores'
-import { Game, GameUtils } from '../../model/Game'
+import { AecarGameScores } from '../../games/AecarGameScores'
+import { IsrccGameScores } from '../../games/IsrccGameScores'
+import { Levante124GameScores } from '../../games/Levante124GameScores'
+import { RegionalZonaRcGameScores } from '../../games/RegionalZonaRcGameScores'
+import { KingGameScores } from '../../games/KingGameScores'
+import { MiniCrawlerPassionGameScores } from '../../games/MiniCrawlerPassionGameScores'
+import { GenericGameScores } from '../../games/GenericGameScores'
+import { Game, GameUtils } from '../../games/Game'
 import Utils from '../../Utils'
 import { GAME_TYPE_AECAR,
     GAME_TYPE_ISRCC,
@@ -13,7 +13,7 @@ import { GAME_TYPE_AECAR,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
-    GAME_TYPE_GENERIC } from '../../model/Game'
+    GAME_TYPE_GENERIC } from '../../games/Game'
 
 const GameConfiguratorUtils = {
     getMaxTimeAndPointsFromGameType: (gameType: number): Array<number> => {

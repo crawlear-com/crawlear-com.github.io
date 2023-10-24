@@ -1,11 +1,11 @@
-import * as React from 'react';
-import ControlTextArray from "../ControlTextArray";
-import { GameUtils } from '../../model/Game.ts';
-import RegionalZonaRcPoints from './RegionalZonaRcPoints';
-import RegionalZonaRcModificator from './RegionalZonaRcModificator';
-import Analytics from '../../Analytics';
+import * as React from 'react'
+import ControlTextArray from "../components/ControlTextArray"
+import { GameUtils } from './Game'
+import RegionalZonaRcPoints from './RegionalZonaRcPoints'
+import RegionalZonaRcModificator from './RegionalZonaRcModificator'
+import Analytics from '../Analytics'
 
-import '../../resources/css/games/RegionalZonaRcGameScores.scss';
+import '../resources/css/games/RegionalZonaRcGameScores.scss'
 
 const RegionalZonaRcGameScores = {
     steps: [-5, 5, 5, 1, 10, 5, 1, 1, 4, 4, 4, 3, 2, 1, 3, 1, 3, 5 ,10, 10, 10, 5, 2, 1, 1, 3, 3],

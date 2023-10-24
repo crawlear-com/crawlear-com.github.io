@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import GameTypePlayer from '../components/GameTypePlayer'
-import { Game, GameUtils } from '../../../model/Game'
+import { Game, GameUtils } from '../../../games/Game'
 import { GameContext } from '../../../context/GameContext'
 import CoreGame from '../components/CoreGame'
 import KingGame from '../components/KingGame'

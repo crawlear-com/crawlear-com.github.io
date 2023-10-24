@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import Utils from './Utils';
-import { Game } from './model/Game.ts';
+import { Game } from './games/Game';
 
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 import 'firebase/compat/auth';

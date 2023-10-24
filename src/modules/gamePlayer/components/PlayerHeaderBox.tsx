@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Player } from '../../../model/GameInterfaces'
+import { Player } from '../../../games/GameInterfaces'
 import { GameContext } from '../../../context/GameContext'
 import Utils from '../../../Utils'
-import { GameUtils } from '../../../model/Game'
+import { GameUtils } from '../../../games/Game'
 import Analytics from '../../../Analytics'
 
 interface PlayerHeaderBoxProps {

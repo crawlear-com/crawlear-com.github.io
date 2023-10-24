@@ -1,56 +1,28 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlTextArray from '../../../components/ControlTextArray';
-import Analytics from '../../../Analytics';
-import TimerControl from './TimerControl';
-import { KingGameScores } from '../../../components/games/KingGameScores';
-import { GameUtils } from '../../../model/Game';
+import TimerControl from './TimerControl'
+import { GameUtils } from '../../../games/Game'
+import UseKingGame from '../hooks/UseKingGame';
+import { KingGameScores } from '../../../games/KingGameScores';
+
 import '../styles/KingGame.scss';
 
-function KingGame({game, onGameEnd}) {
+function KingGame({ onGameEnd }) {
     const { t } = useTranslation();
-    const [state, setState] = React.useState(()=>{ 
-        KingGameScores.texts = KingGameScores.texts.map(function(text) {
-            return t(text);
-        });        
-
-        return initControlTestValues(game) 
-    });
-
-    React.useEffect(() => {
-        Analytics.pageview('/kinggame/');
-    },[]);
-
-    function onChangeScore(value, control, player) {
-        const newState = {...state};
-
-        const players = newState.game.players,
-            zone = players[player].zones[0],
-            playerCurrentGate = zone.gateProgressionData[0];
-
-        playerCurrentGate.controlTextValues = [...playerCurrentGate.controlTextValues];
-        playerCurrentGate.controlTextValues[control] += value;
-        zone.totalPoints += value;
-        zone.points += value;
-        newState.order = getPlayersOrder(newState.order.findIndex(item => item.id===players[player].id), newState.order);
-        setState(newState);
-    }
-
-    function gameEnd() {
-        onGameEnd && onGameEnd(game);
-    }
-
     let result = [];
+    const [state, onChangeScore, gameEnd] = UseKingGame({ onGameEnd })
+    const game = state.game
 
     result.push(<TimerControl  
         key="tmC"               
         courtesyTime={0}
         startTime={0}
         label={t('description.tiempo')}
-        maxTime={state.game.maxTime} />);
+        maxTime={game.maxTime} />);
 
     result.push(<div key={0}>{t('description.ordenruta')}:</div>);
-    for(let i=0;i<state.game.players.length;i++) {
+    for(let i=0;i<game.players.length;i++) {
         let classFiasco= '';
 
         if (GameUtils.isPointsFiasco(game, state.order[i].zones[0])) {
@@ -63,13 +35,13 @@ function KingGame({game, onGameEnd}) {
             </div>);
     }
 
-    result.push(<p key={state.game.players.length+1}>{t('description.puntos').toUpperCase()}:</p>);
-    for(let i=0;i<state.game.players.length;i++) {
+    result.push(<p key={game.players.length+1}>{t('description.puntos').toUpperCase()}:</p>);
+    for(let i=0;i<game.players.length;i++) {
         let fiasco,
-            player = state.game.players[i],
+            player = game.players[i],
             zone = player.zones[0];
 
-        result.push(<div key={state.game.players.length+i+2} className="playerInfo">
+        result.push(<div key={game.players.length+i+2} className="playerInfo">
                 <div className="headerPlayer importantNote rounded2 rounded">
                     <div className="bold">{player.name}</div>
                     {t('description.total')}: { zone.totalPoints }
@@ -89,37 +61,11 @@ function KingGame({game, onGameEnd}) {
             </div>);
     }
 
-    result.push(<button key={state.game.players.length*2+2} className="importantNote" onClick={gameEnd}>{t('description.fin')}</button>);
+    result.push(<button key={game.players.length*2+2} className="importantNote" onClick={gameEnd}>{t('description.fin')}</button>);
 
-    return <div key={state.game.players.length*2+3} className="gameContainer">
+    return <div key={game.players.length*2+3} className="gameContainer">
         {result}
     </div>;
-}
-
-function initControlTestValues(game) {
-    const newState = {
-        game: game,
-        order: [...game.players]
-    }
-
-    GameUtils.init(newState.game, 
-        GameUtils.getGameTypeControlTextValuesInit(newState.game.gameType),
-        GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
-        false);
-    for(let i=0; i<newState.game.players.length;i++) {
-        
-        newState.game.players[i].zones[0].gateProgressionData[0].controlTextValues = new Array(KingGameScores.steps.length).fill(0);
-    }
-
-    return newState;
-}
-
-function getPlayersOrder(index, array) {
-    const newArray = [...array];
-
-    newArray.push(newArray.splice(index, 1)[0]);
-
-    return newArray;
 }
 
 export default KingGame;

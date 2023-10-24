@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import GameListMenu from './GameListMenu';
 import GameListItem from './GameListItem';
-import { GameUtils } from '../../../model/Game';
+import { GameUtils } from '../../../games/Game';
 
 import '../styles/GameList.scss';
 

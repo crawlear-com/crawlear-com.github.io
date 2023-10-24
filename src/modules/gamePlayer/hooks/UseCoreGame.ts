@@ -1,6 +1,6 @@
 import * as React from 'react'
 import EventManager from '../../../EventManager'
-import { Game, GameUtils } from '../../../model/Game'
+import { Game, GameUtils } from '../../../games/Game'
 import { MSG_GATES, MSG_POINTS } from '../Bluetooth'
 import Analytics from '../../../Analytics'
 import { GameContext } from '../../../context/GameContext'

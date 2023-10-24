@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
-import MainPageTextContent from '../../pages/components/MainPageTextContent.js';
+import { render } from '@testing-library/react';
+import MainPageTextContent from '../components/MainPageTextContent.js';
 
 const div = document.createElement('div');
 
@@ -25,5 +25,4 @@ test('renders MainPageTextContent', () => {
 
         expect(content).not.toBeNull();
         expect(content).not.toBeUndefined();
-    
 });

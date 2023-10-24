@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Utils from '../../../Utils'
-import { Game } from '../../../model/Game'
+import { Game } from '../../../games/Game'
 import BluetoothButton from './BluetoothButton'
 import TimerControl from './TimerControl'
 import { useTranslation } from 'react-i18next'

@@ -1,10 +1,10 @@
-import { gameExtras as AecarGameExtras, AecarGameScores } from '../components/games/AecarGameScores';
-import { gameExtras as IsrccGameExtras, IsrccGameScores } from '../components/games/IsrccGameScores';
-import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from '../components/games/RegionalZonaRcGameScores';
-import { gameExtras as Levante124GameExtras, Levante124GameScores } from '../components/games/Levante124GameScores';
-import { gameExtras as KingGameExtras, KingGameScores } from '../components/games/KingGameScores';
-import { gameExtras as MiniCrawlerPassionGameExtras, MiniCrawlerPassionGameScores } from '../components/games/MiniCrawlerPassionGameScores';
-import { gameExtras as GenericGameExtras, GenericGameScores } from '../components/games/GenericGameScores';
+import { gameExtras as AecarGameExtras, AecarGameScores } from './AecarGameScores';
+import { gameExtras as IsrccGameExtras, IsrccGameScores } from './IsrccGameScores';
+import { gameExtras as RegionalZonaRcGameExtras, RegionalZonaRcGameScores } from './RegionalZonaRcGameScores';
+import { gameExtras as Levante124GameExtras, Levante124GameScores } from './Levante124GameScores';
+import { gameExtras as KingGameExtras, KingGameScores } from './KingGameScores';
+import { gameExtras as MiniCrawlerPassionGameExtras, MiniCrawlerPassionGameScores } from './MiniCrawlerPassionGameScores';
+import { gameExtras as GenericGameExtras, GenericGameScores } from './GenericGameScores';
 import { Location, Player, Judge, GateProgressionData, Zone } from './GameInterfaces';
 
 export const GAME_TYPE_AECAR = 0;

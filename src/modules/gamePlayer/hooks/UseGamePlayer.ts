@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { isOffline } from '../../../pages/Offline'
-import { Game } from '../../../model/Game'
+import { Game } from '../../../games/Game'
 import GamePlayerUtils from '../GamePlayerUtils'
 import { useTranslation } from 'react-i18next'
-import { GameUtils } from '../../../model/Game'
-import { Player } from '../../../model/GameInterfaces'
+import { GameUtils } from '../../../games/Game'
+import { Player } from '../../../games/GameInterfaces'
 import { STATUS_PLAYING, STATUS_DONE, STATUS_REPAIR } from '../GamePlayerUtils'
 import Utils from '../../../Utils'
 
