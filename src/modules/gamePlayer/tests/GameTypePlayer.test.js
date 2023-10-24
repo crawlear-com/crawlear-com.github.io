@@ -1,7 +1,9 @@
 import { render } from '@testing-library/react'
 import GameTypePlayer from '../components/GameTypePlayer'
 import { Game, GameUtils } from '../../../model/Game'
-import { gameExtras, getGameContent } from '../../../components/games/AecarGameScores'
+import { GameContext } from '../../../context/GameContext'
+import CoreGame from '../components/CoreGame'
+import KingGame from '../components/KingGame'
 
 let game, gameContent
 const div = document.createElement('div'),
@@ -9,6 +11,22 @@ const div = document.createElement('div'),
         {"id":2,"name":"Joan","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Joan","time":0,"points":0},
         {"id":3,"name":"K","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=K","time":0,"points":0},
         {"id":0,"name":"Jose","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Jose","time":0,"points":0}];
+const gameExtras = {
+    controlTextValuesInit: jest.fn(),
+    fiascoControlTextValuesInit: jest.fn(),
+    onTimerChange: jest.fn(),
+    onChangeScore:  jest.fn(),
+    onEndPlayer:  jest.fn(),
+    onGameEnd:  jest.fn(),
+    onGateProgressionChange: jest.fn(),
+    onFiascoChangeScore: jest.fn(),
+    onPointBecauseLastMinute: jest.fn(),
+    generateSliderMarksFromGates: jest.fn(),
+    doPageView:jest.fn()
+};
+const getGameContent = jest.fn().mockImplementation(() => {
+    return  <div></div>
+})
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {
@@ -20,6 +38,9 @@ jest.mock('react-i18next', () => ({
         }
     }
 }))
+
+jest.mock('../components/CoreGame')
+jest.mock('../components/KingGame')
 
 beforeEach(()=>{  
     window.scrollTo = jest.fn()
@@ -84,46 +105,36 @@ beforeEach(()=>{
         GameUtils.init(game)
 })
 
-test('renders GameTypePlayer: 0', () => {
+test('renders GameTypePlayer: not king game uses CoreGame', () => {
     const onGameEndMock = jest.fn(),
-        onRepairMock = jest.fn(),
-        { container } = render(<GameTypePlayer 
-            gameExtras={gameExtras}
-            onGameEnd={onGameEndMock}
-            onRepair={onRepairMock}
-            player={0}
-            zone={0}
-            game={game}>{gameContent}</GameTypePlayer>, div)
-    expect(container.querySelector('.gameContainer')).not.toBeNull()
-    expect(container.querySelector('.gameContainer')).not.toBeUndefined()
+        onRepairMock = jest.fn()
+    render(<GameContext.Provider value={{game: game }}>
+            <GameTypePlayer 
+                gameExtras={gameExtras}
+                onGameEnd={onGameEndMock}
+                onRepair={onRepairMock}
+                player={0}
+                zone={0}
+                game={game}>{gameContent}</GameTypePlayer>
+            </GameContext.Provider>, div)
+    expect(CoreGame).toHaveBeenCalled()
+    expect(KingGame).not.toHaveBeenCalled()
 });
 
-test('renders GameTypePlayer: 1', () => {
+test('renders GameTypePlayer: king game uses KingGame', () => {
+    game.gameType = 1
     const onGameEndMock = jest.fn(),
-        onRepairMock = jest.fn(),
-        { container } = render(<GameTypePlayer 
+        onRepairMock = jest.fn()
+
+    render(<GameContext.Provider value={{game: game }}>
+        <GameTypePlayer 
             gameExtras={gameExtras}
             onGameEnd={onGameEndMock}
             onRepair={onRepairMock}
             player={0}
             zone={0}
-            game={game}>{gameContent}</GameTypePlayer>, div)
-    expect(container.querySelector('.gameContainer')).not.toBeNull()
-    expect(container.querySelector('.gameContainer')).not.toBeUndefined()
+            game={game}>{gameContent}</GameTypePlayer>
+        </GameContext.Provider>, div)
+    expect(CoreGame).not.toHaveBeenCalled()
+    expect(KingGame).toHaveBeenCalled()
 });
-
-test('renders GameTypePlayer: 2', () => {
-    const onGameEndMock = jest.fn(), 
-        onRepairMock = jest.fn(),
-        { container } = render(<GameTypePlayer 
-            gameExtras={gameExtras}
-            onGameEnd={onGameEndMock}
-            onRepair={onRepairMock}
-            player={0}
-            zone={0}
-            game={game}>{gameContent}</GameTypePlayer>, div)
-    expect(container.querySelector('.gameContainer')).not.toBeNull()
-    expect(container.querySelector('.gameContainer')).not.toBeUndefined()
-});
-
-

@@ -25,7 +25,6 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
         uid: ''
     });
 
-
     React.useEffect(()=>{
         if (!isOffline) {
             fb.getGameProgression(game.gid, ()=>{}, ()=>{}, (group: number, progression: Array<any>)=>{

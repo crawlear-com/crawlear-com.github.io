@@ -23,7 +23,7 @@ const Levante124GameScores = {
     maxTime: 0
 };
 
-function getGameContent(t, player, zone, points) {
+function getGameContent(player, zone) {
     const childrenContent = [];
 
     childrenContent.push(<ControlTextArray

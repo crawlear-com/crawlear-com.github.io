@@ -5,7 +5,7 @@ import { Game, GAME_TYPE_AECAR,
     GAME_TYPE_COPAESPANA,
     GAME_TYPE_MINICRAWLERPASSION,
     GAME_TYPE_GENERIC } from "../../model/Game";
-import { GameProgressionZone, Player, GameProgressionData } from "../../model/GameInterfaces";
+import { GameProgressionZone } from "../../model/GameInterfaces";
 import { getGameContent as getAecarGameContent, gameExtras as aecarExtras} from '../../components/games/AecarGameScores';
 import { getGameContent as getIsrccGameContent, gameExtras as isrccExtras } from '../../components/games/IsrccGameScores';
 import { getGameContent as getLevanteGameContent, gameExtras as levante124Extras } from '../../components/games/Levante124GameScores';
@@ -70,36 +70,50 @@ const GamePlayerUtils = {
         return (judge ? judge.group : 0);
     },
 
-    getGameExtrasAndContent: (t: Function, game: Game, player: Player, zone: number) => {
-        let gameExtras,
-            method,
+    getGameExtras: (gameType: number) => {
+        let gameExtras
+
+        if (gameType === GAME_TYPE_AECAR) {
+            gameExtras = aecarExtras;
+        } else if (gameType === GAME_TYPE_ISRCC) {
+            gameExtras = isrccExtras;
+        } else if (gameType === GAME_TYPE_LEVANTE) {
+            gameExtras = levante124Extras;
+        } else if (gameType === GAME_TYPE_COPAESPANA) {
+            gameExtras = regionalZonaRcExtras;
+        } else if (gameType === GAME_TYPE_KING) {
+            gameExtras = kingExtras;
+        } else if (gameType === GAME_TYPE_MINICRAWLERPASSION) {
+            gameExtras = miniCrawlerPassionExtras;
+        } else if (gameType === GAME_TYPE_GENERIC) {
+            gameExtras = genericExtras;
+        }
+
+        return gameExtras
+    },
+
+    getGameContent: (gameType: number, playerId: number, zone: number) => {
+        let method,
             childrenContent
 
-    if (game.gameType === GAME_TYPE_AECAR) {
-        zone !== -1 && (method = getAecarGameContent);
-        gameExtras = aecarExtras;
-    } else if (game.gameType === GAME_TYPE_ISRCC) {
-        zone !== -1 && (method = getIsrccGameContent);
-        gameExtras = isrccExtras;
-    } else if (game.gameType === GAME_TYPE_LEVANTE) {
-        zone !== -1 && (method = getLevanteGameContent);
-        gameExtras = levante124Extras;
-    } else if (game.gameType === GAME_TYPE_COPAESPANA) {
-        zone !== -1 && (method = getRegionalZonaRcGameContent);
-        gameExtras = regionalZonaRcExtras;
-    } else if (game.gameType === GAME_TYPE_KING) {
-        gameExtras = kingExtras;
-    } else if (game.gameType === GAME_TYPE_MINICRAWLERPASSION) {
-        zone !== -1 && (method = getMiniCrawlerPassionGameContent);
-        gameExtras = miniCrawlerPassionExtras;
-    } else if (game.gameType === GAME_TYPE_GENERIC) {
-        zone !== -1 && (method = getGenericGameContent);
-        gameExtras = genericExtras;
-    }
+        if (gameType === GAME_TYPE_AECAR) {
+            zone !== -1 && (method = getAecarGameContent);
+        } else if (gameType === GAME_TYPE_ISRCC) {
+            zone !== -1 && (method = getIsrccGameContent);
+        } else if (gameType === GAME_TYPE_LEVANTE) {
+            zone !== -1 && (method = getLevanteGameContent);
+        } else if (gameType === GAME_TYPE_COPAESPANA) {
+            zone !== -1 && (method = getRegionalZonaRcGameContent);
+        } else if (gameType === GAME_TYPE_KING) {
+        } else if (gameType === GAME_TYPE_MINICRAWLERPASSION) {
+            zone !== -1 && (method = getMiniCrawlerPassionGameContent);
+        } else if (gameType === GAME_TYPE_GENERIC) {
+            zone !== -1 && (method = getGenericGameContent);
+        }
 
-    method && (childrenContent = method(t, player.id, zone, game.players[player.id].zones[zone].points))
+        method && (childrenContent = method(playerId, zone))
 
-    return { gameExtras, childrenContent }
+        return childrenContent
     }
 }
 

@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import GameProgressionInfoRow from './GameProgressionInfoRow';
-import { GameUtils } from '../model/Game.ts';
-import { GameProgressionContext } from '../context/GameProgressionContext';
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
+import GameProgressionInfoRow from './GameProgressionInfoRow'
+import { GameUtils } from '../model/Game'
+import { GameProgressionContext } from '../context/GameProgressionContext'
 
-const STATUS_WAITING = 'waiting';
-const STATUS_PLAYING = 'playing';
-const STATUS_REPAIR = 'repair';
-const STATUS_DONE = 'done';
+const STATUS_WAITING = 'waiting'
+const STATUS_PLAYING = 'playing'
+const STATUS_REPAIR = 'repair'
+const STATUS_DONE = 'done'
 
 function GameProgression({game, jidGroup, onZoneClick}) {
     const { t } = useTranslation();
@@ -16,7 +16,6 @@ function GameProgression({game, jidGroup, onZoneClick}) {
     const gameProgressionInfoRef = React.useRef();
     const [ gameProgression, setGameProgression ] = React.useContext(GameProgressionContext);
     const playersDone = [];
-    const fb = window.crawlear.fb;
     let i=0;
 
     function prepareOnClick(event, player) {

@@ -3,20 +3,19 @@ import EventManager from '../../../EventManager'
 import { Game, GameUtils } from '../../../model/Game'
 import { MSG_GATES, MSG_POINTS } from '../Bluetooth'
 import Analytics from '../../../Analytics'
+import { GameContext } from '../../../context/GameContext'
 
-function UseCoreGame(game: Game,
-        onGameEnd: Function,
+function UseCoreGame(onGameEnd: Function,
         onRepair: Function,
         playerIndex: number, 
-        zoneIndex: number,
-        gameExtras: any) {
+        zoneIndex: number) {
     const eventManager = new EventManager();
+    const { game, gameExtras } = React.useContext(GameContext);
     const [state, setState] = React.useState(()=>{
         window.scrollTo(0,0);
         return initControlTestValues(game, false);
     });
     const currentGame = state.game,
-        maxTime = currentGame.maxTime,
         player = currentGame.players[playerIndex],
         playerZone = player.zones[zoneIndex];
 
@@ -124,23 +123,6 @@ function UseCoreGame(game: Game,
         setState(newState);
     }
 
-    function onGateProgressionButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
-        const isPlus = (event.target.id === 'gatesPlusButton'),
-            zones = state.game.players[playerIndex].zones,
-            currentZone = zones[zoneIndex],
-            numGates = state.game.gates[zoneIndex];
-
-        if (isPlus) {
-            if (currentZone.gateProgression < numGates) {
-                onGateProgressionChange(currentZone.gateProgression+1);
-            }
-        } else {
-            if (currentZone.gateProgression > 0) {
-                onGateProgressionChange(currentZone.gateProgression-1);
-            }
-        }
-    }
-
     function onFiascoChangeScore(value: number, control: number) {
         const newState = {...state},
             players = newState.game.players,
@@ -186,7 +168,7 @@ function UseCoreGame(game: Game,
     }
 
     return [state, onTimerChange, onChangeScore, onReset, onEndPlayer, onGateProgressionChange, 
-        onGateProgressionButtonClick, onFiascoChangeScore, onPointBecauseLastMinute, onTimeFiasco, setRepairStatus]
+        onFiascoChangeScore, onPointBecauseLastMinute, onTimeFiasco, setRepairStatus]
 }
 
 function initControlTestValues(game: Game, reset: boolean) {
@@ -197,8 +179,8 @@ function initControlTestValues(game: Game, reset: boolean) {
     }
 
     GameUtils.init(newState.game, 
-        GameUtils.getGameTypeControlTextValuesInit(game.gameType),
-        GameUtils.getGameTypeFiascoControlTextValuesInit(game.gameType),
+        GameUtils.getGameTypeControlTextValuesInit(newState.game.gameType),
+        GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
         reset);
 
     return newState;

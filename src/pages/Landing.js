@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MainPageTextContent from './components/MainPageTextContent.js';
 import Analytics from '../Analytics.js';
 import { useTranslation } from 'react-i18next';
-import { Offline, isOffline } from './Offline.js';
+import Offline, { isOffline } from './Offline.js';
 import Footer from '../components/Footer.js';
 
 import image from './styles/img/btn_google_signin_light_pressed_web.png';

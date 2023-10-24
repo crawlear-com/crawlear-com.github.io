@@ -13,12 +13,13 @@ import './styles/GamePlayer.scss'
 
 function GamePlayer({inGame, onBackButtonClick}) {
     let view = <></>
-    const fb = window.crawlear.fb
     const { t } = useTranslation()
+    const gameExtras = GamePlayerUtils.getGameExtras(inGame.gameType)
     const [state, game, gameProgression, setGameProgression, player, zone,
-        onBeginGame, onClosePlayButtonClick, onGameEnd, onRepair] = UseGamePlayer(inGame)
-    const { gameExtras, childrenContent} = GamePlayerUtils.getGameExtrasAndContent(t, game, player, zone)
-    const [jidGroup, setJidGroup] = React.useState(()=>{
+        onBeginGame, onClosePlayButtonClick, onGameEnd, onRepair] = UseGamePlayer(inGame, gameExtras)
+    const childrenContent = GamePlayerUtils.getGameContent(game.gameType, player.id, zone)
+    
+    const [jidGroup] = React.useState(()=>{
         return GamePlayerUtils.getGroupFromJid(game, window.crawlear.user.uid)
     })
 
