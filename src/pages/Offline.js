@@ -51,6 +51,6 @@ function Offline() {
     }
 }
 
-export const isOffline  = !navigator.onLine;
+export const isOffline  = !navigator.onLine
 
-export { Offline };
+export default Offline

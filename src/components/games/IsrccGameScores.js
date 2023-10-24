@@ -25,7 +25,7 @@ const IsrccGameScores = {
     maxTime: 600000
 };
 
-function getGameContent(t, player, zone, points) {
+function getGameContent(player, zone) {
     const childrenContent = [];
 
     childrenContent.push(<ControlTextArray
