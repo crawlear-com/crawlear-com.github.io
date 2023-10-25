@@ -32,7 +32,7 @@ function GameListItem({ game, gamePosition, onGamePlay, readOnly }: GameListItem
     } else {
         info =<>
                 <WinnerTable game={game} />
-                <Sharers url={`https://crawlear.com/gameviewer?gid=${game.gid}`} text={`crawlear.com ${t('description.resolverjuego')} ${game.name}`} headerText={t('description.compartir')}  />
+                <Sharers url={`gameviewer?gid=${game.gid}`} text={` - ${t('description.resolverjuego')} ${game.name}`} headerText={t('description.compartir')}  />
             </>
     }
 
