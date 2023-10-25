@@ -373,7 +373,7 @@ class GameUtils {
 
     static isCurrentUserIsOwner(owners:Array<string>) {
         return owners && owners.find((elem)=>{
-            return elem === window.crawlear.user.uid;
+            return window.crawlear && window.crawlear.user && (elem === window.crawlear.user.uid)
         });
     }
 
