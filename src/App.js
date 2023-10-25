@@ -39,7 +39,7 @@ function App() {
   function onLogin(navigateAction) {
     setStateLogged(true)
     if (navigateAction) {
-      navigate("/gameviewer?gid=tKpy44DyXXfv0KfQUtj5");
+      navigate("/completegame");
     }
   }
 

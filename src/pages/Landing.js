@@ -20,7 +20,7 @@ function Landing({onLogin}) {
     
     function signInCallback() {
         onLogin(true);
-        navigate("/gameviewer?gid=tKpy44DyXXfv0KfQUtj5");
+        navigate("/completegame");
     }
 
     React.useEffect(() => {

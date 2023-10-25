@@ -2,6 +2,8 @@ import * as React from 'react'
 import GameProgressionInfo from '../../../components/GameProgressionInfo'
 import { Game, GameUtils } from '../../../games/Game'
 import WinnerTable from '../../../components/WinnerTable'
+import { useTranslation } from 'react-i18next'
+import Sharers from '../../social/components/embed/Sharers'
 import { GAME_STATUS_CREATED, GAME_STATUS_PLAYING } from '../../gamePlayer/hooks/UseGamePlayer'
 
 import '../styles/GameListItem.scss'
@@ -16,6 +18,7 @@ interface GameListItemProps {
 function GameListItem({ game, gamePosition, onGamePlay, readOnly }: GameListItemProps) {
     const [gameProgression, setGameProgression] = React.useState(null)
     const firebase = window.crawlear.fb
+    const { t } = useTranslation()
     let info: React.JSX.Element, 
         director: string = ''
 
@@ -27,7 +30,10 @@ function GameListItem({ game, gamePosition, onGamePlay, readOnly }: GameListItem
             info = <><button className="importantNote playGameButton" data-gameposition={gamePosition} onClick={onGamePlay}></button>{info}</>
         }
     } else {
-        info =<WinnerTable game={game} />
+        info =<>
+                <WinnerTable game={game} />
+                <Sharers url={`https://crawlear.com/gameviewer?gid=${game.gid}`} text={`crawlear.com ${t('description.resolverjuego')} ${game.name}`} headerText={t('description.compartir')}  />
+            </>
     }
 
     if(GameUtils.isCurrentUserIsOwner(game.owner)) {
