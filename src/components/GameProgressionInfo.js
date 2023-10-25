@@ -59,7 +59,7 @@ function GameProgressionInfo({game, gameProgression}) {
         });    
     }
 
-    return playersDone;
+    return <>{ playersDone }</>
 }
 
 export default GameProgressionInfo;

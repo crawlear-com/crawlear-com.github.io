@@ -204,7 +204,8 @@ i18n
             eliminarpartida: 'Remove game',
             jugarpartida: 'Play game',
             regenerarpartida: 'Regenerate play',
-            ordenRamdomJugadores: 'Random players order'
+            ordenRamdomJugadores: 'Random players order',
+            juegonopublico: 'not public game, sorry'
           },
           points: {
             vuelco: 'overturn',
@@ -496,7 +497,8 @@ i18n
               eliminarpartida: 'Eliminar partida',
               jugarpartida: 'Jugar partida',
               regenerarpartida: 'Regenerar partida',
-              ordenRamdomJugadores: 'Orden aleatorio de salida'
+              ordenRamdomJugadores: 'Orden aleatorio de salida',
+              juegonopublico: 'juego no publico, lo siento'
           },
           points: {
             vuelco: 'vuelco',

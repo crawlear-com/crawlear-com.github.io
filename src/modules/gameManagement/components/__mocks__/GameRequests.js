@@ -1,5 +1,5 @@
-const GameRequests = jest.fn().mockImplementation(() => {
-    return jest.fn(() => <div> GameRequests </div>)
-})
+const GameRequests = ({user}) => {
+    return <div>GameRequests</div>
+}
 
 export default GameRequests

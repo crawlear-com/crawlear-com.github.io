@@ -232,12 +232,11 @@ class FirebaseController {
       const res = docSnap.data();
 
       res.gid = docRef.id;
-      okCallback(res);
+      okCallback && okCallback(res);
     } else {
-      koCallback();
+      koCallback && koCallback();
     }
   }
-
 
   async getGamesFromUser(uid, onlyIsPublic, okCallback, koCallback) {
     try {

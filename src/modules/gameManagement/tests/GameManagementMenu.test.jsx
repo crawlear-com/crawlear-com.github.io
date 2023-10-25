@@ -1,8 +1,8 @@
-import { render, fireEvent, getByLabelText, findByText, getByText, findByDisplayValue } from '@testing-library/react';
-import GameManagementMenu from '../components/GameManagementMenu.js';
-import GameList from '../components/GameList.js';
-import GameRequests from '../components/GameRequests.js';
-import UseGameManagementMenu, { onRemoveGames } from '../hooks/UseGameManagementMenu';
+import { render, screen } from '@testing-library/react'
+import GameManagementMenu from '../components/GameManagementMenu.js'
+import GameList from '../components/GameList.js'
+import GameRequests from '../components/GameRequests.js'
+import UseGameManagementMenu, { onRemoveGames } from '../hooks/UseGameManagementMenu'
 
 const div = document.createElement('div');
 
@@ -28,8 +28,7 @@ jest.mock('../components/GameRequests.js')
 jest.mock('../hooks/UseGameManagementMenu.ts')
 
 beforeEach(()=>{  
-  document.body.innerHTML = '';
-  document.body.append(div);
+  document.body.append(div)
 
   window.crawlear = {
     fb: jest.fn(),
@@ -50,6 +49,8 @@ test('renders GameManagementMenu', () => {
         onConfigureGame={onConfigureGame}
         onGamePlay={onGamePlay}></GameManagementMenu>)
 
-    expect(GameRequests).toHaveBeenCalled()
-    expect(GameList).toHaveBeenCalled()
+    const gameRequests = screen.getByText('GameRequests')
+    const gameList = screen.getAllByText('GameList')
+    expect(gameRequests).not.toBeNull()
+    expect(gameList).not.toBeNull()
 });

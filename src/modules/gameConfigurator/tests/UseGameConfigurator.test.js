@@ -35,7 +35,7 @@ const mockUsedNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
    ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockUsedNavigate,
-}));
+}))
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {
@@ -60,6 +60,7 @@ test('onGameTypeChange test', () => {
         initialProps: { preconfiguredGame, onGameCreated }
     })
     act(() => {
+        //Executing onGameTypeChange returned by the hook
         result.current[GAME_TYPE_CHANGE_POSITION](GAME_TYPE_AECAR)
     })
     expect(result.current[GAME_POSITION].gameType).toBe(GAME_TYPE_AECAR)

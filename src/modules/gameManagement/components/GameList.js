@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import GameListMenu from './GameListMenu';
-import GameListItem from './GameListItem';
-import { GameUtils } from '../../../games/Game';
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
+import GameListMenu from './GameListMenu'
+import GameListItem from './GameListItem'
+import { GameUtils } from '../../../games/Game'
 
 import '../styles/GameList.scss';
 
@@ -42,7 +42,8 @@ function GameList({games, gameProgressions, readOnly, onRemoveGame, onConfigureG
                 onGamePlay={onGamePlay}
                 gamePosition={i} 
                 gameProgression={gameProgressions && gameProgressions[game.gid]} 
-                readOnly={readOnly} /></div>);
+                readOnly={readOnly} />
+        </div>)
         i++;
       });
 

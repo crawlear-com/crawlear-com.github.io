@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import GameConfigurator from '../pages/GameConfigurator'
 import ZonesPicker from '../components/ZonesPicker'
 import GateProgressionPicker from '../components/GateProgressionPicker'
@@ -51,7 +51,9 @@ test('renders GameConfigurator', () => {
             <GameConfigurator preconfiguredGame={game} onGameCreated={onGameCreated} />, div)
         </UserStatusContext.Provider>)
 
-    expect(ZonesPicker).toHaveBeenCalled()
-    expect(GateProgressionPicker).toHaveBeenCalled()
+    const progressionPickerContainer = screen.getByText('gateProgressionPicker')
+    const zonesPickerContainer = screen.getByText('zonesPicker')
+    expect(progressionPickerContainer).not.toBeNull()
+    expect(zonesPickerContainer).not.toBeNull()
     expect(UserSearchForGame).toHaveBeenCalled()
 })

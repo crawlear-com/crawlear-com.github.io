@@ -1,9 +1,9 @@
-const GateProgressionPicker = jest.fn().mockImplementation(({onGatesChange,
+const GateProgressionPicker = ({onGatesChange,
     zones, 
     value,
     minValue,
     maxValue}) => {
-    return jest.fn(() => <div> gayeProgressionPicker </div>)
-})
+    return <div>gateProgressionPicker</div>
+}
 
 export default GateProgressionPicker
