@@ -19,13 +19,13 @@ function GameListItem({ game, gamePosition, onGamePlay, readOnly }: GameListItem
     const [gameProgression, setGameProgression] = React.useState(null)
     const firebase = window.crawlear.fb
     const { t } = useTranslation()
-    let info: React.JSX.Element, 
+    let info: React.JSX.Element = <></>, 
         director: string = ''
 
-    if((game.gameStatus === GAME_STATUS_CREATED || game.gameStatus === GAME_STATUS_PLAYING) && gameProgression) {
-        info = <GameProgressionInfo
-            game={game}
-            gameProgression={gameProgression} />
+    if (game.gameStatus === GAME_STATUS_CREATED || game.gameStatus === GAME_STATUS_PLAYING) {
+        if (gameProgression) {
+            info = <GameProgressionInfo game={game} gameProgression={gameProgression} />
+        }
         if ((game.jids.find(element=>window.crawlear.user.uid===element) || GameUtils.isCurrentUserIsOwner(game.owner)) && !readOnly) {
             info = <><button className="importantNote playGameButton" data-gameposition={gamePosition} onClick={onGamePlay}></button>{info}</>
         }

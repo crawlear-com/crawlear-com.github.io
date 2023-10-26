@@ -2,46 +2,54 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import GameListMenu from './GameListMenu'
 import GameListItem from './GameListItem'
-import { GameUtils } from '../../../games/Game'
+import { Game, GameUtils } from '../../../games/Game'
 
 import '../styles/GameList.scss';
 
-function GameList({games, gameProgressions, readOnly, onRemoveGame, onConfigureGame, title, onGamePlay}) {
+interface GameListProps {
+    games: Array<any>,
+    readOnly: boolean,
+    onRemoveGame?: Function,
+    onConfigureGame?: Function,
+    title: string,
+    onGamePlay: React.MouseEventHandler<HTMLButtonElement>,
+}
+
+function GameList({games, readOnly, onRemoveGame, onConfigureGame, title, onGamePlay}: GameListProps) {
     const { t } = useTranslation();
     const fb = window.crawlear.fb;
     let i=0,
         gameList = [];
 
-    function removeGame(event) {
-        const position = event.target.getAttribute("data-gameposition");
+    function removeGame(event: React.MouseEvent<HTMLDivElement>) {
+        const position = (event.target as HTMLDivElement).getAttribute("data-gameposition");
         
         if (window.confirm(t('content.seguroborrarjuego'))) {
             onRemoveGame && onRemoveGame(Number(position));
         }
     }
 
-    function regenerateGame(event) {
-        const position = event.target.getAttribute("data-gameposition");
+    function regenerateGame(event: React.MouseEvent<HTMLDivElement>) {
+        const position = Number((event.target as HTMLDivElement).getAttribute("data-gameposition"))
         const newGame = {...games[position]};
 
         GameUtils.init(newGame, 
             GameUtils.getGameTypeControlTextValuesInit(newGame.gameType),
             GameUtils.getGameTypeFiascoControlTextValuesInit(newGame.gameType),
             true);
-            onConfigureGame(position);
+            onConfigureGame && onConfigureGame(position);                
     }
 
     games && games.forEach((game) => {
         gameList.push(<div key={i}>
-            <GameListMenu key={`menu${i}`} gamePosition={i}
+            { onConfigureGame && onRemoveGame && <GameListMenu key={`menu${i}`} gamePosition={i}
                 onRegenerateClick={regenerateGame} 
-                onRemoveClick={(event)=>{
+                onRemoveClick={(event: React.MouseEvent<HTMLDivElement>)=>{
                     removeGame(event);
-                }} />
+                }} /> }
             <GameListItem key={`item${i}`} game={game} 
                 onGamePlay={onGamePlay}
                 gamePosition={i} 
-                gameProgression={gameProgressions && gameProgressions[game.gid]} 
                 readOnly={readOnly} />
         </div>)
         i++;
