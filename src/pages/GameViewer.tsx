@@ -9,13 +9,10 @@ interface GameViewerProps {
 
 function GameViewer({ gid }: GameViewerProps) {
     const { t } = useTranslation()
-    const [game, gameProgression] = UseGameViewer(gid)
+    const [game] = UseGameViewer(gid)
 
     return <GameList games={[game]} 
-        gameProgressions={[gameProgression]} 
         readOnly={true}
-        onConfigureGame={() => {}}
-        onRemoveGame={() => {}}
         title={t('description.juego')}
         onGamePlay={() => {}} />
 }
