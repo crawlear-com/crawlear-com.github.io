@@ -3,7 +3,6 @@ import GameProgressionInfo from '../../../components/GameProgressionInfo'
 import { Game, GameUtils } from '../../../games/Game'
 import WinnerTable from '../../../components/WinnerTable'
 import { useTranslation } from 'react-i18next'
-import Sharers from '../../social/components/embed/Sharers'
 import { GAME_STATUS_CREATED, GAME_STATUS_PLAYING } from '../../gamePlayer/hooks/UseGamePlayer'
 
 import '../styles/GameListItem.scss'
