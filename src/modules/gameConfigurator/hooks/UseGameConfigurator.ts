@@ -19,7 +19,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         const newGame = preconfiguredGame || new Game("",
             new Date().toLocaleDateString(),
             { latitude: 0, longitude: 0 },
-            false, GAME_TYPE_LEVANTE,
+            true, GAME_TYPE_LEVANTE,
             [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
 
         newGame.date = new Date().toLocaleDateString()

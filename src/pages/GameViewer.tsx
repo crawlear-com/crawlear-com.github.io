@@ -1,7 +1,8 @@
 import * as React from 'react'
 import UseGameViewer from './hooks/UseGameViewer'
-import GameList from '../modules/gameManagement/components/GameList'
-import { useTranslation } from 'react-i18next';
+import WinnerTable from '../components/WinnerTable'
+import { useTranslation } from 'react-i18next'
+import Spinner from '../components/Spinner'
 
 interface GameViewerProps {
     gid: string
@@ -11,10 +12,13 @@ function GameViewer({ gid }: GameViewerProps) {
     const { t } = useTranslation()
     const [game] = UseGameViewer(gid)
 
-    return <GameList games={[game]} 
-        readOnly={true}
-        title={t('description.juego')}
-        onGamePlay={() => {}} />
+    if (!game.players) {
+        return <Spinner></Spinner>
+    } else if (game.isPublic) {
+        return <WinnerTable game={game} />
+    } else {
+       return <>{t('description.juegonopublico')}</> 
+    }
 }
 
 export default GameViewer;

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import GameViewer from '../GameViewer'
-import GameList from '../../modules/gameManagement/components/GameList'
-import UseGameViewer from '../hooks/UseGameViewer.ts'
+import WinnerTable from '../../components/WinnerTable'
+import UseGameViewer from '../hooks/UseGameViewer'
 
 const div = document.createElement('div');
 
@@ -16,8 +16,8 @@ jest.mock('react-i18next', () => ({
     }
 }))
 
-jest.mock('../../modules/gameManagement/components/GameList')
-jest.mock('../hooks/UseGameViewer.ts')
+jest.mock('../../components/WinnerTable')
+jest.mock('../hooks/UseGameViewer')
 
 beforeEach(() => {
     document.body.append(div)
@@ -29,9 +29,9 @@ afterEach(() => {
     delete window.crawlear
 })
 
-test('renders GameList', () => {
+test('renders winner table', () => {
     render(<GameViewer gid='213123123' />, div)        
-    const content = screen.getAllByText('GameList')
+    const content = screen.getByText('winnerTable')
 
     expect(content).not.toBeNull()
     expect(content).not.toBeUndefined()
