@@ -15,7 +15,10 @@ function GameViewer({ gid }: GameViewerProps) {
     if (!game.players) {
         return <Spinner></Spinner>
     } else if (game.isPublic) {
-        return <WinnerTable game={game} />
+        return <>
+            <div className='headerText bold'>{ game.name }</div>
+            <WinnerTable game={game} />
+        </>
     } else {
        return <>{t('description.juegonopublico')}</> 
     }
