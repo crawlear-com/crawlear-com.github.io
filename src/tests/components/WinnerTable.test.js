@@ -1,6 +1,7 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import WinnerTable from '../../components/WinnerTable'
 import Sharer from '../../modules/social/components/embed/Sharers'
+import WinnerOrTieBox from '../../components/WinnerOrTieBox'
 import { Game, GAME_TYPE_AECAR } from '../../games/Game'
 
 const div = document.createElement('div'),
@@ -19,6 +20,7 @@ jest.mock('react-i18next', () => ({
 }));
 
 jest.mock('../../modules/social/components/embed/Sharers')
+jest.mock('../../components/WinnerOrTieBox')
 
 beforeEach(()=>{  
     document.body.innerHTML = ''
@@ -107,5 +109,13 @@ test("renders the winner table", () => {
     const elem  = container.querySelector(".gameParticipants")
   
     expect(elem.textContent.indexOf("Player1")).toBe(101)
-    expect(elem.textContent.indexOf("Player2")).toBe(152)
-  })
+    expect(elem.textContent.indexOf("Player2")).toBe(153)
+})
+
+test("renders the winnerOrTieBox", () => {
+    render(<WinnerTable game={game} />, div); 
+    
+    const container = screen.getByText('winnerOrTieBox')
+
+    expect(container).not.toBeNull()
+})
