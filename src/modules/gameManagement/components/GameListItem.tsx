@@ -3,7 +3,6 @@ import GameProgressionInfo from '../../../components/GameProgressionInfo'
 import { Game, GameUtils } from '../../../games/Game'
 import WinnerTable from '../../../components/WinnerTable'
 import { useTranslation } from 'react-i18next'
-import Sharers from '../../social/components/embed/Sharers'
 import { GAME_STATUS_CREATED, GAME_STATUS_PLAYING } from '../../gamePlayer/hooks/UseGamePlayer'
 
 import '../styles/GameListItem.scss'
@@ -30,10 +29,7 @@ function GameListItem({ game, gamePosition, onGamePlay, readOnly }: GameListItem
             info = <><button className="importantNote playGameButton" data-gameposition={gamePosition} onClick={onGamePlay}></button>{info}</>
         }
     } else {
-        info =<>
-                <WinnerTable game={game} />
-                <Sharers url={`gameviewer?gid=${game.gid}`} text={` - ${t('description.resolverjuego')} ${game.name}`} headerText={t('description.compartir')}  />
-            </>
+        info = <WinnerTable game={game} />
     }
 
     if(GameUtils.isCurrentUserIsOwner(game.owner)) {

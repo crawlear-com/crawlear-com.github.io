@@ -6,11 +6,11 @@ function UseGameViewer(gid: string) {
     const firebase = window.crawlear.fb
     const [game, setGame] = React.useState<any>({})
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         Analytics.pageview(`/gameviewer?gid=${gid}`);
-        firebase.getGame(gid, (newGame: Game) => { 
+        firebase.getGame(gid, (newGame: Game) => {
             if (newGame.isPublic) {
-                setGame(newGame) 
+                setGame(newGame)
             }
         })
     }, [])

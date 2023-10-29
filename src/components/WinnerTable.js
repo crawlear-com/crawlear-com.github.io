@@ -1,9 +1,12 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import GameResultTable from './GameResultTable';
-import GameHeaderInfo from './GameHeaderInfo';
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
+import GameResultTable from './GameResultTable'
+import GameHeaderInfo from './GameHeaderInfo'
+import Sharers from '../modules/social/components/embed/Sharers'
+import Spinner from './Spinner'
 
-import '../resources/css/WinnerTable.scss';
+import '../resources/css/WinnerTable.scss'
+
 
 function WinnerTable({ game }) {
     const { t } = useTranslation(),
@@ -30,10 +33,12 @@ function WinnerTable({ game }) {
             <div className="gameList rounded rounded2">
                 <GameHeaderInfo game={game} />
                 <GameResultTable game={game} isDraw={draw} />
+                { game.isPublic && 
+                    <Sharers url={`gameviewer?gid=${game.gid}`} text={` - ${t('description.resolverjuego')} ${game.name}`} headerText={t('description.compartir')}  /> }
                 </div>
         </div>            
     } else {
-        return <>{t('description.juegonopublico')}</>
+        return <Spinner className="centerText" />
     }
 }
 
