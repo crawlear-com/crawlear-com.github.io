@@ -6,7 +6,7 @@ import { Game, GameUtils } from '../../../games/Game'
 
 import '../styles/GameList.scss';
 
-interface GameListProps {
+export interface GameListProps {
     games: Array<any>,
     readOnly: boolean,
     onRemoveGame?: Function,

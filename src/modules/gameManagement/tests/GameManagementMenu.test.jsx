@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import GameManagementMenu from '../components/GameManagementMenu.js'
-import GameList from '../components/GameList.js'
-import GameRequests from '../components/GameRequests.js'
+import GameManagementMenu from '../components/GameManagementMenu'
+import GameList from '../components/GameList'
+import GameRequests from '../components/GameRequests'
 import UseGameManagementMenu, { onRemoveGames } from '../hooks/UseGameManagementMenu'
 
 const div = document.createElement('div');
@@ -23,9 +23,9 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockUsedNavigate,
 }));
 
-jest.mock('../components/GameList.js')
-jest.mock('../components/GameRequests.js')
-jest.mock('../hooks/UseGameManagementMenu.ts')
+jest.mock('../components/GameList')
+jest.mock('../components/GameRequests')
+jest.mock('../hooks/UseGameManagementMenu')
 
 beforeEach(()=>{  
   document.body.append(div)

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import GameViewer from '../GameViewer'
-import GameList from '../../modules/gameManagement/components/GameList.js'
+import GameList from '../../modules/gameManagement/components/GameList'
 import UseGameViewer from '../hooks/UseGameViewer.ts'
 
 const div = document.createElement('div');
@@ -16,7 +16,7 @@ jest.mock('react-i18next', () => ({
     }
 }))
 
-jest.mock('../../modules/gameManagement/components/GameList.js')
+jest.mock('../../modules/gameManagement/components/GameList')
 jest.mock('../hooks/UseGameViewer.ts')
 
 beforeEach(() => {
