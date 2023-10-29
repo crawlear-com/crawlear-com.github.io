@@ -34,7 +34,7 @@ function WinnerTable({ game }) {
                 <GameHeaderInfo game={game} />
                 <GameResultTable game={game} isDraw={draw} />
                 { game.isPublic && 
-                    <Sharers url={`gameviewer?gid=${game.gid}`} text={` - ${t('description.resolverjuego')} ${game.name}`} headerText={t('description.compartir')}  /> }
+                    <Sharers url={`gameviewer?gid=${game.gid}`} text={`${t('description.resolverjuego')} ${game.name}`} headerText={t('description.compartir')}  /> }
                 </div>
         </div>            
     } else {
