@@ -49,8 +49,11 @@ test('renders GameManagementMenu', () => {
         onConfigureGame={onConfigureGame}
         onGamePlay={onGamePlay}></GameManagementMenu>)
 
-    const gameRequests = screen.getByText('GameRequests')
-    const gameList = screen.getAllByText('GameList')
+    const gameRequests = screen.queryByText('GameRequests')
+    const gameList = screen.queryAllByText('GameList')
+    const previousGamesButton = screen.queryByText('description.cargar')
+
     expect(gameRequests).not.toBeNull()
     expect(gameList).not.toBeNull()
+    expect(previousGamesButton).toBeNull()
 });
