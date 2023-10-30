@@ -54,6 +54,8 @@ const firebaseConfig = {
   measurementId: "G-YD7VLXPTM2"
 };
 
+const GAME_STATUS_FINISHED = 2
+
 class FirebaseController {
   constructor() {
     this.app = initializeApp(firebaseConfig);
@@ -245,7 +247,7 @@ class FirebaseController {
       const games = [];
       const q = query(collection(this.db, "games"), 
         where("uids", "array-contains", uid),
-        where("gameStatus", "<", 2));
+        where("gameStatus", "<", GAME_STATUS_FINISHED));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.docs.forEach((gameData)=>{
@@ -267,7 +269,7 @@ class FirebaseController {
       const games = [];
       const q = query(collection(this.db, "games"), 
         where("jids", "array-contains", jid),
-        where("gameStatus", "<", 2));
+        where("gameStatus", "<", GAME_STATUS_FINISHED));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.docs.forEach((gameData)=>{
@@ -287,7 +289,7 @@ class FirebaseController {
   async getFinishedGamesFromUid(uid, okCallback, koCallback) {
     try {
       const q = query(collection(this.db, "games"),
-        and(where("gameStatus", "==", 2),
+        and(where("gameStatus", "==", GAME_STATUS_FINISHED),
         or(where("uids", "array-contains", uid), where("jids", "array-contains", uid))))
       const querySnapshot = await getDocs(q)
 
