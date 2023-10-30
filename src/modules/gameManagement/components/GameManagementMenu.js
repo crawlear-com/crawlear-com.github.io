@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next'
 import GameList from './GameList'
 import GameRequests from './GameRequests'
 import UseGameManagementMenu from '../hooks/UseGameManagementMenu'
+import PreviousGameList from './PreviousGameList'
 
 import '../styles/GameManagement.scss'
 
 function GameManagementMenu({onConfigureGames, onGamePlay}) {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    let storedGamesUi
 
     function newGameNavigation() {
         navigate("/gameconfigurator")
@@ -18,27 +18,7 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
 
     const [games, onRemoveGames,
            judgeGames, onRemoveJudgeGames,
-           storedGames, onRemoveStoredGames, onLoadStoredGames] = UseGameManagementMenu()
-
-
-    if (storedGames.length > 0) {
-        storedGamesUi = <GameList title={t('description.partidasprevias')} 
-            games={storedGames}
-            readOnly={false}
-            onRemoveGame={(gamePosition)=>{
-                onRemoveStoredGames(gamePosition)}
-            }
-            onConfigureGame={(gamePosition)=>{
-                onConfigureGames(storedGames, gamePosition)}
-            } />
-    } else {
-        storedGamesUi = <div className="gameList rounded rounded3 centerText">
-            <div className="headerText bold">{t('description.partidasprevias')}</div>
-            <button onClick={() => {
-                onLoadStoredGames(window.crawlear.user.uid, )}
-            }>{t('description.cargar')}</button>
-        </div>
-    }
+           storedGames, onRemoveStoredGames, onLoadPreviousGames] = UseGameManagementMenu()
 
     return <>
         <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
@@ -66,7 +46,10 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
                 onRemoveJudgeGames(gamePosition)
             }} />
         <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crear')}</button>                        
-        { storedGamesUi }
+        <PreviousGameList storedGames={storedGames} 
+            onRemoveStoredGames={onRemoveStoredGames}
+            onConfigureGames={onConfigureGames}
+            onLoadPreviousGames={onLoadPreviousGames}></PreviousGameList>
     </>
 }
 

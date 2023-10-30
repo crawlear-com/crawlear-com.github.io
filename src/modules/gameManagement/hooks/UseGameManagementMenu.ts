@@ -18,8 +18,7 @@ function UseGameManagementMenu(): Array<any> {
 
     function processCurrentGames(games: Array<Game>): void {
         const jGames: Game[] = [],
-              uGames: Array<Game> = [],
-              sGames: Array<Game> = [];
+              uGames: Array<Game> = [];
 
         games.forEach(game => {
                 if (game.jids.indexOf(window.crawlear.user.uid)>=0 || game.owner.indexOf(window.crawlear.user.uid)>=0) {
@@ -31,7 +30,6 @@ function UseGameManagementMenu(): Array<any> {
 
         setGames(uGames);
         setJudgeGames(jGames);
-        setStoredGames(sGames);
     }
 
     function refreshGames(): void {
@@ -44,7 +42,7 @@ function UseGameManagementMenu(): Array<any> {
         });
     }
 
-    function onLoadStoredGames(): void {
+    function onLoadPreviousGames(): void {
         firebase.getFinishedGamesFromUid(window.crawlear.user.uid, (sGames: Array<Game>)=> {
             setStoredGames(previousInputs => ([...previousInputs,...sGames]));
         });
@@ -57,7 +55,7 @@ function UseGameManagementMenu(): Array<any> {
             onRemoveGames(judgeGames, gamePosition, setJudgeGames)
         }, storedGames, (gamePosition: number) => {
             onRemoveGames(storedGames, gamePosition, setStoredGames)
-        }, onLoadStoredGames]
+        }, onLoadPreviousGames]
 }
 
 async function onRemoveGames(gameArray: Array<Game>, gamePosition: number, setMethod: Function) {

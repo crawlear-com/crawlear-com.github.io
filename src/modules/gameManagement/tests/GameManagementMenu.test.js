@@ -3,6 +3,7 @@ import GameManagementMenu from '../components/GameManagementMenu'
 import GameList from '../components/GameList'
 import GameRequests from '../components/GameRequests'
 import UseGameManagementMenu, { onRemoveGames } from '../hooks/UseGameManagementMenu'
+import PreviousGameList from '../components/PreviousGameList'
 
 const div = document.createElement('div');
 
@@ -26,6 +27,7 @@ jest.mock('react-router-dom', () => ({
 jest.mock('../components/GameList')
 jest.mock('../components/GameRequests')
 jest.mock('../hooks/UseGameManagementMenu')
+jest.mock('../components/PreviousGameList')
 
 beforeEach(()=>{  
   document.body.append(div)
@@ -51,9 +53,9 @@ test('renders GameManagementMenu', () => {
 
     const gameRequests = screen.queryByText('GameRequests')
     const gameList = screen.queryAllByText('GameList')
-    const previousGamesButton = screen.queryByText('description.cargar')
+    const previousGamesButton = screen.queryByText('PreviousGameList')
 
     expect(gameRequests).not.toBeNull()
     expect(gameList).not.toBeNull()
-    expect(previousGamesButton).toBeNull()
+    expect(previousGamesButton).not.toBeNull()
 });
