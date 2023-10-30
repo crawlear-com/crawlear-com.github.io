@@ -18,24 +18,18 @@ function UseGameManagementMenu(): Array<any> {
 
     function processCurrentGames(games: Array<Game>): void {
         const jGames: Game[] = [],
-              uGames: Array<Game> = [],
-              sGames: Array<Game> = [];
+              uGames: Array<Game> = [];
 
         games.forEach(game => {
-            if (game.gameStatus < 2) {
                 if (game.jids.indexOf(window.crawlear.user.uid)>=0 || game.owner.indexOf(window.crawlear.user.uid)>=0) {
                     jGames.push(game)
                 } else if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
                     uGames.push(game);
                 }
-            } else {
-                sGames.push(game);
-            }
         });
 
         setGames(uGames);
         setJudgeGames(jGames);
-        setStoredGames(sGames);
     }
 
     function refreshGames(): void {
@@ -46,20 +40,22 @@ function UseGameManagementMenu(): Array<any> {
         firebase.getGamesFromJudge(window.crawlear.user.uid, false, (jGames: Array<Game>)=> {
             setAllGames(previousInputs => ([...previousInputs,...jGames]));
         });
+    }
 
-        firebase.getGamesFromDirector(window.crawlear.user.uid, false, (dGames: Array<Game>)=> {
-            setAllGames(previousInputs => ([...previousInputs,...dGames]));
+    function onLoadPreviousGames(): void {
+        firebase.getFinishedGamesFromUid(window.crawlear.user.uid, (sGames: Array<Game>)=> {
+            setStoredGames(previousInputs => ([...previousInputs,...sGames]));
         });
     }
 
     return [games, (gamePosition: number) => {
-        onRemoveGames(games, gamePosition, setGames)
-    }, 
-    judgeGames, (gamePosition: number) => {
-        onRemoveGames(judgeGames, gamePosition, setJudgeGames)
-    }, storedGames, (gamePosition: number) => {
-        onRemoveGames(storedGames, gamePosition, setStoredGames)
-    }]
+            onRemoveGames(games, gamePosition, setGames)
+        }, 
+        judgeGames, (gamePosition: number) => {
+            onRemoveGames(judgeGames, gamePosition, setJudgeGames)
+        }, storedGames, (gamePosition: number) => {
+            onRemoveGames(storedGames, gamePosition, setStoredGames)
+        }, onLoadPreviousGames]
 }
 
 async function onRemoveGames(gameArray: Array<Game>, gamePosition: number, setMethod: Function) {

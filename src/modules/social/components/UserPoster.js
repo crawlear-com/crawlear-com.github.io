@@ -38,11 +38,6 @@ function UserPoster({onPostEntry, isOpened}) {
                 gameListRef.current = games.concat(gameListRef.current);
             }
         }, ()=>{});
-        firebase.getGamesFromDirector(uid, true, (games)=>{
-            if (games.length) {
-                gameListRef.current = games.concat(gameListRef.current);
-            }
-        }, ()=>{});
     },[]);
 
     function urlChange(event) {

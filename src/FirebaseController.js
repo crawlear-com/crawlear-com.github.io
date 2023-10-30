@@ -25,6 +25,8 @@ import { addDoc,
          query,
          collection, 
          where,
+         or,
+         and,
          orderBy,
          limit,
          startAt,
@@ -51,6 +53,8 @@ const firebaseConfig = {
   appId: "1:879856500816:web:4287599cc229d5f4c3d155",
   measurementId: "G-YD7VLXPTM2"
 };
+
+const GAME_STATUS_FINISHED = 2
 
 class FirebaseController {
   constructor() {
@@ -242,7 +246,8 @@ class FirebaseController {
     try {
       const games = [];
       const q = query(collection(this.db, "games"), 
-        where("uids", "array-contains", uid));
+        where("uids", "array-contains", uid),
+        where("gameStatus", "<", GAME_STATUS_FINISHED));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.docs.forEach((gameData)=>{
@@ -263,7 +268,8 @@ class FirebaseController {
     try {
       const games = [];
       const q = query(collection(this.db, "games"), 
-        where("jids", "array-contains", jid));
+        where("jids", "array-contains", jid),
+        where("gameStatus", "<", GAME_STATUS_FINISHED));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.docs.forEach((gameData)=>{
@@ -280,24 +286,16 @@ class FirebaseController {
     }
   }
 
-  async getGamesFromDirector(jid, onlyIsPublic, okCallback, koCallback) {
+  async getFinishedGamesFromUid(uid, okCallback, koCallback) {
     try {
-      const games = [];
-      const q = query(collection(this.db, "games"), 
-        where("owner", "array-contains", jid));
-      const querySnapshot = await getDocs(q);
+      const q = query(collection(this.db, "games"),
+        and(where("gameStatus", "==", GAME_STATUS_FINISHED),
+        or(where("uids", "array-contains", uid), where("jids", "array-contains", uid))))
+      const querySnapshot = await getDocs(q)
 
-      querySnapshot.docs.forEach((gameData)=>{
-        const game = gameData.data();
-
-        if(!game.jids || game.jids.indexOf(jid)<0) {
-          ((onlyIsPublic && game.isPublic) || !onlyIsPublic) && games.push(gameData);
-        }
-      });
-
-      okCallback && okCallback(this.transformGamesIntoModel(games));
-    } catch(e) {
-      koCallback && koCallback();
+      okCallback && okCallback(this.transformGamesIntoModel(querySnapshot.docs))
+      } catch(e) {
+        koCallback && koCallback()
     }
   }
 
