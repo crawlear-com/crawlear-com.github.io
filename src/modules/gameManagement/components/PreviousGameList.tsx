@@ -1,7 +1,8 @@
 import * as React from 'react'
-import GameList from './GameList'
 import { useTranslation } from 'react-i18next'
 import { Game } from '../../../games/Game'
+import GameList from './GameList'
+import Spinner from '../../../components/Spinner'
 
 export interface PreviousGameListProps {
     storedGames: Array<Game>,
@@ -11,11 +12,21 @@ export interface PreviousGameListProps {
 }
 
 function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, onLoadPreviousGames }: PreviousGameListProps) {
-    let storedGamesUi
+    const storedGamesUi: Array<React.JSX.Element> = []
     const { t } = useTranslation()
+    const [isLoading, setIsLoading] = React.useState<boolean>(false)
+    const buttonOrLoading = isLoading ? 
+        <Spinner></Spinner> : 
+        <button title='loadButton' onClick={() => {
+            setIsLoading(true)
+            onLoadPreviousGames(window.crawlear.user.uid, )}
+        }>{t('description.cargar')}</button>
 
     if (storedGames.length > 0) {
-        storedGamesUi = <GameList title={t('description.partidasprevias')} 
+        if (isLoading) {
+            setIsLoading(false)
+        }
+        storedGamesUi.push(<GameList key='previousGames' title={t('description.partidasprevias')} 
             games={storedGames}
             readOnly={false}
             onGamePlay={() => {}}
@@ -24,17 +35,15 @@ function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, 
             }
             onConfigureGame={(gamePosition: number) => {
                 onConfigureGames(storedGames, gamePosition) }
-            } />
+            } />)
     } else {
-        storedGamesUi = <div className="gameList rounded rounded3 centerText">
+        storedGamesUi.push(<div key='noPreviousGames' className="gameList rounded rounded3 centerText">
             <div className="headerText bold">{t('description.partidasprevias')}</div>
-            <button onClick={() => {
-                onLoadPreviousGames(window.crawlear.user.uid, )}
-            }>{t('description.cargar')}</button>
-        </div>
+            {buttonOrLoading}
+        </div>)
     }
 
-    return storedGamesUi
+    return <> {storedGamesUi} </>
 }
 
 export default PreviousGameList
