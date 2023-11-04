@@ -44,9 +44,8 @@ function Menu() {
                 <div className="burguerMenuBar"></div>
                 <div className="linksContainer">
                     <ul>
-                        <li><div onClick={()=>{browseTo("/completegame")}}>{t("description.herramientajuego")}</div></li>
-                        <li><div onClick={()=>{browseTo("/social")}}>{t("description.perfilsocial")}</div></li>
-                        <li><div onClick={()=>{browseTo("/follows")}}>{t("description.murodefollows")}</div></li>
+                        <li><div onClick={()=>{browseTo("/game")}}>{t("description.herramientajuego")}</div></li>
+                        <li><div onClick={()=>{browseTo("/route")}}>{t("description.herramientaruta")}</div></li>
                         <li>-</li>
                         <li><div href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR</div></li>
                         <li><div href="https://www.clubzonarc.es/">Club ZonaRc</div></li>

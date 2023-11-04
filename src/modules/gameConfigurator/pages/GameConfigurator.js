@@ -109,7 +109,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
                     onClick={() => {
                         createGame(groups, game);
                     }
-                }>{t('description.crear')}</button>
+                }>{t('description.crearjuego')}</button>
                 <button
                     onClick={() => {
                         window.location.reload();

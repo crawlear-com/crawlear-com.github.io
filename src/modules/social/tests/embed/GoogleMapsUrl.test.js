@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import GoogleMapsUrl from '../../components/embed/GoogleMapsUrl.js';
+import GoogleMapsUrl from '../../components/embed/GoogleMapsRouteUrl.js';
 
 const div = document.createElement('div');
 

@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import GameList from './GameList'
+import { itemTransform } from '../../list/components/GameListTransformer'
+import List from '../../list/List'
+
 import GameRequests from './GameRequests'
 import UseGameManagementMenu from '../hooks/UseGameManagementMenu'
 import PreviousGameList from './PreviousGameList'
@@ -20,19 +22,7 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
            judgeGames, onRemoveJudgeGames,
            storedGames, onRemoveStoredGames, onLoadPreviousGames] = UseGameManagementMenu()
 
-    return <>
-        <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
-
-        <GameRequests user={window.crawlear.user} />
-        <GameList title={t('description.partidascomopiloto')} 
-            games={games}
-            readOnly={true}
-            onRemoveGame={(gamePosition)=>{
-                onRemoveGames(gamePosition)}
-            }
-            onConfigureGame={(gamePosition)=>{
-                onConfigureGames(games, gamePosition)}
-            } />
+/*
         <GameList title={t('description.partidasdejuez')} 
             games={judgeGames}
             readOnly={false}
@@ -45,7 +35,34 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
             onRemoveGame={(gamePosition) => {
                 onRemoveJudgeGames(gamePosition)
             }} />
-        <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crear')}</button>                        
+
+*/
+    return <>
+        <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
+
+        <GameRequests user={window.crawlear.user} />
+        <List data={games}
+            readOnly={true}
+            transformer={itemTransform}
+            onRemoveItem={(gamePosition) => {
+                onRemoveGames(gamePosition)}} 
+                onConfigureItem={(gamePosition)=>{
+                    onConfigureGames(games, gamePosition)}} 
+                title={t('description.partidascomopiloto')}></List>
+        <List data={judgeGames}
+            title={t('description.partidasdejuez')} 
+            readOnly={false}
+            transformer={itemTransform}
+            onItemAction={(gamePosition) => {
+                onGamePlay(judgeGames, gamePosition);
+            }}
+            onConfigureGame={(gamePosition) => {
+                onConfigureGames(judgeGames, gamePosition)}
+            }
+            onRemoveItem={(gamePosition) => {
+                onRemoveJudgeGames(gamePosition)
+            }}></List>
+        <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crearjuego')}</button>                        
         <PreviousGameList storedGames={storedGames} 
             onRemoveStoredGames={onRemoveStoredGames}
             onConfigureGames={onConfigureGames}

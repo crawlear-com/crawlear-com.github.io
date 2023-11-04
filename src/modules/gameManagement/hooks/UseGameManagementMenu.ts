@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Game } from '../../../games/Game';
+import * as React from 'react'
+import { Game } from '../../../games/Game'
 
 function UseGameManagementMenu(): Array<any> {
-    const [games, setGames] = React.useState<Array<Game>>([]);
-    const [judgeGames, setJudgeGames] = React.useState<Array<Game>>([]);
-    const [storedGames, setStoredGames] = React.useState<Array<Game>>([]);
+    const [games, setGames] = React.useState<Array<Game>>([])
+    const [judgeGames, setJudgeGames] = React.useState<Array<Game>>([])
+    const [storedGames, setStoredGames] = React.useState<Array<Game>>([])
     const [allGames, setAllGames] = React.useState<Array<Game>>([])
     const firebase = window.crawlear.fb
 
@@ -24,7 +24,7 @@ function UseGameManagementMenu(): Array<any> {
                 if (game.jids.indexOf(window.crawlear.user.uid)>=0 || game.owner.indexOf(window.crawlear.user.uid)>=0) {
                     jGames.push(game)
                 } else if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
-                    uGames.push(game);
+                    uGames.push(game)
                 }
         });
 

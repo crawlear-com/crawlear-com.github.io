@@ -1,0 +1,43 @@
+.routesManagement {
+    text-align: left;
+    padding: 15px;
+
+    textarea {
+        height: 320px;
+    }
+
+    .routesSection {
+        margin-bottom: 15px;
+
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+    
+        .value {
+            display: inline;
+            font-size: 0.9em;
+        }
+    }
+
+    .mapRoute {
+        width: 95%;
+        min-height: 400px;
+        margin: 15px auto 0 auto;
+        display: block;
+    }
+
+    .sharerContainer {
+        text-align: right;
+    }
+
+    .editButton {
+        float: right;
+        font-size: 0.8em;
+    }
+
+    .routeListItem {
+        margin-top: 15px;
+    }
+}

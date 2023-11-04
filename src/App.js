@@ -11,9 +11,11 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Landing from './pages/Landing'
 import Analytics from './Analytics'
 import GameConfigurator from './modules/gameConfigurator/pages/GameConfigurator'
+import RoutesManagement from './modules/routesManagement/pages/RoutesManagement'
 import UserViewer from './modules/social/pages/UserViewer'
 import PostViewer from './modules/social/pages/PostViewer'
 import GameViewer from './pages/GameViewer'
+import RouteViewer from './pages/RouteViewer'
 import { UserStatusContext } from './context/UserStatusContext'
 import './Error.js'
 
@@ -39,7 +41,7 @@ function App() {
   function onLogin(navigateAction) {
     setStateLogged(true)
     if (navigateAction) {
-      navigate("/completegame");
+      navigate("/game");
     }
   }
 
@@ -53,11 +55,13 @@ function App() {
         <div className="AppMainContainer">
         <Routes>
           <Route path="/" element={<Landing onLogin={()=>{onLogin(true)}} />} />
-          <Route path="/completegame" element={<GameManagement onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
+          <Route path="/game" element={<GameManagement onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
           <Route path="/social" element={<PilotWall onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
           <Route path="/follows" element={<FollowsWall />} />
           <Route path="/gameconfigurator" element={<GameConfigurator />} />
+          <Route path="/route" element={<RoutesManagement />} />
           <Route path="/gameviewer" element={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />
+          <Route path="/routeviewer" element={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />
           <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
           <Route path="/post" element={<PostViewer onLogin={()=>{onLogin(false)}} pid={queryParams.get && queryParams.get('pid')} />} />
           <Route path="/aboutus" element={<AboutUs />} />

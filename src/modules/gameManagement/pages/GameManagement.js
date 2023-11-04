@@ -11,7 +11,7 @@ const STATE_MENU = 0;
 const STATE_PLAYING = 1;
 const STATE_CONFIGURE = 2;
 
-function GameManagement({onLogout}) {
+function GameManagement() {
     const firebase = window.crawlear.fb;
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});

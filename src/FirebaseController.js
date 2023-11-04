@@ -342,6 +342,70 @@ class FirebaseController {
     return game;
   }
 
+  async setRoute(route, okCallback, koCallback) {
+    try {
+      if (route.rid) {
+        const data = {
+          name: route.name,
+          description: route.description,
+          isPublic: route.isPublic,
+          scale: route.scale,
+          locationMapUrl: route.locationMapUrl,
+          routeMapUrl: route.routeMapUrl,
+          uids: route.uids,
+          scale: route.scale,
+          dificulty: route.dificulty,
+          likes: route.likes
+        }
+        
+        await setDoc(doc(this.db, "routes", route.rid), data);
+      } else {
+        const routeRef = await addDoc(collection(this.db, "routes"), route.transformIntoData())
+        route.rid = routeRef.id
+      }
+
+      okCallback && okCallback(route)
+    } catch (e) {
+      koCallback && koCallback()
+    }
+  }
+
+  async getRoute(rid, okCallback, koCallback) {
+    const docRef = doc(this.db, "routes", rid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      const res = docSnap.data()
+
+      res.rid = docRef.id
+      okCallback(res)
+    } else {
+      koCallback()
+    }
+  }
+
+  async getRoutesFromUser(uid, okCallback, koCallback) {
+    try {
+      const routes = []
+      const q = query(collection(this.db, "routes"), 
+        where("uids", "array-contains", uid))
+      const querySnapshot = await getDocs(q)
+
+      querySnapshot.docs.forEach((routeData)=>{
+        routes.push({...routeData.data(), rid: routeData.id})
+      });
+
+      okCallback && okCallback(routes);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
+  async removeRoute(rid, okCallback, koCallback) {
+    await deleteDoc(doc(this.db, "routes", rid))
+    okCallback && okCallback()
+  }
+
   initAppCheck() {
     const appCheck = initializeAppCheck(this.app, {
       provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
@@ -595,7 +659,6 @@ class FirebaseController {
     await deleteDoc(doc(this.db, "follows", fid));
     okCallback && okCallback();
   }
-
 
   async getPost(pid, okCallback, koCallback) {
       const docRef = doc(this.db, "socialPosts", pid);
