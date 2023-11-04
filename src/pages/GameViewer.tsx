@@ -7,12 +7,18 @@ import NotLoggedLogo from '../components/NotLoggedLogo'
 
 interface GameViewerProps {
     gid: string
+    onLogin: Function
 }
 
-function GameViewer({ gid }: GameViewerProps) {
+function GameViewer({ gid, onLogin }: GameViewerProps) {
+    const fb = window.crawlear.fb
     const { t } = useTranslation()
     const [game] = UseGameViewer(gid)
     let result = <></>
+
+    React.useEffect(() => {
+        fb.checkIfLogged(onLogin);
+    },[]);
 
     if (!game.players) {
         result = <Spinner></Spinner>

@@ -7,11 +7,13 @@ import { t } from 'i18next';
 const body = window.document.body;
 
 function PilotWall({onLogin, onLogout}) {
+    const fb = window.crawlear.fb
     const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid;
     const { isUserLoged } = React.useContext(UserStatusContext);
 
     React.useEffect(()=>{
-        body.classList.add('profile');
+        body.classList.add('profile')
+        fb.checkIfLogged(()=>{onLogin(false)});
     },[]);
 
     if (isUserLoged){

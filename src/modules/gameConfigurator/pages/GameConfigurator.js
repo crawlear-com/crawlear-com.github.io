@@ -15,7 +15,7 @@ import UseGameConfigurator from '../hooks/UseGameConfigurator';
 
 import '../styles/GameConfigurator.scss';
 
-function GameConfigurator({preconfiguredGame, onGameCreated}) {
+function GameConfigurator({onLogin, preconfiguredGame, onGameCreated}) {
     const { t } = useTranslation();
     const extraConfigurationComponents = [];
     const { isUserLoged } = React.useContext(UserStatusContext);
@@ -25,6 +25,10 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         onMaxTimeChange, onZonesChange, onGatesChange, onNameChange,
         onGroupsChange, onIsPublicChange, onGameDirectorChange, 
         onRandomizePlayersOrder, createGame] = UseGameConfigurator({ preconfiguredGame, onGameCreated })
+
+    React.useEffect(() => {
+        fb.checkIfLogged(()=>{onLogin(false)});
+    }, [])
 
     extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
         mode={game.pointsType} 

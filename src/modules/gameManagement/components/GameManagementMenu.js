@@ -22,21 +22,6 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
            judgeGames, onRemoveJudgeGames,
            storedGames, onRemoveStoredGames, onLoadPreviousGames] = UseGameManagementMenu()
 
-/*
-        <GameList title={t('description.partidasdejuez')} 
-            games={judgeGames}
-            readOnly={false}
-            onGamePlay={(event) => {
-                onGamePlay(judgeGames, event.target.getAttribute("data-gameposition"));
-            }}
-            onConfigureGame={(gamePosition) => {
-                onConfigureGames(judgeGames, gamePosition)}
-            }
-            onRemoveGame={(gamePosition) => {
-                onRemoveJudgeGames(gamePosition)
-            }} />
-
-*/
     return <>
         <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
 

@@ -14,3 +14,137 @@
     }
 }
 
+.gameList {
+        margin-bottom: 15px;
+    width: 95%;
+    text-align: right;
+    display: inline-block;
+    position: relative;
+
+    .gameContainer {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+        text-align: right;
+        padding-top: 0px;
+        overflow: hidden;
+    }
+
+    .gameName {
+        display: inline-block;
+        width: 70%;
+        padding: 10px 0;
+        vertical-align: top;
+        font-size: 0.8em;
+    }
+
+    .gameDate {
+        padding-top: 15px;
+        padding-bottom: 20px;
+    }
+
+    .removeButton {
+        width: 25px;
+        height: 25px;
+    }
+
+    .gameParticipants {
+        font-size: 0.8em;
+        max-width: 305px;
+        margin: 0 auto;
+
+        .closed {
+            display: none;
+        }
+
+        .iconArrowDown {
+            height: 10px;
+            margin-left: 3px;
+        }
+
+        img {
+            max-height: 15px;
+        }
+
+        table {
+            margin: auto;
+            td:nth-of-type(2), 
+            td:nth-of-type(7) {
+                writing-mode:unset !important;
+            }
+            
+            tr:first-of-type {
+                td {
+                    writing-mode: vertical-lr;
+                    word-break: break-all;
+                    font-size: 0.8em;
+                }
+            }
+        }
+
+        .controlTextValues {
+            background-color: transparent;
+        }
+        .controlTextValues:first-of-type {
+            margin-top: 0;
+        }
+    }
+
+    .gameListPosition {
+        overflow:hidden;
+        background-color: #345C62;
+    }
+
+    .gameListPlayerName {
+        display: block;
+        width: 120px;
+        padding: 0 5px;
+    }
+
+    .gameListPoints {
+        overflow:hidden;
+        min-width: 25px;
+        background-color: #345C62;
+        max-width: 80px;
+    }
+
+    .gameListTime {
+        overflow:hidden;
+        min-width: 45px;
+        padding: 0 5px;
+    }
+
+    .gameListTextArray {
+        margin-top: 15px;
+    }
+
+    .winnerBox .headerPlayer img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+    }
+
+    .gameProgressionInfoItem {
+        margin: 10px;
+        text-align: left;
+        
+        .fiascosText {
+            margin-top: 10px;
+        }
+    }
+
+    .gameProgressionItem {
+        img {
+            margin-right: 10px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        ul {
+            padding-left: 0px;
+        }
+        li {
+            list-style-type: circle;
+            text-align: left;
+        }
+    }
+
+}

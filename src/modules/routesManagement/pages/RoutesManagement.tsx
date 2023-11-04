@@ -12,21 +12,18 @@ const STATE_CREATE = 1
 const STATE_VIEW = 2
 
 interface RoutesManagementProps {
-
+    onLogin: Function
 }
 
-function RoutesManagement({ }: RoutesManagementProps) {
-    const firebase = window.crawlear.fb
+function RoutesManagement({ onLogin }: RoutesManagementProps) {
+    const fb = window.crawlear.fb
     const [state, setState] = React.useState<number>(STATE_MENU)
     const [route, setRoute] = React.useState<Route>(new Route('','',true,'','',[window.crawlear.user.uid],'',0,0))
 
     React.useEffect(() => {
         Analytics.pageview('/routesManagement/');
+        fb.checkIfLogged(()=>{onLogin(false)});
     },[]);
-
-    if (!firebase.isUserLogged()) {
-        return <Navigate to={{ pathname: "/" }} state={{ from: "/routesManager" }}/>
-    }
 
     function onViewRoute(route: Route) {
         setRoute(route)

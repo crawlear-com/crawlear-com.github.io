@@ -4,8 +4,6 @@ import Route from '../Route'
 import List from '../../list/List'
 import { itemTransform } from '../../list/components/RouteListTransformer'
 
-import '../../gameManagement/styles/GameList.scss'
-
 interface RoutesManagementMenuProps {
     onCreateRoute: Function,
     onViewRoute: Function

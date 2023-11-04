@@ -11,18 +11,15 @@ const STATE_MENU = 0;
 const STATE_PLAYING = 1;
 const STATE_CONFIGURE = 2;
 
-function GameManagement() {
+function GameManagement({onLogin}) {
     const firebase = window.crawlear.fb;
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
 
     React.useEffect(() => {
-        Analytics.pageview('/completegame/');
+        Analytics.pageview('/completegame/')
+        firebase.checkIfLogged(()=>{onLogin(false)})
     },[]);
-
-    if (!firebase.isUserLogged()) {
-        return <Navigate to={{ pathname: "/", state: { from: "/gameconfigurator" } }} />
-    }
 
     function goBackToMenuStatus() {
         window.scrollTo(0,0);
