@@ -75,4 +75,4 @@ function App() {
   </UserStatusContext.Provider>)
 }
 
-export default App;
+export default App

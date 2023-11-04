@@ -23,7 +23,7 @@ function LoadingLogo({onVisible}) {
 
     return <div className='loadingLogo'>
         <a href="https://crawlear.com" target="_blank" rel="noreferrer">
-            <img ref={logoRef} src={logo} className="userViewerLogo" alt="web logo"></img>
+            <img ref={logoRef} src={logo} className="notLoggedLogo" alt="web logo"></img>
         </a>
         <br />
         <Spinner />

@@ -1,21 +1,24 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
 import Spinner from '../components/Spinner'
-import { default as Rv } from '../modules/routesManagement/components/RouteViewer'
+import { default as Rv } from '../modules/routesManagement/pages/RouteViewer'
 import UseRouteViewer from './hooks/UseRouteViewer'
+import NotLoggedLogo from '../components/NotLoggedLogo'
 
 interface RouteViewerProps {
     rid: string
 }
 
 function RouteViewer({ rid }: RouteViewerProps) {
-    const { t } = useTranslation()
     const [route] = UseRouteViewer(rid)
 
     if (!route) {
-        return <Spinner></Spinner>
+        return <>
+            <NotLoggedLogo /><br /><Spinner></Spinner>
+        </>
     } else {
-        return <Rv route={route} />
+        return <>
+            <NotLoggedLogo /><Rv route={route} />
+        </>
     }
 }
 

@@ -84,7 +84,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
 
         return <div className="userViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : 
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : 
                 <>
                     <div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div>
                 </>}

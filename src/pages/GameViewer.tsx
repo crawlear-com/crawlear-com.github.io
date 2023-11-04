@@ -3,6 +3,7 @@ import UseGameViewer from './hooks/UseGameViewer'
 import WinnerTable from '../components/WinnerTable'
 import { useTranslation } from 'react-i18next'
 import Spinner from '../components/Spinner'
+import NotLoggedLogo from '../components/NotLoggedLogo'
 
 interface GameViewerProps {
     gid: string
@@ -11,17 +12,23 @@ interface GameViewerProps {
 function GameViewer({ gid }: GameViewerProps) {
     const { t } = useTranslation()
     const [game] = UseGameViewer(gid)
+    let result = <></>
 
     if (!game.players) {
-        return <Spinner></Spinner>
+        result = <Spinner></Spinner>
     } else if (game.isPublic) {
-        return <>
+        result = <>
             <div className='headerText bold'>{ game.name }</div>
             <WinnerTable game={game} />
         </>
     } else {
-       return <>{t('description.juegonopublico')}</> 
+       result = <>{t('description.juegonopublico')}</> 
     }
+
+    return <>
+        <NotLoggedLogo /><br />
+        {result}
+    </>
 }
 
 export default GameViewer;
