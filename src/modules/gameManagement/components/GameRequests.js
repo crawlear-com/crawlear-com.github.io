@@ -27,7 +27,7 @@ function GameRequests({user}) {
     }
 
     React.useEffect(()=>{
-        user.uid && fb.getUserGameRequests(user.uid, 
+        user && user.uid && fb.getUserGameRequests(user.uid, 
             getUserGameRequestsOk, 
             ()=>{},
             onRequestAdded,
