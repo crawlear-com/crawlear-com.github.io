@@ -16,9 +16,10 @@ import UseGameConfigurator from '../hooks/UseGameConfigurator';
 import '../styles/GameConfigurator.scss';
 
 function GameConfigurator({onLogin, preconfiguredGame, onGameCreated}) {
-    const { t } = useTranslation();
-    const extraConfigurationComponents = [];
-    const { isUserLoged } = React.useContext(UserStatusContext);
+    const { t } = useTranslation()
+    const extraConfigurationComponents = []
+    const { isUserLoged } = React.useContext(UserStatusContext)
+    const fb = window.crawlear.fb
 
     const [game, errorMessage, groups, onGameTypeChange, onLocationResolved, 
         onJudgeNumerChange, onPlayerNumerChange, onMaxPointsChange, 

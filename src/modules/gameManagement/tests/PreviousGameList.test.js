@@ -1,6 +1,6 @@
 import { render, screen, act, fireEvent } from '@testing-library/react'
 import PreviousGameList from '../components/PreviousGameList'
-import GameList from '../components/GameList'
+import List from '../../list/List';
 import Spinner from '../../../components/Spinner';
 
 const div = document.createElement('div');
@@ -16,7 +16,7 @@ jest.mock('react-i18next', () => ({
     }
 }));
 
-jest.mock('../components/GameList')
+jest.mock('../../list/List')
 jest.mock('../../../components/Spinner')
 
 beforeEach(() => {

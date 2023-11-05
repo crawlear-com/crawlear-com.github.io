@@ -12,7 +12,10 @@ beforeEach(()=>{
   document.body.appendChild(div);
   window.scrollTo = jest.fn()
   window.crawlear = {
-    fb: jest.fn(),
+    fb: {
+        checkIfLogged: jest.fn(),
+        isUserLogged: jest.fn()
+    },
     user: { }
   } 
 })
