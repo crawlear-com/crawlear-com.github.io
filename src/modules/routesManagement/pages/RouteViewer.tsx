@@ -21,7 +21,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
         return <div className="routesManagement rounded rounded2">
             <div className="routesSection rounded rounded1">
                 { isOwner && onEditClick ? <div className="editButton" onClick={onEditClick}>[ {t("description.editar")} ]</div> : <></> }
-                <label>{t("description.nombre")}</label><div className="value">{route.name} </div>
+                <div className="value name">{route.name} </div>
             </div>
             <div className="routesSection">
                 <label>{t("description.descripcion")}</label><div className="value description">{route.description} </div>
