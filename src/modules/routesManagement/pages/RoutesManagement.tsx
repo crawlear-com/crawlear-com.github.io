@@ -18,7 +18,7 @@ interface RoutesManagementProps {
 function RoutesManagement({ onLogin }: RoutesManagementProps) {
     const fb = window.crawlear.fb
     const [state, setState] = React.useState<number>(STATE_MENU)
-    const [route, setRoute] = React.useState<Route>(new Route('','',true,'','',[window.crawlear.user.uid],'',0,0))
+    const [route, setRoute] = React.useState<Route>(new Route('','',true,'','',[''],'',0,0))
 
     React.useEffect(() => {
         Analytics.pageview('/routesManagement/');
