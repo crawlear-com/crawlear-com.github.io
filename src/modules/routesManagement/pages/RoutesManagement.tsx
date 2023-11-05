@@ -25,6 +25,10 @@ function RoutesManagement({ onLogin }: RoutesManagementProps) {
         fb.checkIfLogged(()=>{onLogin(false)});
     },[]);
 
+    if (!fb.isUserLogged()) {
+        return <Navigate state={{ from: "/route" }} to={{ pathname: "/" }} />
+    }
+
     function onViewRoute(route: Route) {
         setRoute(route)
         setState(STATE_VIEW)

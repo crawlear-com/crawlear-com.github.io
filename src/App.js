@@ -56,14 +56,16 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing onLogin={()=>{onLogin(true)}} />} />
           <Route path="/game" element={<GameManagement onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
-          <Route path="/social" element={<PilotWall onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
-          <Route path="/follows" element={<FollowsWall onLogin={()=>{onLogin(false)}} />} />
           <Route path="/gameconfigurator" element={<GameConfigurator onLogin={()=>{onLogin(false)}} />} />
-          <Route path="/route" element={<RoutesManagement onLogin={()=>{onLogin(false)}} />} />
           <Route path="/gameviewer" element={<GameViewer onLogin={()=>{onLogin(false)}} gid={queryParams.get && queryParams.get('gid')} />} />
+          <Route path="/route" element={<RoutesManagement onLogin={()=>{onLogin(false)}} />} />
           <Route path="/routeviewer" element={<RouteViewer onLogin={()=>{onLogin(false)}} rid={queryParams.get && queryParams.get('rid')} />} />
           <Route path="/profile" element={<UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
+
+          <Route path="/social" element={<PilotWall onLogin={()=>{onLogin(false)}} onLogout={onLogout} />} />
+          <Route path="/follows" element={<FollowsWall onLogin={()=>{onLogin(false)}} />} />
           <Route path="/post" element={<PostViewer onLogin={()=>{onLogin(false)}} pid={queryParams.get && queryParams.get('pid')} />} />
+
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />

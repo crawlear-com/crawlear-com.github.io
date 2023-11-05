@@ -21,6 +21,10 @@ function GameManagement({onLogin}) {
         firebase.checkIfLogged(()=>{onLogin(false)})
     },[]);
 
+    if (!firebase.isUserLogged()) {
+        return <Navigate state={{ from: "/game" }} to={{ pathname: "/" }} />
+    }
+
     function goBackToMenuStatus() {
         window.scrollTo(0,0);
         setState(STATE_MENU);
