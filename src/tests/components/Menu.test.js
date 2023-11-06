@@ -18,7 +18,14 @@ jest.mock('react-i18next', () => ({
 beforeEach(()=>{  
   document.body.innerHTML = '';
   document.body.append(div);
-});
+  window.crawlear = {
+    fb: jest.fn()
+  }
+})
+
+afterEach(() => {
+  delete window.crawlear
+})
 
 test('renders Menu closed', () => {
   const { container } = render(<BrowserRouter><Menu /></BrowserRouter>, div),
@@ -53,9 +60,9 @@ test('opens Menu', () => {
     const links = menu.querySelectorAll(".linksContainer li");
 
     expect(links.length).toBe(10);
-    expect(links[0].textContent).toBe("description.herramientajuego");
-    expect(links[1].textContent).toBe("description.perfilsocial");
-    expect(links[2].textContent).toBe("description.murodefollows");
+    expect(links[0].textContent).toBe("description.perfilsocial");
+    expect(links[1].textContent).toBe("description.herramientajuego");
+    expect(links[2].textContent).toBe("description.herramientaruta");
     expect(links[3].textContent).toBe("-");
     expect(links[4].querySelector("div").getAttribute("href")).toBe("https://www.aecar.org/modalidades.php?tipo=crawler");
     expect(links[5].querySelector("div").getAttribute("href")).toBe("https://www.clubzonarc.es/");

@@ -286,6 +286,27 @@ class GameUtils {
         return initFunct;
     }
 
+    static resolveGameTypeName(gameType: number) {
+        switch(gameType) {
+            case GAME_TYPE_AECAR:
+                return 'gametype.aecar'
+            case GAME_TYPE_KING:
+                return 'gametype.rey'
+            case GAME_TYPE_ISRCC:
+                return 'gametype.isrcc'
+            case GAME_TYPE_LEVANTE:
+                return 'gametype.levante124'
+            case GAME_TYPE_COPAESPANA:
+                return 'gametype.copaespana'
+            case GAME_TYPE_MINICRAWLERPASSION:
+                return 'gametype.minicrawlerpassion'
+            case GAME_TYPE_GENERIC:
+                return 'gametype.generic'
+            default:
+                return 'gametype.isrcc'
+        }
+    }
+
     static redoPlayersIds(game: Game) {
         game.players.forEach((player, index)=>{
             player.id = index;

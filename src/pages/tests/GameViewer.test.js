@@ -21,7 +21,13 @@ jest.mock('../hooks/UseGameViewer')
 
 beforeEach(() => {
     document.body.append(div)
-
+    window.crawlear = {
+        fb: {
+            checkIfLogged: jest.fn(),
+            isUserLogged: jest.fn()
+        },
+        
+    }
 })
 
 afterEach(() => {

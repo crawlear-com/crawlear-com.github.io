@@ -1,4 +1,4 @@
-const CACHE_NAME = "crawlearCache_v13";
+const CACHE_NAME = "crawlearCache_v14";
 
 //eslint-disable-next-line
 self.addEventListener('install', event => {
@@ -17,7 +17,10 @@ self.addEventListener('install', event => {
             '/616535897b5598e00b94.png',
             '/c02f061a017d59f5bb86.svg',
             '/b0c484b364dc559b8644.svg',
-            '/5aa9dd97f0c1a5039ca6.svg'
+            '/5aa9dd97f0c1a5039ca6.svg',
+            '/5a44f62010f7c0ab463f.jpeg',
+            '/612023bee477b5276e86.png',
+            '/de8050057e44a7a2a984.png'
           ]);
         })
       );

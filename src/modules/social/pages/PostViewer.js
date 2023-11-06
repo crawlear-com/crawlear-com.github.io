@@ -20,7 +20,7 @@ function PostViewer({pid, onLogin}) {
     }
 
     return <div className='userViewer'>
-        {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
+        {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></>}
         {post.pid ? <>
                 {user.displayName ? <UserProfile user={user}/> : <></>}
                 <Post post={post} readOnly={false} /> 

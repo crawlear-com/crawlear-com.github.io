@@ -15,7 +15,6 @@ const USER_TYPE_JUDGE = 1;
 const USER_TYPE_NEUTRAL = 2;
 
 function UserViewer({uid, onLogout, onLogin}) {
-    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const [user, setUser] = React.useState({});
@@ -37,36 +36,9 @@ function UserViewer({uid, onLogout, onLogin}) {
                 });
             });
     
-            firebase.getPosts(uid, (data)=>{
-                setUserPosts([...userPosts, ...data]);
-            }, ()=>{});
-    
-            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`);          
         } 
     }, [isVisible, uid]);
-
-    function getPostType(post) {
-        return post.url ? (Utils.isInstagramUrl(post.url) ? 'instagram' : 'youtube') : 'text';
-    }
-
-    function onPostEntry(post) {
-        const newUserPosts = [...userPosts];
-
-        newUserPosts.unshift(post);
-        setUserPosts(newUserPosts);
-        Analytics.event('post','added', getPostType(post));
-    }
-
-    function removePostClick(id) {
-        id && firebase.removePost(id, ()=>{
-                const newUserPosts = userPosts.filter((elem)=>{
-                    return elem.pid !== id;
-                });
-
-                setUserPosts(newUserPosts);
-                Analytics.event('post','removed');
-            }, ()=>{});
-    }
 
     function onScreen(visible) {
         visible && setIsVisible(visible);
@@ -84,7 +56,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
 
         return <div className="userViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : 
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : 
                 <>
                     <div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div>
                 </>}
@@ -103,16 +75,7 @@ function UserViewer({uid, onLogout, onLogin}) {
                 <p className='bold'>
                     {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
                 </p>
-
-                <div>{`${t('description.siguiendo')}: ${userData.following}`}</div>
-                <div>{`${t('description.seguidores')}: ${userData.followers}`}</div>
             </div></>
-
-            <div className="posts">
-                <div className='sectionTitle headerText bold'>{t('description.murodepiloto')}</div>
-                {isUidTheUserLogged ? <UserPoster isOpened={!userPosts.length} onPostEntry={onPostEntry}/> : <></>}
-                <Posts posts={userPosts} readOnly={!isUidTheUserLogged} removePostClick={removePostClick} />
-            </div>
         </div>;
     } else {
         return <LoadingLogo onVisible={onScreen}/>;

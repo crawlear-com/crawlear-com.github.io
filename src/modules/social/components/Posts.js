@@ -29,7 +29,7 @@ function Posts({posts, removePostClick, readOnly}) {
         });
 
         return <div className="feedViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <></>}
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></>}
             <div className="posts">
                 {embeds}
             </div>

@@ -62,7 +62,7 @@ function FeedViewer({uid}) {
 
     if (status===STATUS_LOADED && feedPosts.length && isVisible) {
         return <div className="feedViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="userViewerLogo" alt="web logo"></img></a> : <>
+            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <>
                 <div className='headerText bold'>{t('description.buscarusuario')}</div>
                 <UserSearch onUserClick={onUserClick}
                     mainText={t('content.puedesbuscarusuarios')} 

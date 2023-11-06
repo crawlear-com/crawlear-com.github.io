@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import * as React from 'react';
 
-function GoogleMaps({ location }) {
+function GoogleMapsLocation({ location }) {
     const style1 = ".mapouter{position:relative;text-align:right;}";
     const style2 = ".gmap_canvas {overflow:hidden;background:none!important;}";
 
@@ -12,7 +12,7 @@ function GoogleMaps({ location }) {
                     <style>{style1}</style>
                     <style>{style2}</style>
                 </div>
-            </div>;
+            </div>
 }
 
-export default GoogleMaps;
+export default GoogleMapsLocation

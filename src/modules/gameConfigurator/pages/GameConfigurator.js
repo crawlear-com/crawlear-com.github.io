@@ -15,16 +15,21 @@ import UseGameConfigurator from '../hooks/UseGameConfigurator';
 
 import '../styles/GameConfigurator.scss';
 
-function GameConfigurator({preconfiguredGame, onGameCreated}) {
-    const { t } = useTranslation();
-    const extraConfigurationComponents = [];
-    const { isUserLoged } = React.useContext(UserStatusContext);
+function GameConfigurator({onLogin, preconfiguredGame, onGameCreated}) {
+    const { t } = useTranslation()
+    const extraConfigurationComponents = []
+    const { isUserLoged } = React.useContext(UserStatusContext)
+    const fb = window.crawlear.fb
 
     const [game, errorMessage, groups, onGameTypeChange, onLocationResolved, 
         onJudgeNumerChange, onPlayerNumerChange, onMaxPointsChange, 
         onMaxTimeChange, onZonesChange, onGatesChange, onNameChange,
         onGroupsChange, onIsPublicChange, onGameDirectorChange, 
         onRandomizePlayersOrder, createGame] = UseGameConfigurator({ preconfiguredGame, onGameCreated })
+
+    React.useEffect(() => {
+        fb.checkIfLogged(()=>{onLogin(false)});
+    }, [])
 
     extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
         mode={game.pointsType} 
@@ -109,7 +114,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
                     onClick={() => {
                         createGame(groups, game);
                     }
-                }>{t('description.crear')}</button>
+                }>{t('description.crearjuego')}</button>
                 <button
                     onClick={() => {
                         window.location.reload();

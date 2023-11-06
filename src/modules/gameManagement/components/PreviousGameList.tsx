@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Game } from '../../../games/Game'
-import GameList from './GameList'
+import { itemTransform } from '../../list/components/GameListTransformer'
+import List from '../../list/List'
 import Spinner from '../../../components/Spinner'
 
 export interface PreviousGameListProps {
@@ -26,14 +27,16 @@ function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, 
         if (isLoading) {
             setIsLoading(false)
         }
-        storedGamesUi.push(<GameList key='previousGames' title={t('description.partidasprevias')} 
-            games={storedGames}
+        storedGamesUi.push(<List key='previousGames' 
+            title={t('description.partidasprevias')} 
+            data={storedGames}
+            transformer={itemTransform}
             readOnly={false}
-            onGamePlay={() => {}}
-            onRemoveGame={(gamePosition: number) => {
+            onItemAction={() => {}}
+            onRemoveItem={(gamePosition: number) => {
                 onRemoveStoredGames(gamePosition)}
             }
-            onConfigureGame={(gamePosition: number) => {
+            onConfigureItem={(gamePosition: number) => {
                 onConfigureGames(storedGames, gamePosition) }
             } />)
     } else {

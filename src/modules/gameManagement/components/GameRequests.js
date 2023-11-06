@@ -28,10 +28,10 @@ function GameRequests({user}) {
 
     React.useEffect(()=>{
         fb.getUserGameRequests(user.uid, 
-                getUserGameRequestsOk, 
-                ()=>{},
-                onRequestAdded,
-                onRequestRemoved);
+            getUserGameRequestsOk, 
+            ()=>{},
+            onRequestAdded,
+            onRequestRemoved)
     },[])
 
     gameRequests && Object.keys(gameRequests).forEach((key)=>{

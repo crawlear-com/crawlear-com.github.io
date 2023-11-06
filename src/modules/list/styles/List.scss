@@ -1,0 +1,36 @@
+.list {
+    margin-bottom: 15px;
+    width: 95%;
+    text-align: right;
+    display: inline-block;
+    position: relative;
+
+    .listItemContainer {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+        text-align: right;
+        padding-top: 0px;
+        overflow: hidden;
+
+        .playButton {
+            background-image: url(./img/iconPlay.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-y: 1px;
+            margin: 9px 0 0px 5px;
+            display: inline-block;
+        }
+
+        button {
+            height: 45px;
+        }
+    }
+
+    .listItemName {
+        display: inline-block;
+        width: 70%;
+        padding: 10px 0;
+        vertical-align: top;
+        font-size: 0.8em;
+    }
+}

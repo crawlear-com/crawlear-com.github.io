@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import WinnerTable from '../../../components/WinnerTable';
 import PostLikes from './PostLikes';
-import GoogleMaps from './embed/GoogleMaps';
+import GoogleMapsLocation from './embed/GoogleMapsLocation';
 import Analytics from '../../../Analytics';
 
 function PostInfo({ post, readOnly, onRemovePost, children }) {
@@ -62,7 +62,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
                 {game.gid ? <div className='postGame bold'>
                                 {game.gid ? <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
                                             {t('description.nombre')}:<span className='gameName'>{game.name} </span><WinnerTable game={game} /></> : <></>}
-                                {game.location && game.location.longitude && game.location.longitude && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMaps location={game.location} /></> : <></>}
+                                {game.location && game.location.longitude && game.location.longitude && game.isPublic ? <><div className='gameName'>{t('description.localizacion')}:</div><GoogleMapsLocation location={game.location} /></> : <></>}
                             </div> : 
                                 postHasGameAssigned() ? 
                                     <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>

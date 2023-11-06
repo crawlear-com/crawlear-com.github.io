@@ -20,7 +20,7 @@ function Landing({onLogin}) {
     
     function signInCallback() {
         onLogin(true);
-        navigate("/completegame");
+        navigate("/game");
     }
 
     React.useEffect(() => {
