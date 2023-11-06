@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
 import Route from '../Route'
 import ErrorBox from '../../../components/ErrorBox'
+import UseRoutesConfigurator from '../hooks/UseRoutesConfigurator'
+import { useTranslation } from 'react-i18next'
 
 interface RoutesConfiguratorProps {
     inRoute: Route,
@@ -10,61 +11,9 @@ interface RoutesConfiguratorProps {
 }
 
 function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConfiguratorProps) {
+    const [route, error, onCreateRoute, onDificultyChange, onInputChange] = UseRoutesConfigurator(inRoute, onRouteCreated)
     const { t } = useTranslation()
-    const [route, setRoute] = React.useState(inRoute)
-    const [error, setError] = React.useState('')
-    const fb = window.crawlear.fb
 
-    function onCreateRoute() {
-        if (route.name.length <= 0) {
-            setError(t('error.nonombre'))
-        } else if (route.description.length <= 0) {
-            setError(t('error.nodescripcion'))
-        } else if (route.scale.length <= 0) {
-            setError(t('error.noescala'))
-        } else if (route.locationMapUrl.length <= 0) {
-            setError(t('error.nolocation'))
-        } else if (route.routeMapUrl.length <= 0) {
-            setError(t('error.noruta'))
-        } else {
-            setError('')
-            fb.setRoute(route, (route: Route) => {}, () => {})
-            onRouteCreated()
-        }
-    }
-
-    function onDificultyChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        const value = event.target.selectedIndex + 1
-        const newRoute = new Route(route.name, 
-            route.description,
-            route.isPublic,
-            route.locationMapUrl,
-            route.routeMapUrl,
-            route.uids,
-            route.scale,
-            value,
-            route.likes,
-            route.rid)
-        setRoute(newRoute)
-    }
-
-    function onInputChange(parameter: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        const value = event.target.type === 'checkbox' ? (event.target as HTMLInputElement).checked : event.target.value
-        const newRoute = new Route(route.name, 
-            route.description,
-            route.isPublic,
-            route.locationMapUrl,
-            route.routeMapUrl,
-            route.uids,
-            route.scale,
-            route.dificulty,
-            route.likes,
-            route.rid)
-
-        newRoute[parameter as keyof typeof Route] = value
-        setRoute(newRoute)
-    }
-    
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
         <div className="routesManagement rounded rounded2">
