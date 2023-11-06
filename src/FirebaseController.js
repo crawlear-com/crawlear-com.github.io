@@ -115,21 +115,6 @@ class FirebaseController {
       querySnapshot = await getDocs(q);
       data.judgeGames = querySnapshot.docs.length;
 
-      q = query(collection(this.db, "games"), 
-        where("owner", "array-contains", uid));
-      querySnapshot = await getDocs(q);
-      data.ownerGames = querySnapshot.docs.length;
-
-      q = query(collection(this.db, "follows"), 
-      where("toUid", "==", uid));
-      querySnapshot = await getDocs(q);
-      data.followers = querySnapshot.docs.length;
-
-      q = query(collection(this.db, "follows"), 
-      where("fromUid", "==", uid));
-      querySnapshot = await getDocs(q);
-      data.following = querySnapshot.docs.length;
-
       okCallback && okCallback(data);
       } catch(e) {
         koCallback && koCallback();
