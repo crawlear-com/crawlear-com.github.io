@@ -44,6 +44,7 @@ function Menu() {
                 <div className="burguerMenuBar"></div>
                 <div className="linksContainer">
                     <ul>
+                        <li><div onClick={()=>{browseTo("/social")}}>{t("description.perfilsocial")}</div></li>
                         <li><div onClick={()=>{browseTo("/game")}}>{t("description.herramientajuego")}</div></li>
                         <li><div onClick={()=>{browseTo("/route")}}>{t("description.herramientaruta")}</div></li>
                         <li>-</li>

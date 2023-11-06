@@ -49,7 +49,7 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
     }
 
     function onInputChange(parameter: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        const value = 'checked' in event.target ? event.target.checked : event.target.value
+        const value = event.target.type === 'checkbox' ? (event.target as HTMLInputElement).checked : event.target.value
         const newRoute = new Route(route.name, 
             route.description,
             route.isPublic,

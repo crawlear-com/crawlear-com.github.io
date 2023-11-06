@@ -23,15 +23,15 @@ function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemActi
     let children
 
     function onRemoveItemClick(event: React.MouseEvent<HTMLDivElement>) {
-        const position = (event.target as HTMLDivElement).getAttribute("data-itemposition");
+        const position = Number((event.target as HTMLDivElement).getAttribute("data-itemposition"))
         
         if (window.confirm(t('content.seguroborrarpost'))) {
-            onRemoveItem && onRemoveItem(Number(position))
+            onRemoveItem && onRemoveItem(position)
         }
     }
 
     function onConfigureItemClick(event: React.MouseEvent<HTMLDivElement>) {
-        const position = Number((event.target as HTMLDivElement).getAttribute("data-gameposition"))
+        const position = Number((event.target as HTMLDivElement).getAttribute("data-itemposition"))
 
         onConfigureItem && onConfigureItem(position);                
     }
