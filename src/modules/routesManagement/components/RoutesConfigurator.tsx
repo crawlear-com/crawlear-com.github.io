@@ -34,7 +34,7 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
     }
 
     function onDificultyChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        const value = event.target.selectedIndex
+        const value = event.target.selectedIndex + 1
         const newRoute = new Route(route.name, 
             route.description,
             route.isPublic,
