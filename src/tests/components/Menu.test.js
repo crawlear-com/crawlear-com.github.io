@@ -60,13 +60,14 @@ test('opens Menu', () => {
     const links = menu.querySelectorAll(".linksContainer li");
 
     expect(links.length).toBe(10);
-    expect(links[0].textContent).toBe("description.herramientajuego");
-    expect(links[1].textContent).toBe("description.herramientaruta");
-    expect(links[2].textContent).toBe("-");
-    expect(links[3].querySelector("div").getAttribute("href")).toBe("https://www.aecar.org/modalidades.php?tipo=crawler");
-    expect(links[4].querySelector("div").getAttribute("href")).toBe("https://www.clubzonarc.es/");
-    expect(links[5].querySelector("div").getAttribute("href")).toBe("https://isrcc.eu/");
-    expect(links[6].textContent).toBe("-");
-    expect(links[7].textContent).toBe("description.politicaprivacidad");
-    expect(links[8].textContent).toBe("description.aboutus");
+    expect(links[0].textContent).toBe("description.perfilsocial");
+    expect(links[1].textContent).toBe("description.herramientajuego");
+    expect(links[2].textContent).toBe("description.herramientaruta");
+    expect(links[3].textContent).toBe("-");
+    expect(links[4].querySelector("div").getAttribute("href")).toBe("https://www.aecar.org/modalidades.php?tipo=crawler");
+    expect(links[5].querySelector("div").getAttribute("href")).toBe("https://www.clubzonarc.es/");
+    expect(links[6].querySelector("div").getAttribute("href")).toBe("https://isrcc.eu/");
+    expect(links[7].textContent).toBe("-");
+    expect(links[8].textContent).toBe("description.politicaprivacidad");
+    expect(links[9].textContent).toBe("description.aboutus");
   });
