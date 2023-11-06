@@ -59,7 +59,7 @@ test('opens Menu', () => {
     })
     const links = menu.querySelectorAll(".linksContainer li");
 
-    expect(links.length).toBe(9);
+    expect(links.length).toBe(10);
     expect(links[0].textContent).toBe("description.herramientajuego");
     expect(links[1].textContent).toBe("description.herramientaruta");
     expect(links[2].textContent).toBe("-");

@@ -23,6 +23,11 @@ function RoutesManagement({ onLogin }: RoutesManagementProps) {
     React.useEffect(() => {
         Analytics.pageview('/routesManagement/');
         fb.checkIfLogged(()=>{onLogin(false)});
+        window.document.body.classList.add('route');
+
+        return () => {
+            window.document.body.classList.remove('route');
+        }
     },[]);
 
     if (!fb.isUserLogged()) {

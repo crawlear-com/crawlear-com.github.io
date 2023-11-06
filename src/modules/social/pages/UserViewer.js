@@ -36,7 +36,7 @@ function UserViewer({uid, onLogout, onLogin}) {
                 });
             });
     
-            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`);
+            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`);          
         } 
     }, [isVisible, uid]);
 

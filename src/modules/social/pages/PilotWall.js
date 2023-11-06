@@ -12,8 +12,12 @@ function PilotWall({onLogin, onLogout}) {
     const { isUserLoged } = React.useContext(UserStatusContext);
 
     React.useEffect(()=>{
-        body.classList.add('profile')
-        fb.checkIfLogged(()=>{onLogin(false)});
+        fb.checkIfLogged(()=>{onLogin(false)})
+        window.document.body.classList.add('social');
+
+        return () => {
+            window.document.body.classList.remove('social');
+        }
     },[]);
 
     if (isUserLoged){

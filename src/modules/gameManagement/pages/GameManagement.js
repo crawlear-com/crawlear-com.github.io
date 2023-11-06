@@ -19,6 +19,11 @@ function GameManagement({onLogin}) {
     React.useEffect(() => {
         Analytics.pageview('/completegame/')
         firebase.checkIfLogged(()=>{onLogin(false)})
+        window.document.body.classList.add('game');
+
+        return () => {
+            window.document.body.classList.remove('game');
+        }
     },[]);
 
     if (!firebase.isUserLogged()) {
