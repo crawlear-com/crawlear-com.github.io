@@ -22,7 +22,7 @@
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^4.0.1",
     "react-ga4": "^2.0.0",
-    "react-gpxroutemap": "github:crawlear-com/react-gpxRouteMap",
+    "react-gpxroutemap": "file:../react-gpxRouteMap",
     "react-i18next": "^11.13.0",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^5.0.0-next.47",
@@ -33,6 +33,7 @@
   "scripts": {
     "predeploy": "npm run build && cp CNAME dist/CNAME",
     "deploy": "npm run test && gh-pages -b master -d dist",
+    "prestart": "npm-link-shared ./node_modules/react-gpxroutemap/node_modules . react",
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

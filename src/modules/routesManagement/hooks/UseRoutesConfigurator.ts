@@ -61,18 +61,20 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
     }
 
     function onFileResolved(fileContent: string, routePoint: RoutePoint) {
-        const newRoute = new Route(route.name, 
-            route.description,
-            route.isPublic,
-            route.locationMapUrl,
-            fileContent ? fileContent : '',
-            routePoint ? routePoint : { lat: 0, lon: 0 },
-            route.uids,
-            route.scale,
-            route.dificulty,
-            route.likes,
-            route.rid)
-        setRoute(newRoute)
+        setRoute((previousRoute) => {
+            const newRoute = new Route(previousRoute.name, 
+                previousRoute.description,
+                previousRoute.isPublic,
+                previousRoute.locationMapUrl,
+                fileContent ? fileContent : '',
+                routePoint ? routePoint : { lat: 0, lon: 0 },
+                previousRoute.uids,
+                previousRoute.scale,
+                previousRoute.dificulty,
+                previousRoute.likes,
+                previousRoute.rid)
+            return newRoute
+        })
     }
 
     return [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved]
