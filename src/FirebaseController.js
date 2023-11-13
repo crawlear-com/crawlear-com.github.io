@@ -336,7 +336,7 @@ class FirebaseController {
           isPublic: route.isPublic,
           scale: route.scale,
           locationMapUrl: route.locationMapUrl,
-          routeMapUrl: route.routeMapUrl,
+          gpx: route.gpx,
           uids: route.uids,
           scale: route.scale,
           dificulty: route.dificulty,

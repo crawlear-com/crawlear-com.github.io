@@ -1,7 +1,8 @@
 import * as React from 'react'
-import Route from '../Route'
+import Route, { RoutePoint } from '../Route'
 import ErrorBox from '../../../components/ErrorBox'
 import UseRoutesConfigurator from '../hooks/UseRoutesConfigurator'
+import { GpxRouteMap } from 'react-gpxroutemap'
 import { useTranslation } from 'react-i18next'
 
 interface RoutesConfiguratorProps {
@@ -11,9 +12,9 @@ interface RoutesConfiguratorProps {
 }
 
 function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConfiguratorProps) {
-    const [route, error, onCreateRoute, onDificultyChange, onInputChange] = UseRoutesConfigurator(inRoute, onRouteCreated)
+    const [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved] = UseRoutesConfigurator(inRoute, onRouteCreated)
     const { t } = useTranslation()
-
+    
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
         <div className="routesManagement rounded rounded2">
@@ -43,9 +44,12 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
             <label>{t('description.puntoencuentro')}<input name='locationMapUrl' value={route.locationMapUrl} onChange={(value) => {
                 onInputChange('locationMapUrl', value)
             }}></input></label><br />
-            <label>{t('description.mapaderuta')} <input name='routeMapUrl' value={route.routeMapUrl} onChange={(value) => {
-                onInputChange('routeMapUrl', value)
-            }}></input></label><br />
+            <label>{t('description.mapaderuta')}
+                <GpxRouteMap gpx={route.gpx} onFileResolved={(fileContent: string, point: RoutePoint) => {
+                    onFileResolved(fileContent, point)
+                }} ></GpxRouteMap>
+            </label><br />
+
             <button className='importantNote' onClick={onCreateRoute}>{route.rid ? t('description.modificar') : t('description.crear')}</button>
             <button onClick={onBackClick}>{ t('description.atras')}</button>
         </div>

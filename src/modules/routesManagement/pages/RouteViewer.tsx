@@ -1,10 +1,12 @@
 import * as React from 'react'
 import Route from '../Route'
 import { useTranslation } from 'react-i18next'
-import GoogleMapsRouteUrl from '../../social/components/embed/GoogleMapsRouteUrl'
 import GoogleMapsUrl from '../../social/components/embed/GoogleMapsUrl'
 import Sharers from '../../social/components/embed/Sharers'
+import { GpxRouteMap } from 'react-gpxroutemap'
 
+import 'react-gpxroutemap/dist/public/img/marker-icon.png'
+import 'react-gpxroutemap/dist/public/img/marker-shadow.png'
 import '../styles/RouteViewer.scss'
 
 interface RouteViewerProps {
@@ -38,9 +40,8 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
             <div className="routesSection">
                 <label>{t("description.puntoencuentro")}</label><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
             </div>
-            <div className="routesSection">
-                <label>{t("description.mapaderuta")}</label><GoogleMapsRouteUrl url={route.routeMapUrl}></GoogleMapsRouteUrl>
-            </div>
+
+            <GpxRouteMap gpx={route.gpx} onFileResolved={()=>{}} ></GpxRouteMap>
 
             <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText={t("description.compartir")}></Sharers>
             { onBackClick ? <button onClick={onBackClick}>{t("description.atras")}</button> : <></> }

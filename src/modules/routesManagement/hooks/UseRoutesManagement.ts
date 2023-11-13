@@ -7,7 +7,7 @@ import { Navigate } from 'react-router-dom'
 function UseRoutesManagement(onLogin: Function): Array<any> {
     const fb = window.crawlear.fb
     const [state, setState] = React.useState<number>(STATE_MENU)
-    const [route, setRoute] = React.useState<Route>(new Route('','',true,'','',[''],'',0,0))
+    const [route, setRoute] = React.useState<Route>(new Route('','',true,'','',{lat:0,lon:0},[''],'',0,0))
 
     React.useEffect(() => {
         Analytics.pageview('/routesManagement/');
@@ -28,7 +28,7 @@ function UseRoutesManagement(onLogin: Function): Array<any> {
         if (newRoute) {
             setRoute(newRoute)
         } else {
-            setRoute(new Route('','',true,'','',[window.crawlear.user.uid],'',0,0))
+            setRoute(new Route('','',true,'','',{lat:0,lon:0},[window.crawlear.user.uid],'',0,0))
         }
         
         setState(STATE_CREATE)

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Route from '../Route'
+import Route, { RoutePoint } from '../Route'
 import { useTranslation } from 'react-i18next'
 
 function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<any> {
@@ -17,7 +17,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             setError(t('error.noescala'))
         } else if (route.locationMapUrl.length <= 0) {
             setError(t('error.nolocation'))
-        } else if (route.routeMapUrl.length <= 0) {
+        } else if (route.gpx.length <= 0) {
             setError(t('error.noruta'))
         } else {
             setError('')
@@ -32,7 +32,8 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             route.description,
             route.isPublic,
             route.locationMapUrl,
-            route.routeMapUrl,
+            route.gpx,
+            route.point,
             route.uids,
             route.scale,
             value,
@@ -47,7 +48,8 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             route.description,
             route.isPublic,
             route.locationMapUrl,
-            route.routeMapUrl,
+            route.gpx,
+            route.point,
             route.uids,
             route.scale,
             route.dificulty,
@@ -58,7 +60,22 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
         setRoute(newRoute)
     }
 
-    return [route, error, onCreateRoute, onDificultyChange, onInputChange]
+    function onFileResolved(fileContent: string, routePoint: RoutePoint) {
+        const newRoute = new Route(route.name, 
+            route.description,
+            route.isPublic,
+            route.locationMapUrl,
+            fileContent ? fileContent : '',
+            routePoint ? routePoint : { lat: 0, lon: 0 },
+            route.uids,
+            route.scale,
+            route.dificulty,
+            route.likes,
+            route.rid)
+        setRoute(newRoute)
+    }
+
+    return [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved]
 }
 
 export default UseRoutesConfigurator
