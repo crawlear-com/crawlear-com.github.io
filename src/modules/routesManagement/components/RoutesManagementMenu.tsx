@@ -26,7 +26,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
     function onDeleteRoute(i: number) {
         const newRoutes = [...routes]
 
-        fb.removeRoute(newRoutes[i].rid, () => {
+        fb.removeRoute(newRoutes[i].rid, newRoutes[i].gpx?.gid, () => {
             delete newRoutes[i]
             setRoutes(newRoutes)
         }, () => {})

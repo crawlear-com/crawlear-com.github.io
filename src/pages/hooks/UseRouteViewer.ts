@@ -5,7 +5,7 @@ import Analytics from '../../Analytics'
 function UseRouteViewer(rid: string) {
     const firebase = window.crawlear.fb
     const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid || ''
-    const [route, setRoute] = React.useState<Route>(new Route('','',true,'','',{lat:0,lon:0},[uid],'',0,0))
+    const [route, setRoute] = React.useState<Route>(new Route('','',true,'',{ data: ''},{lat:0,lon:0},[uid],'',0,0))
 
     React.useEffect(() => {
         Analytics.pageview(`/routeviewer?gid=${rid}`);

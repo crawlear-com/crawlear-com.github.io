@@ -5,7 +5,7 @@ class Route {
     description: string
     isPublic: boolean
     locationMapUrl: string
-    gpx: string
+    gpx: Gpx
     point: RoutePoint
     uids: Array<string>
     scale: string
@@ -13,7 +13,7 @@ class Route {
     likes: number
 
     constructor(name: string, description: string, isPublic: boolean, locationMapUrl: string, 
-        gpx: string, point: RoutePoint, uids: Array<string>, scale: string, dificulty: number, likes: number, rid?: string) {
+        gpx: Gpx, point: RoutePoint, uids: Array<string>, scale: string, dificulty: number, likes: number, rid?: string) {
 
         this.name = name
         this.description = description
@@ -34,14 +34,19 @@ class Route {
         this.rid = rid
     }
 
-    transformIntoData() {
-        return {...this}
+    transformIntoData(gpx: any) {
+        return {...this, gpx}
     }
 }
 
 export interface RoutePoint {
     lat: number,
     lon: number
+}
+
+export interface Gpx {
+    gid?: string
+    data: string
 }
 
 export default Route

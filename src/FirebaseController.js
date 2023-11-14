@@ -327,31 +327,70 @@ class FirebaseController {
     return game;
   }
 
-  async setRoute(route, okCallback, koCallback) {
-    try {
-      if (route.rid) {
-        const data = {
-          name: route.name,
-          description: route.description,
-          isPublic: route.isPublic,
-          scale: route.scale,
-          locationMapUrl: route.locationMapUrl,
-          gpx: route.gpx,
-          uids: route.uids,
-          scale: route.scale,
-          dificulty: route.dificulty,
-          likes: route.likes
-        }
-        
-        await setDoc(doc(this.db, "routes", route.rid), data);
-      } else {
-        const routeRef = await addDoc(collection(this.db, "routes"), route.transformIntoData())
-        route.rid = routeRef.id
-      }
 
-      okCallback && okCallback(route)
+  async setGpx(gpx, okCallback, koCallback) {
+    try {
+      if (gpx.gid) {
+        await setDoc(doc(this.db, "gpx", gpx.gid), { data: gpx.data })
+        okCallback && okCallback(gpx)
+      } else {
+        const gpxRef  = await addDoc(collection(this.db, "gpx"), { data: gpx.data })
+        gpx.gid = gpxRef.id
+        okCallback && okCallback(gpx)
+      }
     } catch (e) {
       koCallback && koCallback()
+    }
+  }
+
+  async setRoute(route, okCallback, koCallback) {
+    this.setGpx(route.gpx, async (gpx) => {
+      try {
+        if (route.rid && gpx.gid) {
+          const data = {
+            name: route.name,
+            description: route.description,
+            isPublic: route.isPublic,
+            scale: route.scale,
+            locationMapUrl: route.locationMapUrl,
+            gpx: gpx.gid,
+            uids: route.uids,
+            scale: route.scale,
+            dificulty: route.dificulty,
+            likes: route.likes
+          }
+          
+          await setDoc(doc(this.db, "routes", route.rid), data);
+        } else if (gpx.gid) {
+          route.gpx = gpx.gid
+          const routeRef = await addDoc(collection(this.db, "routes"), route.transformIntoData(gpx.gid))
+          route.rid = routeRef.id
+        } else {
+          koCallback && koCallback()
+        }
+
+        route.gpx = gpx
+        okCallback && okCallback(route)
+      } catch (e) {
+        koCallback && koCallback()
+      }
+  
+    }, () => {
+      koCallback && koCallback()
+    })
+  }
+
+  async getGpx(gid, okCallback, koCallback) {
+    const docRef = doc(this.db, "gpx", gid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      const res = { data: docSnap.data() }
+      res.gid = docRef.id
+
+      okCallback(res)
+    } else {
+      koCallback()
     }
   }
 
@@ -361,9 +400,17 @@ class FirebaseController {
 
     if (docSnap.exists()) {
       const res = docSnap.data()
-
       res.rid = docRef.id
-      okCallback(res)
+
+      if (res.gpx) {
+        this.getGpx(res.gpx, (gpx) => {
+          res.gpx = gpx.data
+          res.gpx.gid = gpx.gid
+        
+        }, koCallback)
+      } else {
+        okCallback(res)
+      }
     } else {
       koCallback()
     }
@@ -377,16 +424,31 @@ class FirebaseController {
       const querySnapshot = await getDocs(q)
 
       querySnapshot.docs.forEach((routeData)=>{
-        routes.push({...routeData.data(), rid: routeData.id})
-      });
+        const data = routeData.data()
 
-      okCallback && okCallback(routes);
+        if (data.gpx) {
+          this.getGpx(data.gpx, (gpx) => {
+            data.gpx = gpx.data
+            data.gpx.gid = gpx.gid 
+            routes.push({...data, rid: routeData.id})    
+            okCallback && okCallback(routes);
+          }, koCallback)  
+        } else {
+          routes.push({...routeData.data(), rid: routeData.id})
+          okCallback && okCallback(routes);
+        }
+        
+      });
       } catch(e) {
         koCallback && koCallback();
     }
   }
 
-  async removeRoute(rid, okCallback, koCallback) {
+  async removeRoute(rid, gid, okCallback, koCallback) {
+    if (gid) {
+      await deleteDoc(doc(this.db, "gpx", gid))
+    }
+
     await deleteDoc(doc(this.db, "routes", rid))
     okCallback && okCallback()
   }

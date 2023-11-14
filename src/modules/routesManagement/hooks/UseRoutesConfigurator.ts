@@ -17,7 +17,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             setError(t('error.noescala'))
         } else if (route.locationMapUrl.length <= 0) {
             setError(t('error.nolocation'))
-        } else if (route.gpx.length <= 0) {
+        } else if (route.gpx.data.length <= 0) {
             setError(t('error.noruta'))
         } else {
             setError('')
@@ -66,7 +66,9 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
                 previousRoute.description,
                 previousRoute.isPublic,
                 previousRoute.locationMapUrl,
-                fileContent ? fileContent : '',
+                {
+                    data: fileContent ? fileContent : '' 
+                },
                 routePoint ? routePoint : { lat: 0, lon: 0 },
                 previousRoute.uids,
                 previousRoute.scale,

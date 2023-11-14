@@ -41,7 +41,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
                 <label>{t("description.puntoencuentro")}</label><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
             </div>
 
-            <GpxRouteMap gpx={route.gpx} onFileResolved={()=>{}} ></GpxRouteMap>
+            <GpxRouteMap gpx={route.gpx.data}></GpxRouteMap>
 
             <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText={t("description.compartir")}></Sharers>
             { onBackClick ? <button onClick={onBackClick}>{t("description.atras")}</button> : <></> }
