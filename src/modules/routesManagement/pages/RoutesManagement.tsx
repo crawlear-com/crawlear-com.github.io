@@ -23,7 +23,7 @@ function RoutesManagement({ onLogin }: RoutesManagementProps) {
     return <>
             {state === STATE_MENU ? 
                 <RoutesManagementMenu onCreateRoute={onCreateRoute} onViewRoute={onViewRoute}></RoutesManagementMenu> : 
-            (state === STATE_CREATE ? <RoutesConfigurator inRoute={route} onRouteCreated={onCreateRoute} onBackClick={onBackClick}></RoutesConfigurator> : 
+            (state === STATE_CREATE ? <RoutesConfigurator inRoute={route} onRouteCreated={onBackClick} onBackClick={onBackClick}></RoutesConfigurator> : 
                 <RouteViewer route={route} onBackClick={onBackClick} onEditClick={onEditClick}></RouteViewer>
             )}
         </>

@@ -67,6 +67,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
                 previousRoute.isPublic,
                 previousRoute.locationMapUrl,
                 {
+                    gid: previousRoute.gpx.gid,
                     data: fileContent ? fileContent : '' 
                 },
                 routePoint ? routePoint : { lat: 0, lon: 0 },

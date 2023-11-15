@@ -45,7 +45,7 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
                 onInputChange('locationMapUrl', value)
             }}></input></label><br />
             <label>{t('description.mapaderuta')}
-                <GpxRouteMap gpx={route.gpx.data} onFileResolved={onFileResolved} ></GpxRouteMap>
+                <GpxRouteMap gpx={route.gpx} onFileResolved={onFileResolved} ></GpxRouteMap>
             </label><br />
 
             <button className='importantNote' onClick={onCreateRoute}>{route.rid ? t('description.modificar') : t('description.crear')}</button>
