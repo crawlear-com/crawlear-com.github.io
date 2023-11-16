@@ -24,12 +24,12 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
             <div className="routesSection rounded rounded1">
                 { isOwner && onEditClick ? <div className="editButton" onClick={onEditClick}>[ {t("description.editar")} ]</div> : <></> }
                 <div className="value name">{route.name} </div>
+                <div className="value ispublic">{route.isPublic ? t("description.publico") : ''} </div>
             </div>
+            <GpxRouteMap gpx={route.gpx.data}></GpxRouteMap>
+            <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText=''></Sharers>
             <div className="routesSection">
                 <label>{t("description.descripcion")}</label><div className="value description">{route.description} </div>
-            </div>
-            <div className="routesSection">
-                <label>{route.isPublic ? t("description.publico") : t("description.nopublico")}</label>
             </div>
             <div className="routesSection">
                 <label>{t("description.escala")}</label><div className="value">{route.scale} </div>
@@ -41,10 +41,9 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
                 <label>{t("description.puntoencuentro")}</label><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
             </div>
 
-            <GpxRouteMap gpx={route.gpx.data}></GpxRouteMap>
-
-            <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText={t("description.compartir")}></Sharers>
-            { onBackClick ? <button onClick={onBackClick}>{t("description.atras")}</button> : <></> }
+            <div className="routesSection backButton">
+                { onBackClick ? <button onClick={onBackClick}>{t("description.atras")}</button> : <></> }
+            </div>
         </div>
     } else {
         return <>{t('description.nopublico')}</>

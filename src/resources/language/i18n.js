@@ -83,8 +83,8 @@ i18n
               nonombre: 'The name is empty',
               nodescripcion: 'The description is empty',
               noescala: 'The scale is empty',
-              nolocalizacion: 'the location map url is empty',
-              noruta: 'The route map url is empty'
+              nolocalizacion: 'the meeting point google maps url is empty',
+              noruta: 'You didnt generate a route map. Select a GPX data file with the button to generate the route map'
           },
           description: {
             juego: 'game',
@@ -139,6 +139,7 @@ i18n
             jugador: 'Player',
             nuevaPartida: 'New Game',
             nombre: 'Name',
+            nombrederuta: 'Route name',
             fecha: 'Date',
             esPublica: 'Is public',
             localizacion: 'Location',
@@ -398,8 +399,8 @@ i18n
               nonombre: 'El nombre está vacío',
               nodescripcion: 'La descripción está vacía',
               noescala: 'La escala está vacía',
-              nolocalizacion: 'La url de localización está vacía',
-              noruta: 'La url del mapa de ruta está vacía'
+              nolocalizacion: 'La url del mapa al punto de encuentro está vacía',
+              noruta: 'No has generado un mapa de ruta. Selecciona un fichero de datos GPX pulsando el boton para generar el mapa de ruta'
           },
           description: {
               juego: 'juego',
@@ -454,6 +455,7 @@ i18n
               jugador: 'Jugador',
               nuevaPartida: 'Nuevo juego',
               nombre: 'Nombre',
+              nombrederuta: 'Nombre de ruta',
               fecha: 'Fecha',
               esPublica: 'Es pública',
               localizacion: 'Localización',

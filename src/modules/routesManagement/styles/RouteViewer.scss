@@ -26,6 +26,11 @@
             display: inline;
             font-size: 0.9em;
         }
+
+        .ispublic {
+            display: block;
+            font-size: 0.7em;
+        }    
     }
 
     .mapRoute {
@@ -36,7 +41,7 @@
     }
 
     .sharerContainer {
-        text-align: right;
+        text-align: center;
     }
 
     .editButton {
@@ -49,8 +54,12 @@
         white-space: pre-line;
     }
 
+    .backButton {
+        text-align: center;
+    }
+
     #map {
         width: 99%;
-        height: 500px;
+        height: 250px;
         max-width: 405px;    }
 }

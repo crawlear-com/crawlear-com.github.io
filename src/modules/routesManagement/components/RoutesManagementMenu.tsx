@@ -15,7 +15,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
     const fb = window.crawlear.fb
 
     React.useEffect(() => {
-        window.crawlear && window.crawlear.user&& 
+        window.crawlear && window.crawlear.user && 
         window.crawlear.user.uid && fb.getRoutesFromUser(window.crawlear.user.uid, (routes: Array<Route>) => {
             setRoutes(routes)
         }, () => {

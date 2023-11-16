@@ -9,6 +9,8 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
     const fb = window.crawlear.fb
 
     function onCreateRoute() {
+        window.scrollTo(0,0)
+        
         if (route.name.length <= 0) {
             setError(t('error.nonombre'))
         } else if (route.description.length <= 0) {
@@ -16,7 +18,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
         } else if (route.scale.length <= 0) {
             setError(t('error.noescala'))
         } else if (route.locationMapUrl.length <= 0) {
-            setError(t('error.nolocation'))
+            setError(t('error.nolocalizacion'))
         } else if (route.gpx.data.length <= 0) {
             setError(t('error.noruta'))
         } else {
