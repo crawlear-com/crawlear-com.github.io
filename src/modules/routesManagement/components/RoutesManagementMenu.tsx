@@ -15,7 +15,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
     const fb = window.crawlear.fb
 
     React.useEffect(() => {
-        window.crawlear && window.crawlear.user&& 
+        window.crawlear && window.crawlear.user && 
         window.crawlear.user.uid && fb.getRoutesFromUser(window.crawlear.user.uid, (routes: Array<Route>) => {
             setRoutes(routes)
         }, () => {
@@ -26,7 +26,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
     function onDeleteRoute(i: number) {
         const newRoutes = [...routes]
 
-        fb.removeRoute(newRoutes[i].rid, () => {
+        fb.removeRoute(newRoutes[i].rid, newRoutes[i].gpx?.gid, () => {
             delete newRoutes[i]
             setRoutes(newRoutes)
         }, () => {})

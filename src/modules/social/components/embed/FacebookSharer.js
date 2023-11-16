@@ -10,7 +10,7 @@ function FacebookSharer({ url, text }) {
         const scriptElement = document.getElementById('fb-root');
 
         if(!scriptElement) {
-            const div = document.createElement(div);
+            const div = document.createElement('div');
             div.id = 'fb-root';
         } else {
             FB && FB.XFBML && FB.XFBML.parse();

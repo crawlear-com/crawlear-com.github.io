@@ -1,0 +1,59 @@
+.routesManagementCreation {
+    .center {
+        width: 98%;
+        margin: 0 auto;
+    }
+
+    .routeName {
+        margin-bottom: 15px;
+        input {
+            width: 100%;
+            max-width: 310px;
+        }
+    }
+    
+    .routeDescription {
+        margin-bottom: 15px;
+        textarea {
+            width: 100%;
+            max-width: 310px;
+        }
+    }
+    
+    .routeIsPublic {
+        margin-bottom: 15px;
+    }
+    
+    .routeScale {
+        margin-bottom: 15px;
+        input {
+            width: 100%;
+            max-width: 240px;
+        }
+    }
+    
+    .routeDifficulty {
+        margin-bottom: 15px;
+    }
+    
+    .routePoint {
+        margin-bottom: 15px;
+        input {
+            width: 100%;
+            max-width: 310px;
+        }
+    }
+    
+    .routeMap {
+        margin-bottom: 15px;
+        text-align: center;
+        button {
+            margin: 15px;
+        }
+    }
+    
+    .endButtons {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+}

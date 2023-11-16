@@ -64,6 +64,8 @@ module.exports = {
         { from: "src/static/favicon.ico", to: "static/" },
         { from: "src/static/logo192.png", to: "static/" },
         { from: "src/static/logo512.png", to: "static/" },
+        { from: "node_modules/react-gpxRouteMap/dist/public/img/marker-icon.png", to: "" },
+        { from: "node_modules/react-gpxRouteMap/dist/public/img/marker-shadow.png", to: "" },
         { from: "public/.well-known/assetlinks.json", to: ".well-known/" },
         { from: "_config.yml", to: "" },
         { from: ".nojekyll", to: "" }
