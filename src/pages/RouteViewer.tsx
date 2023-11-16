@@ -17,7 +17,7 @@ function RouteViewer({ rid, onLogin }: RouteViewerProps) {
         fb.checkIfLogged(()=>{onLogin(false)})
     },[])
 
-    if (!route) {
+    if (!route.rid) {
         return <>
             <NotLoggedLogo /><br /><Spinner></Spinner>
         </>
