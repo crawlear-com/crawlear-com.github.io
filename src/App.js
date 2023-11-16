@@ -41,7 +41,7 @@ function App() {
   function onLogin(navigateAction) {
     setStateLogged(true)
     if (navigateAction) {
-      navigate("/route");
+      navigate("/game");
     }
   }
 
