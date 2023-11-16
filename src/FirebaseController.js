@@ -406,7 +406,7 @@ class FirebaseController {
         this.getGpx(res.gpx, (gpx) => {
           res.gpx = gpx.data
           res.gpx.gid = gpx.gid
-        
+          okCallback(res)
         }, koCallback)
       } else {
         okCallback(res)
