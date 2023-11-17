@@ -40,10 +40,12 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                 transformer={itemTransform}
                 onRemoveItem={onDeleteRoute}
                 onConfigureItem={(i: number) => {
+                    window.scrollTo(0, 0)
                     onCreateRoute(routes[i])
                 }}
                 title={t('description.rutas')} 
                 onItemAction={(i: number) => {
+                    window.scrollTo(0, 0)
                     onViewRoute(routes[i])
                 }} ></List>
         </div>
