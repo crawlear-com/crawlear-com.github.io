@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Route, { RoutePoint } from '../Route'
+import Route, { GeoPoint } from '../Route'
 import { useTranslation } from 'react-i18next'
 
 const LAT_DIVISOR = 36
@@ -67,10 +67,10 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
         setRoute(newRoute)
     }
 
-    function onFileResolved(fileContent: string, routePoint: RoutePoint) {
-        const quadrant: RoutePoint = {
-            lat: routePoint.lat / LAT_DIVISOR,
-            lon: routePoint.lon / LON_DIVISOR
+    function onFileResolved(fileContent: string, routePoint: GeoPoint) {
+        const quadrant: GeoPoint = {
+            lat: Math.trunc(routePoint.lat / LAT_DIVISOR),
+            lon: Math.trunc(routePoint.lon / LON_DIVISOR)
         }
         setRoute((previousRoute) => {
             const newRoute = new Route(previousRoute.name, 

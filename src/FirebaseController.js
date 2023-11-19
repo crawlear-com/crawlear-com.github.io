@@ -354,6 +354,7 @@ class FirebaseController {
             scale: route.scale,
             locationMapUrl: route.locationMapUrl,
             point: route.point,
+            quadrant: route.quadrant,
             gpx: gpx.gid,
             uids: route.uids,
             scale: route.scale,
