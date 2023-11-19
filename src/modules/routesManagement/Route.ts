@@ -7,13 +7,14 @@ class Route {
     locationMapUrl: string
     gpx: Gpx
     point: RoutePoint
+    quadrant: RoutePoint
     uids: Array<string>
     scale: string
     dificulty: number
     likes: number
 
     constructor(name: string, description: string, isPublic: boolean, locationMapUrl: string, 
-        gpx: Gpx, point: RoutePoint, uids: Array<string>, scale: string, dificulty: number, likes: number, rid?: string) {
+        gpx: Gpx, point: RoutePoint, quadrant: RoutePoint, uids: Array<string>, scale: string, dificulty: number, likes: number, rid?: string) {
 
         this.name = name
         this.description = description
@@ -21,6 +22,7 @@ class Route {
         this.locationMapUrl = locationMapUrl
         this.gpx = gpx
         this.point = point
+        this.quadrant = quadrant
         this.uids = uids
         this.scale = scale
         this.dificulty = dificulty
