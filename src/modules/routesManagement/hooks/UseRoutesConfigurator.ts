@@ -1,6 +1,9 @@
 import * as React from 'react'
-import Route, { RoutePoint } from '../Route'
+import Route, { GeoPoint } from '../Route'
 import { useTranslation } from 'react-i18next'
+
+const LAT_DIVISOR = 36
+const LON_DIVISOR = 72
 
 function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<any> {
     const { t } = useTranslation()
@@ -36,6 +39,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             route.locationMapUrl,
             route.gpx,
             route.point,
+            route.quadrant,
             route.uids,
             route.scale,
             value,
@@ -52,6 +56,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             route.locationMapUrl,
             route.gpx,
             route.point,
+            route.quadrant,
             route.uids,
             route.scale,
             route.dificulty,
@@ -62,7 +67,11 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
         setRoute(newRoute)
     }
 
-    function onFileResolved(fileContent: string, routePoint: RoutePoint) {
+    function onFileResolved(fileContent: string, routePoint: GeoPoint) {
+        const quadrant: GeoPoint = {
+            lat: Math.trunc(routePoint.lat / LAT_DIVISOR),
+            lon: Math.trunc(routePoint.lon / LON_DIVISOR)
+        }
         setRoute((previousRoute) => {
             const newRoute = new Route(previousRoute.name, 
                 previousRoute.description,
@@ -73,6 +82,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
                     data: fileContent ? fileContent : '' 
                 },
                 routePoint ? routePoint : { lat: 0, lon: 0 },
+                quadrant,
                 previousRoute.uids,
                 previousRoute.scale,
                 previousRoute.dificulty,

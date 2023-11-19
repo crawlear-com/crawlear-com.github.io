@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Route, { RoutePoint } from '../Route'
+import Route from '../Route'
 import ErrorBox from '../../../components/ErrorBox'
 import UseRoutesConfigurator from '../hooks/UseRoutesConfigurator'
 import { GpxRouteMap } from 'react-gpxroutemap'

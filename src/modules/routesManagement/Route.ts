@@ -6,14 +6,15 @@ class Route {
     isPublic: boolean
     locationMapUrl: string
     gpx: Gpx
-    point: RoutePoint
+    point: GeoPoint
+    quadrant: GeoPoint
     uids: Array<string>
     scale: string
     dificulty: number
     likes: number
 
     constructor(name: string, description: string, isPublic: boolean, locationMapUrl: string, 
-        gpx: Gpx, point: RoutePoint, uids: Array<string>, scale: string, dificulty: number, likes: number, rid?: string) {
+        gpx: Gpx, point: GeoPoint, quadrant: GeoPoint, uids: Array<string>, scale: string, dificulty: number, likes: number, rid?: string) {
 
         this.name = name
         this.description = description
@@ -21,6 +22,7 @@ class Route {
         this.locationMapUrl = locationMapUrl
         this.gpx = gpx
         this.point = point
+        this.quadrant = quadrant
         this.uids = uids
         this.scale = scale
         this.dificulty = dificulty
@@ -39,7 +41,7 @@ class Route {
     }
 }
 
-export interface RoutePoint {
+export interface GeoPoint {
     lat: number,
     lon: number
 }
