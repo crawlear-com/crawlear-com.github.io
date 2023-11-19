@@ -11,6 +11,11 @@
         text-align: right;
         padding-top: 0px;
         overflow: hidden;
+        
+        .spinner {
+            float: right;
+            top: 3px;
+        }
 
         .playButton {
             background-image: url(./img/iconPlay.png);
