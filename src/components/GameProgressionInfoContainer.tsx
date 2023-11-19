@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Game } from '../games/Game'
 import GameProgressionInfo from './GameProgressionInfo'
+import Spinner from './Spinner'
 
 interface GameProgressionInfoContainerProps {
     game: Game,
@@ -23,7 +24,7 @@ function GameProgressionInfoContainer({ game, inGameProgression }: GameProgressi
     if (gameProgression) {
         info = <GameProgressionInfo game={game} gameProgression={gameProgression} />
     } else {
-        info = <>No game Progression</>
+        info = <Spinner></Spinner>
     }
 
     return info

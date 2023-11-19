@@ -29,16 +29,16 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
             <GpxRouteMap gpx={route.gpx.data}></GpxRouteMap>
             <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText=''></Sharers>
             <div className="routesSection">
-                <label>{t("description.descripcion")}</label><div className="value description">{route.description} </div>
+                <div className="value description">{route.description} </div>
             </div>
             <div className="routesSection">
-                <label>{t("description.escala")}</label><div className="value">{route.scale} </div>
+                <div>{t("description.escala")}</div><div className="value">{route.scale} </div>
             </div>
             <div className="routesSection">
-                <label>{t("description.dificultad")}</label><div className="value">{route.dificulty} </div>
+                <div>{t("description.dificultad")}</div><div className="value">{route.dificulty} </div>
             </div>
             <div className="routesSection">
-                <label>{t("description.puntoencuentro")}</label><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
+                <div>{t("description.puntoencuentro")}</div><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
             </div>
 
             <div className="routesSection backButton">
