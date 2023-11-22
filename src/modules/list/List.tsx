@@ -42,12 +42,10 @@ function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemActi
 
     data && data.forEach((item) => {
         list.push(<div key={i}>
-            { onConfigureItemClick && onRemoveItem && <ListMenu key={`menu${i}`} itemPosition={i}
+            { onConfigureItem && onRemoveItem && <ListMenu key={`menu${i}`} itemPosition={i}
                 onConfigureClick={onConfigureItemClick} 
                 onRemoveClick={onRemoveItemClick} /> }
             <ListItem key={`item${i}`} item={transformer(item)}
-                onRemoveItem={onRemoveItemClick}
-                onConfigureItemClick={onConfigureItemClick}
                 onItemAction={onItemAction}
                 itemPosition={i}
                 onOpenClose={onOpenClose} />

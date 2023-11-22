@@ -9,15 +9,13 @@ export interface itemProps {
 }
 
 interface ListItemProps {
-    item: itemProps,
-    itemPosition: any,
-    onOpenClose: Function,
-    onConfigureItemClick: Function,
-    onRemoveItem: Function,
+    item: itemProps
+    itemPosition: any
+    onOpenClose: Function
     onItemAction?: Function
 }
 
-function ListItem({ item, itemPosition, onOpenClose, onItemAction, onConfigureItemClick, onRemoveItem }: ListItemProps) {
+function ListItem({ item, itemPosition, onOpenClose, onItemAction }: ListItemProps) {
 
     function openCloseItem(event: React.MouseEvent<HTMLSpanElement>) {
         const targetParent = (event.target as HTMLSpanElement).parentElement
@@ -35,10 +33,6 @@ function ListItem({ item, itemPosition, onOpenClose, onItemAction, onConfigureIt
     }
 
     return <div key={itemPosition} className="listItemContainer rounded rounded1 closed">
-            { onConfigureItemClick && onRemoveItem && <ListMenu key={`menu${itemPosition}`} itemPosition={itemPosition}
-                onConfigureClick={onConfigureItemClick} 
-                onRemoveClick={onRemoveItem} /> }
-
                 <span onClick={openCloseItem} className="textOverflow listItemName bold">{ item.title }</span>
                 { onItemAction ? <span className='editButton' onClick={onItemActionClick}>
                     <button className="importantNote playButton"></button></span> : <></> }

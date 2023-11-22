@@ -1,0 +1,27 @@
+.popup {
+    display: block;
+    width: 95%;
+    height: 87%;
+    overflow: scroll;
+    position: fixed;
+    top: 58px;
+    left: 0px;
+    z-index: 100000;
+    display: block;
+    transition: heigth 0.7s linear;
+    transform: translate3d(0, 0, 0);
+
+    .closeButton {
+        width: 100%;
+        height: 30px;
+    }
+}
+
+.popup::-webkit-scrollbar {
+    display: none;
+}
+
+.popup.closed {
+    height: 25px;
+    //display: none;
+}

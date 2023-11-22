@@ -31,9 +31,9 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
             transformer={itemTransform}
             onRemoveItem={(gamePosition) => {
                 onRemoveGames(gamePosition)}} 
-                onConfigureItem={(gamePosition)=>{
+            onConfigureItem={(gamePosition)=>{
                     onConfigureGames(games, gamePosition)}} 
-                title={t('description.partidascomopiloto')}></List>
+            title={t('description.partidascomopiloto')}></List>
         <List data={judgeGames}
             title={t('description.partidasdejuez')} 
             readOnly={false}
@@ -41,7 +41,7 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
             onItemAction={(gamePosition) => {
                 onGamePlay(judgeGames, gamePosition);
             }}
-            onConfigureGame={(gamePosition) => {
+            onConfigureItem={(gamePosition) => {
                 onConfigureGames(judgeGames, gamePosition)}
             }
             onRemoveItem={(gamePosition) => {
