@@ -67,7 +67,7 @@ i18n
             ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help',
             offlineMainText: 'Your browser is offline, check again in minutes or create an offline game (it will be not be saved!)',
             shareruta: 'Take a look to the next Crawler route: ',
-            busquedaderuta: 'To search for a route click on the map. If there is a route in kilometers around it, it will appear marked on the map.'
+            busquedaderuta: 'To search for a route click on the map. If there is a route in kilometers around it, it will appear inside the circle.'
           },
           error: {
               nojugadores: 'Add the players',
