@@ -327,25 +327,6 @@ class FirebaseController {
     return game;
   }
 
-  async routeSearch(text, okCallback, koCallback) {
-    try {
-      const routesRef = collection(this.db, "routes")
-      const q = query(routesRef, where('name', '>=', text), where('name', '<=', text + '\uf8ff'))
-      const querySnapshot = await getDocs(q);
-      const result = [];
-
-      querySnapshot.forEach((doc)=>{
-        const data = doc.data()
-        data.rid = data.id
-
-        result.push(data)
-      });
-      okCallback && okCallback(result)
-      } catch(e) {
-        koCallback && koCallback(e)
-    }
-  }
-
   async routeSearchByLatLon(latlon, okCallback, koCallback) {
     try {
       const routesRef = collection(this.db, "routes")
