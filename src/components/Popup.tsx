@@ -28,7 +28,7 @@ function Popup({ children, onClose }: PopupProps) {
     }
 
     return <div ref={headerRef} className={`popup rounded rounded1 ${!isVisible ? 'closed' : ''}`} onClick={onHeaderClick}>
-        <div className='closeButton'>{t('description.clickparacerrar')}</div>
+        <div className='bold closeButton'>{t('description.clickparacerrar')}</div>
         { children }
     </div>
 }

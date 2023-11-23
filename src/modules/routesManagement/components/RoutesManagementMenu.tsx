@@ -35,10 +35,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
 
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
-        <RoutesSearch onViewRoute={(i: number) => {
-            window.scrollTo(0, 0)
-            onViewRoute(routes[i])
-        }} ></RoutesSearch>
+        <RoutesSearch></RoutesSearch>
         <div className="routesManagement rounded rounded3">
             <List data={routes} 
                 readOnly={false}

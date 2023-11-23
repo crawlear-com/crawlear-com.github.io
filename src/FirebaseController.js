@@ -349,14 +349,14 @@ class FirebaseController {
   async routeSearchByLatLon(latlon, okCallback, koCallback) {
     try {
       const routesRef = collection(this.db, "routes")
-      const q = query(routesRef, where('point.lat', '>', latlon.lat - 0.5), where('point.lat', '<', latlon.lat + 0.5))
+      const q = query(routesRef, where('point.lat', '>', latlon.lat - 0.225), where('point.lat', '<', latlon.lat + 0.225))
       const querySnapshot = await getDocs(q);
       const result = [];
 
       querySnapshot.forEach((doc)=>{
         const data = doc.data()
 
-        if(data.point.lon > latlon.lng - 0.5 && data.point.lon < latlon.lng + 0.5) {
+        if(data.point.lon > latlon.lng - 0.225 && data.point.lon < latlon.lng + 0.225) {
           data.rid = data.id
           result.push(data)
         }

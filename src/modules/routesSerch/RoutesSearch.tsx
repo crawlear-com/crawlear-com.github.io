@@ -9,10 +9,7 @@ import RouteViewer from '../routesManagement/pages/RouteViewer'
 
 import './styles/RoutesSearch.scss'
 
-interface RoutesSearchProps {
-    onViewRoute: Function
-}
-function RoutesSearch({  }: RoutesSearchProps) {
+function RoutesSearch() {
     const fb = window.crawlear.fb
     const { t } = useTranslation()
     const [routes, setRoutes] = React.useState<Array<Route>>([])
