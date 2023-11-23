@@ -10,6 +10,7 @@
     transition: heigth 0.7s linear;
     width: 97%;
     max-width: 412px;
+    overscroll-behavior: contain;
 
     .closeButton {
         width: 100%;

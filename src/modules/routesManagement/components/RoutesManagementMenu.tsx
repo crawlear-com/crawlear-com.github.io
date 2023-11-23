@@ -52,6 +52,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                 }} ></List>
         </div>
         <button className='importantNote' onClick={() => {
+            window.scrollTo(0,0)
             onCreateRoute()
         }}>{t('description.crear')}</button>
     </>
