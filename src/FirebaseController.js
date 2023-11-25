@@ -327,6 +327,26 @@ class FirebaseController {
     return game;
   }
 
+  async routeSearchByLatLon(latlon, okCallback, koCallback) {
+    try {
+      const routesRef = collection(this.db, "routes")
+      const q = query(routesRef, where('point.lat', '>', latlon.lat - 0.225), where('point.lat', '<', latlon.lat + 0.225))
+      const querySnapshot = await getDocs(q);
+      const result = [];
+
+      querySnapshot.forEach((doc)=>{
+        const data = doc.data()
+
+        if(data.point.lon > latlon.lng - 0.225 && data.point.lon < latlon.lng + 0.225) {
+          data.rid = data.id
+          result.push(data)
+        }
+      });
+      okCallback && okCallback(result)
+      } catch(e) {
+        koCallback && koCallback(e)
+    }
+  }
 
   async setGpx(gpx, okCallback, koCallback) {
     try {
@@ -387,7 +407,7 @@ class FirebaseController {
     const docSnap = await getDoc(docRef)
 
     if (docSnap.exists()) {
-      const res = { data: docSnap.data() }
+      const res = docSnap.data()
       res.gid = docRef.id
 
       okCallback(res)
@@ -406,7 +426,7 @@ class FirebaseController {
 
       if (res.gpx) {
         this.getGpx(res.gpx, (gpx) => {
-          res.gpx = gpx.data
+          res.gpx = gpx
           res.gpx.gid = gpx.gid
           okCallback(res)
         }, koCallback)
@@ -430,7 +450,7 @@ class FirebaseController {
 
         if (data.gpx) {
           this.getGpx(data.gpx, (gpx) => {
-            data.gpx = gpx.data
+            data.gpx = gpx
             data.gpx.gid = gpx.gid 
             routes.push({...data, rid: routeData.id})    
             okCallback && okCallback(routes);

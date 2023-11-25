@@ -66,7 +66,8 @@ i18n
             comparteenredespost: 'Share this post in social networks:',
             ayudasocialprofile: 'Are you looking to view or edit your pilot profile? Open the lateral menu and go to Social Profile or click this help',
             offlineMainText: 'Your browser is offline, check again in minutes or create an offline game (it will be not be saved!)',
-            shareruta: 'Take a look to the next Crawler route: '
+            shareruta: 'Take a look to the next Crawler route: ',
+            busquedaderuta: 'To search for a route click on the map. If there is a route in kilometers around it, it will appear inside the circle.'
           },
           error: {
               nojugadores: 'Add the players',
@@ -147,6 +148,7 @@ i18n
             obtener: 'Get',
             obteniendo: 'Getting',
             buscarusuario: 'User search',
+            buscar: 'Search',
             resultado: 'Result',
             vergooglemaps: 'View in Google Maps',
             verperfil: 'View social profile',
@@ -202,6 +204,7 @@ i18n
             murodefollows: 'Follows Wall',
             secciondejuego: 'Game tool',
             seccionderutas: 'Routes tool',
+            misrutas: 'My routes',
             escala: 'Scale',
             dificultad: 'Difficulty',
             modificar: 'Modify',
@@ -228,7 +231,8 @@ i18n
             ordenRamdomJugadores: 'Random players order',
             juegonopublico: 'not public, sorry',
             cargar: 'Load',
-            mapaderuta: 'Route map'
+            mapaderuta: 'Route map',
+            clickparacerrar: 'Click to close'
           },
           points: {
             vuelco: 'overturn',
@@ -382,7 +386,8 @@ i18n
             comparteenredespiloto: 'Comparte éste perfil de piloto en redes sociales:',
             ayudasocialprofile: 'Nuevo Perfil de Piloto Social en Crawlear.com! Accede desde el menú lateral > Perfil Social o haciendo click aqui.',
             offlineMainText: 'Tu navegador no tiene conexión, comprueba de nuevo en unos minutos  o crea un juego sin conexión (no será guardado!)',
-            shareruta: 'Échale un ojo a la siguiente ruta crawler: '
+            shareruta: 'Échale un ojo a la siguiente ruta crawler: ',
+            busquedaderuta: 'Para buscar una ruta haz click en el mapa. Si existe alguna ruta en kilometros a la redonda aparecerá marcada en el mapa.'
           },
           error: {
               nojugadores: 'Añade a los jugadores',
@@ -463,6 +468,7 @@ i18n
               obtener: 'Obtener',
               obteniendo: 'Obteniendo',
               buscarusuario: 'Buscar usuario',
+              buscar: 'Buscar',
               resultado: 'Resultado',
               vergooglemaps: 'Ver en Google Maps',
               verperfil: 'Ver perfil social',
@@ -518,6 +524,7 @@ i18n
               murodefollows: 'Muro de Pilotos',
               secciondejuego: 'Herramienta de juego',
               seccionderutas: 'Herramienta de ruta',
+              misrutas: 'Mis rutas',
               escala: 'Escala',
               dificultad: 'Dificultad',
               modificar: 'Modificar',
@@ -544,7 +551,8 @@ i18n
               ordenRamdomJugadores: 'Orden aleatorio de salida',
               juegonopublico: 'no publico, lo siento',
               cargar: 'Cargar',
-              mapaderuta: 'Mapa de ruta'
+              mapaderuta: 'Mapa de ruta',
+              clickparacerrar: 'Click para cerrar'
           },
           points: {
             vuelco: 'vuelco',

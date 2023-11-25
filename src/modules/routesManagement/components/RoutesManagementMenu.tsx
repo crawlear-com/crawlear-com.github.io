@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Route from '../Route'
 import List from '../../list/List'
 import { itemTransform } from '../../list/components/RouteListTransformer'
+import RoutesSearch from '../../routesSerch/RoutesSearch'
 
 interface RoutesManagementMenuProps {
     onCreateRoute: Function,
@@ -34,6 +35,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
 
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
+        <RoutesSearch></RoutesSearch>
         <div className="routesManagement rounded rounded3">
             <List data={routes} 
                 readOnly={false}
@@ -43,13 +45,14 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                     window.scrollTo(0, 0)
                     onCreateRoute(routes[i])
                 }}
-                title={t('description.rutas')} 
+                title={t('description.misrutas')} 
                 onItemAction={(i: number) => {
                     window.scrollTo(0, 0)
                     onViewRoute(routes[i])
                 }} ></List>
         </div>
         <button className='importantNote' onClick={() => {
+            window.scrollTo(0,0)
             onCreateRoute()
         }}>{t('description.crear')}</button>
     </>
