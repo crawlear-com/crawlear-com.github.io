@@ -1,38 +1,18 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import Route, { Gpx } from '../routesManagement/Route'
 import List from '../list/List'
 import { itemTransform } from '../list/components/RouteListTransformer'
 import { MapPointPicker } from 'react-gpxroutemap'
+import Route from '../routesManagement/Route'
 import Popup from '../../components/Popup'
 import RouteViewer from '../routesManagement/pages/RouteViewer'
+import UseRouteSearch from './hooks/UseRouteSearch'
 
 import './styles/RoutesSearch.scss'
 
 function RoutesSearch() {
-    const fb = window.crawlear.fb
     const { t } = useTranslation()
-    const [routes, setRoutes] = React.useState<Array<Route>>([])
-    const [routeToShow, setRouteToShow] = React.useState<Route | null>(null)
-
-    function onMapClick(latlon: any) {
-        fb.routeSearchByLatLon(latlon, (routes: Array<any>) =>{
-            setRoutes(routes)
-        }, () => {})
-    }
-
-    function onViewRoute(index: number) {
-        const route = routes[index]
-
-        fb.getGpx(route.gpx.gid ? route.gpx.gid : route.gpx, (gpx: Gpx) => {
-            route.gpx = gpx
-            setRouteToShow(route)
-        })
-    }
-
-    function clearRouteToShow() {
-        setRouteToShow(null)
-    }
+    const [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow] = UseRouteSearch()
 
     return <div className='rounded rounded3 routesSearchContainer'>
 
@@ -43,7 +23,7 @@ function RoutesSearch() {
             <RouteViewer route={routeToShow}></RouteViewer>
           </Popup> : <></> }
         
-        <MapPointPicker points={routes.map((route) => {
+        <MapPointPicker points={routes.map((route: Route) => {
             return route.point
         })} onMapClick={onMapClick}></MapPointPicker>
 
