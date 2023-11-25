@@ -32,13 +32,13 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
                 <div className="value description">{route.description} </div>
             </div>
             <div className="routesSection">
-                <div>{t("description.escala")}</div><div className="value">{route.scale} </div>
+                <div className="bold">{t("description.escala")}</div><div className="value">{route.scale} </div>
             </div>
             <div className="routesSection">
-                <div>{t("description.dificultad")}</div><div className="value">{route.dificulty} </div>
+                <div className="bold">{t("description.dificultad")}</div><div className="value">{route.dificulty} </div>
             </div>
             <div className="routesSection">
-                <div>{t("description.puntoencuentro")}</div><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
+                <div className="bold">{t("description.puntoencuentro")}</div><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
             </div>
 
             <div className="routesSection backButton">
