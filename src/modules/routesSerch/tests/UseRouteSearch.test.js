@@ -13,7 +13,7 @@ const gpx = {
 beforeEach(() => {
     window.crawlear = {
         fb: {
-            routeSearchByLatLon: jest.fn((loc, callback) => {
+            routeSearchByLatLon: jest.fn((loc, bounds, callback) => {
                 callback([{ name: 'test', description: 'test', scale: '1/10', gpx: {}, locationMap: ''}])
             }),
             getGpx: jest.fn((gid, callback) => {
@@ -37,7 +37,7 @@ test('initially does not have routes', () => {
 test('onClick loads a route from fb', () => {
     const { result } = renderHook(UseRouteSearch)
     act(() => {
-        result.current[MAPCLICK]()
+        result.current[MAPCLICK]({ lat: 0, lon: 0 }, { _northEast: { lat: 0, lon: 0 }, _southWest: { lat: 0, lon: 0 }})
     })
 
     expect(window.crawlear.fb.routeSearchByLatLon).toHaveBeenCalled()
@@ -49,7 +49,7 @@ test('onViewRoute loads the gpx and returns it inside the route', () => {
     const { result } = renderHook(UseRouteSearch)
 
     act(() => {
-        result.current[MAPCLICK]()
+        result.current[MAPCLICK]({ lat: 0, lon: 0 }, { _northEast: { lat: 0, lon: 0 }, _southWest: { lat: 0, lon: 0 }})
     })
     act(() => {
         result.current[VIEWROUTE](0)

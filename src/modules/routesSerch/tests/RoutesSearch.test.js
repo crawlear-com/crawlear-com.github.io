@@ -3,7 +3,6 @@ import RoutesSearch from '../RoutesSearch'
 import { MapPointPicker } from 'react-gpxroutemap'
 import List from '../../list/List'
 import Popup from '../../../components/Popup'
-import gpx from './test.gpx'
 
 const div = document.createElement('div');
 

@@ -6,8 +6,11 @@ function UseRouteSearch(): Array<any> {
     const [routes, setRoutes] = React.useState<Array<Route>>([])
     const [routeToShow, setRouteToShow] = React.useState<Route | null>(null)
 
-    function onMapClick(latlon: any) {
-        fb.routeSearchByLatLon(latlon, (routes: Array<any>) =>{
+    function onMapClick(latlon: any, mapBounds: any) {
+        const latLength = Math.abs(mapBounds._northEast.lat - mapBounds._southWest.lat) / 2
+        const lonLength = Math.abs(mapBounds._northEast.lng - mapBounds._southWest.lng) / 2
+
+        fb.routeSearchByLatLon(latlon, { lat: latLength, lon: lonLength}, (routes: Array<any>) =>{
             setRoutes(routes)
         }, () => {})
     }
@@ -25,7 +28,7 @@ function UseRouteSearch(): Array<any> {
         setRouteToShow(null)
     }
 
-    return [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow]
+    return [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow, setRouteToShow]
 }
 
 export default UseRouteSearch
