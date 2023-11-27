@@ -327,17 +327,17 @@ class FirebaseController {
     return game;
   }
 
-  async routeSearchByLatLon(latlon, okCallback, koCallback) {
+  async routeSearchByLatLon(latlon, bounds, okCallback, koCallback) {
     try {
       const routesRef = collection(this.db, "routes")
-      const q = query(routesRef, where('point.lat', '>', latlon.lat - 0.225), where('point.lat', '<', latlon.lat + 0.225))
+      const q = query(routesRef, where('point.lat', '>', latlon.lat - bounds.lat), where('point.lat', '<', latlon.lat + bounds.lat))
       const querySnapshot = await getDocs(q);
       const result = [];
 
       querySnapshot.forEach((doc)=>{
         const data = doc.data()
 
-        if(data.point.lon > latlon.lng - 0.225 && data.point.lon < latlon.lng + 0.225) {
+        if(data.point.lon > latlon.lng - bounds.lon && data.point.lon < latlon.lng + bounds.lon) {
           data.rid = data.id
           result.push(data)
         }
