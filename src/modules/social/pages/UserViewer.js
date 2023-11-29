@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import UserProfile from '../components/UserProfile'
 import LoadingLogo from '../components/LoadingLogo'
-import UseUserViewer, { USER_TYPE_JUDGE, USER_TYPE_PILOT } from '../hooks/UseUserViewer'
+import UseUserViewer, { USER_TYPE_JUDGE, USER_TYPE_PILOT, USER_TYPE_ROUTE } from '../hooks/UseUserViewer'
 
 import logo from '../../../resources/img/logo5.png'
 import '../styles/UserViewer.scss'
@@ -25,11 +25,16 @@ function UserViewer({ uid, onLogout, onLogin }) {
             <><UserProfile onLogout={onLogout} user={user} />
                 <div className="statistics rounded rounded3">
                     <div className='headerText bold'>{t('description.estadisticas')}</div>
-                    <div>{t('description.partidascreadas')}: {userData.ownerGames || 0}</div>
                     <div>{t('description.partidasdejuez')}: {userData.judgeGames || 0}</div>
                     <div>{t('description.partidascomopiloto')}: {userData.pilotGames || 0}</div>
+                    <div>{t('description.rutas')}: { userData.routes || 0 }</div>
                     <p className='bold'>
-                        {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : t('description.tendencianeutral'))}
+                        {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : 
+                        (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : 
+                        userType === USER_TYPE_ROUTE ? t('description.tendenciaruta') : t('description.tendencianeutral'))}
+                    </p>
+                    <p>
+                        
                     </p>
                 </div></>
         </div>
