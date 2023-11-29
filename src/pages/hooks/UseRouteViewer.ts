@@ -9,7 +9,7 @@ function UseRouteViewer(rid: string) {
 
     React.useEffect(() => {
         Analytics.pageview(`/routeviewer?gid=${rid}`);
-        firebase.getRoute(rid, (newRoute: Route) => {
+        firebase.getRoute(rid, true, (newRoute: Route) => {
             setRoute(newRoute)
         })
     }, [])

@@ -14,7 +14,7 @@ jest.mock('react-i18next', () => ({
 }));
 
 test('renders Popup', () => {
-  const { container } = render(<Popup></Popup>)
+  render(<Popup></Popup>)
   const popupContainer = screen.getByTitle('popup')
 
   expect(popupContainer).toBeInTheDocument()
@@ -22,7 +22,7 @@ test('renders Popup', () => {
 });
 
 test('renders children', () => {
-  const { container } = render(<Popup><div title="children"></div></Popup>)
+  render(<Popup><div title="children"></div></Popup>)
   const children = screen.getByTitle('children')
 
   expect(children).toBeInTheDocument()
@@ -30,11 +30,11 @@ test('renders children', () => {
 
 test('click to close', () => {
   const onClose = jest.fn()
-  const { container } = render(<Popup onClose={onClose}></Popup>)
-  const popupContainer = screen.getByTitle('popup')
+  render(<Popup onClose={onClose}></Popup>)
+  const popupContainer = screen.getByTitle('closeButton')
   fireEvent(popupContainer, new MouseEvent('click', {
-    clientX: 10,
-    clientY: 10,
+    clientX: 0,
+    clientY: 0,
     bubbles: true,
     cancelable: true,
   }))

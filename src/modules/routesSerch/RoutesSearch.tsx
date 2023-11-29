@@ -10,7 +10,7 @@ import './styles/RoutesSearch.scss'
 
 function RoutesSearch() {
     const { t } = useTranslation()
-    const [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow, setRouteToShow] = UseRouteSearch()
+    const [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow] = UseRouteSearch()
 
     return <div className='rounded rounded3 routesSearchContainer'>
         <div className="headerText bold">{t('description.buscar')}</div>        
