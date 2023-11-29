@@ -373,7 +373,7 @@ class FirebaseController {
         await this.getRoute(data.rid, false, (route) => {
           route.rid = data.rid
           okCallback(route)
-        }, koCallback)
+        }, () =>{})
       })
     } catch(e) {
       koCallback && koCallback()

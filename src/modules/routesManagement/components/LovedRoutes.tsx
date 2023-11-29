@@ -1,9 +1,11 @@
 import * as React from 'react'
 import List from '../../list/List'
-import Route from '../Route'
 import { itemTransform } from '../../list/components/RouteListTransformer'
 import { useTranslation } from 'react-i18next'
 import UseLovedRoutes from '../hooks/UseLovedRoutes'
+import ErrorBox from '../../../components/ErrorBox'
+
+import '../styles/LovedRoutes.scss'
 
 interface LovedRoutesProps {
   onViewRoute: Function
@@ -11,16 +13,19 @@ interface LovedRoutesProps {
 
 function LovedRoutes({ onViewRoute}: LovedRoutesProps): React.JSX.Element {
   const { t } = useTranslation()
-  const routes = UseLovedRoutes()
+  const [routes, error] = UseLovedRoutes()
 
-  return <List title={t('description.rutasguardadas')}
-            data={routes}
-            readOnly={false}
-            onItemAction={(i: number) => {
-              window.scrollTo(0, 0)
-              onViewRoute(routes[i])
-          }}
-            transformer={itemTransform}></List>
+  return <div className='lovedRoutesContainer'>
+    <ErrorBox message={error}></ErrorBox>
+    <List title={t('description.rutasguardadas')}
+      data={routes}
+      readOnly={false}
+      transformer={itemTransform}
+      onItemAction={(i: number) => {
+        window.scrollTo(0, 0)
+        onViewRoute(routes[i])
+      }}></List>
+  </div>
 }
 
 export default LovedRoutes

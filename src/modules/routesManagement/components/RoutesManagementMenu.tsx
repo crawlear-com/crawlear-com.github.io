@@ -5,6 +5,7 @@ import { itemTransform } from '../../list/components/RouteListTransformer'
 import RoutesSearch from '../../routesSerch/RoutesSearch'
 import LovedRoutes from './LovedRoutes'
 import UseRoutesManagementMenu from '../hooks/UseRoutesManagementMenu'
+import ErrorBox from '../../../components/ErrorBox'
 
 interface RoutesManagementMenuProps {
     onCreateRoute: Function,
@@ -13,12 +14,13 @@ interface RoutesManagementMenuProps {
 
 function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMenuProps) {
     const { t } = useTranslation()
-    const [routes, onDeleteRoute] = UseRoutesManagementMenu()
+    const [routes, onDeleteRoute, error] = UseRoutesManagementMenu()
 
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
         <RoutesSearch></RoutesSearch>
         <div className="routesManagement rounded rounded3">
+            <ErrorBox message={error}></ErrorBox>
             <List data={routes} 
                 readOnly={false}
                 transformer={itemTransform}
