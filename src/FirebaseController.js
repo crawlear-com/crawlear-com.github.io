@@ -338,7 +338,7 @@ class FirebaseController {
         const data = doc.data()
 
         if(data.point.lon > latlon.lng - bounds.lon && data.point.lon < latlon.lng + bounds.lon) {
-          data.rid = data.id
+          data.rid = doc.id
           result.push(data)
         }
       });
@@ -363,6 +363,57 @@ class FirebaseController {
     }
   }
 
+  async getLovedRoutes(uid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "routeLove"), where("uid", "==", uid))
+      const querySnapshot = await getDocs(q)
+      querySnapshot.docs.forEach(async (loveData)=>{
+        const data = loveData.data()
+
+        await this.getRoute(data.rid, false, (route) => {
+          route.rid = data.rid
+          okCallback(route)
+        }, () =>{})
+      })
+    } catch(e) {
+      koCallback && koCallback()
+    }
+  }
+
+  async getRouteLove(uid, rid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "routeLove"), 
+        where("uid", "==", uid),
+        where("rid", "==", rid))
+      const querySnapshot = await getDocs(q)
+      okCallback && okCallback(querySnapshot.docs.length > 0, querySnapshot.docs[0].id)
+
+    } catch(e) {
+      koCallback && koCallback()
+    }
+  }
+
+  async loveRoute(uid, rid, okCallback, koCallback) {
+    try {
+      const loveRef = await addDoc(collection(this.db, "routeLove"), { 
+        uid: uid,
+        rid: rid
+      })
+      okCallback && okCallback(loveRef.id)
+    } catch(e) {
+      koCallback && koCallback()
+    }
+  }
+
+  async unloveRoute(lid, okCallback, koCallback) {
+    try {
+      await deleteDoc(doc(this.db, "routeLove", lid))
+      okCallback && okCallback()
+    } catch(e) {
+      koCallback && koCallback()
+    }
+  }
+
   async setRoute(route, okCallback, koCallback) {
     this.setGpx(route.gpx, async (gpx) => {
       try {
@@ -377,7 +428,6 @@ class FirebaseController {
             quadrant: route.quadrant,
             gpx: gpx.gid,
             uids: route.uids,
-            scale: route.scale,
             dificulty: route.dificulty,
             likes: route.likes
           }
@@ -416,7 +466,7 @@ class FirebaseController {
     }
   }
 
-  async getRoute(rid, okCallback, koCallback) {
+  async getRoute(rid, resolveGpx, okCallback, koCallback) {
     const docRef = doc(this.db, "routes", rid)
     const docSnap = await getDoc(docRef)
 
@@ -424,7 +474,7 @@ class FirebaseController {
       const res = docSnap.data()
       res.rid = docRef.id
 
-      if (res.gpx) {
+      if (resolveGpx && res.gpx) {
         this.getGpx(res.gpx, (gpx) => {
           res.gpx = gpx
           res.gpx.gid = gpx.gid
@@ -458,8 +508,7 @@ class FirebaseController {
         } else {
           routes.push({...routeData.data(), rid: routeData.id})
           okCallback && okCallback(routes);
-        }
-        
+        }  
       });
       } catch(e) {
         koCallback && koCallback();

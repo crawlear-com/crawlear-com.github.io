@@ -1,0 +1,20 @@
+.routeLoveContainer {
+  float: right;
+}
+
+.loveIcon {
+  width: 25px;
+  height: 23px;
+  display: block;
+  background-size: contain;
+  background-position: top;
+  margin: 8px 5px;
+}
+
+.loved {
+  background-image: url('../styles/img/love.png');
+}
+
+.noloved {
+  background-image: url('../styles/img/nolove.png');
+}

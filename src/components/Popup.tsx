@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
-
 import '../resources/css/Popup.scss'
 
 interface PopupProps {
@@ -9,7 +7,6 @@ interface PopupProps {
 }
 
 function Popup({ children, onClose }: PopupProps) {
-    const { t } = useTranslation()
     const [isVisible, setIsVisible] = React.useState(false)
     const headerRef = React.useRef<HTMLDivElement>(null)
 
@@ -26,10 +23,12 @@ function Popup({ children, onClose }: PopupProps) {
         })
     }
 
-    return <div title='popup' ref={headerRef} className={`popup rounded rounded1 ${!isVisible ? 'closed' : ''}`} onClick={onHeaderClick}>
-        <div className='bold closeButton'>{t('description.clickparacerrar')}</div>
-        { children }
-    </div>
+    return <>
+        <div title='closeButton' className='bold closeButton' onClick={onHeaderClick}>x</div>
+            <div title='popup' ref={headerRef} className={`popup rounded rounded1 ${!isVisible ? 'closed' : ''}`}>
+            { children }
+        </div>
+    </>
 }
 
 export default Popup

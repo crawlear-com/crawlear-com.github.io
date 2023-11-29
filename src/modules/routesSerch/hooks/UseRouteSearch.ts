@@ -28,7 +28,7 @@ function UseRouteSearch(): Array<any> {
         setRouteToShow(null)
     }
 
-    return [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow, setRouteToShow]
+    return [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow]
 }
 
 export default UseRouteSearch

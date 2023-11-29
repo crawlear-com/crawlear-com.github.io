@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import GoogleMapsUrl from '../../social/components/embed/GoogleMapsUrl'
 import Sharers from '../../social/components/embed/Sharers'
 import { GpxRouteMap } from 'react-gpxroutemap'
+import RouteLove from '../components/RouteLove'
 
 import 'react-gpxroutemap/dist/public/img/marker-icon.png'
 import 'react-gpxroutemap/dist/public/img/marker-shadow.png'
@@ -22,6 +23,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
     if (isOwner || route.isPublic) {
         return <div className="routesManagement rounded rounded2">
             <div className="routesSection rounded rounded1">
+                { !isOwner ? <RouteLove rid={route.rid || '' }></RouteLove> : <></> }
                 { isOwner && onEditClick ? <div className="editButton" onClick={onEditClick}>[ {t("description.editar")} ]</div> : <></> }
                 <div className="value name">{route.name} </div>
                 <div className="value ispublic">{route.isPublic ? t("description.publico") : ''} </div>

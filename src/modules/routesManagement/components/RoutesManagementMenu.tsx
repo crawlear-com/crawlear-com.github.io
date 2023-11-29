@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import Route from '../Route'
 import List from '../../list/List'
 import { itemTransform } from '../../list/components/RouteListTransformer'
 import RoutesSearch from '../../routesSerch/RoutesSearch'
+import LovedRoutes from './LovedRoutes'
+import UseRoutesManagementMenu from '../hooks/UseRoutesManagementMenu'
+import ErrorBox from '../../../components/ErrorBox'
 
 interface RoutesManagementMenuProps {
     onCreateRoute: Function,
@@ -12,31 +14,13 @@ interface RoutesManagementMenuProps {
 
 function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMenuProps) {
     const { t } = useTranslation()
-    const [routes, setRoutes] = React.useState<Array<Route>>([])
-    const fb = window.crawlear.fb
-
-    React.useEffect(() => {
-        window.crawlear && window.crawlear.user && 
-        window.crawlear.user.uid && fb.getRoutesFromUser(window.crawlear.user.uid, (routes: Array<Route>) => {
-            setRoutes(routes)
-        }, () => {
-
-        })
-    }, [])
-
-    function onDeleteRoute(i: number) {
-        const newRoutes = [...routes]
-
-        fb.removeRoute(newRoutes[i].rid, newRoutes[i].gpx?.gid, () => {
-            delete newRoutes[i]
-            setRoutes(newRoutes)
-        }, () => {})
-    }
+    const [routes, onDeleteRoute, error] = UseRoutesManagementMenu()
 
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
         <RoutesSearch></RoutesSearch>
         <div className="routesManagement rounded rounded3">
+            <ErrorBox message={error}></ErrorBox>
             <List data={routes} 
                 readOnly={false}
                 transformer={itemTransform}
@@ -51,6 +35,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                     onViewRoute(routes[i])
                 }} ></List>
         </div>
+        <LovedRoutes onViewRoute={onViewRoute}></LovedRoutes>
         <button className='importantNote' onClick={() => {
             window.scrollTo(0,0)
             onCreateRoute()

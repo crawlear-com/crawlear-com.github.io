@@ -18,9 +18,7 @@ export interface ListProps {
 
 function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemAction, transformer}: ListProps) {
     const { t } = useTranslation()
-    const fb = window.crawlear.fb
     let i=0, list: Array<any> = []
-    let children
 
     function onRemoveItemClick(event: React.MouseEvent<HTMLDivElement>) {
         const position = Number((event.target as HTMLDivElement).getAttribute("data-itemposition"))
