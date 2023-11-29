@@ -115,6 +115,11 @@ class FirebaseController {
       querySnapshot = await getDocs(q);
       data.judgeGames = querySnapshot.docs.length;
 
+      q = query(collection(this.db, "routes"), 
+      where("uids", "array-contains", uid));
+      querySnapshot = await getDocs(q);
+      data.routes = querySnapshot.docs.length;
+
       okCallback && okCallback(data);
       } catch(e) {
         koCallback && koCallback();

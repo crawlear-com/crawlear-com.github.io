@@ -9,6 +9,7 @@ interface User {
 
 interface UserExtraData {
     judgeGames: number,
-    pilotGames: number
+    pilotGames: number,
+    routes: number
 }
 export { User, UserExtraData }
