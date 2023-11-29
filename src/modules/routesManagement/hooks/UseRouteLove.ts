@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function UseRouteLove(rid: string, onLove: Function): Array<any> {
+function UseRouteLove(rid: string, onLove?: Function): Array<any> {
   const [lid, setLid] = React.useState<string | null>(null)
   const [state, setState] = React.useState(false)
   const fb = window.crawlear.fb
@@ -14,7 +14,7 @@ function UseRouteLove(rid: string, onLove: Function): Array<any> {
 
   function changeStateOnClick(e: React.MouseEvent<HTMLSpanElement>): void {
     if (window.crawlear && window.crawlear.user && window.crawlear.user.uid) {
-      onLove(!state)
+      onLove && onLove(!state)
     
       if (!state) {
         fb.loveRoute(window.crawlear.user.uid, rid, (lid: string) => {

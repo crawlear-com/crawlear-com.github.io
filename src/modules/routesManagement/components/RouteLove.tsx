@@ -5,7 +5,7 @@ import '../styles/RouteLove.scss'
 
 interface RouteLoveProps {
   rid: string,
-  onLove: Function
+  onLove?: Function
 }
 
 function RouteLove({rid, onLove}: RouteLoveProps) {
