@@ -8,7 +8,7 @@ function UseRouteSearch(): Array<any> {
 
     function onMapClick(latlon: any, mapBounds: any) {
         const latLength = Math.abs(mapBounds._northEast.lat - mapBounds._southWest.lat) / 2
-        const lonLength = Math.abs(mapBounds._northEast.lng - mapBounds._southWest.lng) / 2
+        const lonLength = Math.abs(mapBounds._northEast.lng - mapBounds._southWest.lng) / 4
 
         fb.routeSearchByLatLon(latlon, { lat: latLength, lon: lonLength}, (routes: Array<any>) =>{
             setRoutes(routes)
