@@ -19,12 +19,13 @@ interface RouteViewerProps {
 
 function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
     const { t } = useTranslation()
-    const isOwner = window.crawlear && window.crawlear.user && route.uids.find((element) => element === window.crawlear.user.uid)
+    const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
+    const isOwner = isLogged && route.uids.find((element) => element === window.crawlear.user.uid)
 
     if (isOwner || route.isPublic) {
         return <div className="routesManagement rounded rounded2">
             <div className="routesSection rounded rounded1">
-                { !isOwner ? <RouteLove rid={route.rid || '' }></RouteLove> : <></> }
+                { !isOwner && isLogged ? <RouteLove rid={route.rid || '' }></RouteLove> : <></> }
                 { isOwner && onEditClick ? <div className="editButton" onClick={onEditClick}>[ {t("description.editar")} ]</div> : <></> }
                 <div className="value name">{route.name} </div>
                 <div className="value ispublic">{route.isPublic ? t("description.publico") : ''} </div>
