@@ -434,7 +434,8 @@ class FirebaseController {
             gpx: gpx.gid,
             uids: route.uids,
             dificulty: route.dificulty,
-            likes: route.likes
+            likes: route.likes,
+            youtubeVideo: route.youtubeVideo
           }
           
           await setDoc(doc(this.db, "routes", route.rid), data);

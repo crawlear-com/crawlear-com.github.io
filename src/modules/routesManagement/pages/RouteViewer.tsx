@@ -5,6 +5,7 @@ import GoogleMapsUrl from '../../social/components/embed/GoogleMapsUrl'
 import Sharers from '../../social/components/embed/Sharers'
 import { GpxRouteMap } from 'react-gpxroutemap'
 import RouteLove from '../components/RouteLove'
+import Youtube from '../../social/components/embed/Youtube'
 
 import 'react-gpxroutemap/dist/public/img/marker-icon.png'
 import 'react-gpxroutemap/dist/public/img/marker-shadow.png'
@@ -29,6 +30,10 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
                 <div className="value ispublic">{route.isPublic ? t("description.publico") : ''} </div>
             </div>
             <GpxRouteMap gpx={route.gpx.data}></GpxRouteMap>
+            { route.youtubeVideo ? 
+                <div className="routesSection">
+                    <div className="value"><Youtube url={route.youtubeVideo}></Youtube></div>
+            </div> : <></> }
             <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText=''></Sharers>
             <div className="routesSection">
                 <div className="value description">{route.description} </div>

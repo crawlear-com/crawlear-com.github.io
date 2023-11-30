@@ -46,6 +46,9 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
                 <option value="5">5</option>
             </select>
             </div>
+            <div className="youtubeVideo center">{t('description.video')}<input name='youtubeVideo' value={route.youtubeVideo} onChange={(value) => {
+                onInputChange('youtubeVideo', value)
+            }}></input></div>
             <div className="routePoint center">{t('description.puntoencuentro')}<input name='locationMapUrl' value={route.locationMapUrl} onChange={(value) => {
                 onInputChange('locationMapUrl', value)
             }}></input></div>

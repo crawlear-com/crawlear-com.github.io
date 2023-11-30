@@ -236,7 +236,8 @@ i18n
             juegonopublico: 'not public, sorry',
             cargar: 'Load',
             mapaderuta: 'Route map',
-            clickparacerrar: 'Click to close'
+            clickparacerrar: 'Click to close',
+            video: 'Youtube video'
           },
           points: {
             vuelco: 'overturn',
@@ -558,7 +559,8 @@ i18n
               juegonopublico: 'no publico, lo siento',
               cargar: 'Cargar',
               mapaderuta: 'Mapa de ruta',
-              clickparacerrar: 'Click para cerrar'
+              clickparacerrar: 'Click para cerrar',
+              video: 'Video de youtube'
           },
           points: {
             vuelco: 'vuelco',
