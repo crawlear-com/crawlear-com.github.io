@@ -422,26 +422,13 @@ class FirebaseController {
   async setRoute(route, okCallback, koCallback) {
     this.setGpx(route.gpx, async (gpx) => {
       try {
+        const data = route.transformIntoData(gpx.gid)
+
         if (route.rid && gpx.gid) {
-          const data = {
-            name: route.name,
-            description: route.description,
-            isPublic: route.isPublic,
-            scale: route.scale,
-            locationMapUrl: route.locationMapUrl,
-            point: route.point,
-            quadrant: route.quadrant,
-            gpx: gpx.gid,
-            uids: route.uids,
-            dificulty: route.dificulty,
-            likes: route.likes,
-            youtubeVideo: route.youtubeVideo
-          }
-          
           await setDoc(doc(this.db, "routes", route.rid), data);
         } else if (gpx.gid) {
           route.gpx = gpx.gid
-          const routeRef = await addDoc(collection(this.db, "routes"), route.transformIntoData(gpx.gid))
+          const routeRef = await addDoc(collection(this.db, "routes"), data)
           route.rid = routeRef.id
         } else {
           koCallback && koCallback()
