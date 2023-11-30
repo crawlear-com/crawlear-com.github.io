@@ -44,6 +44,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             route.scale,
             value,
             route.likes,
+            route.youtubeVideo,
             route.rid)
         setRoute(newRoute)
     }
@@ -61,6 +62,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             route.scale,
             route.dificulty,
             route.likes,
+            route.youtubeVideo,
             route.rid)
 
         newRoute[parameter as keyof typeof Route] = value
@@ -87,6 +89,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
                 previousRoute.scale,
                 previousRoute.dificulty,
                 previousRoute.likes,
+                previousRoute.youtubeVideo,
                 previousRoute.rid)
             return newRoute
         })
