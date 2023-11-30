@@ -19,7 +19,8 @@ interface RouteViewerProps {
 
 function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
     const { t } = useTranslation()
-    const isOwner = window.crawlear && window.crawlear.user && route.uids.find((element) => element === window.crawlear.user.uid)
+    const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
+    const isOwner = isLogged && route.uids.find((element) => element === window.crawlear.user.uid)
 
     if (isOwner || route.isPublic) {
         return <div className="routesManagement rounded rounded2">
