@@ -28,7 +28,7 @@ class Route {
         this.scale = scale
         this.dificulty = dificulty
         this.likes = likes
-        this.youtubeVideo = youtubeVideo
+        this.youtubeVideo = youtubeVideo || ''
         if (rid) {
             this.rid = rid
         }
