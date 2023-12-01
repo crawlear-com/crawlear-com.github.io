@@ -1,27 +1,26 @@
 .popup {
     position: fixed;
-    top: 64px;
+    top: 11px;
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 100000;
-    height: 90%;
-    border: 2px solid black;
+    height: 97%;
+    border: 2px solid #000;
     overflow: scroll;
-    transition: heigth 0.7s linear;
+    transition: heigth .7s linear;
     width: 97%;
     max-width: 412px;
     overscroll-behavior: contain;
 }
 
 .closeButton {
-    width: 25px;
-    height: 25px;
-    font-size: 0.8em;
-    position: absolute;
-    top: 5px;
+    width: 30px;
+    height: 30px;
+    position: sticky;
+    top: 6px;
     background-color: #333;
     z-index: 200000;
-    right: 5px;
+    left: 90%;
     border-radius: 8px;
     cursor: pointer;
 }

@@ -24,8 +24,8 @@ function Popup({ children, onClose }: PopupProps) {
     }
 
     return <>
-            <div title='popup' ref={headerRef} className={`popup rounded rounded1 ${!isVisible ? 'closed' : ''}`}>
-                <div title='closeButton' className='bold closeButton' onClick={onHeaderClick}>x</div>
+            <div title='popup' ref={headerRef} className={`popup rounded rounded2 ${!isVisible ? 'closed' : ''}`}>
+                <div title='closeButton' className='bold closeButton' onClick={onHeaderClick}>x</div>   
             { children }
         </div>
     </>

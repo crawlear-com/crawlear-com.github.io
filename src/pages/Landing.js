@@ -5,6 +5,7 @@ import Analytics from '../Analytics.js';
 import { useTranslation } from 'react-i18next';
 import Offline, { isOffline } from './Offline.js';
 import Footer from '../components/Footer.js';
+import RoutesSearch from '../modules/routesSerch/RoutesSearch';
 
 import image from './styles/img/btn_google_signin_light_pressed_web.png';
 import Levante124Logo from './styles/img/Levante124Logo.jpeg';
@@ -33,11 +34,13 @@ function Landing({onLogin}) {
             <Offline />
         </>;
     } else {
-        return <>
+        return <div className='landing'>
         <MainPageTextContent />
 
+        <RoutesSearch></RoutesSearch>
+
         <div className="loginAndContent aboutUsContent">
-            <p>{t('content.landingMainText')}:</p>
+            <p><b>{t('content.landingMainText')}</b>:</p>
             <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                 firebase.signInWithGoogle(signInCallback);
             }} />
@@ -51,7 +54,7 @@ function Landing({onLogin}) {
         </div>
 
         <Footer />
-        </>
+        </div>
     }
 }
 
