@@ -32,25 +32,22 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
+  const route = location.pathname
 
   window.crawlear = window.crawlear || {}
   window.crawlear.fb = window.crawlear.fb || fb
 
   React.useEffect(() => {
     fb.checkIfLogged(() => {
-      onLogin(true)
+      if (route.length === 1) {
+        navigate('/game')
+      }
+      setStateLogged(TRUE)
     }, () => {
-      setStateLogged(FALSE)
+      onLogout()
     });
     Analytics.event('App','init',`${navigator.userAgent}`)
   }, [])
-
-  function onLogin(navigateAction) {
-    setStateLogged(TRUE)
-    if (navigateAction) {
-      navigate("/game")
-    }
-  }
 
   function onLogout() {
     setStateLogged(FALSE)
