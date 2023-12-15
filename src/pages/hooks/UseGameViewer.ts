@@ -8,7 +8,7 @@ function UseGameViewer(gid: string) {
 
     React.useEffect(() => {
         Analytics.pageview(`/gameviewer?gid=${gid}`);
-        firebase.getGame(gid, (newGame: Game) => {
+        gid && gid.length > 0 && firebase.getGame(gid, (newGame: Game) => {
             if (newGame.isPublic) {
                 setGame(newGame)
             }

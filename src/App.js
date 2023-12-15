@@ -44,6 +44,7 @@ function App() {
       onLogin(true)
     }, () => {
       setStateLogged(FALSE)
+      navigate("/gameviewer?gid=2313122");
     });
     Analytics.event('App','init',`${navigator.userAgent}`)
   }, [])
@@ -51,7 +52,7 @@ function App() {
   function onLogin(navigateAction) {
     setStateLogged(TRUE)
     if (navigateAction) {
-      navigate("/game");
+      navigate("/game")
     }
   }
 
@@ -63,7 +64,7 @@ function App() {
       <div className="App">
         { stateLogged === TRUE ? <Menu /> : <></> }
         <div className="AppMainContainer">
-        { stateLogged === NOTKNOWN ? <WhileLogging></WhileLogging> : 
+        { stateLogged === NOTKNOWN ? <WhileLogging></WhileLogging> : 
           <Routes>
             <Route path="/" element={<Landing />} />
 
@@ -72,6 +73,7 @@ function App() {
             <Route path="/route" element={<RoutesManagement />} />
             
             <Route path="/gameviewer" element={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />
+            <Route path="/social" element={<PilotWall onLogout={onLogout} />} />
             <Route path="/routeviewer" element={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />
             <Route path="/profile" element={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
             <Route path="/aboutus" element={<AboutUs />} />

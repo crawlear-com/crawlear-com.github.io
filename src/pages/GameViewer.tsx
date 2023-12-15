@@ -11,7 +11,6 @@ interface GameViewerProps {
 }
 
 function GameViewer({ gid }: GameViewerProps) {
-    const fb = window.crawlear.fb
     const { t } = useTranslation()
     const [game] = UseGameViewer(gid)
     let result = <></>

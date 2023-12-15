@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import MainPageTextContent from './components/MainPageTextContent.js';
 import Analytics from '../Analytics.js';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +15,6 @@ import './styles/Landing.scss';
 
 function Landing({onLogin}) {
     const { t } = useTranslation();
-    const navigate = useNavigate();
     const firebase = window.crawlear.fb;
     
     function signInCallback() {

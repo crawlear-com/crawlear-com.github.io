@@ -1,17 +1,18 @@
-import * as React from 'react';
-import { GAME_TYPE_KING } from '../../../games/Game';
-import GameTypeController from '../components/GameTypeController';
-import PlayerController from '../components/PlayerController';
-import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker';
-import ZonesPicker from '../components/ZonesPicker';
-import GroupsPicker from '../components/GroupsPicker';
-import GateProgressionPicker from '../components/GateProgressionPicker';
-import ErrorBox from '../../../components/ErrorBox';
-import { UserStatusContext } from '../../../context/UserStatusContext';
-import { isOffline } from '../../../pages/Offline';
-import LocationResolver from '../components/LocationResolver';
-import { useTranslation } from 'react-i18next';
-import UseGameConfigurator from '../hooks/UseGameConfigurator';
+import * as React from 'react'
+import { Navigate } from 'react-router-dom'
+import { GAME_TYPE_KING } from '../../../games/Game'
+import GameTypeController from '../components/GameTypeController'
+import PlayerController from '../components/PlayerController'
+import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker'
+import ZonesPicker from '../components/ZonesPicker'
+import GroupsPicker from '../components/GroupsPicker'
+import GateProgressionPicker from '../components/GateProgressionPicker'
+import ErrorBox from '../../../components/ErrorBox'
+import { UserStatusContext } from '../../../context/UserStatusContext'
+import { isOffline } from '../../../pages/Offline'
+import LocationResolver from '../components/LocationResolver'
+import { useTranslation } from 'react-i18next'
+import UseGameConfigurator from '../hooks/UseGameConfigurator'
 
 import '../styles/GameConfigurator.scss';
 
@@ -19,7 +20,6 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
     const { t } = useTranslation()
     const extraConfigurationComponents = []
     const { isUserLoged } = React.useContext(UserStatusContext)
-    const fb = window.crawlear.fb
 
     if (!isUserLoged && !isOffline) {
         return <Navigate state={{ from: "/gameconfigurator" }} to={{ pathname: "/" }} />
