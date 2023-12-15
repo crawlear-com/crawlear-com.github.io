@@ -44,7 +44,6 @@ function App() {
       onLogin(true)
     }, () => {
       setStateLogged(FALSE)
-      navigate("/gameviewer?gid=2313122");
     });
     Analytics.event('App','init',`${navigator.userAgent}`)
   }, [])
