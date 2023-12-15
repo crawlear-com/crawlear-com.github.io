@@ -6,16 +6,10 @@ import NotLoggedLogo from '../components/NotLoggedLogo'
 
 interface RouteViewerProps {
     rid: string
-    onLogin: Function
 }
 
-function RouteViewer({ rid, onLogin }: RouteViewerProps) {
+function RouteViewer({ rid }: RouteViewerProps) {
     const [route] = UseRouteViewer(rid)
-    const fb = window.crawlear.fb
-
-    React.useEffect(() => {
-        fb.checkIfLogged(()=>{onLogin(false)})
-    },[])
 
     if (!route.rid) {
         return <>

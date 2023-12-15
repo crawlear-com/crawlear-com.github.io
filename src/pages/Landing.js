@@ -20,12 +20,10 @@ function Landing({onLogin}) {
     const firebase = window.crawlear.fb;
     
     function signInCallback() {
-        onLogin(true);
-        navigate("/game");
+        onLogin(true)
     }
 
     React.useEffect(() => {
-        firebase.checkIfLogged(onLogin);
         Analytics.pageview('/landing/');
     },[]);
 

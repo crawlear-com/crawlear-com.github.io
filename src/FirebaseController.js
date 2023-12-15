@@ -528,7 +528,7 @@ class FirebaseController {
     return this.auth.currentUser != null;
   }
 
-  checkIfLogged(onLoggin) {
+  checkIfLogged(onLoggin, notLogged) {
     this.checkIfRedirect(onLoggin);
     this.auth.onAuthStateChanged((user) => {
         if (user) {
@@ -541,6 +541,8 @@ class FirebaseController {
                   onLoggin();
                 }, ()=>{});
           });
+        } else {
+          notLogged && notLogged()
         }
     });
   }

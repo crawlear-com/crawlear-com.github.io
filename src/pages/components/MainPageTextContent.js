@@ -10,7 +10,6 @@ function MainPageTextContent() {
     return <div className="aboutUsContent">
         <figure className="logoImg">
             <img alt="crawlear logo" src={logo5}></img>
-            
         </figure>
 
         <p>

@@ -11,14 +11,13 @@ const STATE_MENU = 0;
 const STATE_PLAYING = 1;
 const STATE_CONFIGURE = 2;
 
-function GameManagement({onLogin}) {
+function GameManagement() {
     const firebase = window.crawlear.fb;
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
 
     React.useEffect(() => {
         Analytics.pageview('/completegame/')
-        firebase.checkIfLogged(()=>{onLogin(false)})
         window.document.body.classList.add('game');
 
         return () => {

@@ -6,13 +6,12 @@ import { t } from 'i18next';
 
 const body = window.document.body;
 
-function PilotWall({onLogin, onLogout}) {
+function PilotWall({onLogout}) {
     const fb = window.crawlear.fb
     const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid;
     const { isUserLoged } = React.useContext(UserStatusContext);
 
     React.useEffect(()=>{
-        fb.checkIfLogged(()=>{onLogin(false)})
         window.document.body.classList.add('social');
 
         return () => {
@@ -22,7 +21,7 @@ function PilotWall({onLogin, onLogout}) {
 
     if (isUserLoged){
         return <>
-            <UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={uid}/>
+            <UserViewer onLogout={onLogout} uid={uid}/>
             <Footer></Footer>
             </>
     } else {
