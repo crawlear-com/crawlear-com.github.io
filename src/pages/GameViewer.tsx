@@ -10,15 +10,10 @@ interface GameViewerProps {
     onLogin: Function
 }
 
-function GameViewer({ gid, onLogin }: GameViewerProps) {
-    const fb = window.crawlear.fb
+function GameViewer({ gid }: GameViewerProps) {
     const { t } = useTranslation()
     const [game] = UseGameViewer(gid)
     let result = <></>
-
-    React.useEffect(() => {
-        fb.checkIfLogged(onLogin);
-    },[]);
 
     if (!game.players) {
         result = <Spinner></Spinner>

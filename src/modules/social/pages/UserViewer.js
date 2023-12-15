@@ -7,14 +7,10 @@ import UseUserViewer, { USER_TYPE_JUDGE, USER_TYPE_PILOT, USER_TYPE_ROUTE } from
 import logo from '../../../resources/img/logo5.png'
 import '../styles/UserViewer.scss'
 
-function UserViewer({ uid, onLogout, onLogin }) {
+function UserViewer({ uid, onLogout }) {
     const { t } = useTranslation()
     const firebase = window.crawlear.fb
     const [user, userData, isVisible, onScreen, getUserType] = UseUserViewer(uid)
-
-    React.useEffect(() => {
-        firebase.checkIfLogged(() => { onLogin(false) })
-    }, [])
 
     if (user.registrationDate && isVisible) {
         let userType = getUserType(userData)

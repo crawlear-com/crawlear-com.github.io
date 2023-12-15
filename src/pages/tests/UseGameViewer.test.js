@@ -27,7 +27,7 @@ afterEach(() => {
 test('renders GameList', () => {
     const gid = '213123123'
     const { result } = renderHook(UseGameViewer, {
-        initialProps: { gid }
+        initialProps: gid
     })
 
     expect(window.crawlear.fb.getGame).toHaveBeenCalled()

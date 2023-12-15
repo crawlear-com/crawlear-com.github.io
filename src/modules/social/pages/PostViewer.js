@@ -7,11 +7,11 @@ import UserProfile from '../components/UserProfile';
 import logo from '../../../resources/img/logo5.png'
 import UsePostViewer from '../hooks/UsePostViewer';
 
-function PostViewer({pid, onLogin}) {
+function PostViewer({pid}) {
     const { t } = useTranslation();
     const firebase = window.crawlear.fb;
     const bottomButtons = [];
-    const [user, post] = UsePostViewer(pid, onLogin)
+    const [user, post] = UsePostViewer(pid)
 
     if (firebase.isUserLogged()) {
         bottomButtons.push(<button key='backButton' onClick={()=>{

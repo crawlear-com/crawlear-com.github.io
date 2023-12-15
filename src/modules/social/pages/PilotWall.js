@@ -1,33 +1,27 @@
-import * as React from 'react';
-import UserViewer from './UserViewer';
-import Footer from '../../../components/Footer';
-import { UserStatusContext } from '../../../context/UserStatusContext';
-import { t } from 'i18next';
+import * as React from 'react'
+import { Navigate } from 'react-router-dom'
+import UserViewer from './UserViewer'
+import { UserStatusContext } from '../../../context/UserStatusContext'
 
-const body = window.document.body;
-
-function PilotWall({onLogin, onLogout}) {
-    const fb = window.crawlear.fb
+function PilotWall({onLogout}) {
     const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid;
-    const { isUserLoged } = React.useContext(UserStatusContext);
+    const { isUserLoged } = React.useContext(UserStatusContext)
 
     React.useEffect(()=>{
-        fb.checkIfLogged(()=>{onLogin(false)})
-        window.document.body.classList.add('social');
+        window.document.body.classList.add('social')
 
         return () => {
-            window.document.body.classList.remove('social');
+            window.document.body.classList.remove('social')
         }
     },[]);
 
-    if (isUserLoged){
-        return <>
-            <UserViewer onLogin={()=>{onLogin(false)}} onLogout={onLogout} uid={uid}/>
-            <Footer></Footer>
-            </>
-    } else {
-        return <>{t('content.userprofilenotlogged')} <a href='https://crawlear.com'>crawlear.com</a></>
+    if (!isUserLoged) {
+        return <Navigate state={{ from: "/route" }} to={{ pathname: "/" }} />
     }
+
+    return <>
+        <UserViewer onLogout={onLogout} uid={uid}/>
+        </>
 
 }
 
