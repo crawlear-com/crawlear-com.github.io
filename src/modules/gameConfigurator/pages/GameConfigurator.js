@@ -13,14 +13,19 @@ import { isOffline } from '../../../pages/Offline'
 import LocationResolver from '../components/LocationResolver'
 import { useTranslation } from 'react-i18next'
 import UseGameConfigurator from '../hooks/UseGameConfigurator'
+import Analytics from '../../../Analytics'
 
-import '../styles/GameConfigurator.scss';
+import '../styles/GameConfigurator.scss'
 
 function GameConfigurator({preconfiguredGame, onGameCreated}) {
     const { t } = useTranslation()
     const extraConfigurationComponents = []
     const { isUserLoged } = React.useContext(UserStatusContext)
 
+    React.useEffect(() => {
+        Analytics.pageview(`/gameconfigurator`)
+    }, [])
+    
     if (!isUserLoged && !isOffline) {
         return <Navigate state={{ from: "/gameconfigurator" }} to={{ pathname: "/" }} />
     }

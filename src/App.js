@@ -4,7 +4,6 @@ import TxtRoute from './pages/TxtRoute'
 import Menu from './components/Menu'
 import FirebaseController from './FirebaseController'
 import GameManagement from './modules/gameManagement/pages/GameManagement'
-import FollowsWall from './modules/social/pages/FollowsWall'
 import PilotWall from './modules/social/pages/PilotWall'
 import AboutUs from './pages/AboutUs'
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -13,7 +12,6 @@ import Analytics from './Analytics'
 import GameConfigurator from './modules/gameConfigurator/pages/GameConfigurator'
 import RoutesManagement from './modules/routesManagement/pages/RoutesManagement'
 import UserViewer from './modules/social/pages/UserViewer'
-import PostViewer from './modules/social/pages/PostViewer'
 import GameViewer from './pages/GameViewer'
 import RouteViewer from './pages/RouteViewer'
 import WhileLogging from './components/WhileLogging'
@@ -27,7 +25,6 @@ import './resources/css/Footer.scss'
 const NOTKNOWN = -1
 const TRUE = 1
 const FALSE = 0
-
 
 function App() {
   const fb = new FirebaseController()
