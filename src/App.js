@@ -47,7 +47,8 @@ function App() {
       setStateLogged(TRUE)
     }, () => {
       onLogout()
-    });
+    })
+    Analytics.init('G-J1NH6FT6E3')
     Analytics.event('App','init',`${navigator.userAgent}`)
   }, [])
 
