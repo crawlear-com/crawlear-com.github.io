@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import logo5 from '../../resources/img/logo3.png';
+import logo5 from '../../resources/img/logo3.webp';
 
 import '../styles/MainPageTextContent.scss';
 
