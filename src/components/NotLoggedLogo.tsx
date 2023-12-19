@@ -1,5 +1,5 @@
 import * as React from 'react'
-import logo from '../resources/img/logo3.png'
+import logo from '../resources/img/logo3.webp'
 
 function NotLoggedLogo() {
     const fb = window.crawlear && window.crawlear.fb
@@ -9,7 +9,6 @@ function NotLoggedLogo() {
     } else {
         return <></>
     }
-
 }
 
 export default NotLoggedLogo
