@@ -1,19 +1,8 @@
 import * as React from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-import TxtRoute from './pages/TxtRoute'
-import Menu from './components/Menu'
+import { lazy, Suspense } from 'react'
 import FirebaseController from './FirebaseController'
-import GameManagement from './modules/gameManagement/pages/GameManagement'
-import PilotWall from './modules/social/pages/PilotWall'
-import AboutUs from './pages/AboutUs'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import Landing from './pages/Landing'
 import Analytics from './Analytics'
-import GameConfigurator from './modules/gameConfigurator/pages/GameConfigurator'
-import RoutesManagement from './modules/routesManagement/pages/RoutesManagement'
-import UserViewer from './modules/social/pages/UserViewer'
-import GameViewer from './pages/GameViewer'
-import RouteViewer from './pages/RouteViewer'
 import WhileLogging from './components/WhileLogging'
 import { UserStatusContext } from './context/UserStatusContext'
 import './Error.js'
@@ -21,6 +10,19 @@ import './Error.js'
 import './resources/css/Base.scss'
 import './resources/css/App.scss'
 import './resources/css/Footer.scss'
+
+const TxtRoute = lazy(() => import('./pages/TxtRoute'))
+const Menu = lazy(() => import('./components/Menu'))
+const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameManagement'))
+const PilotWall = lazy(() => import('./modules/social/pages/PilotWall'))
+const AboutUs = lazy(() => import('./pages/AboutUs'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const Landing = lazy(() => import('./pages/Landing'))
+const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/GameConfigurator'))
+const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagement'))
+const GameViewer = lazy(() => import('./pages/GameViewer'))
+const RouteViewer = lazy(() => import('./pages/RouteViewer'))
+const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
 const NOTKNOWN = -1
 const TRUE = 1
@@ -58,21 +60,23 @@ function App() {
         { stateLogged === TRUE ? <Menu /> : <></> }
         <div className="AppMainContainer">
         { stateLogged === NOTKNOWN ? <WhileLogging></WhileLogging> : 
-          <Routes>
-            <Route path="/" element={<Landing />} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Landing />} />
 
-            <Route path="/game" element={<GameManagement onLogout={onLogout} />} />
-            <Route path="/gameconfigurator" element={<GameConfigurator />} />
-            <Route path="/route" element={<RoutesManagement />} />
-            
-            <Route path="/gameviewer" element={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />
-            <Route path="/social" element={<PilotWall onLogout={onLogout} />} />
-            <Route path="/routeviewer" element={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />
-            <Route path="/profile" element={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-            <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
-          </Routes>}
+              <Route path="/game" element={<GameManagement onLogout={onLogout} />} />
+              <Route path="/gameconfigurator" element={<GameConfigurator />} />
+              <Route path="/route" element={<RoutesManagement />} />
+              
+              <Route path="/gameviewer" element={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />
+              <Route path="/social" element={<PilotWall onLogout={onLogout} />} />
+              <Route path="/routeviewer" element={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />
+              <Route path="/profile" element={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+              <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
+            </Routes>
+          </Suspense>}
         </div>
 
         <div className="adsContainer"></div>

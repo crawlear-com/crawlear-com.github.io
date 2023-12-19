@@ -3,9 +3,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  mode: 'production',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 0, // Set to 0 to enforce splitting regardless of size
+      maxSize: 250000
+    },
+  },
+  performance: {
+    hints: false,
+    maxAssetSize: 500 * 1024, // 500kb in bytes
+  },
   entry: path.join(__dirname, "src", "index.js"),
   output: {
-    path:path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist"),
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
