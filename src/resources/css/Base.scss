@@ -11,7 +11,7 @@ body {
   margin: 0px;
   height: 100%;
   -webkit-font-smoothing: antialiased;
-  background-image: url(../img/img06.png);
+  background-image: url(../img/img06.webp);
   background-attachment: fixed;
   background-position: center;
   background-position-y: top;
@@ -21,15 +21,15 @@ body {
 }
 
 body.game {
-  background-image: url(../img/fondo3.jpeg);
+  background-image: url(../img/fondo3.webp);
 }
 
 body.social {
-  background-image: url(../img/img00.png);
+  background-image: url(../img/img00.webp);
 }
 
 body.route {
-  background-image: url(../img/fondo4.jpeg);
+  background-image: url(../img/fondo4.webp);
 }
 
 .blink {
