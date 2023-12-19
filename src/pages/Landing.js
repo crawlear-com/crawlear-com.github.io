@@ -37,15 +37,15 @@ function Landing({onLogin}) {
 
         <div className="loginAndContent aboutUsContent">
             <p><b>{t('content.landingMainText')}</b>:</p>
-            <img className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
+            <img width={183} height={44} className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
                 firebase.signInWithGoogle(signInCallback);
             }} />
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
-                <img className='collaborateLogo' width="100" src={Levante124Logo} alt="Levante 1/24 Logo" />
-                <a href="https://www.clubzonarc.es/" width="100" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
-                <img className='collaborateLogo' width="100" src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
+                <img className='collaborateLogo' width={100} height={100} src={Levante124Logo} alt="Levante 1/24 Logo" />
+                <a href="https://www.clubzonarc.es/" width={100} height={100} alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
+                <img className='collaborateLogo' width={100} height={100} src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
             </p>
         </div>
 
