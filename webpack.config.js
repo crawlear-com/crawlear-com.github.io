@@ -60,13 +60,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/static/index.html',
-      chunks: ['main']
+      template: 'src/static/index.html'
     }),
     new HtmlWebpackPlugin({
       filename: '404.html',
-      template: 'src/static/404.html',
-      chunks: ['404']
+      template: 'src/static/404.html'
     }),
     new CopyPlugin({
       patterns: [

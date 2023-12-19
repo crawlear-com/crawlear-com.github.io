@@ -43,9 +43,9 @@ function Landing({onLogin}) {
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
-                <img className='collaborateLogo' src={Levante124Logo} alt="Levante 1/24 Logo" />
-                <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
-                <img className='collaborateLogo' src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
+                <img className='collaborateLogo' width="100" src={Levante124Logo} alt="Levante 1/24 Logo" />
+                <a href="https://www.clubzonarc.es/" width="100" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
+                <img className='collaborateLogo' width="100" src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
             </p>
         </div>
 

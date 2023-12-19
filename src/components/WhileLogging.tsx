@@ -1,8 +1,8 @@
 import * as React from 'react'
 import Spinner from './Spinner'
 
-import logo from '../resources/img/logo3.png';
-import '../resources/css/WhileLogging.scss';
+import logo from '../resources/img/logo3.webp'
+import '../resources/css/WhileLogging.scss'
 
 function WhileLogging() {
 
