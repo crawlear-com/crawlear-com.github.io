@@ -2,12 +2,9 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Analytics from './Analytics';
 import { BrowserRouter } from 'react-router-dom';
 import initPwa from './pwa/initPwa';
 import i18n from './resources/language/i18n';
-
-Analytics.init('G-J1NH6FT6E3');
 
 const root = createRoot(document.getElementById('root'));
 root.render(
