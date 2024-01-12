@@ -221,7 +221,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
                     newGame.gid = game.gid
                     fb.createGameProgression(newGame)
                     setGame(newGame)
-                    window.location.href.indexOf('completegame')<0 ? navigate("/completegame") : window.location.reload()
+                    navigate("/game")
                 }, ()=>{})
             }
         }
