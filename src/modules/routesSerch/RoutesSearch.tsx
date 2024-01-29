@@ -5,6 +5,7 @@ import Route from '../routesManagement/Route'
 import Popup from '../../components/Popup'
 import RouteViewer from '../routesManagement/pages/RouteViewer'
 import UseRouteSearch from './hooks/UseRouteSearch'
+import Analytics from '../../Analytics'
 
 import './styles/RoutesSearch.scss'
 
@@ -24,6 +25,7 @@ function RoutesSearch() {
             const link = document.createElement('div')
             link.classList.add('routeAltDiv')
             link.innerText = route.name
+            Analytics.event('route','click',`${route.rid}`);
             link.addEventListener('click',() => {
                 onViewRoute(index)
             })

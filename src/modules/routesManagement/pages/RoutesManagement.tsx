@@ -1,6 +1,4 @@
 import * as React from 'react'
-
-import Analytics from '../../../Analytics'
 import { Navigate } from 'react-router-dom'
 import RouteViewer from './RouteViewer'
 import RoutesConfigurator from '../components/RoutesConfigurator'
