@@ -10,11 +10,11 @@ function UseRoutesManagement(): Array<any> {
     const [route, setRoute] = React.useState<Route>(new Route('','',true,'',{ data: ''},{lat:0,lon:0},{lat:0,lon:0},[''],'',0,0))
 
     React.useEffect(() => {
-        Analytics.pageview('/routesManagement/');
-        window.document.body.classList.add('route');
+        Analytics.pageview('/routesManagement/')
+        window.document.body.classList.add('route')
 
         return () => {
-            window.document.body.classList.remove('route');
+            window.document.body.classList.remove('route')
         }
     },[]);
 
