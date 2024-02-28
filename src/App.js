@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-import FirebaseController from './FirebaseController'
 import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
 import WhileLogging from './components/WhileLogging'
@@ -40,15 +39,18 @@ function App() {
 
   React.useEffect(() => {
     fb.checkIfLogged(() => {
-      if (route.length === 1) {
-        navigate('/game')
-      }
+      import(/* webpackChunkName: "FirebaseController" */ './FirebaseController').then(module => {
+        const FirebaseController = module.default
 
-      const fullFb = new FirebaseController(fb)
-      window.crawlear = window.crawlear || {}
-      window.crawlear.fb = window.crawlear.fb || fullFb
-    
-      setStateLogged(TRUE)
+        const fullFb = new FirebaseController(fb)
+        window.crawlear = window.crawlear || {}
+        window.crawlear.fb = window.crawlear.fb || fullFb
+        setStateLogged(TRUE)
+
+        if (route.length === 1) {
+          navigate('/game')
+        }  
+      });
     }, () => {
       onLogout()
     })
@@ -65,23 +67,22 @@ function App() {
         { stateLogged === TRUE ? <Menu /> : <></> }
         <div className="AppMainContainer">
         { stateLogged === NOTKNOWN ? <WhileLogging></WhileLogging> : 
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-
-              <Route path="/game" element={<GameManagement onLogout={onLogout} />} />
-              <Route path="/gameconfigurator" element={<GameConfigurator />} />
-              <Route path="/route" element={<RoutesManagement />} />
-              
-              <Route path="/gameviewer" element={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />
-              <Route path="/social" element={<PilotWall onLogout={onLogout} />} />
-              <Route path="/routeviewer" element={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />
-              <Route path="/profile" element={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-              <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
-            </Routes>
-          </Suspense>}
+            stateLogged === FALSE ? <Landing /> : 
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                <Route path="/game" element={<GameManagement onLogout={onLogout} />} />
+                <Route path="/gameconfigurator" element={<GameConfigurator />} />
+                <Route path="/route" element={<RoutesManagement />} />
+                
+                <Route path="/gameviewer" element={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />
+                <Route path="/social" element={<PilotWall onLogout={onLogout} />} />
+                <Route path="/routeviewer" element={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />
+                <Route path="/profile" element={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
+                <Route path="/aboutus" element={<AboutUs />} />
+                <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+                <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
+              </Routes>
+            </Suspense> }
         </div>
 
         <div className="adsContainer"></div>
