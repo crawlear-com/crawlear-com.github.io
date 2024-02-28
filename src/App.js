@@ -57,14 +57,13 @@ function App() {
   }
 
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
-      <div className="App">
-        { stateLogged === TRUE ? <Menu /> : <></> }
-        <div className="AppMainContainer">
-        { stateLogged === NOTKNOWN ? <WhileLogging></WhileLogging> : 
+    <div className="App">
+      { stateLogged === TRUE ? <Menu /> : <></> }
+      <div className="AppMainContainer">
+      { stateLogged === NOTKNOWN ? <WhileLogging></WhileLogging> : 
+          stateLogged === FALSE ? <Landing /> : 
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-              <Route path="/" element={<Landing />} />
-
               <Route path="/game" element={<GameManagement onLogout={onLogout} />} />
               <Route path="/gameconfigurator" element={<GameConfigurator />} />
               <Route path="/route" element={<RoutesManagement />} />
@@ -77,12 +76,12 @@ function App() {
               <Route path="/privacypolicy" element={<PrivacyPolicy />} />
               <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
             </Routes>
-          </Suspense>}
-        </div>
-
-        <div className="adsContainer"></div>
+          </Suspense> }
       </div>
-  </UserStatusContext.Provider>)
+
+      <div className="adsContainer"></div>
+    </div>
+</UserStatusContext.Provider>)
 }
 
 export default App
