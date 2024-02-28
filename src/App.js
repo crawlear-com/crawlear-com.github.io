@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import FirebaseController from './FirebaseController'
+import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
 import WhileLogging from './components/WhileLogging'
 import { UserStatusContext } from './context/UserStatusContext'
@@ -29,21 +30,24 @@ const TRUE = 1
 const FALSE = 0
 
 function App() {
-  const fb = new FirebaseController()
+  //const fb = new FirebaseController()
+  const fb = new FirebaseBaseController()
   const [stateLogged, setStateLogged] = React.useState(NOTKNOWN)
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const route = location.pathname
 
-  window.crawlear = window.crawlear || {}
-  window.crawlear.fb = window.crawlear.fb || fb
-
   React.useEffect(() => {
     fb.checkIfLogged(() => {
       if (route.length === 1) {
         navigate('/game')
       }
+
+      const fullFb = new FirebaseController(fb)
+      window.crawlear = window.crawlear || {}
+      window.crawlear.fb = window.crawlear.fb || fullFb
+    
       setStateLogged(TRUE)
     }, () => {
       onLogout()
