@@ -14,7 +14,7 @@ import MiniCrawlerPassionLogo from './styles/img/mcpLogo.webp'
 import './styles/Landing.scss';
 
 function Landing({onLogin}) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['landing'])
     const firebase = window.crawlear.fb
     
     function signInCallback() {
@@ -44,7 +44,7 @@ function Landing({onLogin}) {
             <p>
                 {t('content.colaboraciones')}<br />
                 <img className='collaborateLogo' width={100} height={100} src={Levante124Logo} alt="Levante 1/24 Logo" />
-                <a href="https://www.clubzonarc.es/" width={100} height={100} alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
+                <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img width={100} height={100} className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
                 <img className='collaborateLogo' width={100} height={100} src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
             </p>
         </div>
