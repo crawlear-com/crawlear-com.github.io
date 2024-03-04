@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import '../resources/css/GameHeaderInfo.scss'
 
 function GameHeaderInfo({game}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     return <div className="gameHeaderInfo rounded"><div className="gameGameType">{t('gametype.modojuego')}: <span className="bold">{t(GameUtils.resolveGameTypeName(game.gameType))}</span></div>
         <div className="gamePointsType">{t('description.zonas')}: <span className="bold">{game.zones}</span></div> 

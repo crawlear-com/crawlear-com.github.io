@@ -19,7 +19,7 @@ interface RouteViewerProps {
 }
 
 function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
     const isOwner = isLogged && route.uids.find((element) => element === window.crawlear.user.uid)
 

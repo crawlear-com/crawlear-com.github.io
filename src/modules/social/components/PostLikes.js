@@ -10,7 +10,7 @@ const NOT_PRESSED=0;
 const PRESSED=1;
 
 function PostLikes({post, onLikePost, onRemoveLikePost}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const likes = [];
     const firebase = window.crawlear.fb;
     const { isUserLoged } = React.useContext(UserStatusContext);

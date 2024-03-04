@@ -6,7 +6,7 @@ import iconLike from '../styles/img/iconLike.png';
 import iconDislike from '../styles/img/iconDislike.png';
 
 function GameRequests({user}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const [gameRequests, setGameRequests] = React.useState({});
     const fb = window.crawlear.fb;
     const gameRequestsRef = React.useRef({});

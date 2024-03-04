@@ -7,7 +7,7 @@ interface WinnerOrTieBoxProps {
 }
 
 function WinnerOrTieBox({ game}: WinnerOrTieBoxProps) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
 
     if (isDraw(game)) {
             return <div className="">{t('description.empate')}</div>

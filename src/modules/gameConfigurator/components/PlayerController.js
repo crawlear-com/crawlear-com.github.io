@@ -17,7 +17,7 @@ function PlayerController({
   maxGroups}) {
 
   const [players, setPlayers] = React.useState(inPlayers || []);
-  const { t } = useTranslation();
+  const { t } = useTranslation(['main']);
 
   React.useEffect(() => {
     onPlayerNumerChange && onPlayerNumerChange(players);

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 function UseLovedRoutes(): Array<any> {
   const fb = window.crawlear.fb
-  const { t } = useTranslation()
+  const { t } = useTranslation(['main'])
   const [routes, setRoutes] = React.useState<Array<Route>>([])
   const [error, setError] = React.useState<string>('')
 

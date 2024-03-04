@@ -8,7 +8,7 @@ import '../styles/UserProfile.scss';
 
 
 function UserProfile({user, onLogout}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
     const navigate = useNavigate();
     const [userName, setUserName] = React.useState(user.displayName);

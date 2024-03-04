@@ -13,7 +13,7 @@ function UserSearch({onUserSeachPlayerAdd,
     iconSend,
     children}) {
     const firebase = window.crawlear.fb;
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const [username, setUsername] = React.useState("");
     const [users, setUsers] = React.useState([]);
     const resultRef = React.useRef();

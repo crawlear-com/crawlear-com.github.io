@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 function UseRoutesManagementMenu(): Array<any> {
   const [routes, setRoutes] = React.useState<Array<Route>>([])
   const [error, setError] = React.useState<string>('')
-  const { t } = useTranslation()
+  const { t } = useTranslation(['main'])
   const fb = window.crawlear.fb
 
   React.useEffect(() => {

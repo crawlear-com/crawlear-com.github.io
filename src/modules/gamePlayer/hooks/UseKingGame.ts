@@ -10,7 +10,7 @@ interface UseGameProps {
 }
 
 function UseKingGame({ onGameEnd }: UseGameProps) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const { game } = React.useContext(GameContext)
     const [state, setState] = React.useState(()=>{
         KingGameScores.texts = KingGameScores.texts.map(function(text) {

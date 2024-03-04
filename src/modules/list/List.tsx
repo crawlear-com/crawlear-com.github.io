@@ -17,7 +17,7 @@ export interface ListProps {
 }
 
 function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemAction, transformer}: ListProps) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     let i=0, list: Array<any> = []
 
     function onRemoveItemClick(event: React.MouseEvent<HTMLDivElement>) {

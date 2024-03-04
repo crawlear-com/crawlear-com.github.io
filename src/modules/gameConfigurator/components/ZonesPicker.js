@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Picker from '../../../components/Picker';
 
 function ZonesPicker({onZonesChange, value=1}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     return <div>
         <p>{t('content.seleccionZonas')}:</p>

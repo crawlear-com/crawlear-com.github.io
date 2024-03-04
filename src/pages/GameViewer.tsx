@@ -11,7 +11,7 @@ interface GameViewerProps {
 }
 
 function GameViewer({ gid }: GameViewerProps) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const [game] = UseGameViewer(gid)
     let result = <></>
 

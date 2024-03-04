@@ -7,7 +7,7 @@ import GoogleMapsLocation from './embed/GoogleMapsLocation';
 import Analytics from '../../../Analytics';
 
 function PostInfo({ post, readOnly, onRemovePost, children }) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
     const [game, setGame] = React.useState({});
     const [userFromPost, setUserFromPost] = React.useState({});

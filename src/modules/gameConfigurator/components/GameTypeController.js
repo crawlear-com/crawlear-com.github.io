@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import '../styles/GameTypeController.scss';
 
 function GameTypeController({onGameTypeChange,  selectedGameType=0, selectedPointsType=0}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const labelsGameType = [t('gametype.aecar'), 
             t('gametype.rey'),
             t('gametype.isrcc'),

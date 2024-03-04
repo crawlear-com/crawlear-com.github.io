@@ -9,7 +9,7 @@ import { KingGameScores } from '../../../games/KingGameScores';
 import '../styles/KingGame.scss';
 
 function KingGame({ onGameEnd }) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     let result = [];
     const [state, onChangeScore, gameEnd] = UseKingGame({ onGameEnd })
     const game = state.game

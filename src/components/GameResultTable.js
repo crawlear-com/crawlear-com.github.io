@@ -22,7 +22,7 @@ import openIcon from '../resources/img/arrowDown.png';
 
 
 function GameResultTable({game, isDraw}) {
-    const { t } = useTranslation(),
+    const { t } = useTranslation(['main']),
         players = [];
     let gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts),
         j=0, i=0;

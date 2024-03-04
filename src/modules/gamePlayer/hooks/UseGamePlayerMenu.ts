@@ -10,7 +10,7 @@ function UseGamePlayerMenu(onBeginGame: Function) {
   const [zone, setZone] = React.useState<number>(-1)
   const [error,setError] = React.useState<string>("")
   const [ gameProgression ] = React.useContext(GameProgressionContext)
-  const { t } = useTranslation();
+  const { t } = useTranslation(['main']);
 
   function onBeginPlayClick(): void {
     if (player && zone !== -1) {

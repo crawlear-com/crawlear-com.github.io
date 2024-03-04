@@ -11,7 +11,7 @@ function PlayerItem({player, i,
     editMode, 
     isForJudge,
     onGameDirectorChange}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const editControls = [];
 
     function removePlayer(event) {

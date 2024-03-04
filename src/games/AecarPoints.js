@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { GameContext } from '../context/GameContext';
 
 function AecarPoints({player, zone}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const { game } = React.useContext(GameContext);
 
     if(!game || !game.players.length) return <></>;

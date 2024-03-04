@@ -13,7 +13,7 @@ function ControlText({
     const isNegativeControl = (step<0);
     let boldValue = isNegativeControl ? value<0 : value>0;
     const valueRef = React.useRef();
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     function updateValue(step) {
         if (!isNegativeControl && (value+step >= 0) && (!maxValue || value+step <= Math.abs(maxValue*step))) {

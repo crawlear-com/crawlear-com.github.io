@@ -29,7 +29,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
     const [errorMessage, setErrorMessage] = React.useState("")
     const [randomizePlayersOrder, setRandomizePlayersOrder] = React.useState(false)
     const [groups, setGroups] = React.useState(1)
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const fb = window.crawlear.fb
 
     React.useEffect(()=>{
