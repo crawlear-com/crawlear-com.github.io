@@ -15,7 +15,7 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
     const gameProgressionRef = React.useRef([]);
     const [zone, setZone] = React.useState(-1);
     const fb = window.crawlear.fb
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const [player, setPlayer] = React.useState<Player>({
         name: '',
         avatar: '',

@@ -14,7 +14,7 @@ export interface PreviousGameListProps {
 
 function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, onLoadPreviousGames }: PreviousGameListProps) {
     const storedGamesUi: Array<React.JSX.Element> = []
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const buttonOrLoading = isLoading ? 
         <Spinner></Spinner> : 

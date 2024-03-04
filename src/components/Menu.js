@@ -10,7 +10,7 @@ const LIGHTMODE_CLASS = 'lightMode';
 
 function Menu() {
     const [isOpen, setIsOpen] = React.useState(false);
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const [lightMode, setLightMode] = React.useState(false);
     const navigate = useNavigate();
 

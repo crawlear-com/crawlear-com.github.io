@@ -19,7 +19,7 @@ export interface Location {
 function LocationResolver({ onLocationResolved }: LocationResolverProps) {
     const [stateLocation, setStateLocation] = React.useState(STATE_LOCATION_UNKNOWN)
     const [location, setLocation] = React.useState<Location>({ latitude: 0, longitude: 0 })
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     let locationElement;
 
     function getLocation(event: React.BaseSyntheticEvent<MouseEvent,

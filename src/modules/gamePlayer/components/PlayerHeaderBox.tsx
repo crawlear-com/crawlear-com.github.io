@@ -13,7 +13,7 @@ interface PlayerHeaderBoxProps {
 
 function PlayerHeaderBox({ zoneIndex, playerIndex }: PlayerHeaderBoxProps) {
   let fiasco = <></>
-  const { t } = useTranslation()
+  const { t } = useTranslation(['main'])
   const { game } = React.useContext(GameContext)
   const player = game.players[playerIndex],
     playerZone = player.zones[zoneIndex]

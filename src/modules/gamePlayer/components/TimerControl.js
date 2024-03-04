@@ -21,7 +21,7 @@ function TimerControl({
     maxTime,
     onPointBecauseLastMinute,
     onTimeFiasco }) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const containerRef = React.useRef(null);
     const tickTime = React.useRef(startTime || 0);
     const eventManager = new EventManager();

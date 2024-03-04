@@ -10,7 +10,7 @@ const STATUS_REPAIR = 'repair'
 const STATUS_DONE = 'done'
 
 function GameProgression({game, jidGroup, onZoneClick}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const [selectedZone, setSelectedZone] = React.useState(-1);
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
     const gameProgressionInfoRef = React.useRef();

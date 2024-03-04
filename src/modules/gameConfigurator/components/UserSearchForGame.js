@@ -7,7 +7,7 @@ import iconSend from '../styles/img/iconSend.png';
 
 function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
     const firebase = window.crawlear.fb;
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const gameRequestsRef = React.useRef(0);
     const [gameRequests, setGameRequests] = React.useState(0);
     

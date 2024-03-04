@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { GameUtils } from '../../../games/Game';
 
 function PresenceButton({game, playerName, fromName, zone}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
     const content = [],
         gid = game.gid,

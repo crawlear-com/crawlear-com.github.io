@@ -13,7 +13,7 @@ import './styles/GamePlayer.scss'
 
 function GamePlayer({inGame, onBackButtonClick}) {
     let view = <></>
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const gameExtras = GamePlayerUtils.getGameExtras(inGame.gameType)
     const [state, game, gameProgression, setGameProgression, player, zone,
         onBeginGame, onClosePlayButtonClick, onGameEnd, onRepair] = UseGamePlayer(inGame, gameExtras)

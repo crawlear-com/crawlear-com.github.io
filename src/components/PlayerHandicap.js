@@ -8,7 +8,7 @@ function PlayerHandicap({
   handicap,
   onHandicapChange
 }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['main']);
 
     function onPlayerHandicapChange(handicap) {
       onHandicapChange(handicap);

@@ -6,7 +6,7 @@ import Post from './Post';
 import '../styles/FeedViewer.scss';
 
 function Posts({posts, removePostClick, readOnly}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
 
     React.useEffect(()=>{

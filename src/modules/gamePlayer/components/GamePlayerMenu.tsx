@@ -27,7 +27,7 @@ function GamePlayerMenu({ game,
 }: GamePlayerMenuProps) {
     const directorProgression = [];
     const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     let judgeProgression;
     const [player, zone, error, gameProgression, onZoneClick, onBeginPlayClick] = UseGamePlayerMenu(onBeginGame)
 

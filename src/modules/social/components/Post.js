@@ -12,7 +12,7 @@ import Spinner from '../../../components/Spinner';
 import '../styles/Post.scss';
 
 function Post({ post, readOnly, onRemovePost }) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const onScreenContainerRef = React.useRef(null);
     const [isVisible, setIsVisible] = React.useState(false);
     const [statusRendered, setStatusRendered] = React.useState(false);

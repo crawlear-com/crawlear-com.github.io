@@ -17,7 +17,7 @@ function ControlTextArray({
     onValueChange}) {
     
     let i=0;
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const { game } = React.useContext(GameContext);
     const controlArray1 = [], 
         controlArray2 = [];

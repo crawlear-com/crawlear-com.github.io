@@ -10,7 +10,7 @@ import Analytics from '../../Analytics'
 import './styles/RoutesSearch.scss'
 
 function RoutesSearch() {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow] = UseRouteSearch()
 
     return <div className='rounded rounded3 routesSearchContainer'>

@@ -14,7 +14,7 @@ function MaxTimeAndPointsPicker({
         points
     }) {
     
-    const { t } = useTranslation(),
+    const { t } = useTranslation(['main']),
         maxTimeStruct = Utils.millisToTime(time);
     let maxTimePicker = <></>;
 

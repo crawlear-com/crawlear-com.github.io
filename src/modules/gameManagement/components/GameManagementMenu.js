@@ -11,7 +11,7 @@ import PreviousGameList from './PreviousGameList'
 import '../styles/GameManagement.scss'
 
 function GameManagementMenu({onConfigureGames, onGamePlay}) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const navigate = useNavigate()
 
     function newGameNavigation() {

@@ -6,7 +6,7 @@ import TelegramSharer from './TelegramSharer';
 import WhatsappSharer from './WhatsappSharer';
 
 function Sharers({url, text, headerText}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     return <div className='sharerContainer'>
         <div className='bold shareProfileText'>{headerText}</div>

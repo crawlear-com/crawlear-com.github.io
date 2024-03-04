@@ -4,7 +4,7 @@ import { GameContext } from '../context/GameContext';
 import { GameUtils } from './Game';
 
 function IsrccPoints({player, zone}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const { game } = React.useContext(GameContext);
 
     if(!game || !game.players.length) return <></>;

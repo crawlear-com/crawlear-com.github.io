@@ -13,7 +13,7 @@ const STATE_PLAYING = 1;
 const STATE_LANDING = 3;
 
 function Offline() {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const [status, setStatus] = React.useState(STATE_LANDING);
     const [game, setGame] = React.useState(null);
 

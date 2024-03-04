@@ -8,7 +8,7 @@ import logo from '../../../resources/img/logo5.png'
 import UsePostViewer from '../hooks/UsePostViewer';
 
 function PostViewer({pid}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
     const bottomButtons = [];
     const [user, post] = UsePostViewer(pid)

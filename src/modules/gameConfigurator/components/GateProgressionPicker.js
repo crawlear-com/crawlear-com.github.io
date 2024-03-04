@@ -7,7 +7,7 @@ function GateProgressionPicker({onGatesChange,
     value,
     minValue,
     maxValue}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const pickerElements = [];
 
     for (let i=0; i<zones; i++) {

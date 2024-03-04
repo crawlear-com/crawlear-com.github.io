@@ -16,7 +16,7 @@ interface TimerBoxProps {
 }
 
 function TimerBox({ playerZone, forceAction, setRepairStatus, onTimerChange, onTimeFiasco, onPointBecauseLastMinute  }: TimerBoxProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['main'])
   const { game } = React.useContext(GameContext);
 
   return <div className="controlTextContainer rounded rounded2">

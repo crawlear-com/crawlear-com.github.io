@@ -8,7 +8,7 @@ import logo from '../../../resources/img/logo5.png'
 import '../styles/UserViewer.scss'
 
 function UserViewer({ uid, onLogout }) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const firebase = window.crawlear.fb
     const [user, userData, isVisible, onScreen, getUserType] = UseUserViewer(uid)
 

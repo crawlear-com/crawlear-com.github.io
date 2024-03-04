@@ -9,7 +9,7 @@ import WinnerOrTieBox, { isDraw } from './WinnerOrTieBox'
 import '../resources/css/WinnerTable.scss'
 
 function WinnerTable({ game }) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
 
     if (game.players) {
         return <div className='gameContainer'>

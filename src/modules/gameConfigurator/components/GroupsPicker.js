@@ -7,7 +7,7 @@ function GroupsPicker({onGroupsChange,
     value,
     minValue,
     maxValue}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     return isOffline ? <></> :
         <div>

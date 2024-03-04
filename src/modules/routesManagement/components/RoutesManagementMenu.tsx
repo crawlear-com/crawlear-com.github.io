@@ -13,7 +13,7 @@ interface RoutesManagementMenuProps {
 }
 
 function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMenuProps) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const [routes, onDeleteRoute, error] = UseRoutesManagementMenu()
 
     return <>

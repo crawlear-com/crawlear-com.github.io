@@ -3,7 +3,7 @@ import ListMenuItem from './ListMenuItem';
 import { useTranslation } from 'react-i18next';
 
 function ListMenu({ itemPosition, onRemoveClick, onConfigureClick}) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const containerRef = React.useRef(null)
 
     function toggleMenu() {

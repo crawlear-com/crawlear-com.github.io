@@ -15,7 +15,7 @@ interface RoutesConfiguratorProps {
 
 function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConfiguratorProps) {
     const [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved] = UseRoutesConfigurator(inRoute, onRouteCreated)
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>

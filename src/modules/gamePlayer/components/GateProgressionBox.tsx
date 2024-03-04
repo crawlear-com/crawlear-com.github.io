@@ -14,7 +14,7 @@ interface GateProgressionBoxProps {
 }
 
 function GateProgressionBox({ playerIndex, zoneIndex, onGateProgressionChange }: GateProgressionBoxProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['main']);
   const { game, gameExtras } = React.useContext(GameContext);
   const SliderWithTooltip = createSliderWithTooltip(Slider);
 

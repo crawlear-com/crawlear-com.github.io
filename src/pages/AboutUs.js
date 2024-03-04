@@ -8,7 +8,7 @@ import img03 from './styles/img/img03.png';
 import './styles/AboutUs.scss';
 
 function AboutUs() {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
 
     React.useEffect(() => {
         Analytics.pageview('/aboutus/');

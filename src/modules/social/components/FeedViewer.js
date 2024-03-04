@@ -16,7 +16,7 @@ const STATUS_LOADING = 0;
 const STATUS_LOADED = 1;
 
 function FeedViewer({uid}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
     const [feedPosts, setFeedPosts] = React.useState([]);
     const [status, setStatus] = React.useState(STATUS_LOADING);

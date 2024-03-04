@@ -6,7 +6,7 @@ interface GoogleMapsUrlProps {
 }
 
 function GoogleMapsUrl({ url }: GoogleMapsUrlProps) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
 
     return <a href={url} rel='noreferrer' target="_blank">{t('description.vergooglemaps')}</a>
 }

@@ -12,7 +12,7 @@ interface LovedRoutesProps {
 } 
 
 function LovedRoutes({ onViewRoute}: LovedRoutesProps): React.JSX.Element {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['main'])
   const [routes, error] = UseLovedRoutes()
 
   return <div className='lovedRoutesContainer'>

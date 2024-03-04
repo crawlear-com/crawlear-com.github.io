@@ -6,7 +6,7 @@ const LAT_DIVISOR = 36
 const LON_DIVISOR = 72
 
 function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<any> {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const [route, setRoute] = React.useState<Route>(inRoute)
     const [error, setError] = React.useState<string>('')
     const fb = window.crawlear.fb

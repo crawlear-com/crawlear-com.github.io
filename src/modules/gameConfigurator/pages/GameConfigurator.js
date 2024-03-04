@@ -18,7 +18,7 @@ import Analytics from '../../../Analytics'
 import '../styles/GameConfigurator.scss'
 
 function GameConfigurator({preconfiguredGame, onGameCreated}) {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const extraConfigurationComponents = []
     const { isUserLoged } = React.useContext(UserStatusContext)
 

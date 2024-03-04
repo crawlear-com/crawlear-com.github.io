@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import '../resources/css/GameProgressionDirector.scss';
 
 function GameProgressionDirector({game, gameProgression}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
     const requestsRef = React.useRef();
     const [requests, setRequests] = React.useState({});

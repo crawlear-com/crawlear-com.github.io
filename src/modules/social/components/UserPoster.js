@@ -11,7 +11,7 @@ const WAITING = 0;
 const POSTING = 1;
 
 function UserPoster({onPostEntry, isOpened}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const gameOptionElements = [];
     const firebase = window.crawlear.fb;
     const [errorMessage, setErrorMessage] = React.useState("");

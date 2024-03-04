@@ -14,7 +14,7 @@ function CoreGame({
             playerIndex, 
             zoneIndex
     }) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const childrenContent = [];
     const [state, onTimerChange, onChangeScore, onReset, onEndPlayer, onGateProgressionChange, 
         onFiascoChangeScore, onPointBecauseLastMinute, 
