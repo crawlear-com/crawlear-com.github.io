@@ -30,7 +30,7 @@ const TRUE = 1
 const FALSE = 0
 
 function App() {
-  const fb = new FirebaseBaseController()
+  const fbBase = new FirebaseBaseController()
   const [stateLogged, setStateLogged] = React.useState(NOTKNOWN)
   const navigate = useNavigate()
   const location = useLocation()
@@ -38,10 +38,10 @@ function App() {
   const route = location.pathname
 
   window.crawlear = window.crawlear || {}
-  window.crawlear.fb = window.crawlear.fb || fb
+  window.crawlear.fbBase = window.crawlear.fbBase || fbBase
 
   React.useEffect(() => {
-    fb.checkIfLogged(() => {
+    fbBase.checkIfLogged(() => {
       onLogin()
     }, () => {
       onLogout()
@@ -58,9 +58,8 @@ function App() {
     import(/* webpackChunkName: "FirebaseController" */ './FirebaseController').then(module => {
       const FirebaseController = module.default
 
-      const fullFb = new FirebaseController(fb)
+      const fullFb = new FirebaseController(fbBase)
       window.crawlear = window.crawlear || {}
-      window.crawlear.fbBase = window.crawlear.fb
       window.crawlear.fb = fullFb
       setStateLogged(TRUE)
 

@@ -19,7 +19,7 @@ const Offline = lazy(() => import('./Offline'))
 
 function Landing({onLogin}) {
     const { t } = useTranslation(['landing'])
-    const firebase = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
     
     function signInCallback() {
         onLogin && onLogin(true)
@@ -40,7 +40,7 @@ function Landing({onLogin}) {
         <div className="loginAndContent aboutUsContent">
             <p><b>{t('content.landingMainText')}</b>:</p>
             <img width={183} height={44} className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
-                firebase.signInWithGoogle(signInCallback);
+                fbBase.signInWithGoogle(signInCallback);
             }} />
             <p>{t('content.licenseText')}</p>
             <p>

@@ -6,11 +6,11 @@ import facebookLogo from  '../resources/img/facebooklogo.svg'
 
 function Footer() {
     const { t } = useTranslation(['main'])
-    const firebase = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
 
     return <div className="Footer">
         [©<a href="https://crawlear.com">crawlear.com</a> 2024
-        {firebase.isUserLogged() ? <>]</> : <>
+        {fbBase.isUserLogged() ? <>]</> : <>
             - <a href="https://crawlear.com/aboutus">{t('description.aboutus')}</a> - <a href="https://crawlear.com/privacypolicy">{t('description.politicaprivacidad')}</a>]</>}
 
     <p>
