@@ -5,7 +5,7 @@ const LazyImportPlugin: BackendModule = {
   init: function (services, backendOptions, i18nextOptions) {
   },
   read: function (language, namespace, callback) {
-    import(/* webpackChunkName: "i18n/[request]" */ `./${language}/${namespace}.json`).then(
+    import(/* webpackChunkName: "i18n/[request]" */ `./${language.substring(0,2)}/${namespace}.json`).then(
       (obj) => {
         callback(null, obj);
       }
