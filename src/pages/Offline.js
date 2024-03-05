@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { lazy, Suspense } from 'react'
-import { useTranslation } from 'react-i18next';
-import { OFFLINE_USER_UID } from '../games/Game';
+import { lazy } from 'react'
+import { useTranslation } from 'react-i18next'
+import { OFFLINE_USER_UID } from '../games/Game'
+import SuspenseComponent from '../SuspenseComponent';
 
 import './styles/Offline.scss';
 
@@ -41,19 +42,14 @@ function Offline() {
     }
 
     if(status === STATE_CREATING) {
-        return <Suspense fallback={<div>Loading...</div>}>
-            <GameConfigurator onGameCreated={onGameCreated}/>
-        </Suspense>
+        return <SuspenseComponent lazyComponent={<GameConfigurator onGameCreated={onGameCreated}/>} />
     } else if(status === STATE_PLAYING) {
-        return <Suspense fallback={<div>Loading...</div>}>
-            <GamePlayer inGame={game} onBackButtonClick={goBackToMenuStatus} />
-        </Suspense>
+        return <SuspenseComponent lazyComponent={<GamePlayer inGame={game} onBackButtonClick={goBackToMenuStatus} />} />
     } else {
-        return <Suspense fallback={<div>Loading...</div>}>
-            <MainPageTextContent />
+        return <SuspenseComponent lazyComponent={<><MainPageTextContent />
             <div className="errorBoxContainer offlineContainer">{t('content.offlineMainText')}</div>
-            <button onClick={onGameConfiguratorClick} className="importantNote">{t('description.crearoffline')}</button>
-        </Suspense>;
+            <button onClick={onGameConfiguratorClick} className="importantNote">{t('description.crearoffline')}</button></>
+        } />
     }
 }
 

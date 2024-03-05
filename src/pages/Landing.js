@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
+import SuspenseComponent from '../SuspenseComponent'
 
 import MainPageTextContent from './components/MainPageTextContent'
 import Analytics from '../Analytics'
@@ -29,11 +30,7 @@ function Landing({onLogin}) {
     },[]);
 
     if (!navigator.onLine) {
-        return <>
-            <Suspense fallback={<div>Loading...</div>}>
-                <Offline />
-            </Suspense>
-        </>;
+        return <SuspenseComponent lazyComponent={<Offline />} />
     } else {
         return <div className='landing'>
         <MainPageTextContent />
