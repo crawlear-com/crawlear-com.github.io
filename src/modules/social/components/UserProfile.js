@@ -9,7 +9,7 @@ import '../styles/UserProfile.scss';
 
 function UserProfile({user, onLogout}) {
     const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
+    const fb = window.crawlear.fb;
     const navigate = useNavigate();
     const [userName, setUserName] = React.useState(user.displayName);
     const [description, setDescription] = React.useState(user.description);
@@ -20,7 +20,7 @@ function UserProfile({user, onLogout}) {
 
     React.useEffect(()=>{
         if (isUserLoged && !isTheUserLogged(user.uid)) {
-            firebase.getFidFromFollow(window.crawlear.user.uid, user.uid, (result)=>{
+            fb.getFidFromFollow(window.crawlear.user.uid, user.uid, (result)=>{
                 setFid(result);
             }, ()=>{});
         }
@@ -56,7 +56,7 @@ function UserProfile({user, onLogout}) {
         if(isTheUserLogged(user.uid) && user.displayName !== newUserName && newUserName.length>0) {
             user.displayName = newUserName;
             setUserName(newUserName);
-            firebase.setUser(user,()=>{ },()=>{ });
+            fb.setUser(user,()=>{ },()=>{ });
         }
     }
 
@@ -67,7 +67,7 @@ function UserProfile({user, onLogout}) {
         if(isTheUserLogged(user.uid) && user.instagram !== newInstagram) {
             user.instagram = newInstagram;
             setInstagram(newInstagram);
-            firebase.setUser(user,()=>{ },()=>{ });
+            fb.setUser(user,()=>{ },()=>{ });
         }
     }
 
@@ -77,12 +77,12 @@ function UserProfile({user, onLogout}) {
         if(isTheUserLogged(user.uid) && user.description !== newDescription) {
             user.description = newDescription;
             setDescription(newDescription);
-            firebase.setUser(user,()=>{ },()=>{ });
+            fb.setUser(user,()=>{ },()=>{ });
         }
     }
 
     function onFollowClick() {
-        firebase.setFollow(window.crawlear.user.uid, user.uid, (fid)=>{
+        fb.setFollow(window.crawlear.user.uid, user.uid, (fid)=>{
             fid && setFid(fid);
         }, ()=>{});
     }
@@ -96,7 +96,7 @@ function UserProfile({user, onLogout}) {
     }
 
     function onUnFollowClick() {
-        firebase.removeFollow(fid, ()=>{
+        fb.removeFollow(fid, ()=>{
             setFid(-1);
         }, ()=>{});
     }
@@ -163,7 +163,7 @@ function UserProfile({user, onLogout}) {
 }
 
 function isTheUserLogged(uid) {
-    return window.crawlear.fb.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
+    return window.crawlear.fbBase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
 }
 
 export default UserProfile;

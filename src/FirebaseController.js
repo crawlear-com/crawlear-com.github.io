@@ -1,22 +1,17 @@
-import 'babel-polyfill';
-import Utils from './Utils';
-import { Game } from './games/Game';
+import 'babel-polyfill'
+import { Game } from './games/Game'
 
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
 
-import { initializeApp } from "firebase/app";
-import { getDatabase, 
-         onValue,
-         onChildAdded,
+import { onChildAdded,
          onChildRemoved,
          onChildChanged,
          push,
          set,
          get,
          remove,
-         ref } from "firebase/database";
+         ref } from "firebase/database"
 import { addDoc,
          setDoc, 
          doc,
@@ -30,40 +25,21 @@ import { addDoc,
          orderBy,
          limit,
          startAt,
-         getFirestore,
          getDocs,
          deleteDoc,
-         writeBatch } from "firebase/firestore";
+         writeBatch } from "firebase/firestore"
 
-import { getAuth, 
-  getRedirectResult,
-  signInWithRedirect, 
-  signInWithPopup, 
-  setPersistence,
-  browserLocalPersistence,
-  GoogleAuthProvider } from "firebase/auth";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyATlKKGw99gurKNwHL7BU1-_Llj0hwJy60",
-  authDomain: "crawlear-com.firebaseapp.com",
-  databaseURL: "https://crawlear-com-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "crawlear-com",
-  storageBucket: "crawlear-com.appspot.com",
-  messagingSenderId: "879856500816",
-  appId: "1:879856500816:web:4287599cc229d5f4c3d155",
-  measurementId: "G-YD7VLXPTM2"
-};
+import { getAuth } from "firebase/auth"
 
 const GAME_STATUS_FINISHED = 2
 
 class FirebaseController {
-  constructor() {
-    this.app = initializeApp(firebaseConfig);
-    this.provider = new GoogleAuthProvider();
-    this.auth = getAuth();
-    this.db = getFirestore();
-    this.rdb = getDatabase();
-    this.initAppCheck();
+  constructor(firebaseBaseController) {
+    this.app = firebaseBaseController.app
+    this.provider = firebaseBaseController.provider
+    this.auth = firebaseBaseController.auth
+    this.db = firebaseBaseController.db
+    this.rdb = firebaseBaseController.rdb
   }
 
   async userSearch(name, okCallback, koCallback) {
@@ -517,49 +493,6 @@ class FirebaseController {
     okCallback && okCallback()
   }
 
-  initAppCheck() {
-    const appCheck = initializeAppCheck(this.app, {
-      provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
-      isTokenAutoRefreshEnabled: true
-    });
-  }
-
-  isUserLogged() {
-    return this.auth.currentUser != null;
-  }
-
-  checkIfLogged(onLoggin, notLogged) {
-    this.checkIfRedirect(onLoggin);
-    this.auth.onAuthStateChanged((user) => {
-        if (user) {
-          this.getUser(user.uid, (data)=>{
-            this.setUserInContext(data, user.uid);
-              onLoggin();
-            }, ()=> {
-                this.setUser(user, (data)=> {
-                  this.setUserInContext(data, user.uid);
-                  onLoggin();
-                }, ()=>{});
-          });
-        } else {
-          notLogged && notLogged()
-        }
-    });
-  }
-
-  checkIfRedirect(callback) {
-    getRedirectResult(this.auth)
-    .then((result) => {
-      this.getUser(result.user.uid, (data)=>{
-        this.setUserInContext(data, result.user.uid);
-        callback && callback(data);
-      }, ()=> {
-        this.setUser(result.user, callback, (data)=>{
-          this.setUserInContext(data, result.user.uid);
-        })
-      });
-    }).catch((error) => { });
-  }
 
  setUserInContext(data, uid) {
     data.instagram = data.instagram || '';
@@ -571,28 +504,6 @@ class FirebaseController {
     window.crawlear.user.uid = uid;
   }
   
-  signInWithGoogle(callback) {
-    setPersistence(this.auth, browserLocalPersistence)
-    .then(() => {
-      if (Utils.isMobile() && !Utils.isIphone() && !Utils.isFirefox()) {
-        signInWithRedirect(this.auth, this.provider);
-      } else {
-        signInWithPopup(this.auth, this.provider)
-        .then((result) => {
-            this.getUser(result.user.uid, (data)=>{
-              this.setUserInContext(data, result.user.uid);
-              callback && callback(data);
-            }, ()=> {
-              this.setUser(result.user, callback, (data)=>{
-                this.setUserInContext(data, result.user.uid);
-              })
-      
-            });
-        }).catch((error) => { });  
-      }
-    })
-    .catch((error) => { })
-  }
       
   logout() {
     getAuth().signOut();

@@ -6,7 +6,7 @@ import facebookLogo from  '../resources/img/facebooklogo.svg'
 
 function Footer() {
     const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
+    const firebase = window.crawlear.fbBase;
 
     return <div className="Footer">
         [©<a href="https://crawlear.com">crawlear.com</a> 2024

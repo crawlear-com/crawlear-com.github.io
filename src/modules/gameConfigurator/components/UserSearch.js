@@ -12,7 +12,8 @@ function UserSearch({onUserSeachPlayerAdd,
     secondaryText,
     iconSend,
     children}) {
-    const firebase = window.crawlear.fb;
+    const fb = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
     const { t } = useTranslation(['main']);
     const [username, setUsername] = React.useState("");
     const [users, setUsers] = React.useState([]);
@@ -39,9 +40,9 @@ function UserSearch({onUserSeachPlayerAdd,
         const textValue = event.target.value;
 
         setUsername(textValue);
-        if(!isOffline && firebase.isUserLogged()) {
+        if(!isOffline && fbBase.isUserLogged()) {
             if (textValue.length > 0) {
-                firebase.userSearch(textValue, (users)=>{
+                fb.userSearch(textValue, (users)=>{
                     setUsers(users);
                 }, ()=>{});
             } else {

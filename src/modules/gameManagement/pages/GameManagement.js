@@ -12,7 +12,7 @@ const STATE_PLAYING = 1;
 const STATE_CONFIGURE = 2;
 
 function GameManagement() {
-    const firebase = window.crawlear.fb;
+    const fbBase = window.crawlear.fbBase
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
 
@@ -25,7 +25,7 @@ function GameManagement() {
         }
     },[]);
 
-    if (!firebase.isUserLogged()) {
+    if (!fbBase.isUserLogged()) {
         return <Navigate state={{ from: "/game" }} to={{ pathname: "/" }} />
     }
 

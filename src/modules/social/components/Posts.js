@@ -7,7 +7,7 @@ import '../styles/FeedViewer.scss';
 
 function Posts({posts, removePostClick, readOnly}) {
     const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
+    const fbBase = window.crawlear.fbBase;
 
     React.useEffect(()=>{
         window.instgrm && window.instgrm.Embeds.process();
@@ -29,7 +29,7 @@ function Posts({posts, removePostClick, readOnly}) {
         });
 
         return <div className="feedViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></>}
+            {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></>}
             <div className="posts">
                 {embeds}
             </div>
