@@ -40,7 +40,7 @@ function Landing({onLogin}) {
         <div className="loginAndContent aboutUsContent">
             <p><b>{t('content.landingMainText')}</b>:</p>
             <img width={191} height={46} className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
-                firebase.signInWithGoogle(signInCallback);
+                fbBase.signInWithGoogle(signInCallback);
             }} />
             <p>{t('content.licenseText')}</p>
             <p>

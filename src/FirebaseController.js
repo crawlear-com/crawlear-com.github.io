@@ -40,6 +40,7 @@ class FirebaseController {
     this.auth = firebaseBaseController.auth
     this.db = firebaseBaseController.db
     this.rdb = firebaseBaseController.rdb
+    this.fbBase = firebaseBaseController
   }
 
   async userSearch(name, okCallback, koCallback) {
@@ -308,27 +309,6 @@ class FirebaseController {
     return game;
   }
 
-  async routeSearchByLatLon(latlon, bounds, okCallback, koCallback) {
-    try {
-      const routesRef = collection(this.db, "routes")
-      const q = query(routesRef, where('point.lat', '>', latlon.lat - bounds.lat), where('point.lat', '<', latlon.lat + bounds.lat))
-      const querySnapshot = await getDocs(q);
-      const result = [];
-
-      querySnapshot.forEach((doc)=>{
-        const data = doc.data()
-
-        if(data.point.lon > latlon.lng - bounds.lon && data.point.lon < latlon.lng + bounds.lon) {
-          data.rid = doc.id
-          result.push(data)
-        }
-      });
-      okCallback && okCallback(result)
-      } catch(e) {
-        koCallback && koCallback(e)
-    }
-  }
-
   async setGpx(gpx, okCallback, koCallback) {
     try {
       if (gpx.gid) {
@@ -421,42 +401,6 @@ class FirebaseController {
     })
   }
 
-  async getGpx(gid, okCallback, koCallback) {
-    const docRef = doc(this.db, "gpx", gid)
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      const res = docSnap.data()
-      res.gid = docRef.id
-
-      okCallback(res)
-    } else {
-      koCallback()
-    }
-  }
-
-  async getRoute(rid, resolveGpx, okCallback, koCallback) {
-    const docRef = doc(this.db, "routes", rid)
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      const res = docSnap.data()
-      res.rid = docRef.id
-
-      if (resolveGpx && res.gpx) {
-        this.getGpx(res.gpx, (gpx) => {
-          res.gpx = gpx
-          res.gpx.gid = gpx.gid
-          okCallback(res)
-        }, koCallback)
-      } else {
-        okCallback(res)
-      }
-    } else {
-      koCallback()
-    }
-  }
-
   async getRoutesFromUser(uid, okCallback, koCallback) {
     try {
       const routes = []
@@ -468,7 +412,7 @@ class FirebaseController {
         const data = routeData.data()
 
         if (data.gpx) {
-          this.getGpx(data.gpx, (gpx) => {
+          this.fbBase.getGpx(data.gpx, (gpx) => {
             data.gpx = gpx
             data.gpx.gid = gpx.gid 
             routes.push({...data, rid: routeData.id})    
