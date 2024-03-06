@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import Post from '../components/Post';
-import Spinner from '../../../components/Spinner';
-import UserProfile from '../components/UserProfile';
+import * as React from 'react'
+import { useTranslation } from 'react-i18next'
+import Post from '../components/Post'
+import Spinner from '../../../components/Spinner'
+import UserProfile from '../components/UserProfile'
 
 import logo from '../../../resources/img/logo5.png'
-import UsePostViewer from '../hooks/UsePostViewer';
+import UsePostViewer from '../hooks/UsePostViewer'
 
 function PostViewer({pid}) {
-    const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
-    const bottomButtons = [];
+    const { t } = useTranslation(['main'])
+    const fbBase = window.crawlear.fbBase
+    const bottomButtons = []
     const [user, post] = UsePostViewer(pid)
 
-    if (firebase.isUserLogged()) {
+    if (fbBase.isUserLogged()) {
         bottomButtons.push(<button key='backButton' onClick={()=>{
-            window.history && window.history.back();
-        }}>{t('description.atras')}</button>);
+            window.history && window.history.back()
+        }}>{t('description.atras')}</button>)
     }
 
     return <div className='userViewer'>
-        {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></>}
+        {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></>}
         {post.pid ? <>
                 {user.displayName ? <UserProfile user={user}/> : <></>}
                 <Post post={post} readOnly={false} /> 
@@ -33,7 +33,7 @@ function PostViewer({pid}) {
             </>}
 
             {bottomButtons}
-        </div>;
+        </div>
 }
 
-export default PostViewer;
+export default PostViewer

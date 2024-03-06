@@ -16,53 +16,54 @@ const STATUS_LOADING = 0;
 const STATUS_LOADED = 1;
 
 function FeedViewer({uid}) {
-    const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
-    const [feedPosts, setFeedPosts] = React.useState([]);
-    const [status, setStatus] = React.useState(STATUS_LOADING);
-    const [isVisible, setIsVisible] = React.useState(false);
-    const { isUserLoged } = React.useContext(UserStatusContext);
-    const navigate = useNavigate();
+    const { t } = useTranslation(['main'])
+    const fb = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
+    const [feedPosts, setFeedPosts] = React.useState([])
+    const [status, setStatus] = React.useState(STATUS_LOADING)
+    const [isVisible, setIsVisible] = React.useState(false)
+    const { isUserLoged } = React.useContext(UserStatusContext)
+    const navigate = useNavigate()
 
     React.useEffect(()=>{
-        getData();
-        isVisible && Analytics.pageview(`/feedviewer/`);
-    }, [isVisible, isUserLoged, uid]);
+        getData()
+        isVisible && Analytics.pageview(`/feedviewer/`)
+    }, [isVisible, isUserLoged, uid])
 
     function getData() {
-        isVisible && isUserLoged && firebase.getPostsFromFollowFeed(uid, (data)=>{
-            setFeedPosts([...data]);
-            setStatus(STATUS_LOADED);
-        }, ()=>{});
+        isVisible && isUserLoged && fb.getPostsFromFollowFeed(uid, (data)=>{
+            setFeedPosts([...data])
+            setStatus(STATUS_LOADED)
+        }, ()=>{})
     }
 
     function refreshContent() {
-        setStatus(STATUS_LOADING);
-        getData();
+        setStatus(STATUS_LOADING)
+        getData()
     }
 
     function removePostClick(id) {
-        id && firebase.removePost(id, ()=>{
+        id && fb.removePost(id, ()=>{
             const newUserPosts = feedPosts.filter((elem)=>{
-                return elem.pid !== id;
+                return elem.pid !== id
             });
 
-            setFeedPosts(newUserPosts);
-            Analytics.event('post','removed');
-        }, ()=>{});
+            setFeedPosts(newUserPosts)
+            Analytics.event('post','removed')
+        }, ()=>{})
     }
 
     function onScreen(visible) {
-        visible && setIsVisible(visible);
+        visible && setIsVisible(visible)
     }
 
     function onUserClick(uid) {
-        navigate(`/profile?uid=${uid}`);
+        navigate(`/profile?uid=${uid}`)
     }
 
     if (status===STATUS_LOADED && feedPosts.length && isVisible) {
         return <div className="feedViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <>
+            {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <>
                 <div className='headerText bold'>{t('description.buscarusuario')}</div>
                 <UserSearch onUserClick={onUserClick}
                     mainText={t('content.puedesbuscarusuarios')} 
@@ -76,7 +77,7 @@ function FeedViewer({uid}) {
                 </div>
                 <Posts posts={feedPosts} readOnly={true} removePostClick={removePostClick} />
             </div>
-        </div>;
+        </div>
     } else if(status===STATUS_LOADED && isVisible) {
         return <div className="posts">
                 <div className='headerText bold sectionTitle'>{t('description.murodefollows')}</div>
@@ -87,10 +88,10 @@ function FeedViewer({uid}) {
                 
                 <br />
                 <div className='rounded rounded3'>{t('content.nofeedpost')}</div>
-            </div>;
+            </div>
     } else {
-        return <LoadingLogo onVisible={onScreen}/>;
+        return <LoadingLogo onVisible={onScreen}/>
     }
 }
 
-export default FeedViewer;
+export default FeedViewer

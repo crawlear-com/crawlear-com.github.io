@@ -6,10 +6,11 @@ function UseGameManagementMenu(): Array<any> {
     const [judgeGames, setJudgeGames] = React.useState<Array<Game>>([])
     const [storedGames, setStoredGames] = React.useState<Array<Game>>([])
     const [allGames, setAllGames] = React.useState<Array<Game>>([])
-    const firebase = window.crawlear.fb
+    const fb = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
 
     React.useEffect(() => {
-        firebase.isUserLogged() && refreshGames()
+        fbBase.isUserLogged() && refreshGames()
     }, [])
 
     React.useEffect(()=>{
@@ -18,7 +19,7 @@ function UseGameManagementMenu(): Array<any> {
 
     function processCurrentGames(games: Array<Game>): void {
         const jGames: Game[] = [],
-              uGames: Array<Game> = [];
+              uGames: Array<Game> = []
 
         games.forEach(game => {
                 if (game.jids.indexOf(window.crawlear.user.uid)>=0 || game.owner.indexOf(window.crawlear.user.uid)>=0) {
@@ -28,23 +29,23 @@ function UseGameManagementMenu(): Array<any> {
                 }
         });
 
-        setGames(uGames);
-        setJudgeGames(jGames);
+        setGames(uGames)
+        setJudgeGames(jGames)
     }
 
     function refreshGames(): void {
-        firebase.getGamesFromUser(window.crawlear.user.uid, false, (pGames: Array<Game>)=> {
-            setAllGames(previousInputs => ([...previousInputs,...pGames]));
+        fb.getGamesFromUser(window.crawlear.user.uid, false, (pGames: Array<Game>)=> {
+            setAllGames(previousInputs => ([...previousInputs,...pGames]))
         });
 
-        firebase.getGamesFromJudge(window.crawlear.user.uid, false, (jGames: Array<Game>)=> {
-            setAllGames(previousInputs => ([...previousInputs,...jGames]));
+        fb.getGamesFromJudge(window.crawlear.user.uid, false, (jGames: Array<Game>)=> {
+            setAllGames(previousInputs => ([...previousInputs,...jGames]))
         });
     }
 
     function onLoadPreviousGames(): void {
-        firebase.getFinishedGamesFromUid(window.crawlear.user.uid, (sGames: Array<Game>)=> {
-            setStoredGames(previousInputs => ([...previousInputs,...sGames]));
+        fb.getFinishedGamesFromUid(window.crawlear.user.uid, (sGames: Array<Game>)=> {
+            setStoredGames(previousInputs => ([...previousInputs,...sGames]))
         });
     }
 
@@ -59,26 +60,26 @@ function UseGameManagementMenu(): Array<any> {
 }
 
 async function onRemoveGames(gameArray: Array<Game>, gamePosition: number, setMethod: Function) {
-    const firebase = window.crawlear.fb
-    let game = gameArray[gamePosition];
+    const fb = window.crawlear.fb
+    let game = gameArray[gamePosition]
     const newGames = [...gameArray],
-        uid = window.crawlear.user.uid;
+        uid = window.crawlear.user.uid
 
     if (game.uids.indexOf(uid)>=0) {
-        game = await firebase.removeIdFromGame(game, uid, "uids");
+        game = await fb.removeIdFromGame(game, uid, "uids")
     }
     if (game.jids.indexOf(uid)>=0) {
-        game = await firebase.removeIdFromGame(game, uid, "jids");
+        game = await fb.removeIdFromGame(game, uid, "jids")
     }
     if (game.owner.indexOf(uid)>=0) {
-        game = await firebase.removeIdFromGame(game, uid, "owner");
+        game = await fb.removeIdFromGame(game, uid, "owner")
     }
     if (game.uids.length === 0 && game.jids.length === 0) {
-        await firebase.removeGame(game.gid);
+        await fb.removeGame(game.gid)
     }
 
-    newGames.splice(gamePosition, 1);
-    setMethod(newGames);
+    newGames.splice(gamePosition, 1)
+    setMethod(newGames)
 }
 
 export default UseGameManagementMenu

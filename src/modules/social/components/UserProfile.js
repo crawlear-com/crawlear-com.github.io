@@ -8,55 +8,56 @@ import '../styles/UserProfile.scss';
 
 
 function UserProfile({user, onLogout}) {
-    const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
-    const navigate = useNavigate();
-    const [userName, setUserName] = React.useState(user.displayName);
-    const [description, setDescription] = React.useState(user.description);
-    const [instagram, setInstagram] = React.useState(user.instagram);
-    const { isUserLoged } = React.useContext(UserStatusContext);
-    const [fid, setFid] = React.useState(-1);
-    const followAction = [];
+    const { t } = useTranslation(['main'])
+    const fb = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
+    const navigate = useNavigate()
+    const [userName, setUserName] = React.useState(user.displayName)
+    const [description, setDescription] = React.useState(user.description)
+    const [instagram, setInstagram] = React.useState(user.instagram)
+    const { isUserLoged } = React.useContext(UserStatusContext)
+    const [fid, setFid] = React.useState(-1)
+    const followAction = []
 
     React.useEffect(()=>{
         if (isUserLoged && !isTheUserLogged(user.uid)) {
-            firebase.getFidFromFollow(window.crawlear.user.uid, user.uid, (result)=>{
-                setFid(result);
-            }, ()=>{});
+            fb.getFidFromFollow(window.crawlear.user.uid, user.uid, (result)=>{
+                setFid(result)
+            }, ()=>{})
         }
-    },[isUserLoged]);
+    },[isUserLoged])
 
     function onUserNameChange(event) {
-        const newUserName = event.target.value;
+        const newUserName = event.target.value
 
         if(isTheUserLogged(user.uid) && newUserName !== userName && newUserName.length>0) {
-            setUserName(newUserName);
+            setUserName(newUserName)
         }
     }
 
     function onDescriptionChange(event) {
-        const newDescription = event.target.value;
+        const newDescription = event.target.value
 
         if(isTheUserLogged(user.uid) && newDescription !== description) {
-            setDescription(newDescription);
+            setDescription(newDescription)
         }
     }
 
     function onInstagramChange(event) {
-        const newInstagram = event.target.value;
+        const newInstagram = event.target.value
 
         if(isTheUserLogged(user.uid) && newInstagram !== instagram) {
-            setInstagram(newInstagram);
+            setInstagram(newInstagram)
         }
     }
 
     function onBlurSetName(event) {
-        const newUserName = event.target.value;
+        const newUserName = event.target.value
 
         if(isTheUserLogged(user.uid) && user.displayName !== newUserName && newUserName.length>0) {
-            user.displayName = newUserName;
-            setUserName(newUserName);
-            firebase.setUser(user,()=>{ },()=>{ });
+            user.displayName = newUserName
+            setUserName(newUserName)
+            fbBase.setUser(user,()=>{ },()=>{ })
         }
     }
 
@@ -67,38 +68,38 @@ function UserProfile({user, onLogout}) {
         if(isTheUserLogged(user.uid) && user.instagram !== newInstagram) {
             user.instagram = newInstagram;
             setInstagram(newInstagram);
-            firebase.setUser(user,()=>{ },()=>{ });
+            fbBase.setUser(user,()=>{ },()=>{ });
         }
     }
 
     function onBlurSetDescription(event) {
-        const newDescription = event.target.value;
+        const newDescription = event.target.value
 
         if(isTheUserLogged(user.uid) && user.description !== newDescription) {
-            user.description = newDescription;
-            setDescription(newDescription);
-            firebase.setUser(user,()=>{ },()=>{ });
+            user.description = newDescription
+            setDescription(newDescription)
+            fbBase.setUser(user,()=>{ },()=>{ })
         }
     }
 
     function onFollowClick() {
-        firebase.setFollow(window.crawlear.user.uid, user.uid, (fid)=>{
+        fb.setFollow(window.crawlear.user.uid, user.uid, (fid)=>{
             fid && setFid(fid);
         }, ()=>{});
     }
 
     if (isUserLoged && !isTheUserLogged(user.uid)) {
         if (fid !== -1) {
-            followAction.push(<div key="followAction" className='follow' onClick={onUnFollowClick}>{t('description.unfollow')}</div>);
+            followAction.push(<div key="followAction" className='follow' onClick={onUnFollowClick}>{t('description.unfollow')}</div>)
         } else {
-            followAction.push(<div key="followAction" className='follow' onClick={onFollowClick}>{t('description.follow')}</div>);
+            followAction.push(<div key="followAction" className='follow' onClick={onFollowClick}>{t('description.follow')}</div>)
         }
     }
 
     function onUnFollowClick() {
-        firebase.removeFollow(fid, ()=>{
-            setFid(-1);
-        }, ()=>{});
+        fb.removeFollow(fid, ()=>{
+            setFid(-1)
+        }, ()=>{})
     }
 
     return <div className="userProfileContainer rounded rounded2">
@@ -110,9 +111,9 @@ function UserProfile({user, onLogout}) {
             <div className='sharerContainer'>
                 {isTheUserLogged(user.uid) ? <div className='logout' 
                 onClick={()=> {
-                    window.crawlear.fb.logout();
-                    onLogout && onLogout();
-                    navigate("/");
+                    window.crawlear.fb.logout()
+                    onLogout && onLogout()
+                    navigate("/")
             }} >Logout</div> : <></>}
             {followAction}
             </div>
@@ -159,11 +160,11 @@ function UserProfile({user, onLogout}) {
                 <p><span className='bold'>{t('description.ayuda')}:</span> {t('content.editprofile')}</p>
             </div> : <></>}
         </div>
-    </div>;
+    </div>
 }
 
 function isTheUserLogged(uid) {
-    return window.crawlear.fb.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
+    return window.crawlear.fbBase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid
 }
 
-export default UserProfile;
+export default UserProfile

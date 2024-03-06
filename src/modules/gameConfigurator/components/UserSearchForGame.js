@@ -6,29 +6,30 @@ import '../styles/UserSearch.scss';
 import iconSend from '../styles/img/iconSend.png';
 
 function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
-    const firebase = window.crawlear.fb;
+    const fb = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
     const { t } = useTranslation(['main']);
     const gameRequestsRef = React.useRef(0);
     const [gameRequests, setGameRequests] = React.useState(0);
     
     function addUserFromSeach({uid, displayName, photoURL}) {
-        if (!uid) return;
+        if (!uid) return
         if (uid !== window.crawlear.user.uid) {
             if (!window.confirm(t('content.peticionjuegoconfirmacion'))) {
-                return;
+                return
             }
         }
         if (uid === window.crawlear.user.uid) {
-            const user = window.crawlear.user;
+            const user = window.crawlear.user
 
             onUserSeachPlayerAdd({
                 uid: user.uid,
                 displayName: user.displayName,
                 photoURL: user.photoURL,
                 group: 0
-            });
+            })
         } else {
-            firebase.setUserGameRequest(window.crawlear.user.uid, 
+            fb.setUserGameRequest(window.crawlear.user.uid, 
                 window.crawlear.user.displayName, 
                 uid, 
                 gameName, 
@@ -42,31 +43,31 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
                             displayName: displayName,
                             photoURL: photoURL,
                             group: 0
-                        });
-                        gameRequestsRef.current -= 1;
-                        setGameRequests(gameRequests-1);
+                        })
+                        gameRequestsRef.current -= 1
+                        setGameRequests(gameRequests-1)
                     } else {
-                        gameRequestsRef.current -= 1;
-                        setGameRequests(gameRequests-1);
+                        gameRequestsRef.current -= 1
+                        setGameRequests(gameRequests-1)
                     }
-                });
+                })
         }
     }
 
-    const gameRequestsList = [];
-    let i=0;
+    const gameRequestsList = []
+    let i=0
 
     if (gameRequestsRef.current > 0) {
-        gameRequestsList.push(<div key={i}>{gameRequestsRef.current} {t('description.peticionespendientes')}</div>);
+        gameRequestsList.push(<div key={i}>{gameRequestsRef.current} {t('description.peticionespendientes')}</div>)
     }
 
     return <UserSearch onUserSeachPlayerAdd={addUserFromSeach}
                 onPlusAddUserClick={!isForJudge ? onUserSeachPlayerAdd : undefined }
-                mainText={firebase.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')}
+                mainText={fbBase.isUserLogged() ? t('content.usuariodesistema') : t('content.usuarionosistema')}
                 secondaryText={`${t('content.enviorequest')}. ${t('content.enviorequest2')}`}
                 iconSend={iconSend}>
                     {gameRequestsList}
             </UserSearch>
 }
 
-export default UserSearchForGame;
+export default UserSearchForGame

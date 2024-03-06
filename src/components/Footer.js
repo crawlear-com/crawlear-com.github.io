@@ -5,12 +5,12 @@ import instagramLogo from '../modules/social/styles/embed/img/instagramlogo.svg'
 import facebookLogo from  '../resources/img/facebooklogo.svg'
 
 function Footer() {
-    const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
+    const { t } = useTranslation(['main'])
+    const fbBase = window.crawlear.fbBase
 
     return <div className="Footer">
         [©<a href="https://crawlear.com">crawlear.com</a> 2024
-        {firebase.isUserLogged() ? <>]</> : <>
+        {fbBase.isUserLogged() ? <>]</> : <>
             - <a href="https://crawlear.com/aboutus">{t('description.aboutus')}</a> - <a href="https://crawlear.com/privacypolicy">{t('description.politicaprivacidad')}</a>]</>}
 
     <p>
@@ -19,7 +19,7 @@ function Footer() {
         <a href="https://www.facebook.com/Crawlearcom-106005795418134" target="_blank"><img width={35} height={35} className='facebookLogo' src={facebookLogo} alt="facebook logo" /></a>
     </p>
 
-    </div>;
+    </div>
 }
 
-export default Footer;
+export default Footer

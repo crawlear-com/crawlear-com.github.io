@@ -9,14 +9,14 @@ import '../styles/UserViewer.scss'
 
 function UserViewer({ uid, onLogout }) {
     const { t } = useTranslation(['main'])
-    const firebase = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
     const [user, userData, isVisible, onScreen, getUserType] = UseUserViewer(uid)
 
     if (user.registrationDate && isVisible) {
         let userType = getUserType(userData)
 
         return <div className="userViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> :
+            {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> :
                 <><div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div></>}
             <><UserProfile onLogout={onLogout} user={user} />
                 <div className="statistics rounded rounded3">

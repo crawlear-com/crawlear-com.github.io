@@ -15,29 +15,30 @@ const USER_TYPE_JUDGE = 1;
 const USER_TYPE_NEUTRAL = 2;
 
 function UserViewer({uid, onLogout, onLogin}) {
-    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid;
-    const { t } = useTranslation();
-    const firebase = window.crawlear.fb;
-    const [user, setUser] = React.useState({});
-    const [userData, setUserData] = React.useState({});
+    const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid
+    const { t } = useTranslation()
+    const fb = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
+    const [user, setUser] = React.useState({})
+    const [userData, setUserData] = React.useState({})
     const [userPosts, setUserPosts] = React.useState([])
-    const [isVisible, setIsVisible] = React.useState(false);
+    const [isVisible, setIsVisible] = React.useState(false)
 
     React.useEffect(()=>{
-        firebase.checkIfLogged(()=>{onLogin(false)});
+        fbBase.checkIfLogged(()=>{onLogin(false)});
     },[]);
 
 
     React.useEffect(()=>{
         if(uid) {
-            firebase.getUser(uid, (user)=>{
+            fbBase.getUser(uid, (user)=>{
                 setUser({...user});
-                firebase.getUserExtraData(uid, (data)=>{
+                fb.getUserExtraData(uid, (data)=>{
                     setUserData(data);
                 });
             });
     
-            firebase.getPosts(uid, (data)=>{
+            fb.getPosts(uid, (data)=>{
                 setUserPosts([...userPosts, ...data]);
             }, ()=>{});
     
@@ -58,7 +59,7 @@ function UserViewer({uid, onLogout, onLogin}) {
     }
 
     function removePostClick(id) {
-        id && firebase.removePost(id, ()=>{
+        id && fb.removePost(id, ()=>{
                 const newUserPosts = userPosts.filter((elem)=>{
                     return elem.pid !== id;
                 });
@@ -84,7 +85,7 @@ function UserViewer({uid, onLogout, onLogin}) {
         }
 
         return <div className="userViewer">
-            {!firebase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : 
+            {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : 
                 <>
                     <div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div>
                 </>}

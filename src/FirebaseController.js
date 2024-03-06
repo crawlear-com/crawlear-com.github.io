@@ -1,22 +1,17 @@
-import 'babel-polyfill';
-import Utils from './Utils';
-import { Game } from './games/Game';
+import 'babel-polyfill'
+import { Game } from './games/Game'
 
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
 
-import { initializeApp } from "firebase/app";
-import { getDatabase, 
-         onValue,
-         onChildAdded,
+import { onChildAdded,
          onChildRemoved,
          onChildChanged,
          push,
          set,
          get,
          remove,
-         ref } from "firebase/database";
+         ref } from "firebase/database"
 import { addDoc,
          setDoc, 
          doc,
@@ -30,40 +25,22 @@ import { addDoc,
          orderBy,
          limit,
          startAt,
-         getFirestore,
          getDocs,
          deleteDoc,
-         writeBatch } from "firebase/firestore";
+         writeBatch } from "firebase/firestore"
 
-import { getAuth, 
-  getRedirectResult,
-  signInWithRedirect, 
-  signInWithPopup, 
-  setPersistence,
-  browserLocalPersistence,
-  GoogleAuthProvider } from "firebase/auth";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyATlKKGw99gurKNwHL7BU1-_Llj0hwJy60",
-  authDomain: "crawlear-com.firebaseapp.com",
-  databaseURL: "https://crawlear-com-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "crawlear-com",
-  storageBucket: "crawlear-com.appspot.com",
-  messagingSenderId: "879856500816",
-  appId: "1:879856500816:web:4287599cc229d5f4c3d155",
-  measurementId: "G-YD7VLXPTM2"
-};
+import { getAuth } from "firebase/auth"
 
 const GAME_STATUS_FINISHED = 2
 
 class FirebaseController {
-  constructor() {
-    this.app = initializeApp(firebaseConfig);
-    this.provider = new GoogleAuthProvider();
-    this.auth = getAuth();
-    this.db = getFirestore();
-    this.rdb = getDatabase();
-    this.initAppCheck();
+  constructor(firebaseBaseController) {
+    this.app = firebaseBaseController.app
+    this.provider = firebaseBaseController.provider
+    this.auth = firebaseBaseController.auth
+    this.db = firebaseBaseController.db
+    this.rdb = firebaseBaseController.rdb
+    this.fbBase = firebaseBaseController
   }
 
   async userSearch(name, okCallback, koCallback) {
@@ -123,24 +100,6 @@ class FirebaseController {
       okCallback && okCallback(data);
       } catch(e) {
         koCallback && koCallback();
-    }
-  }
-
-  async setUser({uid, displayName, photoURL, description, instagram}, okCallback, koCallback) {
-    const data = {
-      displayName: displayName,
-      photoURL: photoURL,
-      registrationDate: new Date().toString(),
-      description: description || "",
-      instagram: instagram || ""
-    };
-
-    try {
-      await setDoc(doc(this.db, "users", uid), data);
-      okCallback && okCallback(data);
-
-    } catch (e) {
-      koCallback && koCallback();
     }
   }
 
@@ -332,27 +291,6 @@ class FirebaseController {
     return game;
   }
 
-  async routeSearchByLatLon(latlon, bounds, okCallback, koCallback) {
-    try {
-      const routesRef = collection(this.db, "routes")
-      const q = query(routesRef, where('point.lat', '>', latlon.lat - bounds.lat), where('point.lat', '<', latlon.lat + bounds.lat))
-      const querySnapshot = await getDocs(q);
-      const result = [];
-
-      querySnapshot.forEach((doc)=>{
-        const data = doc.data()
-
-        if(data.point.lon > latlon.lng - bounds.lon && data.point.lon < latlon.lng + bounds.lon) {
-          data.rid = doc.id
-          result.push(data)
-        }
-      });
-      okCallback && okCallback(result)
-      } catch(e) {
-        koCallback && koCallback(e)
-    }
-  }
-
   async setGpx(gpx, okCallback, koCallback) {
     try {
       if (gpx.gid) {
@@ -445,42 +383,6 @@ class FirebaseController {
     })
   }
 
-  async getGpx(gid, okCallback, koCallback) {
-    const docRef = doc(this.db, "gpx", gid)
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      const res = docSnap.data()
-      res.gid = docRef.id
-
-      okCallback(res)
-    } else {
-      koCallback()
-    }
-  }
-
-  async getRoute(rid, resolveGpx, okCallback, koCallback) {
-    const docRef = doc(this.db, "routes", rid)
-    const docSnap = await getDoc(docRef)
-
-    if (docSnap.exists()) {
-      const res = docSnap.data()
-      res.rid = docRef.id
-
-      if (resolveGpx && res.gpx) {
-        this.getGpx(res.gpx, (gpx) => {
-          res.gpx = gpx
-          res.gpx.gid = gpx.gid
-          okCallback(res)
-        }, koCallback)
-      } else {
-        okCallback(res)
-      }
-    } else {
-      koCallback()
-    }
-  }
-
   async getRoutesFromUser(uid, okCallback, koCallback) {
     try {
       const routes = []
@@ -492,7 +394,7 @@ class FirebaseController {
         const data = routeData.data()
 
         if (data.gpx) {
-          this.getGpx(data.gpx, (gpx) => {
+          this.fbBase.getGpx(data.gpx, (gpx) => {
             data.gpx = gpx
             data.gpx.gid = gpx.gid 
             routes.push({...data, rid: routeData.id})    
@@ -517,49 +419,6 @@ class FirebaseController {
     okCallback && okCallback()
   }
 
-  initAppCheck() {
-    const appCheck = initializeAppCheck(this.app, {
-      provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
-      isTokenAutoRefreshEnabled: true
-    });
-  }
-
-  isUserLogged() {
-    return this.auth.currentUser != null;
-  }
-
-  checkIfLogged(onLoggin, notLogged) {
-    this.checkIfRedirect(onLoggin);
-    this.auth.onAuthStateChanged((user) => {
-        if (user) {
-          this.getUser(user.uid, (data)=>{
-            this.setUserInContext(data, user.uid);
-              onLoggin();
-            }, ()=> {
-                this.setUser(user, (data)=> {
-                  this.setUserInContext(data, user.uid);
-                  onLoggin();
-                }, ()=>{});
-          });
-        } else {
-          notLogged && notLogged()
-        }
-    });
-  }
-
-  checkIfRedirect(callback) {
-    getRedirectResult(this.auth)
-    .then((result) => {
-      this.getUser(result.user.uid, (data)=>{
-        this.setUserInContext(data, result.user.uid);
-        callback && callback(data);
-      }, ()=> {
-        this.setUser(result.user, callback, (data)=>{
-          this.setUserInContext(data, result.user.uid);
-        })
-      });
-    }).catch((error) => { });
-  }
 
  setUserInContext(data, uid) {
     data.instagram = data.instagram || '';
@@ -571,28 +430,6 @@ class FirebaseController {
     window.crawlear.user.uid = uid;
   }
   
-  signInWithGoogle(callback) {
-    setPersistence(this.auth, browserLocalPersistence)
-    .then(() => {
-      if (Utils.isMobile() && !Utils.isIphone() && !Utils.isFirefox()) {
-        signInWithRedirect(this.auth, this.provider);
-      } else {
-        signInWithPopup(this.auth, this.provider)
-        .then((result) => {
-            this.getUser(result.user.uid, (data)=>{
-              this.setUserInContext(data, result.user.uid);
-              callback && callback(data);
-            }, ()=> {
-              this.setUser(result.user, callback, (data)=>{
-                this.setUserInContext(data, result.user.uid);
-              })
-      
-            });
-        }).catch((error) => { });  
-      }
-    })
-    .catch((error) => { })
-  }
       
   logout() {
     getAuth().signOut();

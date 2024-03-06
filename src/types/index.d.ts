@@ -16,6 +16,7 @@ declare global {
 
   interface Crawlear {
     fb: any,
+    fbBase?: any,
     user: User
   }
 }

@@ -89,7 +89,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
 }
 
 function isPostFromUserLogged(uid) { 
-    return window.crawlear.fb.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid; 
+    return window.crawlear.fbBase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid; 
 }
 
 export default PostLikes;

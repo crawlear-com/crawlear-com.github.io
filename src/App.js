@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { lazy } from 'react'
-import FirebaseController from './FirebaseController'
+import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
 import WhileLogging from './components/WhileLogging'
 import { UserStatusContext } from './context/UserStatusContext'
@@ -30,7 +30,7 @@ const TRUE = 1
 const FALSE = 0
 
 function App() {
-  const fb = new FirebaseController()
+  const fbBase = new FirebaseBaseController()
   const [stateLogged, setStateLogged] = React.useState(NOTKNOWN)
   const navigate = useNavigate()
   const location = useLocation()
@@ -38,10 +38,10 @@ function App() {
   const route = location.pathname
 
   window.crawlear = window.crawlear || {}
-  window.crawlear.fb = window.crawlear.fb || fb
+  window.crawlear.fbBase = window.crawlear.fbBase || fbBase
 
   React.useEffect(() => {
-    fb.checkIfLogged(() => {
+    fbBase.checkIfLogged(() => {
       onLogin()
     }, () => {
       onLogout()
@@ -55,10 +55,18 @@ function App() {
   }
 
   function onLogin() {
-    if (route.length === 1) {
-      navigate('/game')
-    }
-    setStateLogged(TRUE)
+    import(/* webpackChunkName: "FirebaseController" */ './FirebaseController').then(module => {
+      const FirebaseController = module.default
+
+      const fullFb = new FirebaseController(fbBase)
+      window.crawlear = window.crawlear || {}
+      window.crawlear.fb = fullFb
+      setStateLogged(TRUE)
+
+      if (route.length === 1) {
+        navigate('/game')
+      }
+    })
   }
 
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>

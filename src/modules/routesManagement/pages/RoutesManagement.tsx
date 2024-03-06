@@ -6,10 +6,10 @@ import RoutesManagementMenu from '../components/RoutesManagementMenu'
 import UseRoutesManagement, { STATE_CREATE, STATE_MENU} from '../hooks/UseRoutesManagement'
 
 function RoutesManagement() {
-    const fb = window.crawlear.fb
+    const fbBase = window.crawlear.fbBase
     const [state, route, onViewRoute, onCreateRoute, onBackClick, onEditClick] = UseRoutesManagement()
     
-    if (!fb.isUserLogged()) {
+    if (!fbBase.isUserLogged()) {
         return <Navigate state={{ from: "/route" }} to={{ pathname: "/" }} />
     }
 
