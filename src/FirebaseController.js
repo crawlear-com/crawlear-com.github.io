@@ -103,24 +103,6 @@ class FirebaseController {
     }
   }
 
-  async setUser({uid, displayName, photoURL, description, instagram}, okCallback, koCallback) {
-    const data = {
-      displayName: displayName,
-      photoURL: photoURL,
-      registrationDate: new Date().toString(),
-      description: description || "",
-      instagram: instagram || ""
-    };
-
-    try {
-      await setDoc(doc(this.db, "users", uid), data);
-      okCallback && okCallback(data);
-
-    } catch (e) {
-      koCallback && koCallback();
-    }
-  }
-
   transformGamesIntoData(game) {
     return {
       name: game.name,
