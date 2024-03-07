@@ -1,18 +1,28 @@
-import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
 
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import Utils from './Utils'
+import { initializeApp } from "firebase/app"
+import { getDatabase } from "firebase/database"
 import { setDoc, 
-         doc,
-         getDoc,
-         getFirestore } from "firebase/firestore";
+          doc,
+          getDoc,
+          query,
+          collection,
+          getFirestore,
+          where,
+          getDocs 
+        } from "firebase/firestore"
 
 import { getAuth, 
-  getRedirectResult,
-  GoogleAuthProvider } from "firebase/auth";
-
+        getRedirectResult,
+        GoogleAuthProvider,
+          signInWithRedirect, 
+          signInWithPopup, 
+          setPersistence,
+          browserLocalPersistence } from "firebase/auth"
+  
 const firebaseConfig = {
   apiKey: "AIzaSyATlKKGw99gurKNwHL7BU1-_Llj0hwJy60",
   authDomain: "crawlear-com.firebaseapp.com",
@@ -74,6 +84,29 @@ class FirebaseBaseController {
     }).catch((error) => { });
   }
 
+  signInWithGoogle(callback) {
+    setPersistence(this.auth, browserLocalPersistence)
+    .then(() => {
+      if (Utils.isMobile() && !Utils.isIphone() && !Utils.isFirefox()) {
+        signInWithRedirect(this.auth, this.provider);
+      } else {
+        signInWithPopup(this.auth, this.provider)
+        .then((result) => {
+            this.getUser(result.user.uid, (data)=>{
+              this.setUserInContext(data, result.user.uid);
+              callback && callback(data);
+            }, ()=> {
+              this.setUser(result.user, callback, (data)=>{
+                this.setUserInContext(data, result.user.uid);
+              })
+      
+            });
+        }).catch((error) => { });  
+      }
+    })
+    .catch((error) => { })
+  }
+
   async getUser(uid, okCallback, koCallback) {
     const docRef = doc(this.db, "users", uid);
     const docSnap = await getDoc(docRef);
@@ -86,6 +119,10 @@ class FirebaseBaseController {
     } else {
       koCallback && koCallback();
     }
+  }
+
+  isUserLogged() {
+    return this.auth.currentUser != null;
   }
 
   async setUser({uid, displayName, photoURL, description, instagram}, okCallback, koCallback) {
@@ -114,6 +151,63 @@ class FirebaseBaseController {
       user: data
     };
     window.crawlear.user.uid = uid;
+  }
+
+  async routeSearchByLatLon(latlon, bounds, okCallback, koCallback) {
+    try {
+      const routesRef = collection(this.db, "routes")
+      const q = query(routesRef, where('point.lat', '>', latlon.lat - bounds.lat), where('point.lat', '<', latlon.lat + bounds.lat))
+      const querySnapshot = await getDocs(q);
+      const result = [];
+
+      querySnapshot.forEach((doc)=>{
+        const data = doc.data()
+
+        if(data.point.lon > latlon.lng - bounds.lon && data.point.lon < latlon.lng + bounds.lon) {
+          data.rid = doc.id
+          result.push(data)
+        }
+      });
+      okCallback && okCallback(result)
+      } catch(e) {
+        koCallback && koCallback(e)
+    }
+  }
+
+  async getGpx(gid, okCallback, koCallback) {
+    const docRef = doc(this.db, "gpx", gid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      const res = docSnap.data()
+      res.gid = docRef.id
+
+      okCallback(res)
+    } else {
+      koCallback()
+    }
+  }
+
+  async getRoute(rid, resolveGpx, okCallback, koCallback) {
+    const docRef = doc(this.db, "routes", rid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      const res = docSnap.data()
+      res.rid = docRef.id
+
+      if (resolveGpx && res.gpx) {
+        this.getGpx(res.gpx, (gpx) => {
+          res.gpx = gpx
+          res.gpx.gid = gpx.gid
+          okCallback(res)
+        }, koCallback)
+      } else {
+        okCallback(res)
+      }
+    } else {
+      koCallback()
+    }
   }
 }
 

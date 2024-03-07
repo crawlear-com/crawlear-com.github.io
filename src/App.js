@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
-import FirebaseController from './FirebaseController'
+import { lazy } from 'react'
 import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
 import WhileLogging from './components/WhileLogging'
 import { UserStatusContext } from './context/UserStatusContext'
+import SuspenseComponent from './SuspenseComponent'
 import './Error.js'
 
 import './resources/css/Base.scss'
@@ -30,25 +30,19 @@ const TRUE = 1
 const FALSE = 0
 
 function App() {
-  //const fb = new FirebaseController()
-  const fb = new FirebaseBaseController()
+  const fbBase = new FirebaseBaseController()
   const [stateLogged, setStateLogged] = React.useState(NOTKNOWN)
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const route = location.pathname
 
-  React.useEffect(() => {
-    fb.checkIfLogged(() => {
-      if (route.length === 1) {
-        navigate('/game')
-      }
+  window.crawlear = window.crawlear || {}
+  window.crawlear.fbBase = window.crawlear.fbBase || fbBase
 
-      const fullFb = new FirebaseController(fb)
-      window.crawlear = window.crawlear || {}
-      window.crawlear.fb = window.crawlear.fb || fullFb
-    
-      setStateLogged(TRUE)
+  React.useEffect(() => {
+    fbBase.checkIfLogged(() => {
+      onLogin()
     }, () => {
       onLogout()
     })
@@ -60,33 +54,42 @@ function App() {
     setStateLogged(FALSE)
   }
 
+  function onLogin() {
+    import(/* webpackChunkName: "FirebaseController" */ './FirebaseController').then(module => {
+      const FirebaseController = module.default
+
+      const fullFb = new FirebaseController(fbBase)
+      window.crawlear = window.crawlear || {}
+      window.crawlear.fb = fullFb
+      setStateLogged(TRUE)
+
+      if (route.length === 1) {
+        navigate('/game')
+      }
+    })
+  }
+
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
-      <div className="App">
-        { stateLogged === TRUE ? <Menu /> : <></> }
-        <div className="AppMainContainer">
-        { stateLogged === NOTKNOWN ? <WhileLogging></WhileLogging> : 
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-
-              <Route path="/game" element={<GameManagement onLogout={onLogout} />} />
-              <Route path="/gameconfigurator" element={<GameConfigurator />} />
-              <Route path="/route" element={<RoutesManagement />} />
-              
-              <Route path="/gameviewer" element={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />
-              <Route path="/social" element={<PilotWall onLogout={onLogout} />} />
-              <Route path="/routeviewer" element={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />
-              <Route path="/profile" element={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-              <Route path="/sitemap.xml" element={<TxtRoute filePath="/sitemap.xml"/>} />
-            </Routes>
-          </Suspense>}
-        </div>
-
-        <div className="adsContainer"></div>
+    <div className="App">
+      { stateLogged === TRUE ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
+      <div className="AppMainContainer">
+      { stateLogged === NOTKNOWN ? <SuspenseComponent lazyComponent={<WhileLogging></WhileLogging>} /> : 
+          <Routes>
+            <Route path="/" element={<SuspenseComponent lazyComponent={<Landing onLogin={onLogin} />} />} />
+            <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement onLogout={onLogout} />} />} />
+            <Route path="/gameconfigurator" element={<SuspenseComponent lazyComponent={<GameConfigurator />} />} />
+            <Route path="/route" element={<SuspenseComponent lazyComponent={<RoutesManagement />} />} />
+            <Route path="/gameviewer" element={<SuspenseComponent lazyComponent={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />} />
+            <Route path="/social" element={<SuspenseComponent lazyComponent={<PilotWall onLogout={onLogout} />} />} />
+            <Route path="/routeviewer" element={<SuspenseComponent lazyComponent={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />} />
+            <Route path="/profile" element={<SuspenseComponent lazyComponent={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />} />
+            <Route path="/aboutus" element={<SuspenseComponent lazyComponent={<AboutUs />} />} />
+            <Route path="/privacypolicy" element={<SuspenseComponent lazyComponent={<PrivacyPolicy />} />} />
+            <Route path="/sitemap.xml" element={<SuspenseComponent lazyComponent={<TxtRoute filePath="/sitemap.xml"/>} />} />
+          </Routes> }
       </div>
-  </UserStatusContext.Provider>)
+    </div>
+</UserStatusContext.Provider>)
 }
 
 export default App
