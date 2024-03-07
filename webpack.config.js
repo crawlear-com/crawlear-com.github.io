@@ -77,7 +77,6 @@ module.exports = {
         { from: "src/static/sitemap.xml", to: "" },
         { from: "src/static/manifest.json", to: "" },
         { from: "src/static/robots.txt", to: "" },
-        { from: "src/pwa/service-worker.js", to: "" },
         { from: "src/pwa/service-worker-dev.js", to: "" },
         { from: "src/static/favicon.ico", to: "static/" },
         { from: "src/static/logo192.png", to: "static/" },
