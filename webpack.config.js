@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -58,6 +59,11 @@ module.exports = {
     }]
   },
   plugins: [
+    new InjectManifest({
+      include: [[/\.?js$/, /\.(ts)x?/i, /(\.s[ac]ss|css)$/i, /\.(jpe?g|png|webp|pdf|gif|svg)$/i]],
+      swDest: "./sw.js",
+      swSrc: "./src/pwa/service-worker.js"
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/static/index.html'
@@ -71,7 +77,6 @@ module.exports = {
         { from: "src/static/sitemap.xml", to: "" },
         { from: "src/static/manifest.json", to: "" },
         { from: "src/static/robots.txt", to: "" },
-        { from: "src/pwa/service-worker.js", to: "" },
         { from: "src/pwa/service-worker-dev.js", to: "" },
         { from: "src/static/favicon.ico", to: "static/" },
         { from: "src/static/logo192.png", to: "static/" },

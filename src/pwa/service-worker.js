@@ -1,53 +1,11 @@
-const CACHE_NAME = "crawlearCache_v16"
+import { precacheAndRoute } from "workbox-precaching"
+import { registerRoute } from "workbox-routing"
+import { NetworkFirst, StaleWhileRevalidate} from "workbox-strategies"
 
-//eslint-disable-next-line
-self.addEventListener('install', event => {
-    console.log(`CrawlearServiceWorker::${CACHE_NAME} Installed`);
+// Precarga la app
+// eslint-disable-next-line no-restricted-globals
+precacheAndRoute(self.__WB_MANIFEST)
 
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(function(cache) {
-          return cache.addAll([
-            './',
-            'index.html'
-          ]);
-        })
-      );
-});
-
-//eslint-disable-next-line
-self.addEventListener("activate", event => {
-    console.log(`CrawlearServiceWorker::${CACHE_NAME} Activated`);
-});
-
-//eslint-disable-next-line
-self.addEventListener('fetch', function(event) {
-    if (event.request.destination === 'image') {
-        event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-            return cache.match(event.request.url).then((cachedResponse) => {
-                if (cachedResponse) {
-                    return cachedResponse
-                }
-
-                return fetch(event.request).then((fetchedResponse) => {
-                    cache.put(event.request, fetchedResponse.clone())
-                    return fetchedResponse
-                })
-            })
-        }))
-    } else {
-        const url = event.request.url
-        if ((event.request.method !== 'POST') && (url.indexOf('crawlear.com') >= 0) && (url.indexOf('chrome-extension://') <= 0)) {
-            event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-                return fetch(url).then((fetchedResponse) => {
-                    cache.put(event.request, fetchedResponse.clone())
-            
-                    return fetchedResponse
-                }).catch(() => {
-                    return cache.match(url)
-                })
-            }))
-        } else {
-            return
-        }
-    }    
-})
+registerRoute(/.(?:js|css|webp|png|svg)$/, new StaleWhileRevalidate(), "GET")
+registerRoute(/^https?._/, new NetworkFirst(), "GET")
+registerRoute(/^http?._/, new NetworkFirst(), "GET")
