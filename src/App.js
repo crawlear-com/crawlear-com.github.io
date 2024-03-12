@@ -73,7 +73,7 @@ function App() {
     <div className="App">
       { stateLogged === TRUE ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
       <div className="AppMainContainer">
-      { stateLogged === NOTKNOWN ? <SuspenseComponent lazyComponent={<WhileLogging></WhileLogging>} /> : 
+      { stateLogged === NOTKNOWN ? <SuspenseComponent lazyComponent={<Landing onLogin={onLogin} />} /> : 
           <Routes>
             <Route path="/" element={<SuspenseComponent lazyComponent={<Landing onLogin={onLogin} />} />} />
             <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement onLogout={onLogout} />} />} />
