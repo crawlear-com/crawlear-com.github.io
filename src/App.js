@@ -25,13 +25,12 @@ const GameViewer = lazy(() => import('./pages/GameViewer'))
 const RouteViewer = lazy(() => import('./pages/RouteViewer'))
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
-const NOTKNOWN = -1
 const TRUE = 1
 const FALSE = 0
 
 function App() {
   const fbBase = new FirebaseBaseController()
-  const [stateLogged, setStateLogged] = React.useState(NOTKNOWN)
+  const [stateLogged, setStateLogged] = React.useState(FALSE)
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -73,7 +72,6 @@ function App() {
     <div className="App">
       { stateLogged === TRUE ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
       <div className="AppMainContainer">
-      { stateLogged === NOTKNOWN ? <SuspenseComponent lazyComponent={<Landing onLogin={onLogin} />} /> : 
           <Routes>
             <Route path="/" element={<SuspenseComponent lazyComponent={<Landing onLogin={onLogin} />} />} />
             <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement onLogout={onLogout} />} />} />
@@ -86,7 +84,7 @@ function App() {
             <Route path="/aboutus" element={<SuspenseComponent lazyComponent={<AboutUs />} />} />
             <Route path="/privacypolicy" element={<SuspenseComponent lazyComponent={<PrivacyPolicy />} />} />
             <Route path="/sitemap.xml" element={<SuspenseComponent lazyComponent={<TxtRoute filePath="/sitemap.xml"/>} />} />
-          </Routes> }
+          </Routes>
       </div>
     </div>
 </UserStatusContext.Provider>)
