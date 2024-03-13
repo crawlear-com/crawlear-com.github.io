@@ -13,9 +13,7 @@ function MainPageTextContent() {
         </figure>
 
         <p>
-            <b>crawlear.com</b> {t('content.welcomeMessage')}
-        </p>
-        <p>
+            <b>crawlear.com</b> {t('content.welcomeMessage')} <br /><br />
             {t('content.welcomeMessage2')}
         </p>
         </div>;
