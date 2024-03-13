@@ -3,45 +3,41 @@ import { lazy } from 'react'
 import SuspenseComponent from '../SuspenseComponent'
 
 import MainPageTextContent from './components/MainPageTextContent'
-import Analytics from '../Analytics'
 import { useTranslation } from 'react-i18next'
 import Footer from '../components/Footer'
-import RoutesSearch from '../modules/routesSerch/RoutesSearch'
+//import RoutesSearch from '../modules/routesSerch/RoutesSearch'
 
 import image from './styles/img/btn_google_signin_light_pressed_web.webp'
 import Levante124Logo from './styles/img/Levante124Logo.webp'
 import ZonaclubrcLogo from './styles/img/zonaclubrcLogo.webp'
 import MiniCrawlerPassionLogo from './styles/img/mcpLogo.webp'
+import RouteSearchImage from './styles/img/routeSearch.webp'
 
 import './styles/Landing.scss';
+import UseLanding from './hooks/UseLanding'
 
 const Offline = lazy(() => import('./Offline'))
+const RoutesSearch = lazy(() => import('../modules/routesSerch/RoutesSearch'))
 
 function Landing({onLogin}) {
     const { t } = useTranslation(['landing'])
-    const fbBase = window.crawlear.fbBase
-    
-    function signInCallback() {
-        onLogin && onLogin(true)
-    }
-
-    React.useEffect(() => {
-        Analytics.pageview('/landing/')
-    },[]);
+    const [clickOnGoogleSignIn, onRouteMapClick, routeClicked] = UseLanding(onLogin)
 
     if (!navigator.onLine) {
         return <SuspenseComponent lazyComponent={<Offline />} />
     } else {
         return <div className='landing'>
         <MainPageTextContent />
-
-        <RoutesSearch></RoutesSearch>
-
+        { routeClicked ? 
+            <SuspenseComponent lazyComponent={<RoutesSearch></RoutesSearch>} /> : 
+            <>
+                <img width={375} height={281} className="routeSerarchImage" src={RouteSearchImage} onClick={onRouteMapClick} alt='route search to click' /> 
+                <div className='routeSerarchImageText'>{t('content.clickImagen')}</div>
+            </>
+        }
         <div className="loginAndContent aboutUsContent">
             <p><b>{t('content.landingMainText')}</b>:</p>
-            <img width={191} height={46} className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={()=> {
-                fbBase.signInWithGoogle(signInCallback);
-            }} />
+            <img width={191} height={46} className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={clickOnGoogleSignIn} />
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
