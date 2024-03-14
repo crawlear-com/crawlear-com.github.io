@@ -5,7 +5,6 @@ import SuspenseComponent from '../SuspenseComponent'
 import MainPageTextContent from './components/MainPageTextContent'
 import { useTranslation } from 'react-i18next'
 import Footer from '../components/Footer'
-//import RoutesSearch from '../modules/routesSerch/RoutesSearch'
 
 import image from './styles/img/btn_google_signin_light_pressed_web.webp'
 import Levante124Logo from './styles/img/Levante124Logo.webp'

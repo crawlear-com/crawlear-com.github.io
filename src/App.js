@@ -3,7 +3,6 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { lazy } from 'react'
 import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
-import WhileLogging from './components/WhileLogging'
 import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
 import './Error.js'
@@ -74,7 +73,7 @@ function App() {
       <div className="AppMainContainer">
           <Routes>
             <Route path="/" element={<SuspenseComponent lazyComponent={<Landing onLogin={onLogin} />} />} />
-            <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement onLogout={onLogout} />} />} />
+            <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement />} />} />
             <Route path="/gameconfigurator" element={<SuspenseComponent lazyComponent={<GameConfigurator />} />} />
             <Route path="/route" element={<SuspenseComponent lazyComponent={<RoutesManagement />} />} />
             <Route path="/gameviewer" element={<SuspenseComponent lazyComponent={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />} />
