@@ -14,6 +14,7 @@ const STATE_LANDING = 3;
 const GameConfigurator = lazy(() => import('../modules/gameConfigurator/pages/GameConfigurator'))
 const GamePlayer = lazy(() => import('../modules/gamePlayer/GamePlayer'))
 const MainPageTextContent = lazy(() => import('./components/MainPageTextContent'))
+const fbBase = window.crawlear.fbBase
 
 function Offline() {
     const { t } = useTranslation(['main']);
@@ -21,6 +22,7 @@ function Offline() {
     const [game, setGame] = React.useState(null);
 
     React.useEffect(()=>{
+        fbBase.getFullFirebase()
         body.classList.add('offline');
         window.crawlear = window.crawlear || {};
         window.crawlear.user = {

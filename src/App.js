@@ -53,18 +53,12 @@ function App() {
   }
 
   function onLogin() {
-    import(/* webpackChunkName: "FirebaseController" */ './FirebaseController').then(module => {
-      const FirebaseController = module.default
+    fbBase.getFullFirebase(fbBase)
+    setStateLogged(TRUE)
 
-      const fullFb = new FirebaseController(fbBase)
-      window.crawlear = window.crawlear || {}
-      window.crawlear.fb = fullFb
-      setStateLogged(TRUE)
-
-      if (route.length === 1) {
-        navigate('/game')
-      }
-    })
+    if (route.length === 1) {
+      navigate('/game')
+    }
   }
 
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>

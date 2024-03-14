@@ -44,6 +44,16 @@ class FirebaseBaseController {
     this.initAppCheck()
   }
 
+  getFullFirebase() {
+    import(/* webpackChunkName: "FirebaseController" */ './FirebaseController').then(module => {
+      const FirebaseController = module.default
+
+      const fullFb = new FirebaseController(this)
+      window.crawlear = window.crawlear || {}
+      window.crawlear.fb = fullFb
+    })
+  }
+
   initAppCheck() {
     const appCheck = initializeAppCheck(this.app, {
       provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
