@@ -1,4 +1,3 @@
-import { t } from 'i18next';
 import * as React from 'react';
 import Logo from '../../styles/embed/img/whatsappLogo.svg';
 import Analytics from '../../../../Analytics';

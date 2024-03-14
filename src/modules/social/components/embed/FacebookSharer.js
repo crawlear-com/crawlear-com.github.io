@@ -1,4 +1,3 @@
-import { t } from 'i18next';
 import * as React from 'react';
 import UseScript from '../../hooks/UseScript';
 

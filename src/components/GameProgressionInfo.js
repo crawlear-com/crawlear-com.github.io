@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next'
 import * as React from 'react';
 import GameHeaderInfo from './GameHeaderInfo';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
@@ -6,6 +6,7 @@ import fiascoIcon from '../resources/img/iconFiasco.png';
 import { GameUtils } from '../games/Game';
 
 function GameProgressionInfo({game, gameProgression}) {
+    const { t } = useTranslation(['main']);
     const playersDone = [];
     let i=0;
 
