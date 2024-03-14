@@ -2,11 +2,12 @@ import * as React from 'react';
 import FeedViewer from '../components/FeedViewer';
 import Footer from '../../../components/Footer';
 import { UserStatusContext } from '../../../context/UserStatusContext';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next'
 
 const body = window.document.body;
 
 function FollowsWall() {
+    const { t } = useTranslation(['main']);
     const fb = window.crawlear.fb
     const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid;
     const { isUserLoged } = React.useContext(UserStatusContext);

@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next'
 import * as React from 'react';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import Utils from '../Utils';
@@ -17,6 +17,8 @@ import { GAME_TYPE_ISRCC,
 
 
 function GameProgressionInfoRow({gameType, gameProgression}) {
+    const { t } = useTranslation(['main']);
+
     if (gameProgression.data) {
         const points = gameProgression.data.points,
             totalPoints = gameProgression.data.totalPoints,
