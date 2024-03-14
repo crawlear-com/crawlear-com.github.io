@@ -14,7 +14,7 @@ const STATE_LANDING = 3;
 const GameConfigurator = lazy(() => import('../modules/gameConfigurator/pages/GameConfigurator'))
 const GamePlayer = lazy(() => import('../modules/gamePlayer/GamePlayer'))
 const MainPageTextContent = lazy(() => import('./components/MainPageTextContent'))
-const fbBase = window.crawlear.fb
+const fbBase = window.crawlear.fbBase
 
 function Offline() {
     const { t } = useTranslation(['main']);
