@@ -7,5 +7,5 @@ import { NetworkFirst, StaleWhileRevalidate} from "workbox-strategies"
 precacheAndRoute(self.__WB_MANIFEST)
 
 registerRoute(/.(?:js|css|webp|png|svg)$/, new StaleWhileRevalidate(), "GET")
-registerRoute(/^https?._/, new NetworkFirst(), "GET")
-registerRoute(/^http?._/, new NetworkFirst(), "GET")
+registerRoute(/^https?._/, new StaleWhileRevalidate(), "GET")
+registerRoute(/^http?._/, new StaleWhileRevalidate(), "GET")
