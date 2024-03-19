@@ -16,7 +16,7 @@ const USER_TYPE_NEUTRAL = 2;
 
 function UserViewer({uid, onLogout, onLogin}) {
     const isUidTheUserLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
     const fb = window.crawlear.fb
     const fbBase = window.crawlear.fbBase
     const [user, setUser] = React.useState({})

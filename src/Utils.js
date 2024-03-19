@@ -1,5 +1,3 @@
-import { t } from "i18next";
-
 class Utils {
     static PLAYER_STATE_STOP = 'stop';
     static PLAYER_STATE_START = 'start';
@@ -70,7 +68,7 @@ class Utils {
         return (match && match[1] && match[2]);
     }
 
-    static tokenToTexts(tokens) {
+    static tokenToTexts(t, tokens) {
         return tokens.map((x) => { return t(x); });
     }
 
