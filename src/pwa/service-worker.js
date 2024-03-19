@@ -7,10 +7,10 @@ import { NetworkFirst, StaleWhileRevalidate} from "workbox-strategies"
 precacheAndRoute(self.__WB_MANIFEST)
 precacheAndRoute([{url: '/', revision: null}])
 
-registerRoute(/.(?:js|css|webp|png|svg)$/, new StaleWhileRevalidate(), "GET")
-registerRoute(/^https?._/, new StaleWhileRevalidate(), "GET")
-registerRoute(/^http?._/, new StaleWhileRevalidate(), "GET")
+registerRoute(/.(?:js|css|webp|png|svg)$/, new StaleWhileRevalidate())
+registerRoute(/^https?._/, new StaleWhileRevalidate())
+registerRoute(/^http?._/, new StaleWhileRevalidate())
 
 const handler = createHandlerBoundToURL('/')
 const navigationRoute = new NavigationRoute(handler)
-registerRoute(navigationRoute)
+registerRoute(navigationRoute, new StaleWhileRevalidate())
