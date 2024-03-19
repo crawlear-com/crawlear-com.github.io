@@ -17,7 +17,7 @@ import { GAME_TYPE_ISRCC,
 
 
 function GameProgressionInfoRow({gameType, gameProgression}) {
-    const { t } = useTranslation(['main']);
+    const { t } = useTranslation(['main'])
 
     if (gameProgression.data) {
         const points = gameProgression.data.points,
@@ -28,33 +28,32 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
             simpathyPoints = gameProgression.data.simpathyPoints,
             handicap = gameProgression.data.handicap,
             bonitification = gameProgression.data.gatesWithBonification;
-        let gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts),
-            fiascoGameTypeTexts = Utils.tokenToTexts(AecarGameScores.fiascoTexts);
-
+        let gameTypeTexts = Utils.tokenToTexts(t, AecarGameScores.texts),
+            fiascoGameTypeTexts = Utils.tokenToTexts(t, AecarGameScores.fiascoTexts);
 
         if(gameType === GAME_TYPE_ISRCC) {
-            gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);
-            fiascoGameTypeTexts = Utils.tokenToTexts(IsrccGameScores.fiascoTexts);
+            gameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.texts);
+            fiascoGameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.fiascoTexts);
         }
         
         if(gameType === GAME_TYPE_LEVANTE) {
-            gameTypeTexts = Utils.tokenToTexts(Levante124GameScores.texts);   
-            fiascoGameTypeTexts = Utils.tokenToTexts(Levante124GameScores.fiascoTexts);
+            gameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.fiascoTexts);
         }
 
         if(gameType ===GAME_TYPE_COPAESPANA) {
-            gameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.texts);   
-            fiascoGameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.fiascoTexts);
+            gameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.fiascoTexts);
         }
 
         if(gameType ===GAME_TYPE_MINICRAWLERPASSION) {
-            gameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.texts);   
-            fiascoGameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.fiascoTexts);
+            gameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.fiascoTexts);
         }
 
         if(gameType ===GAME_TYPE_GENERIC) {
-            gameTypeTexts = Utils.tokenToTexts(GenericGameScores.texts);   
-            fiascoGameTypeTexts = Utils.tokenToTexts(GenericGameScores.fiascoTexts);
+            gameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.texts);   
+            fiascoGameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.fiascoTexts);
         }   
         
         return <>

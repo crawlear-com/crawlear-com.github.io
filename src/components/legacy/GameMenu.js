@@ -8,7 +8,7 @@ import ZonesPicker from '../../modules/gameConfigurator/components/ZonesPicker';
 import GateProgressionPicker from '../../modules/gameConfigurator/components/GateProgressionPicker';
 
 function GameMenu({game, beginGame, onPlayerChange}) {
-    const { t } = useTranslation();
+    const { t } = useTranslation(['main']);
     const [currentGame, setGame] = React.useState(game);
 
     function onMaxPointsChange(points) {

@@ -21,7 +21,7 @@ function GameController({ game, onGameEnd }) {
     const [state, setState] = React.useState(game)
     const [player, setPlayer] = React.useState(0)
     const [zone, setZone] = React.useState(0)
-    const { t } = useTranslation()
+    const { t } = useTranslation(['main'])
 
     function onPlayerChange() {
         cleanAlertBox(alertBoxRef)
