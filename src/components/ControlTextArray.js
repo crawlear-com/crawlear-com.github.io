@@ -3,7 +3,7 @@ import ControlText from './ControlText';
 import { useTranslation } from 'react-i18next';
 import { GameContext } from '../context/GameContext';
 
-import dropDownImage from '../resources/img/arrowDown.png';
+import dropDownImage from '../resources/img/arrowdown.png';
 
 function ControlTextArray({
     controlTextValuesString,
@@ -24,11 +24,11 @@ function ControlTextArray({
 
     if(!game || !game.players.length) return <></>;
 
-    const playerZone = game.players[player].zones[zone];
+    const playerZone = game.players[player].zones[zone]
     const controlTextValues = controlTextValuesString.indexOf('fiasco')<0 ?
         playerZone.gateProgressionData[playerZone.gateProgression][controlTextValuesString] : 
         playerZone[controlTextValuesString];
-    const isFullScore = controlTextValues.length>14;
+    const isFullScore = controlTextValues.length>14
 
     function titleOnClick(event) {
         const element = event.target;
