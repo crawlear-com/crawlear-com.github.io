@@ -23,3 +23,5 @@ uploadPi
 # information for Eclipse / Flash Builder.
 .DS_Store
 node_modules
+
+*storybook.log
