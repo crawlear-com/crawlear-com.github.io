@@ -22,7 +22,7 @@ function Offline() {
     const [game, setGame] = React.useState(null);
 
     React.useEffect(()=>{
-        fbBase.getFullFirebase()
+        fbBase.getFullFirebase(()=>{})
         body.classList.add('offline');
         window.crawlear = window.crawlear || {};
         window.crawlear.user = {

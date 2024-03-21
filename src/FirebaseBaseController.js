@@ -44,13 +44,15 @@ class FirebaseBaseController {
     this.initAppCheck()
   }
 
-  getFullFirebase() {
+  getFullFirebase(callback) {
     import(/* webpackChunkName: "FirebaseController" */ './FirebaseController').then(module => {
       const FirebaseController = module.default
 
       const fullFb = new FirebaseController(this)
       window.crawlear = window.crawlear || {}
       window.crawlear.fb = fullFb
+
+      callback && callback()
     })
   }
 

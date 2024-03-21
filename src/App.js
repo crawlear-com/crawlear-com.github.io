@@ -53,12 +53,13 @@ function App() {
   }
 
   function onLogin() {
-    fbBase.getFullFirebase(fbBase)
-    setStateLogged(TRUE)
+    fbBase.getFullFirebase(() => {
+      setStateLogged(TRUE)
 
-    if (route.length === 1) {
-      navigate('/game')
-    }
+      if (route.length === 1) {
+        navigate('/game')
+      }  
+    })
   }
 
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
