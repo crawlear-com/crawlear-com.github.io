@@ -18,7 +18,7 @@ import { GAME_TYPE_ISRCC,
 import fiascoIcon from '../resources/img/iconFiasco.png';
 import winnerIcon from '../resources/img/iconWinner.png';
 import batteryIcon from '../resources/img/iconBattery.png';
-import openIcon from '../resources/img/arrowDown.png';
+import openIcon from '../resources/img/arrowdown.png';
 
 
 function GameResultTable({game, isDraw}) {
