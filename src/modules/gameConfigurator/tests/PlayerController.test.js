@@ -11,10 +11,11 @@ beforeEach(()=>{
   document.body.innerHTML = '';
   document.body.append(div);
 
-  window.crawlear = window.crawlear || {} ;
-  window.crawlear.fb = {
-    isUserLogged: jest.fn()
-  };
+  window.crawlear = {
+    fbBase: {
+        isUserLogged: jest.fn()
+      }
+  }
 });
 
 afterEach(()=> {
@@ -31,6 +32,9 @@ jest.mock('react-i18next', () => ({
         };
     }
 }));
+
+jest.mock('../components/PlayerItem')
+jest.mock('../components/UserSearchForGame')
 
 
 test('renders PlayerController', () => {
