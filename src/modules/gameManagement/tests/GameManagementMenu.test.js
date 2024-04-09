@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import GameManagementMenu from '../components/GameManagementMenu'
+import GameListTransformer from '../../list/components/GameListTransformer'
 import List from '../../list/List'
 import GameRequests from '../components/GameRequests'
 import UseGameManagementMenu, { onRemoveGames } from '../hooks/UseGameManagementMenu'
 import PreviousGameList from '../components/PreviousGameList'
 
-const div = document.createElement('div');
+const div = document.createElement('div')
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {
@@ -28,12 +29,15 @@ jest.mock('../../list/List')
 jest.mock('../components/GameRequests')
 jest.mock('../hooks/UseGameManagementMenu')
 jest.mock('../components/PreviousGameList')
+jest.mock('../../list/components/GameListTransformer', () => ({
+    itemTransform: jest.fn()
+}))
 
 beforeEach(()=>{  
   document.body.append(div)
 
   window.crawlear = {
-    fb: jest.fn(),
+    fbBase: jest.fn(),
     user: { }
   }
 });

@@ -23,7 +23,7 @@ beforeEach(()=>{
     displayName: "Crawlear",
     uid: 'uid'
   };
-  window.crawlear.fb = {
+  window.crawlear.fbBase = {
     isUserLogged: jest.fn(()=>{
       return true;
     })
@@ -43,7 +43,7 @@ test('renders Footer embed logged', () => {
 });
 
 test('renders Footer embed not logged', () => {
-  window.crawlear.fb = {
+  window.crawlear.fbBase = {
     isUserLogged: jest.fn(()=>{
       return false;
     })

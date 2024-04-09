@@ -1,9 +1,12 @@
 import { render, screen, act, fireEvent } from '@testing-library/react'
 import PreviousGameList from '../components/PreviousGameList'
-import List from '../../list/List';
-import Spinner from '../../../components/Spinner';
+import Spinner from '../../../components/Spinner'
+import List from '../../list/List'
+import Game from '../../../games/Game'
+import GameListTransformer from '../../list/components/GameListTransformer'
 
-const div = document.createElement('div');
+
+const div = document.createElement('div')
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {
@@ -18,11 +21,15 @@ jest.mock('react-i18next', () => ({
 
 jest.mock('../../list/List')
 jest.mock('../../../components/Spinner')
+jest.mock('../../../games/Game')
+jest.mock('../../list/components/GameListTransformer', () => ({
+    itemTransform: jest.fn()
+}))
 
 beforeEach(() => {
     document.body.append(div)
     window.crawlear = {
-        fb: jest.fn(),
+        fbBase: jest.fn(),
         user: {
             uid: 'userUid'
         }
