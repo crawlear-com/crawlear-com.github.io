@@ -24,27 +24,27 @@ import openIcon from '../resources/img/arrowdown.png';
 function GameResultTable({game, isDraw}) {
     const { t } = useTranslation(['main']),
         players = [];
-    let gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts),
+    let gameTypeTexts = Utils.tokenToTexts(t,AecarGameScores.texts),
         j=0, i=0;
 
     switch(game.gameType) {
         case GAME_TYPE_ISRCC:
-            gameTypeTexts = Utils.tokenToTexts(IsrccGameScores.texts);
+            gameTypeTexts = Utils.tokenToTexts(t,IsrccGameScores.texts);
             break;
         case GAME_TYPE_LEVANTE:
-            gameTypeTexts = Utils.tokenToTexts(Levante124GameScores.texts);
+            gameTypeTexts = Utils.tokenToTexts(t,Levante124GameScores.texts);
             break;
         case GAME_TYPE_COPAESPANA:
-            gameTypeTexts = Utils.tokenToTexts(RegionalZonaRcGameScores.texts);
+            gameTypeTexts = Utils.tokenToTexts(t,RegionalZonaRcGameScores.texts);
             break;
         case GAME_TYPE_MINICRAWLERPASSION:
-            gameTypeTexts = Utils.tokenToTexts(MiniCrawlerPassionGameScores.texts);
+            gameTypeTexts = Utils.tokenToTexts(t,MiniCrawlerPassionGameScores.texts);
                 break;
         case GAME_TYPE_GENERIC:
-            gameTypeTexts = Utils.tokenToTexts(GenericGameScores.texts);
+            gameTypeTexts = Utils.tokenToTexts(t,GenericGameScores.texts);
                 break;        
         default:
-            gameTypeTexts = Utils.tokenToTexts(AecarGameScores.texts);
+            gameTypeTexts = Utils.tokenToTexts(t,AecarGameScores.texts);
             break;
     }
 
@@ -132,7 +132,7 @@ function GameResultTable({game, isDraw}) {
                                 <div className="left bold">{t('points.fiascos')}:</div>
                                 <ControlTextArrayVisualization 
                                     controlTextValues={zone.fiascoControlTextValues} 
-                                    texts={Utils.tokenToTexts(IsrccGameScores.fiascoTexts)} /> 
+                                    texts={Utils.tokenToTexts(t,IsrccGameScores.fiascoTexts)} /> 
                             </> : 
                             <></>}
                     </td>
