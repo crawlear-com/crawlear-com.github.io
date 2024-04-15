@@ -57,10 +57,12 @@ class FirebaseBaseController {
   }
 
   initAppCheck() {
-    const appCheck = initializeAppCheck(this.app, {
-      provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
-      isTokenAutoRefreshEnabled: true
-    })
+    if (navigator.userAgent !== 'ReactSnap') {
+      initializeAppCheck(this.app, {
+        provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
+        isTokenAutoRefreshEnabled: true
+      })  
+    }
   }
 
   checkIfLogged(onLoggin, notLogged) {

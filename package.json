@@ -41,7 +41,8 @@
     "dev": "webpack serve --open --mode=development",
     "build": "webpack --mode=production",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +50,18 @@
       "react-app/jest",
       "plugin:storybook/recommended"
     ]
+  },
+  "reactSnap": {
+    "source": "dist",
+    "inlineCss": false,
+    "removeBlobs": true,
+    "removeScriptTags": true,
+    "removeStyleTags": true,
+    "skipThirdPartyRequests": true,
+    "minifyHtml": {
+      "collapseWhitespace": true,
+      "removeComments": true
+    }
   },
   "browserslist": {
     "production": [
@@ -81,6 +94,7 @@
     "gh-pages": "^3.2.3",
     "jest": "^27.4.5",
     "prop-types": "^15.8.1",
+    "react-snap": "^1.23.0",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.45.0",
     "sass-loader": "^12.4.0",
