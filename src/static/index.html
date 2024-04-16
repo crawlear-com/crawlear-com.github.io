@@ -71,7 +71,8 @@
 
       <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
       <script type="text/javascript" async=true>
-        (function() {
+        if (navigator.userAgent !== "ReactSnap") {
+          (function() {
           var host = window.location.hostname;
           var element = document.createElement('script');
           var firstScript = document.getElementsByTagName('script')[0];
@@ -229,6 +230,7 @@
             var uspInterval = setInterval(checkIfUspIsReady, 6000);
           }
         })();
+        }
         </script>
       <!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
   </head>

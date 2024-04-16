@@ -19,6 +19,13 @@ const Offline = lazy(() => import('./Offline'))
 const RoutesSearch = lazy(() => import('../modules/routesSerch/RoutesSearch'))
 
 function Landing({onLogin}) {
+    
+    console.log("AQUUIIII")
+    console.log(Levante124Logo)
+    console.log("AQUUIIII")
+
+
+
     const { t } = useTranslation(['landing'])
     const [clickOnGoogleSignIn, onRouteMapClick, routeClicked] = UseLanding(onLogin)
 
@@ -40,7 +47,7 @@ function Landing({onLogin}) {
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
-                <img className='collaborateLogo' width={100} height={100} src={Levante124Logo} alt="Levante 1/24 Logo" />
+                <img className='collaborateLogo' width={100} height={100} src="./styles/img/Levante124Logo.webp" alt="Levante 1/24 Logo" />
                 <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img width={100} height={100} className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
                 <img className='collaborateLogo' width={100} height={106} src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
             </p>

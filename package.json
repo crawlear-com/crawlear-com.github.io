@@ -53,13 +53,14 @@
   },
   "reactSnap": {
     "source": "dist",
-    "inlineCss": false,
-    "removeBlobs": true,
+    "inlineCss": true,
     "removeScriptTags": true,
-    "removeStyleTags": true,
+    "removeStyleTags": false,
     "skipThirdPartyRequests": true,
+    "preloadImages": true,
+    "fixWebpackChunksIssue": false,
     "minifyHtml": {
-      "collapseWhitespace": true,
+      "collapseWhitespace": false,
       "removeComments": true
     }
   },
