@@ -2,7 +2,7 @@
   "name": "crawlear.com",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
+  "homepage": "https://crawlear.com",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
@@ -52,17 +52,7 @@
     ]
   },
   "reactSnap": {
-    "source": "dist",
-    "inlineCss": true,
-    "removeScriptTags": true,
-    "removeStyleTags": false,
-    "skipThirdPartyRequests": true,
-    "preloadImages": true,
-    "fixWebpackChunksIssue": false,
-    "minifyHtml": {
-      "collapseWhitespace": false,
-      "removeComments": true
-    }
+    "source": "dist"
   },
   "browserslist": {
     "production": [

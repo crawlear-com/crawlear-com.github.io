@@ -32,9 +32,16 @@ module.exports = {
     rules: [
     {
         test: /(\.s[ac]ss|css)$/i,
-        use: ["style-loader", 
-          "css-loader",
-          "sass-loader"]
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: 'resolve-url-loader' },
+          { loader: "sass-loader",
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
     },
     {
         test: /\.?js$/,
