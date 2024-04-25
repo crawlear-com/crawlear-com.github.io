@@ -30,7 +30,7 @@ function Landing({onLogin}) {
         { routeClicked ? 
             <SuspenseComponent lazyComponent={<RoutesSearch></RoutesSearch>} /> : 
             <>
-                <img width={375} height={281} className="routeSerarchImage" src={RouteSearchImage} onClick={onRouteMapClick} loading="lazy" alt='route search to click' /> 
+                <img width={375} height={267} className="routeSerarchImage" src={RouteSearchImage} onClick={onRouteMapClick} loading="lazy" alt='route search to click' /> 
                 <div className='routeSerarchImageText'>{t('content.clickImagen')}</div>
             </>
         }
