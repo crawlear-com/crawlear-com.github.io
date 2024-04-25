@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const { InjectManifest } = require('workbox-webpack-plugin');
+const HtmlWebpackInjectPreload = require('@principalstudio/html-webpack-inject-preload');
 
 module.exports = {
   mode: 'production',
@@ -67,6 +68,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/static/index.html'
+    }),
+    new HtmlWebpackInjectPreload({
+      files: [{ //./styles/img/routeSearch.webp
+        match: /fde7ea2cdb21ba90dc1b\.webp$/,
+        attributes: { as: 'image' }
+      }]
     }),
     new HtmlWebpackPlugin({
       filename: '404.html',

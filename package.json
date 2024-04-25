@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.23",
+    "@principalstudio/html-webpack-inject-preload": "^1.2.7",
     "@storybook/addon-essentials": "^8.0.2",
     "@storybook/addon-interactions": "^8.0.2",
     "@storybook/addon-links": "^8.0.2",
