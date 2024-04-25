@@ -5,6 +5,7 @@ import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
 import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
+import Landing from './pages/Landing'
 import './Error.js'
 
 import './resources/css/Base.scss'
@@ -17,7 +18,6 @@ const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameMan
 const PilotWall = lazy(() => import('./modules/social/pages/PilotWall'))
 const AboutUs = lazy(() => import('./pages/AboutUs'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
-const Landing = lazy(() => import('./pages/Landing'))
 const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/GameConfigurator'))
 const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagement'))
 const GameViewer = lazy(() => import('./pages/GameViewer'))
@@ -67,7 +67,7 @@ function App() {
       { stateLogged === TRUE ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
       <div className="AppMainContainer">
           <Routes>
-            <Route path="/" element={<SuspenseComponent lazyComponent={<Landing onLogin={onLogin} />} />} />
+            <Route path="/" element={<Landing onLogin={onLogin} />} />
             <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement />} />} />
             <Route path="/gameconfigurator" element={<SuspenseComponent lazyComponent={<GameConfigurator />} />} />
             <Route path="/route" element={<SuspenseComponent lazyComponent={<RoutesManagement />} />} />
