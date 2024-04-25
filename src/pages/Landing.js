@@ -30,19 +30,19 @@ function Landing({onLogin}) {
         { routeClicked ? 
             <SuspenseComponent lazyComponent={<RoutesSearch></RoutesSearch>} /> : 
             <>
-                <img width={375} height={281} className="routeSerarchImage" src={RouteSearchImage} onClick={onRouteMapClick} alt='route search to click' /> 
+                <img width={375} height={281} className="routeSerarchImage" src={RouteSearchImage} onClick={onRouteMapClick} loading="lazy" alt='route search to click' /> 
                 <div className='routeSerarchImageText'>{t('content.clickImagen')}</div>
             </>
         }
         <div className="loginAndContent aboutUsContent">
             <p><b>{t('content.landingMainText')}</b>:</p>
-            <img width={191} height={46} className="crawlerImageSignIn" src={image} alt="t2 crawler" onClick={clickOnGoogleSignIn} />
+            <img width={191} height={46} className="crawlerImageSignIn" loading="lazy" src={image} alt="t2 crawler" onClick={clickOnGoogleSignIn} />
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
-                <img className='collaborateLogo' width={100} height={100} src={Levante124Logo} alt="Levante 1/24 Logo" />
-                <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img width={100} height={100} className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
-                <img className='collaborateLogo' width={100} height={106} src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
+                <img className='collaborateLogo' width={100} height={100} loading="lazy" src={Levante124Logo} alt="Levante 1/24 Logo" />
+                <a href="https://www.clubzonarc.es/" alt="Club ZonaRc website" rel="noreferrer" target='_blank'><img width={100} height={100} loading="lazy" className='collaborateLogo' src={ZonaclubrcLogo} alt="ZonaRc Logo" /></a>
+                <img className='collaborateLogo' width={100} height={106} loading="lazy" src={MiniCrawlerPassionLogo} alt="Mini Crawler Passion Logo"/>
             </p>
         </div>
 
