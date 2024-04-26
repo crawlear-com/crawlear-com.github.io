@@ -73,7 +73,11 @@ module.exports = {
       files: [{ //./styles/img/routeSearch.webp
         match: /fde7ea2cdb21ba90dc1b\.webp$/,
         attributes: { as: 'image' }
-      }]
+      },
+      { 
+        match: /(en|es)-landing-json\..*\.js$/,
+        attributes: {as: 'script' },
+      },]
     }),
     new HtmlWebpackPlugin({
       filename: '404.html',

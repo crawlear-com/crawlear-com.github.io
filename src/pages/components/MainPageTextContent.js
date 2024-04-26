@@ -5,7 +5,7 @@ import logo5 from '../../resources/img/logo3.webp';
 import '../styles/MainPageTextContent.scss';
 
 function MainPageTextContent() {
-    const { t } = useTranslation(['main']);
+    const { t } = useTranslation(['landing']);
 
     return <div className="aboutUsContent">
         <figure className="logoImg">

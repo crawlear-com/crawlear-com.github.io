@@ -5,7 +5,7 @@ import instagramLogo from '../modules/social/styles/embed/img/instagramlogo.svg'
 import facebookLogo from  '../resources/img/facebooklogo.svg'
 
 function Footer() {
-    const { t } = useTranslation(['main'])
+    const { t } = useTranslation(['landing'])
     const fbBase = window.crawlear.fbBase
 
     return <div className="Footer">
