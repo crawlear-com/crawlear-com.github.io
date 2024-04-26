@@ -4,8 +4,8 @@ import { StaleWhileRevalidate } from "workbox-strategies"
 import { setCacheNameDetails } from 'workbox-core'
 
 const CACHE_NAME = 'crawlearcom'
-const CACHE_VERSION = '1.0.14'
-const PREVIOUS_CACHE_VERSION = '1.0.13'
+const CACHE_VERSION = '1.0.16'
+const PREVIOUS_CACHE_VERSION = '1.0.15'
 const PREVIOUS_CACHE_NAMES = `${CACHE_NAME}-${CACHE_NAME}-precache-${PREVIOUS_CACHE_VERSION}`
 
 setCacheNameDetails({
