@@ -28,7 +28,7 @@ const TRUE = 1
 const FALSE = 0
 
 function App() {
-  const fbBase = new FirebaseBaseController()
+  const fbBase = (window.crawlear && window.crawlear.fbBase) || new FirebaseBaseController()
   const [stateLogged, setStateLogged] = React.useState(FALSE)
   const navigate = useNavigate()
   const location = useLocation()
