@@ -6,6 +6,7 @@ import Analytics from './Analytics'
 import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
 import Landing from './pages/Landing'
+import { useTranslation } from 'react-i18next'
 import './Error.js'
 
 import './resources/css/Base.scss'
@@ -28,6 +29,7 @@ const TRUE = 1
 const FALSE = 0
 
 function App() {
+  const { t } = useTranslation(['landing'])
   const fbBase = (window.crawlear && window.crawlear.fbBase) || new FirebaseBaseController()
   const [stateLogged, setStateLogged] = React.useState(FALSE)
   const navigate = useNavigate()
