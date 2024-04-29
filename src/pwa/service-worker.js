@@ -4,9 +4,9 @@ import { StaleWhileRevalidate } from "workbox-strategies"
 import { setCacheNameDetails } from 'workbox-core'
 
 const CACHE_NAME = 'crawlearcom'
-const CACHE_VERSION = '1.0.18'
-const PREVIOUS_CACHE_VERSION = '1.0.17'
-const PREVIOUS_CACHE_NAMES = `${CACHE_NAME}-${CACHE_NAME}-precache-${PREVIOUS_CACHE_VERSION}`
+const CACHE_VERSION = '1.0.23'
+const PREVIOUS_CACHE_VERSION = '1.0.22'
+//crawlearcom-crawlearcom-precache-1.0.21
 
 setCacheNameDetails({
   prefix: CACHE_NAME,
@@ -35,7 +35,7 @@ self.addEventListener("activate", event => {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.filter(function(cacheName) {
-          return PREVIOUS_CACHE_NAMES === cacheName
+          return `${CACHE_NAME}-${CACHE_NAME}-precache-${CACHE_VERSION}` !== cacheName
         }).map(function(cacheName) {
           return caches.delete(cacheName);
         })
