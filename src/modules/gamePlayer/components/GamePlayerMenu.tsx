@@ -9,6 +9,7 @@ import GameProgression from '../../../components/GameProgression'
 import ErrorBox from '../../../components/ErrorBox'
 import GamePlayerUtils from '../GamePlayerUtils'
 import UseGamePlayerMenu from '../hooks/UseGamePlayerMenu'
+import Button from '@mui/material/Button'
 
 interface GamePlayerMenuProps {
     game: Game,
@@ -43,7 +44,7 @@ function GamePlayerMenu({ game,
         let buton = <></>;
 
         if ((player && player.group === jidGroup) || isCurrentUserIsOwner) {
-            buton = <button onClick={onBeginPlayClick} className="playButton importantNote">{t("description.empezar")}</button>;
+            buton = <Button variant="outlined" onClick={onBeginPlayClick} className="playButton importantNote">{t("description.empezar")}</Button>;
         }
         judgeProgression = <>
             {t('description.jugadorseleccionado')}: { player ? player.name : "" } <br />
@@ -75,12 +76,12 @@ function GamePlayerMenu({ game,
                 onRepairEnd={GamePlayerUtils.onRepairEnd}
             />
         </div>
-        <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
+        <Button variant="outlined" className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</Button>
         { GameUtils.isCurrentUserIsOwner(game.owner) && 
           GamePlayerUtils.isGroupGameFinished(game, gameProgression, jidGroup) ? 
-            <button className="closeButton importantNote" onClick={() => {
+            <Button variant="outlined" className="closeButton importantNote" onClick={() => {
                 onCloseButonClick(game)
-            }}>{t('description.cerrarpartida')}</button> : 
+            }}>{t('description.cerrarpartida')}</Button> : 
             <></> }
     </>
 }

@@ -6,6 +6,7 @@ import RoutesSearch from '../../routesSerch/RoutesSearch'
 import LovedRoutes from './LovedRoutes'
 import UseRoutesManagementMenu from '../hooks/UseRoutesManagementMenu'
 import ErrorBox from '../../../components/ErrorBox'
+import Button from '@mui/material/Button'
 
 interface RoutesManagementMenuProps {
     onCreateRoute: Function,
@@ -36,10 +37,10 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                 }} ></List>
         </div>
         <LovedRoutes onViewRoute={onViewRoute}></LovedRoutes>
-        <button className='importantNote' onClick={() => {
+        <Button variant="outlined" className='importantNote' onClick={() => {
             window.scrollTo(0,0)
             onCreateRoute()
-        }}>{t('description.crear')}</button>
+        }}>{t('description.crear')}</Button>
     </>
 }
 

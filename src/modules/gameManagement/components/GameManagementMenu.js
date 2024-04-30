@@ -7,6 +7,7 @@ import List from '../../list/List'
 import GameRequests from './GameRequests'
 import UseGameManagementMenu from '../hooks/UseGameManagementMenu'
 import PreviousGameList from './PreviousGameList'
+import Button from '@mui/material/Button'
 
 import '../styles/GameManagement.scss'
 
@@ -47,7 +48,7 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
             onRemoveItem={(gamePosition) => {
                 onRemoveJudgeGames(gamePosition)
             }}></List>
-        <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crearjuego')}</button>                        
+        <Button variant="outlined" className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crearjuego')}</Button>                        
         <PreviousGameList storedGames={storedGames} 
             onRemoveStoredGames={onRemoveStoredGames}
             onConfigureGames={onConfigureGames}

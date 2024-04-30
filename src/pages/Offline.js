@@ -3,6 +3,7 @@ import { lazy } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OFFLINE_USER_UID } from '../games/Game'
 import SuspenseComponent from '../SuspenseComponent';
+import Button from '@mui/material/Button'
 
 import './styles/Offline.scss';
 
@@ -50,7 +51,7 @@ function Offline() {
     } else {
         return <SuspenseComponent lazyComponent={<><MainPageTextContent />
             <div className="errorBoxContainer offlineContainer">{t('content.offlineMainText')}</div>
-            <button onClick={onGameConfiguratorClick} className="importantNote">{t('description.crearoffline')}</button></>
+            <Button variant="outlined" onClick={onGameConfiguratorClick} className="importantNote">{t('description.crearoffline')}</Button></>
         } />
     }
 }

@@ -3,6 +3,7 @@ import Slider, { createSliderWithTooltip } from 'rc-slider'
 import { useTranslation } from 'react-i18next'
 import { GAME_TYPE_GENERIC } from '../../../games/Game'
 import { GameContext } from '../../../context/GameContext'
+import Button from '@mui/material/Button'
 
 import "rc-slider/assets/index.css"
 import '../styles/rcSlider.scss'
@@ -41,8 +42,8 @@ function GateProgressionBox({ playerIndex, zoneIndex, onGateProgressionChange }:
 
   return <div className="gateProgressionContainer controlTextContainer info rounded rounded2">
     {t('description.avancepuerta')}: {playerZone.gateProgression}
-    <button id='gatesPlusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextPlus'>+</button>
-    <button id='gatesMinusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextMinus'>-</button>
+    <Button variant="outlined" id='gatesPlusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextPlus'>+</Button>
+    <Button variant="outlined" id='gatesMinusButton' onClick={onGateProgressionButtonClick} className='buttonControlTextMinus'>-</Button>
     <SliderWithTooltip
             step={1}
             min={0}

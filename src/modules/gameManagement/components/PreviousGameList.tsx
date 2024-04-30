@@ -4,6 +4,7 @@ import { Game } from '../../../games/Game'
 import { itemTransform } from '../../list/components/GameListTransformer'
 import List from '../../list/List'
 import Spinner from '../../../components/Spinner'
+import Button from '@mui/material/Button'
 
 export interface PreviousGameListProps {
     storedGames: Array<Game>,
@@ -18,10 +19,10 @@ function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, 
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const buttonOrLoading = isLoading ? 
         <Spinner></Spinner> : 
-        <button title='loadButton' onClick={() => {
+        <Button variant="outlined" title='loadButton' onClick={() => {
             setIsLoading(true)
             onLoadPreviousGames(window.crawlear.user.uid, )}
-        }>{t('description.cargar')}</button>
+        }>{t('description.cargar')}</Button>
 
     if (storedGames.length > 0) {
         if (isLoading) {

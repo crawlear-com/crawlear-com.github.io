@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from '@mui/material/Button';
 
 import '../styles/PlayerItem.scss';
 
@@ -40,7 +41,7 @@ function PlayerItem({player, i,
             options.push(<option value={i}>{t('description.grupo')} {i+1}</option>);
         }
 
-        editControls.push(<button className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>);
+        editControls.push(<Button variant="outlined" className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</Button>);
         editControls.push(<div>
             <select value={player.group} onChange={onGroupSelectChange}>
                 {options}

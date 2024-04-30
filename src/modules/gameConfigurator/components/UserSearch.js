@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { isOffline } from '../../../pages/Offline';
+import Button from '@mui/material/Button';
 
 import '../styles/UserSearch.scss';
 import iconAdd from '../styles/img/iconAdd.png';
@@ -82,7 +83,7 @@ function UserSearch({onUserSeachPlayerAdd,
     });
 
     if (onPlusAddUserClick) {
-        addButton = <button className="buttonControlTextPlus" onClick={()=>{
+        addButton = <Button variant="outlined" className="buttonControlTextPlus" onClick={()=>{
             const value = inputRef.current.value;
 
             setUsers([]);
@@ -91,7 +92,7 @@ function UserSearch({onUserSeachPlayerAdd,
                 uid: "",
                 displayName: value
             });
-        }}>+</button>;
+        }}>+</Button>;
     }
 
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Button from '@mui/material/Button';
 import '../resources/css/Picker.scss';
 
 function Picker({callback, minValue = 0, maxValue = 200, initialValue = 0, value = 0}) {
@@ -18,9 +19,9 @@ function Picker({callback, minValue = 0, maxValue = 200, initialValue = 0, value
 
     }
     return <div className="picker">
-        <button className="picker--arrowUp" onClick={(event)=> {arrowClick(elementRef,+1)}}></button>
+        <Button variant="outlined" className="picker--arrowUp" onClick={(event)=> {arrowClick(elementRef,+1)}}></Button>
         <div className="picker--value" ref={elementRef}>{value}</div>
-        <button className="picker--arrowDown" onClick={(event)=> {arrowClick(elementRef,-1)}}></button>
+        <Button variant="outlined" className="picker--arrowDown" onClick={(event)=> {arrowClick(elementRef,-1)}}></Button>
     </div>;
 }
 

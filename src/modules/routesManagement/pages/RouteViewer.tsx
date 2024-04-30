@@ -7,6 +7,7 @@ import { GpxRouteMap } from 'react-gpxroutemap'
 import RouteLove from '../components/RouteLove'
 import Youtube from '../../social/components/embed/Youtube'
 import Analytics from '../../../Analytics'
+import Button from '@mui/material/Button'
 
 import 'react-gpxroutemap/dist/public/img/marker-icon.png'
 import 'react-gpxroutemap/dist/public/img/marker-shadow.png'
@@ -55,7 +56,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
             </div>
 
             <div className="routesSection backButton">
-                { onBackClick ? <button onClick={onBackClick}>{t("description.atras")}</button> : <></> }
+                { onBackClick ? <Button variant="outlined" onClick={onBackClick}>{t("description.atras")}</Button> : <></> }
             </div>
         </div>
     } else {

@@ -4,6 +4,7 @@ import Analytics from '../../../Analytics';
 import Utils from '../../../Utils';
 import EventManager from '../../../EventManager';
 import { MSG_TIME, MSG_START, MSG_STOP } from '../Bluetooth';
+import Button from '@mui/material/Button'
 
 import '../styles/TimerControl.scss';
 
@@ -136,8 +137,8 @@ function TimerControl({
     return <div ref={containerRef} className="timerContainer">
         <div className='timerLabel'>{(label || t('description.tiempo')).toUpperCase()}:</div>
         <div className="timer">{Utils.printTime(timeValue)}</div>
-        <button className="timerPlayButton" onClick={onPlayPauseChange}></button>
-        <button onClick={onReset} className="resetButton"></button>
+        <Button variant="outlined" className="timerPlayButton" onClick={onPlayPauseChange}></Button>
+        <Button variant="outlined" onClick={onReset} className="resetButton"></Button>
     </div>;
 }
 

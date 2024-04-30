@@ -5,6 +5,7 @@ import BluetoothButton from './BluetoothButton'
 import TimerControl from './TimerControl'
 import { useTranslation } from 'react-i18next'
 import { GameContext } from '../../../context/GameContext'
+import Button from '@mui/material/Button';
 
 interface TimerBoxProps {
   playerZone: any,
@@ -24,7 +25,7 @@ function TimerBox({ playerZone, forceAction, setRepairStatus, onTimerChange, onT
     {game.courtesyTime>0 ? 
         <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
         <></>}            
-    <button className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</button>
+    <Button variant="outlined" className='repairButton importantNote' onClick={setRepairStatus}>{t('description.iniciarreparacion')}</Button>
 
     <TimerControl
       courtesyTime={game.courtesyTime}

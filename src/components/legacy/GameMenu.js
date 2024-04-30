@@ -6,6 +6,7 @@ import Analytics from '../../Analytics';
 import MaxTimeAndPointsPicker from '../../modules/gameConfigurator/components/MaxTimeAndPointsPicker';
 import ZonesPicker from '../../modules/gameConfigurator/components/ZonesPicker';
 import GateProgressionPicker from '../../modules/gameConfigurator/components/GateProgressionPicker';
+import Button from '@mui/material/Button';
 
 function GameMenu({game, beginGame, onPlayerChange}) {
     const { t } = useTranslation(['main']);
@@ -107,9 +108,9 @@ function GameMenu({game, beginGame, onPlayerChange}) {
                 onGameTypeChange(selectedIndex);
         }} />
         <p>
-            <button className="importantNote" onClick={() => {
+            <Button variant="outlined" className="importantNote" onClick={() => {
                 beginGame(currentGame);
-            }}>{t('description.empezar')}</button>
+            }}>{t('description.empezar')}</Button>
         </p>
     </>
 }

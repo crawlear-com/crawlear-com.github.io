@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import RepairTimer from './RepairTimer';
+import Button from '@mui/material/Button'
 
 import '../styles/RepairProgression.scss';
 
@@ -34,9 +35,9 @@ function RepairProgression({gameProgression, game, onRepairEnd}) {
                             </span>
                         </div>
                         <RepairTimer  />
-                        <button onClick={()=>{
+                        <Button variant="outlined" onClick={()=>{
                             prepareOnRepairEnd(game.gid, game.players[[player[0]]].id, group[0], index, zone[1]);
-                        }} className="importantNote">{t('description.fin')}</button>
+                        }} className="importantNote">{t('description.fin')}</Button>
                     </div>);
                 }
             });    

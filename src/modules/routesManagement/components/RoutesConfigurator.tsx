@@ -4,6 +4,7 @@ import ErrorBox from '../../../components/ErrorBox'
 import UseRoutesConfigurator from '../hooks/UseRoutesConfigurator'
 import { GpxRouteMap } from 'react-gpxroutemap'
 import { useTranslation } from 'react-i18next'
+import Button from '@mui/material/Button'
 
 import '../styles/RoutesConfigurator.scss'
 
@@ -54,8 +55,8 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
             }}></input></div>
 
             <div className="endButtons">
-                <button className='importantNote' onClick={onCreateRoute}>{route.rid ? t('description.modificar') : t('description.crear')}</button>
-                <button onClick={onBackClick}>{ t('description.atras')}</button>
+                <Button variant="outlined" className='importantNote' onClick={onCreateRoute}>{route.rid ? t('description.modificar') : t('description.crear')}</Button>
+                <Button variant="outlined" onClick={onBackClick}>{ t('description.atras')}</Button>
             </div>
         </div>
     </>

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import ListMenu from './ListMenu'
+import Button from '@mui/material/Button'
 
 import '../styles/ListItem.scss'
 
@@ -35,7 +36,7 @@ function ListItem({ item, itemPosition, onOpenClose, onItemAction }: ListItemPro
     return <div key={itemPosition} className="listItemContainer rounded rounded1 closed">
                 <span onClick={openCloseItem} className="textOverflow listItemName bold">{ item.title }</span>
                 { onItemAction ? <span className='editButton' onClick={onItemActionClick}>
-                    <button className="importantNote playButton"></button></span> : <></> }
+                    <Button variant="outlined" className="importantNote playButton"></Button></span> : <></> }
                 { item.content }
             </div>
 }

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import Post from '../components/Post'
 import Spinner from '../../../components/Spinner'
 import UserProfile from '../components/UserProfile'
+import Button from '@mui/material/Button'
 
 import logo from '../../../resources/img/logo5.png'
 import UsePostViewer from '../hooks/UsePostViewer'
@@ -14,9 +15,9 @@ function PostViewer({pid}) {
     const [user, post] = UsePostViewer(pid)
 
     if (fbBase.isUserLogged()) {
-        bottomButtons.push(<button key='backButton' onClick={()=>{
+        bottomButtons.push(<Button variant="outlined" key='backButton' onClick={()=>{
             window.history && window.history.back()
-        }}>{t('description.atras')}</button>)
+        }}>{t('description.atras')}</Button>)
     }
 
     return <div className='userViewer'>

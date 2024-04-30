@@ -2,6 +2,8 @@ import * as React from 'react';
 import '../resources/css/ControlText.scss';
 import Analytics from '../Analytics';
 import { useTranslation } from 'react-i18next';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/Button';
 
 function ControlText({
         text,
@@ -30,15 +32,16 @@ function ControlText({
     }
 
     return <div className="controlText">
-        <button className='buttonControlTextPlus' onClick={() => {
-            valueRef.current.focus();
-            updateValue(step)
-        }}>+</button>
-        <button className='buttonControlTextMinus' onClick={() => {
-            valueRef.current.focus();
-            updateValue(-step)
-        }}>-</button>
-
+        <ButtonGroup variant="contained" aria-label="Basic button group">
+            <Button variant="outlined" onClick={() => {
+                valueRef.current.focus();
+                updateValue(step)
+            }}>+</Button>
+            <Button variant="outlined" onClick={() => {
+                valueRef.current.focus();
+                updateValue(-step)
+            }}>-</Button>
+        </ButtonGroup>
         <div className={getControlClass("controlTextText")}>{t(text)} </div>
         <div ref={valueRef} className={getControlClass("controlTextValue")}>{value}</div>
     </div>;

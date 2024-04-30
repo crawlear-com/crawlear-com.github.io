@@ -4,6 +4,7 @@ import UseCoreGame from '../hooks/UseCoreGame'
 import PlayerHeaderBox from './PlayerHeaderBox'
 import TimerBox from './TimerBox'
 import GateProgressionBox from './GateProgressionBox'
+import Button from '@mui/material/Button'
 
 import '../styles/CoreGame.scss'
 
@@ -65,10 +66,10 @@ function CoreGame({
 
         {childrenContent[3]}
 
-        <button onClick={onReset} className="resetButton">{t('description.reset')}</button>
-        <button className="importantNote" onClick={()=>{
+        <Button variant="outlined" onClick={onReset} className="resetButton">{t('description.reset')}</Button>
+        <Button variant="outlined" className="importantNote" onClick={()=>{
             onEndPlayer()
-            }}>{t('description.finjugador')} ({player.name})</button><p />
+            }}>{t('description.finjugador')} ({player.name})</Button><p />
     </div>);
 }
 

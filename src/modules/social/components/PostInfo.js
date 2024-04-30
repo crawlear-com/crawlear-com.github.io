@@ -5,6 +5,7 @@ import WinnerTable from '../../../components/WinnerTable';
 import PostLikes from './PostLikes';
 import GoogleMapsLocation from './embed/GoogleMapsLocation';
 import Analytics from '../../../Analytics';
+import Button from '@mui/material/Button'
 
 function PostInfo({ post, readOnly, onRemovePost, children }) {
     const { t } = useTranslation(['main']);
@@ -37,7 +38,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     },[]);
 
     return <>
-            {!readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}
+            {!readOnly ? <Button variant="outlined" data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</Button>: <></>}
             
             {userFromPost.uid ? <a href={`https://crawlear.com/profile?uid=${userFromPost.uid}`} className="userProfileContainer" alt="user profile name and link">
                     <div className="userProfilePhotoContainer">
@@ -66,7 +67,7 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
                             </div> : 
                                 postHasGameAssigned() ? 
                                     <><div className='gameAssigned bold'>{t('description.juegoasignado')}:</div>
-                                    <button className='getGameName importantNote' onClick={()=>{resolveGame(post.gid)}}>{t('description.resolverjuego')}</button></> :
+                                    <Button variant="outlined" className='getGameName importantNote' onClick={()=>{resolveGame(post.gid)}}>{t('description.resolverjuego')}</Button></> :
                                         <div className='getGameName bold'>{t('description.sinjuego')}</div>}
             </div>
         </>;

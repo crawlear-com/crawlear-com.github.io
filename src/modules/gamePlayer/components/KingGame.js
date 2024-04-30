@@ -5,6 +5,7 @@ import TimerControl from './TimerControl'
 import { GameUtils } from '../../../games/Game'
 import UseKingGame from '../hooks/UseKingGame';
 import { KingGameScores } from '../../../games/KingGameScores';
+import Button from '@mui/material/Button'
 
 import '../styles/KingGame.scss';
 
@@ -61,7 +62,7 @@ function KingGame({ onGameEnd }) {
             </div>);
     }
 
-    result.push(<button key={game.players.length*2+2} className="importantNote" onClick={gameEnd}>{t('description.fin')}</button>);
+    result.push(<Button variant="outlined" key={game.players.length*2+2} className="importantNote" onClick={gameEnd}>{t('description.fin')}</Button>);
 
     return <div key={game.players.length*2+3} className="gameContainer">
         {result}

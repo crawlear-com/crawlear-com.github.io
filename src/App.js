@@ -13,6 +13,11 @@ import './resources/css/Base.scss'
 import './resources/css/App.scss'
 import './resources/css/Footer.scss'
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 const TxtRoute = lazy(() => import('./pages/TxtRoute'))
 const Menu = lazy(() => import('./components/Menu'))
 const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameManagement'))

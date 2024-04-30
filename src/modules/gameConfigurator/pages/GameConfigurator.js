@@ -14,6 +14,7 @@ import LocationResolver from '../components/LocationResolver'
 import { useTranslation } from 'react-i18next'
 import UseGameConfigurator from '../hooks/UseGameConfigurator'
 import Analytics from '../../../Analytics'
+import Button from '@mui/material/Button'
 
 import '../styles/GameConfigurator.scss'
 
@@ -114,16 +115,16 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         }/>
         <input type="checkbox" onChange={onRandomizePlayersOrder}></input>{t('description.ordenRamdomJugadores')}
         <p>
-            <button className="importantNote" 
+            <Button variant="outlined" className="importantNote" 
                 onClick={() => {
                     createGame(groups, game);
                 }
-            }>{t('description.crearjuego')}</button>
-            <button
+            }>{t('description.crearjuego')}</Button>
+            <Button variant="outlined"
                 onClick={() => {
                     window.location.reload();
                 }
-            }>{t('description.atras')}</button>
+            }>{t('description.atras')}</Button>
         </p>
     </>)
 }

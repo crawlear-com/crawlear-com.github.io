@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from '@mui/material/Button'
+
 
 import '../resources/css/GameProgressionDirector.scss';
 
@@ -86,9 +88,9 @@ function GameProgressionDirector({game, gameProgression}) {
             <div>{t('description.estado')}: {element.status}</div>
         </div>
         <div>
-            <button onClick={()=>{
+            <Button variant="outlined" onClick={()=>{
                 presenceRequestAccept(request);
-            }}>{t('description.aceptar')}</button>
+            }}>{t('description.aceptar')}</Button>
         </div></div>);
     });
 
