@@ -16,3 +16,18 @@ https://crawlear.com online service for professionals and fans of Rock and Scale
   <img src="https://crawlear.com/static/route2.jpeg" width="150px"></img> 
    <img src="https://crawlear.com/static/route3.jpeg" width="150px"></img> 
 </div>
+
+<p>Under the hood:
+<ul>
+  <li>SPA React application</li>
+  <li>Workbox PWA with caching strategies and offline mode</li>
+  <li>Typescript, ES6, webpack build system with code splitting and component lazy loading</li>
+  <li>Unit and integration tests for Core features, storyboard</li>
+  <li>Firebase Database backend for user and game data</li>
+  <li>Firebase Realtime Database for distributed real time game data sharing</li>
+  <li>Multilanguage</li>
+  <li>Google Analytics and Google Sign In</li>
+  <li>Social features and social embeds</li>
+  <li>Leaflet interactive maps</li>
+  <li>Custom Arduino hardware to monitorize plays using the Bluetooth web API (Android only)</li>
+</ul></p>
