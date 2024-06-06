@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const { InjectManifest } = require('workbox-webpack-plugin');
 const HtmlWebpackInjectPreload = require('@principalstudio/html-webpack-inject-preload');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'production',
@@ -60,6 +61,7 @@ module.exports = {
     }]
   },
   plugins: [
+    new Dotenv(),
     new InjectManifest({
       include: [[/\.?js$/, /\.(ts)x?/i, /(\.s[ac]ss|css)$/i, /\.(jpe?g|png|webp|pdf|gif|svg)$/i]],
       swDest: "./sw.js",

@@ -23,15 +23,20 @@ import { getAuth,
           setPersistence,
           browserLocalPersistence } from "firebase/auth"
   
+
+
+console.log("AQUUIIII!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+          console.log(process.env.REACT_APP_API_KEY);
+
 const firebaseConfig = {
-  apiKey: "AIzaSyATlKKGw99gurKNwHL7BU1-_Llj0hwJy60",
-  authDomain: "crawlear-com.firebaseapp.com",
-  databaseURL: "https://crawlear-com-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "crawlear-com",
-  storageBucket: "crawlear-com.appspot.com",
-  messagingSenderId: "879856500816",
-  appId: "1:879856500816:web:4287599cc229d5f4c3d155",
-  measurementId: "G-YD7VLXPTM2"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENTID
 }
 
 class FirebaseBaseController {
