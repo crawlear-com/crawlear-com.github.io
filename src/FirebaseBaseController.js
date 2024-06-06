@@ -23,11 +23,6 @@ import { getAuth,
           setPersistence,
           browserLocalPersistence } from "firebase/auth"
   
-
-
-console.log("AQUUIIII!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-          console.log(process.env.REACT_APP_API_KEY);
-
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
