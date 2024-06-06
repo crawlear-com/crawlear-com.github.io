@@ -1,5 +1,7 @@
+"use client"
+
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../app/i18n/index'
 import { MapPointPicker } from 'react-gpxroutemap'
 import Route from '../routesManagement/Route'
 import Popup from '../../components/Popup'
@@ -9,8 +11,8 @@ import Analytics from '../../Analytics'
 
 import './styles/RoutesSearch.scss'
 
-function RoutesSearch() {
-    const { t } = useTranslation(['main'])
+async function RoutesSearch({ lng }) {
+    const { t } = await useTranslation(lng, ['main'])
     const [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow] = UseRouteSearch()
 
     return <div className='rounded rounded3 routesSearchContainer'>
@@ -18,7 +20,7 @@ function RoutesSearch() {
         <div className="searchText">{t('content.busquedaderuta')}</div>
         
         { routeToShow ?  <Popup onClose={clearRouteToShow}>
-            <RouteViewer route={routeToShow}></RouteViewer>
+            <RouteViewer lng={lng} route={routeToShow}></RouteViewer>
           </Popup> : <></> }
         
         <MapPointPicker points={routes.map((route: Route, index: number) => {

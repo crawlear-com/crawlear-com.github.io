@@ -51,7 +51,12 @@ module.exports = {
       test: /\.(ts)x?/i,
         exclude: /node_modules/,
         use: {
-            loader: "ts-loader"
+            loader: "ts-loader",
+            options: {
+              compilerOptions: {
+                noEmit: false,
+              }
+            }
         }
     },
     {

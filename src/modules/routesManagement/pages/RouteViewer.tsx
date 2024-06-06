@@ -1,6 +1,8 @@
+"use client"
+
 import * as React from 'react'
 import Route from '../Route'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../../app/i18n/index'
 import GoogleMapsUrl from '../../social/components/embed/GoogleMapsUrl'
 import Sharers from '../../social/components/embed/Sharers'
 import { GpxRouteMap } from 'react-gpxroutemap'
@@ -13,13 +15,14 @@ import 'react-gpxroutemap/dist/public/img/marker-shadow.png'
 import '../styles/RouteViewer.scss'
 
 interface RouteViewerProps {
+    lng: string,
     route: Route,
     onBackClick?: React.MouseEventHandler<HTMLButtonElement>,
     onEditClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
-function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
-    const { t } = useTranslation(['main'])
+async function RouteViewer({ lng, route, onBackClick, onEditClick }: RouteViewerProps) {
+    const { t } = await useTranslation(lng, ['main'])
     const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
     const isOwner = isLogged && route.uids.find((element) => element === window.crawlear.user.uid)
 
@@ -40,7 +43,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
                 <div className="routesSection">
                     <div className="value"><Youtube url={route.youtubeVideo}></Youtube></div>
             </div> : <></> }
-            <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText=''></Sharers>
+            <Sharers lng={lng} url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText=''></Sharers>
             <div className="routesSection">
                 <div className="value description">{route.description} </div>
             </div>
@@ -51,7 +54,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
                 <div className="bold">{t("description.dificultad")}</div><div className="value">{route.dificulty} </div>
             </div>
             <div className="routesSection">
-                <div className="bold">{t("description.puntoencuentro")}</div><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
+                <div className="bold">{t("description.puntoencuentro")}</div><GoogleMapsUrl lng={lng} url={route.locationMapUrl} ></GoogleMapsUrl>
             </div>
 
             <div className="routesSection backButton">

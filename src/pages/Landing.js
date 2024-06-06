@@ -1,42 +1,28 @@
 import * as React from 'react'
 import { lazy } from 'react'
+import { useTranslation } from '../app/i18n'
 import SuspenseComponent from '../SuspenseComponent'
-
 import MainPageTextContent from './components/MainPageTextContent'
-import { useTranslation } from 'react-i18next'
 import Footer from '../components/Footer'
 
 import image from './styles/img/btn_google_signin_light_pressed_web.webp'
 import Levante124Logo from './styles/img/Levante124Logo.webp'
 import ZonaclubrcLogo from './styles/img/zonaclubrcLogo.webp'
 import MiniCrawlerPassionLogo from './styles/img/mcpLogo.webp'
-import RouteSearchImage from './styles/img/routeSearch.webp'
 
 import './styles/Landing.scss';
-import UseLanding from './hooks/UseLanding'
 
-const Offline = lazy(() => import('./Offline'))
 const RoutesSearch = lazy(() => import('../modules/routesSerch/RoutesSearch'))
 
-function Landing({onLogin}) {
-    const { t } = useTranslation(['landing'])
-    const [clickOnGoogleSignIn, onRouteMapClick, routeClicked] = UseLanding(onLogin)
-
-    if (!navigator.onLine) {
-        return <SuspenseComponent lazyComponent={<Offline />} />
-    } else {
-        return <div className='landing'>
+async function Landing({ onLogin, lng }) {
+    const { t } = await useTranslation(lng, 'landing')
+    
+    return <div className='landing'>
         <MainPageTextContent />
-        { routeClicked ? 
-            <SuspenseComponent lazyComponent={<RoutesSearch></RoutesSearch>} /> : 
-            <>
-                <img width={375} height={267} className="routeSerarchImage" src={RouteSearchImage} onClick={onRouteMapClick} loading="lazy" alt='route search to click' /> 
-                <div className='routeSerarchImageText'>{t('content.clickImagen')}</div>
-            </>
-        }
+        <SuspenseComponent lazyComponent={<RoutesSearch></RoutesSearch>} />
         <div className="loginAndContent aboutUsContent">
             <p><b>{t('content.landingMainText')}</b>:</p>
-            <img width={191} height={46} className="crawlerImageSignIn" loading="lazy" src={image} alt="t2 crawler" onClick={clickOnGoogleSignIn} />
+            
             <p>{t('content.licenseText')}</p>
             <p>
                 {t('content.colaboraciones')}<br />
@@ -46,9 +32,9 @@ function Landing({onLogin}) {
             </p>
         </div>
 
-        <Footer />
+        <Footer></Footer>
         </div>
-    }
+
 }
 
-export default Landing;
+export default Landing

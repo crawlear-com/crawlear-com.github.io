@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../../../app/i18n/index'
 
 interface GoogleMapsUrlProps {
-    url: string
+    url: string,
+    lng: string
 }
 
-function GoogleMapsUrl({ url }: GoogleMapsUrlProps) {
-    const { t } = useTranslation(['main'])
+async function GoogleMapsUrl({ url, lng }: GoogleMapsUrlProps) {
+    const { t } = await useTranslation(lng, ['main'])
 
     return <a href={url} rel='noreferrer' target="_blank">{t('description.vergooglemaps')}</a>
 }

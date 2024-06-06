@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import logo5 from '../../resources/img/logo3.webp';
-
+import { useTranslation } from '../../app/i18n'
 import '../styles/MainPageTextContent.scss';
 
-function MainPageTextContent() {
-    const { t } = useTranslation(['landing']);
+async function MainPageTextContent({ lng }) {
+    const { t } = await useTranslation(lng, 'landing')
 
     return <div className="aboutUsContent">
         <figure className="logoImg">

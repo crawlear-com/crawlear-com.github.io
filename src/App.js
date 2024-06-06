@@ -7,11 +7,7 @@ import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
 import Landing from './pages/Landing'
 import { useTranslation } from 'react-i18next'
-import './Error.js'
-
-import './resources/css/Base.scss'
-import './resources/css/App.scss'
-import './resources/css/Footer.scss'
+//import './Error.js'
 
 const TxtRoute = lazy(() => import('./pages/TxtRoute'))
 const Menu = lazy(() => import('./components/Menu'))
