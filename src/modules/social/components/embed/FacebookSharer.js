@@ -12,7 +12,7 @@ function FacebookSharer({ url, text }) {
             const div = document.createElement('div');
             div.id = 'fb-root';
         } else {
-            FB && FB.XFBML && FB.XFBML.parse();
+            window.FB && window.FB.XFBML && window.FB.XFBML.parse();
         }
     }, []);
 
