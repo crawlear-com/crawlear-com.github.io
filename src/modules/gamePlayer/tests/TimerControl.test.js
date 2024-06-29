@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import TimerControl from '../components/TimerControl.js';
 
 const div = document.createElement('div');
@@ -24,7 +24,7 @@ test('renders TimerControl', () => {
     const onPlayPauseChangeMock = jest.fn(),
         { container } = render(<TimerControl time={1000} onPlayPauseChange={onPlayPauseChangeMock} />, div);
 
-    expect(container.querySelector(".timer").textContent).toBe("00:00:000");
+    expect(screen.getBytRole("timer").textContent).toBe("00:00:000");
 });
 
 /*

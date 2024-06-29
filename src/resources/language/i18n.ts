@@ -1,10 +1,10 @@
-import i18n, { InitOptions } from 'i18next'
+import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import LazyImportPlugin from './LazyImport'
 
-
-i18n.use(LanguageDetector)
+function clientTranslationsInit() {
+  i18n.use(LanguageDetector)
   .use(LazyImportPlugin)
   .use(initReactI18next)
   .init({
@@ -15,8 +15,12 @@ i18n.use(LanguageDetector)
     ns: ['main'],
     saveMissing: true, // for missing key handler to fire
     missingKeyHandler: function (lng, ns, key, fallbackValue) {
+      console.log('MISSING KEY HANDLER!')
       console.log(key);
     }
-  })
+  })  
+}
 
-export default i18n
+console.log('i18 init!')
+
+export default clientTranslationsInit

@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./dist/types/**/*.ts"
-, "src/components/ErrorBoundary.js"  ],
+, "src/components/ErrorBoundary.js", "src/app/libs/LoginRoutine.tsx", "src/modules/social/components/UserProfile.tsx"  ],
   "exclude": ["node_modules"]
 }

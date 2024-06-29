@@ -8,7 +8,6 @@ import iconDislike from '../styles/img/iconDislike.png';
 function GameRequests({user}) {
     const { t } = useTranslation(['main']);
     const [gameRequests, setGameRequests] = React.useState({});
-    const fb = window.crawlear.fb;
     const gameRequestsRef = React.useRef({});
     let requestsList = [];
 
@@ -27,7 +26,9 @@ function GameRequests({user}) {
     }
 
     React.useEffect(()=>{
-        fb.getUserGameRequests(user.uid, 
+        const fb = window.crawlear.fb
+
+        fb && fb.getUserGameRequests(user.uid, 
             getUserGameRequestsOk, 
             ()=>{},
             onRequestAdded,
@@ -35,6 +36,8 @@ function GameRequests({user}) {
     },[])
 
     gameRequests && Object.keys(gameRequests).forEach((key)=>{
+        const fb = window.crawlear.fb
+
         requestsList.push(<div className="gameRequestsItem smallText">
             <span className="gameRequestsFrom">{t('description.peticionde')}: <span className="bold">{gameRequests[key].fromName}</span></span>
             <div className="gameRequestGameName">{t('description.parajuego')}: <span className="bold">{gameRequests[key].gameName}</span></div>
@@ -48,7 +51,7 @@ function GameRequests({user}) {
         </div>);
     });
 
-    if(requestsList.length>0) {
+    if(requestsList.length > 0) {
         return <div className="gameRequestsContainer rounded rounded1">
                     <div className="headerText bold">{t('description.peticionesdejuego')}</div>
                         {requestsList}

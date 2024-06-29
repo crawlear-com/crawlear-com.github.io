@@ -69,9 +69,8 @@ test('renders PreviousGameList on load', () => {
         onConfigureGames={onConfigureGames}
         onLoadPreviousGames={onLoadPreviousGames}></PreviousGameList>)
     
-    act(() => {
-        fireEvent.click(screen.getByTitle('loadButton'))
-    })
+
+    fireEvent.click(screen.getByTitle('loadButton'))
 
     const gameList = screen.queryByText('GameList')
     const previousGamesButton = screen.queryByText('description.cargar')

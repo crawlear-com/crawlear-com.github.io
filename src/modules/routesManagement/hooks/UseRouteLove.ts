@@ -3,10 +3,11 @@ import * as React from 'react'
 function UseRouteLove(rid: string, onLove?: Function): Array<any> {
   const [lid, setLid] = React.useState<string | null>(null)
   const [state, setState] = React.useState(false)
-  const fb = window.crawlear.fb
   const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
 
   React.useEffect(() => {
+    const fb = window.crawlear.fb
+
     if(isLogged) {
       fb.getRouteLove(window.crawlear.user.uid, rid, (value: boolean, lid: string) => {
         setState(value)
@@ -16,6 +17,8 @@ function UseRouteLove(rid: string, onLove?: Function): Array<any> {
   }, [])
 
   function changeStateOnClick(e: React.MouseEvent<HTMLSpanElement>): void {
+    const fb = window.crawlear.fb
+
     if (isLogged) {
       onLove && onLove(!state)
     

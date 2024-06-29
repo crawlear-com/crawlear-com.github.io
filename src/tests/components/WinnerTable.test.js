@@ -98,23 +98,22 @@ beforeEach(()=>{
 })
 
 test("renders the basic winner table", () => {
-  const { container } = render(<WinnerTable game={game} />, div)
-  const elem  = container.querySelector(".gameParticipants")
+  render(<WinnerTable game={game} />, div)
+  const elem  = screen.getByTestId("gameParticipants")
 
   expect(elem.textContent.indexOf("Player1")).toBeGreaterThan(0)
 })
 
 test("renders the winner table", () => {
-    const { container } = render(<WinnerTable game={game} />, div); 
-    const elem  = container.querySelector(".gameParticipants")
+    render(<WinnerTable game={game} />, div)
+    const elem  = screen.getByTestId(".gameParticipants")
   
     expect(elem.textContent.indexOf("Player1")).toBe(101)
     expect(elem.textContent.indexOf("Player2")).toBe(153)
 })
 
 test("renders the winnerOrTieBox", () => {
-    render(<WinnerTable game={game} />, div); 
-    
+    render(<WinnerTable game={game} />, div);
     const container = screen.getByText('winnerOrTieBox')
 
     expect(container).not.toBeNull()

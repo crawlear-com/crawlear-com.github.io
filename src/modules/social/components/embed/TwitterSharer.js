@@ -8,7 +8,7 @@ function TwitterSharer({ url, text }) {
         var js, fjs = d.getElementsByTagName(s)[0],
             t = window.twttr || {};
         if (d.getElementById(id)) {
-            twttr && twttr.widgets && twttr.widgets.load();
+            window.twttr && window.twttr.widgets && window.twttr.widgets.load();
             return t;
         }
         js = d.createElement(s);

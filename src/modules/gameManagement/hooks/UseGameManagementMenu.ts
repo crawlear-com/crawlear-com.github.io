@@ -6,12 +6,12 @@ function UseGameManagementMenu(): Array<any> {
     const [judgeGames, setJudgeGames] = React.useState<Array<Game>>([])
     const [storedGames, setStoredGames] = React.useState<Array<Game>>([])
     const [allGames, setAllGames] = React.useState<Array<Game>>([])
-    const fb = window.crawlear.fb
-    const fbBase = window.crawlear.fbBase
 
     React.useEffect(() => {
+        const fbBase = window.crawlear.fbBase
+
         fbBase.isUserLogged() && refreshGames()
-    }, [])
+    }, [window.crawlear.user])
 
     React.useEffect(()=>{
         processCurrentGames(allGames)
@@ -22,11 +22,12 @@ function UseGameManagementMenu(): Array<any> {
               uGames: Array<Game> = []
 
         games.forEach(game => {
-                if (game.jids.indexOf(window.crawlear.user.uid)>=0 || game.owner.indexOf(window.crawlear.user.uid)>=0) {
-                    jGames.push(game)
-                } else if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
-                    uGames.push(game)
-                }
+            if (game.jids.indexOf(window.crawlear.user.uid)>=0 || 
+                game.owner.indexOf(window.crawlear.user.uid)>=0) {
+                jGames.push(game)
+            } else if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
+                uGames.push(game)
+            }
         });
 
         setGames(uGames)
@@ -34,6 +35,8 @@ function UseGameManagementMenu(): Array<any> {
     }
 
     function refreshGames(): void {
+        const fb = window.crawlear.fb
+
         fb.getGamesFromUser(window.crawlear.user.uid, false, (pGames: Array<Game>)=> {
             setAllGames(previousInputs => ([...previousInputs,...pGames]))
         });
@@ -44,6 +47,8 @@ function UseGameManagementMenu(): Array<any> {
     }
 
     function onLoadPreviousGames(): void {
+        const fb = window.crawlear.fb
+
         fb.getFinishedGamesFromUid(window.crawlear.user.uid, (sGames: Array<Game>)=> {
             setStoredGames(previousInputs => ([...previousInputs,...sGames]))
         });
@@ -61,6 +66,7 @@ function UseGameManagementMenu(): Array<any> {
 
 async function onRemoveGames(gameArray: Array<Game>, gamePosition: number, setMethod: Function) {
     const fb = window.crawlear.fb
+
     let game = gameArray[gamePosition]
     const newGames = [...gameArray],
         uid = window.crawlear.user.uid

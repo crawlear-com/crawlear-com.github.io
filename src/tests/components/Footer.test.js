@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Footer from '../../components/Footer.js';
 
 const div = document.createElement('div');
@@ -35,8 +35,8 @@ afterEach(()=> {
 });
 
 test('renders Footer embed logged', () => {
-  const { container } = render(<Footer />, div),
-    footer = container.querySelector('.Footer'),
+  render(<Footer />, div)
+  const footer = screen.getByTestId('Footer'),
     currentYear = new Date().getFullYear();
 
   expect(footer.textContent).toBe(`[©crawlear.com ${currentYear}]`);
@@ -49,8 +49,8 @@ test('renders Footer embed not logged', () => {
     })
   };
 
-  const { container } = render(<Footer />, div),
-    footer = container.querySelector('.Footer'),
+  render(<Footer />, div)
+  const footer = screen.getByTestId('Footer'),
     currentYear = new Date().getFullYear();
 
   expect(footer.textContent).toBe(`[©crawlear.com ${currentYear}- description.aboutus - description.politicaprivacidad]`);

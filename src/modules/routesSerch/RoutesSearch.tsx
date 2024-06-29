@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from 'react'
-import { useTranslation } from '../../app/i18n/index'
-import { MapPointPicker } from 'react-gpxroutemap'
+import { useTranslation } from 'react-i18next'
+import dynamic from 'next/dynamic'
 import Route from '../routesManagement/Route'
 import Popup from '../../components/Popup'
 import RouteViewer from '../routesManagement/pages/RouteViewer'
@@ -11,19 +11,29 @@ import Analytics from '../../Analytics'
 
 import './styles/RoutesSearch.scss'
 
-async function RoutesSearch({ lng }) {
-    const { t } = await useTranslation(lng, ['main'])
-    const [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow] = UseRouteSearch()
+type MapPointPickerProps = {
+    points: Array<any>
+    onMapClick: Function
+}
+
+const DynamicMapPointPicker = dynamic<MapPointPickerProps>(() => import('../../app/libs/MapPointPicker'), {
+  loading: () => <p>Loading MapPointPicker...</p>,
+  ssr: false
+})
+
+function RoutesSearch() {
+    const { t } = useTranslation('main')
+    const [ routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow ] = UseRouteSearch()
 
     return <div className='rounded rounded3 routesSearchContainer'>
         <div className="headerText bold">{t('description.buscar')}</div>        
         <div className="searchText">{t('content.busquedaderuta')}</div>
         
         { routeToShow ?  <Popup onClose={clearRouteToShow}>
-            <RouteViewer lng={lng} route={routeToShow}></RouteViewer>
+            <RouteViewer route={routeToShow}></RouteViewer>
           </Popup> : <></> }
         
-        <MapPointPicker points={routes.map((route: Route, index: number) => {
+        <DynamicMapPointPicker points={routes.map((route: Route, index: number) => {
             const link = document.createElement('div')
             link.classList.add('routeAltDiv')
             link.innerText = route.name
@@ -35,7 +45,7 @@ async function RoutesSearch({ lng }) {
                 point: route.point,
                 content: link
             }
-        })} onMapClick={onMapClick}></MapPointPicker>
-    </div>
+        })} onMapClick={onMapClick}></DynamicMapPointPicker>
+        </div>
 }
 export default RoutesSearch

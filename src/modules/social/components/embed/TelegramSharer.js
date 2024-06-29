@@ -11,8 +11,8 @@ function TelegramSharer({ url, text }) {
         Analytics.event('share','telegram', shareUrl);
     }
 
-    return <a onClick={onLinkClick} href={shareUrl} target="_blank" data-action="share/whatsapp/share">
-        <img className="telegramLogo" src={Logo} alt="whatsapp logo" />
+    return <a onClick={onLinkClick} href={shareUrl} target="_blank" rel="noreferrer">
+        <img className="telegramLogo" src={Logo.src} alt="Telegram logo" />
     </a>;
 }
 

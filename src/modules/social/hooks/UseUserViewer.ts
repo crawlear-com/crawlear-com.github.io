@@ -2,13 +2,14 @@ import * as React from 'react'
 import Analytics from '../../../Analytics'
 import { User, UserExtraData } from '../User'
 
-function UseUserViewer(uid: string) {
-    const firebase = window.crawlear.fb
+function UseUserViewer(uid: string): [User, UserExtraData, boolean, Function, Function] {
     const [user, setUser] = React.useState<User>({ uid: '', displayName: '', description: '', instagram: '', photoURL: '', registrationDate: ''})
     const [userData, setUserData] = React.useState<UserExtraData>({ judgeGames: 0, pilotGames: 0, routes: 0})
     const [isVisible, setIsVisible] = React.useState(false)
 
     React.useEffect(() => {
+        const firebase = window.crawlear.fbBase
+
         if (uid && isVisible) {
             firebase.getUser(uid, (user: User) => {
                 setUser({ ...user })

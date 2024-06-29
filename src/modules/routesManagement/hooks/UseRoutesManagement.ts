@@ -1,11 +1,8 @@
 import * as React from 'react'
 import Route from '../Route'
-import { useTranslation } from 'react-i18next'
 import Analytics from '../../../Analytics'
-import { Navigate } from 'react-router-dom'
 
 function UseRoutesManagement(): Array<any> {
-    const fb = window.crawlear.fb
     const [state, setState] = React.useState<number>(STATE_MENU)
     const [route, setRoute] = React.useState<Route>(new Route('','',true,'',{ data: ''},{lat:0,lon:0},{lat:0,lon:0},[''],'',0,0))
 

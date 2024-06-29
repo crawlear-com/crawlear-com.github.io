@@ -2,35 +2,43 @@
 
 import * as React from 'react'
 import Route from '../Route'
-import { useTranslation } from '../../../app/i18n/index'
+import { useTranslation } from 'react-i18next'
 import GoogleMapsUrl from '../../social/components/embed/GoogleMapsUrl'
 import Sharers from '../../social/components/embed/Sharers'
-import { GpxRouteMap } from 'react-gpxroutemap'
 import RouteLove from '../components/RouteLove'
 import Youtube from '../../social/components/embed/Youtube'
 import Analytics from '../../../Analytics'
+import dynamic from 'next/dynamic'
 
 import 'react-gpxroutemap/dist/public/img/marker-icon.png'
 import 'react-gpxroutemap/dist/public/img/marker-shadow.png'
 import '../styles/RouteViewer.scss'
 
 interface RouteViewerProps {
-    lng: string,
     route: Route,
     onBackClick?: React.MouseEventHandler<HTMLButtonElement>,
     onEditClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
-async function RouteViewer({ lng, route, onBackClick, onEditClick }: RouteViewerProps) {
-    const { t } = await useTranslation(lng, ['main'])
+type GpxRouteMapProps = {
+    gpx: string
+}
+
+const DynamicGpxRouteMap = dynamic<GpxRouteMapProps>(() => import('../../../app/libs/GpxRouteMap'), {
+    loading: () => <p>Loading Route Map...</p>,
+    ssr: false
+  })
+
+function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
+    const { t } = useTranslation('main')
     const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
-    const isOwner = isLogged && route.uids.find((element) => element === window.crawlear.user.uid)
+    const isOwner = route.uids.find((element) => window.crawlear && window.crawlear.user && element === window.crawlear.user.uid)
 
     React.useEffect(() => {
         Analytics.pageview(`/routeviewer/${route.rid}`)
     }, [])
 
-    if (isOwner || route.isPublic) {
+    if (isOwner || (route.isPublic)) {
         return <div className="routesManagement rounded rounded2">
             <div className="routesSection rounded rounded1">
                 { !isOwner && isLogged ? <RouteLove rid={route.rid || '' }></RouteLove> : <></> }
@@ -38,12 +46,12 @@ async function RouteViewer({ lng, route, onBackClick, onEditClick }: RouteViewer
                 <div className="value name">{route.name} </div>
                 <div className="value ispublic">{route.isPublic ? t("description.publico") : ''} </div>
             </div>
-            <GpxRouteMap gpx={route.gpx.data}></GpxRouteMap>
+            <DynamicGpxRouteMap gpx={route.gpx.data}></DynamicGpxRouteMap>
             { route.youtubeVideo ? 
                 <div className="routesSection">
                     <div className="value"><Youtube url={route.youtubeVideo}></Youtube></div>
             </div> : <></> }
-            <Sharers lng={lng} url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText=''></Sharers>
+            <Sharers url={`routeViewer?rid=${route.rid}`} text={t("content.shareruta")} headerText=''></Sharers>
             <div className="routesSection">
                 <div className="value description">{route.description} </div>
             </div>
@@ -54,7 +62,7 @@ async function RouteViewer({ lng, route, onBackClick, onEditClick }: RouteViewer
                 <div className="bold">{t("description.dificultad")}</div><div className="value">{route.dificulty} </div>
             </div>
             <div className="routesSection">
-                <div className="bold">{t("description.puntoencuentro")}</div><GoogleMapsUrl lng={lng} url={route.locationMapUrl} ></GoogleMapsUrl>
+                <div className="bold">{t("description.puntoencuentro")}</div><GoogleMapsUrl url={route.locationMapUrl} ></GoogleMapsUrl>
             </div>
 
             <div className="routesSection backButton">

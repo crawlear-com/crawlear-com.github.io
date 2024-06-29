@@ -5,6 +5,10 @@ import List from '../../list/List'
 import Popup from '../../../components/Popup'
 
 const div = document.createElement('div');
+const gpx = {
+    id: 'id',
+    data: '<gpx></gpx>'
+}
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {

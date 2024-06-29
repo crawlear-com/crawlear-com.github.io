@@ -6,19 +6,21 @@ function UseRoutesManagementMenu(): Array<any> {
   const [routes, setRoutes] = React.useState<Array<Route>>([])
   const [error, setError] = React.useState<string>('')
   const { t } = useTranslation(['main'])
-  const fb = window.crawlear.fb
 
   React.useEffect(() => {
-      window.crawlear && window.crawlear.user && 
-      window.crawlear.user.uid && fb.getRoutesFromUser(window.crawlear.user.uid, (routes: Array<Route>) => {
-          setRoutes(routes)
-      }, () => {
-        setError(t('error.errordecarga'))
-      })
-  }, [])
+    const fb = window.crawlear.fb
+
+    window.crawlear && window.crawlear.user && 
+    window.crawlear.user.uid && fb.getRoutesFromUser(window.crawlear.user.uid, (routes: Array<Route>) => {
+        setRoutes(routes)
+    }, () => {
+      setError(t('error.errordecarga'))
+    })
+  }, [window.crawlear.user])
 
   function onDeleteRoute(i: number) {
       const newRoutes = [...routes]
+      const fb = window.crawlear.fb
 
       fb.removeRoute(newRoutes[i].rid, newRoutes[i].gpx?.gid, () => {
           delete newRoutes[i]

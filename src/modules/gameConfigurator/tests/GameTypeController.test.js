@@ -1,4 +1,4 @@
-import { render, fireEvent, getByLabelText, findByText, getByText, findByDisplayValue } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import GameTypeController from '../components/GameTypeController.js';
 
 const div = document.createElement('div');
@@ -17,14 +17,14 @@ jest.mock('react-i18next', () => ({
 const KEY_DOWN = 40
 
 export async function selectItem(container, label, choice) {
-  fireEvent.focus(getByLabelText(container, label))
-  fireEvent.keyDown(getByLabelText(container, label), {
+  fireEvent.focus(screen.getByLabelText(container, label))
+  fireEvent.keyDown(screen.getByLabelText(container, label), {
     keyCode: KEY_DOWN,
   })
 
-  await findByText(container, choice)
-  fireEvent.click(getByText(container, choice))
-  await findByDisplayValue(container, choice)
+  await screen.findByText(container, choice)
+  fireEvent.click(screen.getByText(container, choice))
+  await screen.findByDisplayValue(container, choice)
 }
 
 beforeEach(()=>{  
@@ -40,10 +40,8 @@ test('renders GameTypeController', () => {
         onPointsTypeChange={onPointsTypeChangeMock}
         selectedGameType={0}
         selectedPointsType={0} />, div);
-
-    const selects = container.querySelectorAll('select'),
-        selectGameType = selects[0];
-
+  const selects = screen.getByRole('select')
+    
     expect(selects.length).toBe(1);
-    expect(selectGameType.querySelectorAll('option').length).toBe(7);
+    expect(screen.getAllByRole('option').length).toBe(7);
 });

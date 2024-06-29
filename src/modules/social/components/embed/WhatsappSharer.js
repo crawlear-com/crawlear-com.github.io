@@ -12,7 +12,7 @@ function WhatsappSharer({ url, text }) {
     }
 
     return <a onClick={onLinkClick} href={shareUrl} target="_blank" data-action="share/whatsapp/share">
-        <img className="whatsappLogo" src = {Logo} alt="whatsapp logo" />
+        <img className="whatsappLogo" src = {Logo.src} alt="whatsapp logo" />
     </a>;
 }
 

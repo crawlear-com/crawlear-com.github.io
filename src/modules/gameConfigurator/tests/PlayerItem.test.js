@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import PlayerItem from '../components/PlayerItem.js';
 
 const div = document.createElement('div');
@@ -29,18 +29,19 @@ test('renders PlayerItem', () => {
             i={0} 
             onRemovePlayer={onRemovePlayerMock} />, div);
 
-    expect(container.querySelector(".playerBox").textContent).toBe("Player1");
+    expect(screen.getByText("Player1").length).toBe(1);
 });
 
 test('- removes the player', () => {
-    const onRemovePlayerMock = jest.fn(),
-        { container } = render(<PlayerItem player={{
-            name: "Player1",
-            points: 20,
-            time: 10
-            }}
-            i={0} 
-            onRemovePlayer={onRemovePlayerMock} />, div);
+    const onRemovePlayerMock = jest.fn()
 
-    expect(container.querySelector(".playerBox").textContent).toBe("Player1");
+    render(<PlayerItem player={{
+        name: "Player1",
+        points: 20,
+        time: 10
+        }}
+        i={0} 
+        onRemovePlayer={onRemovePlayerMock} />, div);
+
+expect(screen.getByText("Player1").length).toBe(1);
 });

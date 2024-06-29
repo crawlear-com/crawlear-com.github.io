@@ -2,7 +2,6 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import ListMenu from './components/ListMenu'
 import ListItem from './components/ListItem'
-import { itemProps } from './components/ListItem'
 
 import './styles/List.scss'
 

@@ -5,27 +5,25 @@ import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
 import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
-import Landing from './pages/Landing'
-import { useTranslation } from 'react-i18next'
+import Landing from './routepages/Landing'
 //import './Error.js'
 
-const TxtRoute = lazy(() => import('./pages/TxtRoute'))
+const TxtRoute = lazy(() => import('./routepages/TxtRoute'))
 const Menu = lazy(() => import('./components/Menu'))
 const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameManagement'))
 const PilotWall = lazy(() => import('./modules/social/pages/PilotWall'))
-const AboutUs = lazy(() => import('./pages/AboutUs'))
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const AboutUs = lazy(() => import('./routepages/AboutUs'))
+const PrivacyPolicy = lazy(() => import('./routepages/PrivacyPolicy'))
 const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/GameConfigurator'))
 const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagement'))
-const GameViewer = lazy(() => import('./pages/GameViewer'))
-const RouteViewer = lazy(() => import('./pages/RouteViewer'))
+const GameViewer = lazy(() => import('./routepages/GameViewer'))
+const RouteViewer = lazy(() => import('./routepages/RouteViewer'))
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
 const TRUE = 1
 const FALSE = 0
 
 function App() {
-  const { t } = useTranslation(['landing'])
   const fbBase = (window.crawlear && window.crawlear.fbBase) || new FirebaseBaseController()
   const [stateLogged, setStateLogged] = React.useState(FALSE)
   const navigate = useNavigate()

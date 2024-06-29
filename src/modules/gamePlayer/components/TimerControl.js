@@ -135,7 +135,7 @@ function TimerControl({
 
     return <div ref={containerRef} className="timerContainer">
         <div className='timerLabel'>{(label || t('description.tiempo')).toUpperCase()}:</div>
-        <div className="timer">{Utils.printTime(timeValue)}</div>
+        <div role="timer" className="timer">{Utils.printTime(timeValue)}</div>
         <button className="timerPlayButton" onClick={onPlayPauseChange}></button>
         <button onClick={onReset} className="resetButton"></button>
     </div>;

@@ -25,7 +25,7 @@ function GamePlayerMenu({ game,
     onBackButtonClick,
     onCloseButonClick 
 }: GamePlayerMenuProps) {
-    const directorProgression = [];
+    const directorProgression: Array<React.JSX.Element> = [];
     const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
     const { t } = useTranslation(['main']);
     let judgeProgression;

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import PlayerController from '../components/PlayerController.js';
 
 const div = document.createElement('div'),
@@ -38,12 +38,13 @@ jest.mock('../components/UserSearchForGame')
 
 
 test('renders PlayerController', () => {
-    const onPlayerNumerChangeMock = jest.fn(),
-        { container } = render(<PlayerController 
+    const onPlayerNumerChangeMock = jest.fn()
+    render(<PlayerController 
             onPlayerNumerChange={onPlayerNumerChangeMock}
             gameName="game name test"
-            />, div),
-        listItems = container.querySelectorAll(".playersList > li");
+            />, div)
+
+    const listItems = screen.getByRole("listitem");
 
     expect(listItems.length).toBe(0);
 /*    expect(listItems[0].querySelector(".playerBox").textContent).toBe("Álvaro (0)-");

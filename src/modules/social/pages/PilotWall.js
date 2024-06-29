@@ -1,13 +1,16 @@
+"use client"
+
 import * as React from 'react'
-import { Navigate } from 'react-router-dom'
 import UserViewer from './UserViewer'
-import { UserStatusContext } from '../../../context/UserStatusContext'
 
-function PilotWall({onLogout}) {
-    const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid;
-    const { isUserLoged } = React.useContext(UserStatusContext)
+function PilotWall() {
+    const uid = window ? window.crawlear && window?.crawlear.user && window?.crawlear.user.uid : ''
 
-    React.useEffect(()=>{
+    function onLogout() {
+        window.crawlear?.fbBase.signOutWithGoogle()
+    }
+
+    React.useEffect(()=>{   
         window.document.body.classList.add('social')
 
         return () => {
@@ -15,13 +18,7 @@ function PilotWall({onLogout}) {
         }
     },[]);
 
-    if (!isUserLoged) {
-        return <Navigate state={{ from: "/route" }} to={{ pathname: "/" }} />
-    }
-
-    return <>
-        <UserViewer onLogout={onLogout} uid={uid}/>
-        </>
+    return <UserViewer onLogout={onLogout} uid={uid}/>
 
 }
 

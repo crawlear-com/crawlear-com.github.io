@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { isOffline } from '../../../pages/Offline';
+import { isOffline } from '../../../routepages/Offline';
 
 import '../styles/UserSearch.scss';
 import iconAdd from '../styles/img/iconAdd.png';

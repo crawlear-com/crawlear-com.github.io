@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import GoogleMapsLocation from '../../components/embed/GoogleMapsLocation.js';
 
 const div = document.createElement('div');
@@ -24,7 +24,7 @@ test('renders Menu closed', () => {
         latitude: 40.4314193,
         longitude: 4.1768656
     }} />, div),
-    iframe = container.querySelector("iframe"),
+    iframe = screen.getByTestId("gmap_canvas"),
     iframeUrl = iframe.getAttribute("src");
 
   expect(iframe).toBeInTheDocument();

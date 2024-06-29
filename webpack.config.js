@@ -4,7 +4,8 @@ const CopyPlugin = require("copy-webpack-plugin");
 const { InjectManifest } = require('workbox-webpack-plugin');
 const HtmlWebpackInjectPreload = require('@principalstudio/html-webpack-inject-preload');
 
-module.exports = {
+module.exports = () => { 
+  return {
   mode: 'production',
   optimization: {
     splitChunks: {
@@ -75,10 +76,7 @@ module.exports = {
       template: 'src/static/index.html'
     }),
     new HtmlWebpackInjectPreload({
-      files: [{ //./styles/img/routeSearch.webp
-        match: /fde7ea2cdb21ba90dc1b\.webp$/,
-        attributes: { as: 'image' }
-      },
+      files: [
       { 
         match: /(en|es)-landing-json\..*\.js$/,
         attributes: {as: 'script' },
@@ -148,4 +146,5 @@ module.exports = {
         { from: "src/static/splash_screens/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_landscape.png", to: "static/" },
       ]})
   ]
+}
 }

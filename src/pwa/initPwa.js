@@ -6,7 +6,7 @@ const isLocalhost = ()=> {
 
 function initPwa() {
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
+        //window.addEventListener('load', function() {
             const sw = isLocalhost() ? 'service-worker-dev.js' : 'sw.js';
 
             navigator.serviceWorker.register(sw).then(function(registration) {
@@ -17,7 +17,7 @@ function initPwa() {
             }).catch(function(err) {
                 console.log(err);
             });
-        });
+        //});
       } else {
             Analytics.event('App','pwa','service worker not supported');
             console.log('service worker is not supported');

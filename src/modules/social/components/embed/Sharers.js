@@ -4,7 +4,7 @@ import TwitterSharer from './TwitterSharer';
 import TelegramSharer from './TelegramSharer';
 import WhatsappSharer from './WhatsappSharer';
 
-async function Sharers({ lng, url, text, headerText }) {
+function Sharers({ url, text, headerText }) {
     return <div className='sharerContainer'>
         <div className='bold shareProfileText'>{headerText}</div>
         <div className='sharers'>

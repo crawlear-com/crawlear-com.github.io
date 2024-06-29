@@ -1,9 +1,10 @@
+"use client"
+
 import * as React from 'react';
-import Analytics from '../../../Analytics.js';
-import GamePlayer from '../../gamePlayer/GamePlayer.js';
-import GameManagementMenu from '../components/GameManagementMenu.js';
-import { Navigate } from 'react-router-dom';
-import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator.js';
+import Analytics from '../../../Analytics';
+import GamePlayer from '../../gamePlayer/GamePlayer';
+import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator';
+import dynamic from 'next/dynamic';
 
 import '../styles/GameManagement.scss';
 
@@ -11,8 +12,12 @@ const STATE_MENU = 0;
 const STATE_PLAYING = 1;
 const STATE_CONFIGURE = 2;
 
+const DynamicGameManagementMenu = dynamic(() => import('../components/GameManagementMenu'), {
+    loading: () => <p>Loading GameManagement...</p>,
+    ssr: false
+  })
+
 function GameManagement() {
-    const fbBase = window.crawlear.fbBase
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
 
@@ -24,10 +29,6 @@ function GameManagement() {
             window.document.body.classList.remove('game');
         }
     },[]);
-
-    if (!fbBase.isUserLogged()) {
-        return <Navigate state={{ from: "/game" }} to={{ pathname: "/" }} />
-    }
 
     function goBackToMenuStatus() {
         window.scrollTo(0,0);
@@ -49,7 +50,7 @@ function GameManagement() {
 
     return <>
             {state === STATE_MENU ? 
-                <GameManagementMenu onConfigureGames={onConfigureGames} onGamePlay={onGamePlay} /> : 
+                <DynamicGameManagementMenu onConfigureGames={onConfigureGames} onGamePlay={onGamePlay} /> : 
                 state === STATE_PLAYING ? 
                     <GamePlayer inGame={game}
                         onBackButtonClick={goBackToMenuStatus} />

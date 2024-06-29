@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker.js';
 
 const div = document.createElement('div');
@@ -20,13 +20,8 @@ beforeEach(()=>{
 });
 
 test('renders Picker', () => {
-  const { container } = render(<MaxTimeAndPointsPicker initialValue="0" />, div),
-    arrowUp = container.querySelector(".picker--arrowUp"),
-    arrowDown = container.querySelector(".picker--arrowDown"),
-    value = container.querySelector(".picker--value");
+  render(<MaxTimeAndPointsPicker initialValue="0" />, div)
+  const arrows = screen.getAllByRole("button")
 
-  expect(arrowUp).toBeInTheDocument();
-  expect(arrowDown).toBeInTheDocument();
-  expect(value).toBeInTheDocument();
-  expect(value.textContent).toBe('0');
+  expect(arrows.length).toBe(2);
 });

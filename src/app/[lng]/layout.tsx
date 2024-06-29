@@ -2,10 +2,19 @@ import * as React from 'react'
 import type { Metadata } from 'next'
 import { languages } from '../i18n/settings'
 import { dir } from 'i18next'
- 
+import { Montserrat } from 'next/font/google'
+import Menu from '../../components/Menu'
+import { cookies } from 'next/headers';
+
 import '../../resources/css/Base.scss'
 import '../../resources/css/App.scss'
 import '../../resources/css/Footer.scss'
+
+const font = Montserrat({
+  weight: '400',
+  subsets: ["latin"],
+  style: ["normal"],
+})
 
 interface RootLayoutProps {
   children: React.ReactNode,
@@ -22,15 +31,9 @@ export const metadata: Metadata = {
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))
 }
-
+ 
 export default function RootLayout({ children, params: { lng } }: RootLayoutProps ) {
-  const fontStyleCss = `@font-face {
-    font-face: "Montserrat";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('/static/Montserrat-VariableFont_wght.ttf') format('truetype');
-  }`
+  const session = cookies().get("crawlear_session")?.value || null;
   
   return <html lang={lng} dir={dir(lng)}>
     <head>
@@ -39,7 +42,7 @@ export default function RootLayout({ children, params: { lng } }: RootLayoutProp
       <meta property="og:title" content="Crawlear.com Your profesional Crawler Scoreboard" />
       <meta property="og:description" content="Crawlear.com Your profesional Crawler Scoreboard" />
       <meta property="og:type" content="website" /> 
-  
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <link rel="preconnect" href="https://www.gstatic.com" />
       <link rel="preconnect" href="https://www.googletagmanager.com" />
   
@@ -49,16 +52,18 @@ export default function RootLayout({ children, params: { lng } }: RootLayoutProp
       <title>crawlear.com</title>
   
       <script defer src="https://unpkg.com/pwacompat" crossOrigin="anonymous"></script>
-  
-      <style dangerouslySetInnerHTML={{__html: fontStyleCss}}></style>
-
       <script defer src="https://www.googletagmanager.com/gtag/js?id=G-HZVHX11YSD"></script>
 
     </head>
-    <body>
+    <body className={font.className}>
       <noscript>You need to enable JavaScript to run this app.</noscript>
       <div id="root">
-        { children }
+        <div className="App">
+          <Menu session={session} />
+          <div className="AppMainContainer">
+          { children }
+          </div>
+        </div>
       </div>
       <footer>
     </footer>

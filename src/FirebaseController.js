@@ -80,30 +80,6 @@ class FirebaseController {
     }
   }
 
-  async getUserExtraData(uid, okCallback, koCallback) {
-    try {
-      const data = {};
-      let q = query(collection(this.db, "games"), 
-        where("uids", "array-contains", uid)),
-       querySnapshot = await getDocs(q);
-      data.pilotGames = querySnapshot.docs.length;
-
-      q = query(collection(this.db, "games"), 
-        where("jids", "array-contains", uid));
-      querySnapshot = await getDocs(q);
-      data.judgeGames = querySnapshot.docs.length;
-
-      q = query(collection(this.db, "routes"), 
-      where("uids", "array-contains", uid));
-      querySnapshot = await getDocs(q);
-      data.routes = querySnapshot.docs.length;
-
-      okCallback && okCallback(data);
-      } catch(e) {
-        koCallback && koCallback();
-    }
-  }
-
   transformGamesIntoData(game) {
     return {
       name: game.name,
@@ -176,20 +152,6 @@ class FirebaseController {
     });
 
     return result;
-  }
-
-  async getGame(gid, okCallback, koCallback) {
-    const docRef = doc(this.db, "games", gid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const res = docSnap.data();
-
-      res.gid = docRef.id;
-      okCallback && okCallback(res);
-    } else {
-      koCallback && koCallback();
-    }
   }
 
   async getGamesFromUser(uid, onlyIsPublic, okCallback, koCallback) {
@@ -708,21 +670,6 @@ class FirebaseController {
       const isLiked = querySnapshot.docs.length===1;
 
       okCallback && okCallback(isLiked, isLiked ? querySnapshot.docs[0].id : '');
-      } catch(e) {
-        koCallback && koCallback();
-    }
-  }
-
-  async getFidFromFollow(fromUid, toUid, okCallback, koCallback) {
-    try {
-      const q = query(collection(this.db, "follows"), 
-        where("fromUid", "==", fromUid), 
-        where("toUid", "==", toUid), 
-        limit(1));
-      const querySnapshot = await getDocs(q);
-      const fid = querySnapshot.docs.length===1 ? querySnapshot.docs[0].id : -1;
-
-      okCallback && okCallback(fid);
       } catch(e) {
         koCallback && koCallback();
     }

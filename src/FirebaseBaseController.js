@@ -12,6 +12,7 @@ import { setDoc,
           collection,
           getFirestore,
           where,
+          limit,
           getDocs 
         } from "firebase/firestore"
 
@@ -21,6 +22,7 @@ import { getAuth,
           signInWithRedirect, 
           signInWithPopup, 
           setPersistence,
+          signOut,
           browserLocalPersistence } from "firebase/auth"
   
 const firebaseConfig = {
@@ -96,6 +98,12 @@ class FirebaseBaseController {
     }).catch((error) => { });
   }
 
+  signOutWithGoogle(callback) {
+    signOut(this.auth).then(()=>{
+      callback && callback()
+    })
+  }
+
   signInWithGoogle(callback) {
     setPersistence(this.auth, browserLocalPersistence)
     .then(() => {
@@ -130,6 +138,45 @@ class FirebaseBaseController {
       okCallback && okCallback(user);
     } else {
       koCallback && koCallback();
+    }
+  }
+
+  async getUserExtraData(uid, okCallback, koCallback) {
+    try {
+      const data = {};
+      let q = query(collection(this.db, "games"), 
+        where("uids", "array-contains", uid)),
+       querySnapshot = await getDocs(q);
+      data.pilotGames = querySnapshot.docs.length;
+
+      q = query(collection(this.db, "games"), 
+        where("jids", "array-contains", uid));
+      querySnapshot = await getDocs(q);
+      data.judgeGames = querySnapshot.docs.length;
+
+      q = query(collection(this.db, "routes"), 
+      where("uids", "array-contains", uid));
+      querySnapshot = await getDocs(q);
+      data.routes = querySnapshot.docs.length;
+
+      okCallback && okCallback(data);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
+  async getFidFromFollow(fromUid, toUid, okCallback, koCallback) {
+    try {
+      const q = query(collection(this.db, "follows"), 
+        where("fromUid", "==", fromUid), 
+        where("toUid", "==", toUid), 
+        limit(1));
+      const querySnapshot = await getDocs(q);
+      const fid = querySnapshot.docs.length===1 ? querySnapshot.docs[0].id : -1;
+
+      okCallback && okCallback(fid);
+      } catch(e) {
+        koCallback && koCallback();
     }
   }
 
@@ -219,6 +266,20 @@ class FirebaseBaseController {
       }
     } else {
       koCallback()
+    }
+  }
+
+  async getGame(gid, okCallback, koCallback) {
+    const docRef = doc(this.db, "games", gid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const res = docSnap.data();
+
+      res.gid = docRef.id;
+      okCallback && okCallback(res);
+    } else {
+      koCallback && koCallback();
     }
   }
 }

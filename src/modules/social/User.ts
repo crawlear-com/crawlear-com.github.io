@@ -12,4 +12,4 @@ interface UserExtraData {
     pilotGames: number,
     routes: number
 }
-export { User, UserExtraData }
+export type { User, UserExtraData }

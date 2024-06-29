@@ -19,7 +19,7 @@ function Picker({callback, minValue = 0, maxValue = 200, initialValue = 0, value
     }
     return <div className="picker">
         <button className="picker--arrowUp" onClick={(event)=> {arrowClick(elementRef,+1)}}></button>
-        <div className="picker--value" ref={elementRef}>{value}</div>
+        <div data-testid="picker--value" className="picker--value" ref={elementRef}>{value}</div>
         <button className="picker--arrowDown" onClick={(event)=> {arrowClick(elementRef,-1)}}></button>
     </div>;
 }

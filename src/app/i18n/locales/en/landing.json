@@ -9,6 +9,9 @@
     },
     "description": {
       "aboutus": "About us",
-      "politicaprivacidad": "Privacy policy"  
+      "politicaprivacidad": "Privacy policy",
+      "perfilsocial":"Social Profile",
+      "herramientajuego":"Game Tool",
+      "herramientaruta":"Route Tool"
     }
 }

@@ -142,7 +142,7 @@ function GameResultTable({game, isDraw}) {
         j++;
     })
 
-    return <div className="gameParticipants">
+    return <div data-testid="gameParticipants" className="gameParticipants">
         <table>
             <tbody>
                 {players}

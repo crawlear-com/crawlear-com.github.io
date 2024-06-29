@@ -2,19 +2,19 @@ import * as React from 'react'
 import { Game, OfflinePlayer, GameUtils } from '../../../games/Game'
 import { GAME_TYPE_LEVANTE, OFFLINE_USER_UID, GAME_TYPE_KING } from '../../../games/Game'
 import GameConfiguratorUtils from '../GameConfiguratorUtils'
-import { isOffline } from '../../../pages/Offline'
-import { useNavigate } from 'react-router-dom'
+import { isOffline } from '../../../routepages/Offline'
+import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import Analytics from '../../../Analytics'
 import { Location } from '../components/LocationResolver'
 import Utils from '../../../Utils'
 
 interface UseGameConfiguratorProps {
-    preconfiguredGame: Game,
-    onGameCreated: Function
+    preconfiguredGame?: Game,
+    onGameCreated?: Function
 }
 
-function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfiguratorProps) {
+function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfiguratorProps): Array<any> {
     const [game, setGame] = React.useState<Game>(()=>{
         const newGame = preconfiguredGame || new Game("",
             new Date().toLocaleDateString(),
@@ -25,7 +25,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         newGame.date = new Date().toLocaleDateString()
         return newGame
     });
-    const navigate = useNavigate()
+    const router = useRouter()
     const [errorMessage, setErrorMessage] = React.useState("")
     const [randomizePlayersOrder, setRandomizePlayersOrder] = React.useState(false)
     const [groups, setGroups] = React.useState(1)
@@ -221,7 +221,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
                     newGame.gid = game.gid
                     fb.createGameProgression(newGame)
                     setGame(newGame)
-                    navigate("/game")
+                    router.push("/game")
                 }, ()=>{})
             }
         }

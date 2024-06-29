@@ -12,13 +12,13 @@ function Facebook({ url }) {
             const div = document.createElement("DIV");
             div.id = 'fb-root';
         } else {
-            FB && FB.XFBML && FB.XFBML.parse();
+            window.FB && window.FB.XFBML && window.FB.XFBML.parse();
         }
     }, []);
 
     UseScript('https://connect.facebook.net/es_ES/sdk.js','fbjdk', ()=>{
         window.fbAsyncInit = function() {
-            FB.init({
+            window.FB.init({
               appId            : '',
               autoLogAppEvents : true,
               xfbml            : true,
@@ -28,7 +28,7 @@ function Facebook({ url }) {
     });
     //https://www.facebook.com/20531316728/posts/10154009990506729/
 
-    return <><div className="fb-post" data-show-text="true" data-href={url} data-width="350"></div></>;
+    return <><div data-testid="fb-post" className="fb-post" data-show-text="true" data-href={url} data-width="350"></div></>;
 }
 
 export default Facebook;

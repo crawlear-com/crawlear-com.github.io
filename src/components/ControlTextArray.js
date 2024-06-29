@@ -79,13 +79,13 @@ function ControlTextArray({
         return <>
         <div className={isClosed ? "controlTextContainer closed" : "controlTextContainer"} onClick={titleOnClick}>
             <p key="mainTitle" className="controlTextTitle rounded rounded2">{t(textToken)}
-                <img src={dropDownImage} className="dropdown" alt="dropdown icon"></img>
+                <img src={dropDownImage.src} className="dropdown" alt="dropdown icon"></img>
             </p>
                 {controlArray1}
         </div>
         {isFullScore ? <div className="controlTextContainer closed" onClick={titleOnClick}>
             <p key="additialTitle" className="controlTextTitle rounded rounded2">{t('description.penalizacionesadicionales')}
-                <img src={dropDownImage} className="dropdown" alt="dropdown icon"></img>
+                <img src={dropDownImage.src} className="dropdown" alt="dropdown icon"></img>
             </p>
             {controlArray2}
         </div> : <></>}

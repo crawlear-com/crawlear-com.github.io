@@ -23,6 +23,7 @@
     left: 90%;
     border-radius: 8px;
     cursor: pointer;
+    text-align: center;
 }
 
 .popup::-webkit-scrollbar {
@@ -31,5 +32,5 @@
 
 .popup.closed {
     height: 25px;
-    //display: none;
+    display: none;
 }
