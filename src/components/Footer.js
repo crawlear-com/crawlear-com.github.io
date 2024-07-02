@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useTranslation } from '../app/i18n'
-import youtubeLogo from '../modules/social/styles/embed/img/youtubelogo.svg'
-import instagramLogo from '../modules/social/styles/embed/img/instagramlogo.svg'
-import facebookLogo from  '../resources/img/facebooklogo.svg'
+import youtubeLogo from '../modules/social/styles/embed/img/youtubeLogo.svg'
+import instagramLogo from '../modules/social/styles/embed/img/instagramLogo.svg'
+import facebookLogo from  '../resources/img/facebookLogo.svg'
 
 async function Footer({ lng }) {
     const { t } = await useTranslation(lng, 'landing')
