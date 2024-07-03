@@ -21,10 +21,6 @@ function GameManagementMenu({ onConfigureGames, onGamePlay }) {
            judgeGames, onRemoveJudgeGames,
            storedGames, onRemoveStoredGames, onLoadPreviousGames] = UseGameManagementMenu()
 
-    React.useEffect(()=> {
-        console.log("render de GameManagementMenu")
-    }, [])
-
     return <>
         <div className='headerText bold sectionTitle'>{t('description.secciondejuego')}</div>
 

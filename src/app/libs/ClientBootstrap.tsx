@@ -8,7 +8,6 @@ interface ClientBootstrapProps {
 }
 
 function ClientBootstrap({ children, onLoginDestiny }: ClientBootstrapProps) {
-  console.log('client Bootstrap!')
   return <>
     <WindowInitialization />
     <LoginInitialization onLoginDestiny={onLoginDestiny} />

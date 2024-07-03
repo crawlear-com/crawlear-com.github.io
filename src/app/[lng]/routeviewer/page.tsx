@@ -15,8 +15,6 @@ export default function Page({ params, searchParams }: PageProps) {
   }
 
   if(rid) {
-console.log(rid)
-
     return <ClientBootstrap onLoginDestiny=''>
       <RouteViewer rid={rid} />
     </ClientBootstrap>

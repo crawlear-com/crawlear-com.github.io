@@ -21,6 +21,4 @@ function clientTranslationsInit() {
   })  
 }
 
-console.log('i18 init!')
-
 export default clientTranslationsInit
