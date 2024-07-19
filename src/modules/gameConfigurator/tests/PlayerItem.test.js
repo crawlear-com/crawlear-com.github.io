@@ -20,8 +20,9 @@ jest.mock('react-i18next', () => ({
 }));
 
 test('renders PlayerItem', () => {
-    const onRemovePlayerMock = jest.fn(),
-        { container } = render(<PlayerItem player={{
+    const onRemovePlayerMock = jest.fn()
+    
+    render(<PlayerItem player={{
             name: "Player1",
             points: 20,
             time: 10

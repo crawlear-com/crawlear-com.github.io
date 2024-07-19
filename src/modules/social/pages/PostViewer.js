@@ -20,8 +20,8 @@ function PostViewer({pid}) {
     }
 
     return <div className='userViewer'>
-        {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></>}
-        {post.pid ? <>
+        { !fbBase.isUserLogged() ? <a rel="noreferrer" href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <></> }
+        { post.pid ? <>
                 {user.displayName ? <UserProfile user={user}/> : <></>}
                 <Post post={post} readOnly={false} /> 
             </>
@@ -30,9 +30,9 @@ function PostViewer({pid}) {
                 <br/>
                 <Spinner />
                 <br />
-            </>}
+            </> }
 
-            {bottomButtons}
+            { bottomButtons }
         </div>
 }
 

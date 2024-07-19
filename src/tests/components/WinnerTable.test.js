@@ -1,12 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import WinnerTable from '../../components/WinnerTable'
-import Sharer from '../../modules/social/components/embed/Sharers'
-import WinnerOrTieBox from '../../components/WinnerOrTieBox'
 import { Game, GAME_TYPE_AECAR } from '../../games/Game'
 
-const div = document.createElement('div'),
-    goToMenuMock = jest.fn();
-let game;
+const div = document.createElement('div')
+let game
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {

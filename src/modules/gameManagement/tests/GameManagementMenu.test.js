@@ -1,10 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import GameManagementMenu from '../components/GameManagementMenu'
-import GameListTransformer from '../../list/components/GameListTransformer'
-import List from '../../list/List'
-import GameRequests from '../components/GameRequests'
-import UseGameManagementMenu, { onRemoveGames } from '../hooks/UseGameManagementMenu'
-import PreviousGameList from '../components/PreviousGameList'
 
 const div = document.createElement('div')
 

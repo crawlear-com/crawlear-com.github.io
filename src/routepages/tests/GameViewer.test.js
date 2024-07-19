@@ -1,7 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import GameViewer from '../GameViewer'
-import WinnerTable from '../../components/WinnerTable'
-import UseGameViewer from '../hooks/UseGameViewer'
 
 const div = document.createElement('div');
 

@@ -5,7 +5,6 @@ import UseGameViewer from './hooks/UseGameViewer'
 import WinnerTable from '../components/WinnerTable'
 import { useTranslation } from 'react-i18next'
 import Spinner from '../components/Spinner'
-import NotLoggedLogo from '../components/NotLoggedLogo'
 
 interface GameViewerProps {
     gid: string

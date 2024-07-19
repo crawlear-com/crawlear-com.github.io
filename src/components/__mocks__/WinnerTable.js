@@ -1,6 +1,4 @@
-import { Game } from "../../games/Game"
-
-const WinnerTable = ({ game: Game}) => {
+const WinnerTable = ({ game }) => {
     return <div>winnerTable</div>
 }
 

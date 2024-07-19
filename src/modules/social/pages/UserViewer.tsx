@@ -23,7 +23,7 @@ function UserViewer({ uid, onLogout }: UserViewerProps) {
         let userType = getUserType(userData)
 
         return <div className="userViewer">
-            {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> :
+            {!fbBase.isUserLogged() ? <a rel="noreferrer" href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> :
                 <><div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div></>}
             <><UserProfile onLogout={onLogout} user={user} />
                 <div className="statistics rounded rounded3">

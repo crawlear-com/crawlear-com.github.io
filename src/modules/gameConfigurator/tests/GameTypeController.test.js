@@ -34,8 +34,9 @@ beforeEach(()=>{
 
 test('renders GameTypeController', () => {
   const onGameTypeChangeMock = jest.fn(), 
-    onPointsTypeChangeMock = jest.fn(),
-    { container } = render(<GameTypeController
+    onPointsTypeChangeMock = jest.fn()
+  
+  render(<GameTypeController
         onGameTypeChange={onGameTypeChangeMock}
         onPointsTypeChange={onPointsTypeChangeMock}
         selectedGameType={0}

@@ -14,7 +14,7 @@ function GameProgression({game, jidGroup, onZoneClick}) {
     const [selectedZone, setSelectedZone] = React.useState(-1);
     const [selectedPlayer, setSelectedPlayer] = React.useState(-1);
     const gameProgressionInfoRef = React.useRef();
-    const [ gameProgression, setGameProgression ] = React.useContext(GameProgressionContext);
+    const [ gameProgression ] = React.useContext(GameProgressionContext);
     const playersDone = [];
     let i=0;
 

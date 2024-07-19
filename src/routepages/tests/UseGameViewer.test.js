@@ -26,7 +26,8 @@ afterEach(() => {
 
 test('renders GameList', () => {
     const gid = '213123123'
-    const { result } = renderHook(UseGameViewer, {
+    
+    renderHook(UseGameViewer, {
         initialProps: gid
     })
 

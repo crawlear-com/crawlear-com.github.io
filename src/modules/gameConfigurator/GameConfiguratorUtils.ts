@@ -5,8 +5,6 @@ import { RegionalZonaRcGameScores } from '../../games/RegionalZonaRcGameScores'
 import { KingGameScores } from '../../games/KingGameScores'
 import { MiniCrawlerPassionGameScores } from '../../games/MiniCrawlerPassionGameScores'
 import { GenericGameScores } from '../../games/GenericGameScores'
-import { Game, GameUtils } from '../../games/Game'
-import Utils from '../../Utils'
 import { GAME_TYPE_AECAR,
     GAME_TYPE_ISRCC,
     GAME_TYPE_KING,

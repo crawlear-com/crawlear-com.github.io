@@ -129,7 +129,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
 
     function onNameChange(event: MouseEvent) {
         const newGame: any = {...game},
-            name = (<HTMLTextAreaElement>event.target).value
+            name = (event.target as HTMLTextAreaElement).value
             
         if (name) {
             newGame.name = name
@@ -145,7 +145,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
     function onIsPublicChange(event: MouseEvent) {
         const newGame: any = {...game}
 
-        newGame.isPublic = (<HTMLInputElement>event.target).value
+        newGame.isPublic = (event.target as HTMLInputElement).value
         setGame(newGame)
     }
 
@@ -164,7 +164,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
     }
 
     function onRandomizePlayersOrder(event: MouseEvent) {
-        const value = (<HTMLInputElement>event.target).checked
+        const value = (event.target as HTMLInputElement).checked
 
         setRandomizePlayersOrder(value)
     }

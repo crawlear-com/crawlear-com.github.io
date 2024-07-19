@@ -21,9 +21,9 @@ beforeEach(()=>{
 });
 
 test('renders TimerControl', () => {
-    const onPlayPauseChangeMock = jest.fn(),
-        { container } = render(<TimerControl time={1000} onPlayPauseChange={onPlayPauseChangeMock} />, div);
-
+    const onPlayPauseChangeMock = jest.fn()
+    
+    render(<TimerControl time={1000} onPlayPauseChange={onPlayPauseChangeMock} />, div);
     expect(screen.getBytRole("timer").textContent).toBe("00:00:000");
 });
 

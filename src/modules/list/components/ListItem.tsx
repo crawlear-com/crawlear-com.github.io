@@ -1,5 +1,4 @@
 import * as React from 'react'
-import ListMenu from './ListMenu'
 
 import '../styles/ListItem.scss'
 

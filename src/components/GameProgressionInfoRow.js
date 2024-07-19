@@ -60,14 +60,14 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
             <ul>
                 <li>{t('description.puntos')}: <span className="bold">{points}</span></li>
                 {gateProgression ? <li>{t('description.avancepuerta')}: <span className="bold">{gateProgression}</span></li> : <></>}
-                {typeof(gateFails) !== undefined && typeof(bonitification) !== undefined ? <>
+                {typeof(gateFails) !== "undefined" && typeof(bonitification) !== "undefined" ? <>
                     <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
                     <li>{t('description.bonificacion')}: <span className="bold">{bonitification*-2}</span></li></>
                 :<></>}
-                {typeof(simpathyPoints) !== undefined ? 
+                {typeof(simpathyPoints) !== "undefined" ? 
                     <li>{t('description.portiempo')}: <span className="bold">{simpathyPoints}</span></li> 
                 :<></>}
-                {typeof(handicap) !== undefined ? 
+                {typeof(handicap) !== "undefined" ? 
                     <li>{t('description.handicap')}: <span className="bold">{handicap}</span></li> 
                 :<></>}
                 <li>{t('description.total')}: <span className="bold">{totalPoints}</span></li>

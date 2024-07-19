@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { UserStatusContext } from '../../../context/UserStatusContext';
 
 import '../styles/PostLikes.scss';
@@ -10,7 +9,6 @@ const NOT_PRESSED=0;
 const PRESSED=1;
 
 function PostLikes({post, onLikePost, onRemoveLikePost}) {
-    const { t } = useTranslation(['main']);
     const likes = [];
     const firebase = window.crawlear.fb;
     const { isUserLoged } = React.useContext(UserStatusContext);
@@ -47,7 +45,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
 
     },[]);
 
-    function onClickLike(event) {
+    function onClickLike() {
         if (status.state === NOT_LOADED) return;
 
         if(status.state === PRESSED) {

@@ -59,7 +59,7 @@ class FirebaseBaseController {
   }
 
   initAppCheck() {
-    const appCheck = initializeAppCheck(this.app, {
+    initializeAppCheck(this.app, {
       provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
       isTokenAutoRefreshEnabled: true
     })

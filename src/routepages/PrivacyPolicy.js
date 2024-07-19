@@ -6,8 +6,6 @@ import Analytics from '../Analytics'
 import './styles/PrivacyPolicy.scss'
 
 function PrivacyPolicy() {
-    const content = [];
-
     React.useEffect(() => {
         Analytics.pageview('/privacypolicy/')
     },[]);

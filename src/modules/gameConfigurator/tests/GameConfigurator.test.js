@@ -2,17 +2,6 @@ import { render, screen } from '@testing-library/react'
 import GameConfigurator from '../pages/GameConfigurator'
 import { Game, GAME_TYPE_LEVANTE } from '../../../games/Game'
 import { UserStatusContext } from '../../../context/UserStatusContext'
-import ZonesPicker from '../components/ZonesPicker'
-import GameTypeController from '../components/GameTypeController'
-import GateProgressionPicker from '../components/GateProgressionPicker'
-import { isOffline } from '../../../pages/Offline'
-import PlayerController from '../components/PlayerController'
-import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker'
-import GroupsPicker from '../components/GroupsPicker'
-import ErrorBox from '../../../components/ErrorBox'
-import LocationResolver from '../components/LocationResolver'
-import Analytics from '../../../Analytics'
-import UserSearchForGame from '../components/UserSearchForGame'
 
 const div = document.createElement('div')
 
@@ -73,7 +62,8 @@ test('renders GameConfigurator', () => {
     const game = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
     const onGameCreated = jest.fn()
-    const { container } = render(
+    
+    render(
         <UserStatusContext.Provider value={{ isUserLoged: true }}>
             <GameConfigurator preconfiguredGame={game} onGameCreated={onGameCreated} />, div)
         </UserStatusContext.Provider>)

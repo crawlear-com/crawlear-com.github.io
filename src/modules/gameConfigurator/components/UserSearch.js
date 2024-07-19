@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { isOffline } from '../../../routepages/Offline';
 
 import '../styles/UserSearch.scss';
@@ -14,7 +13,6 @@ function UserSearch({onUserSeachPlayerAdd,
     children}) {
     const fb = window.crawlear.fb
     const fbBase = window.crawlear.fbBase
-    const { t } = useTranslation(['main']);
     const [username, setUsername] = React.useState("");
     const [users, setUsers] = React.useState([]);
     const resultRef = React.useRef();
