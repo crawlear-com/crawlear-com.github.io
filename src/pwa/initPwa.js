@@ -7,7 +7,7 @@ const isLocalhost = ()=> {
 function initPwa() {
     if ('serviceWorker' in navigator) {
         //window.addEventListener('load', function() {
-            const sw = isLocalhost() ? 'service-worker-dev.js' : 'sw.js';
+            const sw = isLocalhost() ? '/sw.js' : '/sw.js';
 
             navigator.serviceWorker.register(sw).then(function(registration) {
                 Analytics.event('App','pwa','registered');

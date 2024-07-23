@@ -22,7 +22,8 @@ export function middleware(req) {
       !req.nextUrl.pathname.endsWith('manifest.json') &&
       !req.nextUrl.pathname.endsWith('favicon.ico') &&
       !req.nextUrl.pathname.endsWith('service-worker-dev.js') &&
-      !req.nextUrl.pathname.endsWith('sw.js')) {
+      !req.nextUrl.pathname.endsWith('sw.js') &&
+      req.nextUrl.pathname.indexOf('workbox-')<0) {
 
       return NextResponse.redirect(new URL(`/${lng}${req.nextUrl.pathname}`, req.url))
   }
