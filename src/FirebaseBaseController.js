@@ -99,22 +99,18 @@ class FirebaseBaseController {
   signInWithGoogle(callback) {
     setPersistence(this.auth, browserLocalPersistence)
     .then(() => {
-      if (Utils.isMobile() && !Utils.isIphone() && !Utils.isFirefox()) {
-        signInWithRedirect(this.auth, this.provider);
-      } else {
-        signInWithPopup(this.auth, this.provider)
-        .then((result) => {
-            this.getUser(result.user.uid, (data)=>{
+      signInWithPopup(this.auth, this.provider)
+      .then((result) => {
+          this.getUser(result.user.uid, (data)=>{
+            this.setUserInContext(data, result.user.uid);
+            callback && callback(data);
+          }, ()=> {
+            this.setUser(result.user, callback, (data)=>{
               this.setUserInContext(data, result.user.uid);
-              callback && callback(data);
-            }, ()=> {
-              this.setUser(result.user, callback, (data)=>{
-                this.setUserInContext(data, result.user.uid);
-              })
-      
-            });
-        }).catch((error) => { });  
-      }
+            })
+    
+          });
+      }).catch((error) => { });  
     })
     .catch((error) => { })
   }
