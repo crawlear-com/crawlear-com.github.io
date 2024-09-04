@@ -3,11 +3,11 @@ import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import LazyImportPlugin from './LazyImport'
 
-
 i18n.use(LanguageDetector)
   .use(LazyImportPlugin)
   .use(initReactI18next)
   .init({
+    supportedLngs: ['es', 'en'],
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
