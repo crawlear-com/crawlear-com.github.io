@@ -314,7 +314,7 @@ class FirebaseController {
       querySnapshot.docs.forEach(async (loveData)=>{
         const data = loveData.data()
 
-        await this.getRoute(data.rid, false, (route) => {
+        await this.fbBase.getRoute(data.rid, false, (route) => {
           route.rid = data.rid
           okCallback(route)
         }, () =>{})
