@@ -4,8 +4,6 @@
       "aboutus1":"Después de salir al terreno de juego un par de veces nos dimos cuenta que sería una buena idea tener un marcador para las partidas, donde poder gestionar los puntos en los diferentes modos de juegos que practicamos.",
       "aboutus2":"Si tienes alguna duda, comentario o sugerencia no dudes en contactar con nosotros en crawlear.com@gmail.com",
       "aboutus3":"takezoRc, Barcelona 2022",
-      "aboutus":"Sobre nosotros",
-      "politicaprivacidad":"Política de privacidad",
       "instrucciones":"Primero añade los jugadores, selecciona el modo de juego, el tipo de puntuación y pulsa Empezar.",
       "instrucciones1":"Pulsando en el jugador podrás definir un handicap positivo (ventaja inicial) o negativo (desventaja inicial). A final de partida el handicap se sumará a los puntos del jugador para calcular el total de puntos.",
       "maxTimeText1":"Selecciona el tiempo máximo (0 si no quieres aplicar tiempo máximo):",
@@ -215,7 +213,9 @@
       "cargar":"Cargar",
       "mapaderuta":"Mapa de ruta",
       "clickparacerrar":"Click para cerrar",
-      "video":"Video de youtube"
+      "video":"Video de youtube",
+      "aboutus":"Sobre nosotros",
+      "politicaprivacidad":"Política de privacidad"
     },
     "points": {
       "vuelco":"vuelco",
