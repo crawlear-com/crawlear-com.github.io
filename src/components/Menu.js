@@ -29,6 +29,7 @@ function Menu() {
             setLightMode(true);
             document.body.classList.add(LIGHTMODE_CLASS);
         }
+        onMenuClick()
     }
 
     function browseTo(path) {
@@ -55,7 +56,7 @@ function Menu() {
                         <li><div onClick={()=>{browseTo("/privacypolicy")}}>{t("description.politicaprivacidad")}</div></li>
                         <li><div onClick={()=>{browseTo("/aboutus")}}>{t("description.aboutus")}</div></li>
                     </ul>
-                    <div className="lightModeSwitch" onClick={switchLightMode}>Modo claro / oscuro</div>
+                    <div className="lightModeSwitch" onClick={switchLightMode}>{t("description.lightdarktheme")}</div>
                 </div>
             </div>
         </header>;
