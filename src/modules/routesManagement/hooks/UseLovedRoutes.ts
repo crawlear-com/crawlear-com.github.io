@@ -10,9 +10,7 @@ function UseLovedRoutes(): Array<any> {
 
   React.useEffect(() => {
     window.crawlear.user.uid && fb.getLovedRoutes(window.crawlear.user.uid, (route: Route) => {
-      const newRoutes: Array<Route> = [...routes]
-      newRoutes.push(route)
-      setRoutes(newRoutes) 
+      setRoutes(previousInputs => ([...previousInputs,route]))
     }, () => {
       setError(t('error.errordecarga'))
     })
