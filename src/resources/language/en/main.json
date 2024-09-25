@@ -4,8 +4,6 @@
     "aboutus1": "After going out on the field a couple of times, we realized that it would be a good idea to have a scoreboard for the matches, where we can manage the points in the different game modes that we practice.",
     "aboutus2": "If you have any questions, comments or suggestions, do not hesitate to contact us at crawlear.com@gmail.com",
     "aboutus3": "Barcelona (Spain) 2021",
-    "aboutus":"About us",
-    "politicaprivacidad":"Privacy policy",
     "instrucciones": "First add the players, select the game mode, the points type and push the Begin button.",
     "instrucciones1": "By clicking on the player you can define a positive (initial advantage) or negative (initial disadvantage) handicap. At the end of the game, the handicap will be added to the player\"s points to calculate the total points.",
     "maxTimeText1": "Select the maximum time (0 if you do not want to apply maximum time):",
@@ -216,7 +214,9 @@
     "cargar": "Load",
     "mapaderuta": "Route map",
     "clickparacerrar": "Click to close",
-    "video": "Youtube video"
+    "video": "Youtube video",
+    "aboutus":"About us",
+    "politicaprivacidad":"Privacy policy"
   },
   "points": {
     "vuelco": "overturn",
