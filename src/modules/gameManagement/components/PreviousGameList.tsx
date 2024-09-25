@@ -31,8 +31,7 @@ function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, 
             title={t('description.partidasprevias')} 
             data={storedGames}
             transformer={itemTransform}
-            readOnly={false}
-            onItemAction={() => {}}
+            readOnly={true}
             onRemoveItem={(gamePosition: number) => {
                 onRemoveStoredGames(gamePosition)}
             }

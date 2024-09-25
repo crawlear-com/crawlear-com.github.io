@@ -37,6 +37,8 @@ function Menu() {
         navigate(path)
     }
 
+    const menuLogo = <a href="/"><img src={logo} alt="web logo"></img></a>
+
     if (isOpen) {
         return <header className="App-header">
             <div className="rounded menuContainer open" onClick={onMenuClick}>
@@ -59,6 +61,7 @@ function Menu() {
                     <div className="lightModeSwitch" onClick={switchLightMode}>{t("description.lightdarktheme")}</div>
                 </div>
             </div>
+            { menuLogo }
         </header>;
     } else {
         return <header className="App-header">
@@ -67,7 +70,7 @@ function Menu() {
                 <div className="burguerMenuBar"></div>
                 <div className="burguerMenuBar"></div>
             </div>
-            <a href="/"><img src={logo} alt="web logo"></img></a>
+            { menuLogo }
         </header>;
     }
 
