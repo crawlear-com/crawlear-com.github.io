@@ -23,7 +23,7 @@ function ListMenu({ itemPosition, onRemoveClick, onConfigureClick}) {
                 toggleMenu();
                 onRemoveClick(event);
             }}/>
-        <ListMenuItem text={t('description.editar')} 
+        <ListMenuItem text={t('description.crearcomoeste')} 
             itemPosition={itemPosition}
             onClickFunction={onConfigureClick} />
     </span>;
