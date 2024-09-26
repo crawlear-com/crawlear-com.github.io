@@ -2,12 +2,7 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import GameProgressionInfoRow from './GameProgressionInfoRow'
 import { GameUtils } from '../games/Game'
-import UseGameProgression from './hooks/UseGameProgression'
-
-const STATUS_WAITING = 'waiting'
-const STATUS_PLAYING = 'playing'
-const STATUS_REPAIR = 'repair'
-const STATUS_DONE = 'done'
+import UseGameProgression, { status } from './hooks/UseGameProgression'
 
 function GameProgression({game, jidGroup, onZoneClick}) {
     const { t } = useTranslation(['main']);
@@ -32,15 +27,18 @@ function GameProgression({game, jidGroup, onZoneClick}) {
             player.zones.forEach((zone)=>{
                 className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
                 if(gameProgression && gameProgression[player.group] && gameProgression[player.group][player.id]) {
-                    if (gameProgression[player.group][player.id][j].status !== STATUS_WAITING) {
-                        if (gameProgression[player.group][player.id][j].status === STATUS_PLAYING) {
+                    const currentStatus = gameProgression[player.group][player.id][j].status
+                    const currentData = gameProgression[player.group][player.id][j].data
+
+                    if (currentStatus !== status.waiting) {
+                        if (currentStatus === status.playing) {
                             className += " colorOrange";
-                        } else if (gameProgression[player.group][player.id][j].status === STATUS_REPAIR) {
+                        } else if (currentStatus === status.repair) {
                             className += " colorRed";
-                        } else if (gameProgression[player.group][player.id][j].status === STATUS_DONE) { 
+                        } else if (currentStatus === status.done) { 
                             className += " colorGreen";
                         }
-                    } else if (gameProgression[player.group][player.id][j].data) {
+                    } else if (currentData) {
                         className += " colorClearGrey";
                     }
                     zones.push(<span data-zone={j} onClick={(event)=>{                    
@@ -49,7 +47,7 @@ function GameProgression({game, jidGroup, onZoneClick}) {
                         <div>{t('description.zona')} {j+1}</div>
                         <br />
                         <div>{t('description.estado')}:</div>
-                        <div>{resolveGameStatus(t, gameProgression[player.group][player.id][j].status, gameProgression[player.group][player.id][j].data)}</div>
+                        <div>{resolveGameStatus(t, currentStatus, currentData)}</div>
                     </span>);
                 }
                 j++;
