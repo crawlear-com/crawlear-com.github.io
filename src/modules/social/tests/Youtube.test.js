@@ -9,10 +9,19 @@ beforeEach(()=>{
 });
 
 test('renders youtube embed', () => {
-  render(<Youtube url='https://www.youtube.com/embed/00000000001' />, div)
+  render(<Youtube url='https://www.youtube.com/watch?v=Yb5pPoPf9F4' />, div)
   const youtubeEmbedContainer = screen.getByTitle('YouTube video player')
 
   expect(youtubeEmbedContainer).toBeInTheDocument()
-  expect(youtubeEmbedContainer.src).toBe('https://www.youtube.com/embed/00000000001')
+  expect(youtubeEmbedContainer.src).toBe('https://www.youtube.com/embed/Yb5pPoPf9F4')
+  expect(youtubeEmbedContainer.getAttribute('allowFullScreen')).toBe('')
+});
+
+test('renders youtube shorts embed', () => {
+  render(<Youtube url='https://www.youtube.com/shorts/kB-GywbL9hM' />, div)
+  const youtubeEmbedContainer = screen.getByTitle('YouTube video player')
+
+  expect(youtubeEmbedContainer).toBeInTheDocument()
+  expect(youtubeEmbedContainer.src).toBe('https://www.youtube.com/embed/kB-GywbL9hM')
   expect(youtubeEmbedContainer.getAttribute('allowFullScreen')).toBe('')
 });
