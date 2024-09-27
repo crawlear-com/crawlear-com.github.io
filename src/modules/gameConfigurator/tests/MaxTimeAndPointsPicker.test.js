@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker.js';
 
 const div = document.createElement('div');
@@ -14,19 +14,28 @@ jest.mock('react-i18next', () => ({
   }
 }));
 
+jest.mock('../../../components/Picker')
+jest.mock('../components/MaxTimePicker')
+
 beforeEach(()=>{  
   document.body.innerHTML = '';
   document.body.append(div);
 });
 
-test('renders Picker', () => {
-  const { container } = render(<MaxTimeAndPointsPicker initialValue="0" />, div),
-    arrowUp = container.querySelector(".picker--arrowUp"),
-    arrowDown = container.querySelector(".picker--arrowDown"),
-    value = container.querySelector(".picker--value");
+test('renders Picker and not timer', () => {
+  render(<MaxTimeAndPointsPicker initialValue="0" showTimePicker={false} />, div)
+  const picker = screen.getByText('Picker')
+  const timer = screen.queryByText('MaxTimePicker')
 
-  expect(arrowUp).toBeInTheDocument();
-  expect(arrowDown).toBeInTheDocument();
-  expect(value).toBeInTheDocument();
-  expect(value.textContent).toBe('0');
+  expect(picker).toBeInTheDocument();
+  expect(timer).not.toBeInTheDocument();
+});
+
+test('renders Picker and timer too', () => {
+  render(<MaxTimeAndPointsPicker initialValue="0" showTimePicker={true} />, div)
+  const picker = screen.getByText('Picker')
+  const timer = screen.queryByText('MaxTimePicker')
+
+  expect(picker).toBeInTheDocument();
+  expect(timer).toBeInTheDocument();
 });
