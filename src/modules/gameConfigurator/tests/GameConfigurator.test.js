@@ -73,13 +73,15 @@ test('renders GameConfigurator', () => {
     const game = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
     const onGameCreated = jest.fn()
-    const { container } = render(
+    
+    render(
         <UserStatusContext.Provider value={{ isUserLoged: true }}>
             <GameConfigurator preconfiguredGame={game} onGameCreated={onGameCreated} />, div)
         </UserStatusContext.Provider>)
 
     const progressionPickerContainer = screen.getByText('gateProgressionPicker')
     const zonesPickerContainer = screen.getByText('zonesPicker')
+    
     expect(progressionPickerContainer).not.toBeNull()
     expect(zonesPickerContainer).not.toBeNull()
 })
