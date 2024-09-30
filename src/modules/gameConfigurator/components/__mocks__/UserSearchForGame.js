@@ -1,5 +1,5 @@
-const UserSearchForGame = jest.fn().mockImplementation(({onUserSeachPlayerAdd, gameName, isForJudge}) => {
-    return jest.fn(() => <div> UserSearchForGame </div>)
-})
+const UserSearchForGame = ({onUserSeachPlayerAdd, gameName, isForJudge}) => {
+        return <div>UserSearchForGame</div>
+}
 
 export default UserSearchForGame

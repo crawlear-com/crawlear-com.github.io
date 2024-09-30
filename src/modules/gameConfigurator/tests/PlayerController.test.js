@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import PlayerController from '../components/PlayerController.js';
 
 const div = document.createElement('div'),
@@ -36,30 +36,26 @@ jest.mock('react-i18next', () => ({
 jest.mock('../components/PlayerItem')
 jest.mock('../components/UserSearchForGame')
 
-
 test('renders PlayerController', () => {
-    const onPlayerNumerChangeMock = jest.fn(),
-        { container } = render(<PlayerController 
-            onPlayerNumerChange={onPlayerNumerChangeMock}
-            gameName="game name test"
-            />, div),
-        listItems = container.querySelectorAll(".playersList > li");
+    const onPlayerNumerChangeMock = jest.fn()
+    const onGameDirectorChangeMock = jest.fn()
+    render(<PlayerController 
+        inPlayers={players}
+        isForJudge={false}
+        onPlayerNumerChange={onPlayerNumerChangeMock}
+        onGameDirectorChange={onGameDirectorChangeMock}
+        gameName="game name test"
+        maxGroups={1}
+        />, div)
 
-    expect(listItems.length).toBe(0);
-/*    expect(listItems[0].querySelector(".playerBox").textContent).toBe("Álvaro (0)-");
-    expect(listItems[1].querySelector(".playerBox").textContent).toBe("Joan (0)-");
-    expect(listItems[2].querySelector(".playerBox").textContent).toBe("K (0)-");
-    expect(listItems[3].querySelector(".playerBox").textContent).toBe("Jose (0)-");*/
+    const listItems = screen.getAllByRole('listitem');
+    const userSearchElement = screen.getByText('UserSearchForGame')
+
+    expect(listItems.length).toBe(4);
+    expect(listItems[0].value).toBe(0);
+    expect(listItems[1].value).toBe(1);
+    expect(listItems[2].value).toBe(2);
+    expect(listItems[3].value).toBe(3);
+    expect(onPlayerNumerChangeMock).toHaveBeenCalled()
+    expect(userSearchElement).toBeInTheDocument()
 });
-
-/*
-test('randomizes on demand', () => {
-    const onPlayerNumerChangeMock = jest.fn(),
-        { container } = render(<PlayerController 
-            onPlayerNumerChange={onPlayerNumerChangeMock}
-            gameName="game name test" />, div),
-        randomButton = container.querySelector(".buttonRandomOrder");
-
-    randomButton.click();
-    expect(onPlayerNumerChangeMock).toHaveBeenCalled();
-});*/
