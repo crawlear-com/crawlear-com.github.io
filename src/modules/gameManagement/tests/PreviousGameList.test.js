@@ -19,13 +19,11 @@ const previousGameListData = [
         jids: ['Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1', 'DDzlRnl4s7Ovj72CT6Rq5rmJzc52'],
         judges: [{
             avatar: "https://lh3.googleusercontent.com/a-/AOh14GjXEAbgGCAYymAu9Yi80oe465ViL3G_RIzOEbk6-g=s96-c",
-            battery: false,
             group: 0,
             id: 0,
             name: "Jose A. \"Neuro\" Anguita",
             points: 0,
-            time: 0,
-            uid: "Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1"
+            time: 0
         }],
         location: {latitude: 0, longitude: 0},
         maxPoints: 80,
@@ -34,29 +32,10 @@ const previousGameListData = [
         owner: ['Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1'],
         players: [{
             avatar: "https://lh3.googleusercontent.com/a-/AOh14GjXEAbgGCAYymAu9Yi80oe465ViL3G_RIzOEbk6-g=s96-c",
-            battery: false,
-            group: 0,
             id: 9,
             name: "Jose A. \"Neuro\" Anguita",
             points: 0,
-            time: 0,
-            totalGateProgression: 9,
-            totalPoints: 0,
-            totalTime: 26367,
-            uid: "Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1",
-            zones: [{
-                fiascoControlTextValues: [0, 0],
-                gateProgression: 1,
-                gateProgressionData: [],
-                gatesWithBonification: 0,
-                gatesWithFail: 0,
-                handicap: 0,
-                judgedBy: ['Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1'],
-                points: 0,
-                simpathyPoints: 0,
-                time: 26367,
-                totalPoints: 0
-            }]
+            time: 0
         }],
         uids: ['O7T5XQB8KvgdPaHgZ15onss6sPI2', 'DDzlRnl4s7Ovj72CT6Rq5rmJzc52', 'iTVZP9EUJXg5r8FHvQtPUYn454p1', '5BNgnTWpO3YADAeluLr0lC3ncV72', 'mzcvSbwHHAPGu6h034MW4EZ78FG3', 'hxKoS59vXDZquKayFyEL3AiLtbl2', 'Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1'],
         zones: 1
@@ -149,6 +128,7 @@ test('renders game list when available', () => {
     const gameList = screen.queryByText('List')
     const previousGamesButton = screen.queryByText('description.cargar')
 
+    expect(screen.queryByTitle('loadButton')).not.toBeInTheDocument()
     expect(screen.queryByText("Spinner")).not.toBeInTheDocument()
     expect(gameList).not.toBeNull()
     expect(previousGamesButton).toBeNull()
