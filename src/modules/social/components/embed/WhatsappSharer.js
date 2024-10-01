@@ -11,7 +11,7 @@ function WhatsappSharer({ url, text }) {
         Analytics.event('share','whatsapp', shareUrl);
     }
 
-    return <a onClick={onLinkClick} href={shareUrl} target="_blank" data-action="share/whatsapp/share">
+    return <a rel="noreferrer" onClick={onLinkClick} href={shareUrl} target="_blank" data-action="share/whatsapp/share">
         <img className="whatsappLogo" src = {Logo} alt="whatsapp logo" />
     </a>;
 }

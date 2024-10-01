@@ -69,6 +69,8 @@
     "noruta": "You didnt generate a route map. Select a GPX data file with the button to generate the route map"
   },
   "description": {
+    "copiar": "copy",
+    "copiado": "copied",
     "juego": "game",
     "juegopublico": "public game",
     "publico": "Public",
