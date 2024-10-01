@@ -14,7 +14,7 @@ function CopySharer({url}) {
 }
 
 return <span className='copyLogo' onClick={onLinkClick}>
-    { copiedStatus ? <>{t('description.copiado')}!</> : <>{t('description.copiar')}</>}
+    { copiedStatus ? <>{t('description.copiado')}</> : <>{t('description.copiar')}</>}
 </span>;
 
 }
