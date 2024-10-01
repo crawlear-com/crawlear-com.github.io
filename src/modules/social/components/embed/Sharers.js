@@ -4,6 +4,9 @@ import FacebookSharer from './FacebookSharer';
 import TwitterSharer from './TwitterSharer';
 import TelegramSharer from './TelegramSharer';
 import WhatsappSharer from './WhatsappSharer';
+import CopySharer from './CopySharer';
+
+import '../../styles/embed/Sharers.scss'
 
 function Sharers({url, text, headerText}) {
     const { t } = useTranslation(['main']);
@@ -15,6 +18,7 @@ function Sharers({url, text, headerText}) {
             <TwitterSharer url={`https://crawlear.com/${url}`} text={text} />
             <WhatsappSharer url={`https://crawlear.com/${url}`} text={text} />
             <TelegramSharer url={`https://crawlear.com/${url}`} text={text} />
+            <CopySharer url={`https://crawlear.com/${url}`} />
         </div>
     </div>
 ;
