@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 import FacebookSharer from './FacebookSharer';
 import TwitterSharer from './TwitterSharer';
@@ -9,8 +8,6 @@ import CopySharer from './CopySharer';
 import '../../styles/embed/Sharers.scss'
 
 function Sharers({url, text, headerText}) {
-    const { t } = useTranslation(['main']);
-
     return <div className='sharerContainer'>
         <div className='bold shareProfileText'>{headerText}</div>
         <div className='sharers'>

@@ -68,6 +68,8 @@
       "noruta":"No has generado un mapa de ruta. Selecciona un fichero de datos GPX pulsando el boton para generar el mapa de ruta"
     },
     "description": {
+      "copiar": "copiar",
+      "copiado": "copiado",  
       "juego":"juego",
       "juegopublico":"juego público",
       "publico":"Público",

@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
-import Utils from '../../../../Utils'
 
 interface GoogleMapsRouteUrlProps {
     url: string
