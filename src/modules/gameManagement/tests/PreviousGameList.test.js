@@ -22,6 +22,7 @@ jest.mock('react-i18next', () => ({
 jest.mock('../../list/List')
 jest.mock('../../../components/Spinner')
 jest.mock('../../../games/Game')
+jest.mock('../../../components/Spinner')
 jest.mock('../../list/components/GameListTransformer', () => ({
     itemTransform: jest.fn()
 }))
@@ -54,7 +55,7 @@ test('renders PreviousGameList on initial state', () => {
     const gameList = screen.queryByText('GameList')
     const previousGamesButton = screen.queryByText('description.cargar')
 
-    expect(Spinner).not.toHaveBeenCalled()
+    expect(screen.queryByText("Spinner")).not.toBeInTheDocument()
     expect(gameList).toBeNull()
     expect(previousGamesButton).not.toBeNull()
 })
@@ -64,19 +65,17 @@ test('renders PreviousGameList on load', () => {
     const onConfigureGames = jest.fn()
     const onLoadPreviousGames = jest.fn()
 
-    const { container } = render(<PreviousGameList storedGames={[]}
+    render(<PreviousGameList storedGames={[]}
         onRemoveStoredGames={onRemoveStoredGames}
         onConfigureGames={onConfigureGames}
         onLoadPreviousGames={onLoadPreviousGames}></PreviousGameList>)
-    
-    act(() => {
-        fireEvent.click(screen.getByTitle('loadButton'))
-    })
+
+    fireEvent.click(screen.getByTitle('loadButton'))
 
     const gameList = screen.queryByText('GameList')
     const previousGamesButton = screen.queryByText('description.cargar')
 
-    expect(Spinner).toHaveBeenCalled()
+    expect(screen.getByText("Spinner")).toBeInTheDocument()
     expect(gameList).toBeNull()
     expect(previousGamesButton).toBeNull()
     expect(onLoadPreviousGames).toHaveBeenCalled()

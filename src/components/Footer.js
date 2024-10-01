@@ -8,7 +8,7 @@ function Footer() {
     const { t } = useTranslation(['landing'])
     const fbBase = window.crawlear.fbBase
 
-    return <div className="Footer">
+    return <div className="Footer" data-testid="Footer">
         [©<a href="https://crawlear.com">crawlear.com</a> 2024
         {fbBase.isUserLogged() ? <>]</> : <>
             - <a href="https://crawlear.com/aboutus">{t('description.aboutus')}</a> - <a href="https://crawlear.com/privacypolicy">{t('description.politicaprivacidad')}</a>]</>}
