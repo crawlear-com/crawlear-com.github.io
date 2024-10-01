@@ -7,6 +7,61 @@ import GameListTransformer from '../../list/components/GameListTransformer'
 
 
 const div = document.createElement('div')
+const previousGameListData = [
+    {
+        courtesyTime: 0,
+        date: "14/10/2023",
+        gameStatus: 2,
+        gameType: 5,
+        gates: [9],
+        gid: "RojLmzdOs3HRuYIuRcWl",
+        isPublic: false,
+        jids: ['Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1', 'DDzlRnl4s7Ovj72CT6Rq5rmJzc52'],
+        judges: [{
+            avatar: "https://lh3.googleusercontent.com/a-/AOh14GjXEAbgGCAYymAu9Yi80oe465ViL3G_RIzOEbk6-g=s96-c",
+            battery: false,
+            group: 0,
+            id: 0,
+            name: "Jose A. \"Neuro\" Anguita",
+            points: 0,
+            time: 0,
+            uid: "Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1"
+        }],
+        location: {latitude: 0, longitude: 0},
+        maxPoints: 80,
+        maxTime: 480000,
+        name: "Kiro park 2",
+        owner: ['Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1'],
+        players: [{
+            avatar: "https://lh3.googleusercontent.com/a-/AOh14GjXEAbgGCAYymAu9Yi80oe465ViL3G_RIzOEbk6-g=s96-c",
+            battery: false,
+            group: 0,
+            id: 9,
+            name: "Jose A. \"Neuro\" Anguita",
+            points: 0,
+            time: 0,
+            totalGateProgression: 9,
+            totalPoints: 0,
+            totalTime: 26367,
+            uid: "Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1",
+            zones: [{
+                fiascoControlTextValues: [0, 0],
+                gateProgression: 1,
+                gateProgressionData: [],
+                gatesWithBonification: 0,
+                gatesWithFail: 0,
+                handicap: 0,
+                judgedBy: ['Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1'],
+                points: 0,
+                simpathyPoints: 0,
+                time: 26367,
+                totalPoints: 0
+            }]
+        }],
+        uids: ['O7T5XQB8KvgdPaHgZ15onss6sPI2', 'DDzlRnl4s7Ovj72CT6Rq5rmJzc52', 'iTVZP9EUJXg5r8FHvQtPUYn454p1', '5BNgnTWpO3YADAeluLr0lC3ncV72', 'mzcvSbwHHAPGu6h034MW4EZ78FG3', 'hxKoS59vXDZquKayFyEL3AiLtbl2', 'Rj4dvcdDSTQKwg0VCaY7Fj6Qd2r1'],
+        zones: 1
+    }
+]
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {
@@ -52,7 +107,7 @@ test('renders PreviousGameList on initial state', () => {
         onConfigureGames={onConfigureGames}
         onLoadPreviousGames={onLoadPreviousGames}></PreviousGameList>)
 
-    const gameList = screen.queryByText('GameList')
+    const gameList = screen.queryByText('List')
     const previousGamesButton = screen.queryByText('description.cargar')
 
     expect(screen.queryByText("Spinner")).not.toBeInTheDocument()
@@ -72,11 +127,30 @@ test('renders PreviousGameList on load', () => {
 
     fireEvent.click(screen.getByTitle('loadButton'))
 
-    const gameList = screen.queryByText('GameList')
+    const gameList = screen.queryByText('List')
     const previousGamesButton = screen.queryByText('description.cargar')
 
     expect(screen.getByText("Spinner")).toBeInTheDocument()
     expect(gameList).toBeNull()
     expect(previousGamesButton).toBeNull()
     expect(onLoadPreviousGames).toHaveBeenCalled()
+});
+
+test('renders game list when available', () => {
+    const onRemoveStoredGames = jest.fn()
+    const onConfigureGames = jest.fn()
+    const onLoadPreviousGames = jest.fn()
+
+    render(<PreviousGameList storedGames={previousGameListData}
+        onRemoveStoredGames={onRemoveStoredGames}
+        onConfigureGames={onConfigureGames}
+        onLoadPreviousGames={onLoadPreviousGames}></PreviousGameList>)
+
+    const gameList = screen.queryByText('List')
+    const previousGamesButton = screen.queryByText('description.cargar')
+
+    expect(screen.queryByText("Spinner")).not.toBeInTheDocument()
+    expect(gameList).not.toBeNull()
+    expect(previousGamesButton).toBeNull()
+    expect(onLoadPreviousGames).not.toHaveBeenCalled()
 });
