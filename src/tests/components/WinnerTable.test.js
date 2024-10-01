@@ -2,10 +2,13 @@ import { render, screen } from '@testing-library/react'
 import WinnerTable from '../../components/WinnerTable'
 import Sharer from '../../modules/social/components/embed/Sharers'
 import WinnerOrTieBox from '../../components/WinnerOrTieBox'
+import GameHeaderInfo from '../../components/GameHeaderInfo'
+import GameResultTable from '../../components/GameResultTable'
+import Spinner from '../../components/Spinner'
+
 import { Game, GAME_TYPE_AECAR } from '../../games/Game'
 
-const div = document.createElement('div'),
-    goToMenuMock = jest.fn();
+const div = document.createElement('div');
 let game;
 
 jest.mock('react-i18next', () => ({
@@ -21,6 +24,9 @@ jest.mock('react-i18next', () => ({
 
 jest.mock('../../modules/social/components/embed/Sharers')
 jest.mock('../../components/WinnerOrTieBox')
+jest.mock('../../components/GameHeaderInfo')
+jest.mock('../../components/GameResultTable')
+jest.mock('../../components/Spinner')
 
 beforeEach(()=>{  
     document.body.innerHTML = ''
@@ -97,25 +103,22 @@ beforeEach(()=>{
     }]
 })
 
-test("renders the basic winner table", () => {
-  const { container } = render(<WinnerTable game={game} />, div)
-  const elem  = container.querySelector(".gameParticipants")
+test("renders the basic winner table with all the elements", () => {
+  render(<WinnerTable game={game} />, div)
 
-  expect(elem.textContent.indexOf("Player1")).toBeGreaterThan(0)
+  expect(screen.getByText("winnerOrTieBox")).toBeInTheDocument()
+  expect(screen.getByText("GameHeaderInfo")).toBeInTheDocument()
+  expect(screen.getByText("GameResultTable")).toBeInTheDocument()
+  expect(screen.getByText("sharers box")).toBeInTheDocument()
 })
 
-test("renders the winner table", () => {
-    const { container } = render(<WinnerTable game={game} />, div); 
-    const elem  = container.querySelector(".gameParticipants")
-  
-    expect(elem.textContent.indexOf("Player1")).toBe(101)
-    expect(elem.textContent.indexOf("Player2")).toBe(153)
-})
+test("render spinner if game does not exist", () => {
+    delete game.players
+    render(<WinnerTable game={game} />, div)
 
-test("renders the winnerOrTieBox", () => {
-    render(<WinnerTable game={game} />, div); 
-    
-    const container = screen.getByText('winnerOrTieBox')
-
-    expect(container).not.toBeNull()
-})
+    expect(screen.queryByText("winnerOrTieBox")).not.toBeInTheDocument()
+    expect(screen.queryByText("GameHeaderInfo")).not.toBeInTheDocument()
+    expect(screen.queryByText("GameResultTable")).not.toBeInTheDocument()
+    expect(screen.queryByText("sharers box")).not.toBeInTheDocument()
+    expect(screen.getByText("Spinner")).toBeInTheDocument()
+} )
