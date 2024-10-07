@@ -6,7 +6,6 @@ import Analytics from './Analytics'
 import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
 import Landing from './pages/Landing'
-import { useTranslation } from 'react-i18next'
 import './Error.js'
 
 import './resources/css/Base.scss'
@@ -25,13 +24,9 @@ const GameViewer = lazy(() => import('./pages/GameViewer'))
 const RouteViewer = lazy(() => import('./pages/RouteViewer'))
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
-const TRUE = 1
-const FALSE = 0
-
 function App() {
-  const { t } = useTranslation(['landing'])
   const fbBase = (window.crawlear && window.crawlear.fbBase) || new FirebaseBaseController()
-  const [stateLogged, setStateLogged] = React.useState(FALSE)
+  const [stateLogged, setStateLogged] = React.useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -51,12 +46,12 @@ function App() {
   }, [])
 
   function onLogout() {
-    setStateLogged(FALSE)
+    setStateLogged(false)
   }
 
   function onLogin() {
     fbBase.getFullFirebase(() => {
-      setStateLogged(TRUE)
+      setStateLogged(true)
 
       if (route.length === 1) {
         navigate('/game')
@@ -66,7 +61,7 @@ function App() {
 
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
     <div className="App">
-      { stateLogged === TRUE ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
+      { stateLogged ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
       <div className="AppMainContainer">
           <Routes>
             <Route path="/" element={<Landing onLogin={onLogin} />} />
