@@ -2,7 +2,6 @@ import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 
-import Utils from './Utils'
 import { initializeApp } from "firebase/app"
 import { getDatabase } from "firebase/database"
 import { setDoc, 
@@ -17,8 +16,7 @@ import { setDoc,
 
 import { getAuth, 
         getRedirectResult,
-        GoogleAuthProvider,
-          signInWithRedirect, 
+        GoogleAuthProvider, 
           signInWithPopup, 
           setPersistence,
           browserLocalPersistence } from "firebase/auth"
@@ -57,7 +55,7 @@ class FirebaseBaseController {
   }
 
   initAppCheck() {
-    const appCheck = initializeAppCheck(this.app, {
+    initializeAppCheck(this.app, {
       provider: new ReCaptchaV3Provider('6LfMPSIiAAAAABUfGLi_j7mnUr1snw9RriT8eBqP'),
       isTokenAutoRefreshEnabled: true
     })
