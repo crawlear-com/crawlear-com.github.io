@@ -24,8 +24,10 @@ const GameViewer = lazy(() => import('./pages/GameViewer'))
 const RouteViewer = lazy(() => import('./pages/RouteViewer'))
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
+const getFbBase =  () => (window.crawlear && window.crawlear.fbBase) || new FirebaseBaseController()
+
 function App() {
-  const fbBase = (window.crawlear && window.crawlear.fbBase) || new FirebaseBaseController()
+  const fbBase = getFbBase()
   const [stateLogged, setStateLogged] = React.useState(false)
   const navigate = useNavigate()
   const location = useLocation()
@@ -35,6 +37,20 @@ function App() {
   window.crawlear = window.crawlear || {}
   window.crawlear.fbBase = window.crawlear.fbBase || fbBase
 
+  const onLogout = React.useCallback(()=> {
+    setStateLogged(false)
+  },[]) 
+
+  const onLogin = React.useCallback(()=>{
+    fbBase.getFullFirebase(() => {
+      setStateLogged(true)
+
+      if (route.length === 1) {
+        navigate('/game')
+      }  
+    })
+  }, [fbBase, navigate, route.length])
+
   React.useEffect(() => {
     fbBase.checkIfLogged(() => {
       onLogin()
@@ -43,21 +59,7 @@ function App() {
     })
     Analytics.init('G-J1NH6FT6E3')
     Analytics.event('App','init',`${navigator.userAgent}`)
-  }, [])
-
-  function onLogout() {
-    setStateLogged(false)
-  }
-
-  function onLogin() {
-    fbBase.getFullFirebase(() => {
-      setStateLogged(true)
-
-      if (route.length === 1) {
-        navigate('/game')
-      }  
-    })
-  }
+  }, [fbBase, onLogin, onLogout])
 
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
     <div className="App">
