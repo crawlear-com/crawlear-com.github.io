@@ -67,11 +67,11 @@ function App() {
       <div className="AppMainContainer">
           <Routes>
             <Route path="/" element={<Landing onLogin={onLogin} />} />
-            <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement />} />} />
-            <Route path="/gameconfigurator" element={<SuspenseComponent lazyComponent={<GameConfigurator />} />} />
-            <Route path="/route" element={<SuspenseComponent lazyComponent={<RoutesManagement />} />} />
+            <Route path="/game" element={<SuspenseComponent lazyComponent={<GameManagement from="/game" to="/" />} />} />
+            <Route path="/gameconfigurator" element={<SuspenseComponent lazyComponent={<GameConfigurator from="/gameconfigurator" to="/" />} />} />
+            <Route path="/route" element={<SuspenseComponent lazyComponent={<RoutesManagement from="/route" to="/" />} />} />
             <Route path="/gameviewer" element={<SuspenseComponent lazyComponent={<GameViewer gid={queryParams.get && queryParams.get('gid')} />} />} />
-            <Route path="/social" element={<SuspenseComponent lazyComponent={<PilotWall onLogout={onLogout} />} />} />
+            <Route path="/social" element={<SuspenseComponent lazyComponent={<PilotWall from="/social" to="/" onLogout={onLogout} />} />} />
             <Route path="/routeviewer" element={<SuspenseComponent lazyComponent={<RouteViewer rid={queryParams.get && queryParams.get('rid')} />} />} />
             <Route path="/profile" element={<SuspenseComponent lazyComponent={<UserViewer onLogout={onLogout} uid={queryParams.get && queryParams.get('uid')} />} />} />
             <Route path="/aboutus" element={<SuspenseComponent lazyComponent={<AboutUs />} />} />
