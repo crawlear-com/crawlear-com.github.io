@@ -127,6 +127,30 @@ class FirebaseBaseController {
     }
   }
 
+  async getUserExtraData(uid, okCallback, koCallback) {
+    try {
+      const data = {};
+      let q = query(collection(this.db, "games"), 
+        where("uids", "array-contains", uid)),
+       querySnapshot = await getDocs(q);
+      data.pilotGames = querySnapshot.docs.length;
+
+      q = query(collection(this.db, "games"), 
+        where("jids", "array-contains", uid));
+      querySnapshot = await getDocs(q);
+      data.judgeGames = querySnapshot.docs.length;
+
+      q = query(collection(this.db, "routes"), 
+      where("uids", "array-contains", uid));
+      querySnapshot = await getDocs(q);
+      data.routes = querySnapshot.docs.length;
+
+      okCallback && okCallback(data);
+      } catch(e) {
+        koCallback && koCallback();
+    }
+  }
+
   isUserLogged() {
     return this.auth.currentUser != null;
   }

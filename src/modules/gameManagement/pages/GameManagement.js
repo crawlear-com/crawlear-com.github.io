@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Analytics from '../../../Analytics.js';
-import GamePlayer from '../../gamePlayer/GamePlayer.js';
-import GameManagementMenu from '../components/GameManagementMenu.js';
-import { Navigate } from 'react-router-dom';
-import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator.js';
+import Analytics from '../../../Analytics';
+import GamePlayer from '../../gamePlayer/GamePlayer';
+import GameManagementMenu from '../components/GameManagementMenu';
+import WithAuthorization from '../../../components/WithAuthorization';
+import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator';
 
 import '../styles/GameManagement.scss';
 
@@ -12,9 +12,9 @@ const STATE_PLAYING = 1;
 const STATE_CONFIGURE = 2;
 
 function GameManagement() {
-    const fbBase = window.crawlear.fbBase
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
+    const GameConfiguratorWithAuthorization = WithAuthorization(GameConfigurator, '/gameconfigurator', '/')
 
     React.useEffect(() => {
         Analytics.pageview('/completegame/')
@@ -24,10 +24,6 @@ function GameManagement() {
             window.document.body.classList.remove('game');
         }
     },[]);
-
-    if (!fbBase.isUserLogged()) {
-        return <Navigate state={{ from: "/game" }} to={{ pathname: "/" }} />
-    }
 
     function goBackToMenuStatus() {
         window.scrollTo(0,0);
@@ -55,7 +51,7 @@ function GameManagement() {
                         onBackButtonClick={goBackToMenuStatus} />
                 : 
                 state === STATE_CONFIGURE ? 
-                    <GameConfigurator preconfiguredGame={game} />
+                    <GameConfiguratorWithAuthorization preconfiguredGame={game} />
                 :<></>}
         </>;
 }

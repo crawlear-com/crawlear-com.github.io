@@ -14,9 +14,9 @@ const STATE_LANDING = 3;
 const GameConfigurator = lazy(() => import('../modules/gameConfigurator/pages/GameConfigurator'))
 const GamePlayer = lazy(() => import('../modules/gamePlayer/GamePlayer'))
 const MainPageTextContent = lazy(() => import('./components/MainPageTextContent'))
-const fbBase = window.crawlear.fbBase
 
 function Offline() {
+    const fbBase = window.crawlear.fbBase
     const { t } = useTranslation(['main']);
     const [status, setStatus] = React.useState(STATE_LANDING);
     const [game, setGame] = React.useState(null);

@@ -14,12 +14,12 @@ import './resources/css/Footer.scss'
 
 const TxtRoute = lazy(() => import('./pages/TxtRoute'))
 const Menu = lazy(() => import('./components/Menu'))
-const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameManagement'))
-const PilotWall = lazy(() => import('./modules/social/pages/PilotWall'))
+const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameManagementWithAuthorization'))
+const PilotWall = lazy(() => import('./modules/social/pages/PilotWallWithAuthorization'))
 const AboutUs = lazy(() => import('./pages/AboutUs'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
-const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/GameConfigurator'))
-const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagement'))
+const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/GameConfiguratorWithAuthorization'))
+const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagementWithAuthorization'))
 const GameViewer = lazy(() => import('./pages/GameViewer'))
 const RouteViewer = lazy(() => import('./pages/RouteViewer'))
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
@@ -47,7 +47,7 @@ function App() {
 
       if (route.length === 1) {
         navigate('/game')
-      }  
+      }
     })
   }, [fbBase, navigate, route.length])
 
