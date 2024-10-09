@@ -14,7 +14,7 @@ const STATE_CONFIGURE = 2;
 function GameManagement() {
     const [state, setState] = React.useState(STATE_MENU);
     const [game, setGame] = React.useState({});
-    const GameConfiguratorWithAuthorization = WithAuthorization(GameConfigurator, '/gameconfigurator', '/')
+    const GameConfiguratorWithAuthorization = WithAuthorization(GameConfigurator)
 
     React.useEffect(() => {
         Analytics.pageview('/completegame/')
@@ -51,7 +51,7 @@ function GameManagement() {
                         onBackButtonClick={goBackToMenuStatus} />
                 : 
                 state === STATE_CONFIGURE ? 
-                    <GameConfiguratorWithAuthorization preconfiguredGame={game} />
+                    <GameConfiguratorWithAuthorization from="/gameconfigurator" to="/" preconfiguredGame={game} />
                 :<></>}
         </>;
 }
