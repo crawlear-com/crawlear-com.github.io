@@ -6,17 +6,17 @@ import GameProgressionInfoContainer from '../../../components/GameProgressionInf
 import { itemProps } from './ListItem'
 import { GameUtils } from '../../../games/Game'
 
-function gameListTransformer(games: Array<Game>) {
-    const gamesUi: Array<itemProps> = []
+function gameListTransformer(games) {
+    const gamesUi = []
 
-    games.forEach((game: Game) => {
+    games.forEach((game) => {
         gamesUi.push(itemTransform(game))
     })
 }
 
-function itemTransform(game: Game): itemProps {
-    let info: React.JSX.Element = <></>, 
-        director: string = ''
+function itemTransform(game) {
+    let info = <></>, 
+        director = ''
 
 
     if (game.gameStatus === GAME_STATUS_CREATED || game.gameStatus === GAME_STATUS_PLAYING) {

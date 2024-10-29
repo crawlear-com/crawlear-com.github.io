@@ -1,35 +1,30 @@
-"use client"
-
 import * as React from 'react'
-import UseGameViewer from './hooks/UseGameViewer'
-import WinnerTable from '../components/WinnerTable'
-import { useTranslation } from 'react-i18next'
-import Spinner from '../components/Spinner'
+import { Game } from 'src/games/Game'
+import Spinner from 'src/components/Spinner'
+import WinnerTable from 'src/components/WinnerTable'
+import { useTranslation } from 'src/app/i18n'
 
 interface GameViewerProps {
-    gid: string
+    game: Game
 }
 
-function GameViewer({ gid }: GameViewerProps) {
-    const { t } = useTranslation('main')
-    const [game] = UseGameViewer(gid)
+async function GameViewer({ game }: GameViewerProps) {
+    const { t } = await useTranslation('es', 'main')
     let result = <></>
 
-    if (!game.players) {
+    if (game.players) {
         result = <Spinner></Spinner>
     } else if (game.isPublic) {
         result = <>
             <div className='headerText bold'>{ game.name }</div>
+            {/* @ts-expect-error Server Component */}
             <WinnerTable game={game} />
         </>
     } else {
        result = <>{t('description.juegonopublico')}</> 
     }
 
-    return <>
-        
-        {result}
-    </>
+    return <>{ result }</>
 }
 
-export default GameViewer;
+export default GameViewer

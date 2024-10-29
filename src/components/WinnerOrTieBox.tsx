@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { Game } from '../games/Game'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'src/app/i18n'
 
 interface WinnerOrTieBoxProps {
     game: Game
 }
 
-function WinnerOrTieBox({ game}: WinnerOrTieBoxProps) {
-    const { t } = useTranslation(['main'])
+async function WinnerOrTieBox({ game}: WinnerOrTieBoxProps) {
+    const { t } = await useTranslation('es', 'main')
 
     if (isDraw(game)) {
             return <div className="">{t('description.empate')}</div>

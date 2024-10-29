@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'src/app/i18n'
 import GameResultTable from './GameResultTable'
 import GameHeaderInfo from './GameHeaderInfo'
 import Sharers from '../modules/social/components/embed/Sharers'
@@ -8,8 +8,8 @@ import WinnerOrTieBox, { isDraw } from './WinnerOrTieBox'
 
 import '../resources/css/WinnerTable.scss'
 
-function WinnerTable({ game }) {
-    const { t } = useTranslation(['main'])
+async function WinnerTable({ game }) {
+    const { t } = await useTranslation('es', 'main')
 
     if (game.players) {
         return <div className='gameContainer'>

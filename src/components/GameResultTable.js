@@ -7,7 +7,7 @@ import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
 import { Levante124GameScores } from '../games/Levante124GameScores';
 import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
 import { GenericGameScores } from '../games/GenericGameScores';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'src/app/i18n'; 
 import { GAME_TYPE_ISRCC,
     GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
@@ -21,9 +21,10 @@ import batteryIcon from '../resources/img/iconBattery.png';
 import openIcon from '../resources/img/arrowdown.png';
 
 
-function GameResultTable({game, isDraw}) {
-    const { t } = useTranslation(['main']),
+async function GameResultTable({game, isDraw}) {
+    const { t } = await useTranslation('es', 'main'),
         players = [];
+
     let gameTypeTexts = Utils.tokenToTexts(t,AecarGameScores.texts),
         j=0, i=0;
 

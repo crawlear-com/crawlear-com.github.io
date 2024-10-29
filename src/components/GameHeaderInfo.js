@@ -2,12 +2,12 @@ import * as React from 'react'
 import GoogleMapsLocation from '../modules/social/components/embed/GoogleMapsLocation'
 import Utils from '../Utils'
 import { GameUtils } from '../games/Game'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'src/app/i18n'
 
 import '../resources/css/GameHeaderInfo.scss'
 
-function GameHeaderInfo({game}) {
-    const { t } = useTranslation(['main']);
+async function GameHeaderInfo({game}) {
+    const { t } = await useTranslation('es', 'main')
 
     return <div className="gameHeaderInfo rounded"><div className="gameGameType">{t('gametype.modojuego')}: <span className="bold">{t(GameUtils.resolveGameTypeName(game.gameType))}</span></div>
         <div className="gamePointsType">{t('description.zonas')}: <span className="bold">{game.zones}</span></div> 
