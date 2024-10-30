@@ -5,11 +5,12 @@ export enum TimerStates {
     Update = 'update'
 }
 
-interface TimerState {
+export interface TimerState {
     millis: number
     timer: number
     state: TimerStates
     timeStart: number
+    maxTime: number
 }
 
 interface TimerActionPayload {
