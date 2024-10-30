@@ -1,27 +1,8 @@
-import * as React from 'react';
-import { useTranslation } from 'react-i18next';
-import Analytics from '../../../Analytics';
-import Utils from '../../../Utils';
+import * as React from 'react'
 import EventManager from '../../../EventManager'
-import { MSG_TIME, MSG_START, MSG_STOP } from '../Bluetooth';
-import useTimerStateChangeReducer from '../hooks/useTimerStateChangeReducer';
-import { TimerStates } from '../reducers/TimerStateChangeReducer';
+import useTimerStateChangeReducer, { TimerStates } from '../hooks/useTimerStateChangeReducer';
 
-import '../styles/TimerControl.scss';
-
-const TIMER_MIN_INTERVAL = 10;
-
-function TimerControl({
-    startTime,
-    forceAction,
-    label,
-    onTimerChange,
-    courtesyTime,
-    maxTime,
-    onPointBecauseLastMinute,
-    onTimeFiasco }) {
-
-    const { t } = useTranslation(['main'])
+const useTimerControl = (startTime: number, maxTime: number) => {
     const eventManager = React.useMemo(()=>new EventManager(), [])
     const containerRef = React.useRef(null)
     const tickTime = React.useRef(startTime || 0)
@@ -90,18 +71,6 @@ function TimerControl({
         onTimerChange && onTimerChange(tickTime.current)
         eventManager.sendMessage(MSG_STOP, {})
     }, [state.timer, onTimerChange, dispatch, eventManager])
-
-    React.useEffect(() => {
-        forceAction === TimerStates.Stop && onReset()
-        forceAction === TimerStates.Pause && state.state === TimerStates.Play && onPlayPauseChange()
-    }, [forceAction, onPlayPauseChange, onReset, state])
-
-    return <div ref={containerRef} className="timerContainer">
-        <div className='timerLabel'>{(label || t('description.tiempo')).toUpperCase()}:</div>
-        <div className="timer">{Utils.printTime(timeValue)}</div>
-        <button className="timerPlayButton" onClick={onPlayPauseChange}></button>
-        <button onClick={onReset} className="resetButton"></button>
-    </div>;
 }
 
-export default TimerControl;
+export default useTimerControl

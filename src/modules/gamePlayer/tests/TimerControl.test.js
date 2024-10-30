@@ -1,7 +1,6 @@
-import { render } from '@testing-library/react';
+import * as React from 'react'
+import { render, screen } from '@testing-library/react';
 import TimerControl from '../components/TimerControl.js';
-
-const div = document.createElement('div');
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -12,28 +11,27 @@ jest.mock('react-i18next', () => ({
           }
       };
   }
-}));
+}))
 
-beforeEach(()=>{  
-  document.body.innerHTML = '';
-  div.className = 'AppMainContainer';
-  document.body.append(div);
-});
+beforeEach(() => {
+    const mockDispatch = jest.fn()
+    jest.mock('../hooks/useTimerStateChangeReducer', (startTime, maxTime) => {
+        const initialState = {
+            millis: startTime || 0,
+            timer: 0,
+            maxTime: maxTime,
+            state: 'pause',
+            timeStart: Date.now()
+        }
+
+        return [initialState, mockDispatch]
+    })
+})
 
 test('renders TimerControl', () => {
-    const onPlayPauseChangeMock = jest.fn(),
-        { container } = render(<TimerControl time={1000} onPlayPauseChange={onPlayPauseChangeMock} />, div);
+    const onPlayPauseChangeMock = jest.fn()
 
-    expect(container.querySelector(".timer").textContent).toBe("00:00:000");
+    render(<TimerControl time={1000} onPlayPauseChange={onPlayPauseChangeMock} />);
+
+    expect(screen.getByText("00:00:000")).toBeInTheDocument()
 });
-
-/*
-test('TimerControl play/pause callback', () => {
-    const onTimerChangeMock = jest.fn(),
-        { container } = render(<TimerControl time={0} onTimerChange={onTimerChangeMock} />, div),
-        playPauseButton = container.querySelector(".timerPlayButton");
-
-    playPauseButton.click();
-    expect(onTimerChangeMock).toHaveBeenCalled();
-});
-*/
