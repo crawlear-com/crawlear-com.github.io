@@ -8,10 +8,10 @@ import { Levante124GameScores } from '../games/Levante124GameScores';
 import { IsrccGameScores } from '../games/IsrccGameScores';
 import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
 import { GenericGameScores } from '../games/GenericGameScores';
-import { GAME_TYPE_ISRCC, 
-    GAME_TYPE_LEVANTE, 
+import { GAME_TYPE_ISRCC,
+    GAME_TYPE_LEVANTE,
     GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION, 
+    GAME_TYPE_MINICRAWLERPASSION,
     GAME_TYPE_GENERIC,
     GameUtils } from '../games/Game';
 
@@ -35,58 +35,58 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
             gameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.texts);
             fiascoGameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.fiascoTexts);
         }
-        
+
         if(gameType === GAME_TYPE_LEVANTE) {
-            gameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.texts);   
+            gameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.texts);
             fiascoGameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.fiascoTexts);
         }
 
         if(gameType ===GAME_TYPE_COPAESPANA) {
-            gameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.texts);   
+            gameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.texts);
             fiascoGameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.fiascoTexts);
         }
 
         if(gameType ===GAME_TYPE_MINICRAWLERPASSION) {
-            gameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.texts);   
+            gameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.texts);
             fiascoGameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.fiascoTexts);
         }
 
         if(gameType ===GAME_TYPE_GENERIC) {
-            gameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.texts);   
+            gameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.texts);
             fiascoGameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.fiascoTexts);
-        }   
-        
+        }
+
         return <>
             <ul>
                 <li>{t('description.puntos')}: <span className="bold">{points}</span></li>
                 {gateProgression ? <li>{t('description.avancepuerta')}: <span className="bold">{gateProgression}</span></li> : <></>}
-                {typeof(gateFails) !== undefined && typeof(bonitification) !== undefined ? <>
+                {typeof(gateFails) !== 'undefined' && typeof(bonitification) !== 'undefined' ? <>
                     <li>{t('description.fallospuerta')}: <span className="bold">{gateFails}</span></li>
                     <li>{t('description.bonificacion')}: <span className="bold">{bonitification*-2}</span></li></>
                 :<></>}
-                {typeof(simpathyPoints) !== undefined ? 
-                    <li>{t('description.portiempo')}: <span className="bold">{simpathyPoints}</span></li> 
+                {typeof(simpathyPoints) !== 'undefined' ?
+                    <li>{t('description.portiempo')}: <span className="bold">{simpathyPoints}</span></li>
                 :<></>}
-                {typeof(handicap) !== undefined ? 
-                    <li>{t('description.handicap')}: <span className="bold">{handicap}</span></li> 
+                {typeof(handicap) !== 'undefined'?
+                    <li>{t('description.handicap')}: <span className="bold">{handicap}</span></li>
                 :<></>}
                 <li>{t('description.total')}: <span className="bold">{totalPoints}</span></li>
                 <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>
             </ul>
 
             <ControlTextArrayVisualization
-                controlTextValues={gameProgression.data.gateProgressionData ? 
+                controlTextValues={gameProgression.data.gateProgressionData ?
                     GameUtils.sumControlTextValues(gameProgression.data.gateProgressionData)
-                    : gameProgression.data.controlTextValues} 
+                    : gameProgression.data.controlTextValues}
                 texts={gameTypeTexts} />
 
-            {gameProgression.data.fiascoControlTextValues && gameProgression.data.fiascoControlTextValues.filter(x => x > 0).length>0 ? 
+            {gameProgression.data.fiascoControlTextValues && gameProgression.data.fiascoControlTextValues.filter(x => x > 0).length>0 ?
             <>
                 <div className="fiascosText left bold">{t('points.fiascos')}:</div>
-                <ControlTextArrayVisualization 
-                    controlTextValues={gameProgression.data.fiascoControlTextValues} 
-                    texts={fiascoGameTypeTexts} /> 
-            </> : 
+                <ControlTextArrayVisualization
+                    controlTextValues={gameProgression.data.fiascoControlTextValues}
+                    texts={fiascoGameTypeTexts} />
+            </> :
             <></>}
         </>;
     }

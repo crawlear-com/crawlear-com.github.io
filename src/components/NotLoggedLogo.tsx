@@ -5,7 +5,7 @@ function NotLoggedLogo() {
     const fb = window.crawlear && window.crawlear.fbBase
 
     if (!fb || !fb.isUserLogged()) {
-        return <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a>
+        return <a rel="noreferrer" href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a>
     } else {
         return <></>
     }

@@ -9,7 +9,7 @@ function GameProgressionDirector({game, gameProgression}) {
     const requestsRef = React.useRef();
     const [requests, setRequests] = React.useState({});
     const res = [];
-    
+
     res.push(<div key={'zC'} className=''>{t('content.zonascompletadas')}</div>);
 
     function onPresenceRequestAdded(key, value) {
@@ -39,13 +39,13 @@ function GameProgressionDirector({game, gameProgression}) {
             delete newRequests[requestKey];
             setRequests(newRequests);
             requestsRef.current = newRequests;
-            firebase.acceptDirectorPresenceRequest(game.gid, requestKey);    
+            firebase.acceptDirectorPresenceRequest(game.gid, requestKey);
         }
     }
 
     React.useEffect(()=>{
         firebase.getDirectorPresenceRequest(game.gid, onPresenceRequestAdded, onPresenceRequestChanged);
-    }, []);
+    }, [firebase, game.gid]);
 
     for(let i=0; i<game.zones; i++) {
         let groupDone = [];
@@ -56,7 +56,7 @@ function GameProgressionDirector({game, gameProgression}) {
             Object.entries(group[1]).forEach((player, pIndex)=>{
                 if (player[1] && player[1][i] && player[1][i].status === 'done' && player[1][i].data) {
                     playersIngroupDone++;
-                }    
+                }
             });
 
             if (playersIngroupDone === Object.entries(group[1]).length) {

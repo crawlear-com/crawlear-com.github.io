@@ -45,19 +45,19 @@ class Game {
     gameStatus: number;
     owner: Array<string>;
     courtesyTime: number;
-    
-    constructor(name:string, 
-        date: string, 
-        location: Location, 
-        isPublic: boolean, 
+
+    constructor(name:string,
+        date: string,
+        location: Location,
+        isPublic: boolean,
         gameType: GameType,
         players: Array<Player>,
         judges: Array<Judge>,
-        maxTime: number, 
+        maxTime: number,
         maxPoints: number,
         gates: Array<number>,
         zones: number,
-        gameStatus: number, 
+        gameStatus: number,
         uids: Array<string>,
         jids: Array<string>,
         owner: Array<string>) {
@@ -83,7 +83,7 @@ class Game {
             this.courtesyTime = 0;
         } else {
             let courtesyTime;
-    
+
             switch (gameType) {
                 case GAME_TYPE_AECAR:
                     courtesyTime = AecarGameScores.courtesyTime;
@@ -96,7 +96,7 @@ class Game {
                     break;
                 case GAME_TYPE_LEVANTE:
                     courtesyTime = Levante124GameScores.courtesyTime;
-                    break;    
+                    break;
                 case GAME_TYPE_COPAESPANA:
                     courtesyTime = RegionalZonaRcGameScores.courtesyTime;
                     break;
@@ -106,7 +106,7 @@ class Game {
                 case GAME_TYPE_GENERIC:
                     courtesyTime = GenericGameScores.courtesyTime;
                     break;
-                default: 
+                default:
                     courtesyTime = 0;
             }
             this.courtesyTime = courtesyTime;
@@ -119,11 +119,11 @@ class Game {
 }
 
 class GameUtils {
-    static init(game: Game, 
-        controlTextValuesInit: Function, 
+    static init(game: Game,
+        controlTextValuesInit: Function,
         fiascoControlTextValuesInit: Function,
         forceInitZones: boolean) {
-        
+
         game.gameStatus = 0;
         game.players.forEach((player)=>{
             player.time = 0;
@@ -134,7 +134,7 @@ class GameUtils {
 
             if (!player.zones || player.zones.length===0 || forceInitZones) {
                 player.zones = [];
-        
+
                 for (let k=0; k<game.zones;k++) {
                     const zone: Zone = {
                         points: 0,
@@ -164,7 +164,6 @@ class GameUtils {
     }
 
     static createGameProgression(zones: number, players: number) {
-        const groups = 1;
         const gameProgressionData = new Array(1);
 
         gameProgressionData[0] = new Array(players);
@@ -191,7 +190,7 @@ class GameUtils {
 
     static getGameTypeBodyClassName(gameType: GameType) {
         let classname;
-    
+
         switch (gameType) {
             case GAME_TYPE_AECAR:
                 classname = 'aecar';
@@ -204,7 +203,7 @@ class GameUtils {
                 break;
             case GAME_TYPE_LEVANTE:
                 classname = 'levante';
-                break;    
+                break;
             case GAME_TYPE_COPAESPANA:
                 classname = 'regionalzonarc';
                 break;
@@ -214,17 +213,17 @@ class GameUtils {
             case GAME_TYPE_GENERIC:
                 classname = 'generic';
                 break;
-    
-            default: 
+
+            default:
                 classname = '';
         }
-    
+
         return classname;
     }
 
     static getGameTypeControlTextValuesInit(gameType: GameType) {
         let initFunct;
-    
+
         switch (gameType) {
             case GAME_TYPE_AECAR:
                 initFunct = AecarGameExtras.controlTextValuesInit;
@@ -237,7 +236,7 @@ class GameUtils {
                 break;
             case GAME_TYPE_LEVANTE:
                 initFunct = Levante124GameExtras.controlTextValuesInit;
-                break;    
+                break;
             case GAME_TYPE_COPAESPANA:
                 initFunct = RegionalZonaRcGameExtras.controlTextValuesInit;
                 break;
@@ -246,17 +245,17 @@ class GameUtils {
                 break;
             case GAME_TYPE_GENERIC:
                 initFunct = GenericGameExtras.controlTextValuesInit;
-                break;    
-            default: 
+                break;
+            default:
                 initFunct = IsrccGameExtras.controlTextValuesInit;
         }
-    
+
         return initFunct;
     }
-    
+
     static getGameTypeFiascoControlTextValuesInit(gameType: GameType) {
         let initFunct;
-    
+
         switch (gameType) {
             case GAME_TYPE_AECAR:
                 initFunct = AecarGameExtras.fiascoControlTextValuesInit;
@@ -279,10 +278,10 @@ class GameUtils {
             case GAME_TYPE_GENERIC:
                 initFunct = GenericGameExtras.fiascoControlTextValuesInit;
                 break;
-            default: 
+            default:
                 initFunct = IsrccGameExtras.fiascoControlTextValuesInit;
         }
-    
+
         return initFunct;
     }
 
@@ -317,19 +316,19 @@ class GameUtils {
     static sumControlTextValues(gateProgresionData:Array<GateProgressionData>) {
         const arrayLength = gateProgresionData.length ? gateProgresionData[0].controlTextValues.length : 0;
         const controlTextValues = new Array(arrayLength).fill(0);
-    
+
         gateProgresionData.forEach((data)=>{
             data.controlTextValues.forEach((control, index)=>{
                 controlTextValues[index] += control;
             })
         })
-    
+
         return controlTextValues;
     }
 
     static isFiasco(game: Game, playerIndex: number, zoneIndex: number) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
-    
+
         return (this.isFiascoFromFiascoControlTextValues(game, playerIndex, zoneIndex) ||
             (this.isPointsFiasco(game, playerZone)) ||
             (this.isTimeFiasco(game, playerZone)));
@@ -337,12 +336,12 @@ class GameUtils {
 
     static isFiascoFromFiascoControlTextValues(game: Game, playerIndex: number, zoneIndex: number) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
-        let fiasco = false, 
+        let fiasco = false,
             gate = 0;
-    
+
         while(!fiasco && gate<game.gates[zoneIndex]) {
             let control = 0;
-    
+
             while (!fiasco && control<playerZone.fiascoControlTextValues.length) {
                 if (playerZone.fiascoControlTextValues[control]>0) {
                     fiasco = true;
@@ -367,15 +366,15 @@ class GameUtils {
     static isNonPresentedFiasco(game: Game, playerIndex: number, zoneIndex: number) {
         const playerZone = game.players[playerIndex].zones[zoneIndex];
         let fiasco = false, gate = 0;
-    
+
         while(!fiasco && gate<game.gates[zoneIndex]) {
             if (playerZone.fiascoControlTextValues[0]>0) {
                 fiasco = true;
             } else {
                 gate++;
-            } 
+            }
         }
-    
+
         return fiasco;
     }
 
@@ -430,7 +429,7 @@ export const OfflinePlayer = {
         gatesWithBonification: 0,
         gatesWithFail: 0,
         handicap: 0,
-        judgedBy: new Array(),
+        judgedBy: [],
         points: 0,
         simpathyPoints: 0,
         time: 0,

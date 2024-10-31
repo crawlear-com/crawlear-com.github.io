@@ -16,7 +16,7 @@ function UserViewer({ uid, onLogout }) {
         let userType = getUserType(userData)
 
         return <div className="userViewer">
-            {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> :
+            {!fbBase.isUserLogged() ? <a rel="noreferrer" href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> :
                 <><div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div></>}
             <><UserProfile onLogout={onLogout} user={user} />
                 <div className="statistics rounded rounded3">
@@ -25,12 +25,12 @@ function UserViewer({ uid, onLogout }) {
                     <div>{t('description.partidascomopiloto')}: {userData.pilotGames || 0}</div>
                     <div>{t('description.rutas')}: { userData.routes || 0 }</div>
                     <p className='bold'>
-                        {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') : 
-                        (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') : 
+                        {userType === USER_TYPE_JUDGE ? t('description.tendenciajuez') :
+                        (userType === USER_TYPE_PILOT ? t('description.tendenciapiloto') :
                         userType === USER_TYPE_ROUTE ? t('description.tendenciaruta') : t('description.tendencianeutral'))}
                     </p>
                     <p>
-                        
+
                     </p>
                 </div></>
         </div>

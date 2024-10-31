@@ -2,7 +2,6 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import ListMenu from './components/ListMenu'
 import ListItem from './components/ListItem'
-import { itemProps } from './components/ListItem'
 
 import './styles/List.scss'
 
@@ -22,7 +21,7 @@ function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemActi
 
     function onRemoveItemClick(event: React.MouseEvent<HTMLDivElement>) {
         const position = Number((event.target as HTMLDivElement).getAttribute("data-itemposition"))
-        
+
         if (window.confirm(t('content.seguroborrarpost'))) {
             onRemoveItem && onRemoveItem(position)
         }
@@ -31,7 +30,7 @@ function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemActi
     function onConfigureItemClick(event: React.MouseEvent<HTMLDivElement>) {
         const position = Number((event.target as HTMLDivElement).getAttribute("data-itemposition"))
 
-        onConfigureItem && onConfigureItem(position);                
+        onConfigureItem && onConfigureItem(position);
     }
 
     function onOpenClose() {
@@ -41,7 +40,7 @@ function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemActi
     data && data.forEach((item) => {
         list.push(<div key={i}>
             { onConfigureItem && onRemoveItem && <ListMenu key={`menu${i}`} itemPosition={i}
-                onConfigureClick={onConfigureItemClick} 
+                onConfigureClick={onConfigureItemClick}
                 onRemoveClick={onRemoveItemClick} /> }
             <ListItem key={`item${i}`} item={transformer(item)}
                 onItemAction={onItemAction}

@@ -10,10 +10,10 @@ const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFF
 
 function PlayerController({
   inPlayers,
-  onPlayerNumerChange, 
-  onGameDirectorChange, 
-  gameName, 
-  isForJudge, 
+  onPlayerNumerChange,
+  onGameDirectorChange,
+  gameName,
+  isForJudge,
   maxGroups}) {
 
   const [players, setPlayers] = React.useState(inPlayers || []);
@@ -21,7 +21,7 @@ function PlayerController({
 
   React.useEffect(() => {
     onPlayerNumerChange && onPlayerNumerChange(players);
-  }, [players]);
+  }, [players, onPlayerNumerChange]);
 
   function removePlayer(event) {
     Analytics.event('menu', 'removePlayer', players[event.target.id].name);
@@ -35,10 +35,10 @@ function PlayerController({
   function onUserSeachPlayerAdd(player) {
     const value = player.displayName;
 
-    if (!value || 
-        value.trim().length===0 || 
+    if (!value ||
+        value.trim().length===0 ||
         players.find(x=>x.uid===player.uid && player.uid.length>0) || (
-          isForJudge && !player.uid 
+          isForJudge && !player.uid
         )) return;
 
     players.push({
@@ -76,16 +76,16 @@ function PlayerController({
     <div className="players rounded rounded1">
       <div className="headerText bold">{isForJudge ? t('description.jueces') : t('description.jugadores') }</div>
 
-      <UserSearch 
+      <UserSearch
         isForJudge={isForJudge}
-        onUserSeachPlayerAdd={onUserSeachPlayerAdd} 
+        onUserSeachPlayerAdd={onUserSeachPlayerAdd}
         gameName={gameName} />
       <div className="headerText">{isForJudge ? t('description.juecesenpartida') : t('description.usuariosenpartida')}</div>
       <ul className="playersList">
-          {players.length === 0 ? playersTxt : players.map((player, i) => { 
-              return <PlayerItem 
+          {players.length === 0 ? playersTxt : players.map((player, i) => {
+              return <PlayerItem
                 key={i}
-                player={player} 
+                player={player}
                 i={i}
                 onGameDirectorChange={onGameDirectorChangeEvent}
                 maxGroups={maxGroups}
