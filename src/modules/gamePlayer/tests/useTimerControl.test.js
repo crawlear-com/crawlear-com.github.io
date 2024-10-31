@@ -28,7 +28,7 @@ jest.mock('../hooks/useTimerStateChangeReducer', () => (startTime, maxTime) => {
 
 beforeEach(() => {
     window.clearInterval = jest.fn()
-    window.setInterval = jest.fn(() => { console.log('entra 1212'); return 1212 })
+    window.setInterval = jest.fn(() => 1212)
 })
 
 afterEach(() => {
