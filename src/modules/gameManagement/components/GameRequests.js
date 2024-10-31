@@ -27,12 +27,12 @@ function GameRequests({user}) {
     }
 
     React.useEffect(()=>{
-        fb.getUserGameRequests(user.uid, 
-            getUserGameRequestsOk, 
+        fb.getUserGameRequests(user.uid,
+            getUserGameRequestsOk,
             ()=>{},
             onRequestAdded,
             onRequestRemoved)
-    },[])
+    },[fb, user.uid])
 
     gameRequests && Object.keys(gameRequests).forEach((key)=>{
         requestsList.push(<div className="gameRequestsItem smallText">

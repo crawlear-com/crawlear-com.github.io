@@ -25,7 +25,7 @@ function UserProfile({user, onLogout}) {
                 setFid(result)
             }, ()=>{})
         }
-    },[isUserLoged])
+    },[isUserLoged, fb, user.uid])
 
     function onUserNameChange(event) {
         const newUserName = event.target.value

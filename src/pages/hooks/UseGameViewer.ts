@@ -13,7 +13,7 @@ function UseGameViewer(gid: string) {
                 setGame(newGame)
             }
         })
-    }, [])
+    }, [firebase, gid])
 
     return [game]
 }

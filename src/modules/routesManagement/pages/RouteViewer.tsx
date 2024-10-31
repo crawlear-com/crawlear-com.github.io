@@ -25,7 +25,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
 
     React.useEffect(() => {
         Analytics.pageview(`/routeviewer/${route.rid}`)
-    }, [])
+    }, [route.rid])
 
     if (isOwner || route.isPublic) {
         return <div className="routesManagement rounded rounded2">
@@ -36,7 +36,7 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
                 <div className="value ispublic">{route.isPublic ? t("description.publico") : ''} </div>
             </div>
             <GpxRouteMap gpx={route.gpx.data}></GpxRouteMap>
-            { route.youtubeVideo ? 
+            { route.youtubeVideo ?
                 <div className="routesSection">
                     <div className="value"><Youtube url={route.youtubeVideo}></Youtube></div>
             </div> : <></> }

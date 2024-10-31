@@ -23,14 +23,14 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         Analytics.pageview(`/gameconfigurator`)
     }, [])
 
-    const [game, errorMessage, groups, onGameTypeChange, onLocationResolved, 
-        onJudgeNumerChange, onPlayerNumerChange, onMaxPointsChange, 
+    const [game, errorMessage, groups, onGameTypeChange, onLocationResolved,
+        onJudgeNumerChange, onPlayerNumerChange, onMaxPointsChange,
         onMaxTimeChange, onZonesChange, onGatesChange, onNameChange,
-        onGroupsChange, onIsPublicChange, onGameDirectorChange, 
+        onGroupsChange, onIsPublicChange, onGameDirectorChange,
         onRandomizePlayersOrder, createGame] = UseGameConfigurator({ preconfiguredGame, onGameCreated })
 
     extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
-        mode={game.pointsType} 
+        mode={game.pointsType}
         onMaxPointsChange={onMaxPointsChange}
         onMaxTimeChange={onMaxTimeChange}
         time={game.maxTime}
@@ -49,8 +49,8 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
             zones={game.zones}
             value={10}
             onGatesChange={onGatesChange} />);
-        extraConfigurationComponents.push(<GroupsPicker key={3} 
-            onGroupsChange={onGroupsChange} 
+        extraConfigurationComponents.push(<GroupsPicker key={3}
+            onGroupsChange={onGroupsChange}
             value={1}
             minValue={1}
             maxValue={10}
@@ -81,13 +81,13 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
                     <span className="">{t('description.esPublica')}</span>: <input type="checkbox" checked={game.isPublic} onChange={onIsPublicChange}></input>
                 </div>
                 <div className="newGameRow">
-                    <span className="">{t('description.localizacion')}</span>: 
+                    <span className="">{t('description.localizacion')}</span>:
                     <LocationResolver onLocationResolved={onLocationResolved}></LocationResolver>
                 </div>
             </div>
         </div>
 
-        <GameTypeController 
+        <GameTypeController
             selectedGameType={game.gameType}
             selectedPointsType={game.pointsType}
             onGameTypeChange={(selectedIndex) => {
@@ -97,7 +97,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
 
         {extraConfigurationComponents}
 
-        <PlayerController gameName={game.name} 
+        <PlayerController gameName={game.name}
             isForJudge={false}
             inPlayers={game.players}
             maxGroups={groups}
@@ -107,7 +107,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         }/>
         <input type="checkbox" onChange={onRandomizePlayersOrder}></input>{t('description.ordenRamdomJugadores')}
         <p>
-            <button className="importantNote" 
+            <button className="importantNote"
                 onClick={() => {
                     createGame(groups, game);
                 }

@@ -18,15 +18,15 @@ function GamePlayer({inGame, onBackButtonClick}) {
     const [state, game, gameProgression, setGameProgression, player, zone,
         onBeginGame, onClosePlayButtonClick, onGameEnd, onRepair] = UseGamePlayer(inGame, gameExtras)
     const childrenContent = GamePlayerUtils.getGameContent(game.gameType, player.id, zone)
-    
+
     const [jidGroup] = React.useState(()=>{
         return GamePlayerUtils.getGroupFromJid(game, window.crawlear.user.uid)
     })
 
     if (state === GAME_STATUS_CREATED) {
         if (game.gameType === GAME_TYPE_KING) {
-            view = <GameTypePlayer 
-            game={game} 
+            view = <GameTypePlayer
+            game={game}
             onGameEnd={onGameEnd}
             gameExtras={gameExtras} />;
         } else {
@@ -38,16 +38,16 @@ function GamePlayer({inGame, onBackButtonClick}) {
         }
 
     } else if (state === GAME_STATUS_PLAYING) {
-        view = <GameTypePlayer 
+        view = <GameTypePlayer
             player={player.id}
-            zone={zone} 
+            zone={zone}
             game={game}
             gameExtras={gameExtras}
             onGameEnd={onGameEnd}
             onRepair={onRepair}>
                 {childrenContent}
             </GameTypePlayer>;
-    } else if (state === GAME_STATUS_FINISHED) { 
+    } else if (state === GAME_STATUS_FINISHED) {
         view = <div className="gameList"><WinnerTable game={game} />
         <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button></div>
     }

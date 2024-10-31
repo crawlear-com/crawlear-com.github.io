@@ -12,7 +12,7 @@ function UseRouteViewer(rid: string) {
         fbBase.getRoute(rid, true, (newRoute: Route) => {
             setRoute(newRoute)
         })
-    }, [])
+    }, [fbBase, rid])
 
     return [route]
 }

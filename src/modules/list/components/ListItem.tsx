@@ -1,5 +1,4 @@
 import * as React from 'react'
-import ListMenu from './ListMenu'
 
 import '../styles/ListItem.scss'
 
@@ -19,7 +18,7 @@ function ListItem({ item, itemPosition, onOpenClose, onItemAction }: ListItemPro
 
     function openCloseItem(event: React.MouseEvent<HTMLSpanElement>) {
         const targetParent = (event.target as HTMLSpanElement).parentElement
-  
+
         if(targetParent) {
             targetParent.classList.toggle('closed')
             if(!targetParent.classList.contains('closed')) {

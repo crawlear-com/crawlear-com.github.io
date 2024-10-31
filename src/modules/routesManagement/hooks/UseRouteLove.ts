@@ -13,12 +13,11 @@ function UseRouteLove(rid: string, onLove?: Function): Array<any> {
         setLid(lid)
       }, ()=>{})
     }
-  }, [])
+  }, [fb, isLogged, rid])
 
   function changeStateOnClick(e: React.MouseEvent<HTMLSpanElement>): void {
     if (isLogged) {
       onLove && onLove(!state)
-    
       if (!state) {
         fb.loveRoute(window.crawlear.user.uid, rid, (lid: string) => {
           setLid(lid)

@@ -23,6 +23,9 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
             [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
 
         newGame.date = new Date().toLocaleDateString()
+        if (isOffline) {
+            newGame.judges = [{...OfflinePlayer}]
+        }
         return newGame
     });
     const navigate = useNavigate()
@@ -34,9 +37,6 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
 
     React.useEffect(()=>{
         window.scrollTo(0,0)
-        if (isOffline) {
-            onJudgeNumerChange([OfflinePlayer])
-        }
     }, [])
 
     function onGameTypeChange(selectedIndex: number) {
@@ -60,7 +60,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         }
     }
 
-    function onJudgeNumerChange(judges: Array<any>) {
+    const onJudgeNumerChange = (judges: Array<any>) => {
         const newGame: any = {...game}
         let action = 'addJudge'
 
@@ -77,7 +77,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         setErrorMessage("")
     }
 
-    function onPlayerNumerChange(players: Array<any>) {
+    const onPlayerNumerChange =(players: Array<any>) => {
         const newGame: any = {...game}
         let action = 'addPlayer'
 

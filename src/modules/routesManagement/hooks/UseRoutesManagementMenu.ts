@@ -9,13 +9,13 @@ function UseRoutesManagementMenu(): Array<any> {
   const fb = window.crawlear.fb
 
   React.useEffect(() => {
-      window.crawlear && window.crawlear.user && 
+      window.crawlear && window.crawlear.user &&
       window.crawlear.user.uid && fb.getRoutesFromUser(window.crawlear.user.uid, (routes: Array<Route>) => {
           setRoutes(routes)
       }, () => {
         setError(t('error.errordecarga'))
       })
-  }, [])
+  }, [fb, t])
 
   function onDeleteRoute(i: number) {
       const newRoutes = [...routes]
