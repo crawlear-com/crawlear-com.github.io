@@ -31,8 +31,7 @@ const useTimerControl = (startTime: number,
             if (Date.now() % 2 === 0) {
                 eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)))
             }
-        } else if ((onPointBecauseLastMinute && state.maxTime > 0 && tickTime.current >= state.maxTime && tickTime.current < (state.maxTime + courtesyTime))
-            || state.maxTime === 0) {
+        } else if (timeIsOverAndThereIsCourtesyTime(onPointBecauseLastMinute, state.maxTime, tickTime.current, courtesyTime)) {
             tickTime.current = (Date.now() - state.timeStart)
             onTimerChange && onTimerChange(tickTime.current)
             dispatch({ type: TimerStates.Update, payload: { millis: tickTime.current }})
@@ -86,6 +85,12 @@ const useTimerControl = (startTime: number,
     }, [state.timer, onTimerChange, dispatch, eventManager, containerRef])
 
     return [state, onPlayPauseChange, onReset]
+}
+
+function timeIsOverAndThereIsCourtesyTime(onPointBecauseLastMinute: Function,
+    maxTime: number, tickTime: number, courtesyTime: number) {
+    return (onPointBecauseLastMinute && maxTime > 0 && tickTime >= maxTime &&
+        tickTime < (maxTime + courtesyTime)) || maxTime === 0
 }
 
 export default useTimerControl
