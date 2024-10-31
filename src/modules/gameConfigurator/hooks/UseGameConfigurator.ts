@@ -129,8 +129,8 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
 
     function onNameChange(event: MouseEvent) {
         const newGame: any = {...game},
-            name = (<HTMLTextAreaElement>event.target).value
-            
+            name = (event.target as HTMLTextAreaElement).value
+
         if (name) {
             newGame.name = name
             setGame(newGame)
@@ -145,7 +145,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
     function onIsPublicChange(event: MouseEvent) {
         const newGame: any = {...game}
 
-        newGame.isPublic = (<HTMLInputElement>event.target).value
+        newGame.isPublic = (event.target as HTMLInputElement).value
         setGame(newGame)
     }
 
@@ -164,7 +164,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
     }
 
     function onRandomizePlayersOrder(event: MouseEvent) {
-        const value = (<HTMLInputElement>event.target).checked
+        const value = (event.target as HTMLInputElement).checked
 
         setRandomizePlayersOrder(value)
     }
@@ -172,11 +172,11 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
     function randomPlayersOrder(game: Game) {
         if(game.players.length) {
             let players = [...game.players]
-    
+
             players = players.sort((a, b)=>{
                 return Math.random() - 0.5
             });
-    
+
             game.players = players
             GameUtils.redoPlayersIds(game)
         }
@@ -188,7 +188,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
 
         if (!game.name || !game.name.length) {
             setErrorMessage(t('error.nonombre'))
-        } else if (!allGroupsFilled) { 
+        } else if (!allGroupsFilled) {
             setErrorMessage(t('error.rellenargrupos'))
         } else if (!game.judges.length && game.gameType !== GAME_TYPE_KING) {
             setErrorMessage(t('error.nojueces'))
@@ -196,7 +196,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
             setErrorMessage(t('error.nojugadores'))
         } else if (game.gameType !== GAME_TYPE_KING && !game.owner.length) {
             setErrorMessage(t('error.nodirectordepartida'))
-        } else if ((game.gameType !== GAME_TYPE_KING && allGroupsFilled) || 
+        } else if ((game.gameType !== GAME_TYPE_KING && allGroupsFilled) ||
                    (game.gameType === GAME_TYPE_KING)) {
             const newGame: any = {...game}
 
@@ -210,13 +210,13 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
             if (randomizePlayersOrder) {
                 randomPlayersOrder(newGame)
             }
-            GameUtils.init(newGame, 
+            GameUtils.init(newGame,
                 GameUtils.getGameTypeControlTextValuesInit(newGame.gameType),
                 GameUtils.getGameTypeFiascoControlTextValuesInit(newGame.gameType),
                 true)
             if (isOffline && onGameCreated) {
                 onGameCreated(newGame)
-            } else {                    
+            } else {
                 fb.setGame(newGame, (game: Game)=>{
                     newGame.gid = game.gid
                     fb.createGameProgression(newGame)

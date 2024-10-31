@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { isOffline } from '../../../pages/Offline';
 
 import '../styles/UserSearch.scss';
 import iconAdd from '../styles/img/iconAdd.png';
 
-function UserSearch({onUserSeachPlayerAdd, 
+function UserSearch({onUserSeachPlayerAdd,
     onUserClick,
     onPlusAddUserClick,
     mainText,
@@ -14,12 +13,11 @@ function UserSearch({onUserSeachPlayerAdd,
     children}) {
     const fb = window.crawlear.fb
     const fbBase = window.crawlear.fbBase
-    const { t } = useTranslation(['main']);
     const [username, setUsername] = React.useState("");
     const [users, setUsers] = React.useState([]);
     const resultRef = React.useRef();
     const inputRef = React.useRef();
-    
+
     function addUserFromSearch(event) {
         const element = event.target;
         const uid = element.getAttribute("data-uid");

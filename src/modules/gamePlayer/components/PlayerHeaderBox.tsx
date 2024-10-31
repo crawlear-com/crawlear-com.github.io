@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Player } from '../../../games/GameInterfaces'
 import { GameContext } from '../../../context/GameContext'
 import Utils from '../../../Utils'
 import { GameUtils } from '../../../games/Game'

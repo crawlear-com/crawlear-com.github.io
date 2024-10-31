@@ -107,9 +107,9 @@ function UserProfile({user, onLogout}) {
             {!isUserLoged || !isTheUserLogged(user.uid) ? <a href={`https://crawlear.com/profile?uid=${user.uid}`}>
                 <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
             </a> : <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img> }
-            
+
             <div className='sharerContainer'>
-                {isTheUserLogged(user.uid) ? <div className='logout' 
+                {isTheUserLogged(user.uid) ? <div className='logout'
                 onClick={()=> {
                     window.crawlear.fb.logout()
                     onLogout && onLogout()
@@ -120,10 +120,10 @@ function UserProfile({user, onLogout}) {
         </div>
         <div className="userProfileInlineContainer">
             <div className="name">
-                <input type="text" 
-                    className="bold textOverflow hidenInput" 
+                <input type="text"
+                    className="bold textOverflow hidenInput"
                     readOnly={!isUserLoged || !isTheUserLogged(user.uid)}
-                    value={userName} 
+                    value={userName}
                     onChange={onUserNameChange}
                     onBlur={onBlurSetName} />
             </div>
@@ -132,27 +132,27 @@ function UserProfile({user, onLogout}) {
                 </div> : <></>}
             <div className='description'>
                 {isTheUserLogged(user.uid) ? <span className='bold'>{t('description.descripcion')}:</span> : <></> }
-                <textarea type="text" 
+                <textarea type="text"
                     readOnly={!isUserLoged || !isTheUserLogged(user.uid)}
                     className="hidenInput textOverflow"
-                    value={description} 
-                    onChange={onDescriptionChange} 
+                    value={description}
+                    onChange={onDescriptionChange}
                     onBlur={onBlurSetDescription} />
             </div>
             {(((!isUserLoged || !isTheUserLogged(user.uid)) &&  instagram) || isTheUserLogged(user.uid)) ?
             <div className='instagram'>
                 <div className='bold'>Instagram: </div>
-                {isTheUserLogged(user.uid) ? <input type="text" 
-                        className="textOverflow hidenInput" 
+                {isTheUserLogged(user.uid) ? <input type="text"
+                        className="textOverflow hidenInput"
                         readOnly={!isUserLoged || !isTheUserLogged(user.uid)}
-                        value={instagram} 
+                        value={instagram}
                         onChange={onInstagramChange}
                         onBlur={onBlurSetInstagram} /> :
-                    instagram ? 
-                        <a href={`https://www.instagram.com/${instagram}/`} target="_blank">@{instagram}</a> : <></>}
+                    instagram ?
+                        <a rel="noreferrer" href={`https://www.instagram.com/${instagram}/`} target="_blank">@{instagram}</a> : <></>}
             </div> : <></>}
 
-            <Sharers url={`profile?uid=${user.uid}`} 
+            <Sharers url={`profile?uid=${user.uid}`}
                 headerText={t('content.comparteenredespiloto')}
                 text={t('content.shareProfileText')} />
 

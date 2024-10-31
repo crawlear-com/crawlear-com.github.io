@@ -19,7 +19,7 @@ function GameProgressionInfoContainer({ game, inGameProgression }: GameProgressi
                 setGameProgression({...progression})
             }, ()=>{ })
         }
-    }, [])
+    }, [fb, game.gid, gameProgression])
 
     if (gameProgression) {
         info = <GameProgressionInfo game={game} gameProgression={gameProgression} />

@@ -30,10 +30,10 @@ class Utils {
     }
 
     static isYoutubeUrl(url) {
-        var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         var match = url.match(regExp);
 
-        return (match && match[2].length == 11);
+        return (match && match[2].length === 11);
     }
 
     static isInstagramUrl(url) {
@@ -62,7 +62,7 @@ class Utils {
     }
 
     static isFacebookUrl(url) {
-        var regExp = /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/;
+        var regExp = /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-.]*\/)*([\w\-.]*)/;
         var match = this.sanitizeUrl(url).match(regExp);
 
         return (match && match[1] && match[2]);

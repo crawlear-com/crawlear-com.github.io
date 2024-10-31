@@ -39,7 +39,7 @@ function App() {
 
   const onLogout = React.useCallback(()=> {
     setStateLogged(false)
-  },[]) 
+  },[])
 
   const onLogin = React.useCallback(()=>{
     fbBase.getFullFirebase(() => {
