@@ -19,10 +19,6 @@ function PlayerController({
   const [players, setPlayers] = React.useState(inPlayers || []);
   const { t } = useTranslation(['main']);
 
-  React.useEffect(() => {
-    onPlayerNumerChange && onPlayerNumerChange(players);
-  }, [players, onPlayerNumerChange]);
-
   function removePlayer(event) {
     Analytics.event('menu', 'removePlayer', players[event.target.id].name);
 

@@ -44,15 +44,12 @@ function GameManagement() {
     }
 
     return <>
-            {state === STATE_MENU ? 
-                <GameManagementMenu onConfigureGames={onConfigureGames} onGamePlay={onGamePlay} /> : 
-                state === STATE_PLAYING ? 
-                    <GamePlayer inGame={game}
-                        onBackButtonClick={goBackToMenuStatus} />
-                : 
-                state === STATE_CONFIGURE ? 
-                    <GameConfiguratorWithAuthorization from="/gameconfigurator" to="/" preconfiguredGame={game} />
-                :<></>}
+            {state === STATE_MENU ?
+                <GameManagementMenu onConfigureGames={onConfigureGames} onGamePlay={onGamePlay} /> :
+                state === STATE_PLAYING ?
+                    <GamePlayer inGame={game} onBackButtonClick={goBackToMenuStatus} /> :
+                        state === STATE_CONFIGURE ?
+                            <GameConfiguratorWithAuthorization from="/gameconfigurator" to="/" preconfiguredGame={game} /> : <></>}
         </>;
 }
 

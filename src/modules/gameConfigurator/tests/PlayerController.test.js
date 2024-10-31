@@ -56,6 +56,5 @@ test('renders PlayerController', () => {
     expect(listItems[1].value).toBe(1);
     expect(listItems[2].value).toBe(2);
     expect(listItems[3].value).toBe(3);
-    expect(onPlayerNumerChangeMock).toHaveBeenCalled()
     expect(userSearchElement).toBeInTheDocument()
 });

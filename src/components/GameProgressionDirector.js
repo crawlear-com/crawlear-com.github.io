@@ -7,6 +7,7 @@ function GameProgressionDirector({game, gameProgression}) {
     const { t } = useTranslation(['main']);
     const firebase = window.crawlear.fb;
     const requestsRef = React.useRef();
+    // eslint-disable-next-line no-unused-vars
     const [requests, setRequests] = React.useState({});
     const res = [];
 

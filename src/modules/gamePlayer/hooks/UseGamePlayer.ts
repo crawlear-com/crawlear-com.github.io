@@ -10,6 +10,7 @@ import Utils from '../../../Utils'
 
 function UseGamePlayer(inGame: Game, gameExtras: any) {
     const [state, setState] = React.useState(GAME_STATUS_CREATED)
+    const [gameProgressionLoaded, setGameProgressionLoaded] = React.useState(false)
     const [game, setGame] = React.useState(inGame)
     const [gameProgression, setGameProgression] = React.useState<Array<any>>([])
     const gameProgressionRef = React.useRef([]);
@@ -26,26 +27,25 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
     });
 
     React.useEffect(()=>{
-        if (!isOffline) {
-            fb.getGameProgression(game.gid, ()=>{}, ()=>{}, (group: number, progression: Array<any>)=>{
-                const res: any = {};
+        const getGameProgressionCallback = (group: number, progression: Array<any>)=>{
+            const res: any = {};
 
-                res[group] = progression;
-                setGame(GamePlayerUtils.updateGameFromProgression(progression, game))
-                gameProgressionRef.current = {...gameProgressionRef.current, ...res};
-                setGameProgression({...gameProgressionRef.current, ...res});
-            }, (group: number, progression: Array<any>)=>{
-                const res: any = {};
-
-                res[group] = progression;
-                setGame(GamePlayerUtils.updateGameFromProgression(progression, game))
-                gameProgressionRef.current = {...gameProgressionRef.current, ...res};
-                setGameProgression({...gameProgressionRef.current, ...res});
-            });
-        } else {
-            setGameProgression(GameUtils.createGameProgression(game.zones, game.players.length));
+            res[group] = progression;
+            setGame(GamePlayerUtils.updateGameFromProgression(progression, game))
+            gameProgressionRef.current = {...gameProgressionRef.current, ...res};
+            setGameProgression({...gameProgressionRef.current, ...res});
         }
-    },[]);
+
+        if (!gameProgressionLoaded) {
+            if (!isOffline) {
+                window.crawlear.fb.getGameProgression(game.gid, ()=>{}, ()=>{},
+                    getGameProgressionCallback, getGameProgressionCallback);
+            } else {
+                setGameProgression(GameUtils.createGameProgression(game.zones, game.players.length));
+            }
+            setGameProgressionLoaded(true)
+        }
+    },[game, gameProgressionLoaded]);
 
     function onBeginGame(player: Player, zone: number) {
         const pid = player.id;
@@ -86,13 +86,13 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
             const group = player.group
             const newGameProgression = {...gameProgression}
             const newGame: any = {...game}
-    
+
             newGameProgression[group][pid][zone].status = STATUS_DONE
             newGameProgression[group][pid][zone].data = updatedGame.players[pid].zones[zone]
             !newGameProgression[group][pid][zone].data.judgedBy && (newGameProgression[group][pid][zone].data.judgedBy = [])
             newGameProgression[group][pid][zone].data.judgedBy.push(window.crawlear.user.uid)
             setGameProgression(newGameProgression)
-    
+
             newGame.players[pid].zones[zone] = newGameProgression[group][pid][zone].data
             fb.setGameProgression(newGame.gid, pid, group, zone, newGameProgression[group][pid][zone])
             setState(GAME_STATUS_CREATED)

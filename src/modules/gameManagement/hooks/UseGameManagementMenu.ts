@@ -8,10 +8,19 @@ function UseGameManagementMenu(): Array<any> {
     const [allGames, setAllGames] = React.useState<Array<Game>>([])
     const fb = window.crawlear.fb
     const fbBase = window.crawlear.fbBase
+    const refreshGames = React.useCallback(() => {
+        fb.getGamesFromUser(window.crawlear.user.uid, false, (pGames: Array<Game>)=> {
+            setAllGames(previousInputs => ([...previousInputs,...pGames]))
+        });
+
+        fb.getGamesFromJudge(window.crawlear.user.uid, false, (jGames: Array<Game>)=> {
+            setAllGames(previousInputs => ([...previousInputs,...jGames]))
+        });
+    }, [fb])
 
     React.useEffect(() => {
         fbBase.isUserLogged() && refreshGames()
-    }, [])
+    }, [fbBase, refreshGames])
 
     React.useEffect(()=>{
         processCurrentGames(allGames)
@@ -22,25 +31,15 @@ function UseGameManagementMenu(): Array<any> {
               uGames: Array<Game> = []
 
         games.forEach(game => {
-                if (game.jids.indexOf(window.crawlear.user.uid)>=0 || game.owner.indexOf(window.crawlear.user.uid)>=0) {
-                    jGames.push(game)
-                } else if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
-                    uGames.push(game)
-                }
+            if (game.jids.indexOf(window.crawlear.user.uid)>=0 || game.owner.indexOf(window.crawlear.user.uid)>=0) {
+                jGames.push(game)
+            } else if (game.uids.indexOf(window.crawlear.user.uid)>=0) {
+                uGames.push(game)
+            }
         });
 
         setGames(uGames)
         setJudgeGames(jGames)
-    }
-
-    function refreshGames(): void {
-        fb.getGamesFromUser(window.crawlear.user.uid, false, (pGames: Array<Game>)=> {
-            setAllGames(previousInputs => ([...previousInputs,...pGames]))
-        });
-
-        fb.getGamesFromJudge(window.crawlear.user.uid, false, (jGames: Array<Game>)=> {
-            setAllGames(previousInputs => ([...previousInputs,...jGames]))
-        });
     }
 
     function onLoadPreviousGames(): void {
@@ -51,7 +50,7 @@ function UseGameManagementMenu(): Array<any> {
 
     return [games, (gamePosition: number) => {
             onRemoveGames(games, gamePosition, setGames)
-        }, 
+        },
         judgeGames, (gamePosition: number) => {
             onRemoveGames(judgeGames, gamePosition, setJudgeGames)
         }, storedGames, (gamePosition: number) => {

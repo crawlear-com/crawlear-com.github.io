@@ -7,6 +7,7 @@ import '../styles/LoadingLogo.scss';
 
 function LoadingLogo({onVisible}) {
     const logoRef = React.useRef(null);
+    // eslint-disable-next-line no-unused-vars
     const [statusRendered, setStatusRendered] = React.useState(false);
     const [isVisible, setIsVisible] = React.useState(false);
 

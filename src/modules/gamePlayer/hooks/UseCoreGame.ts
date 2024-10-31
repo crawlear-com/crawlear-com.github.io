@@ -7,7 +7,7 @@ import { GameContext } from '../../../context/GameContext'
 
 function UseCoreGame(onGameEnd: Function,
         onRepair: Function,
-        playerIndex: number, 
+        playerIndex: number,
         zoneIndex: number) {
     const eventManager = new EventManager();
     const { game, gameExtras } = React.useContext(GameContext);
@@ -28,7 +28,7 @@ function UseCoreGame(onGameEnd: Function,
         });
 
         document.body.classList.add(GameUtils.getGameTypeBodyClassName(game.gameType));
-    },[]);
+    }, [game.gameType, playerIndex, state, zoneIndex]);
 
     function onTimerChange(millis: number) {
         const newState = {...state};

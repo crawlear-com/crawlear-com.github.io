@@ -4,7 +4,7 @@ const UseScript = (url, id, onLoadedCallback) => {
   useEffect(() => {
     const scriptElement = document.getElementById(id);
     const script = document.createElement('script');
-    
+
     if(!scriptElement) {
       script.id = id;
       script.src = url;
@@ -17,7 +17,7 @@ const UseScript = (url, id, onLoadedCallback) => {
     return () => {
       script.parentElement && document.body.removeChild(script);
     }
-  }, [url]);
+  }, [url, id, onLoadedCallback]);
 };
 
 export default UseScript;

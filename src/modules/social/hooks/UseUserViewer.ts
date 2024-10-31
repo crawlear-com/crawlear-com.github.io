@@ -19,7 +19,7 @@ function UseUserViewer(uid: string) {
 
             isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`)
         }
-    }, [isVisible, uid])
+    }, [isVisible, uid, fbBase])
 
     function onScreen(visible: boolean) {
         visible && setIsVisible(visible)

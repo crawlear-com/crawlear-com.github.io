@@ -14,7 +14,7 @@ function UseLovedRoutes(): Array<any> {
     }, () => {
       setError(t('error.errordecarga'))
     })
-  }, [])
+  }, [fb, t])
 
 
   return [routes, error]

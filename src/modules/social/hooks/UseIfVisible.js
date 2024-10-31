@@ -10,7 +10,7 @@ const UseIfVisible = (elementToObserve, setIsVisible) => {
         )
 
         observer.observe(elementToObserve);
-        
+
         return () => {
           if (elementToObserve) {
             observer.unobserve(elementToObserve)
@@ -18,7 +18,7 @@ const UseIfVisible = (elementToObserve, setIsVisible) => {
         }
       }
 
-  }, [elementToObserve]);
+  }, [elementToObserve, setIsVisible]);
 };
 
 export default UseIfVisible;

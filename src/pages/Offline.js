@@ -28,7 +28,7 @@ function Offline() {
         window.crawlear.user = {
             uid: OFFLINE_USER_UID
         };
-    },[]);
+    },[fbBase]);
 
     function onGameConfiguratorClick() {
         setStatus(STATE_CREATING);

@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import initPwa from './pwa/initPwa';
+// eslint-disable-next-line no-unused-vars
 import i18n from './resources/language/i18n';
 
 const root = createRoot(document.getElementById('root'));
