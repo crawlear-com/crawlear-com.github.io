@@ -1,5 +1,5 @@
 export enum TimerStates {
-    Play = 'start',
+    Play = 'play',
     Stop = 'stop',
     Pause = 'pause',
     Update = 'update'

@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { render, screen } from '@testing-library/react';
-import TimerControl from '../components/TimerControl.js';
+import { fireEvent, render, screen } from '@testing-library/react';
+import TimerControl from '../components/TimerControl'
+import useTimerControl from '../hooks/useTimerControl'
+
+const div = document.createElement('div')
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -13,25 +16,48 @@ jest.mock('react-i18next', () => ({
   }
 }))
 
-beforeEach(() => {
-    const mockDispatch = jest.fn()
-    jest.mock('../hooks/useTimerStateChangeReducer', (startTime, maxTime) => {
-        const initialState = {
-            millis: startTime || 0,
-            timer: 0,
-            maxTime: maxTime,
-            state: 'pause',
-            timeStart: Date.now()
-        }
+const mockOnPlayPause = jest.fn()
+const mockOnReset = jest.fn()
+jest.mock('../hooks/useTimerControl', () => (startTime, maxTime,
+    courtesyTime, onTimerChange, onPointBecauseLastMinute, onTimeFiasco, containerRef) => ([{
+    millis: 1000,
+    timer: 0,
+    maxTime: 100,
+    state: 'pause',
+    timeStart: Date.now()
+}, mockOnPlayPause, mockOnReset]))
 
-        return [initialState, mockDispatch]
-    })
+beforeEach(() => {
+    document.body.innerHTML = '';
+    document.body.append(div);
 })
 
 test('renders TimerControl', () => {
-    const onPlayPauseChangeMock = jest.fn()
+    render(<TimerControl label="timer control" />);
+    const buttons = screen.getAllByRole('button')
+    const label = screen.getByText('TIMER CONTROL:')
 
-    render(<TimerControl time={1000} onPlayPauseChange={onPlayPauseChangeMock} />);
+    expect(screen.getByText("00:01:000")).toBeInTheDocument()
+    expect(label).toBeInTheDocument()
+    expect(buttons.length).toBe(2)
+    expect(buttons[0].className).toBe('timerPlayButton')
+    expect(buttons[1].className).toBe('resetButton')
+});
 
-    expect(screen.getByText("00:00:000")).toBeInTheDocument()
+test('play pause click', () => {
+    render(<TimerControl />);
+    const button = screen.getAllByRole('button')[0]
+
+    fireEvent.click(button)
+
+    expect(mockOnPlayPause).toHaveBeenCalled()
+});
+
+test('reset click', () => {
+    render(<TimerControl />);
+    const button = screen.getAllByRole('button')[1]
+
+    fireEvent.click(button)
+
+    expect(mockOnReset).toHaveBeenCalled()
 });

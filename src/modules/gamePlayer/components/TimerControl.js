@@ -18,7 +18,7 @@ function TimerControl({
 
     const { t } = useTranslation(['main'])
     const containerRef = React.useRef(null)
-    const [state, onPlayPauseChange, onReset] = useTimerControl(startTime, maxTime, 
+    const [state, onPlayPauseChange, onReset] = useTimerControl(startTime, maxTime,
         courtesyTime, onTimerChange, onPointBecauseLastMinute, onTimeFiasco, containerRef)
     const timeValue = Utils.millisToTime(state.millis);
 
