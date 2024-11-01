@@ -1,6 +1,8 @@
 import { TimerStateChangeReducer } from "../reducers/TimerStateChangeReducer";
 import { TimerStates } from "../reducers/TimerStateChangeReducer";
 
+Date.now = jest.fn(() => 8888)
+
 test('pause action', () => {
     const initialState = {
         millis: 0,
@@ -16,8 +18,6 @@ test('pause action', () => {
 });
 
 test('play action', () => {
-    Date.now = jest.fn(() => 8888)
-
     const initialState = {
         millis: 0,
         timer: 0,
@@ -26,14 +26,15 @@ test('play action', () => {
     }
     const newState = TimerStateChangeReducer(initialState, { type: TimerStates.Play, payload: {
         millis: 123,
-        timer: 321
+        timer: 321,
+        timeStart: 121212
      }})
 
     expect(newState.millis).toBe(123)
     expect(newState.state).toBe(TimerStates.Play)
     expect(newState.timer).toBe(321)
-    expect(newState.timeStart).toBe(8888)
-    expect(Date.now).toHaveBeenCalled()
+    expect(newState.timeStart).toBe(121212)
+    expect(Date.now).not.toHaveBeenCalled()
 });
 
 test('stop action', () => {

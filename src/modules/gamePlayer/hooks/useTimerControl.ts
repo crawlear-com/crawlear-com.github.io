@@ -22,7 +22,7 @@ const useTimerControl = (startTime: number,
 
     const [state, dispatch] = useTimerStateChangeReducer(startTime, maxTime)
 
-    const timerCount = React.useCallback((state: TimerState) => {
+    const timerCount = (state: TimerState) => {
         if (tickTime.current < state.maxTime) {
             tickTime.current = (Date.now() - state.timeStart) + state.millis
             onTimerChange && onTimerChange(tickTime.current)
@@ -51,9 +51,9 @@ const useTimerControl = (startTime: number,
         }
 
         eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)))
-    },[dispatch, containerRef, eventManager, onPointBecauseLastMinute, onTimeFiasco, onTimerChange, courtesyTime])
+    }
 
-    const onPlayPauseChange = React.useCallback(() => {
+    const onPlayPauseChange = () => {
         containerRef && containerRef.current.classList.toggle('play')
 
         if (state.state === TimerStates.Pause || state.state === TimerStates.Stop) {
@@ -61,28 +61,32 @@ const useTimerControl = (startTime: number,
             containerRef && containerRef.current.classList.remove('blink')
             eventManager.sendMessage(MSG_START, {})
             state.timer && window.clearInterval(state.timer)
-            const timer = window.setInterval(() => { timerCount(state) }, TIMER_MIN_INTERVAL)
-            dispatch({ type: TimerStates.Play, payload: { millis: tickTime.current, timer: timer }})
+
+            const timeStart = Date.now()
+            const timer = window.setInterval(() => { timerCount({...state,timeStart: timeStart}) }, TIMER_MIN_INTERVAL)
+
+            dispatch({ type: TimerStates.Play, payload: { millis: tickTime.current, timer: timer, timeStart:  timeStart}})
         } else {
             Analytics.event('play', 'timePause', '')
             eventManager.sendMessage(MSG_STOP, {})
             state.timer && window.clearInterval(state.timer)
-            dispatch({ type: TimerStates.Pause })
+            dispatch({ type: TimerStates.Pause, payload: { millis: tickTime.current }} )
         }
-    }, [dispatch, state, eventManager, timerCount, containerRef])
+    }
 
-    const onReset = React.useCallback(() => {
+    const onReset = () => {
         tickTime.current = 0
         if (containerRef && containerRef.current.classList.contains('play')) {
             containerRef.current.classList.toggle('play')
         }
         state.timer && clearInterval(state.timer);
         containerRef && containerRef.current.classList.remove('blink')
+        Analytics.event('play', 'timeStop', '')
 
         dispatch({ type: TimerStates.Stop })
         onTimerChange && onTimerChange(tickTime.current)
         eventManager.sendMessage(MSG_STOP, {})
-    }, [state.timer, onTimerChange, dispatch, eventManager, containerRef])
+    }
 
     return [state, onPlayPauseChange, onReset]
 }
