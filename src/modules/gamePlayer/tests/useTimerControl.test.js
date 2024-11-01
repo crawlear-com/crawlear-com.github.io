@@ -46,8 +46,6 @@ test('onPlayPauseChange calllback being paused', () => {
 
     onPlayPauseChange()
 
-console.log(Date.now())
-
     expect(window.clearInterval).not.toHaveBeenCalled()
     expect(window.setInterval).toHaveBeenCalled()
     expect(containerRef.current.classList.toggle).toHaveBeenCalledWith('play')
