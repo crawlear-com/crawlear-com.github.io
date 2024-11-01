@@ -19,6 +19,7 @@ function UseCoreGame(onGameEnd: Function,
         player = currentGame.players[playerIndex],
         playerZone = player.zones[zoneIndex];
 
+/*
     React.useEffect(() => {
         const playerZone = state.game.players[playerIndex].zones[zoneIndex];
         setState({
@@ -29,7 +30,7 @@ function UseCoreGame(onGameEnd: Function,
 
         document.body.classList.add(GameUtils.getGameTypeBodyClassName(game.gameType));
     }, [game.gameType, playerIndex, state, zoneIndex]);
-
+*/
     function onTimerChange(millis: number) {
         const newState = {...state};
 
@@ -60,7 +61,7 @@ function UseCoreGame(onGameEnd: Function,
         const pointsFiasco = ()=>{return currentGame.maxPoints <= playerZone.points && currentGame.maxPoints > 0};
         const timeFiasco = ()=>{return currentGame.maxTime <= state.tickTime && currentGame.maxTime > 0};
 
-        if ((!pointsFiasco() && !timeFiasco()) || 
+        if ((!pointsFiasco() && !timeFiasco()) ||
            (playerZone.points + value <= currentGame.maxPoints &&
             playerZone.fiascoControlTextValues.filter(x => x > 0).length === 0)) {
                 playerCurrentGate.controlTextValues = [...playerCurrentGate.controlTextValues];
@@ -98,7 +99,7 @@ function UseCoreGame(onGameEnd: Function,
         const newState = {...state},
             currentGame = newState.game,
             players = currentGame.players;
-            
+
         window.scrollTo(0,0);
         gameExtras.onEndPlayer(currentGame, state.tickTime, playerIndex, zoneIndex);
         newState.forceAction = 'stop';
@@ -178,7 +179,7 @@ function initControlTestValues(game: Game, reset: boolean) {
         game: game
     }
 
-    GameUtils.init(newState.game, 
+    GameUtils.init(newState.game,
         GameUtils.getGameTypeControlTextValuesInit(newState.game.gameType),
         GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
         reset);

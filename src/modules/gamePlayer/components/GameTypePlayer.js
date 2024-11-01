@@ -35,16 +35,14 @@ function GameTypePlayer({game,
             onGameEnd={(game)=> {
                 onGameEnd(game)
             }}
-            onRepair={onRepair}
-        />)
+            onRepair={onRepair} />)
     }
 
     return (
         <GameContext.Provider value={{
             game: gameState,
             setGame: setGameState,
-            gameExtras: gameExtras
-        }}>
+            gameExtras: gameExtras }}>
             {elementsToRender}
         </GameContext.Provider>)
 }

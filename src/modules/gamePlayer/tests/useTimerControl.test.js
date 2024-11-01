@@ -7,8 +7,6 @@ import EventManager from '../../../EventManager';
 import { TimerStates } from '../reducers/TimerStateChangeReducer';
 
 const containerRef = { current: { classList: { toggle: jest.fn(), remove: jest.fn(), contains: jest.fn() } } }
-let windowClearInterval = window.clearInterval
-let windowSetInterval = window.setInterval
 
 jest.mock('../../../Analytics')
 jest.mock('../../../EventManager')
@@ -29,11 +27,7 @@ jest.mock('../hooks/useTimerStateChangeReducer', () => (startTime, maxTime) => {
 beforeEach(() => {
     window.clearInterval = jest.fn()
     window.setInterval = jest.fn(() => 1212)
-})
-
-afterEach(() => {
-    window.clearInterval = windowClearInterval
-    window.setInterval = windowSetInterval
+    Date.now = jest.fn(() => 8888)
 })
 
 test('instanciates hook', () => {
@@ -48,14 +42,22 @@ test('instanciates hook', () => {
 
 test('onPlayPauseChange calllback being paused', () => {
     const { result } = renderHook(() => useTimerControl(99, 1000, 0 , jest.fn(), jest.fn(), jest.fn(), containerRef))
+
     const onPlayPauseChange = result.current[1]
 
-    onPlayPauseChange()
+    onPlayPauseChange({
+        millis: 0,
+        timer: 0,
+        maxTime: 60000,
+        state: 'pause',
+        timeStart: 1212
+    })
 
     expect(window.clearInterval).not.toHaveBeenCalled()
     expect(window.setInterval).toHaveBeenCalled()
     expect(containerRef.current.classList.toggle).toHaveBeenCalledWith('play')
-    expect(mockDispatch).toBeCalledWith({ type: 'play', payload: { millis: 99, timer: 1212 }})
+    expect(mockDispatch).toBeCalledWith({ type: 'play', payload: { millis: 99, timer: 1212, timeStart: 8888}})
+    expect(Date.now).toHaveBeenCalled()
 });
 
 test('onReset calllback', () => {
