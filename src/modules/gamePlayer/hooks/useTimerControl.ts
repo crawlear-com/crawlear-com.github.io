@@ -23,7 +23,7 @@ const useTimerControl = (startTime: number,
 
     function timerCount(state: TimerState) {
         if (tickTime.current < state.maxTime) {
-            tickTime.current = (Date.now() - state.timeStart)
+            tickTime.current = (Date.now() - state.timeStart) + state.millis
             onTimerChange && onTimerChange(tickTime.current)
             dispatch({ type: TimerStates.Update, payload: { millis: tickTime.current } })
 
@@ -45,7 +45,6 @@ const useTimerControl = (startTime: number,
             containerRef && containerRef.current.classList.toggle('blink');
             containerRef && containerRef.current.classList.toggle('foreColorRed');
             onTimeFiasco && onTimeFiasco();
-            dispatch({ type: TimerStates.Pause, payload: { millis: tickTime.current }})
         }
 
         eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)))
@@ -55,14 +54,13 @@ const useTimerControl = (startTime: number,
         containerRef && containerRef.current.classList.toggle('play')
 
         if (state.state === TimerStates.Pause || state.state === TimerStates.Stop) {
+            const timeStart = Date.now()
+            const timer = window.setInterval(() => { timerCount({...state,timeStart: timeStart}) }, TIMER_MIN_INTERVAL)
+
             Analytics.event('play', 'timePlay', '')
             containerRef && containerRef.current.classList.remove('blink')
             eventManager.sendMessage(MSG_START, {})
             state.timer && window.clearInterval(state.timer)
-
-            const timeStart = Date.now()
-            const timer = window.setInterval(() => { timerCount({...state,timeStart: timeStart}) }, TIMER_MIN_INTERVAL)
-
             dispatch({ type: TimerStates.Play, payload: { millis: tickTime.current, timer: timer, timeStart:  timeStart}})
         } else {
             Analytics.event('play', 'timePause', '')

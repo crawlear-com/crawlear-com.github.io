@@ -25,7 +25,7 @@ function TimerControl({
     React.useEffect(() => {
         forceAction === TimerStates.Stop && onReset()
         forceAction === TimerStates.Pause && state.state === TimerStates.Play && onPlayPauseChange(state)
-    }, [forceAction])
+    }, [forceAction, state, onPlayPauseChange, onReset])
 
     return <div ref={containerRef} className="timerContainer">
         <div className='timerLabel'>{(label || t('description.tiempo')).toUpperCase()}:</div>

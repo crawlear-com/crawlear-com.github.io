@@ -42,9 +42,16 @@ test('instanciates hook', () => {
 
 test('onPlayPauseChange calllback being paused', () => {
     const { result } = renderHook(() => useTimerControl(99, 1000, 0 , jest.fn(), jest.fn(), jest.fn(), containerRef))
+
     const onPlayPauseChange = result.current[1]
 
-    onPlayPauseChange()
+    onPlayPauseChange({
+        millis: 0,
+        timer: 0,
+        maxTime: 60000,
+        state: 'pause',
+        timeStart: 1212
+    })
 
     expect(window.clearInterval).not.toHaveBeenCalled()
     expect(window.setInterval).toHaveBeenCalled()
