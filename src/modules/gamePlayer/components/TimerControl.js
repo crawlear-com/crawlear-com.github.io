@@ -24,13 +24,13 @@ function TimerControl({
 
     React.useEffect(() => {
         forceAction === TimerStates.Stop && onReset()
-        forceAction === TimerStates.Pause && state.state === TimerStates.Play && onPlayPauseChange()
-    }, [forceAction, onPlayPauseChange, onReset, state])
+        forceAction === TimerStates.Pause && state.state === TimerStates.Play && onPlayPauseChange(state)
+    }, [forceAction])
 
     return <div ref={containerRef} className="timerContainer">
         <div className='timerLabel'>{(label || t('description.tiempo')).toUpperCase()}:</div>
         <div className="timer">{Utils.printTime(timeValue)}</div>
-        <button className="timerPlayButton" onClick={onPlayPauseChange}></button>
+        <button className="timerPlayButton" onClick={() => { onPlayPauseChange(state) }}></button>
         <button onClick={onReset} className="resetButton"></button>
     </div>;
 }

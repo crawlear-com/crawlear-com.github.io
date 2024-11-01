@@ -19,12 +19,11 @@ const useTimerControl = (startTime: number,
 
     const eventManager = React.useMemo(() => new EventManager(), [])
     const tickTime = React.useRef(startTime || 0)
-
     const [state, dispatch] = useTimerStateChangeReducer(startTime, maxTime)
 
-    const timerCount = (state: TimerState) => {
+    function timerCount(state: TimerState) {
         if (tickTime.current < state.maxTime) {
-            tickTime.current = (Date.now() - state.timeStart) + state.millis
+            tickTime.current = (Date.now() - state.timeStart)
             onTimerChange && onTimerChange(tickTime.current)
             dispatch({ type: TimerStates.Update, payload: { millis: tickTime.current } })
 
@@ -45,15 +44,14 @@ const useTimerControl = (startTime: number,
         } else {
             containerRef && containerRef.current.classList.toggle('blink');
             containerRef && containerRef.current.classList.toggle('foreColorRed');
-            eventManager.sendMessage(MSG_STOP, {})
-            dispatch({ type: TimerStates.Pause })
             onTimeFiasco && onTimeFiasco();
+            dispatch({ type: TimerStates.Pause, payload: { millis: tickTime.current }})
         }
 
         eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)))
     }
 
-    const onPlayPauseChange = () => {
+    function onPlayPauseChange(state: TimerState) {
         containerRef && containerRef.current.classList.toggle('play')
 
         if (state.state === TimerStates.Pause || state.state === TimerStates.Stop) {
@@ -74,7 +72,7 @@ const useTimerControl = (startTime: number,
         }
     }
 
-    const onReset = () => {
+    function onReset() {
         tickTime.current = 0
         if (containerRef && containerRef.current.classList.contains('play')) {
             containerRef.current.classList.toggle('play')
