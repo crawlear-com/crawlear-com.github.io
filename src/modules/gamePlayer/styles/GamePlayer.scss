@@ -4,6 +4,9 @@
     display: flex;
     margin-bottom: 10px;
 
+    .gameProgressionItemHeader {
+        max-width: 25%;
+    }
     img {
         display: block;
         max-width: 90px;

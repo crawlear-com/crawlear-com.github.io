@@ -39,6 +39,7 @@ function GameManagementMenu({onConfigureGames, onGamePlay}) {
             readOnly={false}
             transformer={itemTransform}
             onItemAction={(gamePosition) => {
+                window.document.body.classList.add('playing')
                 onGamePlay(judgeGames, gamePosition);
             }}
             onConfigureItem={(gamePosition) => {
