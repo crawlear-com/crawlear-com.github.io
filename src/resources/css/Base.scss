@@ -24,6 +24,11 @@ body.game {
   background-image: url(../img/fondo3.webp);
 }
 
+body.game.playing {
+  background-image: none;
+  background-color: #aaa;
+}
+
 body.social {
   background-image: url(../img/img00.webp);
 }

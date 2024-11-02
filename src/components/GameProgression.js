@@ -19,7 +19,7 @@ function GameProgression({game, jidGroup, onZoneClick}) {
     </p>);
 
     game.players.forEach((player, index)=>{
-        let zones=[], 
+        let zones=[],
             j=0,
             className;
 
@@ -35,13 +35,13 @@ function GameProgression({game, jidGroup, onZoneClick}) {
                             className += " colorOrange";
                         } else if (currentStatus === status.repair) {
                             className += " colorRed";
-                        } else if (currentStatus === status.done) { 
+                        } else if (currentStatus === status.done) {
                             className += " colorGreen";
                         }
                     } else if (currentData) {
                         className += " colorClearGrey";
                     }
-                    zones.push(<span data-zone={j} onClick={(event)=>{                    
+                    zones.push(<span data-zone={j} onClick={(event)=>{
                         prepareOnClick(event, player, zone);
                     }} key={j+1} className={className}>
                         <div>{t('description.zona')} {j+1}</div>
@@ -54,18 +54,19 @@ function GameProgression({game, jidGroup, onZoneClick}) {
             });
 
             playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded1'>
-                    <div><img src={player.avatar} alt="player avatar" />
-
-                    {player.name} <br />
-                    {t('description.grupo')} {player.group+1}</div>
+                    <div className="gameProgressionItemHeader">
+                        <img src={player.avatar} alt="player avatar" />
+                        {player.name} <br />
+                        {t('description.grupo')} {player.group+1}
+                    </div>
                     <div className="horizontalScrollContainer">{zones}</div>
             </div>);
 
             if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[player.group][selectedPlayer][selectedZone].data) {
                 playersDone.push(<div key={`${i+j}Info`} className='gameProgressionInfoItem smallText rounded rounded2'>
-                    <GameProgressionInfoRow 
+                    <GameProgressionInfoRow
                         gameType={game.gameType}
-                        innerRef={gameProgressionInfoRef} 
+                        innerRef={gameProgressionInfoRef}
                         gameProgression={gameProgression[player.group][selectedPlayer][selectedZone]} />
                 </div>);
             }

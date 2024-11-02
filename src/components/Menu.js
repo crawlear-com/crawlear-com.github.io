@@ -1,6 +1,7 @@
 import * as React from 'react';
 import UseMenu from './hooks/UseMenu';
 import { useTranslation } from 'react-i18next';
+import useShowHide from '../hooks/useShowHide';
 
 import logo from '../resources/img/logo5.png'
 import '../resources/css/Menu.scss';
@@ -9,6 +10,7 @@ function Menu() {
     const { t } = useTranslation(['main']);
     const [isOpen, onMenuClick, switchLightMode, browseTo] = UseMenu()
     const menuLogo = <a href="/"><img src={logo} alt="web logo"></img></a>
+    const  [showClassName] = useShowHide('menuShow')
 
     if (isOpen) {
         return <header className="App-header">
@@ -35,7 +37,7 @@ function Menu() {
             { menuLogo }
         </header>;
     } else {
-        return <header className="App-header">
+        return <header className={`App-header ${showClassName}`}>
             <div data-testid="menuContainer" className="rounded menuContainer closed" onClick={onMenuClick}>
                 <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
                 <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>

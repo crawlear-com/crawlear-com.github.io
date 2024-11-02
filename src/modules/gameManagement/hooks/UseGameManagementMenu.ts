@@ -20,6 +20,10 @@ function UseGameManagementMenu(): Array<any> {
     }, [])
 
     React.useEffect(() => {
+        window.document.body.classList.remove('playing')
+    },[])
+
+    React.useEffect(() => {
         window.crawlear.fbBase.isUserLogged() && refreshGames()
     }, [refreshGames])
 
