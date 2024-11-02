@@ -6,11 +6,14 @@ import useShowHide from '../hooks/useShowHide';
 import logo from '../resources/img/logo5.png'
 import '../resources/css/Menu.scss';
 
+const HEADER_HEIGHT = 56
+const HEADER_HIDECLASS = 'menuHide'
+
 function Menu() {
     const { t } = useTranslation(['main']);
     const [isOpen, onMenuClick, switchLightMode, browseTo] = UseMenu()
     const menuLogo = <a href="/"><img src={logo} alt="web logo"></img></a>
-    const  [showClassName] = useShowHide('menuShow')
+    const  [showClassName] = useShowHide(HEADER_HIDECLASS, HEADER_HEIGHT)
 
     if (isOpen) {
         return <header className="App-header">
