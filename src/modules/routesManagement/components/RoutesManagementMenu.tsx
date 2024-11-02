@@ -21,7 +21,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
         <RoutesSearch></RoutesSearch>
         <div className="routesManagement rounded rounded3">
             <ErrorBox message={error}></ErrorBox>
-            <List data={routes} 
+            <List data={routes}
                 readOnly={false}
                 transformer={itemTransform}
                 onRemoveItem={onDeleteRoute}
@@ -29,7 +29,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                     window.scrollTo(0, 0)
                     onCreateRoute(routes[i])
                 }}
-                title={t('description.misrutas')} 
+                title={t('description.misrutas')}
                 onItemAction={(i: number) => {
                     window.scrollTo(0, 0)
                     onViewRoute(routes[i])

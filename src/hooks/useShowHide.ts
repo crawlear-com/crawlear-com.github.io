@@ -2,17 +2,17 @@ import { useState, useEffect, useRef, useCallback } from "react"
 
 const NO_CLASSNAME = ''
 
-function useShowHide(className: string): Array<string> {
+function useShowHide(className: string, height: number): Array<string> {
     const previousY = useRef<number>(0)
     const [translate, setTranslate] = useState('')
     const handleScroll = useCallback(() => {
-        if (window.scrollY && previousY.current && previousY.current < window.scrollY) {
+        if (window.scrollY > height && previousY.current < window.scrollY) {
           setTranslate(className)
-        } else if (previousY.current && previousY.current > window.scrollY) {
+        } else if (height && previousY.current > window.scrollY) {
           setTranslate(NO_CLASSNAME)
         }
         previousY.current = window.scrollY
-    }, [className])
+    }, [className, height])
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
