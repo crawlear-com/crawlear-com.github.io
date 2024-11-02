@@ -11,10 +11,18 @@ test('renders hook', () => {
     window.addEventListener = addEventListener
 });
 
-test('hook after sroll', () => {
+test('after sroll', () => {
     const { result } = renderHook(() => useShowHide('hide'))
 
     fireEvent.scroll(window, { target: { scrollY: 100 } })
     fireEvent.scroll(window, { target: { scrollY: 300 } })
     expect(result.current[0]).toBe('hide')
+});
+
+test('after sroll and go back 0', () => {
+    const { result } = renderHook(() => useShowHide('hide'))
+
+    fireEvent.scroll(window, { target: { scrollY: 400 } })
+    fireEvent.scroll(window, { target: { scrollY: 0 } })
+    expect(result.current[0]).toBe('')
 });
