@@ -6,7 +6,7 @@ function useShowHide(className: string): Array<string> {
     const previousY = useRef<number>(0)
     const [translate, setTranslate] = useState('')
     const handleScroll = useCallback(() => {
-        if (previousY.current && previousY.current < window.scrollY) {
+        if (window.scrollY && previousY.current && previousY.current < window.scrollY) {
           setTranslate(className)
         } else if (previousY.current && previousY.current > window.scrollY) {
           setTranslate(NO_CLASSNAME)
