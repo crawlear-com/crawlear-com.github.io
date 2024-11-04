@@ -20,28 +20,28 @@ function GameProgression({game, jidGroup, onZoneClick}) {
 
     game.players.forEach((player, index)=>{
         let zones=[],
-            j=0,
+            j=-1,
             className;
 
         if(player.group === jidGroup || GameUtils.isCurrentUserIsOwner(game.owner)) {
-            player.zones.forEach((zone)=>{
+            j++
+            zones = player.zones.map((zone) => {
                 className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
                 if(gameProgression && gameProgression[player.group] && gameProgression[player.group][player.id]) {
                     const currentStatus = gameProgression[player.group][player.id][j].status
                     const currentData = gameProgression[player.group][player.id][j].data
 
-                    if (currentStatus !== status.waiting) {
-                        if (currentStatus === status.playing) {
-                            className += " colorOrange";
-                        } else if (currentStatus === status.repair) {
-                            className += " colorRed";
-                        } else if (currentStatus === status.done) {
-                            className += " colorGreen";
-                        }
-                    } else if (currentData) {
+                    if (currentStatus === status.playing) {
+                        className += " colorOrange";
+                    } else if (currentStatus === status.repair) {
+                        className += " colorRed";
+                    } else if (currentStatus === status.done) {
+                        className += " colorGreen";
+                    } else if (currentStatus === status.waiting && currentData) {
                         className += " colorClearGrey";
                     }
-                    zones.push(<span data-zone={j} onClick={(event)=>{
+
+                    return (<span data-zone={j} onClick={(event)=>{
                         prepareOnClick(event, player, zone);
                     }} key={j+1} className={className}>
                         <div>{t('description.zona')} {j+1}</div>
@@ -49,9 +49,10 @@ function GameProgression({game, jidGroup, onZoneClick}) {
                         <div>{t('description.estado')}:</div>
                         <div>{resolveGameStatus(t, currentStatus, currentData)}</div>
                     </span>);
+                } else {
+                    return <></>
                 }
-                j++;
-            });
+            })
 
             playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded1'>
                     <div className="gameProgressionItemHeader">

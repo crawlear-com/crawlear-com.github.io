@@ -80,7 +80,7 @@ function PlayerController({
       <ul className="playersList">
           {players.length === 0 ? playersTxt : players.map((player, i) => {
               return <PlayerItem
-                key={i}
+                key={player.name}
                 player={player}
                 i={i}
                 onGameDirectorChange={onGameDirectorChangeEvent}

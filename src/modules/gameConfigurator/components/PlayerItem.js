@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 
 import '../styles/PlayerItem.scss';
 
-function PlayerItem({player, i, 
-    onRemovePlayer, 
-    onClickPlayer, 
-    onGroupChange, 
-    maxGroups, 
-    editMode, 
+function PlayerItem({player, i,
+    onRemovePlayer,
+    onClickPlayer,
+    onGroupChange,
+    maxGroups,
+    editMode,
     isForJudge,
     onGameDirectorChange}) {
     const { t } = useTranslation(['main']);
@@ -37,7 +37,7 @@ function PlayerItem({player, i,
         const options = [];
 
         for (let i=0; i<maxGroups;i++) {
-            options.push(<option value={i}>{t('description.grupo')} {i+1}</option>);
+            options.push(<option key={i} value={i}>{t('description.grupo')} {i+1}</option>);
         }
 
         editControls.push(<button className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>);
@@ -49,11 +49,11 @@ function PlayerItem({player, i,
             editControls.push(<>
                 <input type="checkbox" onChange={onGameDirectorCheckboxChange}></input>
                 <span className='PlayerItemGameDirector'>{t('description.directordepartida')}</span>
-            </>);    
+            </>);
         }
     }
 
-    return <li key={i} onClick={onClickPlayerItem} className="closed importantNote rounded playerListItem" value={player.name}>
+    return <li key={player.name} onClick={onClickPlayerItem} className="closed importantNote rounded playerListItem" value={player.name}>
         <div className="playerBox">
             <img referrerPolicy="no-referrer" src={player.avatar} alt="avatar"/>
             <div className="textOverflow">{player.name}</div>
