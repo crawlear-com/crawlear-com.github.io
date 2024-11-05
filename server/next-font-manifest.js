@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/neuroflip/Develope/crawlear-com.github.io/src/app/[lng]/layout":["static/media/45f5089fd2655ea0-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';
