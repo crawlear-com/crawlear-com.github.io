@@ -6,11 +6,11 @@ import UseRoutesManagement, { STATE_CREATE, STATE_MENU} from '../hooks/UseRoutes
 
 function RoutesManagement() {
     const [state, route, onViewRoute, onCreateRoute, onBackClick, onEditClick] = UseRoutesManagement()
-    
+
     return <>
-            {state === STATE_MENU ? 
-                <RoutesManagementMenu onCreateRoute={onCreateRoute} onViewRoute={onViewRoute}></RoutesManagementMenu> : 
-            (state === STATE_CREATE ? <RoutesConfigurator inRoute={route} onRouteCreated={onBackClick} onBackClick={onBackClick}></RoutesConfigurator> : 
+            {state === STATE_MENU ?
+                <RoutesManagementMenu onCreateRoute={onCreateRoute} onViewRoute={onViewRoute}></RoutesManagementMenu> :
+            (state === STATE_CREATE ? <RoutesConfigurator inRoute={route} onRouteCreated={onBackClick} onBackClick={onBackClick}></RoutesConfigurator> :
                 <RouteViewer route={route} onBackClick={onBackClick} onEditClick={onEditClick}></RouteViewer>
             )}
         </>

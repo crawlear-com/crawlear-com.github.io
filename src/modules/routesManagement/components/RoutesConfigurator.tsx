@@ -2,8 +2,9 @@ import * as React from 'react'
 import Route from '../Route'
 import ErrorBox from '../../../components/ErrorBox'
 import UseRoutesConfigurator from '../hooks/UseRoutesConfigurator'
-import { GpxRouteMap } from 'react-gpxroutemap'
 import { useTranslation } from 'react-i18next'
+import { GpxRouteMap } from 'react-gpxroutemap'
+
 
 import '../styles/RoutesConfigurator.scss'
 
@@ -16,7 +17,7 @@ interface RoutesConfiguratorProps {
 function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConfiguratorProps) {
     const [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved] = UseRoutesConfigurator(inRoute, onRouteCreated)
     const { t } = useTranslation(['main'])
-    
+
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
         <div className="routesManagement routesManagementCreation rounded rounded2">
@@ -26,7 +27,7 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
             }}></input></div>
 
             <div className="routeMap center">{t('description.mapaderuta')}
-                <GpxRouteMap gpx={route.gpx} onFileResolved={onFileResolved} ></GpxRouteMap>
+                <GpxRouteMap gpx={route.gpx.data} onFileResolved={onFileResolved} onRouteRecorded={onFileResolved}></GpxRouteMap>
             </div>
 
             <div className="routeDescription center">{t('description.descripcion')} <textarea name='description' value={route.description} onChange={(value) => {

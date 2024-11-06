@@ -14,7 +14,7 @@ class Route {
     likes: number
     youtubeVideo?: string
 
-    constructor(name: string, description: string, isPublic: boolean, locationMapUrl: string, 
+    constructor(name: string, description: string, isPublic: boolean, locationMapUrl: string,
         gpx: Gpx, point: GeoPoint, quadrant: GeoPoint, uids: Array<string>, scale: string, dificulty: number, likes: number, youtubeVideo?: string, rid?: string) {
 
         this.name = name
@@ -39,7 +39,12 @@ class Route {
     }
 
     transformIntoData(gpx: any) {
-        return {...this, gpx}
+        const newRoute = {...this}
+
+        if(!newRoute.rid){
+            delete newRoute.rid
+        }
+        return {...newRoute, gpx}
     }
 }
 
