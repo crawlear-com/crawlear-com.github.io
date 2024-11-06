@@ -13,7 +13,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
 
     function onCreateRoute() {
         window.scrollTo(0,0)
-        
+
         if (route.name.length <= 0) {
             setError(t('error.nonombre'))
         } else if (route.description.length <= 0) {
@@ -33,7 +33,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
 
     function onDificultyChange(event: React.ChangeEvent<HTMLSelectElement>) {
         const value = event.target.selectedIndex + 1
-        const newRoute = new Route(route.name, 
+        const newRoute = new Route(route.name,
             route.description,
             route.isPublic,
             route.locationMapUrl,
@@ -51,7 +51,7 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
 
     function onInputChange(parameter: string, event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const value = event.target.type === 'checkbox' ? (event.target as HTMLInputElement).checked : event.target.value
-        const newRoute = new Route(route.name, 
+        const newRoute = new Route(route.name,
             route.description,
             route.isPublic,
             route.locationMapUrl,
@@ -75,13 +75,13 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
             lon: Math.trunc(routePoint.lon / LON_DIVISOR)
         }
         setRoute((previousRoute) => {
-            const newRoute = new Route(previousRoute.name, 
+            const newRoute = new Route(previousRoute.name,
                 previousRoute.description,
                 previousRoute.isPublic,
                 previousRoute.locationMapUrl,
                 {
                     gid: previousRoute.gpx.gid,
-                    data: fileContent ? fileContent : '' 
+                    data: fileContent ? fileContent : ''
                 },
                 routePoint ? routePoint : { lat: 0, lon: 0 },
                 quadrant,

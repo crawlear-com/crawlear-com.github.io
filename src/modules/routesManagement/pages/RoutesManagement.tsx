@@ -3,7 +3,6 @@ import RouteViewer from './RouteViewer'
 import RoutesConfigurator from '../components/RoutesConfigurator'
 import RoutesManagementMenu from '../components/RoutesManagementMenu'
 import UseRoutesManagement, { STATE_CREATE, STATE_MENU} from '../hooks/UseRoutesManagement'
-import GPSRoute from '../../geolocation/pages/GPSRoute'
 
 function RoutesManagement() {
     const [state, route, onViewRoute, onCreateRoute, onBackClick, onEditClick] = UseRoutesManagement()
@@ -14,7 +13,6 @@ function RoutesManagement() {
             (state === STATE_CREATE ? <RoutesConfigurator inRoute={route} onRouteCreated={onBackClick} onBackClick={onBackClick}></RoutesConfigurator> :
                 <RouteViewer route={route} onBackClick={onBackClick} onEditClick={onEditClick}></RouteViewer>
             )}
-            <GPSRoute />
         </>
 }
 

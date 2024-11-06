@@ -343,6 +343,7 @@ class FirebaseController {
           await setDoc(doc(this.db, "routes", route.rid), data);
         } else if (gpx.gid) {
           route.gpx = gpx.gid
+          delete route.rid
           const routeRef = await addDoc(collection(this.db, "routes"), data)
           route.rid = routeRef.id
         } else {
@@ -354,7 +355,6 @@ class FirebaseController {
       } catch (e) {
         koCallback && koCallback()
       }
-  
     }, () => {
       koCallback && koCallback()
     })
