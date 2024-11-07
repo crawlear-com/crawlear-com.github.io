@@ -22,14 +22,15 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
         <div className="routesManagement routesManagementCreation rounded rounded2">
             <ErrorBox message={error}></ErrorBox>
-            <div className="routeName center">{t('description.nombrederuta')} <input name='name' value={route.name} onChange={(value) => {
-                onInputChange('name', value)
-            }}></input></div>
 
-            <div className="routeMap center">{t('description.mapaderuta')}
+            <div className="routeMap center">
+                <label>{t('description.mapaderuta')}</label>
                 <GpxRouteMap gpx={route.gpx.data} onFileResolved={onFileResolved} onRouteRecorded={onFileResolved}></GpxRouteMap>
             </div>
 
+            <div className="routeName center">{t('description.nombrederuta')} <input name='name' value={route.name} onChange={(value) => {
+                onInputChange('name', value)
+            }}></input></div>
             <div className="routeDescription center">{t('description.descripcion')} <textarea name='description' value={route.description} onChange={(value) => {
                 onInputChange('description', value)
             }}></textarea></div>
