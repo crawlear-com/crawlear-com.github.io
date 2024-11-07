@@ -47,6 +47,10 @@
     .routeMap {
         margin-bottom: 15px;
         text-align: center;
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
         button {
             margin: 15px;
         }

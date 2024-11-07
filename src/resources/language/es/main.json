@@ -65,11 +65,11 @@
       "nodescripcion":"La descripción está vacía",
       "noescala":"La escala está vacía",
       "nolocalizacion":"La url del mapa al punto de encuentro está vacía",
-      "noruta":"No has generado un mapa de ruta. Selecciona un fichero de datos GPX pulsando el boton para generar el mapa de ruta"
+      "noruta":"No has generado un mapa de ruta. Usa un fichero de datos GPX o genera una ruta gps pulsando el boton Rec"
     },
     "description": {
       "copiar": "copiar",
-      "copiado": "copiado",  
+      "copiado": "copiado",
       "juego":"juego",
       "juegopublico":"juego público",
       "publico":"Público",

@@ -66,7 +66,7 @@
     "nodescripcion": "The description is empty",
     "noescala": "The scale is empty",
     "nolocalizacion": "the meeting point google maps url is empty",
-    "noruta": "You didnt generate a route map. Select a GPX data file with the button to generate the route map"
+    "noruta": "You didnt generate a route map. Upload a gpx file or create a new gps route using the Rec button"
   },
   "description": {
     "copiar": "copy",
