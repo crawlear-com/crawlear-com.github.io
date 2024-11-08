@@ -143,6 +143,18 @@ module.exports = {
         { from: "src/static/splash_screens/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_landscape.png", to: "static/" },
         { from: "src/static/splash_screens/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_landscape.png", to: "static/" },
         { from: "src/static/splash_screens/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_landscape.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16__iPhone_15_Pro__iPhone_15__iPhone_14_Pro_landscape.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16__iPhone_15_Pro__iPhone_15__iPhone_14_Pro_portrait.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16_Plus__iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_landscape.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16_Plus__iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_portrait.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16_Pro_landscape.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16_Pro_Max_landscape.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16_Pro_Max_portrait.png", to: "static/" },
+        { from: "src/static/splash_screens/iPhone_16_Pro_portrait.png", to: "static/" },
+        { from: "src/static/splash_screens/11__iPad_Pro_M4_landscape.png", to: "static/" },
+        { from: "src/static/splash_screens/11__iPad_Pro_M4_portrait.png", to: "static/" },
+        { from: "src/static/splash_screens/13__iPad_Pro_M4_landscape.png", to: "static/" },
+        { from: "src/static/splash_screens/13__iPad_Pro_M4_portrait.png", to: "static/" }
       ]})
   ]
 }

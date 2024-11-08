@@ -1,6 +1,11 @@
 {
+  "app_name": "Crawlear.com",
   "short_name": "Crawlear.com",
   "name": "Crawlear.com",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#545454",
   "icons": [
     {
       "src": "static/favicon.ico",
@@ -17,9 +22,5 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }
