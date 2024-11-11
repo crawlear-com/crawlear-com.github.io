@@ -7,6 +7,8 @@ import LovedRoutes from './LovedRoutes'
 import UseRoutesManagementMenu from '../hooks/UseRoutesManagementMenu'
 import ErrorBox from '../../../components/ErrorBox'
 
+import '../styles/RoutesManagementMenu.scss'
+
 interface RoutesManagementMenuProps {
     onCreateRoute: Function,
     onViewRoute: Function
@@ -18,6 +20,13 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
 
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
+        <div className="createRoute rounded rounded3">
+            { t('description.crearruta') }
+            <button className='importantNote' onClick={() => {
+                window.scrollTo(0,0)
+                onCreateRoute()
+            }}>{t('description.crear')}</button>
+        </div>
         <RoutesSearch></RoutesSearch>
         <div className="routesManagement rounded rounded3">
             <ErrorBox message={error}></ErrorBox>
@@ -36,10 +45,6 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                 }} ></List>
         </div>
         <LovedRoutes onViewRoute={onViewRoute}></LovedRoutes>
-        <button className='importantNote' onClick={() => {
-            window.scrollTo(0,0)
-            onCreateRoute()
-        }}>{t('description.crear')}</button>
     </>
 }
 

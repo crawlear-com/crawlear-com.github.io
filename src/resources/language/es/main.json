@@ -219,7 +219,8 @@
       "video":"Video de youtube",
       "aboutus":"Sobre nosotros",
       "politicaprivacidad":"Política de privacidad",
-      "lightdarktheme": "Modo claro / oscuro"
+      "lightdarktheme": "Modo claro / oscuro",
+      "crearruta": "Puedes generar nuevas rutas a través de datos GPS. Pulsa el botón crear para generar una nueva ruta."
     },
     "points": {
       "vuelco":"vuelco",

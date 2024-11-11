@@ -220,7 +220,8 @@
     "video": "Youtube video",
     "aboutus":"About us",
     "politicaprivacidad":"Privacy policy",
-    "lightdarktheme": "Dark / Light Mode"
+    "lightdarktheme": "Dark / Light Mode",
+    "crearruta": "You can create new routes using GPS data. Push the create button to generate a new route."
   },
   "points": {
     "vuelco": "overturn",
