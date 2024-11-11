@@ -1,58 +1,38 @@
 .routesManagementCreation {
+    input, textarea, select {
+        margin: 15px auto;
+        max-width: none;
+    }
+
+    label {
+        margin-top: 25px;
+        display: block;
+    }
+
     .formRequiredValue:after {
-        
         content: '*';
         color: red;
     }
-
 
     .center {
         width: 98%;
         margin: 0 auto;
     }
 
-    .routeName {
-        margin-bottom: 15px;
-        input {
-            width: 100%;
-            max-width: 310px;
+    .routeName, .routeDescription, .routeScale, .routeDifficulty,
+    .routePoint, .youtubeVideo {
+        margin-bottom: 25px;
+        input, textarea, select {
+            width: 97%;
         }
     }
-    
-    .routeDescription {
-        margin-bottom: 15px;
-        textarea {
-            width: 100%;
-            max-width: 310px;
-        }
-    }
-    
+
     .routeIsPublic {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
     }
-    
-    .routeScale {
-        margin-bottom: 15px;
-        input {
-            width: 100%;
-            max-width: 240px;
-        }
-    }
-    
-    .routeDifficulty {
-        margin-bottom: 15px;
-    }
-    
-    .routePoint {
-        margin-bottom: 15px;
-        input {
-            width: 100%;
-            max-width: 310px;
-        }
-    }
-    
+
     .routeMap {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
         text-align: center;
         label {
             margin-bottom: 10px;
@@ -62,9 +42,9 @@
             margin: 15px;
         }
     }
-    
+
     .endButtons {
-        margin-bottom: 15px;
+        margin-bottom: 25px;
         text-align: center;
     }
 }

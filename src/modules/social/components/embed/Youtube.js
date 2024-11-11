@@ -4,7 +4,7 @@ import '../../styles/embed/Youtube.scss';
 function getVideoId(url) {
     var regExp = /(youtu.*be.*)\/(watch\?v=|embed\/|v|shorts|)(.*?((?=[&#?])|$))/;
     var match = url.match(regExp);
-    
+
     if (match && match[3].length === 11) {
         return match[3]
     } else {

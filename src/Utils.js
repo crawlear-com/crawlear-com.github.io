@@ -30,10 +30,17 @@ class Utils {
     }
 
     static isYoutubeUrl(url) {
-        var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        var regExp = /^.*(youtube.com|youtu.be)\/(watch\?v=|embed\/|v\/|shorts\/|)(.*?((?=[&#?])|$))/;
         var match = url.match(regExp);
 
-        return (match && match[2].length === 11);
+        return (match && match[3].length === 11);
+    }
+
+    static isGoogleMapsUrl(url) {
+        var regExp = /^https?:\/\/maps\.app\.goo\.gl\/(.*)/;
+        var match = url.match(regExp);
+
+        return (match && match[3].length === 11);
     }
 
     static isInstagramUrl(url) {

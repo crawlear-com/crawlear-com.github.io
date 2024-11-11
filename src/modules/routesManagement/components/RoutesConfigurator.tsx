@@ -4,6 +4,7 @@ import ErrorBox from '../../../components/ErrorBox'
 import UseRoutesConfigurator from '../hooks/UseRoutesConfigurator'
 import { useTranslation } from 'react-i18next'
 import { GpxRouteMap } from 'react-gpxroutemap'
+import Utils from '../../../Utils'
 
 
 import '../styles/RoutesConfigurator.scss'
@@ -69,17 +70,19 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
                 <option value="5">5</option>
             </select>
             </div>
-            
+
             <div className="youtubeVideo center">
-                <label  htmlFor='routeYoutube'>{t('description.video')}</label>
-                <input id="routeYoutube" name='youtubeVideo' value={route.youtubeVideo} onChange={(value) => {
+                <label  htmlFor='youtubeVideo'>{t('description.video')}</label>
+                { route.youtubeVideo && !Utils.isYoutubeUrl(route.youtubeVideo) && <div className='formError'>{ t('error.invalidyoutube')} </div>}
+                <input id="youtubeVideo" name='youtubeVideo' value={route.youtubeVideo} onChange={(value) => {
                     onInputChange('youtubeVideo', value)
                 }}></input>
             </div>
-            
+
             <div className="routePoint center">
                 <label htmlFor='routeLocation' className="formRequiredValue">{t('description.puntoencuentro')}</label>
                 { !route.locationMapUrl && <div className='formError'>{ t('error.nolocalizacion')} </div>}
+                { route.locationMapUrl && !Utils.isGoogleMapsUrl(route.locationMapUrl) && <div className='formError'>{ t('error.invalidmaps')} </div>}
                 <input minLength={1} id="routeLocation" name='locationMapUrl' value={route.locationMapUrl} onChange={(value) => {
                 onInputChange('locationMapUrl', value)
             }}></input></div>

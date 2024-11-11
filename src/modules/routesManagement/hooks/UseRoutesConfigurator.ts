@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Route, { GeoPoint } from '../Route'
 import { useTranslation } from 'react-i18next'
+import Utils from '../../../Utils'
 
 const LAT_DIVISOR = 36
 const LON_DIVISOR = 72
@@ -89,8 +90,8 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
 
     function validateFormState() {
         return (route.name.length > 0) && (route.description.length > 0) &&
-            (route.scale.length > 0) && (route.locationMapUrl.length > 0) && 
-            (route.gpx.data.length > 0)
+            (route.scale.length > 0) && (route.locationMapUrl.length > 0) &&
+            (route.gpx.data.length > 0) && (route.youtubeVideo ? Utils.isYoutubeUrl(route.youtubeVideo) : true)
     }
 
     return [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved, validateFormState]
