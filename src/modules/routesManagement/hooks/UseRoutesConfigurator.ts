@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Route, { GeoPoint } from '../Route'
 import { useTranslation } from 'react-i18next'
+import Utils from '../../../Utils'
 
 const LAT_DIVISOR = 36
 const LON_DIVISOR = 72
@@ -14,16 +15,8 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
     function onCreateRoute() {
         window.scrollTo(0,0)
 
-        if (route.name.length <= 0) {
-            setError(t('error.nonombre'))
-        } else if (route.description.length <= 0) {
-            setError(t('error.nodescripcion'))
-        } else if (route.scale.length <= 0) {
-            setError(t('error.noescala'))
-        } else if (route.locationMapUrl.length <= 0) {
-            setError(t('error.nolocalizacion'))
-        } else if (route.gpx.data.length <= 0) {
-            setError(t('error.noruta'))
+        if (!validateFormState()) {
+            setError(t('error.nodatosrequired'))
         } else {
             setError('')
             fb.setRoute(route, (route: Route) => {}, () => {})
@@ -95,7 +88,13 @@ function UseRoutesConfigurator(inRoute: Route, onRouteCreated: Function): Array<
         })
     }
 
-    return [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved]
+    function validateFormState() {
+        return (route.name.length > 0) && (route.description.length > 0) &&
+            (route.scale.length > 0) && (route.locationMapUrl.length > 0) &&
+            (route.gpx.data.length > 0) && (route.youtubeVideo ? Utils.isYoutubeUrl(route.youtubeVideo) : true)
+    }
+
+    return [route, error, onCreateRoute, onDificultyChange, onInputChange, onFileResolved, validateFormState]
 }
 
 export default UseRoutesConfigurator

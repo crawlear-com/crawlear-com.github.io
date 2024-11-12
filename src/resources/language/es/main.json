@@ -65,7 +65,10 @@
       "nodescripcion":"La descripción está vacía",
       "noescala":"La escala está vacía",
       "nolocalizacion":"La url del mapa al punto de encuentro está vacía",
-      "noruta":"No has generado un mapa de ruta. Usa un fichero de datos GPX o genera una ruta gps pulsando el boton Rec"
+      "noruta":"No has generado un mapa de ruta. Usa un fichero de datos GPX o genera una ruta gps pulsando el boton Rec",
+      "nodatosrequired": "Por favor, rellena los datos requeridos",
+      "invalidyoutube": "La dirección no es un video de youtube válido",
+    "invalidmaps": "La dirección no es un mapa de google válido (maps.app.goo.gl)"
     },
     "description": {
       "copiar": "copiar",
