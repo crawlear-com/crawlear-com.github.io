@@ -82,7 +82,7 @@ function RoutesConfigurator({ inRoute, onRouteCreated, onBackClick }: RoutesConf
             <div className="routePoint center">
                 <label htmlFor='routeLocation' className="formRequiredValue">{t('description.puntoencuentro')}</label>
                 { !route.locationMapUrl && <div className='formError'>{ t('error.nolocalizacion')} </div>}
-                { route.locationMapUrl && !Utils.isGoogleMapsUrl(route.locationMapUrl) && <div className='formError'>{ t('error.invalidmaps')} </div>}
+                { route.locationMapUrl.length > 0 && !Utils.isGoogleMapsUrl(route.locationMapUrl) && <div className='formError'>{ t('error.invalidmaps')} </div>}
                 <input minLength={1} id="routeLocation" name='locationMapUrl' value={route.locationMapUrl} onChange={(value) => {
                 onInputChange('locationMapUrl', value)
             }}></input></div>

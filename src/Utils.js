@@ -40,7 +40,7 @@ class Utils {
         var regExp = /^https?:\/\/maps\.app\.goo\.gl\/(.*)/;
         var match = url.match(regExp);
 
-        return (match && match[3].length === 11);
+        return (match && match[1]);
     }
 
     static isInstagramUrl(url) {
