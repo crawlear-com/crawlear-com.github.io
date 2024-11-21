@@ -10,6 +10,10 @@ function routeListTransformer(routes: Array<Route>) {
     })
 }
 
+function itemKey(route: Route) {
+    return route.rid
+}
+
 function itemTransform(route: Route): itemProps {
     return {
         title: route.name,
@@ -17,4 +21,4 @@ function itemTransform(route: Route): itemProps {
     }
 }
 
-export { routeListTransformer, itemTransform }
+export { routeListTransformer, itemTransform, itemKey }

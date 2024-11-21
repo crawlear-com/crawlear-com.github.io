@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Game } from '../../../games/Game'
+import Utils from '../../../Utils'
 
 function UseGameManagementMenu(): Array<any> {
     const [games, setGames] = React.useState<Array<Game>>([])
@@ -53,37 +54,40 @@ function UseGameManagementMenu(): Array<any> {
         });
     }
 
-    return [games, (gamePosition: number) => {
-            onRemoveGames(games, gamePosition, setGames)
+    return [games, (gid: string) => {
+            onRemoveGames(games, gid, setGames)
         },
-        judgeGames, (gamePosition: number) => {
-            onRemoveGames(judgeGames, gamePosition, setJudgeGames)
-        }, storedGames, (gamePosition: number) => {
-            onRemoveGames(storedGames, gamePosition, setStoredGames)
+        judgeGames, (gid: string) => {
+            onRemoveGames(judgeGames, gid, setJudgeGames)
+        }, storedGames, (gid: string) => {
+            onRemoveGames(storedGames, gid, setStoredGames)
         }, onLoadPreviousGames]
 }
 
-async function onRemoveGames(gameArray: Array<Game>, gamePosition: number, setMethod: Function) {
+async function onRemoveGames(gameArray: Array<Game>, gid: string, setMethod: Function) {
     const fb = window.crawlear.fb
-    let game = gameArray[gamePosition]
-    const newGames = [...gameArray],
+    let [game, position] = Utils.findElementInArray(gameArray, gid, (item: Game, i: number) => item.gid === gid)
+
+    if (game) {
+        const newGames = [...gameArray],
         uid = window.crawlear.user.uid
 
-    if (game.uids.indexOf(uid)>=0) {
-        game = await fb.removeIdFromGame(game, uid, "uids")
-    }
-    if (game.jids.indexOf(uid)>=0) {
-        game = await fb.removeIdFromGame(game, uid, "jids")
-    }
-    if (game.owner.indexOf(uid)>=0) {
-        game = await fb.removeIdFromGame(game, uid, "owner")
-    }
-    if (game.uids.length === 0 && game.jids.length === 0) {
-        await fb.removeGame(game.gid)
-    }
+        if (game && game.uids.indexOf(uid)>=0) {
+            game = await fb.removeIdFromGame(game, uid, "uids")
+        }
+        if (game && game.jids.indexOf(uid)>=0) {
+            game = await fb.removeIdFromGame(game, uid, "jids")
+        }
+        if (game && game.owner.indexOf(uid)>=0) {
+            game = await fb.removeIdFromGame(game, uid, "owner")
+        }
+        if (game && game.uids.length === 0 && game && game.jids.length === 0) {
+            await fb.removeGame(game.gid)
+        }
 
-    newGames.splice(gamePosition, 1)
-    setMethod(newGames)
+        newGames.splice(position, 1)
+        setMethod(newGames)
+    }
 }
 
 export default UseGameManagementMenu

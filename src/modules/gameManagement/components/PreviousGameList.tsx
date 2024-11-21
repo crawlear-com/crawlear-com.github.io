@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Game } from '../../../games/Game'
-import { itemTransform } from '../../list/components/GameListTransformer'
+import { itemTransform, itemKey } from '../../list/components/GameListTransformer'
+import { Transformer } from '../../list/List'
 import List from '../../list/List'
 import Spinner from '../../../components/Spinner'
 
@@ -22,6 +23,10 @@ function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, 
             setIsLoading(true)
             onLoadPreviousGames(window.crawlear.user.uid, )}
         }>{t('description.cargar')}</button>
+    const transformer: Transformer = {
+        transform: itemTransform,
+        key: itemKey
+    }
 
     if (storedGames.length > 0) {
         if (isLoading) {
@@ -30,13 +35,13 @@ function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, 
         storedGamesUi.push(<List key='previousGames' 
             title={t('description.partidasprevias')} 
             data={storedGames}
-            transformer={itemTransform}
+            transformer={transformer}
             readOnly={true}
-            onRemoveItem={(gamePosition: number) => {
-                onRemoveStoredGames(gamePosition)}
+            onRemoveItem={(gid: string) => {
+                onRemoveStoredGames(gid)}
             }
-            onConfigureItem={(gamePosition: number) => {
-                onConfigureGames(storedGames, gamePosition) }
+            onConfigureItem={(gid: string) => {
+                onConfigureGames(storedGames, gid) }
             } />)
     } else {
         storedGamesUi.push(<div key='noPreviousGames' className="gameList rounded rounded3 centerText">

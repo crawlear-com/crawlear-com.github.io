@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Route from '../Route'
 import { useTranslation } from 'react-i18next'
+import Utils from '../../../Utils'
 
 function UseRoutesManagementMenu(): Array<any> {
   const [routes, setRoutes] = React.useState<Array<Route>>([])
@@ -17,13 +18,16 @@ function UseRoutesManagementMenu(): Array<any> {
       })
   }, [fb, t])
 
-  function onDeleteRoute(i: number) {
+  function onDeleteRoute(rid: string) {
       const newRoutes = [...routes]
+      let [route, position] = Utils.findElementInArray(newRoutes, rid, (item: Route, i: number) => item.rid === rid)
 
-      fb.removeRoute(newRoutes[i].rid, newRoutes[i].gpx?.gid, () => {
-          delete newRoutes[i]
+      if (route) {
+        fb.removeRoute(route.rid, newRoutes[position].gpx?.gid, () => {
+          newRoutes.splice(position, 1)
           setRoutes(newRoutes)
-      }, () => {})
+        }, () => {})
+      }
   }
 
   return [routes, onDeleteRoute, error]

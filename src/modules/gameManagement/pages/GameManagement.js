@@ -4,6 +4,7 @@ import GamePlayer from '../../gamePlayer/GamePlayer';
 import GameManagementMenu from '../components/GameManagementMenu';
 import WithAuthorization from '../../../components/WithAuthorization';
 import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator';
+import Utils from '../../../Utils';
 
 import '../styles/GameManagement.scss';
 
@@ -31,16 +32,25 @@ function GameManagement() {
         setGame({});
     }
 
-    function onConfigureGames(gameArray, gamePosition) {
-        window.scrollTo(0,0);
-        setState(STATE_CONFIGURE);
-        setGame(gameArray[gamePosition]);
+    function onConfigureGames(games, key) {
+        const [game] = Utils.findElementInArray(games, key, (item, value)=>item.gid===value)
+
+        if (game) {
+            window.scrollTo(0,0);
+            setState(STATE_CONFIGURE);
+            setGame(game);
+    
+        }
     }
 
-    function onGamePlay(games, gamePosition) {
-        window.scrollTo(0,0);
-        setState(STATE_PLAYING);
-        setGame(games[gamePosition]);
+    function onGamePlay(games, key) {
+        const [game] = Utils.findElementInArray(games, key, (item, value)=>item.gid===value)
+
+        if (game) {
+            window.scrollTo(0,0);
+            setState(STATE_PLAYING);
+            setGame(game);
+        }
     }
 
     return <>
