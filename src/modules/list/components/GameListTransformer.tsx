@@ -14,6 +14,10 @@ function gameListTransformer(games: Array<Game>) {
     })
 }
 
+function itemKey(game: Game) {
+    return game.gid
+}
+
 function itemTransform(game: Game): itemProps {
     let info: React.JSX.Element = <></>, 
         director: string = ''
@@ -35,4 +39,4 @@ function itemTransform(game: Game): itemProps {
     }
 }
 
-export { gameListTransformer, itemTransform }
+export { gameListTransformer, itemTransform, itemKey }

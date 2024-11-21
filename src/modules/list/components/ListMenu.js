@@ -2,7 +2,7 @@ import * as React from 'react';
 import ListMenuItem from './ListMenuItem';
 import { useTranslation } from 'react-i18next';
 
-function ListMenu({ itemPosition, onRemoveClick, onConfigureClick}) {
+function ListMenu({ itemKey, onRemoveClick, onConfigureClick}) {
     const { t } = useTranslation(['main'])
     const containerRef = React.useRef(null)
 
@@ -18,13 +18,13 @@ function ListMenu({ itemPosition, onRemoveClick, onConfigureClick}) {
         </div>            
 
         <ListMenuItem text={t('description.eliminar')} 
-            itemPosition={itemPosition}
+            itemKey={ itemKey }
             onClickFunction={(event)=>{
                 toggleMenu();
                 onRemoveClick(event);
             }}/>
         <ListMenuItem text={t('description.crearcomoeste')} 
-            itemPosition={itemPosition}
+            itemKey={ itemKey }
             onClickFunction={onConfigureClick} />
     </span>;
 }

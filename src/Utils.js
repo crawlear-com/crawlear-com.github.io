@@ -217,6 +217,18 @@ class Utils {
     static getMapsURL(latitude, longitude) {
         return `https://www.google.com/maps/search/?api=1&query=${latitude}%2C${longitude}`
     }
+
+    static findElementInArray(array, value, comparison) {
+        let position = 0
+        let elementFound = array.find((item, i) => {
+            if (comparison(item, value)) {
+                position = i
+            }
+            return comparison(item, value)
+        })
+
+        return [elementFound, position]
+    }
 }
 
 export default Utils;

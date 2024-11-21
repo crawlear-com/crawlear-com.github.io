@@ -1,11 +1,13 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import List from '../../list/List'
-import { itemTransform } from '../../list/components/RouteListTransformer'
+import List, { Transformer } from '../../list/List'
+import { itemTransform, itemKey } from '../../list/components/RouteListTransformer'
+import Route from '../Route'
 import RoutesSearch from '../../routesSerch/RoutesSearch'
 import LovedRoutes from './LovedRoutes'
 import UseRoutesManagementMenu from '../hooks/UseRoutesManagementMenu'
 import ErrorBox from '../../../components/ErrorBox'
+import Utils from '../../../Utils'
 
 import '../styles/RoutesManagementMenu.scss'
 
@@ -17,6 +19,10 @@ interface RoutesManagementMenuProps {
 function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMenuProps) {
     const { t } = useTranslation(['main'])
     const [routes, onDeleteRoute, error] = UseRoutesManagementMenu()
+    const transformer: Transformer = {
+        transform: itemTransform,
+        key: itemKey
+    }
 
     return <>
         <div className='headerText bold sectionTitle'>{t('description.seccionderutas')}</div>
@@ -32,16 +38,24 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
             <ErrorBox message={error}></ErrorBox>
             <List data={routes}
                 readOnly={false}
-                transformer={itemTransform}
+                transformer={transformer}
                 onRemoveItem={onDeleteRoute}
-                onConfigureItem={(i: number) => {
-                    window.scrollTo(0, 0)
-                    onCreateRoute(routes[i])
+                onConfigureItem={(rid: string) => {
+                    const [route] = Utils.findElementInArray(routes, rid, (item: Route, i: number) => item.rid === rid)
+
+                    if (route) {
+                        window.scrollTo(0, 0)
+                        onCreateRoute(route)    
+                    }
                 }}
                 title={t('description.misrutas')}
-                onItemAction={(i: number) => {
-                    window.scrollTo(0, 0)
-                    onViewRoute(routes[i])
+                onItemAction={(rid: string) => {
+                    const [route] = Utils.findElementInArray(routes, rid, (item: Route, i: number) => item.rid === rid)
+
+                    if (route) {
+                        window.scrollTo(0, 0)
+                        onViewRoute(route)    
+                    }
                 }} ></List>
         </div>
         <LovedRoutes onViewRoute={onViewRoute}></LovedRoutes>

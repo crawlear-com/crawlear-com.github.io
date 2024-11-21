@@ -5,9 +5,14 @@ import ListItem from './components/ListItem'
 
 import './styles/List.scss'
 
+export interface Transformer {
+    transform: Function,
+    key: any
+}
+
 export interface ListProps {
     data: Array<any>,
-    transformer: Function,
+    transformer: Transformer,
     readOnly: boolean,
     onRemoveItem?: Function,
     onConfigureItem?: Function,
@@ -20,17 +25,17 @@ function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemActi
     let i=0, list: Array<any> = []
 
     function onRemoveItemClick(event: React.MouseEvent<HTMLDivElement>) {
-        const position = Number((event.target as HTMLDivElement).getAttribute("data-itemposition"))
+        const key = (event.target as HTMLDivElement).getAttribute("data-key")
 
         if (window.confirm(t('content.seguroborrarpost'))) {
-            onRemoveItem && onRemoveItem(position)
+            onRemoveItem && onRemoveItem(key)
         }
     }
 
     function onConfigureItemClick(event: React.MouseEvent<HTMLDivElement>) {
-        const position = Number((event.target as HTMLDivElement).getAttribute("data-itemposition"))
+        const key = (event.target as HTMLDivElement).getAttribute("data-key")
 
-        onConfigureItem && onConfigureItem(position);
+        onConfigureItem && onConfigureItem(key);
     }
 
     function onOpenClose() {
@@ -39,12 +44,12 @@ function List({ data, readOnly, onRemoveItem, onConfigureItem, title, onItemActi
 
     data && data.forEach((item) => {
         list.push(<div key={i}>
-            { onConfigureItem && onRemoveItem && <ListMenu key={`menu${i}`} itemPosition={i}
+            { onConfigureItem && onRemoveItem && <ListMenu key={`menu${i}`} itemKey={transformer.key(item)}
                 onConfigureClick={onConfigureItemClick}
                 onRemoveClick={onRemoveItemClick} /> }
-            <ListItem key={`item${i}`} item={transformer(item)}
+            <ListItem key={transformer.key(item)} item={transformer.transform(item)}
                 onItemAction={onItemAction}
-                itemPosition={i}
+                itemKey={transformer.key(item)}
                 onOpenClose={onOpenClose} />
         </div>)
         i++;
