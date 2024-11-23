@@ -53,7 +53,7 @@
   "error": {
     "nojugadores": "Add the players",
     "nojueces": "Add the judges",
-    "nonombre": "Fill in at least the name of the game to continue",
+    "nonombre": "Fill in at least the name to continue",
     "nogeolocation": "Cant get geolocation or there is a permission error",
     "juegoencurso": "Player is already playing the zone",
     "reparacionencurso": "Player is currently repairing",

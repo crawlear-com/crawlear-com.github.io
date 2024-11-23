@@ -72,7 +72,9 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
             <div className="newGame">
                 <div className="headerText bold">{t('description.nuevaPartida')}</div>
                 <div className="newGameRow">
-                    <span className="">{t('description.nombre')}</span>: <input value={game.name} className="newGameNameInput" type="text" onChange={onNameChange}></input>
+                    <label htmlFor='gameName' className="formRequiredValue">{t('description.nombre')}</label>
+                    { !game.name && <div className='formError'>{ t('error.nonombre')} </div>}
+                    <input id="gameName" value={game.name} className="newGameNameInput" type="text" onChange={onNameChange}></input>
                 </div>
                 <div className="newGameRow">
                     <span className="">{t('description.fecha')}</span>: {game.date.toLocaleString()}
@@ -108,6 +110,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         <input type="checkbox" onChange={onRandomizePlayersOrder}></input>{t('description.ordenRamdomJugadores')}
         <p>
             <button className="importantNote"
+                disabled={ !game.name || !game.name.length || !game.players.length || !game.judges.length }
                 onClick={() => {
                     createGame(groups, game);
                 }

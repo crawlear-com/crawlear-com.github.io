@@ -37,19 +37,19 @@ function PlayerItem({player, i,
         const options = [];
 
         for (let i=0; i<maxGroups;i++) {
-            options.push(<option key={i} value={i}>{t('description.grupo')} {i+1}</option>);
+            options.push(<option key={`group${player.name}${i}`} value={i}>{t('description.grupo')} {i+1}</option>);
         }
 
-        editControls.push(<button className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>);
-        editControls.push(<div>
+        editControls.push(<button key={`remove${player.name}${i}`} className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>);
+        editControls.push(<div key={`groupSelection${player.name}${i}`}>
             <select value={player.group} onChange={onGroupSelectChange}>
                 {options}
             </select></div>);
         if (isForJudge) {
-            editControls.push(<>
+            editControls.push(<div key={`gameDirectorCheck{player.name}${i}`}>
                 <input type="checkbox" onChange={onGameDirectorCheckboxChange}></input>
                 <span className='PlayerItemGameDirector'>{t('description.directordepartida')}</span>
-            </>);
+            </div>);
         }
     }
 

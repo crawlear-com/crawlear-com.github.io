@@ -151,6 +151,11 @@ body.lightMode {
   margin: 0 5px;
 } 
 
+.formRequiredValue:after {
+  content: '*';
+  color: red;
+}
+
 .winnerBox {
   padding: 15px;
   margin-bottom: 8px;

@@ -7,8 +7,15 @@ i18n.use(LanguageDetector)
   .use(LazyImportPlugin)
   .use(initReactI18next)
   .init({
+    detection: {
+      order: ['navigator'],
+    },
     supportedLngs: ['es', 'en'],
-    fallbackLng: 'en',
+    nonExplicitSupportedLngs: true,
+    fallbackLng: {
+      'ca': ['es'],
+      'default': ['en']
+    },
     interpolation: {
       escapeValue: false,
     },

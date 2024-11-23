@@ -62,10 +62,10 @@ function PlayerController({
     onGameDirectorChange && onGameDirectorChange(playerId, value);
   }
 
-  let playersTxt = !players.length? t('description.nojugadores') : t('description.jugadores');
+  let playersTxt = !players.length? <div className='formError'>{ t('error.nojugadores')} </div> : t('description.jugadores');
 
   if(isForJudge) {
-    playersTxt = !players.length? t('description.nojueces') : t('description.jueces');
+    playersTxt = !players.length? <div className='formError'>{t('description.nojueces')} </div> : t('description.jueces');
   }
 
   return <>
