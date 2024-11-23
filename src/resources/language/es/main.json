@@ -53,7 +53,7 @@
     "error": {
       "nojugadores":"Añade a los jugadores",
       "nojueces":"Añade a los jueces",
-      "nonombre":"Rellena al menos el nombre de la partida para continuar",
+      "nonombre":"Rellena al menos el nombre para continuar",
       "nogeolocation":"No se puede obtener la geolocalización o no hay permisos",
       "juegoencurso":"El jugador y la zona ya está en juego",
       "reparacionencurso":"El jugador está en estado de reparación",
