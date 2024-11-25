@@ -25,7 +25,7 @@ function GameProgression({game, jidGroup, onZoneClick}) {
 
         if(player.group === jidGroup || GameUtils.isCurrentUserIsOwner(game.owner)) {
             j++
-            zones = player.zones.map((zone) => {
+            zones = player.zones.map((zone, zIndex) => {
                 className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
                 if(gameProgression && gameProgression[player.group] && gameProgression[player.group][player.id]) {
                     const currentStatus = gameProgression[player.group][player.id][j].status
@@ -41,26 +41,27 @@ function GameProgression({game, jidGroup, onZoneClick}) {
                         className += " colorClearGrey";
                     }
 
-                    return (<span data-zone={j} onClick={(event)=>{
-                        prepareOnClick(event, player, zone);
-                    }} key={j+1} className={className}>
-                        <div>{t('description.zona')} {j+1}</div>
+                    return (<span data-zone={ j } key={`zone${player.name}${j}${zIndex}`}
+                        onClick={ (event) => {
+                            prepareOnClick(event, player, zone);
+                    }} className={ className }>
+                        {t('description.zona')} {j+1}
                         <br />
                         <div>{t('description.estado')}:</div>
                         <div>{resolveGameStatus(t, currentStatus, currentData)}</div>
                     </span>);
                 } else {
-                    return <></>
+                    return <span key={`zone${player.name}${j}${zIndex}`}></span>
                 }
             })
 
-            playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded1'>
+            playersDone.push(<div key={`${player.name}${i}${j}`} className='gameProgressionItem rounded rounded1'>
                     <div className="gameProgressionItemHeader">
                         <img src={player.avatar} alt="player avatar" />
                         {player.name} <br />
                         {t('description.grupo')} {player.group+1}
                     </div>
-                    <div className="horizontalScrollContainer">{zones}</div>
+                    <div className="horizontalScrollContainer">{ zones }</div>
             </div>);
 
             if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[player.group][selectedPlayer][selectedZone].data) {
