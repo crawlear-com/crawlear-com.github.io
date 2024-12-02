@@ -12,7 +12,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
     color: white;
     margin-bottom: 10px;
     transform: translateY(0px);
@@ -27,13 +26,9 @@
     }
 }
 
-.menuHide {
-    transform: translateY(-100px);
-}
-
 .menuContainer {
     position: fixed;
-    top: 7px;
+    top: 0px;
     left: 0px;
     margin: 2px;
     padding: 5px;
@@ -45,7 +40,7 @@
 }
 
 .burguerMenuBar:first-of-type {
-    margin-top: 3px;
+    margin-top: 10px;
 }
 
 .burguerMenuBar:last-of-type {
@@ -61,8 +56,10 @@
 
 .open {
     width: 90%;
+    max-width: 437px;
     padding-bottom: 25px;
     background-color: #333;
+    font-size: 0.8em;
 }
 .menuContainer.closed {
     width: 35px;
@@ -76,21 +73,9 @@
     transform: rotate(180deg);
 }
 
-.closed .linksContainer {
-    visibility: hidden;
-    opacity: 0;
-}
-
 .linksContainer {
-    width: 100%;
-    height: 90%;
-    background-color: #333;
-    visibility: visible;
-    opacity: 1;
-    transition: visibility 0s, opacity 10s linear;
-
     ul {
-        margin: 0 25px;
+        margin: 0 15px;
 
         li {
             overflow: hidden;
