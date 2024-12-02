@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { lazy } from 'react'
 import Analytics from './Analytics'
 import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
 import Landing from './pages/Landing'
-import useLoginProcess from './useLoginProcess'
+import useLoginProcess from './hooks/useLoginProcess'
 import './Error.js'
 
 import './resources/css/Base.scss'
@@ -26,9 +26,15 @@ const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
 
 function App() {
-  const [stateLogged, onLogin, onLogout] = useLoginProcess()
   const location = useLocation()
+  const navigate = useNavigate()
   const queryParams = new URLSearchParams(location.search)
+  const onLoginCallback = () => { 
+    if (location.pathname.length === 1) {
+      navigate('/game')
+    } 
+  }
+  const [stateLogged, onLogin, onLogout] = useLoginProcess(onLoginCallback)
 
   React.useEffect(() => {
     Analytics.init('G-J1NH6FT6E3')
