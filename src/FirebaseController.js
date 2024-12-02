@@ -14,12 +14,12 @@ import { onChildAdded,
          remove,
          ref } from "firebase/database"
 import { addDoc,
-         setDoc, 
+         setDoc,
          doc,
          getDoc,
          updateDoc,
          query,
-         collection, 
+         collection,
          where,
          or,
          and,
@@ -132,12 +132,12 @@ class FirebaseController {
         data.gates = [1];
         data.zones = 1;
       }
-      game = new Game(data.name, 
+      game = new Game(data.name,
         data.date,
         data.location,
-        data.isPublic, 
-        data.gameType, 
-        data.players, 
+        data.isPublic,
+        data.gameType,
+        data.players,
         data.judges || [],
         data.maxTime,
         data.maxPoints,
@@ -154,24 +154,10 @@ class FirebaseController {
     return result;
   }
 
-  async getGame(gid, okCallback, koCallback) {
-    const docRef = doc(this.db, "games", gid);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const res = docSnap.data();
-
-      res.gid = docRef.id;
-      okCallback && okCallback(res);
-    } else {
-      koCallback && koCallback();
-    }
-  }
-
   async getGamesFromUser(uid, onlyIsPublic, okCallback, koCallback) {
     try {
       const games = [];
-      const q = query(collection(this.db, "games"), 
+      const q = query(collection(this.db, "games"),
         where("uids", "array-contains", uid),
         where("gameStatus", "<", GAME_STATUS_FINISHED));
       const querySnapshot = await getDocs(q);
@@ -193,7 +179,7 @@ class FirebaseController {
   async getGamesFromJudge(jid, onlyIsPublic, okCallback, koCallback) {
     try {
       const games = [];
-      const q = query(collection(this.db, "games"), 
+      const q = query(collection(this.db, "games"),
         where("jids", "array-contains", jid),
         where("gameStatus", "<", GAME_STATUS_FINISHED));
       const querySnapshot = await getDocs(q);
@@ -232,7 +218,7 @@ class FirebaseController {
       okCallback && okCallback(game);
     } catch (e) {
       koCallback && koCallback();
-    }  
+    }
   }
 
   updateGame(game) {
@@ -258,7 +244,7 @@ class FirebaseController {
       const currentGameData = this.transformGamesIntoData(updatedGame),
         updateData = {};
         updateData[where] = currentGameData[where];
-      
+
       currentGameData[where] = updateData[where];
       updateDoc(doc(this.db, "games", game.gid), updateData);
 
@@ -302,7 +288,7 @@ class FirebaseController {
 
   async getRouteLove(uid, rid, okCallback, koCallback) {
     try {
-      const q = query(collection(this.db, "routeLove"), 
+      const q = query(collection(this.db, "routeLove"),
         where("uid", "==", uid),
         where("rid", "==", rid))
       const querySnapshot = await getDocs(q)
@@ -315,7 +301,7 @@ class FirebaseController {
 
   async loveRoute(uid, rid, okCallback, koCallback) {
     try {
-      const loveRef = await addDoc(collection(this.db, "routeLove"), { 
+      const loveRef = await addDoc(collection(this.db, "routeLove"), {
         uid: uid,
         rid: rid
       })
@@ -363,7 +349,7 @@ class FirebaseController {
   async getRoutesFromUser(uid, okCallback, koCallback) {
     try {
       const routes = []
-      const q = query(collection(this.db, "routes"), 
+      const q = query(collection(this.db, "routes"),
         where("uids", "array-contains", uid))
       const querySnapshot = await getDocs(q)
 
@@ -373,14 +359,14 @@ class FirebaseController {
         if (data.gpx) {
           this.fbBase.getGpx(data.gpx, (gpx) => {
             data.gpx = gpx
-            data.gpx.gid = gpx.gid 
-            routes.push({...data, rid: routeData.id})    
+            data.gpx.gid = gpx.gid
+            routes.push({...data, rid: routeData.id})
             okCallback && okCallback(routes);
-          }, koCallback)  
+          }, koCallback)
         } else {
           routes.push({...routeData.data(), rid: routeData.id})
           okCallback && okCallback(routes);
-        }  
+        }
       });
       } catch(e) {
         koCallback && koCallback();
@@ -406,8 +392,7 @@ class FirebaseController {
     };
     window.crawlear.user.uid = uid;
   }
-  
-      
+
   logout() {
     getAuth().signOut();
     window.crawlear.user = {};
@@ -430,12 +415,12 @@ class FirebaseController {
 
   getGameProgressionOnce(gid, okCallback, koCallback) {
     const dataSnapshot = get(ref(this.rdb, `gameProgression/${gid}`));
-    
+
     dataSnapshot.then((snapshot)=>{
       okCallback && okCallback(snapshot.key, snapshot.val());
     }, koCallback);
   }
-  
+
   getGameProgression(gid, okCallback, koCallback, onRequestAdded, onRequestChanged) {
     const gameProgressionRef = ref(this.rdb, `gameProgression/${gid}`);
 
@@ -458,7 +443,7 @@ class FirebaseController {
 
   getGameResult(game, okCallback, koCallback) {
     const dataSnapshot = get(ref(this.rdb, `gameProgression/${game.gid}`));
-    
+
     dataSnapshot.then((snapshot)=>{
       const gameProgression = snapshot.val();
 
@@ -475,7 +460,7 @@ class FirebaseController {
   createGameProgression(game) {
     for(let i=0; i<game.players.length;i++) {
       for(let j=0; j<game.zones; j++) {
-        this.setGameProgression(game.gid, 
+        this.setGameProgression(game.gid,
             game.players[i].id,
             game.players[i].group,
             j,
@@ -590,10 +575,10 @@ class FirebaseController {
   async getPost(pid, okCallback, koCallback) {
       const docRef = doc(this.db, "socialPosts", pid);
       const docSnap = await getDoc(docRef);
-  
+
       if (docSnap.exists()) {
         const res = docSnap.data();
-  
+
         res.pid = docRef.id;
         okCallback(res);
       } else {
@@ -603,7 +588,7 @@ class FirebaseController {
 
   async getPosts(uid, okCallback, koCallback) {
     try {
-      const q = query(collection(this.db, "socialPosts"), 
+      const q = query(collection(this.db, "socialPosts"),
         where("uid", "==", uid), orderBy("date", "desc"), limit(10));
       const querySnapshot = await getDocs(q);
       const posts = [];
@@ -621,7 +606,7 @@ class FirebaseController {
   async getPostsFromFollowFeed(uid, okCallback, koCallback) {
     try {
       const posts = [];
-      const q = query(collection(this.db, "follows"), 
+      const q = query(collection(this.db, "follows"),
         where("fromUid", "==", uid));
       const querySnapshotFollows = await getDocs(q);
       const followsDocs = querySnapshotFollows.docs;
@@ -635,7 +620,7 @@ class FirebaseController {
           follows.push(data.toUid);
         });
 
-        const qp = query(collection(this.db, "socialPosts"), 
+        const qp = query(collection(this.db, "socialPosts"),
               where("uid", "in", follows),
               orderBy("date", "desc"), limit(10));
         const querySnapshotPosts = await getDocs(qp);
@@ -662,8 +647,8 @@ class FirebaseController {
 
   async getPostLikesCount(pid, okCallback, koCallback) {
     try {
-      const q = query(collection(this.db, "likes"), 
-        where("pid", "==", pid), 
+      const q = query(collection(this.db, "likes"),
+        where("pid", "==", pid),
         limit(15));
       const querySnapshot = await getDocs(q);
       const likes = querySnapshot.docs.length;
@@ -671,14 +656,14 @@ class FirebaseController {
       okCallback && okCallback(likes);
       } catch(e) {
         koCallback && koCallback();
-    }    
+    }
   }
 
   async getIfPostIsLiked(pid, uid, okCallback, koCallback) {
     try {
-      const q = query(collection(this.db, "likes"), 
-        where("uid", "==", uid), 
-        where("pid", "==", pid), 
+      const q = query(collection(this.db, "likes"),
+        where("uid", "==", uid),
+        where("pid", "==", pid),
         limit(1));
       const querySnapshot = await getDocs(q);
       const isLiked = querySnapshot.docs.length===1;
@@ -691,9 +676,9 @@ class FirebaseController {
 
   async getFidFromFollow(fromUid, toUid, okCallback, koCallback) {
     try {
-      const q = query(collection(this.db, "follows"), 
-        where("fromUid", "==", fromUid), 
-        where("toUid", "==", toUid), 
+      const q = query(collection(this.db, "follows"),
+        where("fromUid", "==", fromUid),
+        where("toUid", "==", toUid),
         limit(1));
       const querySnapshot = await getDocs(q);
       const fid = querySnapshot.docs.length===1 ? querySnapshot.docs[0].id : -1;
@@ -725,23 +710,23 @@ class FirebaseController {
   }
 
   async removeLikes(pid, batchSize) {
-    const collectionRef = query(collection(this.db, "likes"), 
+    const collectionRef = query(collection(this.db, "likes"),
       where("pid", "==", pid), orderBy('__name__'), limit(batchSize));
-  
+
     return new Promise((resolve, reject) => {
       this.deleteQueryBatch(collectionRef, resolve).catch(reject);
     });
   }
-  
+
   async deleteQueryBatch(query, resolve) {
     const snapshot = await getDocs(query);
-  
+
     const batchSize = snapshot.size;
     if (batchSize === 0) {
       resolve();
       return;
     }
-  
+
     snapshot.docs.forEach(async (doc) => {
       const batch = writeBatch(this.db)
 

@@ -4,23 +4,23 @@ import 'firebase/compat/firestore'
 
 import { initializeApp } from "firebase/app"
 import { getDatabase } from "firebase/database"
-import { setDoc, 
+import { setDoc,
           doc,
           getDoc,
           query,
           collection,
           getFirestore,
           where,
-          getDocs 
+          getDocs
         } from "firebase/firestore"
 
-import { getAuth, 
+import { getAuth,
         getRedirectResult,
-        GoogleAuthProvider, 
-          signInWithPopup, 
+        GoogleAuthProvider,
+          signInWithPopup,
           setPersistence,
           browserLocalPersistence } from "firebase/auth"
-  
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -106,9 +106,9 @@ class FirebaseBaseController {
             this.setUser(result.user, callback, (data)=>{
               this.setUserInContext(data, result.user.uid);
             })
-    
+
           });
-      }).catch((error) => { });  
+      }).catch((error) => { });
     })
     .catch((error) => { })
   }
@@ -130,17 +130,17 @@ class FirebaseBaseController {
   async getUserExtraData(uid, okCallback, koCallback) {
     try {
       const data = {};
-      let q = query(collection(this.db, "games"), 
+      let q = query(collection(this.db, "games"),
         where("uids", "array-contains", uid)),
        querySnapshot = await getDocs(q);
       data.pilotGames = querySnapshot.docs.length;
 
-      q = query(collection(this.db, "games"), 
+      q = query(collection(this.db, "games"),
         where("jids", "array-contains", uid));
       querySnapshot = await getDocs(q);
       data.judgeGames = querySnapshot.docs.length;
 
-      q = query(collection(this.db, "routes"), 
+      q = query(collection(this.db, "routes"),
       where("uids", "array-contains", uid));
       querySnapshot = await getDocs(q);
       data.routes = querySnapshot.docs.length;
@@ -237,6 +237,20 @@ class FirebaseBaseController {
       }
     } else {
       koCallback()
+    }
+  }
+
+  async getGame(gid, okCallback, koCallback) {
+    const docRef = doc(this.db, "games", gid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const res = docSnap.data();
+
+      res.gid = docRef.id;
+      okCallback && okCallback(res);
+    } else {
+      koCallback && koCallback();
     }
   }
 }
