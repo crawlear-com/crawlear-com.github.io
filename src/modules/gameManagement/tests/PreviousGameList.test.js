@@ -3,7 +3,7 @@ import PreviousGameList from '../components/PreviousGameList'
 import Spinner from '../../../components/Spinner'
 import List from '../../list/List'
 import Game from '../../../games/Game'
-import GameListTransformer from '../../list/components/GameListTransformer'
+import GameListTransformer from '../../list/transformers/GameListTransformer'
 
 
 const div = document.createElement('div')

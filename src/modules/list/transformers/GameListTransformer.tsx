@@ -3,7 +3,7 @@ import { Game } from '../../../games/Game'
 import { GAME_STATUS_CREATED, GAME_STATUS_PLAYING } from '../../gamePlayer/hooks/UseGamePlayer'
 import WinnerTable from '../../../components/WinnerTable'
 import GameProgressionInfoContainer from '../../../components/GameProgressionInfoContainer'
-import { itemProps } from './ListItem'
+import { itemProps } from '../components/ListItem'
 import { GameUtils } from '../../../games/Game'
 
 function gameListTransformer(games: Array<Game>) {

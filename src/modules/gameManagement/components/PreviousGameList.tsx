@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Game } from '../../../games/Game'
-import { itemTransform, itemKey } from '../../list/components/GameListTransformer'
+import { itemTransform, itemKey } from '../../list/transformers/GameListTransformer'
 import { Transformer } from '../../list/List'
 import List from '../../list/List'
 import Spinner from '../../../components/Spinner'

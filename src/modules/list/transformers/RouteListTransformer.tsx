@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Route from '../../routesManagement/Route'
-import { itemProps } from './ListItem'
+import { itemProps } from '../components/ListItem'
 
 function routeListTransformer(routes: Array<Route>) {
     const routesUi: Array<itemProps> = []

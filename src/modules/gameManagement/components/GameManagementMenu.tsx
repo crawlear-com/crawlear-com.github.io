@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { itemTransform, itemKey } from '../../list/components/GameListTransformer'
+import { itemTransform, itemKey } from '../../list/transformers/GameListTransformer'
 import List, { Transformer } from '../../list/List'
 
 import GameRequests from './GameRequests'
