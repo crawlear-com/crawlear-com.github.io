@@ -57,7 +57,7 @@ jest.mock('../../list/List')
 jest.mock('../../../components/Spinner')
 jest.mock('../../../games/Game')
 jest.mock('../../../components/Spinner')
-jest.mock('../../list/components/GameListTransformer', () => ({
+jest.mock('../../list/transformers/GameListTransformer', () => ({
     itemTransform: jest.fn()
 }))
 

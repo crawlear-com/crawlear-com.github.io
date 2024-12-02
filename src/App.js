@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { lazy } from 'react'
-import FirebaseBaseController from './FirebaseBaseController'
 import Analytics from './Analytics'
 import { UserStatusContext } from './context/UserStatusContext'
 import SuspenseComponent from './SuspenseComponent'
 import Landing from './pages/Landing'
+import useLoginProcess from './hooks/useLoginProcess'
 import './Error.js'
 
 import './resources/css/Base.scss'
@@ -24,42 +24,22 @@ const GameViewer = lazy(() => import('./pages/GameViewer'))
 const RouteViewer = lazy(() => import('./pages/RouteViewer'))
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
-const getFbBase =  () => (window.crawlear && window.crawlear.fbBase) || new FirebaseBaseController()
 
 function App() {
-  const fbBase = getFbBase()
-  const [stateLogged, setStateLogged] = React.useState(false)
-  const navigate = useNavigate()
   const location = useLocation()
+  const navigate = useNavigate()
   const queryParams = new URLSearchParams(location.search)
-  const route = location.pathname
-
-  window.crawlear = window.crawlear || {}
-  window.crawlear.fbBase = window.crawlear.fbBase || fbBase
-
-  const onLogout = React.useCallback(()=> {
-    setStateLogged(false)
-  },[])
-
-  const onLogin = React.useCallback(()=>{
-    fbBase.getFullFirebase(() => {
-      setStateLogged(true)
-
-      if (route.length === 1) {
-        navigate('/game')
-      }
-    })
-  }, [fbBase, navigate, route.length])
+  const onLoginCallback = () => { 
+    if (location.pathname.length === 1) {
+      navigate('/game')
+    } 
+  }
+  const [stateLogged, onLogin, onLogout] = useLoginProcess(onLoginCallback)
 
   React.useEffect(() => {
-    fbBase.checkIfLogged(() => {
-      onLogin()
-    }, () => {
-      onLogout()
-    })
     Analytics.init('G-J1NH6FT6E3')
     Analytics.event('App','init',`${navigator.userAgent}`)
-  }, [fbBase, onLogin, onLogout])
+  }, [])
 
   return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
     <div className="App">

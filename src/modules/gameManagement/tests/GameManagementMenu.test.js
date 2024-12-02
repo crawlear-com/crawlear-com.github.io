@@ -29,7 +29,7 @@ jest.mock('../../list/List')
 jest.mock('../components/GameRequests')
 jest.mock('../hooks/UseGameManagementMenu')
 jest.mock('../components/PreviousGameList')
-jest.mock('../../list/components/GameListTransformer', () => ({
+jest.mock('../../list/transformers/GameListTransformer', () => ({
     itemTransform: jest.fn()
 }))
 
