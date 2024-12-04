@@ -6,7 +6,7 @@ const div = document.createElement('div');
 beforeEach(() => {
     document.body.append(div)
     window.crawlear = {
-        fb: {
+        fbBase: {
             getGameProgression: jest.fn('getGameProgression').mockImplementation(() => {
                 return []
             }),
@@ -30,5 +30,5 @@ test('renders GameList', () => {
         initialProps: gid
     })
 
-    expect(window.crawlear.fb.getGame).toHaveBeenCalled()
+    expect(window.crawlear.fbBase.getGame).toHaveBeenCalled()
 });
