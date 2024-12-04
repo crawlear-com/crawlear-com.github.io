@@ -22,7 +22,6 @@ function PresenceButton({game, playerName, fromName, zone}) {
             delete newRequests[key];
             setRequests(newRequests);
         }
-        
     }
 
     function createDirectorPresenceRequest() {
@@ -32,11 +31,11 @@ function PresenceButton({game, playerName, fromName, zone}) {
     }
 
     if(gid && playerName && fromName && zone>=0 && !GameUtils.isCurrentUserIsOwner(game.owner) && Object.entries(requests).length===0) {
-        content.push(<button onClick={createDirectorPresenceRequest}>{t('description.reclamarpresencia')}</button>);
+        content.push(<button key={playerName} onClick={createDirectorPresenceRequest}>{t('description.reclamarpresencia')}</button>);
     }
 
     Object.keys(requests).forEach((request, index)=>{
-        requestsItems.push(<div>{requests[request].status}</div>);
+        requestsItems.push(<div key={`${playerName}${index}`}>{requests[request].status}</div>);
     });
 
     return <div className="presenceButtonContainer">

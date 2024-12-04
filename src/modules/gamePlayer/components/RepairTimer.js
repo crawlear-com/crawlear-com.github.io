@@ -4,7 +4,7 @@ import TimerControl from './TimerControl';
 
 import '../styles/RepairTimer.scss';
 
-function RepairTimer({onTimeFiasco, onRepairTimerChange}) {
+function RepairTimer({ onTimeFiasco, onRepairTimerChange }) {
     const { t } = useTranslation(['main']);
 
     return <div className="repairTimeContainer">
