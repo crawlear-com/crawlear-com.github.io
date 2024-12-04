@@ -9,6 +9,7 @@ import GameProgression from '../../../components/GameProgression'
 import ErrorBox from '../../../components/ErrorBox'
 import GamePlayerUtils from '../GamePlayerUtils'
 import UseGamePlayerMenu from '../hooks/UseGamePlayerMenu'
+import JudgeActions from './JudgeActions'
 
 interface GamePlayerMenuProps {
     game: Game,
@@ -25,39 +26,11 @@ function GamePlayerMenu({ game,
     onBackButtonClick,
     onCloseButonClick
 }: GamePlayerMenuProps) {
-    const directorProgression = [];
-    const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
     const { t } = useTranslation(['main']);
-    let judgeProgression;
     const [player, zone, error, gameProgression, onZoneClick, onBeginPlayClick] = UseGamePlayerMenu(onBeginGame)
 
-    if (isCurrentUserIsOwner) {
-        directorProgression.push(<div key="dP" className="directorContainer rounded rounded3">
-                <div className="bold">{t('description.directordepartida')}</div>
-                <br />
-                <GameProgressionDirector game={game} gameProgression={gameProgression} />
-            </div>);
-    }
-
-    if (game.jids.find(elem=>elem===window.crawlear.user.uid)) {
-        let buton = <></>;
-
-        if ((player && player.group === jidGroup) || isCurrentUserIsOwner) {
-            buton = <button onClick={onBeginPlayClick} className="playButton importantNote">{t("description.empezar")}</button>;
-        }
-        judgeProgression = <>
-            {t('description.jugadorseleccionado')}: { player ? player.name : "" } <br />
-            {t('description.zonaseleccionada')}: { zone !== -1 ? zone + 1 : "" }<br />
-            {buton}
-            <PresenceButton game={game}
-                zone={zone}
-                playerName={player && player.name}
-                fromName={window.crawlear.user.displayName} />
-        </>;
-    }
-
     return <>
-        {directorProgression}
+        <GameProgressionDirector game={game} gameProgression={gameProgression} />
         <ErrorBox message={error} />
         <div className="trackJudgeContainer rounded rounded3">
             <div className="bold">{t('description.juezdepista')}</div>
@@ -65,7 +38,7 @@ function GamePlayerMenu({ game,
                 game={game}
                 jidGroup={jidGroup} />
             <ErrorBox message={error} />
-            {judgeProgression}
+            <JudgeActions t={t} game ={game} player={player} zone={zone} jidGroup={jidGroup} onBeginPlayClick={onBeginPlayClick} />
         </div>
         <div className="tendJudgeContainer rounded rounded3">
             <div className="bold">{t('description.juezdecarpa')}</div>
