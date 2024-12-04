@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import CompletedZonesByGroup from './CompletedZonesByGroup';
-import useGameProgressionDirector from '../hooks/useGameProgressionDirector';
+import usePresenceRequests from '../hooks/usePresenceRequests';
 import { GameUtils } from '../../../games/Game';
 
 import '../styles/GameProgressionDirector.scss';
 
 function GameProgressionDirector({game, gameProgression}) {
     const { t } = useTranslation(['main']);
-    const [requests, presenceRequestAccept] = useGameProgressionDirector(game.gid, t)
+    const [requests, presenceRequestAccept] = usePresenceRequests(game.gid, t)
     const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
     const res = [];
 

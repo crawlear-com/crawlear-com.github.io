@@ -7,7 +7,7 @@ interface GameDirectorRequest {
     status: String
 }
 
-function useGameProgressionDirector(gid: string, t: Function) {
+function usePresenceRequests(gid: string, t: Function) {
     const firebase = window.crawlear.fb;
     const [requests, setRequests] = React.useState<Map<string, GameDirectorRequest>>(new Map());
     
@@ -37,4 +37,4 @@ function useGameProgressionDirector(gid: string, t: Function) {
     return [requests, presenceRequestAccept]
 }
 
-export default useGameProgressionDirector
+export default usePresenceRequests
