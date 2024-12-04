@@ -9,27 +9,32 @@ interface GameDirectorRequest {
 
 function useGameProgressionDirector(gid: string, t: Function) {
     const firebase = window.crawlear.fb;
-    const requestsRef = React.useRef<Map<string, GameDirectorRequest>>(new Map());
-    // eslint-disable-next-line no-unused-vars
-
-    React.useEffect(()=>{
-        firebase.getDirectorPresenceRequest(gid, onPresenceRequestAdded, onPresenceRequestAdded);
-    }, [firebase, gid]);
-
-    function onPresenceRequestAdded(key: string, value: GameDirectorRequest) {
-        if (value.status === 'pending') {
-            requestsRef.current.set(key, value)
+    const [requests, setRequests] = React.useState<Map<string, GameDirectorRequest>>(new Map());
+    
+    React.useEffect(() => {
+        function onPresenceRequestAdded(key: string, value: GameDirectorRequest) {
+            if (value.status === 'pending') {
+                const newRequest: Map<string, GameDirectorRequest> = new Map(requests)
+                
+                newRequest.set(key, value)
+                setRequests(newRequest)
+            }
         }
-    }
+
+        requests.size === 0 && firebase.getDirectorPresenceRequest(gid, onPresenceRequestAdded, onPresenceRequestAdded);
+    }, [firebase, gid, requests])
 
     function presenceRequestAccept(requestKey: string) {
         if (window.confirm(t('content.aceptarpresencia'))) {
-            requestsRef.current.delete(requestKey);
-            firebase.acceptDirectorPresenceRequest(gid, requestKey);
+            const newRequest: Map<string, GameDirectorRequest> = new Map(requests)
+
+            newRequest.delete(requestKey)
+            setRequests(newRequest)
+            firebase.acceptDirectorPresenceRequest(gid, requestKey)
         }
     }
 
-    return [requestsRef.current, presenceRequestAccept]
+    return [requests, presenceRequestAccept]
 }
 
 export default useGameProgressionDirector
