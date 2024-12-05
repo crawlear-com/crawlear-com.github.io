@@ -33,7 +33,7 @@ jest.mock('../../list/transformers/GameListTransformer', () => ({
     itemTransform: jest.fn()
 }))
 
-beforeEach(()=>{  
+beforeEach(()=>{
   document.body.append(div)
 
   window.crawlear = {
@@ -51,7 +51,7 @@ test('renders GameManagementMenu', () => {
     const onConfigureGame = jest.fn()
     const onGamePlay = jest.fn()
 
-    render(<GameManagementMenu 
+    render(<GameManagementMenu
         onConfigureGame={onConfigureGame}
         onGamePlay={onGamePlay}></GameManagementMenu>)
 

@@ -398,14 +398,11 @@ class FirebaseController {
     window.crawlear.user = {};
   };
 
-  getUserGameRequests(uid, okCallback, koCallback, onRequestAdded, onRequestRemoved) {
+  getUserGameRequests(uid, onRequestAdded, onRequestRemoved) {
     const requestsRef = ref(this.rdb, `gameRequests/${uid}`);
 
     onChildAdded(requestsRef, (snapshot) => {
-      const res = {};
-
-      res[snapshot.key] = snapshot.val();
-      onRequestAdded(res);
+      onRequestAdded(snapshot.key, snapshot.val());
     });
 
     onChildRemoved(requestsRef, (snapshot) => {
