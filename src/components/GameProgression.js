@@ -2,7 +2,8 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import GameProgressionInfoRow from './GameProgressionInfoRow'
 import { GameUtils } from '../games/Game'
-import UseGameProgression, { status } from './hooks/UseGameProgression'
+import UseGameProgression from './hooks/UseGameProgression'
+import GameProgressionPlayerZoneItem from './GameProgressionPlayerZoneItem'
 
 function GameProgression({game, jidGroup, onZoneClick}) {
     const { t } = useTranslation(['main']);
@@ -18,42 +19,21 @@ function GameProgression({game, jidGroup, onZoneClick}) {
         {t('content.seleccionapilotoyzona')}:
     </p>);
 
-    game.players.forEach((player, index)=>{
+    game.players.forEach((player)=>{
         let zones=[],
-            j=-1,
-            className;
+            j=-1;
 
         if(player.group === jidGroup || GameUtils.isCurrentUserIsOwner(game.owner)) {
             j++
-            zones = player.zones.map((zone, zIndex) => {
-                className = player.id===selectedPlayer && j===selectedZone ? 'colorGrey rounded' : 'rounded';
-                if(gameProgression && gameProgression[player.group] && gameProgression[player.group][player.id]) {
-                    const currentStatus = gameProgression[player.group][player.id][j].status
-                    const currentData = gameProgression[player.group][player.id][j].data
-
-                    if (currentStatus === status.playing) {
-                        className += " colorOrange";
-                    } else if (currentStatus === status.repair) {
-                        className += " colorRed";
-                    } else if (currentStatus === status.done) {
-                        className += " colorGreen";
-                    } else if (currentStatus === status.waiting && currentData) {
-                        className += " colorClearGrey";
-                    }
-
-                    return (<span data-zone={ j } key={`zone${player.name}${j}${zIndex}`}
-                        onClick={ (event) => {
-                            prepareOnClick(event, player, zone);
-                    }} className={ className }>
-                        {t('description.zona')} {j+1}
-                        <br />
-                        <div>{t('description.estado')}:</div>
-                        <div>{resolveGameStatus(t, currentStatus, currentData)}</div>
-                    </span>);
-                } else {
-                    return <span key={`zone${player.name}${j}${zIndex}`}></span>
-                }
-            })
+            zones = <GameProgressionPlayerZoneItem
+                        zoneIndex={j}
+                        zones={player.zones}
+                        selectedPlayer={selectedPlayer}
+                        selectedZone={selectedZone}
+                        player={player}
+                        gameProgression={gameProgression}
+                        prepareOnClick={prepareOnClick}
+                        resolveGameStatus={resolveGameStatus} />
 
             playersDone.push(<div key={`${player.name}${i}${j}`} className='gameProgressionItem rounded rounded1'>
                     <div className="gameProgressionItemHeader">
