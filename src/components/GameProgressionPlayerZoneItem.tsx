@@ -15,7 +15,7 @@ interface GameProgressionPlayerZoneProps {
     resolveGameStatus: Function
 }
 
-function GameProgressionPlayerZone({ zoneIndex, zones, selectedPlayer, selectedZone, player, gameProgression, prepareOnClick, resolveGameStatus }: GameProgressionPlayerZoneProps) {
+function GameProgressionPlayerZoneItem({ zoneIndex, zones, selectedPlayer, selectedZone, player, gameProgression, prepareOnClick, resolveGameStatus }: GameProgressionPlayerZoneProps) {
     const { t } = useTranslation(['main'])
 
     return zones.map((zone, zIndex) => {
@@ -50,4 +50,4 @@ function GameProgressionPlayerZone({ zoneIndex, zones, selectedPlayer, selectedZ
 
 }
 
-export default GameProgressionPlayerZone
+export default GameProgressionPlayerZoneItem

@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import GameProgressionInfoRow from './GameProgressionInfoRow'
 import { GameUtils } from '../games/Game'
-import UseGameProgression, { status } from './hooks/UseGameProgression'
-import GameProgressionPlayerZone from './GameProgressionPlayerZone'
+import UseGameProgression from './hooks/UseGameProgression'
+import GameProgressionPlayerZoneItem from './GameProgressionPlayerZoneItem'
 
 function GameProgression({game, jidGroup, onZoneClick}) {
     const { t } = useTranslation(['main']);
@@ -25,7 +25,7 @@ function GameProgression({game, jidGroup, onZoneClick}) {
 
         if(player.group === jidGroup || GameUtils.isCurrentUserIsOwner(game.owner)) {
             j++
-            zones = <GameProgressionPlayerZone
+            zones = <GameProgressionPlayerZoneItem
                         zoneIndex={j}
                         zones={player.zones}
                         selectedPlayer={selectedPlayer}
