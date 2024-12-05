@@ -1,0 +1,14 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/manifest.json/route": "app/manifest.json/route.js",
+  "/[lng]/gameviewer/page": "app/[lng]/gameviewer/page.js",
+  "/[lng]/privacypolicy/page": "app/[lng]/privacypolicy/page.js",
+  "/[lng]/page": "app/[lng]/page.js",
+  "/[lng]/profile/page": "app/[lng]/profile/page.js",
+  "/[lng]/route/page": "app/[lng]/route/page.js",
+  "/[lng]/routeviewer/page": "app/[lng]/routeviewer/page.js",
+  "/[lng]/social/page": "app/[lng]/social/page.js",
+  "/[lng]/aboutus/page": "app/[lng]/aboutus/page.js",
+  "/[lng]/game/page": "app/[lng]/game/page.js",
+  "/[lng]/gameconfigurator/page": "app/[lng]/gameconfigurator/page.js"
+}
