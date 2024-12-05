@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import GameManagementMenu from '../components/GameManagementMenu'
 import GameListTransformer from '../../list/transformers/GameListTransformer'
 import List from '../../list/List'
@@ -19,7 +19,7 @@ jest.mock('react-i18next', () => ({
     }
 }));
 
-const mockUsedNavigate = jest.fn();
+const mockUsedNavigate = jest.fn()
 jest.mock('react-router-dom', () => ({
    ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockUsedNavigate,
@@ -58,8 +58,27 @@ test('renders GameManagementMenu', () => {
     const gameRequests = screen.queryByText('GameRequests')
     const gameList = screen.queryAllByText('GameList')
     const previousGamesButton = screen.queryByText('PreviousGameList')
+    const partidasPilototJuez = screen.queryAllByText('List')
+    const createButton = screen.getByText('description.crearjuego')
 
     expect(gameRequests).not.toBeNull()
     expect(gameList).not.toBeNull()
     expect(previousGamesButton).not.toBeNull()
+    expect(partidasPilototJuez.length).toBe(2)
+    expect(createButton).toBeInTheDocument()
 });
+
+test('click on create game', () => {
+    const onConfigureGame = jest.fn()
+    const onGamePlay = jest.fn()
+
+    render(<GameManagementMenu
+        onConfigureGame={onConfigureGame}
+        onGamePlay={onGamePlay}></GameManagementMenu>)
+
+    const button = screen.getByText('description.crearjuego')
+
+    fireEvent.click(button)
+
+    expect(mockUsedNavigate).toHaveBeenCalled()
+})

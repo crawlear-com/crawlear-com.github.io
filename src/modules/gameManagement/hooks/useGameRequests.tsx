@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface GameRequest {
+export interface GameRequest {
     date: string,
     fromName: string,
     fromUid: string,
