@@ -44,9 +44,9 @@ function App() {
   return (
     <UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
     <Helmet>
-      <meta property="og:title" content="Crawlear.com Your profesional Crawler Scoreboard" />
-      <meta property="og:description" content="Crawlear.com Your profesional Crawler Scoreboard" />
-      <meta property="description" content="Crawlear.com Your profesional Crawler Scoreboard" />
+      <meta property="og:title" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
+      <meta property="og:description" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
+      <meta property="description" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
     </Helmet>
     <div className="App">
       { stateLogged ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
