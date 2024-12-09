@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import GameViewer from '../GameViewer'
+import { Helmet } from 'react-helmet-async'
 import WinnerTable from '../../components/WinnerTable'
 import UseGameViewer from '../hooks/UseGameViewer'
-
-const div = document.createElement('div');
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {
@@ -16,29 +15,35 @@ jest.mock('react-i18next', () => ({
     }
 }))
 
+jest.mock('react-helmet-async', () => ({
+    Helmet: jest.fn(),
+    HelmetProvider: jest.fn(),
+  }));
+
 jest.mock('../../components/WinnerTable')
 jest.mock('../hooks/UseGameViewer')
 
 beforeEach(() => {
-    document.body.append(div)
     window.crawlear = {
         fb: {
             checkIfLogged: jest.fn(),
             isUserLogged: jest.fn()
-        },
-        
+        }
     }
 })
 
 afterEach(() => {
-    document.body.remove(div)
     delete window.crawlear
 })
 
 test('renders winner table', () => {
-    render(<GameViewer gid='213123123' />, div)        
-    const content = screen.getByText('winnerTable')
+    render(<GameViewer gid='213123123' />)
+    const winnerTable = screen.getByText('winnerTable')
+    const name = screen.getByText('gameName')
 
-    expect(content).not.toBeNull()
-    expect(content).not.toBeUndefined()
+    expect(winnerTable).not.toBeNull()
+    expect(winnerTable).not.toBeUndefined()
+    expect(winnerTable).toBeInTheDocument()
+
+    expect(name).toBeInTheDocument()
 })
