@@ -95,6 +95,7 @@ module.exports = {
         { from: "src/static/favicon.ico", to: "static/" },
         { from: "src/static/logo192.png", to: "static/" },
         { from: "src/static/logo512.png", to: "static/" },
+        { from: "src/static/routeShare.png", to: "static/" },
         { from: "src/static/screenshots/game1.jpeg", to: "static/" },
         { from: "src/static/screenshots/game2.jpeg", to: "static/" },
         { from: "src/static/screenshots/route1.jpeg", to: "static/" },
