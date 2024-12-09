@@ -21,6 +21,7 @@ function RouteViewer({ rid }: RouteViewerProps) {
             <Helmet>
                 <meta property="og:title" content={`Crawlear.com Route ${route.name}`} />
                 <meta property="og:description" content={`Crawlear.com Route ${route.description}`} />
+                <meta property="og:image" content="https://crawlear.com/static/routeShare.png" />
                 <meta property="description" content={`Crawlear.com  Route ${route.description}`} />
             </Helmet>
             <NotLoggedLogo />
