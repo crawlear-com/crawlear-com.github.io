@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Helmet } from 'react-helmet-async'
 import UseGameViewer from './hooks/UseGameViewer'
 import WinnerTable from '../components/WinnerTable'
 import { useTranslation } from 'react-i18next'
@@ -12,7 +13,7 @@ interface GameViewerProps {
 
 function GameViewer({ gid }: GameViewerProps) {
     const { t } = useTranslation(['main'])
-    const [game] = UseGameViewer(gid)
+    const [ game ] = UseGameViewer(gid)
     let result = <></>
 
     if (!game.players) {
@@ -23,13 +24,18 @@ function GameViewer({ gid }: GameViewerProps) {
             <WinnerTable game={game} />
         </>
     } else {
-       result = <>{t('description.juegonopublico')}</> 
+       result = <>{t('description.juegonopublico')}</>
     }
 
     return <>
-        <NotLoggedLogo /><br />
-        {result}
-    </>
+            <Helmet>
+                <meta property="og:title" content={`Crawlear.com Game ${game.name}`} />
+                <meta property="og:description" content={`Crawlear.com Game Viewer`} />
+                <meta property="description" content={`Crawlear.com Game Viewer`} />
+            </Helmet>
+            <NotLoggedLogo /><br />
+            {result}
+        </>
 }
 
 export default GameViewer;

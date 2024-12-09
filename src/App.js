@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { lazy } from 'react'
 import Analytics from './Analytics'
 import { UserStatusContext } from './context/UserStatusContext'
@@ -24,15 +25,14 @@ const GameViewer = lazy(() => import('./pages/GameViewer'))
 const RouteViewer = lazy(() => import('./pages/RouteViewer'))
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
 
-
 function App() {
   const location = useLocation()
   const navigate = useNavigate()
   const queryParams = new URLSearchParams(location.search)
-  const onLoginCallback = () => { 
+  const onLoginCallback = () => {
     if (location.pathname.length === 1) {
       navigate('/game')
-    } 
+    }
   }
   const [stateLogged, onLogin, onLogout] = useLoginProcess(onLoginCallback)
 
@@ -41,7 +41,13 @@ function App() {
     Analytics.event('App','init',`${navigator.userAgent}`)
   }, [])
 
-  return (<UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
+  return (
+    <UserStatusContext.Provider value={{ isUserLoged: stateLogged }}>
+    <Helmet>
+      <meta property="og:title" content="Crawlear.com Your profesional Crawler Scoreboard" />
+      <meta property="og:description" content="Crawlear.com Your profesional Crawler Scoreboard" />
+      <meta property="description" content="Crawlear.com Your profesional Crawler Scoreboard" />
+    </Helmet>
     <div className="App">
       { stateLogged ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
       <div className="AppMainContainer">
@@ -60,7 +66,7 @@ function App() {
           </Routes>
       </div>
     </div>
-</UserStatusContext.Provider>)
+    </UserStatusContext.Provider>)
 }
 
 export default App
