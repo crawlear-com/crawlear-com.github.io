@@ -23,7 +23,7 @@ const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/Gam
 const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagementWithAuthorization'))
 const GameViewer = lazy(() => import('./pages/GameViewer'))
 const RouteViewer = lazy(() => import('./pages/RouteViewer'))
-const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'))
+const UserViewer = lazy(() => import('./modules/social/pages/UserViewerWithAuthorization'))
 
 function App() {
   const location = useLocation()
@@ -47,6 +47,7 @@ function App() {
       <meta property="og:title" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
       <meta property="og:description" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
       <meta property="description" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
+      <meta property="og:image" content="https://crawlear.com/static/logo512.png" />
     </Helmet>
     <div className="App">
       { stateLogged ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
