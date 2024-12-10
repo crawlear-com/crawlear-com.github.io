@@ -47,6 +47,7 @@ function App() {
       <meta property="og:title" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
       <meta property="og:description" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
       <meta property="description" content="Crawlear.com Your profesional Crawler Scoreboard and Route manager" />
+      <meta property="og:image" content="https://crawlear.com/static/logo512.png" />
     </Helmet>
     <div className="App">
       { stateLogged ? <SuspenseComponent lazyComponent={<Menu />} /> : <></> }
