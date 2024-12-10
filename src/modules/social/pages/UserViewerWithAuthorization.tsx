@@ -1,10 +1,10 @@
 import * as React from 'react'
 import withAuthorization from '../../../components/WithAuthorization'
-import PilotWall from './PilotWall'
+import UserViewer from './UserViewer'
 
 
-const PilotWallWithAuthorization = withAuthorization(PilotWall as React.FunctionComponent)
+const UserViewerWithAuthorization = withAuthorization(UserViewer as React.FunctionComponent)
 
-export default PilotWallWithAuthorization
+export default UserViewerWithAuthorization
 
 
