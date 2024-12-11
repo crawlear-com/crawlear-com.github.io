@@ -73,7 +73,7 @@ test('renders UserProfile not logged', () => {
     </UserStatusContext.Provider>)
 
     const as = screen.getAllByRole('link')
-    expect(as.length).toBe(6)
+    expect(as.length).toBe(5)
 });
 
 test('renders UserProfile logged', () => {
