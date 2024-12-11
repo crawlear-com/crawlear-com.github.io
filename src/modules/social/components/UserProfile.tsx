@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import UserProfilePhoto from './UserProfilePhoto';
 import { useTranslation } from 'react-i18next';
 import Sharers from './embed/Sharers';
 import { UserStatusContext } from '../../../context/UserStatusContext';
@@ -14,26 +14,13 @@ interface UserProfileProps {
 
 function UserProfile({ user, onLogout }: UserProfileProps) {
     const { t } = useTranslation(['main'])
-    const navigate = useNavigate()
     const { isUserLoged } = React.useContext(UserStatusContext)
-    const [userName, description, instagram, followActionElement,
-        onUserNameChange, onDescriptionChange, onInstagramChange, onBlurSetName,
-        onBlurSetDescription, onBlurSetInstagram, isTheUserLogged] = useUserProfile(user)
+    const [userName, description, instagram, onUserNameChange, onDescriptionChange,
+        onInstagramChange, onBlurSetName, onBlurSetDescription, onBlurSetInstagram, isTheUserLogged] = useUserProfile(user)
     const inputUserIsTheLoggedOne = isTheUserLogged(user.uid)
 
     return <div className="userProfileContainer rounded rounded2">
-        <div className="userProfilePhotoContainer">
-            <img referrerPolicy="no-referrer" className="photo" src={user.photoURL} alt="user avatar"></img>
-            <div className='sharerContainer'>
-                { inputUserIsTheLoggedOne ?
-                <div className='logout' onClick={()=> {
-                    window.crawlear.fb.logout()
-                    onLogout && onLogout()
-                    navigate("/") }}>Logout</div> :
-                <></> }
-                { followActionElement }
-            </div>
-        </div>
+        <UserProfilePhoto uid={user.uid} photoUrl={user.photoURL} onLogout={onLogout} inputUserIsTheLoggedOne={inputUserIsTheLoggedOne} />
         <div className="userProfileInlineContainer">
             <div className="name">
                 <input type="text"
