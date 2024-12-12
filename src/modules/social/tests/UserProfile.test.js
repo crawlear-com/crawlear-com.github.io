@@ -90,21 +90,6 @@ test('renders UserProfile logged', () => {
     expect(as.length).toBe(4)
 });
 
-/*
-test('onLogout', () => {
-    const onLogout = jest.fn()
-    mockITheUserLogged.mockReturnValue(true)
-
-    render(<BrowserRouter><UserStatusContext.Provider value={{ isUserLoged: true }}>
-        <UserProfile user={ testUser } onLogout={ onLogout } />
-    </UserStatusContext.Provider></BrowserRouter>)
-    const logout = screen.getByText('Logout')
-
-    fireEvent.click(logout)
-    expect(logout).toBeInTheDocument()
-    expect(onLogout).toHaveBeenCalled()
-}); */
-
 test('on name change', () => {
     const onLogout = jest.fn()
 
@@ -118,4 +103,34 @@ test('on name change', () => {
     fireEvent.change(name, { target: { value: "other name" }})
 
     expect(mockOnUserNameChange).toHaveBeenCalled()
+});
+
+test('on description change', () => {
+    const onLogout = jest.fn()
+
+    mockITheUserLogged.mockReturnValue(true)
+    render(<BrowserRouter><UserStatusContext.Provider value={{ isUserLoged: true }}>
+        <UserProfile user={ testUser } onLogout={ onLogout } />
+    </UserStatusContext.Provider></BrowserRouter>)
+    const description = screen.getAllByRole('textbox')[1]
+
+    fireEvent.click(description)
+    fireEvent.change(description, { target: { value: "other description" }})
+
+    expect(mockOnDescriptionChange).toHaveBeenCalled()
+});
+
+test('on description blur', () => {
+    const onLogout = jest.fn()
+
+    mockITheUserLogged.mockReturnValue(true)
+    render(<BrowserRouter><UserStatusContext.Provider value={{ isUserLoged: true }}>
+        <UserProfile user={ testUser } onLogout={ onLogout } />
+    </UserStatusContext.Provider></BrowserRouter>)
+    const description = screen.getAllByRole('textbox')[1]
+
+    fireEvent.click(description)
+    fireEvent.blur(description)
+
+    expect(mockOnBlurSetDescription).toHaveBeenCalled()
 });
