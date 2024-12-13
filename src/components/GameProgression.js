@@ -9,7 +9,6 @@ function GameProgression({game, jidGroup, onZoneClick}) {
     const { t } = useTranslation(['main']);
     const [getNotAvailableZones, prepareOnClick, resolveGameStatus,
         gameProgression, selectedPlayer, selectedZone] = UseGameProgression(onZoneClick, t, game)
-    const gameProgressionInfoRef = React.useRef();
     const playersDone = [];
     let i=0;
 
@@ -24,6 +23,7 @@ function GameProgression({game, jidGroup, onZoneClick}) {
             j=-1;
 
         if(player.group === jidGroup || GameUtils.isCurrentUserIsOwner(game.owner)) {
+            const gameProgressionForPlayerAndZone = gameProgression[player.group][selectedPlayer][selectedZone]
             j++
             zones = <GameProgressionPlayerZoneItem
                         zoneIndex={j}
@@ -44,12 +44,11 @@ function GameProgression({game, jidGroup, onZoneClick}) {
                     <div className="horizontalScrollContainer">{ zones }</div>
             </div>);
 
-            if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgression[player.group][selectedPlayer][selectedZone].data) {
+            if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgressionForPlayerAndZone.data) {
                 playersDone.push(<div key={`${i+j}Info`} className='gameProgressionInfoItem smallText rounded rounded2'>
                     <GameProgressionInfoRow
                         gameType={game.gameType}
-                        innerRef={gameProgressionInfoRef}
-                        gameProgression={gameProgression[player.group][selectedPlayer][selectedZone]} />
+                        gameProgression={ gameProgressionForPlayerAndZone } />
                 </div>);
             }
             i++;

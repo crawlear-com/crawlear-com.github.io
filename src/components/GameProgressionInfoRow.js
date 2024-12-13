@@ -2,59 +2,17 @@ import { useTranslation } from 'react-i18next'
 import * as React from 'react';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
 import Utils from '../Utils';
-import { AecarGameScores } from '../games/AecarGameScores';
-import { RegionalZonaRcGameScores } from '../games/RegionalZonaRcGameScores';
-import { Levante124GameScores } from '../games/Levante124GameScores';
-import { IsrccGameScores } from '../games/IsrccGameScores';
-import { MiniCrawlerPassionGameScores } from '../games/MiniCrawlerPassionGameScores';
-import { GenericGameScores } from '../games/GenericGameScores';
-import { GAME_TYPE_ISRCC,
-    GAME_TYPE_LEVANTE,
-    GAME_TYPE_COPAESPANA,
-    GAME_TYPE_MINICRAWLERPASSION,
-    GAME_TYPE_GENERIC,
-    GameUtils } from '../games/Game';
+import { getAllGameTexts } from '../modules/gamePlayer/GamePlayerUtils';
+import { GameUtils } from '../games/Game';
 
 
 function GameProgressionInfoRow({gameType, gameProgression}) {
     const { t } = useTranslation(['main'])
 
     if (gameProgression.data) {
-        const points = gameProgression.data.points,
-            totalPoints = gameProgression.data.totalPoints,
-            time = gameProgression.data.time,
-            gateFails = gameProgression.data.gatesWithFail,
-            gateProgression = gameProgression.data.gateProgression,
-            simpathyPoints = gameProgression.data.simpathyPoints,
-            handicap = gameProgression.data.handicap,
-            bonitification = gameProgression.data.gatesWithBonification;
-        let gameTypeTexts = Utils.tokenToTexts(t, AecarGameScores.texts),
-            fiascoGameTypeTexts = Utils.tokenToTexts(t, AecarGameScores.fiascoTexts);
-
-        if(gameType === GAME_TYPE_ISRCC) {
-            gameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.texts);
-            fiascoGameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.fiascoTexts);
-        }
-
-        if(gameType === GAME_TYPE_LEVANTE) {
-            gameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.texts);
-            fiascoGameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.fiascoTexts);
-        }
-
-        if(gameType ===GAME_TYPE_COPAESPANA) {
-            gameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.texts);
-            fiascoGameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.fiascoTexts);
-        }
-
-        if(gameType ===GAME_TYPE_MINICRAWLERPASSION) {
-            gameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.texts);
-            fiascoGameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.fiascoTexts);
-        }
-
-        if(gameType ===GAME_TYPE_GENERIC) {
-            gameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.texts);
-            fiascoGameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.fiascoTexts);
-        }
+        const { points, totalPoints, time, gateFails, gateProgression,
+            simpathyPoints, handicap, bonitification } = gameProgression.data;
+        let [gameTypeTexts, fiascoGameTypeTexts] = getAllGameTexts(gameType, t)
 
         return <>
             <ul>

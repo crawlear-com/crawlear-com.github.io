@@ -57,6 +57,7 @@ interface Zone {
     gatesWithBonification: number,
     gatesWithFail: number,
     handicap: number,
+    battery: boolean,
     gateProgressionData: Array<GateProgressionData>,
     fiascoControlTextValues: Array<number>
 }

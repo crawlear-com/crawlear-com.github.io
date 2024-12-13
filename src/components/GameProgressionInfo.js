@@ -12,44 +12,42 @@ function GameProgressionInfo({game, gameProgression}) {
 
     if (game) {
         playersDone.push(<GameHeaderInfo key="header" game={game}/>);
-        
+
         game.players.forEach((player)=>{
             let zones=[], j=0;
             let fiasco;
-    
-            player.zones.forEach((zone, index)=>{  
+
+            player.zones.forEach((zone, index)=>{
                 const group = player.group;
 
                 if(gameProgression && gameProgression[group] &&
-                        gameProgression[group][player.id] && 
+                        gameProgression[group][player.id] &&
                         gameProgression[group][player.id][j] &&
                         gameProgression[group][player.id][j].data) {
-    
                     let controlTextValues = [];
                     const currentGameProgression = gameProgression[group][player.id][j];
-        
-                    if (currentGameProgression.status==="done") { 
-                        controlTextValues.push(<GameProgressionInfoRow 
+
+                    if (currentGameProgression.status==="done") {
+                        controlTextValues.push(<GameProgressionInfoRow
                             gameType={game.gameType}
                             key={`progressRow${j}`}
                             gameProgression={currentGameProgression} />);
-                    } else if (currentGameProgression.status==="repair") {  
+                    } else if (currentGameProgression.status==="repair") {
                         controlTextValues.push(t('points.reparacion').toUpperCase());
                     }
-                    
-                    if (GameUtils.isFiasco(game, player.id, index)) { 
+
+                    if (GameUtils.isFiasco(game, player.id, index)) {
                         fiasco = <img src={fiascoIcon} alt="fiasco" />;
                     }
-    
+
                     zones.push(<div key={j} className="gameProgressionInfoItem">
                             <div className="bold">{t('description.zona')} {j+1} {fiasco}</div>
                             {controlTextValues}
                         </div>);
-                        
                 }
                 j++;
             });
-    
+
             if (zones.length>0) {
                 playersDone.push(<div key={i+j} className='gameProgressionItem rounded rounded1'>
                     <img src={player.avatar} alt="player avatar" />
@@ -57,7 +55,7 @@ function GameProgressionInfo({game, gameProgression}) {
                 </div>);
             }
             i++;
-        });    
+        });
     }
 
     return <>{ playersDone }</>
