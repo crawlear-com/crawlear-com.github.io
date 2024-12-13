@@ -1,22 +1,20 @@
 import * as React from 'react'
-import { Zone } from '../games/GameInterfaces';
-import Utils from '../Utils';
-import ControlTextArrayVisualization from './ControlTextArrayVisulization';
-import { GameUtils } from '../games/Game';
-import { getGameTexts, getFiascoGameTexts } from '../modules/gamePlayer/GamePlayerUtils';
+import { Zone } from '../../games/GameInterfaces';
+import Utils from '../../Utils';
+import ControlTextArrayVisualization from '../ControlTextArrayVisulization';
+import { GameUtils } from '../../games/Game';
+import { getGameTexts, getFiascoGameTexts } from '../../modules/gamePlayer/GamePlayerUtils';
 import { useTranslation } from 'react-i18next';
 
 interface GameResultTableZonePointsRowProps {
     gameType: number,
-    playerName: string,
-    zone: Zone,
-    numZone: number
+    zone: Zone
 }
 
-function GameResultTableZonePointsRow({ zone, numZone, playerName, gameType }: GameResultTableZonePointsRowProps) {
+function GameResultTableZonePointsRow({ zone, gameType }: GameResultTableZonePointsRowProps) {
     const { t } = useTranslation(['main'])
 
-    return (<tr key={`${playerName}${numZone}`} className="closed">
+    return (<tr className="closed">
         <td colSpan={7}>
             {zone.handicap!==0 ? <div className='controlTextValues'>{t('description.bonificacionaccesorios')}: {zone.handicap}</div> : <></>}
             <ControlTextArrayVisualization

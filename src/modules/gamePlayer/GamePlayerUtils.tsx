@@ -16,8 +16,8 @@ import { gameExtras as kingExtras } from '../../games/KingGameScores';
 import Utils from "../../Utils";
 import * as React  from "react";
 
-import fiascoIcon from '../resources/img/iconFiasco.png';
-import batteryIcon from '../resources/img/iconBattery.png';
+import fiascoIcon from '../../resources/img/iconFiasco.png';
+import batteryIcon from '../../resources/img/iconBattery.png';
 
 
 export const isIndividualGame = (game: Game): boolean => {

@@ -3,7 +3,7 @@ import WinnerTable from '../../components/WinnerTable'
 import Sharer from '../../modules/social/components/embed/Sharers'
 import WinnerOrTieBox from '../../components/WinnerOrTieBox'
 import GameHeaderInfo from '../../components/GameHeaderInfo'
-import GameResultTable from '../../components/GameResultTable'
+import GameResultTable from '../../components/GameResultTable/GameResultTable'
 import Spinner from '../../components/Spinner'
 
 import { Game, GAME_TYPE_AECAR } from '../../games/Game'
@@ -25,14 +25,14 @@ jest.mock('react-i18next', () => ({
 jest.mock('../../modules/social/components/embed/Sharers')
 jest.mock('../../components/WinnerOrTieBox')
 jest.mock('../../components/GameHeaderInfo')
-jest.mock('../../components/GameResultTable')
+jest.mock('../../components/GameResultTable/GameResultTable')
 jest.mock('../../components/Spinner')
 
-beforeEach(()=>{  
+beforeEach(()=>{
     document.body.innerHTML = ''
     document.body.append(div)
-    game = new Game("Game test", 
-        new Date(), 
+    game = new Game("Game test",
+        new Date(),
         {
             longitude: 0,
             latitude: 0
@@ -40,7 +40,6 @@ beforeEach(()=>{
         true,
         GAME_TYPE_AECAR,
         [], [], 0, 0, [0], ["uid1","uid2"], ["jid1", "jid2"], 1, 0, "owner", 0)
-        
     game.players = [{
         photoURL: "avatar1",
         battery: false,
@@ -98,7 +97,7 @@ beforeEach(()=>{
             battery: false,
             controlTextValues: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             points: 10,
-            time: 0 
+            time: 0
         }]
     }]
 })

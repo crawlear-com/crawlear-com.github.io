@@ -1,7 +1,7 @@
 import * as React from 'react'
-import Utils from '../Utils';
+import Utils from '../../Utils';
 
-import winnerIcon from '../resources/img/iconWinner.png';
+import winnerIcon from '../../resources/img/iconWinner.png';
 
 const INITIAL_TIME = "00:00:000"
 
@@ -15,7 +15,7 @@ interface GameResultTablePlayerHeaderProps {
 }
 
 function GameResultTablePlayerHeader({ playerName, gameType, isDraw, playerTotalPoint, playerTotalTime, position }: GameResultTablePlayerHeaderProps) {
-    return (<tr key={ playerName }>
+    return (<tr>
         { isDraw ? <td></td> : <td className="bold gameListPosition">{
                 position===0?<img src={winnerIcon} alt="winner" />:position+1
             }</td> }

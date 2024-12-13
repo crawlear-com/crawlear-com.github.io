@@ -3,7 +3,7 @@ import { GameResultTableHeader } from './GameResultTableHeader';
 import { GameResultTablePlayerHeader } from './GameResultTablePlayerHeader';
 import { GameResultTablePointsRow } from './GameResultTablePointsRow';
 import { GameResultTableZonePointsRow } from './GameResultTableZonePointsRow'
-import { getGamePlayerResultIcon } from '../modules/gamePlayer/GamePlayerUtils';
+import { getGamePlayerResultIcon } from '../../modules/gamePlayer/GamePlayerUtils';
 
 function GameResultTable({game, isDraw}) {
     const players = [];
@@ -24,15 +24,12 @@ function GameResultTable({game, isDraw}) {
 
             players.push(<GameResultTablePointsRow
                             icon={icon}
-                            playerName={player.name}
                             zone={zone}
                             numZone={i % player.zones.length +1}
                             gameType={game.gameType}
                             zonesLength={player.zones.length} />);
             players.push(<GameResultTableZonePointsRow
-                            playerName={player.name}
                             zone={zone}
-                            numZone={i % player.zones.length +1}
                             gameType={game.gameType} />);
             i++;
         });

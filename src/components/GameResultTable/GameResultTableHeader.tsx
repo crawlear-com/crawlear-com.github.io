@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 function GameResultTableHeader() {
     const { t } = useTranslation(['main'])
 
-    return (<tr key={`game${new Date().getMilliseconds()}`}>
+    return (<tr>
         <td></td>
         <td className=""></td>
         <td>{t("description.puntos")}</td>
