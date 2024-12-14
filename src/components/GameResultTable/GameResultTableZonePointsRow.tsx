@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Zone } from '../../games/GameInterfaces';
-import Utils from '../../Utils';
 import ControlTextArrayVisualization from '../ControlTextArrayVisulization';
 import { GameUtils } from '../../games/Game';
 import { getGameTexts, getFiascoGameTexts } from '../../modules/gamePlayer/GamePlayerUtils';
