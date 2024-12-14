@@ -20,11 +20,9 @@ function GameProgression({game, jidGroup, onZoneClick}) {
 
     game.players.forEach((player)=>{
         let zones=[],
-            j=-1;
+            j=0;
 
         if(player.group === jidGroup || GameUtils.isCurrentUserIsOwner(game.owner)) {
-            const gameProgressionForPlayerAndZone = gameProgression[player.group][selectedPlayer][selectedZone]
-            j++
             zones = <GameProgressionPlayerZoneItem
                         zoneIndex={j}
                         zones={player.zones}
@@ -44,14 +42,19 @@ function GameProgression({game, jidGroup, onZoneClick}) {
                     <div className="horizontalScrollContainer">{ zones }</div>
             </div>);
 
-            if(selectedPlayer>=0 &&  selectedZone>=0 && player.id === selectedPlayer && gameProgressionForPlayerAndZone.data) {
-                playersDone.push(<div key={`${i+j}Info`} className='gameProgressionInfoItem smallText rounded rounded2'>
-                    <GameProgressionInfoRow
-                        gameType={game.gameType}
-                        gameProgression={ gameProgressionForPlayerAndZone } />
-                </div>);
+            if(selectedPlayer>=0 &&  selectedZone>=0) {
+                const gameProgressionForPlayerAndZone = gameProgression[player.group][selectedPlayer][selectedZone]
+
+                if (player.id === selectedPlayer && gameProgressionForPlayerAndZone.data) {
+                    playersDone.push(<div key={`${i+j}Info`} className='gameProgressionInfoItem smallText rounded rounded2'>
+                        <GameProgressionInfoRow
+                            gameType={game.gameType}
+                            gameProgression={ gameProgressionForPlayerAndZone } />
+                    </div>);
+                }
             }
-            i++;
+            j++
+            i++
         }
     });
 

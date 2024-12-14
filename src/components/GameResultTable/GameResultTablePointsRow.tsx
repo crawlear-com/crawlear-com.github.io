@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import openIcon from '../../resources/img/arrowdown.png';
 
 interface GameResultTablePointsRowProps {
-    icon: string,
+    icon: React.JSX.Element,
     zone: Zone,
     numZone: number,
     gameType: number,

@@ -26,7 +26,7 @@ function GameResultTableZonePointsRow({ zone, gameType }: GameResultTableZonePoi
                     <div className="left bold">{t('points.fiascos')}:</div>
                     <ControlTextArrayVisualization
                         controlTextValues={zone.fiascoControlTextValues}
-                        texts={Utils.tokenToTexts(t,getFiascoGameTexts(gameType, t))} />
+                        texts={getFiascoGameTexts(gameType, t)} />
                 </> :
                 <></>}
         </td>
