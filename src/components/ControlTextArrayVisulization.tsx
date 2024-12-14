@@ -2,9 +2,14 @@ import * as React from 'react';
 
 import '../resources/css/ControlTextArrayVisualization.scss';
 
-function ControlTextArrayVisualization({controlTextValues, texts}) {
+interface ControlTextArrayVisualizationProps {
+    controlTextValues: Array<number>,
+    texts: Array<string>
+}
+
+function ControlTextArrayVisualization({ controlTextValues, texts }: ControlTextArrayVisualizationProps): React.JSX.Element {
     let i=0;
-    const controlArray = [];
+    const controlArray: Array<React.JSX.Element> = [];
 
     controlTextValues && controlTextValues.forEach((controltextValue)=>{
         if (controltextValue !== 0) {
@@ -13,7 +18,7 @@ function ControlTextArrayVisualization({controlTextValues, texts}) {
         i++;
     });
 
-    return controlArray;
+    return <>{ controlArray }</>
 }
 
 export default ControlTextArrayVisualization;

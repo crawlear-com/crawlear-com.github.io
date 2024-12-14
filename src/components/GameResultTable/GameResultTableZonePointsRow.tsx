@@ -16,7 +16,7 @@ function GameResultTableZonePointsRow({ zone, gameType }: GameResultTableZonePoi
 
     return (<tr className="closed">
         <td colSpan={7}>
-            {zone.handicap!==0 ? <div className='controlTextValues'>{t('description.bonificacionaccesorios')}: {zone.handicap}</div> : <></>}
+            { zone.handicap!==0 ? <div className='controlTextValues'>{t('description.bonificacionaccesorios')}: {zone.handicap}</div> : <></> }
             <ControlTextArrayVisualization
                 controlTextValues={GameUtils.sumControlTextValues(zone.gateProgressionData)}
                 texts={getGameTexts(gameType, t)} />

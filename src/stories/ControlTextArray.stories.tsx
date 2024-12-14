@@ -6,8 +6,8 @@ import ControlTextArray from '../components/ControlTextArray'
 import { GameContext } from '../context/GameContext'
 import { gameExtras } from '../games/AecarGameScores'
 
-const gameSimple = new Game("Game test", 
-  new Date().toDateString(), 
+const gameSimple = new Game("Game test",
+  new Date().toDateString(),
   {
       longitude: 0,
       latitude: 0
@@ -16,8 +16,8 @@ const gameSimple = new Game("Game test",
   0,
   [], [], 0, 10, [1], 1, 0, ["uid1","uid2"], ["jid1", "jid2"], ["owner"])
 
-const gameDouble = new Game("Game test", 
-  new Date().toDateString(), 
+const gameDouble = new Game("Game test",
+  new Date().toDateString(),
   {
       longitude: 0,
       latitude: 0
@@ -43,6 +43,7 @@ gameSimple.players = [{
       gatesWithBonification: 0,
       gatesWithFail: 0,
       judgedBy: [],
+      battery: false,
       points: 10,
       totalPoints: 10,
       simpathyPoints: 0,
@@ -79,6 +80,7 @@ gameDouble.players = [{
       gatesWithBonification: 0,
       gatesWithFail: 0,
       judgedBy: [],
+      battery: false,
       points: 10,
       totalPoints: 10,
       simpathyPoints: 0,
@@ -127,8 +129,8 @@ export const ControlTextArraySimpleValues: Story = {
   },
   decorators: [
     (Story) => (
-      <GameContext.Provider value={{ 
-          game: gameSimple, 
+      <GameContext.Provider value={{
+          game: gameSimple,
           setGame: fn(),
           gameExtras: gameExtras
         }}>
@@ -169,8 +171,8 @@ export const ControlTextArrayDoubleValues: Story = {
   },
   decorators: [
     (Story) => (
-      <GameContext.Provider value={{ 
-          game: gameDouble, 
+      <GameContext.Provider value={{
+          game: gameDouble,
           setGame: fn(),
           gameExtras: gameExtras
         }}>
