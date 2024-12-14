@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import GamePlayerUtils from './GamePlayerUtils';
+import { getGroupFromJid, getGameExtras, getGameContent } from './GamePlayerUtils';
 import GamePlayerMenu from './components/GamePlayerMenu';
 import GameTypePlayer from './components/GameTypePlayer';
 import { GameProgressionContext } from '../../context/GameProgressionContext';
@@ -14,13 +14,13 @@ import './styles/GamePlayer.scss'
 function GamePlayer({inGame, onBackButtonClick}) {
     let view = <></>
     const { t } = useTranslation(['main'])
-    const gameExtras = GamePlayerUtils.getGameExtras(inGame.gameType)
+    const gameExtras = getGameExtras(inGame.gameType)
     const [state, game, gameProgression, setGameProgression, player, zone,
         onBeginGame, onClosePlayButtonClick, onGameEnd, onRepair] = UseGamePlayer(inGame, gameExtras)
-    const childrenContent = GamePlayerUtils.getGameContent(game.gameType, player.id, zone)
+    const childrenContent = getGameContent(game.gameType, player.id, zone)
 
     const [jidGroup] = React.useState(()=>{
-        return GamePlayerUtils.getGroupFromJid(game, window.crawlear.user.uid)
+        return getGroupFromJid(game, window.crawlear.user.uid)
     })
 
     if (state === GAME_STATUS_CREATED) {

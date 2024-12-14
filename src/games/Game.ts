@@ -146,6 +146,7 @@ class GameUtils {
                         gatesWithBonification: 0,
                         gatesWithFail: 0,
                         handicap: 0,
+                        battery: false,
                         gateProgressionData: new Array(game.gates[k]),
                         fiascoControlTextValues: fiascoControlTextValuesInit()
                     };

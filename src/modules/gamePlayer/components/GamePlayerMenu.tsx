@@ -6,7 +6,7 @@ import RepairProgression from './RepairProgression'
 import GameProgressionDirector from './GameProgressionDirector'
 import GameProgression from '../../../components/GameProgression'
 import ErrorBox from '../../../components/ErrorBox'
-import GamePlayerUtils from '../GamePlayerUtils'
+import { isGroupGameFinished, onRepairEnd } from '../GamePlayerUtils'
 import UseGamePlayerMenu from '../hooks/UseGamePlayerMenu'
 import JudgeActions from './JudgeActions'
 
@@ -45,12 +45,12 @@ function GamePlayerMenu({ game,
                 gameProgression={gameProgression}
                 gid={game.gid}
                 players={game.players}
-                onRepairEnd={GamePlayerUtils.onRepairEnd}
+                onRepairEnd={onRepairEnd}
             />
         </div>
         <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
         { GameUtils.isCurrentUserIsOwner(game.owner) &&
-          GamePlayerUtils.isGroupGameFinished(game, gameProgression, jidGroup) ?
+          isGroupGameFinished(game, gameProgression, jidGroup) ?
             <button className="closeButton importantNote" onClick={() => {
                 onCloseButonClick(game)
             }}>{t('description.cerrarpartida')}</button> :

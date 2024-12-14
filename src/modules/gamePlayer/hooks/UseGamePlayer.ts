@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { isOffline } from '../../../pages/Offline'
 import { Game } from '../../../games/Game'
-import GamePlayerUtils from '../GamePlayerUtils'
+import { isIndividualGame, isGroupGameFinished, updateGameFromProgression } from '../GamePlayerUtils'
 import { useTranslation } from 'react-i18next'
 import { GameUtils } from '../../../games/Game'
 import { Player } from '../../../games/GameInterfaces'
@@ -31,7 +31,7 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
             const res: any = {};
 
             res[group] = progression;
-            setGame(GamePlayerUtils.updateGameFromProgression(progression, game))
+            setGame(updateGameFromProgression(progression, game))
             gameProgressionRef.current = {...gameProgressionRef.current, ...res};
             setGameProgression({...gameProgressionRef.current, ...res});
         }
@@ -60,7 +60,7 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
     }
 
     function onClosePlayButtonClick(game: Game, jidGroup: number) {
-        if (GamePlayerUtils.isGroupGameFinished(game, gameProgression, jidGroup) && window.confirm(t('content.cerrarpartida')) && !isOffline) {
+        if (isGroupGameFinished(game, gameProgression, jidGroup) && window.confirm(t('content.cerrarpartida')) && !isOffline) {
             fb.getGameResult(game, (game: Game)=>{
                 let newGame: any = {...game};
 
@@ -81,7 +81,7 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
     }
 
     function onGameEnd(updatedGame: Game) {
-        if(!GamePlayerUtils.isIndividualGame(game)) {
+        if(!isIndividualGame(game)) {
             const pid = player.id
             const group = player.group
             const newGameProgression = {...gameProgression}
