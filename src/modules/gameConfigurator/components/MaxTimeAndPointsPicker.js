@@ -6,39 +6,28 @@ import Utils from '../../../Utils';
 
 import '../styles/MaxTimePicker.scss';
 
-function MaxTimeAndPointsPicker({ 
-        onMaxTimeChange, 
-        onMaxPointsChange, 
-        showTimePicker,
-        time,
-        points
-    }) {
-    
-    const { t } = useTranslation(['main']),
-        maxTimeStruct = Utils.millisToTime(time);
+function MaxTimeAndPointsPicker({ onMaxTimeChange, onMaxPointsChange, showTimePicker, time, points }) {
+    const { t } = useTranslation(['main'])
+    const maxTimeStruct = Utils.millisToTime(time);
     let maxTimePicker = <></>;
 
     if (showTimePicker) {
-        maxTimePicker = <><p>{t('content.maxTimeText1')}</p>
-            <MaxTimePicker 
+        maxTimePicker = <>
+            <p>{t('content.maxTimeText1')}</p>
+            <MaxTimePicker
                 onMaxTimeChange={onMaxTimeChange}
                 onMaxPointsChange={onMaxPointsChange}
                 minutes={maxTimeStruct.m}
                 seconds={maxTimeStruct.s}
                 millis={maxTimeStruct.mm} />
-            </>;
+        </>;
     }
 
     return <div>
         {maxTimePicker}
         <p>{t('content.maxTimeText2')}</p>
         <div className="pickerContainer rounded rounded2">
-            <Picker value={points} 
-                minValue={0}
-                initialValue={0}
-                callback={(result) => {
-                    onMaxPointsChange(result)
-                }} />
+            <Picker value={points} minValue={0} initialValue={0} callback={(result) => { onMaxPointsChange(result) }} />
         </div>
     </div>;
 }
