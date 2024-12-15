@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { GAME_TYPE_KING } from '../../../games/Game'
-import GameTypeController from '../components/GameTypeController'
+import GameTypePicker from '../components/GameTypePicker'
 import PlayerController from '../components/PlayerController'
 import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker'
 import ZonesPicker from '../components/ZonesPicker'
@@ -89,7 +89,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
             </div>
         </div>
 
-        <GameTypeController
+        <GameTypePicker
             selectedGameType={game.gameType}
             selectedPointsType={game.pointsType}
             onGameTypeChange={(selectedIndex) => {

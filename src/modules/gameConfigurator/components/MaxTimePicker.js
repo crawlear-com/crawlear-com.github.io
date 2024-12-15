@@ -20,7 +20,7 @@ function MaxTimePicker({onMaxTimeChange, minutes, seconds}) {
         const newValues = [...values];
 
         newValues[elementRef] = result;
-        result = calculateTime(newValues);            
+        result = calculateTime(newValues);
         onMaxTimeChange && onMaxTimeChange(result);
     }
 

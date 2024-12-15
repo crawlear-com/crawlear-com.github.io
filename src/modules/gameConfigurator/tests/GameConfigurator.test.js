@@ -3,7 +3,7 @@ import GameConfigurator from '../pages/GameConfigurator'
 import { Game, GAME_TYPE_LEVANTE } from '../../../games/Game'
 import { UserStatusContext } from '../../../context/UserStatusContext'
 import ZonesPicker from '../components/ZonesPicker'
-import GameTypeController from '../components/GameTypeController'
+import GameTypePicker from '../components/GameTypePicker'
 import GateProgressionPicker from '../components/GateProgressionPicker'
 import { isOffline } from '../../../pages/Offline'
 import PlayerController from '../components/PlayerController'
@@ -54,7 +54,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 jest.mock('../components/ZonesPicker')
-jest.mock('../components/GameTypeController')
+jest.mock('../components/GameTypePicker')
 jest.mock('../components/GateProgressionPicker')
 jest.mock('../../../pages/Offline', () => ({
     isOffline: false
@@ -73,7 +73,7 @@ test('renders GameConfigurator', () => {
     const game = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
     const onGameCreated = jest.fn()
-    
+
     render(
         <UserStatusContext.Provider value={{ isUserLoged: true }}>
             <GameConfigurator preconfiguredGame={game} onGameCreated={onGameCreated} />, div)
@@ -81,7 +81,7 @@ test('renders GameConfigurator', () => {
 
     const progressionPickerContainer = screen.getByText('gateProgressionPicker')
     const zonesPickerContainer = screen.getByText('zonesPicker')
-    
+
     expect(progressionPickerContainer).not.toBeNull()
     expect(zonesPickerContainer).not.toBeNull()
 })
