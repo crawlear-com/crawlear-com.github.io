@@ -12,11 +12,11 @@ import GroupsPicker from '../components/GroupsPicker'
 import ErrorBox from '../../../components/ErrorBox'
 import LocationResolver from '../components/LocationResolver'
 import Analytics from '../../../Analytics'
-import UserSearchForGame from '../components/UserSearchForGame'
+import UserSearchForGame from '../components/UserSearch/UserSearchForGame'
 
 const div = document.createElement('div')
 
-beforeEach(()=>{  
+beforeEach(()=>{
   document.body.appendChild(div);
   window.scrollTo = jest.fn()
   window.crawlear = {
@@ -29,10 +29,10 @@ beforeEach(()=>{
         isUserLogged: jest.fn()
     },
     user: { }
-  } 
+  }
 })
 
-afterEach(()=>{  
+afterEach(()=>{
     document.body.removeChild(div);
 })
 
@@ -67,7 +67,7 @@ jest.mock('../../../components/ErrorBox')
 jest.mock('../../../context/UserStatusContext')
 jest.mock('../components/LocationResolver')
 jest.mock('../../../Analytics')
-jest.mock('../components/UserSearchForGame')
+jest.mock('../components/UserSearch/UserSearchForGame')
 
 test('renders GameConfigurator', () => {
     const game = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },

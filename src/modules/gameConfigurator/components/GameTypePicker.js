@@ -4,7 +4,7 @@ import useGameTypePicker from '../hooks/useGameTypePicker'
 
 import '../styles/GameTypeController.scss';
 
-function GameTypePicker({onGameTypeChange,  selectedGameType=0, selectedPointsType=0}) {
+function GameTypePicker({onGameTypeChange,  selectedGameType=0}) {
     const { t } = useTranslation(['main'])
     const [gameType, optionElements, onSelectGameTypeChange] = useGameTypePicker(selectedGameType, onGameTypeChange)
     const textsGameType = [<div>{t('gametype.modojuegoarcar')}</div>,

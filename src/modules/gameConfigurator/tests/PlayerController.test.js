@@ -34,7 +34,7 @@ jest.mock('react-i18next', () => ({
 }));
 
 jest.mock('../components/PlayerItem')
-jest.mock('../components/UserSearchForGame')
+jest.mock('../components/UserSearch/UserSearchForGame')
 
 test('renders PlayerController', () => {
     const onPlayerNumerChangeMock = jest.fn()

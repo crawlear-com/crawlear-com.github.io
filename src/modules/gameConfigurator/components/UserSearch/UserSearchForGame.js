@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import UserSearch from './UserSearch';
 
-import '../styles/UserSearch.scss';
-import iconSend from '../styles/img/iconSend.png';
+import '../../styles/UserSearch.scss';
+import iconSend from '../../styles/img/iconSend.png';
 
 function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
     const fb = window.crawlear.fb
@@ -11,7 +11,7 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
     const { t } = useTranslation(['main']);
     const gameRequestsRef = React.useRef(0);
     const [gameRequests, setGameRequests] = React.useState(0);
-    
+
     function addUserFromSeach({uid, displayName, photoURL}) {
         if (!uid) return
         if (uid !== window.crawlear.user.uid) {
@@ -29,10 +29,10 @@ function UserSearchForGame({onUserSeachPlayerAdd, gameName, isForJudge}) {
                 group: 0
             })
         } else {
-            fb.setUserGameRequest(window.crawlear.user.uid, 
-                window.crawlear.user.displayName, 
-                uid, 
-                gameName, 
+            fb.setUserGameRequest(window.crawlear.user.uid,
+                window.crawlear.user.displayName,
+                uid,
+                gameName,
                 (requestData, requestStatus)=>{
                     if (requestStatus === 'pending') {
                         gameRequestsRef.current += 1;

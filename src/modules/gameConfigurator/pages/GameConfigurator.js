@@ -1,23 +1,18 @@
 import * as React from 'react'
-import { GAME_TYPE_KING } from '../../../games/Game'
 import GameTypePicker from '../components/GameTypePicker'
 import PlayerController from '../components/PlayerController'
-import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker'
-import ZonesPicker from '../components/ZonesPicker'
-import GroupsPicker from '../components/GroupsPicker'
-import GateProgressionPicker from '../components/GateProgressionPicker'
 import ErrorBox from '../../../components/ErrorBox'
-import { isOffline } from '../../../pages/Offline'
 import LocationResolver from '../components/LocationResolver'
 import { useTranslation } from 'react-i18next'
 import UseGameConfigurator from '../hooks/UseGameConfigurator'
+import GameConfiguratorGameTypePickers from '../components/GameConfiguratorGameTypePickers'
+import GameConfiguratorGameInfo from '../components/GameConfiguratorGameInfo'
 import Analytics from '../../../Analytics'
 
 import '../styles/GameConfigurator.scss'
 
 function GameConfigurator({preconfiguredGame, onGameCreated}) {
     const { t } = useTranslation(['main'])
-    const extraConfigurationComponents = []
 
     React.useEffect(() => {
         Analytics.pageview(`/gameconfigurator`)
@@ -29,97 +24,27 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         onGroupsChange, onIsPublicChange, onGameDirectorChange,
         onRandomizePlayersOrder, createGame] = UseGameConfigurator({ preconfiguredGame, onGameCreated })
 
-    extraConfigurationComponents.push(<MaxTimeAndPointsPicker key={0}
-        mode={game.pointsType}
-        onMaxPointsChange={onMaxPointsChange}
-        onMaxTimeChange={onMaxTimeChange}
-        time={game.maxTime}
-        points={game.maxPoints}
-        showTimePicker={true} />);
-
-    if (game.gameType !== GAME_TYPE_KING) {
-        extraConfigurationComponents.push(<ZonesPicker key={1}
-            game={game}
-            value={game.zones}
-            onZonesChange={onZonesChange}
-            onGatesChange={onGatesChange}
-            onMaxPointsChange={onMaxPointsChange}
-            onMaxTimeChange={onMaxTimeChange} />);
-        extraConfigurationComponents.push(<GateProgressionPicker key={2}
-            zones={game.zones}
-            value={10}
-            onGatesChange={onGatesChange} />);
-        extraConfigurationComponents.push(<GroupsPicker key={3}
-            onGroupsChange={onGroupsChange}
-            value={1}
-            minValue={1}
-            maxValue={10}
-            />)
-        if (!isOffline) {
-            extraConfigurationComponents.push(<PlayerController key={4}
-                isForJudge={true}
-                maxGroups={groups}
-                inPlayers={game.judges}
-                gameName={game.name}
-                onGameDirectorChange={onGameDirectorChange}
-                onPlayerNumerChange={onJudgeNumerChange} />);
-        }
-    }
 
     return (<>
         <ErrorBox message={errorMessage} />
-        <div className="newGameContainer rounded rounded1">
-            <div className="newGame">
-                <div className="headerText bold">{t('description.nuevaPartida')}</div>
-                <div className="newGameRow">
-                    <label htmlFor='gameName' className="formRequiredValue">{t('description.nombre')}</label>
-                    { !game.name && <div className='formError'>{ t('error.nonombre')} </div>}
-                    <input id="gameName" value={game.name} className="newGameNameInput" type="text" onChange={onNameChange}></input>
-                </div>
-                <div className="newGameRow">
-                    <span className="">{t('description.fecha')}</span>: {game.date.toLocaleString()}
-                </div>
-                <div className="newGameRow">
-                    <span className="">{t('description.esPublica')}</span>: <input type="checkbox" checked={game.isPublic} onChange={onIsPublicChange}></input>
-                </div>
-                <div className="newGameRow">
-                    <span className="">{t('description.localizacion')}</span>:
-                    <LocationResolver onLocationResolved={onLocationResolved}></LocationResolver>
-                </div>
-            </div>
-        </div>
-
-        <GameTypePicker
-            selectedGameType={game.gameType}
+        <GameConfiguratorGameInfo game={game} onIsPublicChange={onIsPublicChange} onLocationResolved={onLocationResolved} onNameChange={onNameChange} />
+        <GameTypePicker selectedGameType={game.gameType}
             selectedPointsType={game.pointsType}
-            onGameTypeChange={(selectedIndex) => {
-                onGameTypeChange(selectedIndex);
-            }
-        } />
-
-        {extraConfigurationComponents}
-
+            onGameTypeChange={(selectedIndex) => { onGameTypeChange(selectedIndex) }} />
+        <GameConfiguratorGameTypePickers onGameDirectorChange={onGameDirectorChange} onGameTypeChange={onGameTypeChange} onGatesChange={onGatesChange}
+            onGroupsChange={onGroupsChange} onJudgeNumerChange={onJudgeNumerChange} onMaxPointsChange={onMaxPointsChange} onMaxTimeChange={onMaxTimeChange}
+            onZonesChange={onZonesChange} groups={groups} game={game} />
         <PlayerController gameName={game.name}
             isForJudge={false}
             inPlayers={game.players}
             maxGroups={groups}
-            onPlayerNumerChange={(players)=>{
-                onPlayerNumerChange && onPlayerNumerChange(players);
-            }
-        }/>
+            onPlayerNumerChange={(players)=>{ onPlayerNumerChange && onPlayerNumerChange(players) }}/>
         <input type="checkbox" onChange={onRandomizePlayersOrder}></input>{t('description.ordenRamdomJugadores')}
         <p>
             <button className="importantNote"
                 disabled={ !game.name || !game.name.length || !game.players.length || !game.judges.length }
-                onClick={() => {
-                    createGame(groups, game);
-                }
-            }>{t('description.crearjuego')}</button>
-            <button
-                onClick={() => {
-                    window.location.reload();
-                }
-            }>{t('description.atras')}</button>
+                onClick={() => { createGame(groups, game) }}>{t('description.crearjuego')}</button>
+            <button onClick={() => { window.location.reload(); }}>{t('description.atras')}</button>
         </p>
     </>)
 }
