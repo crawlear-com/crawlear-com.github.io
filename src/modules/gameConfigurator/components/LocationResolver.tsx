@@ -26,7 +26,7 @@ function LocationResolver({ onLocationResolved }: LocationResolverProps) {
         EventTarget & HTMLAnchorElement,
         EventTarget>) {
         event.preventDefault();
-    
+
         if(navigator.geolocation) {
             setStateLocation(STATE_LOCATION_LOCATING);
             navigator.geolocation.getCurrentPosition((position) => {
@@ -61,7 +61,7 @@ function LocationResolver({ onLocationResolved }: LocationResolverProps) {
         locationElement = <div className="">{t('content.nogeolocation')}</div>;
     }
 
-    return locationElement
+    return <>{ locationElement }</>
 }
 
 export default LocationResolver
