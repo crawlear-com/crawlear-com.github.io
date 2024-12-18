@@ -33,7 +33,10 @@ function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, 
     } else {
         storedGamesUi =<div className="gameList rounded rounded3 centerText">
             <div className="headerText bold">{t('description.partidasprevias')}</div>
-            <ButtonOrSpinner isLoading={isLoading} onLoadData={onLoadPreviousGames} setIsLoading={setIsLoading} />
+            <ButtonOrSpinner isLoading={isLoading} onLoadData={() => {
+                setIsLoading(true)
+                onLoadPreviousGames()
+            }} />
         </div>
     }
 

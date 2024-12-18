@@ -16,16 +16,14 @@ jest.mock('react-i18next', () => ({
 
 test('render Button od spinner, not loading', () => {
     const onLoadData = jest.fn()
-    const setIsLoading = jest.fn()
-    render(<ButtonOrSpinner isLoading={false} setIsLoading={setIsLoading} onLoadData={onLoadData} />)
+    render(<ButtonOrSpinner isLoading={false} onLoadData={onLoadData} />)
 
     expect(screen.getByRole('button')).toBeInTheDocument()
 })
 
 test('render Button od spinner, loading', () => {
     const onLoadData = jest.fn()
-    const setIsLoading = jest.fn()
-    render(<ButtonOrSpinner isLoading={true} setIsLoading={setIsLoading} onLoadData={onLoadData} />)
+    render(<ButtonOrSpinner isLoading={true} onLoadData={onLoadData} />)
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
     expect(screen.getByText('Spinner')).toBeInTheDocument()
@@ -33,14 +31,12 @@ test('render Button od spinner, loading', () => {
 
 test('load data', () => {
     const onLoadData = jest.fn()
-    const setIsLoading = jest.fn()
-    render(<ButtonOrSpinner isLoading={false} setIsLoading={setIsLoading} onLoadData={onLoadData} />)
+    render(<ButtonOrSpinner isLoading={false} onLoadData={onLoadData} />)
 
     const button = screen.queryByRole('button')
 
     fireEvent.click(button)
 
     expect(onLoadData).toHaveBeenCalled()
-    expect(setIsLoading).toHaveBeenCalledWith(true)
 })
 
