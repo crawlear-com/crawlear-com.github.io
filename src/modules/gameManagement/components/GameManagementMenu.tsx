@@ -38,30 +38,26 @@ function GameManagementMenu({ onConfigureGames, onGamePlay }: GameManagementMenu
         <List data={games}
             readOnly={true}
             transformer={transformer}
-            onRemoveItem={(gid: string) => {
-                onRemoveGames(gid)}}
-            onConfigureItem={(gid: string)=>{
-                    onConfigureGames(games, gid)}}
-            title={t('description.partidascomopiloto')}></List>
-        <List data={judgeGames}
-            title={t('description.partidasdejuez')}
-            readOnly={false}
-            transformer={transformer}
+            onRemoveItem={(gid: string) => { onRemoveGames(gid) }}
+            onConfigureItem={(gid: string)=>{ onConfigureGames(games, gid) }}
+            title={ t('description.partidascomopiloto') }></List>
+        <List data={ judgeGames }
+            title={ t('description.partidasdejuez') }
+            readOnly={ false }
+            transformer={ transformer }
             onItemAction={(gid: string) => {
                 window.document.body.classList.add('playing')
                 onGamePlay(judgeGames, gid);
             }}
-            onConfigureItem={(gid: string) => {
-                onConfigureGames(judgeGames, gid)}
-            }
-            onRemoveItem={(gid: string) => {
-                onRemoveJudgeGames(gid)
-            }}></List>
-        <button className="newGameButton importantNote" onClick={newGameNavigation}>{t('description.crearjuego')}</button>
-        <PreviousGameList storedGames={storedGames}
-            onRemoveStoredGames={onRemoveStoredGames}
-            onConfigureGames={onConfigureGames}
-            onLoadPreviousGames={onLoadPreviousGames}></PreviousGameList>
+            onConfigureItem={(gid: string) => { onConfigureGames(judgeGames, gid)} }
+            onRemoveItem={(gid: string) => { onRemoveJudgeGames(gid) }}></List>
+        <button className="newGameButton importantNote" onClick={newGameNavigation}>
+                {t('description.crearjuego')}
+        </button>
+        <PreviousGameList storedGames={ storedGames }
+            onRemoveStoredGames={ onRemoveStoredGames }
+            onConfigureGames={ onConfigureGames }
+            onLoadPreviousGames={ onLoadPreviousGames }></PreviousGameList>
     </>
 }
 

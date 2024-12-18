@@ -33,22 +33,19 @@ function GameManagement() {
     }
 
     function onConfigureGames(games, key) {
-        const [game] = Utils.findElementInArray(games, key, (item, value)=>item.gid===value)
-
-        if (game) {
-            window.scrollTo(0,0);
-            setState(STATE_CONFIGURE);
-            setGame(game);
-    
-        }
+        setGameState(games, key, STATE_CONFIGURE)
     }
 
     function onGamePlay(games, key) {
+        setGameState(games, key, STATE_PLAYING)
+    }
+
+    function setGameState(games, key, state) {
         const [game] = Utils.findElementInArray(games, key, (item, value)=>item.gid===value)
 
         if (game) {
             window.scrollTo(0,0);
-            setState(STATE_PLAYING);
+            setState(state);
             setGame(game);
         }
     }
