@@ -145,7 +145,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
     function onIsPublicChange(event: MouseEvent) {
         const newGame: any = {...game}
 
-        newGame.isPublic = (event.target as HTMLInputElement).value
+        newGame.isPublic = (event.target as HTMLInputElement).checked
         setGame(newGame)
     }
 
