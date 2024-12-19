@@ -25,17 +25,17 @@ function FeedViewer({uid}) {
     const { isUserLoged } = React.useContext(UserStatusContext)
     const navigate = useNavigate()
 
-    React.useEffect(()=>{
-        getData()
-        isVisible && Analytics.pageview(`/feedviewer/`)
-    }, [isVisible, isUserLoged, uid])
-
-    function getData() {
+    const getData = React.useCallback(() => {
         isVisible && isUserLoged && fb.getPostsFromFollowFeed(uid, (data)=>{
             setFeedPosts([...data])
             setStatus(STATUS_LOADED)
         }, ()=>{})
-    }
+    }, [fb, isVisible, isUserLoged, uid])
+
+    React.useEffect(()=>{
+        getData()
+        isVisible && Analytics.pageview(`/feedviewer/`)
+    }, [isVisible, isUserLoged, uid, getData])
 
     function refreshContent() {
         setStatus(STATUS_LOADING)
@@ -63,10 +63,10 @@ function FeedViewer({uid}) {
 
     if (status===STATUS_LOADED && feedPosts.length && isVisible) {
         return <div className="feedViewer">
-            {!fbBase.isUserLogged() ? <a href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <>
+            {!fbBase.isUserLogged() ? <a rel="noreferrer"  href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> : <>
                 <div className='headerText bold'>{t('description.buscarusuario')}</div>
                 <UserSearch onUserClick={onUserClick}
-                    mainText={t('content.puedesbuscarusuarios')} 
+                    mainText={t('content.puedesbuscarusuarios')}
                     secondaryText={t('content.clickenusuariooseguir')}
                     iconSend={icon1px} />
             </>}

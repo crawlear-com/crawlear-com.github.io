@@ -2,8 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import UserProfile from '../components/UserProfile';
 import { UserStatusContext } from '../../../context/UserStatusContext';
 import { BrowserRouter } from 'react-router-dom';
-import useUserProfile from '../hooks/useUserProfile';
-import UserProfilePhoto from '../components/UserProfilePhoto';
 
 const div = document.createElement('div')
 const testUser = {

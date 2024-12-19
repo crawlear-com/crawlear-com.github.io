@@ -15,6 +15,7 @@ function Post({ post, readOnly, onRemovePost }) {
     const { t } = useTranslation(['main']);
     const onScreenContainerRef = React.useRef(null);
     const [isVisible, setIsVisible] = React.useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [statusRendered, setStatusRendered] = React.useState(false);
     let embed = <></>;
 

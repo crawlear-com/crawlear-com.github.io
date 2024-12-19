@@ -1,22 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import useLoginProcess from '../hooks/useLoginProcess';
-import Analytics from '../Analytics'
-import Menu from '../components/Menu';
-import Landing from '../pages/Landing';
-import { UserStatusContext } from '../context/UserStatusContext';
 import '../Error'
-import TxtRoute from '../pages/TxtRoute';
-import GameManagementWithAuthorization from '../modules/gameManagement/pages/GameManagementWithAuthorization';
-import PilotWallWithAuthorization from '../modules/social/pages/PilotWallWithAuthorization';
-import AboutUs from '../pages/AboutUs';
-import PrivacyPolicy from '../pages/PrivacyPolicy';
-import GameConfiguratorWithAuthorization from '../modules/gameConfigurator/pages/GameConfiguratorWithAuthorization';
-import RoutesManagementWithAuthorization from '../modules/routesManagement/pages/RoutesManagementWithAuthorization';
-import GameViewer from '../pages/GameViewer';
-import RouteViewer from '../pages/RouteViewer';
-import UserViewer from '../modules/social/pages/UserViewer';
 import App from '../App';
 
 jest.mock('react-i18next', () => ({

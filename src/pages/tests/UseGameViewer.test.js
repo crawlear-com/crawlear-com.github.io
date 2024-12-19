@@ -12,7 +12,7 @@ beforeEach(() => {
             }),
             getGame: jest.fn('getGame').mockImplementation(() => {
                 return {
-                    gid: '213123123' 
+                    gid: '213123123'
                 }
             })
         }
@@ -26,7 +26,7 @@ afterEach(() => {
 
 test('renders GameList', () => {
     const gid = '213123123'
-    const { result } = renderHook(UseGameViewer, {
+    renderHook(UseGameViewer, {
         initialProps: gid
     })
 

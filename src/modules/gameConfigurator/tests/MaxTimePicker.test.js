@@ -1,35 +1,35 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MaxTimePicker from '../components/MaxTimePicker.js';
 
 const div = document.createElement('div');
 
-beforeEach(()=>{  
+beforeEach(()=>{
   document.body.innerHTML = '';
   document.body.append(div);
 });
 
 test('renders MaxTimePicker with 2 pickers', () => {
-  const onMaxTimeChange = jest.fn(),
-    { container } = render(<MaxTimePicker 
+  const onMaxTimeChange = jest.fn()
+  render(<MaxTimePicker
+    hours={0}
+    minutes={0}
+    seconds={0}
+    onMaxTimeChange={onMaxTimeChange}
+  />, div);
+
+  expect(screen.getAllByRole('button').length).toBe(4);
+});
+
+test('calls the onMaxTimeChange callback on time change with correct time', () => {
+    const onMaxTimeChange = jest.fn()
+    render(<MaxTimePicker
       hours={0}
       minutes={0}
       seconds={0}
       onMaxTimeChange={onMaxTimeChange}
-  />, div);
+    />, div)
+    const arrow = screen.getAllByRole('button')[0]
 
-    expect(container.querySelectorAll('.pickerContainer .picker').length).toBe(2);
-});
-
-test('calls the onMaxTimeChange callback on time change with correct time', () => {
-    const onMaxTimeChange = jest.fn(),
-      { container } = render(<MaxTimePicker 
-        hours={0}
-        minutes={0}
-        seconds={0}
-        onMaxTimeChange={onMaxTimeChange}
-    />, div),
-        arrow = container.querySelector(".picker--arrowUp");
-  
     arrow.click();
     expect(onMaxTimeChange).toHaveBeenCalledWith(60000);
   });

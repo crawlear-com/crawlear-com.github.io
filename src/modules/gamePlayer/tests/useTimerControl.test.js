@@ -1,9 +1,5 @@
-import * as React from 'react'
-import { fireEvent, render, renderHook, screen } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import useTimerControl from '../hooks/useTimerControl';
-import Analytics from '../../../Analytics';
-import useTimerStateChangeReducer from '../hooks/useTimerStateChangeReducer';
-import EventManager from '../../../EventManager';
 import { TimerStates } from '../reducers/TimerStateChangeReducer';
 
 const containerRef = { current: { classList: { toggle: jest.fn(), remove: jest.fn(), contains: jest.fn() } } }

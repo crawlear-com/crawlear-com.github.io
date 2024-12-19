@@ -2,17 +2,6 @@ import { render, screen } from '@testing-library/react'
 import GameConfigurator from '../pages/GameConfigurator'
 import { Game, GAME_TYPE_LEVANTE } from '../../../games/Game'
 import { UserStatusContext } from '../../../context/UserStatusContext'
-import ZonesPicker from '../components/ZonesPicker'
-import GameTypePicker from '../components/GameTypePicker'
-import GateProgressionPicker from '../components/GateProgressionPicker'
-import { isOffline } from '../../../pages/Offline'
-import PlayerController from '../components/PlayerController'
-import MaxTimeAndPointsPicker from '../components/MaxTimeAndPointsPicker'
-import GroupsPicker from '../components/GroupsPicker'
-import ErrorBox from '../../../components/ErrorBox'
-import LocationResolver from '../components/LocationResolver'
-import Analytics from '../../../Analytics'
-import UserSearchForGame from '../components/UserSearch/UserSearchForGame'
 
 const div = document.createElement('div')
 

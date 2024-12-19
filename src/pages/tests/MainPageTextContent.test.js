@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MainPageTextContent from '../components/MainPageTextContent.js';
 
 const div = document.createElement('div');
@@ -14,15 +14,15 @@ jest.mock('react-i18next', () => ({
     }
 }));
 
-beforeEach(()=>{  
+beforeEach(()=>{
   document.body.innerHTML = '';
   document.body.append(div);
 });
 
 test('renders MainPageTextContent', () => {
-    const { container } = render(<MainPageTextContent />, div),
-        content = container.querySelector('.aboutUsContent');
+    render(<MainPageTextContent />, div)
 
-        expect(content).not.toBeNull();
-        expect(content).not.toBeUndefined();
+    expect(screen.getByRole('img')).toBeInTheDocument()
+    expect(screen.getByText('crawlear.com')).toBeInTheDocument()
+    expect(screen.getByText('content.welcomeMessage content.welcomeMessage2')).toBeInTheDocument()
 });

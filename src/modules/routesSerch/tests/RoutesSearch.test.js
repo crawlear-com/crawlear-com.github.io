@@ -1,8 +1,5 @@
-import { render, screen, act, fireEvent } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import RoutesSearch from '../RoutesSearch'
-import { MapPointPicker } from 'react-gpxroutemap'
-import List from '../../list/List'
-import Popup from '../../../components/Popup'
 
 const div = document.createElement('div');
 
@@ -29,7 +26,7 @@ beforeEach(() => {
                 callback([{ name: 'test', description: 'test', scale: '1/10', gpx: {}, locationMap: ''}])
             }),
             getGpx: jest.fn((gid, callback) => {
-                callback(gpx)
+                callback({})
             })
         }
     } 

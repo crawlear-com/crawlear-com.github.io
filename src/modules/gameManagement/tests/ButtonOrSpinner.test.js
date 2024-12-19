@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ButtonOrSpinner from "../components/ButtonOrSpinner";
-import Spinner from "../../../components/Spinner";
 
 jest.mock("../../../components/Spinner")
 jest.mock('react-i18next', () => ({

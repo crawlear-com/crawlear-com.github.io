@@ -5,7 +5,7 @@ import { setCacheNameDetails } from 'workbox-core'
 
 const CACHE_NAME = 'crawlearcom'
 const CACHE_VERSION = '1.0.35'
-const PREVIOUS_CACHE_VERSION = '1.0.34'
+//const PREVIOUS_CACHE_VERSION = '1.0.34'
 //crawlearcom-crawlearcom-precache-1.0.21
 
 setCacheNameDetails({

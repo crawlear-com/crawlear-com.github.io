@@ -8,7 +8,6 @@ const body = window.document.body;
 
 function FollowsWall() {
     const { t } = useTranslation(['main']);
-    const fb = window.crawlear.fb
     const uid = window.crawlear && window.crawlear.user && window.crawlear.user.uid;
     const { isUserLoged } = React.useContext(UserStatusContext);
 

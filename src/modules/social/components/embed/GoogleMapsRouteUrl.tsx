@@ -14,7 +14,7 @@ function getMidFromUrl(url: string) {
 function GoogleMapsRouteUrl({ url }: GoogleMapsRouteUrlProps) {
     const mid = getMidFromUrl(url)
 
-    return <iframe className="mapRoute" src={`https://www.google.com/maps/d/embed?mid=${mid}`}></iframe>
+    return <iframe title='googleMapsRouteUrl' className="mapRoute" src={`https://www.google.com/maps/d/embed?mid=${mid}`}></iframe>
 
 }
 
