@@ -1,10 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import WinnerTable from '../../components/WinnerTable'
-import Sharer from '../../modules/social/components/embed/Sharers'
-import WinnerOrTieBox from '../../components/WinnerOrTieBox'
-import GameHeaderInfo from '../../components/GameHeaderInfo'
-import GameResultTable from '../../components/GameResultTable/GameResultTable'
-import Spinner from '../../components/Spinner'
 
 import { Game, GAME_TYPE_AECAR } from '../../games/Game'
 

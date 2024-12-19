@@ -34,6 +34,8 @@
     "workbox-webpack-plugin": "^7.0.0"
   },
   "scripts": {
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "predeploy": "npm run build && cp CNAME dist/CNAME",
     "deploy": "npm run test && gh-pages -b master -d dist",
     "prestart": "npm-link-shared ./node_modules/react-gpxroutemap/node_modules . react",
@@ -82,6 +84,7 @@
     "@types/dom-screen-wake-lock": "^1.0.3",
     "@types/react": "^18.0.26",
     "dotenv-webpack": "^8.1.0",
+    "eslint": "^8.57.1",
     "eslint-plugin-storybook": "^0.8.0",
     "gh-pages": "^3.2.3",
     "jest": "^27.4.5",

@@ -1,10 +1,5 @@
-import { render, screen, act, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import PreviousGameList from '../components/PreviousGameList'
-import Spinner from '../../../components/Spinner'
-import List from '../../list/List'
-import Game from '../../../games/Game'
-import GameListTransformer from '../../list/transformers/GameListTransformer'
-
 
 const div = document.createElement('div')
 const previousGameListData = [

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import RoutesConfigurator from '../components/RoutesConfigurator';
 import Route from '../Route';
 

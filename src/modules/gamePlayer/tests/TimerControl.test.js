@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react';
 import TimerControl from '../components/TimerControl'
-import useTimerControl from '../hooks/useTimerControl'
 
 const div = document.createElement('div')
 

@@ -1,6 +1,5 @@
 import useUserSearch from "../hooks/useUserSearch";
 import { renderHook, act, render, fireEvent, screen } from "@testing-library/react";
-import { isOffline } from "../../../pages/Offline";
 
 const players = [{"id":1,"name":"Álvaro","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Álvaro","time":0,"points":0},
     {"id":2,"name":"Joan","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Joan","time":0,"points":0},

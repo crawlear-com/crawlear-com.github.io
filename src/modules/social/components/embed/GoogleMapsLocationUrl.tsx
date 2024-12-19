@@ -18,7 +18,7 @@ function GoogleMapsLocationUrl({ url }: GoogleMapsLocationUrlProps) {
 
     return <div className="mapouter">
                 <div className="gmap_canvas">
-                    <iframe src={`https://www.google.com/maps/embed?pb=${pb}`}></iframe>
+                    <iframe title='googleMapLocationUrl' src={`https://www.google.com/maps/embed?pb=${pb}`}></iframe>
                     <style>{style1}</style>
                     <style>{style2}</style>
                 </div>

@@ -1,6 +1,5 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import GameTypePicker from '../components/GameTypePicker';
-import useGameTypePicker from '../hooks/useGameTypePicker';
 
 const div = document.createElement('div');
 const KEY_DOWN = 40

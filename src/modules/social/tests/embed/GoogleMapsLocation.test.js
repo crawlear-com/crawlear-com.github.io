@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import GoogleMapsLocation from '../../components/embed/GoogleMapsLocation.js';
 
 const div = document.createElement('div');
@@ -14,17 +14,18 @@ jest.mock('react-i18next', () => ({
     }
 }));
 
-beforeEach(()=>{  
+beforeEach(()=>{
   document.body.innerHTML = '';
   document.body.append(div);
 });
 
 test('renders Menu closed', () => {
-    const { container } = render(<GoogleMapsLocation location={{
+    render(<GoogleMapsLocation location={{
         latitude: 40.4314193,
         longitude: 4.1768656
-    }} />, div),
-    iframe = container.querySelector("iframe"),
+    }} />, div)
+
+    const iframe = screen.getByTitle("google maps location"),
     iframeUrl = iframe.getAttribute("src");
 
   expect(iframe).toBeInTheDocument();

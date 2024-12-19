@@ -22,6 +22,7 @@ https://crawlear.com online service for professionals and fans of Rock and Scale
   <li>SPA React application</li>
   <li>Workbox PWA with caching strategies and offline mode</li>
   <li>Typescript, ES6, webpack build system with code splitting and component lazy loading</li>
+  <li>CI/CD pipeline for testing and linting</li>
   <li>Unit and integration tests for Core features, storyboard</li>
   <li>Firebase Database backend for user and game data</li>
   <li>Firebase Realtime Database for distributed real time game data sharing</li>

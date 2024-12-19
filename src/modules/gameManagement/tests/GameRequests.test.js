@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import GameRequests from '../components/GameRequests'
-import useGameRequests from '../hooks/useGameRequests'
 
 const div = document.createElement('div')
 const user = {

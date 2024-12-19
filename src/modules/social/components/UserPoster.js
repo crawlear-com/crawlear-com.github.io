@@ -12,8 +12,8 @@ const POSTING = 1;
 
 function UserPoster({onPostEntry, isOpened}) {
     const { t } = useTranslation(['main']);
-    const gameOptionElements = [];
     const firebase = window.crawlear.fb;
+    const gameOptionElements = [];
     const [errorMessage, setErrorMessage] = React.useState("");
     const [formStatus, setFormStatus] = React.useState(WAITING);
     const gameListRef = React.useRef([]);
@@ -26,6 +26,7 @@ function UserPoster({onPostEntry, isOpened}) {
     });
 
     React.useEffect(()=>{
+        const firebase = window.crawlear.fb;
         const uid = window.crawlear.user.uid;
 
         firebase.getGamesFromUser(uid, true, (games)=>{
@@ -77,14 +78,14 @@ function UserPoster({onPostEntry, isOpened}) {
         event.stopPropagation();
 
         if (!window.crawlear || !window.crawlear.user || !window.crawlear.user.uid) return;
-        
-        if (state.text.length <=0) { 
+
+        if (state.text.length <=0) {
             setErrorMessage(t('error.noposttext'));
-        } else if ((state.url.length<=0) || (state.url.length>0) && 
-            (Utils.isYoutubeUrl(state.url) || 
-             Utils.isInstagramUrl(state.url) || 
-             //Utils.isFacebookUrl(state.url) || 
-             Utils.isTiktokUrl(state.url))) {
+        } else if ((state.url.length<=0) || ((state.url.length>0) &&
+            (Utils.isYoutubeUrl(state.url) ||
+             Utils.isInstagramUrl(state.url) ||
+             //Utils.isFacebookUrl(state.url) ||
+             Utils.isTiktokUrl(state.url)))) {
                 setFormStatus(POSTING);
                 firebase.setPost(window.crawlear.user.uid, state.url, state.date, state.text, state.gid, (post)=>{
                     setFormStatus(WAITING);
@@ -94,12 +95,10 @@ function UserPoster({onPostEntry, isOpened}) {
                 }, ()=>{
                     setFormStatus(WAITING);
                     clearState();
-                });  
+                });
         } else if (state.url.length>0) {
             setErrorMessage(t('error.nosocialurl'));
         }
-
-        //    setErrorMessage(t('error.noposturl'));
     }
 
     function onHeaderClick(event) {

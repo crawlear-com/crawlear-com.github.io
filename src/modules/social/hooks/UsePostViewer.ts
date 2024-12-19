@@ -3,11 +3,12 @@ import Analytics from '../../../Analytics';
 import { Player } from '../../../games/GameInterfaces';
 
 function UsePostViewer(pid: number) {
-    const firebase = window.crawlear.fb;
     const [post, setPost] = React.useState({});
     const [user, setUser] = React.useState({});
 
     React.useEffect(()=>{
+        const firebase = window.crawlear.fb;
+
         firebase.getPost(pid, (post: any)=>{
             setPost(post);
             firebase.getUser(post.uid, (user: Player)=>{
@@ -21,7 +22,7 @@ function UsePostViewer(pid: number) {
         return ()=>{
             window.document.body.classList.remove('postview');
         }
-    },[])
+    },[pid])
 
     return [user, post]
 }

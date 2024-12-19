@@ -1,8 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import GameViewer from '../GameViewer'
-import { Helmet } from 'react-helmet-async'
-import WinnerTable from '../../components/WinnerTable'
-import UseGameViewer from '../hooks/UseGameViewer'
 
 jest.mock('react-i18next', () => ({
     useTranslation: () => {

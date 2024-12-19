@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { UserStatusContext } from '../../../context/UserStatusContext';
 
 import '../styles/PostLikes.scss';
@@ -10,7 +9,6 @@ const NOT_PRESSED=0;
 const PRESSED=1;
 
 function PostLikes({post, onLikePost, onRemoveLikePost}) {
-    const { t } = useTranslation(['main']);
     const likes = [];
     const firebase = window.crawlear.fb;
     const { isUserLoged } = React.useContext(UserStatusContext);
@@ -21,31 +19,33 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
     });
 
     React.useEffect(()=>{
+        const firebase = window.crawlear.fb
+
         if (isUserLoged) {
             firebase.getIfPostIsLiked(post.pid, window.crawlear.user.uid, (isLiked, lid)=>{
                 if(isLiked) {
                     setStatus({ ...status,
                         state: PRESSED,
                         lid: lid
-                    }); 
+                    });
                 } else {
-                    setStatus({ ...status, 
-                        state: NOT_PRESSED, 
+                    setStatus({ ...status,
+                        state: NOT_PRESSED,
                         lid: 0
-                    }); 
+                    });
                 }
-            },()=>{}); 
+            },()=>{});
         }
 
         if (isPostFromUserLogged(post.uid) || !isUserLoged) {
             firebase.getPostLikesCount(post.pid, (likes)=>{
                 setStatus({ ...status,
                     likes: likes
-                }); 
-            },()=>{}); 
+                });
+            },()=>{});
         }
 
-    },[]);
+    },[isUserLoged, post.pid, post.uid,status])
 
     function onClickLike(event) {
         if (status.state === NOT_LOADED) return;
@@ -53,7 +53,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
         if(status.state === PRESSED) {
             firebase.removeLike(status.lid,()=>{
                 setStatus({ ...status,
-                    state: NOT_PRESSED, 
+                    state: NOT_PRESSED,
                     lid: 0
                 });
                 onRemoveLikePost && onRemoveLikePost();
@@ -61,7 +61,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
         }  else {
             firebase.setLike(post.pid, window.crawlear.user.uid, (lid)=>{
                 setStatus({ ...status,
-                    state: PRESSED, 
+                    state: PRESSED,
                     lid: lid
                 });
                 onLikePost && onLikePost();
@@ -73,13 +73,13 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
         likes.push(<div key="likes+++" className='bold'>Likes 🔥🔥🔥</div>);
     } else if (status.likes >5) {
         likes.push(<div key="likes++" className='bold'>Likes 🔥🔥</div>);
-    } else if (status.likes >0) { 
+    } else if (status.likes >0) {
         likes.push(<div key="likes+" className='bold'>Likes 🔥</div>);
     } else {
         likes.push(<div key="likes" className='bold'>Likes 🧊</div>);
     }
 
-    return isUserLoged ? 
+    return isUserLoged ?
             (isPostFromUserLogged(post.uid) ? <div className="likeContainer">{likes}</div> :
             <div className="likeContainer">
               <span className={status.state === PRESSED?'press':''}>
@@ -88,7 +88,7 @@ function PostLikes({post, onLikePost, onRemoveLikePost}) {
         </div>) : <div className="likeContainer">{likes}</div>;
 }
 
-function isPostFromUserLogged(uid) { 
+function isPostFromUserLogged(uid) {
     return window.crawlear.fbBase.isUserLogged() && window.crawlear && window.crawlear.user && window.crawlear.user.uid === uid; 
 }
 

@@ -8,7 +8,6 @@ import Analytics from '../../../Analytics';
 
 function PostInfo({ post, readOnly, onRemovePost, children }) {
     const { t } = useTranslation(['main']);
-    const firebase = window.crawlear.fb;
     const fbBase = window.crawlear.fbBase;
     const [game, setGame] = React.useState({});
     const [userFromPost, setUserFromPost] = React.useState({});
@@ -30,12 +29,13 @@ function PostInfo({ post, readOnly, onRemovePost, children }) {
     }
 
     React.useEffect(()=>{
+        const firebase = window.crawlear.fb;
         if(readOnly) {
             firebase.getUser(post.uid, (user)=>{
                 setUserFromPost(user);
             },()=>{})
         }
-    },[]);
+    },[post.uid, readOnly]);
 
     return <>
             {!readOnly ? <button data-id={post.pid} onClick={onRemovePost} className='removePostButton'>-</button>: <></>}

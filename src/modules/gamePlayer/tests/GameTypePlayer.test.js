@@ -6,11 +6,7 @@ import CoreGame from '../components/CoreGame'
 import KingGame from '../components/KingGame'
 
 let game, gameContent
-const div = document.createElement('div'),
-    players = [{"id":1,"name":"Álvaro","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Álvaro","time":0,"points":0,},
-        {"id":2,"name":"Joan","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Joan","time":0,"points":0},
-        {"id":3,"name":"K","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=K","time":0,"points":0},
-        {"id":0,"name":"Jose","avatar":"https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=Jose","time":0,"points":0}];
+const div = document.createElement('div')
 const gameExtras = {
     controlTextValuesInit: jest.fn(),
     fiascoControlTextValuesInit: jest.fn(),
@@ -42,7 +38,7 @@ jest.mock('react-i18next', () => ({
 jest.mock('../components/CoreGame')
 jest.mock('../components/KingGame')
 
-beforeEach(()=>{  
+beforeEach(()=>{
     window.scrollTo = jest.fn()
     document.body.innerHTML = ''
     div.className = 'AppMainContainer'
@@ -109,7 +105,7 @@ test('renders GameTypePlayer: not king game uses CoreGame', () => {
     const onGameEndMock = jest.fn(),
         onRepairMock = jest.fn()
     render(<GameContext.Provider value={{game: game }}>
-            <GameTypePlayer 
+            <GameTypePlayer
                 gameExtras={gameExtras}
                 onGameEnd={onGameEndMock}
                 onRepair={onRepairMock}
@@ -127,7 +123,7 @@ test('renders GameTypePlayer: king game uses KingGame', () => {
         onRepairMock = jest.fn()
 
     render(<GameContext.Provider value={{game: game }}>
-        <GameTypePlayer 
+        <GameTypePlayer
             gameExtras={gameExtras}
             onGameEnd={onGameEndMock}
             onRepair={onRepairMock}
