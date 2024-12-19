@@ -1,7 +1,7 @@
 import * as React from 'react';
 import UseScript from '../../hooks/UseScript';
 
-import '../../styles/embed/FacebookSharer.scss';
+import '../../styles/sharers/FacebookSharer.scss';
 
 function FacebookSharer({ url, text }) {
     

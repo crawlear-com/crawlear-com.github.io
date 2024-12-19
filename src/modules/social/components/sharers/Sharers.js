@@ -5,7 +5,7 @@ import TelegramSharer from './TelegramSharer';
 import WhatsappSharer from './WhatsappSharer';
 import CopySharer from './CopySharer';
 
-import '../../styles/embed/Sharers.scss'
+import '../../styles/sharers/Sharers.scss'
 
 function Sharers({url, text, headerText}) {
     return <div className='sharerContainer'>

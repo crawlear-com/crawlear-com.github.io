@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import GameResultTable from './GameResultTable/GameResultTable'
 import GameHeaderInfo from './GameHeaderInfo'
-import Sharers from '../modules/social/components/embed/Sharers'
+import Sharers from '../modules/social/components/sharers/Sharers'
 import Spinner from './Spinner'
 import WinnerOrTieBox, { isDraw } from './WinnerOrTieBox'
 

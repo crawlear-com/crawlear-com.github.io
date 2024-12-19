@@ -1,7 +1,7 @@
 import * as React from 'react';
 import UserProfilePhoto from './UserProfilePhoto';
 import { useTranslation } from 'react-i18next';
-import Sharers from './embed/Sharers';
+import Sharers from './sharers/Sharers';
 import { UserStatusContext } from '../../../context/UserStatusContext';
 import useUserProfile from '../hooks/useUserProfile';
 
