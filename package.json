@@ -82,6 +82,7 @@
     "@types/dom-screen-wake-lock": "^1.0.3",
     "@types/react": "^18.0.26",
     "dotenv-webpack": "^8.1.0",
+    "eslint": "^8.57.1",
     "eslint-plugin-storybook": "^0.8.0",
     "gh-pages": "^3.2.3",
     "jest": "^27.4.5",
