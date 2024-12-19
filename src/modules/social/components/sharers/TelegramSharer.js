@@ -2,7 +2,7 @@ import * as React from 'react';
 import Analytics from '../../../../Analytics';
 
 import Logo from '../../styles/embed/img/telegramLogo.png';
-import '../../styles/embed/TelegramSharer.scss';
+import '../../styles/sharers/TelegramSharer.scss';
 
 function TelegramSharer({ url, text }) {
     const shareUrl = `https://telegram.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURI(text)}`;

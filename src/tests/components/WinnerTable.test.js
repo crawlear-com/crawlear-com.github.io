@@ -17,7 +17,7 @@ jest.mock('react-i18next', () => ({
     }
 }));
 
-jest.mock('../../modules/social/components/embed/Sharers')
+jest.mock('../../modules/social/components/sharers/Sharers')
 jest.mock('../../components/WinnerOrTieBox')
 jest.mock('../../components/GameHeaderInfo')
 jest.mock('../../components/GameResultTable/GameResultTable')

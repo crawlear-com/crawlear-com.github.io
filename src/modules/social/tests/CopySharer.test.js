@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import CopySharer from '../components/embed/CopySharer';
+import CopySharer from '../components/sharers/CopySharer';
 
 const div = document.createElement('div');
 
@@ -14,9 +14,9 @@ jest.mock('react-i18next', () => ({
   }
 }));
 
-beforeEach(()=>{  
+beforeEach(()=>{
   const writeText = jest.fn()
-  
+
   document.body.innerHTML = '';
   document.body.append(div);
   Object.assign(navigator, {
