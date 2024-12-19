@@ -10,10 +10,9 @@ i18n.use(LanguageDetector)
     detection: {
       order: ['navigator'],
     },
-    supportedLngs: ['es', 'en'],
+    supportedLngs: ['es', 'en', 'ca'],
     nonExplicitSupportedLngs: true,
     fallbackLng: {
-      'ca': ['es'],
       'default': ['en']
     },
     interpolation: {
