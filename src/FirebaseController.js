@@ -27,8 +27,7 @@ import { addDoc,
          limit,
          startAt,
          getDocs,
-         deleteDoc,
-         writeBatch } from "firebase/firestore"
+         deleteDoc } from "firebase/firestore"
 
 import { getAuth } from "firebase/auth"
 
