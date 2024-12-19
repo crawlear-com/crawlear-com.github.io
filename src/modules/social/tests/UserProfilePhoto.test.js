@@ -27,10 +27,7 @@ beforeEach(()=>{
 
     window.crawlear = {
         fb: {
-            logout: jest.fn(),
-            setFollow: jest.fn(),
-            removeFollow: jest.fn(),
-            getFidFromFollow: jest.fn()
+            logout: jest.fn()
         },
         fbBase: {
             isUserLogged: jest.fn(),
@@ -46,12 +43,10 @@ test('renders UserProfilePhoto not logged', () => {
     const onLogout = jest.fn()
 
     render(<UserStatusContext.Provider value={{ isUserLoged: true }}>
-        <UserProfilePhoto uid='uid' photoUrl='photoUrl' inputUserIsTheLoggedOne={false} onLogout={onLogout} />
+        <UserProfilePhoto photoUrl='photoUrl' inputUserIsTheLoggedOne={false} onLogout={onLogout} />
     </UserStatusContext.Provider>)
     const photo = screen.getByRole('img')
 
-    expect(window.crawlear.fb.getFidFromFollow).toHaveBeenCalled()
-    expect(screen.getByText('description.follow')).toBeInTheDocument()
     expect(photo).toBeInTheDocument()
     expect(photo.src).toBe('http://localhost/photoUrl')
 });
@@ -61,7 +56,7 @@ test('renders UserProfilePhoto logout', () => {
     const onLogout = jest.fn()
 
     render(<UserStatusContext.Provider value={{ isUserLoged: true }}>
-        <UserProfilePhoto uid='uid' photoUrl='photoUrl' inputUserIsTheLoggedOne={true} onLogout={onLogout} />
+        <UserProfilePhoto photoUrl='photoUrl' inputUserIsTheLoggedOne={true} onLogout={onLogout} />
     </UserStatusContext.Provider>)
     const logout = screen.getByText('Logout')
 

@@ -2,7 +2,7 @@ import * as React from 'react'
 import Analytics from '../../../../Analytics';
 import { useTranslation } from 'react-i18next';
 
-import '../../styles/embed/CopySharer.scss';
+import '../../styles/sharers/CopySharer.scss';
 
 function CopySharer({url}) {
   const { t } = useTranslation(['main']);

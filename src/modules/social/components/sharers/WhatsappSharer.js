@@ -2,7 +2,7 @@ import * as React from 'react';
 import Logo from '../../styles/embed/img/whatsappLogo.svg';
 import Analytics from '../../../../Analytics';
 
-import '../../styles/embed/WhatsappSharer.scss';
+import '../../styles/sharers/WhatsappSharer.scss';
 
 function WhatsappSharer({ url, text }) {
     const shareUrl = `https://api.whatsapp.com/send?text=${encodeURI(text)} ${encodeURIComponent(url)}`;

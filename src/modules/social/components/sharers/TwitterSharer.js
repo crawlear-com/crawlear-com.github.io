@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import '../../styles/embed/TwitterSharer.scss';
+import '../../styles/sharers/TwitterSharer.scss';
 
 function TwitterSharer({ url, text }) {
     React.useEffect(()=>{
