@@ -20,7 +20,7 @@ function UserProfile({ user, onLogout }: UserProfileProps) {
     const inputUserIsTheLoggedOne = isTheUserLogged(user.uid)
 
     return <div className="userProfileContainer rounded rounded2">
-        <UserProfilePhoto uid={user.uid} photoUrl={user.photoURL} onLogout={onLogout} inputUserIsTheLoggedOne={inputUserIsTheLoggedOne} />
+        <UserProfilePhoto photoUrl={user.photoURL} onLogout={onLogout} inputUserIsTheLoggedOne={inputUserIsTheLoggedOne} />
         <div className="userProfileInlineContainer">
             <div className="name">
                 <input type="text"
