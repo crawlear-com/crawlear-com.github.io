@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ControlTextArray from "../components/ControlTextArray";
-import { GameUtils } from './Game';
+import { isFiasco } from './GameUtils';
 import GenericPoints from './GenericPoints';
 import Analytics from '../Analytics';
 
@@ -48,10 +48,10 @@ function getGameContent(player, zone) {
         isClosed={true}
             />);
 
-        childrenContent.push(<GenericPoints 
+        childrenContent.push(<GenericPoints
             key="gP"
             player={player}
-            zone={zone} />);    
+            zone={zone} />);
 
     return childrenContent;
 }
@@ -87,7 +87,7 @@ const gameExtras = {
     onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
             player.zones.forEach((zone, zoneIndex)=>{
-                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                if (isFiasco(game, playerIndex, zoneIndex)) {
                     const playerZone = game.players[playerIndex].zones[zoneIndex];
 
                     playerZone.time = (game.maxTime > 0 ? game.maxTime : playerZone.time);

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Zone } from '../../games/GameInterfaces';
-import Utils from '../../Utils';
+import { printTime, millisToTime } from '../../Utils';
 import { useTranslation } from 'react-i18next';
 
 import openIcon from '../../resources/img/arrowdown.png';
@@ -34,7 +34,7 @@ function GameResultTablePointsRow({ icon, numZone, zone, gameType }: GameResultT
         </td>
         <td className="gameListPoints">{zone.simpathyPoints ? zone.simpathyPoints : "0"}
         </td>
-        { gameType !== 1 ? <td className="gameListTime">{ Utils.printTime(Utils.millisToTime(zone.time)) }</td> : <></> }
+        { gameType !== 1 ? <td className="gameListTime">{ printTime(millisToTime(zone.time)) }</td> : <></> }
     </tr>)
 }
 

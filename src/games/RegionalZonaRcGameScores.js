@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ControlTextArray from "../components/ControlTextArray"
-import { GameUtils } from './Game'
+import { isFiasco, isFiascoFromFiascoControlTextValues, isTimeFiasco } from './GameUtils'
 import RegionalZonaRcPoints from './RegionalZonaRcPoints'
 import RegionalZonaRcModificator from './RegionalZonaRcModificator'
 import Analytics from '../Analytics'
@@ -29,7 +29,7 @@ const RegionalZonaRcGameScores = {
     'points.vuelconoasistido',
     'points.utilizacionextrawinch',
     'points.moverwinch',
-    
+
     'points.reparacion30mins',
     'points.reparacionherramientasinsitu',
     'points.conectarentiempoajuste',
@@ -77,15 +77,15 @@ function getGameContent(player, zone) {
         isClosed={true}
     />);
 
-    childrenContent.push(<RegionalZonaRcPoints 
+    childrenContent.push(<RegionalZonaRcPoints
         key="zRP"
         player={player}
-        zone={zone} />);    
+        zone={zone} />);
 
-    childrenContent.push(<RegionalZonaRcModificator 
+    childrenContent.push(<RegionalZonaRcModificator
         key="zRM"
         player={player}
-        zone={zone} />);    
+        zone={zone} />);
 
     return childrenContent;
 }
@@ -110,14 +110,14 @@ const gameExtras = {
     onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
             player.zones.forEach((zone, zoneIndex)=>{
-                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                if (isFiasco(game, playerIndex, zoneIndex)) {
                     const playerZone = game.players[playerIndex].zones[zoneIndex];
 
                     playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : playerZone.time);
-                    if (GameUtils.isTimeFiasco(game, playerZone) || GameUtils.isFiascoFromFiascoControlTextValues(game, player, zone)) {
+                    if (isTimeFiasco(game, playerZone) || isFiascoFromFiascoControlTextValues(game, player, zone)) {
                         playerZone.points += 25;
                     }
-                    
+
                     getGatesPointExtras(playerZone);
                 }
             });
@@ -127,7 +127,6 @@ const gameExtras = {
         const playerZone = game.players[player].zones[zone];
 
         playerZone.time = tickTime;
-        
     },
     onGateProgressionChange: (playerZone)=>{
         getGatesPointExtras(playerZone);

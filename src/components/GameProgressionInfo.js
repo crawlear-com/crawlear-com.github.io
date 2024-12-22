@@ -3,7 +3,7 @@ import * as React from 'react';
 import GameHeaderInfo from './GameHeaderInfo';
 import GameProgressionInfoRow from './GameProgressionInfoRow';
 import fiascoIcon from '../resources/img/iconFiasco.png';
-import { GameUtils } from '../games/Game';
+import { isFiasco } from '../games/GameUtils';
 
 function GameProgressionInfo({game, gameProgression}) {
     const { t } = useTranslation(['main']);
@@ -36,7 +36,7 @@ function GameProgressionInfo({game, gameProgression}) {
                         controlTextValues.push(t('points.reparacion').toUpperCase());
                     }
 
-                    if (GameUtils.isFiasco(game, player.id, index)) {
+                    if (isFiasco(game, player.id, index)) {
                         fiasco = <img src={fiascoIcon} alt="fiasco" />;
                     }
 

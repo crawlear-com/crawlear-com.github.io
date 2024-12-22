@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Utils from '../../../Utils'
+import { isIphone  } from '../../../Utils'
 import BluetoothButton from './BluetoothButton'
 import TimerControl from './TimerControl'
 import { useTranslation } from 'react-i18next'
@@ -19,7 +19,7 @@ function TimerBox({ playerZone, forceAction, setRepairStatus, onTimerChange, onT
   const { game } = React.useContext(GameContext);
 
   return <div className="controlTextContainer rounded rounded2">
-    {Utils.isIphone() ? <></> : <BluetoothButton /> }
+    {isIphone() ? <></> : <BluetoothButton /> }
     {game.courtesyTime>0 ?
         <div className="pointsText">{t('description.puntos')} {t('description.portiempo')}: { playerZone.simpathyPoints}</div> :
         <></>}

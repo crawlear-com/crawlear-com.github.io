@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ControlTextArray from "../components/ControlTextArray";
-import { GameUtils } from './Game';
+import { isFiasco } from './GameUtils';
 import AecarPoints from './AecarPoints';
 import Analytics from '../Analytics';
 
@@ -49,7 +49,7 @@ function getGameContent(player, zone) {
         isClosed={true}
     />);
 
-    childrenContent.push(<AecarPoints 
+    childrenContent.push(<AecarPoints
             key="aP"
             player={player}
             zone={zone} />);
@@ -81,7 +81,7 @@ const gameExtras = {
     onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
             player.zones.forEach((zone, zoneIndex)=>{
-                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                if (isFiasco(game, playerIndex, zoneIndex)) {
                     const playerZone = game.players[playerIndex].zones[zoneIndex];
 
                     playerZone.time = (game.maxTime > 0 ? game.maxTime : playerZone.time);

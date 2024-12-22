@@ -4,7 +4,7 @@ import { GAME_STATUS_CREATED, GAME_STATUS_PLAYING } from '../../gamePlayer/hooks
 import WinnerTable from '../../../components/WinnerTable'
 import GameProgressionInfoContainer from '../../../components/GameProgressionInfoContainer'
 import { itemProps } from '../components/ListItem'
-import { GameUtils } from '../../../games/Game'
+import { isCurrentUserIsOwner } from '../../../games/GameUtils'
 
 function gameListTransformer(games: Array<Game>) {
     const gamesUi: Array<itemProps> = []
@@ -19,7 +19,7 @@ function itemKey(game: Game) {
 }
 
 function itemTransform(game: Game): itemProps {
-    let info: React.JSX.Element = <></>, 
+    let info: React.JSX.Element = <></>,
         director: string = ''
 
 
@@ -29,7 +29,7 @@ function itemTransform(game: Game): itemProps {
         info = <WinnerTable game={game} />
     }
 
-    if(GameUtils.isCurrentUserIsOwner(game.owner)) {
+    if(isCurrentUserIsOwner(game.owner)) {
         director = "(D) "
     }
 

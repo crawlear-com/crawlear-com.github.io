@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ControlTextArray from "../components/ControlTextArray";
-import { GameUtils } from './Game';
+import { isFiasco, isFiascoFromFiascoControlTextValues, isTimeFiasco } from './GameUtils';
 import AecarPoints from './AecarPoints';
 import Analytics from '../Analytics';
 
@@ -33,7 +33,7 @@ function getGameContent(player, zone) {
             maxValues={KingGameScores.maxValues}
             texts={KingGameScores.texts}
             isClosed={false} />);
-    
+
         childrenContent.push(<ControlTextArray
                 textToken={'points.fiascos'}
                 controlTextValuesString='fiascoControlTextValues'
@@ -44,10 +44,10 @@ function getGameContent(player, zone) {
                 zone={zone}
                 isClosed={true}
             />);
-    
-        childrenContent.push(<AecarPoints 
+
+        childrenContent.push(<AecarPoints
             player={player}
-            zone={zone} />);    
+            zone={zone} />);
 
     return childrenContent;
 }
@@ -70,14 +70,13 @@ const gameExtras = {
     onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
             player.zones.forEach((zone, zoneIndex)=>{
-                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                if (isFiasco(game, playerIndex, zoneIndex)) {
                     const playerZone = game.players[playerIndex].zones[zoneIndex];
 
                     playerZone.time = (game.maxTime > 0 ? (game.maxTime + game.courtesyTime) : playerZone.time);
-                    if (GameUtils.isTimeFiasco(game, playerZone) || GameUtils.isFiascoFromFiascoControlTextValues(game, player, zone)) {
+                    if (isTimeFiasco(game, playerZone) || isFiascoFromFiascoControlTextValues(game, player, zone)) {
                         playerZone.totalPoints += 25;
                     }
-                    
                     getGatesPointExtras(playerZone);
                 }
             });
@@ -87,11 +86,9 @@ const gameExtras = {
         const playerZone = game.players[player].zones[zone];
 
         playerZone.time = tickTime;
-        if (GameUtils.isFiasco(game, player, zone)) {
+        if (isFiasco(game, player, zone)) {
             playerZone.time = (game.maxTime > 0 ? game.maxTime : tickTime);
             playerZone.totalPoints = game.maxPoints;
-        } else {
-            
         }
     },
     onGateProgressionChange: ()=>{},

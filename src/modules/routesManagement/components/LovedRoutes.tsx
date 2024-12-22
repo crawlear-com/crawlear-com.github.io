@@ -4,14 +4,14 @@ import { itemTransform, itemKey } from '../../list/transformers/RouteListTransfo
 import { useTranslation } from 'react-i18next'
 import UseLovedRoutes from '../hooks/UseLovedRoutes'
 import ErrorBox from '../../../components/ErrorBox'
-import Utils from '../../../Utils'
+import { findElementInArray } from '../../../Utils'
 import type Route from '../Route'
 
 import '../styles/LovedRoutes.scss'
 
 interface LovedRoutesProps {
   onViewRoute: Function
-} 
+}
 
 function LovedRoutes({ onViewRoute}: LovedRoutesProps): React.JSX.Element {
   const { t } = useTranslation(['main'])
@@ -28,7 +28,7 @@ function LovedRoutes({ onViewRoute}: LovedRoutesProps): React.JSX.Element {
       readOnly={false}
       transformer={transformer}
       onItemAction={(rid: string) => {
-        const [route] = Utils.findElementInArray(routes, rid, (item: Route, value: string)=>item.rid===value)
+        const [route] = findElementInArray(routes, rid, (item: Route, value: string)=>item.rid===value)
 
         if (route) {
           window.scrollTo(0, 0)

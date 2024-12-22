@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Spinner from '../../../components/Spinner'
-import Utils from '../../../Utils';
+import { getMapsURL } from '../../../Utils';
 import { useTranslation } from 'react-i18next';
 
 const STATE_LOCATION_UNKNOWN=0
@@ -54,7 +54,7 @@ function LocationResolver({ onLocationResolved }: LocationResolverProps) {
         } else if (stateLocation === STATE_LOCATION_LOCATED) {
             locationElement = <>
                 <span>({`${location.latitude},${location.longitude}`})</span>
-                <a href={Utils.getMapsURL(location.latitude, location.longitude)} rel='noreferrer' target="_blank">{t('description.vergooglemaps')}</a>
+                <a href={getMapsURL(location.latitude, location.longitude)} rel='noreferrer' target="_blank">{t('description.vergooglemaps')}</a>
             </>
         }
     } else {

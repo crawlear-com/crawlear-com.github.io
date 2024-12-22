@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Route from '../Route'
 import { useTranslation } from 'react-i18next'
-import Utils from '../../../Utils'
+import { findElementInArray } from '../../../Utils'
 
 function UseRoutesManagementMenu(): Array<any> {
   const [routes, setRoutes] = React.useState<Array<Route>>([])
@@ -23,7 +23,7 @@ function UseRoutesManagementMenu(): Array<any> {
 
   function onDeleteRoute(rid: string) {
       const newRoutes = [...routes]
-      let [route, position] = Utils.findElementInArray(newRoutes, rid, (item: Route, i: number) => item.rid === rid)
+      let [route, position] = findElementInArray(newRoutes, rid, (item: Route, i: number) => item.rid === rid)
 
       if (route) {
         fb.removeRoute(route.rid, newRoutes[position].gpx?.gid, () => {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Utils from '../../Utils';
+import { printTime, millisToTime } from '../../Utils';
 
 import winnerIcon from '../../resources/img/iconWinner.png';
 
@@ -27,7 +27,7 @@ function GameResultTablePlayerHeader({ playerName, gameType, isDraw, playerTotal
         <td className="gameListPoints">.</td>
         <td className="gameListPoints">.</td>
         { gameType !== 1 ? <td className="bold gameListPoints gameListTime">
-            { playerTotalTime ? Utils.printTime(Utils.millisToTime(playerTotalTime)) : <>{ INITIAL_TIME }</> }
+            { playerTotalTime ? printTime(millisToTime(playerTotalTime)) : <>{ INITIAL_TIME }</> }
         </td> : <></> }
     </tr>)
 }

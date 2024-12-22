@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Game } from '../../../games/Game'
-import Utils from '../../../Utils'
+import { findElementInArray } from '../../../Utils'
 
 function UseGameManagementMenu(): Array<any> {
     const [games, setGames] = React.useState<Array<Game>>([])
@@ -66,7 +66,7 @@ function UseGameManagementMenu(): Array<any> {
 
 async function onRemoveGames(gameArray: Array<Game>, gid: string, setMethod: Function) {
     const fb = window.crawlear.fb
-    let [game, position] = Utils.findElementInArray(gameArray, gid, (item: Game, i: number) => item.gid === gid)
+    let [game, position] = findElementInArray(gameArray, gid, (item: Game, i: number) => item.gid === gid)
 
     if (game) {
         const newGames = [...gameArray],

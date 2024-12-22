@@ -4,7 +4,7 @@ import { MSG_TIME, MSG_START, MSG_STOP } from '../Bluetooth';
 import useTimerStateChangeReducer from './useTimerStateChangeReducer';
 import { TimerState } from '../reducers/TimerStateChangeReducer';
 import { TimerStates } from '../reducers/TimerStateChangeReducer';
-import Utils from '../../../Utils';
+import { printTime, millisToTime } from '../../../Utils';
 import Analytics from '../../../Analytics';
 
 const TIMER_MIN_INTERVAL = 10;
@@ -28,7 +28,7 @@ const useTimerControl = (startTime: number,
             dispatch({ type: TimerStates.Update, payload: { millis: tickTime.current } })
 
             if (Date.now() % 2 === 0) {
-                eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)))
+                eventManager.sendMessage(MSG_TIME, printTime(millisToTime(tickTime.current)))
             }
         } else if (timeIsOverAndThereIsCourtesyTime(onPointBecauseLastMinute, state.maxTime, tickTime.current, courtesyTime)) {
             tickTime.current = (Date.now() - state.timeStart)
@@ -47,7 +47,7 @@ const useTimerControl = (startTime: number,
             onTimeFiasco && onTimeFiasco();
         }
 
-        eventManager.sendMessage(MSG_TIME, Utils.printTime(Utils.millisToTime(tickTime.current)))
+        eventManager.sendMessage(MSG_TIME, printTime(millisToTime(tickTime.current)))
     }
 
     function onPlayPauseChange(state: TimerState) {

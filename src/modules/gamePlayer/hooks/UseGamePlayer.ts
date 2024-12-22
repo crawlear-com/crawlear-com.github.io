@@ -3,10 +3,10 @@ import { isOffline } from '../../../pages/Offline'
 import { Game } from '../../../games/Game'
 import { isIndividualGame, isGroupGameFinished, updateGameFromProgression } from '../GamePlayerUtils'
 import { useTranslation } from 'react-i18next'
-import { GameUtils } from '../../../games/Game'
+import { createGameProgression, getGameResult } from '../../../games/GameUtils'
 import { Player } from '../../../games/GameInterfaces'
 import { STATUS_PLAYING, STATUS_DONE, STATUS_REPAIR } from '../GamePlayerUtils'
-import Utils from '../../../Utils'
+import { getOrderedGameResult } from '../../../Utils'
 
 function UseGamePlayer(inGame: Game, gameExtras: any) {
     const [state, setState] = React.useState(GAME_STATUS_CREATED)
@@ -41,7 +41,7 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
                 window.crawlear.fb.getGameProgression(game.gid, ()=>{}, ()=>{},
                     getGameProgressionCallback, getGameProgressionCallback);
             } else {
-                setGameProgression(GameUtils.createGameProgression(game.zones, game.players.length));
+                setGameProgression(createGameProgression(game.zones, game.players.length));
             }
             setGameProgressionLoaded(true)
         }
@@ -66,16 +66,16 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
 
                 newGame.gameStatus = 2;
                 gameExtras.onGameEnd(newGame);
-                newGame = Utils.getOrderedGameResult(newGame);
+                newGame = getOrderedGameResult(newGame);
                 fb.updateGame(newGame);
                 fb.removeGameProgression(newGame.gid);
                 setGame(newGame);
                 setState(GAME_STATUS_FINISHED);
             }, ()=>{});
         } else if (isOffline) {
-            const newGame = Utils.getOrderedGameResult(game);
+            const newGame = getOrderedGameResult(game);
 
-            setGame(GameUtils.getGameResult(newGame, gameProgression));
+            setGame(getGameResult(newGame, gameProgression));
             setState(GAME_STATUS_FINISHED);
         }
     }
@@ -99,7 +99,7 @@ function UseGamePlayer(inGame: Game, gameExtras: any) {
             setGame(newGame)
         } else {
             gameExtras.onGameEnd(game)
-            const newGame =  Utils.getOrderedGameResult(game)
+            const newGame =  getOrderedGameResult(game)
             newGame.gameStatus = 2
             fb.updateGame(newGame)
             fb.removeGameProgression(newGame.gid)
