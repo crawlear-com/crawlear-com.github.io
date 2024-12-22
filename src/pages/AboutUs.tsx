@@ -7,7 +7,7 @@ import img03 from './styles/img/img03.png';
 
 import './styles/AboutUs.scss';
 
-function AboutUs() {
+function AboutUs(): React.JSX.Element {
     const { t } = useTranslation(['main']);
 
     React.useEffect(() => {
@@ -25,4 +25,4 @@ function AboutUs() {
     </div>;
 }
 
-export default AboutUs;
+export default AboutUs
