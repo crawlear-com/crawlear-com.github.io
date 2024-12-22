@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
 import GameTypePlayer from '../components/GameTypePlayer'
-import { Game, GameUtils } from '../../../games/Game'
+import { Game } from '../../../games/Game'
+import { init } from '../../../games/GameUtils'
 import { GameContext } from '../../../context/GameContext'
 import CoreGame from '../components/CoreGame'
 import KingGame from '../components/KingGame'
@@ -98,7 +99,7 @@ beforeEach(()=>{
                 handicap: 0
               }]
         }], [], 600000, 40, 10, 1, 0, [], [])
-        GameUtils.init(game)
+        init(game)
 })
 
 test('renders GameTypePlayer: not king game uses CoreGame', () => {
