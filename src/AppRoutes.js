@@ -14,7 +14,7 @@ const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/Gam
 const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagementWithAuthorization'));
 const GameViewer = lazy(() => import('./pages/GameViewer'));
 const RouteViewer = lazy(() => import('./pages/RouteViewer'));
-const UserViewer = lazy(() => import('./modules/social/pages/UserViewer.js'));
+const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'));
 
 function AppRoutes({ onLogin, onLogout }) {
     const location = useLocation()
