@@ -5,7 +5,6 @@ import { lazy } from 'react';
 import SuspenseComponent from './SuspenseComponent';
 import Landing from './pages/Landing';
 
-//as unknown as Promise<{ default: React.ComponentType<any>; }>
 const AboutUs = lazy(() => import('./pages/AboutUs'));
 
 const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameManagementWithAuthorization'));
