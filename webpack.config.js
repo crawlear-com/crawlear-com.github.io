@@ -34,7 +34,7 @@ module.exports = {
     rules: [
     {
         test: /(\.s[ac]ss|css)$/i,
-        use: ["style-loader", 
+        use: ["style-loader",
           "css-loader",
           "sass-loader"]
     },
@@ -56,7 +56,7 @@ module.exports = {
         }
     },
     {
-        test: /\.(jpe?g|png|webp|pdf|gif|svg)$/i, 
+        test: /\.(jpe?g|png|webp|pdf|gif|svg)$/i,
         type: 'asset/resource'
     }]
   },
@@ -76,7 +76,7 @@ module.exports = {
         match: /fde7ea2cdb21ba90dc1b\.webp$/,
         attributes: { as: 'image' }
       },
-      { 
+      {
         match: /(en|es)-landing-json\..*\.js$/,
         attributes: {as: 'script' },
       },]
@@ -87,7 +87,6 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: "src/static/sitemap.xml", to: "" },
         { from: "src/static/manifest.json", to: "" },
         { from: "src/static/robots.txt", to: "" },
         { from: "src/resources/fonts/Montserrat-VariableFont_wght.ttf", to: "static/" },
