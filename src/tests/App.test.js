@@ -35,7 +35,6 @@ jest.mock("react-router-dom", () => ({
   }));
 
 jest.mock('../Error')
-jest.mock('../pages/TxtRoute')
 jest.mock('../modules/gameManagement/pages/GameManagementWithAuthorization')
 jest.mock('../modules/social/pages/PilotWallWithAuthorization')
 jest.mock('../pages/AboutUs')
