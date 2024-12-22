@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Game } from "../../../games/Game"
-import { GameUtils } from '../../../games/Game'
+import { isCurrentUserIsOwner } from '../../../games/GameUtils'
 import PresenceButton from './PresenceButton';
 import { Player } from '../../../games/GameInterfaces';
 
@@ -14,12 +14,10 @@ interface JudgeActionsProps {
 }
 
 function JudgeActions({ game, player, zone, jidGroup, onBeginPlayClick, t }: JudgeActionsProps) {
-  const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
-
   if (game.jids.find(elem=>elem===window.crawlear.user.uid)) {
     let button = <></>;
 
-    if ((player && player.group === jidGroup) || isCurrentUserIsOwner) {
+    if ((player && player.group === jidGroup) || isCurrentUserIsOwner(game.owner)) {
         button = <button onClick={onBeginPlayClick} className="playButton importantNote">{t("description.empezar")}</button>;
     }
     return <>
@@ -31,7 +29,7 @@ function JudgeActions({ game, player, zone, jidGroup, onBeginPlayClick, t }: Jud
             playerName={player && player.name}
             fromName={window.crawlear.user.displayName} />
     </>;
-  } 
+  }
 
   return <></>
 }

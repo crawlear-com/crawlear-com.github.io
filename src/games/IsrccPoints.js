@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GameContext } from '../context/GameContext';
-import { GameUtils } from './Game';
+import { getZoneTotalBonification } from './GameUtils';
 
 function IsrccPoints({player, zone}) {
     const { t } = useTranslation(['main']);
@@ -9,7 +9,7 @@ function IsrccPoints({player, zone}) {
 
     if(!game || !game.players.length) return <></>;
     const playerZone = game.players[player].zones[zone];
-    const currentBonification = GameUtils.getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression);
+    const currentBonification = getZoneTotalBonification(playerZone.gateProgressionData, playerZone.gateProgression);
 
     return <>
         <div className="pointsText">{t('description.bonificacion')}: { currentBonification}</div>

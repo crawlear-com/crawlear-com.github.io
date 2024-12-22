@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Zone } from '../../games/GameInterfaces';
 import ControlTextArrayVisualization from '../ControlTextArrayVisulization';
-import { GameUtils } from '../../games/Game';
+import { sumControlTextValues } from '../../games/GameUtils';
 import { getGameTexts, getFiascoGameTexts } from '../../modules/gamePlayer/GamePlayerUtils';
 import { useTranslation } from 'react-i18next';
 
@@ -17,7 +17,7 @@ function GameResultTableZonePointsRow({ zone, gameType }: GameResultTableZonePoi
         <td colSpan={7}>
             { zone.handicap!==0 ? <div className='controlTextValues'>{t('description.bonificacionaccesorios')}: {zone.handicap}</div> : <></> }
             <ControlTextArrayVisualization
-                controlTextValues={GameUtils.sumControlTextValues(zone.gateProgressionData)}
+                controlTextValues={sumControlTextValues(zone.gateProgressionData)}
                 texts={getGameTexts(gameType, t)} />
 
             {zone.fiascoControlTextValues && zone.fiascoControlTextValues.filter(x => x > 0).length ?

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
-import { GameUtils } from '../../../games/Game'
+import { isCurrentUserIsOwner } from '../../../games/GameUtils'
 import { Game } from '../../../games/Game'
 import RepairProgression from './RepairProgression'
 import GameProgressionDirector from './GameProgressionDirector'
@@ -49,7 +49,7 @@ function GamePlayerMenu({ game,
             />
         </div>
         <button className="backButton" onClick={onBackButtonClick}>{t('description.atras')}</button>
-        { GameUtils.isCurrentUserIsOwner(game.owner) &&
+        { isCurrentUserIsOwner(game.owner) &&
           isGroupGameFinished(game, gameProgression, jidGroup) ?
             <button className="closeButton importantNote" onClick={() => {
                 onCloseButonClick(game)

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import EventManager from '../../../EventManager'
-import { Game, GameUtils } from '../../../games/Game'
+import { Game } from '../../../games/Game'
+import { isFiasco, getGameTypeBodyClassName, init, getGameTypeControlTextValuesInit, getGameTypeFiascoControlTextValuesInit  } from '../../../games/GameUtils'
 import { MSG_GATES, MSG_POINTS } from '../Bluetooth'
 import Analytics from '../../../Analytics'
 import { GameContext } from '../../../context/GameContext'
@@ -75,7 +76,7 @@ function UseCoreGame(onGameEnd: Function,
                 gameExtras.onChangeScore(playerZone);
                 setState(newState);
 
-                if (GameUtils.isFiasco(newState.game, playerIndex, zoneIndex)) {
+                if (isFiasco(newState.game, playerIndex, zoneIndex)) {
                     setState({
                         ...state,
                         forceAction: 'pause'
@@ -106,7 +107,7 @@ function UseCoreGame(onGameEnd: Function,
         setState(newState);
 
         Analytics.event('play', 'endPlayer', players[playerIndex].name);
-        document.body.classList.remove(GameUtils.getGameTypeBodyClassName(game.gameType))
+        document.body.classList.remove(getGameTypeBodyClassName(game.gameType))
         onGameEnd(newState.game);
     }
 
@@ -168,7 +169,7 @@ function UseCoreGame(onGameEnd: Function,
         onRepair && onRepair(playerIndex, zoneIndex);
     }
 
-    return [state, onTimerChange, onChangeScore, onReset, onEndPlayer, onGateProgressionChange, 
+    return [state, onTimerChange, onChangeScore, onReset, onEndPlayer, onGateProgressionChange,
         onFiascoChangeScore, onPointBecauseLastMinute, onTimeFiasco, setRepairStatus]
 }
 
@@ -179,9 +180,9 @@ function initControlTestValues(game: Game, reset: boolean) {
         game: game
     }
 
-    GameUtils.init(newState.game,
-        GameUtils.getGameTypeControlTextValuesInit(newState.game.gameType),
-        GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
+    init(newState.game,
+        getGameTypeControlTextValuesInit(newState.game.gameType),
+        getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
         reset);
 
     return newState;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import ControlTextArray from '../../../components/ControlTextArray';
 import TimerControl from './TimerControl'
-import { GameUtils } from '../../../games/Game'
+import { isPointsFiasco } from '../../../games/GameUtils'
 import UseKingGame from '../hooks/UseKingGame';
 import { KingGameScores } from '../../../games/KingGameScores';
 
@@ -14,8 +14,8 @@ function KingGame({ onGameEnd }) {
     const [state, onChangeScore, gameEnd] = UseKingGame({ onGameEnd })
     const game = state.game
 
-    result.push(<TimerControl  
-        key="tmC"               
+    result.push(<TimerControl
+        key="tmC"
         courtesyTime={0}
         startTime={0}
         label={t('description.tiempo')}
@@ -25,7 +25,7 @@ function KingGame({ onGameEnd }) {
     for(let i=0;i<game.players.length;i++) {
         let classFiasco= '';
 
-        if (GameUtils.isPointsFiasco(game, state.order[i].zones[0])) {
+        if (isPointsFiasco(game, state.order[i].zones[0])) {
             classFiasco = 'blink foreColorRed'
         }
         result.push(<div key={i+1}>

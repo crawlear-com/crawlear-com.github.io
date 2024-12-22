@@ -13,7 +13,7 @@ import { getGameContent as getRegionalZonaRcGameContent, gameExtras as regionalZ
 import { getGameContent as getMiniCrawlerPassionGameContent, gameExtras as miniCrawlerPassionExtras, MiniCrawlerPassionGameScores } from '../../games/MiniCrawlerPassionGameScores';
 import { getGameContent as getGenericGameContent, gameExtras as genericExtras, GenericGameScores } from '../../games/GenericGameScores';
 import { gameExtras as kingExtras } from '../../games/KingGameScores';
-import Utils from "../../Utils";
+import { tokenToTexts } from "../../Utils";
 import * as React  from "react";
 
 import fiascoIcon from '../../resources/img/iconFiasco.png';
@@ -126,52 +126,52 @@ export const getAllGameTexts = (gameType: number, t: Function) => {
 }
 
 export const getGameTexts = (gameType: number, t: Function) => {
-    let gameTypeTexts = Utils.tokenToTexts(t, AecarGameScores.texts)
+    let gameTypeTexts = tokenToTexts(t, AecarGameScores.texts)
 
     if(gameType === GAME_TYPE_ISRCC) {
-        gameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.texts);
+        gameTypeTexts = tokenToTexts(t, IsrccGameScores.texts);
     }
 
     if(gameType === GAME_TYPE_LEVANTE) {
-        gameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.texts);
+        gameTypeTexts = tokenToTexts(t, Levante124GameScores.texts);
     }
 
     if(gameType ===GAME_TYPE_COPAESPANA) {
-        gameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.texts);
+        gameTypeTexts = tokenToTexts(t, RegionalZonaRcGameScores.texts);
     }
 
     if(gameType ===GAME_TYPE_MINICRAWLERPASSION) {
-        gameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.texts);
+        gameTypeTexts = tokenToTexts(t, MiniCrawlerPassionGameScores.texts);
     }
 
     if(gameType ===GAME_TYPE_GENERIC) {
-        gameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.texts);
+        gameTypeTexts = tokenToTexts(t, GenericGameScores.texts);
     }
 
     return gameTypeTexts
 }
 
 export const getFiascoGameTexts = (gameType: number, t: Function) => {
-    let fiascoGameTypeTexts = Utils.tokenToTexts(t, AecarGameScores.fiascoTexts);
+    let fiascoGameTypeTexts = tokenToTexts(t, AecarGameScores.fiascoTexts);
 
     if(gameType === GAME_TYPE_ISRCC) {
-        fiascoGameTypeTexts = Utils.tokenToTexts(t, IsrccGameScores.fiascoTexts);
+        fiascoGameTypeTexts = tokenToTexts(t, IsrccGameScores.fiascoTexts);
     }
 
     if(gameType === GAME_TYPE_LEVANTE) {
-        fiascoGameTypeTexts = Utils.tokenToTexts(t, Levante124GameScores.fiascoTexts);
+        fiascoGameTypeTexts = tokenToTexts(t, Levante124GameScores.fiascoTexts);
     }
 
     if(gameType ===GAME_TYPE_COPAESPANA) {
-        fiascoGameTypeTexts = Utils.tokenToTexts(t, RegionalZonaRcGameScores.fiascoTexts);
+        fiascoGameTypeTexts = tokenToTexts(t, RegionalZonaRcGameScores.fiascoTexts);
     }
 
     if(gameType ===GAME_TYPE_MINICRAWLERPASSION) {
-        fiascoGameTypeTexts = Utils.tokenToTexts(t, MiniCrawlerPassionGameScores.fiascoTexts);
+        fiascoGameTypeTexts = tokenToTexts(t, MiniCrawlerPassionGameScores.fiascoTexts);
     }
 
     if(gameType ===GAME_TYPE_GENERIC) {
-        fiascoGameTypeTexts = Utils.tokenToTexts(t, GenericGameScores.fiascoTexts);
+        fiascoGameTypeTexts = tokenToTexts(t, GenericGameScores.fiascoTexts);
     }
 
     return fiascoGameTypeTexts

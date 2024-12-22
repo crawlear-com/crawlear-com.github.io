@@ -2,7 +2,8 @@ import * as React from 'react'
 import Analytics from '../../../Analytics'
 import { KingGameScores } from '../../../games/KingGameScores'
 import { useTranslation } from 'react-i18next'
-import { Game, GameUtils } from '../../../games/Game'
+import { Game } from '../../../games/Game'
+import { getGameTypeFiascoControlTextValuesInit, init, getGameTypeControlTextValuesInit } from '../../../games/GameUtils'
 import { GameContext } from '../../../context/GameContext'
 
 interface UseGameProps {
@@ -15,9 +16,9 @@ function UseKingGame({ onGameEnd }: UseGameProps) {
     const [state, setState] = React.useState(()=>{
         KingGameScores.texts = KingGameScores.texts.map(function(text) {
             return t(text);
-        });        
+        });
 
-        return initControlTestValues(game) 
+        return initControlTestValues(game)
     });
 
     React.useEffect(() => {
@@ -52,12 +53,12 @@ function initControlTestValues(game: Game) {
         order: [...game.players]
     }
 
-    GameUtils.init(newState.game, 
-        GameUtils.getGameTypeControlTextValuesInit(newState.game.gameType),
-        GameUtils.getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
+    init(newState.game,
+        getGameTypeControlTextValuesInit(newState.game.gameType),
+        getGameTypeFiascoControlTextValuesInit(newState.game.gameType),
         false);
     for(let i=0; i<newState.game.players.length;i++) {
-        
+
         newState.game.players[i].zones[0].gateProgressionData[0].controlTextValues = new Array(KingGameScores.steps.length).fill(0);
     }
 

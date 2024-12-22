@@ -7,7 +7,7 @@ import RoutesSearch from '../../routesSerch/RoutesSearch'
 import LovedRoutes from './LovedRoutes'
 import UseRoutesManagementMenu from '../hooks/UseRoutesManagementMenu'
 import ErrorBox from '../../../components/ErrorBox'
-import Utils from '../../../Utils'
+import { findElementInArray } from '../../../Utils'
 
 import '../styles/RoutesManagementMenu.scss'
 
@@ -41,20 +41,20 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                 transformer={transformer}
                 onRemoveItem={onDeleteRoute}
                 onConfigureItem={(rid: string) => {
-                    const [route] = Utils.findElementInArray(routes, rid, (item: Route, i: number) => item.rid === rid)
+                    const [route] = findElementInArray(routes, rid, (item: Route, i: number) => item.rid === rid)
 
                     if (route) {
                         window.scrollTo(0, 0)
-                        onCreateRoute(route)    
+                        onCreateRoute(route)
                     }
                 }}
                 title={t('description.misrutas')}
                 onItemAction={(rid: string) => {
-                    const [route] = Utils.findElementInArray(routes, rid, (item: Route, i: number) => item.rid === rid)
+                    const [route] = findElementInArray(routes, rid, (item: Route, i: number) => item.rid === rid)
 
                     if (route) {
                         window.scrollTo(0, 0)
-                        onViewRoute(route)    
+                        onViewRoute(route)
                     }
                 }} ></List>
         </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import Utils from '../../../Utils';
+import { millisToTime, printTime } from '../../../Utils';
 import useTimerControl from '../hooks/useTimerControl';
 import { TimerStates } from '../reducers/TimerStateChangeReducer';
 
@@ -20,7 +20,7 @@ function TimerControl({
     const containerRef = React.useRef(null)
     const [state, onPlayPauseChange, onReset] = useTimerControl(startTime, maxTime,
         courtesyTime, onTimerChange, onPointBecauseLastMinute, onTimeFiasco, containerRef)
-    const timeValue = Utils.millisToTime(state.millis);
+    const timeValue = millisToTime(state.millis);
 
     React.useEffect(() => {
         forceAction === TimerStates.Stop && onReset()
@@ -29,7 +29,7 @@ function TimerControl({
 
     return <div ref={containerRef} className="timerContainer">
         <div className='timerLabel'>{(label || t('description.tiempo')).toUpperCase()}:</div>
-        <div className="timer">{Utils.printTime(timeValue)}</div>
+        <div className="timer">{printTime(timeValue)}</div>
         <button className="timerPlayButton" onClick={() => { onPlayPauseChange(state) }}></button>
         <button onClick={onReset} className="resetButton"></button>
     </div>;

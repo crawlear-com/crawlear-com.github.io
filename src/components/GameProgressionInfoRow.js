@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import * as React from 'react';
 import ControlTextArrayVisualization from './ControlTextArrayVisulization';
-import Utils from '../Utils';
+import { millisToTime, printTime } from '../Utils';
 import { getAllGameTexts } from '../modules/gamePlayer/GamePlayerUtils';
-import { GameUtils } from '../games/Game';
+import { sumControlTextValues } from '../games/GameUtils';
 
 
 function GameProgressionInfoRow({gameType, gameProgression}) {
@@ -29,12 +29,12 @@ function GameProgressionInfoRow({gameType, gameProgression}) {
                     <li>{t('description.handicap')}: <span className="bold">{handicap}</span></li>
                 :<></>}
                 <li>{t('description.total')}: <span className="bold">{totalPoints}</span></li>
-                <li>{t('description.tiempo')}: <span className="bold">{Utils.printTime(Utils.millisToTime(time))}</span></li>
+                <li>{t('description.tiempo')}: <span className="bold">{printTime(millisToTime(time))}</span></li>
             </ul>
 
             <ControlTextArrayVisualization
                 controlTextValues={gameProgression.data.gateProgressionData ?
-                    GameUtils.sumControlTextValues(gameProgression.data.gateProgressionData)
+                    sumControlTextValues(gameProgression.data.gateProgressionData)
                     : gameProgression.data.controlTextValues}
                 texts={gameTypeTexts} />
 

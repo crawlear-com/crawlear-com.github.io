@@ -1,5 +1,8 @@
 import * as React from 'react'
-import { Game, OfflinePlayer, GameUtils } from '../../../games/Game'
+import { Game, OfflinePlayer } from '../../../games/Game'
+import { redoPlayersIds, 
+    getGameTypeControlTextValuesInit,
+    getGameTypeFiascoControlTextValuesInit, init } from '../../../games/GameUtils'
 import { GAME_TYPE_LEVANTE, OFFLINE_USER_UID, GAME_TYPE_KING } from '../../../games/Game'
 import GameConfiguratorUtils from '../GameConfiguratorUtils'
 import { isOffline } from '../../../pages/Offline'
@@ -7,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Analytics from '../../../Analytics'
 import { Location } from '../components/LocationResolver'
-import Utils from '../../../Utils'
+import { getUidsFromUsers } from '../../../Utils'
 
 interface UseGameConfiguratorProps {
     preconfiguredGame: Game,
@@ -178,7 +181,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
             });
 
             game.players = players
-            GameUtils.redoPlayersIds(game)
+            redoPlayersIds(game)
         }
     }
 
@@ -205,14 +208,14 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
                 newGame.zones = 1
                 newGame.gates = new Array(1).fill(1)
             }
-            newGame.uids = Utils.getUidsFromUsers(newGame.players)
-            newGame.jids = Utils.getUidsFromUsers(newGame.judges)
+            newGame.uids = getUidsFromUsers(newGame.players)
+            newGame.jids = getUidsFromUsers(newGame.judges)
             if (randomizePlayersOrder) {
                 randomPlayersOrder(newGame)
             }
-            GameUtils.init(newGame,
-                GameUtils.getGameTypeControlTextValuesInit(newGame.gameType),
-                GameUtils.getGameTypeFiascoControlTextValuesInit(newGame.gameType),
+            init(newGame,
+                getGameTypeControlTextValuesInit(newGame.gameType),
+                getGameTypeFiascoControlTextValuesInit(newGame.gameType),
                 true)
             if (isOffline && onGameCreated) {
                 onGameCreated(newGame)

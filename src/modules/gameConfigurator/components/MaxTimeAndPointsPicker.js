@@ -2,13 +2,13 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import MaxTimePicker from './MaxTimePicker';
 import Picker from '../../../components/Picker';
-import Utils from '../../../Utils';
+import { millisToTime } from '../../../Utils';
 
 import '../styles/MaxTimePicker.scss';
 
 function MaxTimeAndPointsPicker({ onMaxTimeChange, onMaxPointsChange, showTimePicker, time, points }) {
     const { t } = useTranslation(['main'])
-    const maxTimeStruct = Utils.millisToTime(time);
+    const maxTimeStruct = millisToTime(time);
     let maxTimePicker = <></>;
 
     if (showTimePicker) {

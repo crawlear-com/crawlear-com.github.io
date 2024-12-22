@@ -4,7 +4,7 @@ import GamePlayer from '../../gamePlayer/GamePlayer';
 import GameManagementMenu from '../components/GameManagementMenu';
 import WithAuthorization from '../../../components/WithAuthorization';
 import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator';
-import Utils from '../../../Utils';
+import { findElementInArray } from '../../../Utils';
 
 import '../styles/GameManagement.scss';
 
@@ -41,7 +41,7 @@ function GameManagement() {
     }
 
     function setGameState(games, key, state) {
-        const [game] = Utils.findElementInArray(games, key, (item, value)=>item.gid===value)
+        const [game] = findElementInArray(games, key, (item, value)=>item.gid===value)
 
         if (game) {
             window.scrollTo(0,0);

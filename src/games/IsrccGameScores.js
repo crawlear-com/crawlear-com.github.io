@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ControlTextArray from "../components/ControlTextArray";
-import { GameUtils } from './Game';
+import { isFiasco, isNonPresentedFiasco } from './GameUtils';
 import IsrccPoints from './IsrccPoints';
 import Analytics from '../Analytics';
 
@@ -99,11 +99,11 @@ const gameExtras = {
     onGameEnd: (game)=> {
         game.players.forEach((player, playerIndex)=>{
             player.zones.forEach((zone, zoneIndex)=>{
-                if (GameUtils.isFiasco(game, playerIndex, zoneIndex)) {
+                if (isFiasco(game, playerIndex, zoneIndex)) {
                     const playerZone = game.players[playerIndex].zones[zoneIndex];
 
                     playerZone.time = (game.maxTime > 0 ? game.maxTime : playerZone.time);
-                    if(GameUtils.isNonPresentedFiasco(game, playerIndex, zoneIndex)) {
+                    if(isNonPresentedFiasco(game, playerIndex, zoneIndex)) {
                         playerZone.points = 50;
                     } else {
                         playerZone.points = (game.maxPoints > 0 ? game.maxPoints : playerZone.totalPoints);

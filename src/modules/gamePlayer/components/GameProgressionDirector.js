@@ -2,17 +2,16 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import CompletedZonesByGroup from './CompletedZonesByGroup';
 import usePresenceRequests from '../hooks/usePresenceRequests';
-import { GameUtils } from '../../../games/Game';
+import { isCurrentUserIsOwner } from '../../../games/GameUtils';
 
 import '../styles/GameProgressionDirector.scss';
 
 function GameProgressionDirector({game, gameProgression}) {
     const { t } = useTranslation(['main']);
     const [requests, presenceRequestAccept] = usePresenceRequests(game.gid, t)
-    const isCurrentUserIsOwner = GameUtils.isCurrentUserIsOwner(game.owner);
     const res = [];
 
-    if (!isCurrentUserIsOwner) return <></>
+    if (!isCurrentUserIsOwner(game.owner)) return <></>
 
     res.push(<div key={'zC'} className=''>{t('content.zonascompletadas')}</div>);
     res.push(<CompletedZonesByGroup key={game.name} gameProgression={gameProgression} numZones={game.zones} />)
