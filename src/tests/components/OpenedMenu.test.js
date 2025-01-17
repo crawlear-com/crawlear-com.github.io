@@ -19,9 +19,14 @@ beforeEach(()=>{
   document.body.innerHTML = '';
   document.body.append(div);
   window.crawlear = {
-    fb: jest.fn()
+    fb: jest.fn(),
+    user: {
+        displayName: 'Display Name'
+    }
   }
 })
+
+jest.mock('../../modules/social/components/UserProfilePhoto')
 
 afterEach(() => {
   delete window.crawlear
@@ -45,6 +50,8 @@ test('renders Opened Menu', () => {
     expect(links[7].textContent).toBe("-");
     expect(links[8].textContent).toBe("description.politicaprivacidad");
     expect(links[9].textContent).toBe("description.aboutus");
+    expect(screen.getByText('UserProfilePhoto')).toBeInTheDocument()
+    expect(screen.getByText('Display Name')).toBeInTheDocument()
 });
 
 test('Menu onClick', () => {

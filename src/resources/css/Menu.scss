@@ -17,12 +17,18 @@
     transform: translateY(0px);
     transition: transform 0.5s ease-in-out;
 
-    img {
+    .MenuLogo {
       position: fixed;
       top: 0px;
       right: 0px;
       width: 60px;
       margin: 5px 8px 10px 0;
+    }
+
+    .userProfilePhotoContainer {
+        .photo {
+            border-radius: 50px;
+        }
     }
 }
 
@@ -75,8 +81,7 @@
 
 .linksContainer {
     ul {
-        margin: 0 15px;
-
+        margin: 55px 25px 0 25px;
         li {
             overflow: hidden;
         }
