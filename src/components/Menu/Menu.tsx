@@ -2,6 +2,7 @@ import * as React from 'react';
 import OpenedMenu from './OpenedMenu';
 import ClosedMenu from './ClosedMenu';
 import useShowHide from '../../hooks/useShowHide'
+import MenuLogo from './MenuLogo';
 
 import '../../resources/css/Menu.scss';
 
@@ -23,10 +24,12 @@ function Menu({ isOpen }: MenuProps) {
     if (isOpenState) {
         return <header className='App-header'>
             <OpenedMenu OnClickMenu={onMenuClick}></OpenedMenu>
+            <MenuLogo />
         </header>
     } else {
         return <header className={`App-header ${showClassName}`}>
             <ClosedMenu OnClickMenu={onMenuClick}></ClosedMenu>
+            <MenuLogo />
         </header>
     }
 

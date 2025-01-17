@@ -3,7 +3,6 @@ import LightModeSwitcher from './LightModeSwitcher';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../Analytics';
-import MenuLogo from './MenuLogo';
 
 interface OpenedMenuProps {
     OnClickMenu: React.MouseEventHandler<HTMLDivElement>
@@ -18,7 +17,7 @@ function OpenedMenu({ OnClickMenu }: OpenedMenuProps) {
         navigate(path)
     }
 
-    return <><div data-testid="menuContainer" className="rounded menuContainer open" onClick={OnClickMenu}>
+    return <div data-testid="menuContainer" className="rounded menuContainer open" onClick={OnClickMenu}>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
@@ -38,8 +37,6 @@ function OpenedMenu({ OnClickMenu }: OpenedMenuProps) {
                 <LightModeSwitcher onClick={OnClickMenu}></LightModeSwitcher>
             </div>
         </div>
-        <MenuLogo />
-        </>
 }
 
 export default OpenedMenu
