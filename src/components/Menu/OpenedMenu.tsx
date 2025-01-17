@@ -1,5 +1,6 @@
 import * as React from 'react'
 import LightModeSwitcher from './LightModeSwitcher';
+import UserProfilePhoto from '../../modules/social/components/UserProfilePhoto';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../Analytics';
@@ -11,6 +12,7 @@ interface OpenedMenuProps {
 function OpenedMenu({ OnClickMenu }: OpenedMenuProps) {
     const navigate = useNavigate()
     const { t } = useTranslation(['main'])
+    const user = window.crawlear.user
 
     function browseTo(path: string) {
         Analytics.event('navigation','menu', path);
@@ -22,6 +24,8 @@ function OpenedMenu({ OnClickMenu }: OpenedMenuProps) {
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="linksContainer" className="linksContainer">
+                <UserProfilePhoto photoUrl={user.photoURL} onLogout={()=>{}} inputUserIsTheLoggedOne={false} />
+                { user.displayName }
                 <ul>
                     <li onClick={()=>{browseTo("/social")}}>{t("description.perfilsocial")}</li>
                     <li onClick={()=>{browseTo("/game")}}>{t("description.herramientajuego")}</li>
