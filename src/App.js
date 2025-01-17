@@ -13,7 +13,7 @@ import './resources/css/Base.scss'
 import './resources/css/App.scss'
 import './resources/css/Footer.scss'
 
-const Menu = lazy(() => import('./components/Menu'));
+const Menu = lazy(() => import('./components/Menu/Menu'));
 
 function App() {
   const location = useLocation()
