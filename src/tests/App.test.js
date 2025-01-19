@@ -36,7 +36,7 @@ jest.mock("react-router-dom", () => ({
 
 jest.mock('../Error')
 jest.mock('../hooks/useLoginProcess')
-jest.mock('../components/Menu/Menu.tsx')
+jest.mock('../modules/Menu/Menu')
 jest.mock('../context/UserStatusContext')
 jest.mock('../AppRoutes')
 
