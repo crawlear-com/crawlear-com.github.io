@@ -10,10 +10,6 @@ function LinkList() {
         <BrowseableListItem path='/game'>{t("description.herramientajuego")}</BrowseableListItem>
         <BrowseableListItem path='/route'>{t("description.herramientaruta")}</BrowseableListItem>
         <li>-</li>
-        <li><a href="https://www.aecar.org/modalidades.php?tipo=crawler">AECAR</a></li>
-        <li><a href="https://www.clubzonarc.es/">Club ZonaRc</a></li>
-        <li><a href="https://isrcc.eu/">ISRCC</a></li>
-        <li>-</li>
         <BrowseableListItem path='/privacypolicy'>{t("description.politicaprivacidad")}</BrowseableListItem>
         <BrowseableListItem path='/aboutus'>{t("description.aboutus")}</BrowseableListItem>
     </ul>
