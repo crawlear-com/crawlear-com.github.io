@@ -1,7 +1,7 @@
 import * as React from 'react'
 import LightModeSwitcher from './LightModeSwitcher';
-import MenuSocialProfile from './MenuSocialProfile';
-import MenuLinkList from './MenuLinkList';
+import SocialProfile from './SocialProfile';
+import LinkList from './LinkList';
 
 interface OpenedMenuProps {
     OnClickMenu: React.MouseEventHandler<HTMLDivElement>
@@ -12,9 +12,10 @@ function OpenedMenu({ OnClickMenu }: OpenedMenuProps) {
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
+
             <div data-testid="linksContainer" className="linksContainer">
-                <MenuSocialProfile />
-                <MenuLinkList />
+                <SocialProfile />
+                <LinkList />
                 <LightModeSwitcher onClick={OnClickMenu}></LightModeSwitcher>
             </div>
         </div>

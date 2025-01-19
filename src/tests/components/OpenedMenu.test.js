@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import OpenedMenu from '../../components/Menu/OpenedMenu';
+import OpenedMenu from '../../modules/Menu/components/OpenedMenu';
 
 const div = document.createElement('div');
 

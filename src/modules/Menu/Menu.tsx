@@ -1,10 +1,10 @@
 import * as React from 'react';
-import OpenedMenu from './OpenedMenu';
-import ClosedMenu from './ClosedMenu';
+import OpenedMenu from './components/OpenedMenu';
+import ClosedMenu from './components/ClosedMenu';
 import useShowHide from '../../hooks/useShowHide'
-import MenuLogo from './MenuLogo';
+import MenuLogo from './components/MenuLogo';
 
-import '../../resources/css/Menu.scss';
+import './styles/Menu.scss';
 
 const HEADER_HEIGHT = 56
 const HEADER_HIDECLASS = 'menuHide'

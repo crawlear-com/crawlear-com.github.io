@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import ClosedMenu from '../../components/Menu/ClosedMenu';
+import ClosedMenu from '../../modules/Menu/components/ClosedMenu';
 
 const div = document.createElement('div');
 

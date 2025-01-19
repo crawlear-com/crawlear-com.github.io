@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import UserProfilePhoto from '../../modules/social/components/UserProfilePhoto'
+import UserProfilePhoto from '../../social/components/UserProfilePhoto'
 
-function MenuSocialProfile() {
+function SocialProfile() {
     const navigate = useNavigate()
     const user = window.crawlear.user
 
@@ -14,4 +14,4 @@ function MenuSocialProfile() {
     </>
 }
 
-export default MenuSocialProfile
+export default SocialProfile
