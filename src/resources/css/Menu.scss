@@ -5,7 +5,6 @@
     width: 100%;
     z-index:  10000;
     height: 56px;
-    font-weight: bold;
     background-color: #241e1f;
     min-height: 40px;
     display: flex;
@@ -80,8 +79,13 @@
 }
 
 .linksContainer {
+    .menuUserDisplayName {
+        font-size: 1.2em;
+        margin-top: 15px;
+        font-weight: bold;
+    }
     ul {
-        margin: 35px 25px 0 25px;
+        margin: 35px 25px;
         li {
             overflow: hidden;
         }
