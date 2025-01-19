@@ -3,6 +3,8 @@ import LightModeSwitcher from './LightModeSwitcher';
 import SocialProfile from './SocialProfile';
 import LinkList from './LinkList';
 
+import '../styles/OpenedMenu.scss'
+
 interface OpenedMenuProps {
     OnClickMenu: React.MouseEventHandler<HTMLDivElement>
 }

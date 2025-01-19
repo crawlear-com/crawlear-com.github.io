@@ -44,21 +44,6 @@
     min-height: 420px;
 }
 
-.burguerMenuBar:first-of-type {
-    margin-top: 10px;
-}
-
-.burguerMenuBar:last-of-type {
-    margin-bottom: 15px;
-}
-
-.burguerMenuBar {
-    width: 25px;
-    height: 4px;
-    background-color: rgb(255, 255, 255);
-    margin: 4px;
-}
-
 .open {
     width: 90%;
     max-width: 437px;
@@ -76,24 +61,4 @@
     width: 200px;
     height: 200px;
     transform: rotate(180deg);
-}
-
-.linksContainer {
-    .menuUserDisplayName {
-        font-size: 1.2em;
-        margin-top: 15px;
-        font-weight: bold;
-    }
-    ul {
-        margin: 35px 25px;
-        li {
-            overflow: hidden;
-        }
-    }
-}
-
-.lightModeSwitch {
-    position: absolute;
-    bottom: 15px;
-    right: 32px;
 }
