@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import ClosedMenu from '../../components/Menu/ClosedMenu';
+import OpenedMenu from '../components/OpenedMenu';
 
 const div = document.createElement('div');
 
@@ -19,9 +18,17 @@ beforeEach(()=>{
   document.body.innerHTML = '';
   document.body.append(div);
   window.crawlear = {
-    fb: jest.fn()
+    fb: jest.fn(),
+    user: {
+        displayName: 'Display Name'
+    }
   }
 })
+
+jest.mock('../components/BrowseableListItem')
+jest.mock('../components/SocialProfile')
+jest.mock('../components/LinkList')
+jest.mock('../components/LightModeSwitcher')
 
 afterEach(() => {
   delete window.crawlear
@@ -30,20 +37,16 @@ afterEach(() => {
 test('renders Opened Menu', () => {
     const onClick = jest.fn()
 
-    render(<BrowserRouter><ClosedMenu OnClickMenu={onClick} /></BrowserRouter>, div)
-    const menu = screen.getByTestId('menuContainer')
-    const menuEntries = screen.queryByTestId("linksContainer")
-    const menuBars = screen.getAllByTestId("burguerMenuBar")
-
-    expect(menuBars.length).toBe(3)
-    expect(menu.classList.contains("closed")).toBeTruthy()
-    expect(menuEntries).toBeNull()
-})
+    render(<OpenedMenu onClick={onClick} />, div)
+    expect(screen.getByText('SocialProfile')).toBeInTheDocument()
+    expect(screen.getByText('LinkList')).toBeInTheDocument()
+    expect(screen.getByText('LightModeSwitcher')).toBeInTheDocument()
+});
 
 test('Menu onClick', () => {
     const onClick = jest.fn()
 
-    render(<BrowserRouter><ClosedMenu OnClickMenu={onClick} /></BrowserRouter>, div)
+    render(<OpenedMenu OnClickMenu={onClick} />, div)
     const menu = screen.getByTestId('menuContainer')
 
     fireEvent.click(menu)

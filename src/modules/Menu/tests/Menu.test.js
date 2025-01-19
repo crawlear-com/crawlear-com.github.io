@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Menu from '../../components/Menu/Menu';
+import Menu from '../Menu';
 
 const div = document.createElement('div');
 
@@ -14,9 +14,9 @@ jest.mock('react-i18next', () => ({
     }
 }));
 
-jest.mock('../../components/Menu/OpenedMenu.tsx')
-jest.mock('../../components/Menu/ClosedMenu.tsx')
-jest.mock('../../components/Menu/MenuLogo.tsx')
+jest.mock('../components/OpenedMenu.tsx')
+jest.mock('../components/ClosedMenu.tsx')
+jest.mock('../components/MenuLogo.tsx')
 
 beforeEach(()=>{
   document.body.innerHTML = '';
