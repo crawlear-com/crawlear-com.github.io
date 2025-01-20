@@ -19,6 +19,13 @@ test('after sroll', () => {
     expect(result.current[0]).toBe('hide')
 });
 
+test('does not hide after sroll less than height', () => {
+    const { result } = renderHook(() => useShowHide('hide', 50))
+
+    fireEvent.scroll(window, { target: { scrollY: 25 } })
+    expect(result.current[0]).toBe('')
+});
+
 test('after sroll < height', () => {
     const { result } = renderHook(() => useShowHide('hide', 50))
 
