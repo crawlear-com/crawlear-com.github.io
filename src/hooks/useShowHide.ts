@@ -8,7 +8,7 @@ function useShowHide(className: string, height: number): Array<string> {
   const handleScroll = useCallback(() => {
       if (window.scrollY > height && previousY.current < window.scrollY) {
         setTranslate(className)
-      } else if (height && previousY.current > window.scrollY) {
+      } else if (height && (previousY.current > window.scrollY || window.scrollY <= 0)) {
         setTranslate(NO_CLASSNAME)
       }
       previousY.current = window.scrollY
