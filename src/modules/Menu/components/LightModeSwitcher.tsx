@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 
-const LIGHTMODE_CLASS = 'lightMode'
+export const LIGHTMODE_CLASS = 'lightMode'
 
 interface LightModeSwitcherProps {
     onClick: Function
@@ -9,19 +9,12 @@ interface LightModeSwitcherProps {
 
 function LightModeSwitcher({ onClick }: LightModeSwitcherProps) {
     const { t } = useTranslation(['main']);
-    const [lightMode, setLightMode] = React.useState(false)
 
     function switchLightMode(event: React.MouseEvent<HTMLElement>) {
         event.preventDefault();
         event.stopPropagation();
 
-        if (lightMode) {
-            setLightMode(false);
-            document.body.classList.remove(LIGHTMODE_CLASS);
-        } else {
-            setLightMode(true);
-            document.body.classList.add(LIGHTMODE_CLASS);
-        }
+        document.body.classList.toggle(LIGHTMODE_CLASS);
         onClick()
     }
 
