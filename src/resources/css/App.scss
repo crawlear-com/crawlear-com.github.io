@@ -83,7 +83,8 @@ body.lightMode {
   }
 
   .gameList .gameListPoints,
-  .gameList .gameListPosition {
+  .gameList .gameListPosition,
+  .rounded button {
     background-color: #A0BCC2;
   }
 
@@ -102,10 +103,6 @@ body.lightMode {
 
   .rounded3 {
     background-image: linear-gradient(#FEFBE7, #A0BCC2);
-  }
-
-  .rounded button {
-    background-color: #405662;
   }
 
   .linksContainer, .sectionTitle {
