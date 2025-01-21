@@ -18,7 +18,7 @@
   padding-top: 65px;
 }
 
-@media only screen and (min-width : 600px) { 
+@media only screen and (min-width : 600px) {
   .AppMainContainer {
     max-width: 630px;
   }
@@ -99,7 +99,7 @@ body.lightMode {
   .rounded2 {
     background-image: linear-gradient(#FEFBE7, #FEFBE7);
   }
-  
+
   .rounded3 {
     background-image: linear-gradient(#FEFBE7, #A0BCC2);
   }
@@ -108,10 +108,9 @@ body.lightMode {
     background-color: #405662;
   }
 
-  .linksContainer {
+  .linksContainer, .sectionTitle {
     color: #FEFBE7;
   }
-  
 }
 
 .rounded1 {
@@ -132,7 +131,6 @@ body.lightMode {
 
 .importantNote {
   background-image: linear-gradient(#ffa602, #ea7402);
-  
   img {
     width: 32px;
     vertical-align: middle;
@@ -149,7 +147,7 @@ body.lightMode {
 
 .controlTextText {
   margin: 0 5px;
-} 
+}
 
 .formRequiredValue:after {
   content: '*';
@@ -195,9 +193,9 @@ body.lightMode {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: transparent; 
+  background: transparent;
 }
 
 ::-webkit-scrollbar {
-  background: transparent; 
+  background: transparent;
 }
