@@ -10,7 +10,7 @@ interface OpenedMenuProps {
 }
 
 function OpenedMenu({ OnClickMenu }: OpenedMenuProps) {
-    return <div data-testid="menuContainer" className="rounded menuContainer open" onClick={OnClickMenu}>
+    return <nav role="navigation" data-testid="menuContainer" className="rounded menuContainer open" onClick={OnClickMenu}>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
             <div data-testid="burguerMenuBar" className="burguerMenuBar"></div>
@@ -20,7 +20,7 @@ function OpenedMenu({ OnClickMenu }: OpenedMenuProps) {
                 <LinkList />
                 <LightModeSwitcher onClick={OnClickMenu}></LightModeSwitcher>
             </div>
-        </div>
+        </nav>
 }
 
 export default OpenedMenu

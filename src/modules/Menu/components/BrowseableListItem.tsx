@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Analytics from '../../../Analytics'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 interface BrowseableProps {
   children: React.JSX.Element,
@@ -8,14 +8,10 @@ interface BrowseableProps {
 }
 
 function BrowseableListItem({ children, path }: BrowseableProps) {
-  const navigate = useNavigate()
-
-  function browseTo(path: string) {
-      Analytics.event('navigation','menu', path);
-      navigate(path)
-  }
-  return <li onClick={()=>{browseTo(path)}}>
-    { children }
+  return <li>
+    <Link to={path} onClick={() =>{ Analytics.event('navigation','menu', path); }}>
+      { children }
+    </Link>
   </li>
 }
 
