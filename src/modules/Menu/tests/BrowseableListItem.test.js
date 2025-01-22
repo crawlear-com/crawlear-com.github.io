@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import BrowseableListItem from '../components/BrowseableListItem';
 import Analytics from '../../../Analytics';
+import { BrowserRouter } from 'react-router-dom'
 
 const div = document.createElement('div');
 
@@ -24,19 +25,18 @@ afterEach(() => {
 })
 
 test('renders ListItem browseable', () => {
-  render(<BrowseableListItem path="/path1">li content</BrowseableListItem>, div)
-  const listItem = screen.getByRole('listitem')
+  render(<BrowserRouter><BrowseableListItem path="/path1">li content</BrowseableListItem></BrowserRouter>, div)
+  const listItem = screen.getByRole('link')
 
   expect(listItem).toBeInTheDocument()
   expect(listItem.textContent).toBe('li content')
 });
 
 test('onClick', () => {
-  render(<BrowseableListItem path="/path1">li content</BrowseableListItem>, div)
-  const listItem = screen.getByRole('listitem')
+  render(<BrowserRouter><BrowseableListItem path="/path1">li content</BrowseableListItem></BrowserRouter>, div)
+  const listItem = screen.getByRole('link')
 
   fireEvent.click(listItem)
 
-  expect(mockUsedNavigate).toHaveBeenCalledWith('/path1')
   expect(Analytics.event).toBeCalledWith('navigation','menu','/path1')
 });
