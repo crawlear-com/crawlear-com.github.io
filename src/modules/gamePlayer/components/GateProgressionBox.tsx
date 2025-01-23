@@ -48,14 +48,13 @@ function GateProgressionBox({ playerIndex, zoneIndex, onGateProgressionChange }:
             min={0}
             max={game.gates[zoneIndex]}
             dots={true}
-            vertical={game.gameType === GAME_TYPE_GENERIC}
             value={playerZone.gateProgression}
             onChange={onGateProgressionChange}
             marks={gameExtras.generateSliderMarksFromGates(playerZone.gateProgressionData, playerZone.gateProgression)}
             tipFormatter={(value)=>{
-                return playerZone.gateProgression < game.gates[zoneIndex] ? 
-                    String(value).concat('-').concat(playerZone.gateProgressionData[playerZone.gateProgression].gatePoints) : 
-                    '-'; 
+                return playerZone.gateProgression < game.gates[zoneIndex] ?
+                    String(value).concat('-').concat(playerZone.gateProgressionData[playerZone.gateProgression].gatePoints) :
+                    '-';
             }}/>
   </div>
 
