@@ -301,3 +301,9 @@ export function getMaxGroupNumber(game: Game) {
 
     return maxGroup;
 }
+
+export function isGameDataComplete(game: Game) {
+    const isValid = !game.name || !game.name.length || !game.players.length
+
+    return game.gameType === GAME_TYPE_KING ? isValid : isValid || !game.players.length
+}
