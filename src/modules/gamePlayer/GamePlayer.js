@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { getGroupFromJid, getGameExtras, getGameContent } from './GamePlayerUtils';
-import GamePlayerMenu from './components/GamePlayerMenu';
 import GameTypePlayer from './components/GameTypePlayer';
-import { GameProgressionContext } from '../../context/GameProgressionContext';
 import WinnerTable from '../../components/WinnerTable';
+import GamePlayerBeginGame from './GamePlayerBeginGame';
 
-import { GAME_TYPE_KING } from '../../games/Game'
 import UseGamePlayer, { GAME_STATUS_CREATED, GAME_STATUS_FINISHED, GAME_STATUS_PLAYING } from './hooks/UseGamePlayer';
 
 import './styles/GamePlayer.scss'
@@ -24,27 +22,12 @@ function GamePlayer({inGame, onBackButtonClick}) {
     })
 
     if (state === GAME_STATUS_CREATED) {
-        if (game.gameType === GAME_TYPE_KING) {
-            view = <GameTypePlayer
-            game={game}
-            onGameEnd={onGameEnd}
-            gameExtras={gameExtras} />;
-        } else {
-            view = <GameProgressionContext.Provider value={[gameProgression, setGameProgression]}>
-                    <GamePlayerMenu game={game} gameProgression={gameProgression}
-                        jidGroup={jidGroup} onBeginGame={onBeginGame} onBackButtonClick={onBackButtonClick}
-                        onCloseButonClick={onClosePlayButtonClick}></GamePlayerMenu>
-                </GameProgressionContext.Provider>
-        }
-
+        view = <GamePlayerBeginGame game={game} onBeginGame={onBeginGame} onGameEnd={onGameEnd}
+            onBackButtonClick={onBackButtonClick} onClosePlayButtonClick={onClosePlayButtonClick}
+            jidGroup={jidGroup} gameProgression={gameProgression} setGameProgression={setGameProgression} />
     } else if (state === GAME_STATUS_PLAYING) {
-        view = <GameTypePlayer
-            player={player.id}
-            zone={zone}
-            game={game}
-            gameExtras={gameExtras}
-            onGameEnd={onGameEnd}
-            onRepair={onRepair}>
+        view = <GameTypePlayer player={player.id} zone={zone} game={game} gameExtras={gameExtras}
+            onGameEnd={onGameEnd} onRepair={onRepair}>
                 {childrenContent}
             </GameTypePlayer>;
     } else if (state === GAME_STATUS_FINISHED) {

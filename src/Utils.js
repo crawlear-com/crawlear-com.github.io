@@ -45,14 +45,14 @@ export function  isGoogleMapsUrl(url) {
 
 export function  isInstagramUrl(url) {
     var regExp = /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)(?:\/(?:.?)*)*\/(?:reel|p|tv)\/(.*)*(?:\/)*/;
-    var match = this.sanitizeUrl(url).match(regExp);
+    var match = sanitizeUrl(url).match(regExp);
 
     return match && match[1];
 }
 
 export function  getTiktokVideoId(url) {
     var regExp = /(?:(?:http|https):\/\/)?(?:www.)?tiktok.com\/@(.*)\/video\/(.*)*/;
-    var match = this.sanitizeUrl(url).match(regExp);
+    var match = sanitizeUrl(url).match(regExp);
 
     if ((match && match[1] && match[2])) {
         return match[2]
@@ -63,14 +63,14 @@ export function  getTiktokVideoId(url) {
 
 export function  isTiktokUrl(url) {
     var regExp = /(?:(?:http|https):\/\/)?(?:www.)?tiktok.com\/@(.*)\/video\/(.*)*/;
-    var match = this.sanitizeUrl(url).match(regExp);
+    var match = sanitizeUrl(url).match(regExp);
 
     return (match && match[1] && match[2]);
 }
 
 export function  isFacebookUrl(url) {
     var regExp = /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-.]*\/)*([\w\-.]*)/;
-    var match = this.sanitizeUrl(url).match(regExp);
+    var match = sanitizeUrl(url).match(regExp);
 
     return (match && match[1] && match[2]);
 }
@@ -173,7 +173,7 @@ export function  getWinnerByPointsAndTime(inPlayers) {
 }
 
 export function  getOrderedGameResult(game) {
-    game = this.calulateFinalGameResult(game);
+    game = calulateFinalGameResult(game);
     game.players = game.players.sort((a, b) => {
         const bypoints = (a.totalPoints - b.totalPoints);
 

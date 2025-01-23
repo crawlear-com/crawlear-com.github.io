@@ -13,7 +13,6 @@ import JudgeActions from './JudgeActions'
 interface GamePlayerMenuProps {
     game: Game,
     jidGroup: number,
-    zone: number,
     onBeginGame: Function,
     onBackButtonClick: React.MouseEventHandler<HTMLButtonElement>,
     onCloseButonClick: Function
