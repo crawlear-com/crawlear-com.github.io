@@ -28,9 +28,11 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         newGame.date = new Date().toLocaleDateString()
         if (isOffline) {
             newGame.judges = [{...OfflinePlayer}]
+            newGame.owner.push(OFFLINE_USER_UID)
         }
         return newGame
     });
+
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = React.useState("")
     const [randomizePlayersOrder, setRandomizePlayersOrder] = React.useState(false)
@@ -72,9 +74,6 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         }
         Analytics.event('menu', action, judges.length);
         newGame.judges = [...judges]
-        if(isOffline && !newGame.owner.length) {
-            newGame.owner.push(OFFLINE_USER_UID)
-        }
 
         setGame(newGame)
         setErrorMessage("")

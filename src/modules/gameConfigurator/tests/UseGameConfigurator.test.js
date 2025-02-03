@@ -1,9 +1,11 @@
 import { renderHook, act } from "@testing-library/react"
 import UseGameConfigurator from '../hooks/UseGameConfigurator'
 import { Game, GAME_TYPE_LEVANTE, GAME_TYPE_AECAR } from '../../../games/Game';
+import { isOffline } from '../../../pages/Offline';
+import { OfflinePlayer } from "../../../games/Game";
 
 const div = document.createElement('div')
-let winBack 
+let winBack
 
 beforeEach(() => {
     winBack = window.scrollTo
@@ -14,7 +16,8 @@ beforeEach(() => {
         fb: jest.fn(),
         user: { },
         isUserLogged: jest.fn().mockReturnValue(true)
-      }    
+    }
+    isOffline.mockClear();
 });
 
 afterAll(() => {
@@ -49,10 +52,12 @@ jest.mock('react-i18next', () => ({
 }));
 
 jest.mock('../../../pages/Offline', () => ({
-    isOffline: false
-}))
+    isOffline: jest.fn()
+}));
 
 test('onGameTypeChange test', () => {
+    isOffline.mockImplementation(() => false);
+
     const preconfiguredGame = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
     const onGameCreated = jest.fn()
@@ -67,6 +72,8 @@ test('onGameTypeChange test', () => {
 });
 
 test('onLocationResolved test', () => {
+    isOffline.mockImplementation(() => false);
+
     const preconfiguredGame = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, [], [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
     const onGameCreated = jest.fn()
@@ -84,6 +91,7 @@ test('onLocationResolved test', () => {
 });
 
 test('onJudgeNumerChange test', () => {
+    isOffline.mockImplementation(() => false);
     const judges = [0,1]
     const preconfiguredGame = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, [], judges, 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
@@ -99,6 +107,7 @@ test('onJudgeNumerChange test', () => {
 });
 
 test('onPlayerNumerChange test', () => {
+    isOffline.mockImplementation(() => false);
     const players = [0,1]
     const preconfiguredGame = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, players, [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
@@ -114,6 +123,7 @@ test('onPlayerNumerChange test', () => {
 });
 
 test('onMaxTimeChange test', () => {
+    isOffline.mockImplementation(() => false);
     const players = [0,1]
     const preconfiguredGame = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, players, [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
@@ -128,6 +138,7 @@ test('onMaxTimeChange test', () => {
 });
 
 test('onMaxPointsChange test', () => {
+    isOffline.mockImplementation(() => false);
     const players = [0,1]
     const preconfiguredGame = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
         false, GAME_TYPE_LEVANTE, players, [], 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
@@ -140,3 +151,17 @@ test('onMaxPointsChange test', () => {
     })
     expect(result.current[GAME_POSITION].maxPoints).toBe(10001)
 });
+
+test('isOffline game has initial judge and director', () => {
+    isOffline.mockImplementation(() => true);
+
+    const judges = [0,1]
+    const preconfiguredGame = new Game("", new Date().toLocaleDateString(),{ latitude: 0, longitude: 0 },
+        false, GAME_TYPE_LEVANTE, [], judges, 600000, 40, new Array(1).fill(10), 1, 0, [], [], [])
+    const onGameCreated = jest.fn()
+    const { result } = renderHook(UseGameConfigurator, {
+        initialProps: { preconfiguredGame, onGameCreated }
+    })
+    expect(result.current[GAME_POSITION].judges.length).toBe(1)
+    expect(result.current[GAME_POSITION].judges[0]).toStrictEqual(OfflinePlayer)
+})
