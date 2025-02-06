@@ -8,14 +8,15 @@ interface SecuredComponentProps {
   children: React.JSX.Element
 }
 
-function SecuredComponent({ children }: SecuredComponentProps) {
-  const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
+async function SecuredComponent({ children }: SecuredComponentProps) {
+    const cookieStore = await cookies()
+    const session = cookieStore.get(SESSION_COOKIE_NAME)?.value || null;
 
-  if (!session) {
-    redirect('/')
-  }
+    if (!session) {
+        redirect('/')
+    }
 
-  return children
+    return children
 }
 
 export default SecuredComponent

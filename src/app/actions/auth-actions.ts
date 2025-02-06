@@ -5,8 +5,9 @@ import { cookies } from 'next/headers';
 const SESSION_COOKIE_NAME = "crawlear_session"
 
 export async function createSession(uid: string) {
-    console.log("entra!")
-  cookies().set(SESSION_COOKIE_NAME, uid, {
+ const cookieStore = await cookies()
+
+ cookieStore.set(SESSION_COOKIE_NAME, uid, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: 60 * 60 * 24, // One day
@@ -15,5 +16,7 @@ export async function createSession(uid: string) {
 }
 
 export async function removeSession() {
-  cookies().delete(SESSION_COOKIE_NAME);
+    const cookieStore = await cookies()
+
+    cookieStore.delete(SESSION_COOKIE_NAME);
 }
