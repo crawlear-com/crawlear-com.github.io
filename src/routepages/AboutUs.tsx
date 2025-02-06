@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import Analytics from '../Analytics.js';
 import { useTranslation } from 'react-i18next';

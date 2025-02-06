@@ -5,16 +5,26 @@ import WinnerTable from '../components/WinnerTable'
 import { useTranslation } from 'react-i18next'
 import Spinner from '../components/Spinner'
 import NotLoggedLogo from '../components/NotLoggedLogo'
+import { Game } from '../games/Game'
 
 interface GameViewerProps {
-    gid: string
+    gid?: string
+    inGame?: Game
     onLogin: Function
 }
 
-function GameViewer({ gid }: GameViewerProps) {
+function GameViewer({ gid, inGame }: GameViewerProps) {
     const { t } = useTranslation(['main'])
-    const [ game ] = UseGameViewer(gid)
-    let result = <></>
+    let game,
+        result = <></>
+
+    if (!inGame) {
+        if (gid) {
+            [ game ] = UseGameViewer(gid)
+        }
+    } else {
+        game = inGame
+    }
 
     if (!game.players) {
         result = <Spinner></Spinner>

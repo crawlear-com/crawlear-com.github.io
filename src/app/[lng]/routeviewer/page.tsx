@@ -1,14 +1,16 @@
+"use client"
+
 import * as React from 'react'
 import RouteViewer from '../../../routepages/RouteViewer';
 import ClientBootstrap from '../libs/ClientBootstrap';
 
 interface PageProps {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default function Page({ params, searchParams }: PageProps) {
-  let rid = searchParams && searchParams['rid']
+export default async function Page({ searchParams }: PageProps) {
+  let sParams = await searchParams
+    let rid = sParams && sParams['rid']
 
   if (typeof(rid) === "object") {
     rid = rid[0]

@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import { Game, OfflinePlayer } from '../../../games/Game'
 import { redoPlayersIds,

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Slider, { createSliderWithTooltip } from 'rc-slider'
 import { useTranslation } from 'react-i18next'
-import { GAME_TYPE_GENERIC } from '../../../games/Game'
 import { GameContext } from '../../../context/GameContext'
 
 import "rc-slider/assets/index.css"

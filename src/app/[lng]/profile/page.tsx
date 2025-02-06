@@ -1,14 +1,17 @@
+"use client"
+
 import * as React from 'react'
 import ClientBootstrap from '../libs/ClientBootstrap';
 import UserViewer from '../../../modules/social/pages/UserViewer'
 
 interface PageProps {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default function Page({ searchParams}: PageProps) {
-  let uid = searchParams && searchParams['uid']
+export default async function Page({ searchParams}: PageProps) {
+  const params = await searchParams
+
+  let uid = params && params['uid']
 
   if (typeof(uid) === "object") {
     uid = uid[0]

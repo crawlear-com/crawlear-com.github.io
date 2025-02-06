@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Player } from '../../../games/GameInterfaces';
+import { Player, Judge } from '../../../games/GameInterfaces';
 
 import '../styles/PlayerItem.scss';
 
 interface PlayerItemProps {
-    player: Player,
+    player: Player | Judge,
     i: number,
     onRemovePlayer: Function,
     onClickPlayer?: Function,

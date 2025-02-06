@@ -3,14 +3,14 @@ import PlayerItem from './PlayerItem';
 import UserSearch from './UserSearch/UserSearchForGame';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../../Analytics';
-import type { Player } from '../../../games/GameInterfaces';
+import type { Judge, Player } from '../../../games/GameInterfaces';
 
 import '../styles/PlayerController.scss';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
 interface PlayerControllerProps {
-  inPlayers: Array<Player>,
+  inPlayers: Array<Player | Judge>,
   onPlayerNumerChange: Function,
   onGameDirectorChange: Function,
   gameName: string,

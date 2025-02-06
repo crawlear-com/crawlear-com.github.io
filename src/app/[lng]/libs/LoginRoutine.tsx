@@ -64,7 +64,7 @@ function LoginInitialization({ onLoginDestiny }: LoginInitializationProps): Reac
         Analytics.event('App','init',`${navigator.userAgent}`)
       }
     }
-  }, [])
+  }, [onLoginDestiny, router])
 
   return <></>
 }
