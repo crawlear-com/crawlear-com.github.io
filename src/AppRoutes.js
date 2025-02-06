@@ -3,17 +3,17 @@ import { Routes, Route } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { lazy } from 'react';
 import SuspenseComponent from './SuspenseComponent';
-import Landing from './pages/Landing';
+import Landing from './routepages/Landing';
 
-const AboutUs = lazy(() => import('./pages/AboutUs'));
+const AboutUs = lazy(() => import('./routepages/AboutUs'));
 
 const GameManagement = lazy(() => import('./modules/gameManagement/pages/GameManagementWithAuthorization'));
 const PilotWall = lazy(() => import('./modules/social/pages/PilotWallWithAuthorization'));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const PrivacyPolicy = lazy(() => import('./routepages/PrivacyPolicy'));
 const GameConfigurator = lazy(() => import('./modules/gameConfigurator/pages/GameConfiguratorWithAuthorization'));
 const RoutesManagement = lazy(() => import('./modules/routesManagement/pages/RoutesManagementWithAuthorization'));
-const GameViewer = lazy(() => import('./pages/GameViewer'));
-const RouteViewer = lazy(() => import('./pages/RouteViewer'));
+const GameViewer = lazy(() => import('./routepages/GameViewer'));
+const RouteViewer = lazy(() => import('./routepages/RouteViewer'));
 const UserViewer = lazy(() => import('./modules/social/pages/UserViewer'));
 
 function AppRoutes({ onLogin, onLogout }) {

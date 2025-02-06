@@ -1,23 +1,20 @@
 import * as React from 'react'
 import { Game, OfflinePlayer } from '../../../games/Game'
-import { redoPlayersIds, 
+import { redoPlayersIds,
     getGameTypeControlTextValuesInit,
     getGameTypeFiascoControlTextValuesInit, init } from '../../../games/GameUtils'
 import { GAME_TYPE_LEVANTE, OFFLINE_USER_UID, GAME_TYPE_KING } from '../../../games/Game'
 import GameConfiguratorUtils from '../GameConfiguratorUtils'
-import { isOffline } from '../../../pages/Offline'
-import { useNavigate } from 'react-router-dom'
+import { isOffline } from '../../../routepages/Offline'
+import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import Analytics from '../../../Analytics'
 import { Location } from '../components/LocationResolver'
 import { getUidsFromUsers } from '../../../Utils'
 
-interface UseGameConfiguratorProps {
-    preconfiguredGame: Game,
-    onGameCreated: Function
-}
-
-function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfiguratorProps) {
+function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function): [Game, string, number, Function, Function, Function, Function,
+    Function, Function, Function, Function, React.ChangeEventHandler<HTMLInputElement>, Function, React.ChangeEventHandler<HTMLInputElement>,
+    Function, React.ChangeEventHandler<HTMLInputElement>, Function] {
     const [game, setGame] = React.useState<Game>(()=>{
         const newGame = preconfiguredGame || new Game("",
             new Date().toLocaleDateString(),
@@ -33,7 +30,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         return newGame
     });
 
-    const navigate = useNavigate()
+    const router = useRouter()
     const [errorMessage, setErrorMessage] = React.useState("")
     const [randomizePlayersOrder, setRandomizePlayersOrder] = React.useState(false)
     const [groups, setGroups] = React.useState(1)
@@ -129,9 +126,9 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         setGame(newGame)
     }
 
-    function onNameChange(event: MouseEvent) {
+    function onNameChange(event: React.ChangeEvent<HTMLInputElement>) {
         const newGame: any = {...game},
-            name = (event.target as HTMLTextAreaElement).value
+            name = (event.target as HTMLInputElement).value
 
         if (name) {
             newGame.name = name
@@ -144,7 +141,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         setGroups(result)
     }
 
-    function onIsPublicChange(event: MouseEvent) {
+    function onIsPublicChange(event: React.ChangeEvent<HTMLInputElement>) {
         const newGame: any = {...game}
 
         newGame.isPublic = (event.target as HTMLInputElement).checked
@@ -165,7 +162,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
         }
     }
 
-    function onRandomizePlayersOrder(event: MouseEvent) {
+    function onRandomizePlayersOrder(event: React.ChangeEvent<HTMLInputElement>) {
         const value = (event.target as HTMLInputElement).checked
 
         setRandomizePlayersOrder(value)
@@ -223,7 +220,7 @@ function UseGameConfigurator({preconfiguredGame, onGameCreated}: UseGameConfigur
                     newGame.gid = game.gid
                     fb.createGameProgression(newGame)
                     setGame(newGame)
-                    navigate("/game")
+                    router.push("/game")
                 }, ()=>{})
             }
         }

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import GameTypePicker from '../components/GameTypePicker'
 import PlayerController from '../components/PlayerController'
 import ErrorBox from '../../../components/ErrorBox'
 import { useTranslation } from 'react-i18next'
@@ -8,10 +7,17 @@ import GameConfiguratorGameTypePickers from '../components/GameConfiguratorGameT
 import GameConfiguratorGameInfo from '../components/GameConfiguratorGameInfo'
 import Analytics from '../../../Analytics'
 import { isGameDataComplete } from '../../../games/GameUtils'
+import type { Game } from '../../../games/Game'
+import type { Player } from '../../../games/GameInterfaces'
 
 import '../styles/GameConfigurator.scss'
 
-function GameConfigurator({preconfiguredGame, onGameCreated}) {
+interface GameConfiguratorProps {
+    preconfiguredGame?: Game,
+    onGameCreated?: Function
+}
+
+function GameConfigurator({ preconfiguredGame, onGameCreated }: GameConfiguratorProps) {
     const { t } = useTranslation(['main'])
 
     React.useEffect(() => {
@@ -22,7 +28,7 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
         onJudgeNumerChange, onPlayerNumerChange, onMaxPointsChange,
         onMaxTimeChange, onZonesChange, onGatesChange, onNameChange,
         onGroupsChange, onIsPublicChange, onGameDirectorChange,
-        onRandomizePlayersOrder, createGame] = UseGameConfigurator({ preconfiguredGame, onGameCreated })
+        onRandomizePlayersOrder, createGame] = UseGameConfigurator(preconfiguredGame, onGameCreated)
 
     return (<>
         <ErrorBox message={errorMessage} />
@@ -34,7 +40,8 @@ function GameConfigurator({preconfiguredGame, onGameCreated}) {
             isForJudge={false}
             inPlayers={game.players}
             maxGroups={groups}
-            onPlayerNumerChange={(players)=>{ onPlayerNumerChange && onPlayerNumerChange(players) }}/>
+            onGameDirectorChange={onGameDirectorChange}
+            onPlayerNumerChange={(players: Array<Player>)=>{ onPlayerNumerChange && onPlayerNumerChange(players) }}/>
         <input type="checkbox" onChange={onRandomizePlayersOrder}></input>{t('description.ordenRamdomJugadores')}
         <p>
             <button className="importantNote"

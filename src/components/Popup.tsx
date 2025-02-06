@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import '../resources/css/Popup.scss'
 
@@ -14,18 +16,14 @@ function Popup({ children, onClose }: PopupProps) {
         setIsVisible(true)
     }, [children])
 
-    function onHeaderClick(e:React.MouseEvent<HTMLDivElement>) {
+    function onCloseClick(e:React.MouseEvent<HTMLDivElement>) {
         headerRef.current?.classList.toggle('closed')
-        setIsVisible((oldValue) => {
-            const value = !oldValue
-            onClose && onClose(value)
-            return value
-        })
+        setIsVisible(false)
     }
 
     return <>
             <div title='popup' ref={headerRef} className={`popup rounded rounded2 ${!isVisible ? 'closed' : ''}`}>
-                <div title='closeButton' className='bold closeButton' onClick={onHeaderClick}>x</div>   
+                <div title='closeButton' className='bold closeButton' onClick={onCloseClick}>x</div>
             { children }
         </div>
     </>

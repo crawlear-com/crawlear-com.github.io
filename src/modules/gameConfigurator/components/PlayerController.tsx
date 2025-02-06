@@ -3,33 +3,42 @@ import PlayerItem from './PlayerItem';
 import UserSearch from './UserSearch/UserSearchForGame';
 import { useTranslation } from 'react-i18next';
 import Analytics from '../../../Analytics';
+import type { Player } from '../../../games/GameInterfaces';
 
 import '../styles/PlayerController.scss';
 
 const AVATAR_API = "https://eu.ui-avatars.com/api/?background=345B63&color=FFFFFF&name=";
 
-function PlayerController({
-  inPlayers,
-  onPlayerNumerChange,
-  onGameDirectorChange,
-  gameName,
-  isForJudge,
-  maxGroups}) {
+interface PlayerControllerProps {
+  inPlayers: Array<Player>,
+  onPlayerNumerChange: Function,
+  onGameDirectorChange: Function,
+  gameName: string,
+  isForJudge: boolean,
+  maxGroups: number
+}
+
+function PlayerController({ inPlayers, onPlayerNumerChange, onGameDirectorChange, gameName,
+  isForJudge, maxGroups}: PlayerControllerProps) {
 
   const [players, setPlayers] = React.useState(inPlayers || []);
   const { t } = useTranslation(['main']);
 
-  function removePlayer(event) {
-    Analytics.event('menu', 'removePlayer', players[event.target.id].name);
+  function removePlayer(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    const elementId = (event.target as HTMLButtonElement).getAttribute('id')
 
-    delete players[event.target.id];
-    const statusPlayers = players.filter((a) => a);
-    setPlayers(statusPlayers);
-    onPlayerNumerChange && onPlayerNumerChange(statusPlayers);
+    if (elementId) {
+      Analytics.event('menu', 'removePlayer', players[Number(elementId)].name);
+
+      delete players[Number(elementId)];
+      const statusPlayers = players.filter((a) => a);
+      setPlayers(statusPlayers);
+      onPlayerNumerChange && onPlayerNumerChange(statusPlayers);
+    }
   }
 
-  function onUserSeachPlayerAdd(player) {
-    const value = player.displayName;
+  function onUserSeachPlayerAdd(player: Player) {
+    const value = player.name;
 
     if (!value ||
         value.trim().length===0 ||
@@ -41,24 +50,25 @@ function PlayerController({
           id: players.length,
           uid: player.uid || "",
           name: value,
-          avatar: player.photoURL || `${AVATAR_API}${value}`,
+          avatar: player.avatar || `${AVATAR_API}${value}`,
           group: 0,
           time: 0,
           points: 0,
-          battery: false
+          battery: false,
+          zones: []
       });
     Analytics.event('menu', 'addPlayer', value);
     onPlayerNumerChange && onPlayerNumerChange(players);
   }
 
-  function onGroupChange(playerId, group) {
+  function onGroupChange(playerId: number, group: number) {
     const newPlayers = [...players];
 
     newPlayers[playerId].group = group;
     setPlayers(newPlayers);
   }
 
-  function onGameDirectorChangeEvent(playerId, value) {
+  function onGameDirectorChangeEvent(playerId: number, value: boolean) {
     onGameDirectorChange && onGameDirectorChange(playerId, value);
   }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import useUserSearch from '../../hooks/useUserSearch';
-import { isOffline } from '../../../../pages/Offline';
+import { isOffline } from '../../../../routepages/Offline';
 import UserSearchResult from './UserSearchResult';
 
 import '../../styles/UserSearch.scss';

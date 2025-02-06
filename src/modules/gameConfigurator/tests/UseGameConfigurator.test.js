@@ -1,7 +1,7 @@
 import { renderHook, act } from "@testing-library/react"
 import UseGameConfigurator from '../hooks/UseGameConfigurator'
 import { Game, GAME_TYPE_LEVANTE, GAME_TYPE_AECAR } from '../../../games/Game';
-import { isOffline } from '../../../pages/Offline';
+import { isOffline } from '../../../routepages/Offline';
 import { OfflinePlayer } from "../../../games/Game";
 
 const div = document.createElement('div')

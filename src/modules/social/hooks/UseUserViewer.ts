@@ -2,7 +2,7 @@ import * as React from 'react'
 import Analytics from '../../../Analytics'
 import { User, UserExtraData } from '../User'
 
-function UseUserViewer(uid: string) {
+function UseUserViewer(uid: string): [User, UserExtraData, boolean, Function, Function] {
     const fbBase = window.crawlear.fbBase
     const [user, setUser] = React.useState<User>({ uid: '', displayName: '', description: '', instagram: '', photoURL: '', registrationDate: ''})
     const [userData, setUserData] = React.useState<UserExtraData>({ judgeGames: 0, pilotGames: 0, routes: 0})

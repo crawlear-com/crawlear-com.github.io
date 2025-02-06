@@ -7,7 +7,12 @@ import UseUserViewer, { USER_TYPE_JUDGE, USER_TYPE_PILOT, USER_TYPE_ROUTE } from
 import logo from '../../../resources/img/logo5.png'
 import '../styles/UserViewer.scss'
 
-function UserViewer({ uid, onLogout }) {
+interface UserViewerProps {
+    uid: string,
+    onLogout: Function
+}
+
+function UserViewer({ uid, onLogout }: UserViewerProps) {
     const { t } = useTranslation(['main'])
     const fbBase = window.crawlear.fbBase
     const [user, userData, isVisible, onScreen, getUserType] = UseUserViewer(uid)

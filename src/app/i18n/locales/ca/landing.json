@@ -1,0 +1,14 @@
+{
+    "content": {
+      "landingMainText": "Inicia sessió amb el teu compte de Google.com per obtenir tota la funcionalitat",
+      "licenseText": "Contacteu-nos si esteu interessats en llicenciar l'eina crawlear per a un esdeveniment oficial o competició a crawlear.com@gmail.com",
+      "colaboraciones": "Col·labora:",
+      "clickImagen": "Feu clic al mapa per activar la cerca",
+      "welcomeMessage": "és un tauler de puntuació professional i social per al teu rastrejador de roques 1/10 o 1/24 compatible amb les competicions de Campionat Regional AECAR, ISRCC, Levante 1/24, Mini Crawler Passion i ZonaRc.",
+      "welcomeMessage2": "Orientat a usuaris de rastrejadors d'escala o de camins, crawlear és un repositori de rutes geolocalitzades i cercador. Les rutes estan geolocalitzades i es poden importar utilitzant fitxers gpx del teu dispositiu GPS preferit."
+    },
+    "description": {
+      "aboutus": "Sobre nosaltres",
+      "politicaprivacidad": "Política de privadesa"
+    }
+  }

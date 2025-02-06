@@ -1,7 +1,20 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Player } from '../../../games/GameInterfaces';
 
 import '../styles/PlayerItem.scss';
+
+interface PlayerItemProps {
+    player: Player,
+    i: number,
+    onRemovePlayer: Function,
+    onClickPlayer?: Function,
+    onGroupChange: Function,
+    maxGroups: number,
+    editMode: boolean,
+    isForJudge: boolean,
+    onGameDirectorChange: Function
+}
 
 function PlayerItem({player, i,
     onRemovePlayer,
@@ -10,11 +23,11 @@ function PlayerItem({player, i,
     maxGroups,
     editMode,
     isForJudge,
-    onGameDirectorChange}) {
+    onGameDirectorChange}: PlayerItemProps) {
     const { t } = useTranslation(['main']);
     const editControls = [];
 
-    function removePlayer(event) {
+    function removePlayer(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         event.stopPropagation();
         onRemovePlayer && onRemovePlayer(event);
     }
@@ -23,14 +36,14 @@ function PlayerItem({player, i,
         onClickPlayer && onClickPlayer(player.id);
     }
 
-    function onGroupSelectChange(event) {
-        const group = event.target.selectedIndex;
+    function onGroupSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        const group = (event.target as HTMLSelectElement).selectedIndex;
 
         onGroupChange && onGroupChange(player.id, group);
     }
 
-    function onGameDirectorCheckboxChange(event) {
-        onGameDirectorChange && onGameDirectorChange(player.id, event.target.checked);
+    function onGameDirectorCheckboxChange(event: React.ChangeEvent<HTMLInputElement>) {
+        onGameDirectorChange && onGameDirectorChange(player.id, (event.target as HTMLInputElement).checked);
     }
 
     if (editMode) {
@@ -40,7 +53,7 @@ function PlayerItem({player, i,
             options.push(<option key={`group${player.name}${i}`} value={i}>{t('description.grupo')} {i+1}</option>);
         }
 
-        editControls.push(<button key={`remove${player.name}${i}`} className="buttonControlTextMinus" id={i} onClick={removePlayer}>-</button>);
+        editControls.push(<button key={`remove${player.name}${i}`} className="buttonControlTextMinus" id={i.toString()} onClick={removePlayer}>-</button>);
         editControls.push(<div key={`groupSelection${player.name}${i}`}>
             <select value={player.group} onChange={onGroupSelectChange}>
                 {options}
