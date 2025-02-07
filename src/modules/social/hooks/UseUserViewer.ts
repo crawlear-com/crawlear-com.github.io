@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Analytics from '../../../Analytics'
 import { User, UserExtraData } from '../User'
 
 function UseUserViewer(uid: string): [User, UserExtraData, boolean, Function, Function] {
@@ -16,8 +15,6 @@ function UseUserViewer(uid: string): [User, UserExtraData, boolean, Function, Fu
                     setUserData(data)
                 })
             })
-
-            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`)
         }
     }, [isVisible, uid, fbBase])
 

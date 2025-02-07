@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import OpenedMenu from './components/OpenedMenu';
 import ClosedMenu from './components/ClosedMenu';

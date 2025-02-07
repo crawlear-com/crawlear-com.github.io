@@ -1,15 +1,12 @@
 import * as React from 'react'
-import Analytics from '../Analytics'
+import DynamicGoogleAnalytics from '../analytics/DynamicGoogleAnalytics';
 
 import './styles/PrivacyPolicy.scss'
 
 function PrivacyPolicy() {
-    React.useEffect(() => {
-        Analytics.pageview('/privacypolicy/')
-    },[]);
-
     return <>
         <div className="privacyPolicy">
+            <DynamicGoogleAnalytics page="/privacypolicy/" />
             <b>Privacy Policy</b>:
             <ul>
                 <li>crawlear.com</li>
@@ -51,7 +48,7 @@ function PrivacyPolicy() {
                 <li>El uso de las cookies de publicidad permnite a los proveedores (google) y sus partners para mostrar anuncios basados en las visitas realizadas a sus páginas web u otras páginas de Internet.</li>
                 <li>Usuarios pueden deshabilitar la publicidad personalizada. Para hacerlo, es necesario acceder a las preferencias de publicidad.</li>
             </ul>
-            Cookies de otros proveedores o redes de publicidad  pueden también ser usadas para publicar publicidad en el sitio web: 
+            Cookies de otros proveedores o redes de publicidad  pueden también ser usadas para publicar publicidad en el sitio web:
             <ul>
                 <li>Publicidad de otros proveedores o redes de publicidad se muestran.</li>
                 <li>Puedes visitar las páginas web de dichos proveedores para deshabilitar el uso de cookies para la publicidad personalizada (en caso de que el proveedore de publicidad lo permita).</li>

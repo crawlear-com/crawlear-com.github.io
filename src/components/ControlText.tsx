@@ -1,6 +1,5 @@
 import * as React from 'react';
 import '../resources/css/ControlText.scss';
-import Analytics from '../Analytics';
 import { useTranslation } from 'react-i18next';
 
 interface ControlTextProps {
@@ -19,10 +18,10 @@ function ControlText({ text, step, value, maxValue, onValueChange }: ControlText
 
     function updateValue(step: number) {
         if (!isNegativeControl && (value+step >= 0) && (!maxValue || value+step <= Math.abs(maxValue*step))) {
-            Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
+            //Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
             onValueChange(step);
         } else if (isNegativeControl && (value+step <= 0)) {
-            Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
+            //Analytics.event('menu','pointValueChanged',`${text} : ${step}`);
             onValueChange(step);
         }
     }

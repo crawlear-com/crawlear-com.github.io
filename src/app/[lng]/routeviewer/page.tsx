@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from 'react'
 import RouteViewer from '../../../routepages/RouteViewer';
 import ClientBootstrap from '../libs/ClientBootstrap';

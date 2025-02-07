@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useTranslation } from 'react-i18next'
 import UserProfile from '../components/UserProfile'
 import LoadingLogo from '../components/LoadingLogo'
+import GoogleAnalytics from '../../../analytics/GoogleAnalytics'
 import UseUserViewer, { USER_TYPE_JUDGE, USER_TYPE_PILOT, USER_TYPE_ROUTE } from '../hooks/UseUserViewer'
 
 import logo from '../../../resources/img/logo5.png'
@@ -21,6 +22,7 @@ function UserViewer({ uid, onLogout }: UserViewerProps) {
         let userType = getUserType(userData)
 
         return <div className="userViewer">
+            <GoogleAnalytics page={`${document.location.pathname}${document.location.search}`} />
             {!fbBase.isUserLogged() ? <a rel="noreferrer" href="https://crawlear.com" target="_blank"><img src={logo} className="notLoggedLogo" alt="web logo"></img></a> :
                 <><div className='headerText bold sectionTitle'>{t('description.perfilsocial')}</div></>}
             <><UserProfile onLogout={onLogout} user={user} />

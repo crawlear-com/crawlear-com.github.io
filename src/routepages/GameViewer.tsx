@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import Spinner from '../components/Spinner'
 import NotLoggedLogo from '../components/NotLoggedLogo'
 import { Game } from '../games/Game'
+import GoogleAnalytics from '../analytics/GoogleAnalytics'
 
 interface GameViewerProps {
     gid?: string
@@ -38,6 +39,7 @@ function GameViewer({ gid, inGame }: GameViewerProps) {
     }
 
     return <>
+            <GoogleAnalytics page={`/gameviewer?gid=${gid}`} />
             <Helmet>
                 <meta property="og:title" content={`Crawlear.com Game ${game.name}`} />
                 <meta property="og:description" content={`Crawlear.com Game Viewer`} />

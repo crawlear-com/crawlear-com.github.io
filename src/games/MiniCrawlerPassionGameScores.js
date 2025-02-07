@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Analytics from '../Analytics';
 import AecarPoints from './AecarPoints';
 import ControlTextArray from '../components/ControlTextArray';
 import { isFiasco } from './GameUtils';
@@ -122,9 +121,6 @@ const gameExtras = {
         }
 
         return result;
-    },
-    doPageView: ()=> {
-        Analytics.pageview('/minicrawlerpassion/');
     }
 };
 

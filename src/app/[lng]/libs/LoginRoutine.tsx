@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from 'react'
-import Analytics from '../../../Analytics'
 import { useRouter } from 'next/navigation'
 import { createSession, removeSession } from '../../actions/auth-actions'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
@@ -60,8 +59,8 @@ function LoginInitialization({ onLoginDestiny }: LoginInitializationProps): Reac
         tryToLogin(router, onLoginDestiny, (isLoggedValue: number)=> {
           isLogged.current = isLoggedValue
         })
-        Analytics.init('G-J1NH6FT6E3')
-        Analytics.event('App','init',`${navigator.userAgent}`)
+        //Analytics.init('G-J1NH6FT6E3')
+        //Analytics.event('App','init',`${navigator.userAgent}`)
       }
     }
   }, [onLoginDestiny, router])

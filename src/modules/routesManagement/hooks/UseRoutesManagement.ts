@@ -1,13 +1,11 @@
 import * as React from 'react'
 import Route from '../Route'
-import Analytics from '../../../Analytics'
 
 function UseRoutesManagement(): Array<any> {
     const [state, setState] = React.useState<number>(STATE_MENU)
     const [route, setRoute] = React.useState<Route>(new Route('','',true,'',{ data: ''},{lat:0,lon:0},{lat:0,lon:0},[''],'',0,0))
 
     React.useEffect(() => {
-        Analytics.pageview('/routesmanagement/')
         window.document.body.classList.add('route')
 
         return () => {

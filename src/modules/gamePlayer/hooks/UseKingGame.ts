@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Analytics from '../../../Analytics'
 import { KingGameScores } from '../../../games/KingGameScores'
 import { useTranslation } from 'react-i18next'
 import { Game } from '../../../games/Game'
@@ -20,10 +19,6 @@ function UseKingGame({ onGameEnd }: UseGameProps) {
 
         return initControlTestValues(game)
     });
-
-    React.useEffect(() => {
-        Analytics.pageview('/kinggame/');
-    },[]);
 
     function onChangeScore(value: number, control: number, player: number) {
         const newState = {...state};

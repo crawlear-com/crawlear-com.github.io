@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { GameContext } from '../../../context/GameContext'
 import { printTime, millisToTime } from '../../../Utils'
 import { isFiasco } from '../../../games/GameUtils'
-import Analytics from '../../../Analytics'
 
 interface PlayerHeaderBoxProps {
   zoneIndex: number,
@@ -19,7 +18,7 @@ function PlayerHeaderBox({ zoneIndex, playerIndex }: PlayerHeaderBoxProps) {
 
 
   if (isFiasco(game, playerIndex, zoneIndex)) {
-    Analytics.event('play', 'fiasco', player.name);
+    //Analytics.event('play', 'fiasco', player.name);
     fiasco = <div className="fiascoBox rounded importantNote">FiASCO!</div>;
   }
 

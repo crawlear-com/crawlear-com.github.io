@@ -2,7 +2,6 @@ import * as React from 'react';
 import ControlTextArray from "../components/ControlTextArray";
 import { isFiasco } from './GameUtils';
 import AecarPoints from './AecarPoints';
-import Analytics from '../Analytics';
 
 const Levante124GameScores = {
     steps: [1, 3, 5, 5, 5, 10],
@@ -121,9 +120,6 @@ const gameExtras = {
         }
 
         return result;
-    },
-    doPageView: ()=> {
-        Analytics.pageview('/levante124/');
     }
 };
 

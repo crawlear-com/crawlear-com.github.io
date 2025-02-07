@@ -18,9 +18,9 @@ const font = Montserrat({
 
 interface RootLayoutProps {
   children: React.ReactNode,
-  params: {
+  params: Promise<{
     lng: string
-  }
+  }>
 }
 
 export const metadata: Metadata = {
@@ -32,7 +32,8 @@ export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))
 }
 
-export default async function RootLayout({ children, params: { lng } }: RootLayoutProps ) {
+export default async function RootLayout({ children, params }: RootLayoutProps ) {
+  const lng = (await params).lng
   const cookieStore = await cookies()
   const session = cookieStore.get("crawlear_session")?.value || null;
 

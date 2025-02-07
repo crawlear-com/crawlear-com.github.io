@@ -2,6 +2,7 @@ import * as React from 'react'
 import { lazy } from 'react'
 import SuspenseComponent from '../SuspenseComponent'
 
+import GoogleAnalytics from '../analytics/GoogleAnalytics'
 import MainPageTextContent from './components/MainPageTextContent'
 import { useTranslation } from 'react-i18next'
 import Footer from '../components/Footer'
@@ -26,9 +27,10 @@ function Landing({onLogin}) {
         return <SuspenseComponent lazyComponent={<Offline />} />
     } else {
         return <div className='landing'>
+        <GoogleAnalytics page="/landing/" />
         <MainPageTextContent />
-        { routeClicked ? 
-            <SuspenseComponent lazyComponent={<RoutesSearch></RoutesSearch>} /> : 
+        { routeClicked ?
+            <SuspenseComponent lazyComponent={<RoutesSearch></RoutesSearch>} /> :
             <>
                 <img width={375} height={267} className="routeSerarchImage" src={RouteSearchImage} onClick={onRouteMapClick} loading="lazy" alt='route search to click' /> 
                 <div className='routeSerarchImageText'>{t('content.clickImagen')}</div>

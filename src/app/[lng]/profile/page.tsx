@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from 'react'
 import ClientBootstrap from '../libs/ClientBootstrap';
 import UserViewer from '../../../modules/social/pages/UserViewer'

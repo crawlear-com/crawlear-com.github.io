@@ -18,8 +18,7 @@ const gameExtras = {
     onGateProgressionChange: jest.fn(),
     onFiascoChangeScore: jest.fn(),
     onPointBecauseLastMinute: jest.fn(),
-    generateSliderMarksFromGates: jest.fn(),
-    doPageView:jest.fn()
+    generateSliderMarksFromGates: jest.fn()
 };
 const getGameContent = jest.fn().mockImplementation(() => {
     return  <div></div>
@@ -107,7 +106,6 @@ test('renders GameTypePlayer: not king game uses CoreGame', () => {
         onRepairMock = jest.fn()
     render(<GameContext.Provider value={{game: game }}>
             <GameTypePlayer
-                gameExtras={gameExtras}
                 onGameEnd={onGameEndMock}
                 onRepair={onRepairMock}
                 player={0}
@@ -125,7 +123,6 @@ test('renders GameTypePlayer: king game uses KingGame', () => {
 
     render(<GameContext.Provider value={{game: game }}>
         <GameTypePlayer
-            gameExtras={gameExtras}
             onGameEnd={onGameEndMock}
             onRepair={onRepairMock}
             player={0}

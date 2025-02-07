@@ -1,6 +1,5 @@
 import ReactGA from 'react-ga4';
 
-
 function isLocalhost() {
     return document.location.href.indexOf('localhost') >= 0;
 }

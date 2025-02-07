@@ -2,7 +2,6 @@ import * as React from 'react';
 import ControlTextArray from "../components/ControlTextArray";
 import { isFiasco } from './GameUtils';
 import GenericPoints from './GenericPoints';
-import Analytics from '../Analytics';
 
 const GenericGameScores = {
     steps: [1, 2, 3, 4, 5, -5],
@@ -126,9 +125,6 @@ const gameExtras = {
         }
 
         return result;
-    },
-    doPageView: ()=> {
-        Analytics.pageview('/aecar/');
     }
 };
 

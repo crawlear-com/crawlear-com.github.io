@@ -2,7 +2,6 @@ import * as React from 'react';
 import PlayerItem from './PlayerItem';
 import UserSearch from './UserSearch/UserSearchForGame';
 import { useTranslation } from 'react-i18next';
-import Analytics from '../../../Analytics';
 import type { Judge, Player } from '../../../games/GameInterfaces';
 
 import '../styles/PlayerController.scss';
@@ -28,7 +27,7 @@ function PlayerController({ inPlayers, onPlayerNumerChange, onGameDirectorChange
     const elementId = (event.target as HTMLButtonElement).getAttribute('id')
 
     if (elementId) {
-      Analytics.event('menu', 'removePlayer', players[Number(elementId)].name);
+      //Analytics.event('menu', 'removePlayer', players[Number(elementId)].name);
 
       delete players[Number(elementId)];
       const statusPlayers = players.filter((a) => a);
@@ -57,7 +56,7 @@ function PlayerController({ inPlayers, onPlayerNumerChange, onGameDirectorChange
           battery: false,
           zones: []
       });
-    Analytics.event('menu', 'addPlayer', value);
+    //Analytics.event('menu', 'addPlayer', value);
     onPlayerNumerChange && onPlayerNumerChange(players);
   }
 

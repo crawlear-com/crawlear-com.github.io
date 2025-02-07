@@ -10,7 +10,6 @@ import GameConfiguratorUtils from '../GameConfiguratorUtils'
 import { isOffline } from '../../../routepages/Offline'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
-import Analytics from '../../../Analytics'
 import { Location } from '../components/LocationResolver'
 import { getUidsFromUsers } from '../../../Utils'
 
@@ -46,7 +45,7 @@ function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function)
     function onGameTypeChange(selectedIndex: number) {
         const newGame: any = {...game}
 
-        Analytics.event('menu', 'playModeChange', selectedIndex)
+        //Analytics.event('menu', 'playModeChange', selectedIndex)
         newGame.gameType = selectedIndex;
         [newGame.maxTime, newGame.maxPoints] = GameConfiguratorUtils.getMaxTimeAndPointsFromGameType(newGame.gameType)
 
@@ -71,7 +70,7 @@ function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function)
         if (game.judges.length > judges.length) {
             action = 'removeJudge'
         }
-        Analytics.event('menu', action, judges.length);
+        //Analytics.event('menu', action, judges.length);
         newGame.judges = [...judges]
 
         setGame(newGame)
@@ -85,7 +84,7 @@ function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function)
         if (game.players.length > players.length) {
             action = 'removePlayer'
         }
-        Analytics.event('menu', action, players.length)
+        //Analytics.event('menu', action, players.length)
         newGame.players = [...players]
         setGame(newGame)
         setErrorMessage("")
@@ -94,7 +93,7 @@ function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function)
     function onMaxPointsChange(points: number) {
         const newGame: any = {...game}
 
-        Analytics.event('menu', 'maxPointsSet', points)
+        //Analytics.event('menu', 'maxPointsSet', points)
         newGame.maxPoints = points
         setGame(newGame)
     }
@@ -103,7 +102,7 @@ function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function)
         const newGame: any = {...game}
 
         newGame.maxTime = time
-        Analytics.event('menu', 'maxTimeSet', time)
+        //Analytics.event('menu', 'maxTimeSet', time)
         setGame(newGame)
     }
 
@@ -116,7 +115,7 @@ function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function)
             newGame.gates.pop()
         }
         newGame.zones = zones
-        Analytics.event('menu', 'zonesSet', zones)
+        //Analytics.event('menu', 'zonesSet', zones)
         setGame(newGame)
     }
 
@@ -124,7 +123,7 @@ function UseGameConfigurator(preconfiguredGame?: Game, onGameCreated?: Function)
         const newGame: any = {...game}
 
         newGame.gates[i] = gates
-        Analytics.event('menu', 'gateSet', gates)
+        //Analytics.event('menu', 'gateSet', gates)
         setGame(newGame)
     }
 

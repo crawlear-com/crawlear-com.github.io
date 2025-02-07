@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import UseGameConfigurator from '../hooks/UseGameConfigurator'
 import GameConfiguratorGameTypePickers from '../components/GameConfiguratorGameTypePickers'
 import GameConfiguratorGameInfo from '../components/GameConfiguratorGameInfo'
-import Analytics from '../../../Analytics'
+import GoogleAnalytics from '../../../analytics/GoogleAnalytics'
 import { isGameDataComplete } from '../../../games/GameUtils'
 import type { Game } from '../../../games/Game'
 import type { Player } from '../../../games/GameInterfaces'
@@ -20,10 +20,6 @@ interface GameConfiguratorProps {
 function GameConfigurator({ preconfiguredGame, onGameCreated }: GameConfiguratorProps) {
     const { t } = useTranslation(['main'])
 
-    React.useEffect(() => {
-        Analytics.pageview(`/gameconfigurator`)
-    }, [])
-
     const [game, errorMessage, groups, onGameTypeChange, onLocationResolved,
         onJudgeNumerChange, onPlayerNumerChange, onMaxPointsChange,
         onMaxTimeChange, onZonesChange, onGatesChange, onNameChange,
@@ -31,6 +27,7 @@ function GameConfigurator({ preconfiguredGame, onGameCreated }: GameConfigurator
         onRandomizePlayersOrder, createGame] = UseGameConfigurator(preconfiguredGame, onGameCreated)
 
     return (<>
+        <GoogleAnalytics page="/gameConfigurator" />
         <ErrorBox message={errorMessage} />
         <GameConfiguratorGameInfo game={game} onIsPublicChange={onIsPublicChange} onLocationResolved={onLocationResolved} onNameChange={onNameChange} />
         <GameConfiguratorGameTypePickers onGameDirectorChange={onGameDirectorChange} onGameTypeChange={onGameTypeChange} onGatesChange={onGatesChange}

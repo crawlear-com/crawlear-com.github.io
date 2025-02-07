@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Analytics from '../../../Analytics';
+import Analytics from '../../../analytics/Analytics';
 import GamePlayer from '../../gamePlayer/GamePlayer';
 import GameManagementMenu from '../components/GameManagementMenu';
 import WithAuthorization from '../../../components/WithAuthorization';
 import GameConfigurator from '../../gameConfigurator/pages/GameConfigurator';
 import { findElementInArray } from '../../../Utils';
+import GoogleAnalytics from '../../../analytics/GoogleAnalytics';
 
 import '../styles/GameManagement.scss';
 
@@ -18,7 +19,6 @@ function GameManagement() {
     const GameConfiguratorWithAuthorization = WithAuthorization(GameConfigurator)
 
     React.useEffect(() => {
-        Analytics.pageview('/completegame/')
         window.document.body.classList.add('game');
 
         return () => {
@@ -51,6 +51,7 @@ function GameManagement() {
     }
 
     return <>
+            <GoogleAnalytics page="/completegame/" />
             {state === STATE_MENU ?
                 <GameManagementMenu onConfigureGames={onConfigureGames} onGamePlay={onGamePlay} /> :
                 state === STATE_PLAYING ?

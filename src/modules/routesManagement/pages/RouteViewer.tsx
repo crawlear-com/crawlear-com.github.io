@@ -6,7 +6,7 @@ import Sharers from '../../social/components/sharers/Sharers'
 import { GpxRouteMap } from 'react-gpxroutemap'
 import RouteLove from '../components/RouteLove'
 import Youtube from '../../social/components/embed/Youtube'
-import Analytics from '../../../Analytics'
+import GoogleAnalytics from '../../../analytics/GoogleAnalytics'
 
 import 'react-gpxroutemap/dist/public/img/marker-icon.png'
 import 'react-gpxroutemap/dist/public/img/marker-shadow.png'
@@ -23,12 +23,9 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
     const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
     const isOwner = isLogged && route.uids.find((element) => element === window.crawlear.user.uid)
 
-    React.useEffect(() => {
-        Analytics.pageview(`/routeviewer/${route.rid}`)
-    }, [route.rid])
-
     if (isOwner || route.isPublic) {
         return <div className="routesManagement rounded rounded2">
+            <GoogleAnalytics page={`/routeviewer/${route.rid}`} />
             <div className="routesSection rounded rounded1">
                 { !isOwner && isLogged ? <RouteLove rid={route.rid || '' }></RouteLove> : <></> }
                 { isOwner && onEditClick ? <div className="editButton" onClick={onEditClick}>[ {t("description.editar")} ]</div> : <></> }

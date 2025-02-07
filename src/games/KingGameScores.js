@@ -2,7 +2,6 @@ import * as React from 'react';
 import ControlTextArray from "../components/ControlTextArray";
 import { isFiasco, isFiascoFromFiascoControlTextValues, isTimeFiasco } from './GameUtils';
 import AecarPoints from './AecarPoints';
-import Analytics from '../Analytics';
 
 const KingGameScores = {
     steps: [5, 3, 5, 5, 3],
@@ -94,10 +93,7 @@ const gameExtras = {
     onGateProgressionChange: ()=>{},
     onFiascoChangeScore: () => {},
     onPointBecauseLastMinute: () => {},
-    generateSliderMarksFromGates: () => {},
-    doPageView: ()=> {
-        Analytics.pageview('/king/');
-    }
+    generateSliderMarksFromGates: () => {}
 };
 
 export { KingGameScores, getGameContent, gameExtras };

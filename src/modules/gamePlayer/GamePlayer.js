@@ -26,7 +26,7 @@ function GamePlayer({inGame, onBackButtonClick}) {
             onBackButtonClick={onBackButtonClick} onClosePlayButtonClick={onClosePlayButtonClick}
             jidGroup={jidGroup} gameProgression={gameProgression} setGameProgression={setGameProgression} />
     } else if (state === GAME_STATUS_PLAYING) {
-        view = <GameTypePlayer player={player.id} zone={zone} game={game} gameExtras={gameExtras}
+        view = <GameTypePlayer player={player.id} zone={zone} game={game}
             onGameEnd={onGameEnd} onRepair={onRepair}>
                 {childrenContent}
             </GameTypePlayer>;

@@ -1,22 +1,17 @@
-"use client"
-
 import * as React from 'react';
-import Analytics from '../Analytics.js';
-import { useTranslation } from 'react-i18next';
+import DynamicGoogleAnalytics from '../analytics/DynamicGoogleAnalytics';
+import { useTranslation } from '../app/i18n'
 import img01 from './styles/img/img01.png';
 import img02 from './styles/img/img02.png';
 import img03 from './styles/img/img03.png';
 
 import './styles/AboutUs.scss';
 
-function AboutUs(): React.JSX.Element {
-    const { t } = useTranslation(['main']);
-
-    React.useEffect(() => {
-        Analytics.pageview('/aboutus/');
-    },[]);
+async function AboutUs(): Promise<React.JSX.Element> {
+    const { t } = await useTranslation('es', 'main')
 
     return <div className="aboutUsContent">
+        <DynamicGoogleAnalytics page="/aboutus/" />
         <b>crawlear.com</b> {t('content.aboutus')}
         <img src={img01} alt="crawler en accion" />
         <p>{t('content.aboutus1')}</p>
