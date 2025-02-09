@@ -34,8 +34,7 @@ export async function generateStaticParams() {
 
 export default async function RootLayout({ children, params }: RootLayoutProps ) {
   const lng = (await params).lng
-  const cookieStore = await cookies()
-  const session = cookieStore.get("crawlear_session")?.value || null;
+  const session = await cookies()
 
   return <html lang={lng} dir={dir(lng)}>
     <head>
@@ -61,7 +60,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps )
       <noscript>You need to enable JavaScript to run this app.</noscript>
       <div id="root">
         <div className="App">
-          <Menu session={session} />
+          { session ? <Menu /> : <></> }
           <div className="AppMainContainer">
           { children }
           </div>

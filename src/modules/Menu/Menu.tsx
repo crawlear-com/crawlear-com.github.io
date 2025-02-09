@@ -6,6 +6,7 @@ import ClosedMenu from './components/ClosedMenu';
 import useShowHide from '../../hooks/useShowHide'
 import MenuLogo from './components/MenuLogo';
 import clientTranslationsInit from '../../resources/language/i18n';
+import { cookies } from 'next/headers';
 
 import './styles/Menu.scss';
 
@@ -13,13 +14,12 @@ const HEADER_HEIGHT = 56
 const HEADER_HIDECLASS = 'menuHide'
 
 interface MenuProps {
-    isOpen?: boolean,
-    session: string | null
+    isOpen?: boolean
 }
 
 clientTranslationsInit()
 
-function Menu({ session, isOpen }: MenuProps) {
+function Menu({ isOpen }: MenuProps) {
     const  [showClassName] = useShowHide(HEADER_HIDECLASS, HEADER_HEIGHT)
     const [isOpenState, setIsOpen] = React.useState(isOpen || false);
 

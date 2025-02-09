@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import { lazy } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -43,15 +45,19 @@ function Offline() {
         setStatus(STATE_PLAYING);
     }
 
-    if(status === STATE_CREATING) {
-        return <SuspenseComponent lazyComponent={<GameConfigurator onGameCreated={onGameCreated}/>} />
-    } else if(status === STATE_PLAYING) {
-        return <SuspenseComponent lazyComponent={<GamePlayer inGame={game} onBackButtonClick={goBackToMenuStatus} />} />
+    if (!isOffline) {
+        if(status === STATE_CREATING) {
+            return <SuspenseComponent lazyComponent={<GameConfigurator onGameCreated={onGameCreated}/>} />
+        } else if(status === STATE_PLAYING) {
+            return <SuspenseComponent lazyComponent={<GamePlayer inGame={game} onBackButtonClick={goBackToMenuStatus} />} />
+        } else {
+            return <SuspenseComponent lazyComponent={<><MainPageTextContent />
+                <div className="errorBoxContainer offlineContainer">{t('content.offlineMainText')}</div>
+                <button onClick={onGameConfiguratorClick} className="importantNote">{t('description.crearoffline')}</button></>
+            } />
+        }
     } else {
-        return <SuspenseComponent lazyComponent={<><MainPageTextContent />
-            <div className="errorBoxContainer offlineContainer">{t('content.offlineMainText')}</div>
-            <button onClick={onGameConfiguratorClick} className="importantNote">{t('description.crearoffline')}</button></>
-        } />
+        return <></>
     }
 }
 

@@ -7,10 +7,9 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
-    let seatchParams = await params
+    let searchParams = await params
 
     return <ClientBootstrap onLoginDestiny='/game'>
-        {/* @ts-expect-error Server Component */}
-        <Landing lng={seatchParams.lng} />
+        <Landing lng={ searchParams.lng } />
     </ClientBootstrap>
 }

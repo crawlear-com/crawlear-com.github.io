@@ -1,8 +1,10 @@
+"use client"
+
 import * as React from 'react'
 import { Helmet } from 'react-helmet-async'
 import UseGameViewer from './hooks/UseGameViewer'
 import WinnerTable from '../components/WinnerTable'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../app/i18n'
 import Spinner from '../components/Spinner'
 import NotLoggedLogo from '../components/NotLoggedLogo'
 import { Game } from '../games/Game'
@@ -14,8 +16,8 @@ interface GameViewerProps {
     onLogin: Function
 }
 
-function GameViewer({ gid, inGame }: GameViewerProps) {
-    const { t } = useTranslation(['main'])
+async function GameViewer({ gid, inGame }: GameViewerProps) {
+    const { t } = await useTranslation('es', 'landing')
     let game,
         result = <></>
 

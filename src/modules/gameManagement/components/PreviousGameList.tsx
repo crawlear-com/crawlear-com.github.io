@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../../app/i18n'
 import { Game } from '../../../games/Game'
 import { itemTransform, itemKey } from '../../list/transformers/GameListTransformer'
 import { Transformer } from '../../list/List'
@@ -13,9 +13,9 @@ export interface PreviousGameListProps {
     onLoadPreviousGames: Function
 }
 
-function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, onLoadPreviousGames }: PreviousGameListProps) {
+async function PreviousGameList({ storedGames, onRemoveStoredGames, onConfigureGames, onLoadPreviousGames }: PreviousGameListProps) {
     let storedGamesUi: React.JSX.Element
-    const { t } = useTranslation(['main'])
+    const { t } = await useTranslation('es', 'main')
     const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const transformer: Transformer = {
         transform: itemTransform,

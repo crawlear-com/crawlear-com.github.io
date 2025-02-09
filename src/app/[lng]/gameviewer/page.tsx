@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import SSFirebaseBaseController from '../../../SSFirebaseController';
 import GameViewer from '../../../routepages/GameViewer';
@@ -18,7 +20,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         game = await fbBase.getGame(gid)
 
         return <ClientBootstrap onLoginDestiny=''>
-            { game ? <GameViewer gid={gid} onLogin={()=>{}} /> : <GameViewer gid={gid} onLogin={()=>{}} />}
+            { game ? <GameViewer gid={gid} onLogin={()=>{}} /> : <>Not a public game</>}
         </ClientBootstrap>
     } else {
         return <>Not a public game</>

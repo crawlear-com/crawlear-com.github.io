@@ -13,6 +13,7 @@ async function SecuredComponent({ children }: SecuredComponentProps) {
     const session = cookieStore.get(SESSION_COOKIE_NAME)?.value || null;
 
     if (!session) {
+      console.log("REDIRECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         redirect('/')
     }
 

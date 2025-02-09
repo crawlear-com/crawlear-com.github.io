@@ -1,14 +1,14 @@
 import * as React from 'react'
 import Spinner from "../../../components/Spinner"
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../../app/i18n'
 
 interface ButtonOrSpinnerProps {
     isLoading: boolean,
     onLoadData: React.MouseEventHandler<HTMLButtonElement>
 }
 
-function ButtonOrSpinner({ isLoading, onLoadData }: ButtonOrSpinnerProps) {
-    const { t } = useTranslation(['main'])
+async function ButtonOrSpinner({ isLoading, onLoadData }: ButtonOrSpinnerProps) {
+    const { t } = await useTranslation('es', 'main')
 
     return isLoading ?
         <Spinner></Spinner> :

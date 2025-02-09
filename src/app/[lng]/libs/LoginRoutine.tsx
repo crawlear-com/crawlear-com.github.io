@@ -53,9 +53,11 @@ function LoginInitialization({ onLoginDestiny }: LoginInitializationProps): Reac
   const router = useRouter()
 
   React.useEffect(() => {
-    if (!window.crawlear || !window.crawlear.user) {
+    if (window && (!window.crawlear || !window.crawlear.user)) {
+      console.log("Try to login!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
       if (isLogged.current === NOT_LOGGED) {
         isLogged.current = LOGGING
+        console.log("LOGGIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         tryToLogin(router, onLoginDestiny, (isLoggedValue: number)=> {
           isLogged.current = isLoggedValue
         })

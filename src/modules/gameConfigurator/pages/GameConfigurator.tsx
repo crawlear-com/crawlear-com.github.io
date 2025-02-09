@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import PlayerController from '../components/PlayerController'
 import ErrorBox from '../../../components/ErrorBox'

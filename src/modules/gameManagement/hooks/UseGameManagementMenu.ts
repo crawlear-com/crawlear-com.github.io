@@ -7,7 +7,6 @@ function UseGameManagementMenu(): Array<any> {
     const [judgeGames, setJudgeGames] = React.useState<Array<Game>>([])
     const [storedGames, setStoredGames] = React.useState<Array<Game>>([])
     const [allGames, setAllGames] = React.useState<Array<Game>>([])
-    const fb = window.crawlear.fb
     const refreshGames = React.useCallback(() => {
         const fb = window.crawlear.fb
 
@@ -21,11 +20,11 @@ function UseGameManagementMenu(): Array<any> {
     }, [])
 
     React.useEffect(() => {
-        window.document.body.classList.remove('playing')
+        window && window.document.body.classList.remove('playing')
     },[])
 
     React.useEffect(() => {
-        window.crawlear.fbBase.isUserLogged() && refreshGames()
+        window && window.crawlear.fbBase.isUserLogged() && refreshGames()
     }, [refreshGames])
 
     React.useEffect(()=>{
@@ -49,6 +48,8 @@ function UseGameManagementMenu(): Array<any> {
     }
 
     function onLoadPreviousGames(): void {
+        const fb = window.crawlear.fb
+
         fb.getFinishedGamesFromUid(window.crawlear.user.uid, (sGames: Array<Game>)=> {
             setStoredGames(previousInputs => ([...previousInputs,...sGames]))
         });

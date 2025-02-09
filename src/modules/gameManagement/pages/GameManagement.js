@@ -1,5 +1,6 @@
+"use client"
+
 import * as React from 'react';
-import Analytics from '../../../analytics/Analytics';
 import GamePlayer from '../../gamePlayer/GamePlayer';
 import GameManagementMenu from '../components/GameManagementMenu';
 import WithAuthorization from '../../../components/WithAuthorization';
@@ -19,15 +20,18 @@ function GameManagement() {
     const GameConfiguratorWithAuthorization = WithAuthorization(GameConfigurator)
 
     React.useEffect(() => {
-        window.document.body.classList.add('game');
+        window && window.document.body.classList.add('game');
 
         return () => {
-            window.document.body.classList.remove('game');
+            window && window.document.body.classList.remove('game');
         }
     },[]);
 
+    React.useEffect(() => {
+        window && window.scrollTo(0,0);
+    }, [state])
+
     function goBackToMenuStatus() {
-        window.scrollTo(0,0);
         setState(STATE_MENU);
         setGame({});
     }
@@ -44,7 +48,6 @@ function GameManagement() {
         const [game] = findElementInArray(games, key, (item, value)=>item.gid===value)
 
         if (game) {
-            window.scrollTo(0,0);
             setState(state);
             setGame(game);
         }

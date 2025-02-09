@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import List, { Transformer } from '../../list/List'
 import { itemTransform, itemKey } from '../../list/transformers/RouteListTransformer'
 import Route from '../Route'
-import RoutesSearch from '../../routesSerch/RoutesSearch'
+import DynamicRutesSearch from '../../routesSerch/DynamicRutesSearch'
 import LovedRoutes from './LovedRoutes'
 import UseRoutesManagementMenu from '../hooks/UseRoutesManagementMenu'
 import ErrorBox from '../../../components/ErrorBox'
@@ -33,7 +33,7 @@ function RoutesManagementMenu({ onCreateRoute, onViewRoute }: RoutesManagementMe
                 onCreateRoute()
             }}>{t('description.crear')}</button>
         </div>
-        <RoutesSearch></RoutesSearch>
+        <DynamicRutesSearch lng={'es'}></DynamicRutesSearch>
         <div className="routesManagement rounded rounded3">
             <ErrorBox message={error}></ErrorBox>
             <List data={routes}

@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import { Helmet } from 'react-helmet-async'
 import Spinner from '../components/Spinner'
@@ -10,8 +12,8 @@ interface RouteViewerProps {
     rid: string
 }
 
-function RouteViewer({ rid }: RouteViewerProps) {
-    const [route] = UseRouteViewer(rid)
+async function RouteViewer({ rid }: RouteViewerProps) {
+    const [route] = await UseRouteViewer(rid)
 
     if (!route.rid) {
         return <>

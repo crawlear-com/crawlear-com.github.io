@@ -1,12 +1,14 @@
+"use client"
+
 import * as React from 'react'
 import Route, { Gpx } from '../../routesManagement/Route'
 
 function UseRouteSearch(): Array<any> {
-    const fbBase = window.crawlear.fbBase
     const [routes, setRoutes] = React.useState<Array<Route>>([])
     const [routeToShow, setRouteToShow] = React.useState<Route | null>(null)
 
     function onMapClick(latlon: any, mapBounds: any) {
+        const fbBase = window.crawlear.fbBase
         const latLength = Math.abs(mapBounds._northEast.lat - mapBounds._southWest.lat) / 2
         const lonLength = Math.abs(mapBounds._northEast.lng - mapBounds._southWest.lng) / 4
 
@@ -17,6 +19,7 @@ function UseRouteSearch(): Array<any> {
     }
 
     function onViewRoute(index: number) {
+        const fbBase = window.crawlear.fbBase
         const route = routes[index]
 
         //Analytics.event('route','view',`${route.rid}`);

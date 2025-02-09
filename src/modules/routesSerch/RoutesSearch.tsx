@@ -1,5 +1,7 @@
+"use client"
+
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../app/i18n'
 import { MapPointPicker } from 'react-gpxroutemap'
 import Route from '../routesManagement/Route'
 import Popup from '../../components/Popup'
@@ -8,8 +10,8 @@ import UseRouteSearch from './hooks/UseRouteSearch'
 
 import './styles/RoutesSearch.scss'
 
-function RoutesSearch() {
-    const { t } = useTranslation(['main'])
+async function RoutesSearch({ lng }: { lng: string }) {
+    const { t } = await useTranslation(lng,'main')
     const [routes, routeToShow, onMapClick, onViewRoute, clearRouteToShow] = UseRouteSearch()
 
     return <div className='rounded rounded3 routesSearchContainer'>

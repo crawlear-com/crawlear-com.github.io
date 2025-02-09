@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import Route from '../Route'
 import { useTranslation } from 'react-i18next'
@@ -19,9 +21,9 @@ interface RouteViewerProps {
 }
 
 function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
-    const { t } = useTranslation(['main'])
-    const isLogged = window.crawlear && window.crawlear.user && window.crawlear.user.uid
-    const isOwner = isLogged && route.uids.find((element) => element === window.crawlear.user.uid)
+/*    const { t } = useTranslation(['main'])
+    const isLogged = window && window.crawlear && window.crawlear.user && window.crawlear.user.uid
+    const isOwner = isLogged && route.uids.find((element) => element === (window && window.crawlear.user.uid))
 
     if (isOwner || route.isPublic) {
         return <div className="routesManagement rounded rounded2">
@@ -58,6 +60,9 @@ function RouteViewer({ route, onBackClick, onEditClick }: RouteViewerProps) {
     } else {
         return <>{t('description.nopublico')}</>
     }
+        */
+
+    return <div className="routesManagement rounded rounded2">RouteViewer</div>
 }
 
 export default RouteViewer

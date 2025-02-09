@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../../app/i18n';
 import useGameRequests from '../hooks/useGameRequests';
 
 import '../styles/gameRequests.scss';
@@ -10,9 +10,8 @@ interface GameRequestsProps {
     user: User
 }
 
-function GameRequests({ user }: GameRequestsProps) {
-    const { t } = useTranslation(['main']);
-    const fb = window.crawlear.fb;
+async function GameRequests({ user }: GameRequestsProps) {
+    const { t } = await useTranslation('es', 'landing')
     let requestsList: Array<React.JSX.Element> = [];
     const [gameRequests] = useGameRequests(user.uid, t)
 
@@ -22,10 +21,10 @@ function GameRequests({ user }: GameRequestsProps) {
                 <span className="gameRequestsFrom">{t('description.peticionde')}: <span className="bold">{gameRequests.get(key)?.fromName}</span></span>
                 <div className="gameRequestGameName">{t('description.parajuego')}: <span className="bold">{gameRequests.get(key)?.gameName}</span></div>
                 <span className="acceptButton" onClick={()=>{
-                    fb.acceptGameRequest(user.uid, key)
+                    window.crawlear.fb.acceptGameRequest(user.uid, key)
                 }}><img src={iconLike} alt="like icon"></img></span>
                 <span className="rejectButton" onClick={()=>{
-                    fb.rejectGameRequest(user.uid, key)
+                    window.crawlear.fb.rejectGameRequest(user.uid, key)
                 }}><img src={iconDislike} alt="dislike icon"></img></span>
             </div>);
         });

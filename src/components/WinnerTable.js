@@ -8,8 +8,8 @@ import WinnerOrTieBox, { isDraw } from './WinnerOrTieBox'
 
 import '../resources/css/WinnerTable.scss'
 
-function WinnerTable({ game }) {
-    const { t } = useTranslation(['main'])
+async function WinnerTable({ game }) {
+    const { t } = await useTranslation('es', 'main')
 
     if (game.players) {
         return <div className='gameContainer'>

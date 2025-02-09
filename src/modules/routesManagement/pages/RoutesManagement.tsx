@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import RouteViewer from './RouteViewer'
 import RoutesConfigurator from '../components/RoutesConfigurator'

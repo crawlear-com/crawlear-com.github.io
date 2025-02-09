@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Game } from '../../games/Game'
-import Analytics from '../../analytics/Analytics'
 
 function UseGameViewer(gid: string) {
     const fbBase = window.crawlear.fbBase

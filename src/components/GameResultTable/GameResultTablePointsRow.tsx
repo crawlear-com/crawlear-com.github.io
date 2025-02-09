@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Zone } from '../../games/GameInterfaces';
 import { printTime, millisToTime } from '../../Utils';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../app/i18n';
 
 import openIcon from '../../resources/img/arrowdown.png';
 
@@ -21,8 +21,8 @@ function onClickZone(event: React.MouseEvent<HTMLTableDataCellElement>) {
     zoneTr?.classList.toggle("closed");
 }
 
-function GameResultTablePointsRow({ icon, numZone, zone, gameType }: GameResultTablePointsRowProps) {
-    const { t } = useTranslation(['main'])
+async function GameResultTablePointsRow({ icon, numZone, zone, gameType }: GameResultTablePointsRowProps) {
+    const { t } = await useTranslation('es', 'main')
 
     return (<tr>
         <td>{icon}</td>

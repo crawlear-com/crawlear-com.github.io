@@ -1,5 +1,7 @@
+"use client"
+
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../../app/i18n'
 import UserProfile from '../components/UserProfile'
 import LoadingLogo from '../components/LoadingLogo'
 import GoogleAnalytics from '../../../analytics/GoogleAnalytics'
@@ -13,10 +15,10 @@ interface UserViewerProps {
     onLogout: Function
 }
 
-function UserViewer({ uid, onLogout }: UserViewerProps) {
-    const { t } = useTranslation(['main'])
+async function UserViewer({ uid, onLogout }: UserViewerProps) {
+    const { t } = await useTranslation('es', 'landing')
     const fbBase = window.crawlear.fbBase
-    const [user, userData, isVisible, onScreen, getUserType] = UseUserViewer(uid)
+    const [user, userData, isVisible, onScreen, getUserType] = await UseUserViewer(uid)
 
     if (user.registrationDate && isVisible) {
         let userType = getUserType(userData)
