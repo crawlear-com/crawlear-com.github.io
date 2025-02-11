@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import UserProfilePhoto from '../../social/components/UserProfilePhoto'
-import Analytics from '../../../Analytics'
 
 const SOCIAL_PATH = '/social'
 
@@ -10,7 +9,7 @@ function SocialProfile() {
 
     return <>
         <UserProfilePhoto photoUrl={user.photoURL} onLogout={()=>{}} inputUserIsTheLoggedOne={true} />
-        <Link className="menuUserDisplayName" to={SOCIAL_PATH} onClick={() =>{ Analytics.event('navigation','menu', SOCIAL_PATH); }}>
+        <Link className="menuUserDisplayName" to={SOCIAL_PATH} onClick={() =>{ /*Analytics.event('navigation','menu', SOCIAL_PATH);*/ }}>
             { user.displayName }
        </Link>
     </>

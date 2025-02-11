@@ -1,6 +1,8 @@
+"use client"
+
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../../app/i18n'
 import { itemTransform, itemKey } from '../../list/transformers/GameListTransformer'
 import List, { Transformer } from '../../list/List'
 
@@ -15,8 +17,8 @@ interface GameManagementMenuProps {
     onGamePlay: Function
 }
 
-function GameManagementMenu({ onConfigureGames, onGamePlay }: GameManagementMenuProps) {
-    const { t } = useTranslation(['main'])
+async function GameManagementMenu({ onConfigureGames, onGamePlay }: GameManagementMenuProps) {
+    const { t } = await useTranslation('es', 'main')
     const navigate = useNavigate()
     const transformer: Transformer = {
         transform: itemTransform,

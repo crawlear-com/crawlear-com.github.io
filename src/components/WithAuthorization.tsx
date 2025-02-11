@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Navigate } from 'react-router-dom'
 import { UserStatusContext } from '../context/UserStatusContext'
 import { useContext } from 'react'
-import { isOffline } from '../pages/Offline'
+import { isOffline } from '../routepages/Offline'
 
 const withAuthorization = (WrappedComponent: React.FunctionComponent) => (props: { from: string; to: string }) => {
   const userStatus = useContext(UserStatusContext)

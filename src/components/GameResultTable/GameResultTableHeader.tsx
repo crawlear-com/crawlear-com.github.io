@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '../../app/i18n'
 
-function GameResultTableHeader() {
-    const { t } = useTranslation(['main'])
+async function GameResultTableHeader() {
+    const { t } = await useTranslation('es', 'main')
 
     return (<tr>
         <td></td>

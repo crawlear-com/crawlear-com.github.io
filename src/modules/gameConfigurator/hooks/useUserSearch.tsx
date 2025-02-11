@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { isOffline } from '../../../pages/Offline';
+import { isOffline } from '../../../routepages/Offline';
 
 function useUserSearch(onUserSeachPlayerAdd: Function, onUserClick: Function, onPlusAddUserClick: Function, inputRef: React.RefObject<HTMLInputElement>):
     [Array<User>, string, React.JSX.Element, React.ChangeEventHandler, React.MouseEventHandler, React.MouseEventHandler] {

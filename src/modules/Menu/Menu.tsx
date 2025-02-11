@@ -1,8 +1,12 @@
+"use client"
+
 import * as React from 'react';
 import OpenedMenu from './components/OpenedMenu';
 import ClosedMenu from './components/ClosedMenu';
 import useShowHide from '../../hooks/useShowHide'
 import MenuLogo from './components/MenuLogo';
+import clientTranslationsInit from '../../resources/language/i18n';
+import { cookies } from 'next/headers';
 
 import './styles/Menu.scss';
 
@@ -12,6 +16,8 @@ const HEADER_HIDECLASS = 'menuHide'
 interface MenuProps {
     isOpen?: boolean
 }
+
+clientTranslationsInit()
 
 function Menu({ isOpen }: MenuProps) {
     const  [showClassName] = useShowHide(HEADER_HIDECLASS, HEADER_HEIGHT)

@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import UserProfilePhoto from './UserProfilePhoto';
 import { useTranslation } from 'react-i18next';

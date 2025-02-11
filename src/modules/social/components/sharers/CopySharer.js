@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Analytics from '../../../../Analytics';
 import { useTranslation } from 'react-i18next';
 
 import '../../styles/sharers/CopySharer.scss';
@@ -10,7 +9,7 @@ function CopySharer({url}) {
   function onLinkClick() {
     navigator.clipboard?.writeText(url);
     setCopiedStatus(true)
-    Analytics.event('share','copy', url);
+    //Analytics.event('share','copy', url);
 }
 
 return <span className='copyLogo' onClick={onLinkClick}>

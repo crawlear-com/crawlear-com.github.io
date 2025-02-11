@@ -4,7 +4,6 @@ import UseScript from '../../hooks/UseScript';
 import '../../styles/sharers/FacebookSharer.scss';
 
 function FacebookSharer({ url, text }) {
-    
     React.useEffect(()=>{
         const scriptElement = document.getElementById('fb-root');
 
@@ -12,7 +11,7 @@ function FacebookSharer({ url, text }) {
             const div = document.createElement('div');
             div.id = 'fb-root';
         } else {
-            window.FB && window.FB.XFBML && window.FB.XFBML.parse();
+            window && window.FB && window.FB.XFBML && window.FB.XFBML.parse();
         }
     }, []);
 

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Analytics from '../../../Analytics'
 import { Link } from 'react-router-dom'
 
 interface BrowseableProps {
@@ -9,7 +8,7 @@ interface BrowseableProps {
 
 function BrowseableListItem({ children, path }: BrowseableProps) {
   return <li>
-    <Link to={path} onClick={() =>{ Analytics.event('navigation','menu', path); }}>
+    <Link to={path} onClick={() =>{ /*Analytics.event('navigation','menu', path); */ }}>
       { children }
     </Link>
   </li>

@@ -5,7 +5,6 @@ import useTimerStateChangeReducer from './useTimerStateChangeReducer';
 import { TimerState } from '../reducers/TimerStateChangeReducer';
 import { TimerStates } from '../reducers/TimerStateChangeReducer';
 import { printTime, millisToTime } from '../../../Utils';
-import Analytics from '../../../Analytics';
 
 const TIMER_MIN_INTERVAL = 10;
 
@@ -57,13 +56,13 @@ const useTimerControl = (startTime: number,
             const timeStart = Date.now()
             const timer = window.setInterval(() => { timerCount({...state,timeStart: timeStart}) }, TIMER_MIN_INTERVAL)
 
-            Analytics.event('play', 'timePlay', '')
+            //Analytics.event('play', 'timePlay', '')
             containerRef && containerRef.current.classList.remove('blink')
             eventManager.sendMessage(MSG_START, {})
             state.timer && window.clearInterval(state.timer)
             dispatch({ type: TimerStates.Play, payload: { millis: tickTime.current, timer: timer, timeStart:  timeStart}})
         } else {
-            Analytics.event('play', 'timePause', '')
+            //Analytics.event('play', 'timePause', '')
             eventManager.sendMessage(MSG_STOP, {})
             state.timer && window.clearInterval(state.timer)
             dispatch({ type: TimerStates.Pause, payload: { millis: tickTime.current }} )
@@ -77,7 +76,7 @@ const useTimerControl = (startTime: number,
         }
         state.timer && clearInterval(state.timer);
         containerRef && containerRef.current.classList.remove('blink')
-        Analytics.event('play', 'timeStop', '')
+        //Analytics.event('play', 'timeStop', '')
 
         dispatch({ type: TimerStates.Stop })
         onTimerChange && onTimerChange(tickTime.current)

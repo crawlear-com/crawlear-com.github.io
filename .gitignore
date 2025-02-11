@@ -11,6 +11,8 @@ dist/
 etc/
 todo.txt
 uploadPi
+public/sw.js
+public/workbox-*
 
 # Executables
 *.swf

@@ -7,7 +7,7 @@ import { GAME_TYPE_KING } from '../../../games/Game'
 import GateProgressionPicker from './GateProgressionPicker'
 import GroupsPicker from './GroupsPicker'
 import PlayerController from './PlayerController'
-import { isOffline } from '../../../pages/Offline'
+import { isOffline } from '../../../routepages/Offline'
 
 interface GameConfiguratorGameTypePickersProps {
     game: Game,

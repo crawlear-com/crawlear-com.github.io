@@ -3,15 +3,15 @@ import { Zone } from '../../games/GameInterfaces';
 import ControlTextArrayVisualization from '../ControlTextArrayVisulization';
 import { sumControlTextValues } from '../../games/GameUtils';
 import { getGameTexts, getFiascoGameTexts } from '../../modules/gamePlayer/GamePlayerUtils';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../../app/i18n';
 
 interface GameResultTableZonePointsRowProps {
     gameType: number,
     zone: Zone
 }
 
-function GameResultTableZonePointsRow({ zone, gameType }: GameResultTableZonePointsRowProps) {
-    const { t } = useTranslation(['main'])
+async function GameResultTableZonePointsRow({ zone, gameType }: GameResultTableZonePointsRowProps) {
+    const { t } = await useTranslation('es', 'main')
 
     return (<tr className="closed">
         <td colSpan={7}>

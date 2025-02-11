@@ -3,7 +3,6 @@ import ControlTextArray from "../components/ControlTextArray"
 import { isFiasco, isFiascoFromFiascoControlTextValues, isTimeFiasco } from './GameUtils'
 import RegionalZonaRcPoints from './RegionalZonaRcPoints'
 import RegionalZonaRcModificator from './RegionalZonaRcModificator'
-import Analytics from '../Analytics'
 
 import '../resources/css/games/RegionalZonaRcGameScores.scss'
 
@@ -164,9 +163,6 @@ const gameExtras = {
         }
 
         return result;
-    },
-    doPageView: ()=> {
-        Analytics.pageview('/copaespana/');
     }
 };
 

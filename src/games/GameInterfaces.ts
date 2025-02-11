@@ -68,4 +68,4 @@ interface GameProgressionZone {
     repairData: any
 }
 
-export { Location, Player, Judge, GateProgressionData, GameProgressionData, GameProgressionZone, Zone };
+export type { Location, Player, Judge, GateProgressionData, GameProgressionData, GameProgressionZone, Zone };

@@ -13,18 +13,13 @@ interface GameTypePlayerProps {
     zone?: Zone,
     onGameEnd: Function,
     onRepair?: Function,
-    gameExtras: any,
     children?: React.JSX.Element
 }
 
-function GameTypePlayer({game, player, zone, onGameEnd, onRepair, gameExtras, children }: GameTypePlayerProps) {
+function GameTypePlayer({game, player, zone, onGameEnd, onRepair, children }: GameTypePlayerProps) {
     const [gameState, setGameState] = React.useState(game)
     const elementsToRender = []
-    const gameContextValues = { game: gameState, setGame: setGameState, gameExtras: gameExtras }
-
-    React.useEffect(()=>{
-        gameExtras.doPageView()
-    },[gameExtras])
+    const gameContextValues = { game: gameState, setGame: setGameState }
 
     if (gameState.gameType !== GAME_TYPE_KING) {
         elementsToRender.push(<CoreGame key={1} onGameEnd={(game: Game)=>{onGameEnd(game)}} onRepair={onRepair}

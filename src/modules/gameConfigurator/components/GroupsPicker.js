@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import Picker from '../../../components/Picker';
-import { isOffline } from '../../../pages/Offline';
+import { isOffline } from '../../../routepages/Offline';
 
 function GroupsPicker({onGroupsChange, value, minValue, maxValue}) {
     const { t } = useTranslation(['main']);

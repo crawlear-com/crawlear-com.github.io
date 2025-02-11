@@ -25,8 +25,7 @@ function GamePlayerBeginGame({ game, onBeginGame, onGameEnd, onBackButtonClick, 
     if (game.gameType === GAME_TYPE_KING) {
         view = <GameTypePlayer
         game={game}
-        onGameEnd={onGameEnd}
-        gameExtras={gameExtras} />;
+        onGameEnd={onGameEnd} />;
     } else {
         view = <GameProgressionContext.Provider value={[gameProgression, setGameProgression]}>
                 <GamePlayerMenu game={game} jidGroup={jidGroup} onBeginGame={onBeginGame}

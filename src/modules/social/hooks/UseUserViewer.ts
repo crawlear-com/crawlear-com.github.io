@@ -1,25 +1,20 @@
 import * as React from 'react'
-import Analytics from '../../../Analytics'
 import { User, UserExtraData } from '../User'
 
-function UseUserViewer(uid: string) {
+async function UseUserViewer(uid: string): Promise<[User, UserExtraData, boolean, Function, Function]> {
     const fbBase = window.crawlear.fbBase
     const [user, setUser] = React.useState<User>({ uid: '', displayName: '', description: '', instagram: '', photoURL: '', registrationDate: ''})
     const [userData, setUserData] = React.useState<UserExtraData>({ judgeGames: 0, pilotGames: 0, routes: 0})
     const [isVisible, setIsVisible] = React.useState(false)
 
-    React.useEffect(() => {
-        if (uid && isVisible) {
-            fbBase.getUser(uid, (user: User) => {
-                setUser({ ...user })
-                fbBase.getUserExtraData(uid, (data: UserExtraData) => {
-                    setUserData(data)
-                })
+    if (uid && isVisible) {
+        await fbBase.getUser(uid, (user: User) => {
+            setUser({ ...user })
+            fbBase.getUserExtraData(uid, (data: UserExtraData) => {
+                setUserData(data)
             })
-
-            isVisible && Analytics.pageview(`${document.location.pathname}${document.location.search}`)
-        }
-    }, [isVisible, uid, fbBase])
+        })
+    }
 
     function onScreen(visible: boolean) {
         visible && setIsVisible(visible)

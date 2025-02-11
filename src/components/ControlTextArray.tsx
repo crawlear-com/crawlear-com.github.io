@@ -54,13 +54,13 @@ function ControlTextArray({ controlTextValuesString, textToken, steps, maxValues
         return <>
         <div className={isClosed ? "controlTextContainer closed" : "controlTextContainer"} onClick={titleOnClick}>
             <p key="mainTitle" className="controlTextTitle rounded rounded2">{t(textToken)}
-                <img src={dropDownImage} className="dropdown" alt="dropdown icon"></img>
+                <img src={dropDownImage.src} className="dropdown" alt="dropdown icon"></img>
             </p>
             { controlArray.slice(0, 14) }
         </div>
         {isFullScore ? <div className="controlTextContainer closed" onClick={titleOnClick}>
             <p key="additialTitle" className="controlTextTitle rounded rounded2">{t('description.penalizacionesadicionales')}
-                <img src={dropDownImage} className="dropdown" alt="dropdown icon"></img>
+                <img src={dropDownImage.src} className="dropdown" alt="dropdown icon"></img>
             </p>
             { controlArray.slice(14, controlArray.length) }
         </div> : <></>}

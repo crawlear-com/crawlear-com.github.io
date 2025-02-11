@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import BrowseableListItem from '../components/BrowseableListItem';
-import Analytics from '../../../Analytics';
+import Analytics from '../../../analytics/Analytics';
 import { BrowserRouter } from 'react-router-dom'
 
 const div = document.createElement('div');

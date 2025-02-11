@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import SocialProfile from '../components/SocialProfile';
-import Analytics from '../../../Analytics';
+import Analytics from '../../../analytics/Analytics';
 import { BrowserRouter } from 'react-router-dom';
 
 const div = document.createElement('div');

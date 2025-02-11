@@ -3,7 +3,6 @@ import EventManager from '../../../EventManager'
 import { Game } from '../../../games/Game'
 import { isFiasco, getGameTypeBodyClassName, init, getGameTypeControlTextValuesInit, getGameTypeFiascoControlTextValuesInit  } from '../../../games/GameUtils'
 import { MSG_GATES, MSG_POINTS } from '../Bluetooth'
-import Analytics from '../../../Analytics'
 import { GameContext } from '../../../context/GameContext'
 
 function UseCoreGame(onGameEnd: Function,
@@ -89,7 +88,7 @@ function UseCoreGame(onGameEnd: Function,
         let newState = {...state };
 
         window.scrollTo(0,0);
-        Analytics.event('play', 'reset', newState.game.players[playerIndex].name);
+        //Analytics.event('play', 'reset', newState.game.players[playerIndex].name);
         newState = initControlTestValues(newState.game, true);
 
         newState.forceAction = 'stop';
@@ -106,7 +105,7 @@ function UseCoreGame(onGameEnd: Function,
         newState.forceAction = 'stop';
         setState(newState);
 
-        Analytics.event('play', 'endPlayer', players[playerIndex].name);
+        //Analytics.event('play', 'endPlayer', players[playerIndex].name);
         document.body.classList.remove(getGameTypeBodyClassName(game.gameType))
         onGameEnd(newState.game);
     }

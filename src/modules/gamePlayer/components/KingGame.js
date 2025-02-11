@@ -5,6 +5,7 @@ import TimerControl from './TimerControl'
 import { isPointsFiasco } from '../../../games/GameUtils'
 import UseKingGame from '../hooks/UseKingGame';
 import { KingGameScores } from '../../../games/KingGameScores';
+import GoogleAnalytics from '../../../analytics/GoogleAnalytics';
 
 import '../styles/KingGame.scss';
 
@@ -64,6 +65,7 @@ function KingGame({ onGameEnd }) {
     result.push(<button key={game.players.length*2+2} className="importantNote" onClick={gameEnd}>{t('description.fin')}</button>);
 
     return <div key={game.players.length*2+3} className="gameContainer">
+        <GoogleAnalytics page="/kinggame/" />
         {result}
     </div>;
 }

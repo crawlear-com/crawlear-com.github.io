@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { isOffline } from '../../../pages/Offline'
+import { isOffline } from '../../../routepages/Offline'
 import { Game } from '../../../games/Game'
 import { isIndividualGame, isGroupGameFinished, updateGameFromProgression } from '../GamePlayerUtils'
 import { useTranslation } from 'react-i18next'

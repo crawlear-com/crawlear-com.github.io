@@ -10,7 +10,6 @@ export interface GameRequest {
 }
 
 function useGameRequests(uid: string, t: Function) {
-    const fb = window.crawlear.fb;
     const [gameRequests, setGameRequests] = React.useState<Map<string, GameRequest>>(new Map());
 
     const onRequestAdded = React.useCallback((key: string, value: GameRequest) => {
@@ -30,10 +29,13 @@ function useGameRequests(uid: string, t: Function) {
     }, [])
 
     React.useEffect(()=>{
-        gameRequests.size === 0 && fb.getUserGameRequests(uid,
-            onRequestAdded,
-            onRequestRemoved)
-    },[fb, uid, onRequestAdded, onRequestRemoved, gameRequests])
+        if (window) {
+            const fb = window.crawlear.fb
+            gameRequests.size === 0 && fb.getUserGameRequests(uid,
+                onRequestAdded,
+                onRequestRemoved)
+        }
+    },[uid, onRequestAdded, onRequestRemoved, gameRequests])
 
     return [gameRequests]
 }
