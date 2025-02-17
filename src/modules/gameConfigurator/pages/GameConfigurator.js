@@ -1,5 +1,4 @@
 import * as React from 'react'
-import GameTypePicker from '../components/GameTypePicker'
 import PlayerController from '../components/PlayerController'
 import ErrorBox from '../../../components/ErrorBox'
 import { useTranslation } from 'react-i18next'
