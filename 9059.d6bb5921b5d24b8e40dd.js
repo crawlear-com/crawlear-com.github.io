@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkcrawlear_com=self.webpackChunkcrawlear_com||[]).push([[9059],{89059:(e,a,t)=>{t.r(a),t.d(a,{default:()=>u});var c=t(96540),r=t(38791);const u=function(e){let{filePath:a}=e;return c.useEffect((()=>{r.default.pageview("/txtRoute/")}),[]),(async e=>{(new FileReader).readAsText(e)})(a)}}}]);
