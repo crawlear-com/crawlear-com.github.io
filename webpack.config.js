@@ -8,6 +8,7 @@ const Dotenv = require('dotenv-webpack');
 module.exports = {
   mode: 'production',
   optimization: {
+    usedExports: true,
     splitChunks: {
       chunks: 'all',
       minSize: 0, // Set to 0 to enforce splitting regardless of size
@@ -23,6 +24,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].js',
+    clean: true
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
